@@ -8,6 +8,7 @@ Dafny support C-style comments
 // Dafny supports pure functions. Here are two of type int -> int
 // by the way, int is the type for integers in Dafny
 function factorial(n: int): int
+    requires n >= 0
 {
     if (n == 0) then 1  else  n * factorial (n-1) 
 }
@@ -159,11 +160,6 @@ method SequencePlay()
  }
 
  /*
-  Dafny also supports polymorphic maps, both 
-  finite (map<K,V>) and infinite (imap<K,V>).
-  The key type, K, must support equality (==).
-  */
- /*
     Dafny has strings. Strings are literally just
     sequences of characters (of type seq<char>), so
     you can use all the sequence operations on strings.
@@ -176,9 +172,20 @@ method StringPlay()
      var s3 := "\"Hello CS2102!\""; // quotes
  }
 
- method MapPlay()
+/*
+  Dafny also supports polymorphic maps, both 
+  finite (map<K,V>) and infinite (imap<K,V>).
+  The key type, K, must support equality (==).
+  In mathematical terms, a map really represents
+  a binary relation, i.e., a set of <K,V> pairs,
+  which is to say a subset of the product set,
+  K * V, where we view the types K and V as
+  defining sets of values.
+  */
+method MapPlay()
 {
-    // A map literal is keyword map, the list of maplets
+    // A map literal is keyword map + a list of maplets.
+    // A maplet is just a single <K,V> pair (or "tuple").
     // Here's an empty map from strings to ints
     var emptyMap: map<string,int> := map[];
 
@@ -221,3 +228,14 @@ method ArrayPlay()
     var seq4 := a[..];      // return entire array as a sequence
 }
 
+/*
+Arrays and objects (instances of classes, to be introduced next) are of
+"reference" types, which is to say, values of these types are stored on 
+the heap. Values of other types, including sets and sequences, are of 
+"value types," which is to say values of these types are stored on the 
+stack; and they're thus always treated as "local" variables. They are
+passed by value, not reference, when passed as arguments to functions
+and methods. Value types include the basic scalar types (bool, char, 
+nat, int, real), built-in collection types (set, multiset, seq, string, 
+map, imap), tuple, inductive, and co-inductive types (to be discussed).
+*/
