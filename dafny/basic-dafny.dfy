@@ -11,9 +11,16 @@ function factorial(n: int): int
 {
     if (n == 0) then 1  else  n * factorial (n-1) 
 }
+// oops! something can go wrong. what is it?
+// what pre-condition must n satisfy for this function to work?
+// preconditions are elements of specifications
+// in Dafny, you can write specifications along with code
+// and Dafny does its best to verify code againts such specs!
 
-// and nat is the type of natural numbers (integers >= 0)
-// here's a function of type nat -> nat
+// nat is the type of natural numbers (integers >= 0)
+// here's a similar function of type nat -> nat
+// note that we don't have the same problem as before
+// Dafny can prove to itself that the recursion always terminates
 function fib(n: nat): nat
 {
     if n < 2 then n else fib(n-2) + fib(n-1)
@@ -156,7 +163,20 @@ method SequencePlay()
   finite (map<K,V>) and infinite (imap<K,V>).
   The key type, K, must support equality (==).
   */
-method MapPlay()
+ /*
+    Dafny has strings. Strings are literally just
+    sequences of characters (of type seq<char>), so
+    you can use all the sequence operations on strings.
+    Dafny provides additional helpful syntax for strings.
+*/
+method StringPlay() 
+ {
+     var s1: string := "Hello CS2102!";
+     var s2 := "Hello CS2102!\n";   // return
+     var s3 := "\"Hello CS2102!\""; // quotes
+ }
+
+ method MapPlay()
 {
     // A map literal is keyword map, the list of maplets
     // Here's an empty map from strings to ints
@@ -184,61 +204,89 @@ method MapPlay()
     aMap := aMap["Their" := 10];  
 }
 
- /*
-    Dafny has strings. Strings are literally just
-    sequences of characters (of type seq<char>).
-    Dafny provides
- method StringPlay() 
- {
-     var s1: string := "Hello CS2102!";
-     var s2 := "Hello CS2102!\n";   // return
-     var s3 := "\"Hello CS2102!\""; // quotes
 
- }
+// Dafny supports arrays. Here's we'll see simple 1-d arrays.
+
+methods ArrayPlay() 
+{
+    a: array<int> := new int[10]; // in general: a: array<T> := new T[n];
+    b := new int[10];             // type inference naturally works here
+    i1 := a.Length;      // Immutable "Length" member holds length of array
+    a[3] = 3;           // array update
+    i2 = a[3];          // array access
+    seq1 := a[3..8];    // take first 8, drop first 3, return as sequence
+    b := 3 in seq1;     // true! (see sequence operations)
+    seq2 := a[..8];     // take first 8, return rest as sequence
+    seq3 := a[3..];     // drop first 3, return rest as sequence
+    seq4 := a[..];      // return entire array as a sequence
+}
+
+
 
 
 // ********************************************
 // ********************************************
 // ********************************************
 
+/*
+   Now just for fun, let's see a few simple examples
+   of Dafny specifications and of its fully automated
+   verification capabilities.
+*/
 
- // What's the bug?
+
+ // What's the bug? without a spec,
+ // correctness is all in your mind.
+ // Lack of a spec means anything goes!
 method Abs(x: int) returns (y: int)
 {
    if (x >= 0) { y := x; } else { y := x; }
 }
 
-// What's the spec!?
+// Even a partial specification, if explicit
+// and checkable, can be helpful in revealing
+// bugs
 method Abs2(x: int) returns (y: int)
     ensures y >= 0
 {
    if (x >= 0) { y := x; } else { y := x; }
 }
 
+/* A postcondition is a property that must be
+   true of the state of a program after a given
+   method runs, provided that the precondition,
+   if any, way satisfied to begin with. In short,
+   if the precondition for a program is true of 
+   the program state and if you run the program 
+   then (so long as the program terminates!) the 
+   postcondition must be true of the state after
+   the program runs. We often write something like
+   this: "pre-condition { program } post-condition"
+   to assert this proposition. Verification often 
+   boils down to proving that such a proposition
+   is true. You can see here that Dafny is really
+   all about automatically checking whether code
+   satisfies given pre/post specifications. It's
+   very cool. 
+*/
+
 
 
 method foo()
 {
     // var a: array<int>;
-    var a := new array<int>[10];
-    var x := FindSafe(a,2);
+    var a := new int[10];
+    var x := Find(a,12);
+    x := BetterFind(a,12);
 }
 
-method FindUsafe (a: array<int>, key: int ) returns (element: int)
+method Find (a: array<int>, n: int ) returns (element: int)
 {
-    return 0; //a[key];
+    element := a[n];
 }
 
-method FindSafe (a : array < int >, key : int ) returns ( element : int )
-    requires a != null
-    requires 0 <= key < a.Length
+method BetterFind (a : array < int >, key : int ) returns ( element : int )
+    requires a != null && 0 <= key < a.Length
 {
     return a[key];
 }
-
-function Fib(n: nat) : nat
-    decreases n
-{
-if n < 2 then n else Fib(n-2) + Fib(n-1)
-}
-
