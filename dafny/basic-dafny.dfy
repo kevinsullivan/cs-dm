@@ -207,17 +207,17 @@ method StringPlay()
 
 // Dafny supports arrays. Here's we'll see simple 1-d arrays.
 
-methods ArrayPlay() 
+method ArrayPlay() 
 {
-    a: array<int> := new int[10]; // in general: a: array<T> := new T[n];
-    b := new int[10];             // type inference naturally works here
-    i1 := a.Length;      // Immutable "Length" member holds length of array
-    a[3] = 3;           // array update
-    i2 = a[3];          // array access
-    seq1 := a[3..8];    // take first 8, drop first 3, return as sequence
-    b := 3 in seq1;     // true! (see sequence operations)
-    seq2 := a[..8];     // take first 8, return rest as sequence
-    seq3 := a[3..];     // drop first 3, return rest as sequence
-    seq4 := a[..];      // return entire array as a sequence
+    var a := new int[10]; // in general: a: array<T> := new T[n];
+    var a' := new int[10];   // type inference naturally works here
+    var i1 := a.Length;      // Immutable "Length" member holds length of array
+    a[3] := 3;           // array update
+    var i2 := a[3];          // array access
+    var seq1 := a[3..8];    // take first 8, drop first 3, return as sequence
+    var b := 3 in seq1;     // true! (see sequence operations)
+    var seq2 := a[..8];     // take first 8, return rest as sequence
+    var seq3 := a[3..];     // drop first 3, return rest as sequence
+    var seq4 := a[..];      // return entire array as a sequence
 }
 
