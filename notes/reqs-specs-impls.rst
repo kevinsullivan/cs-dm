@@ -59,28 +59,27 @@ the proposition, *Tennys plays Tennis* while *PlaysTennis(Kevin)* is
 the proposition *Kevin plays Tennis*. For each possible person name,
 *P*, there is a corresponding proposition, *PlaysTennis(P)*.
 
-Some such propositions might be true. (At least PlaysTennis(Tennys) is
-true in our example.) Some might be false. A parameterized proposition
-thus encodes a *property* that some things (here people) have and that 
-some don't have (here the property of being a tennis player).
+Some such propositions might be true. For instance,
+*PlaysTennis(Tennys)* is true in our example. Others might be false. A
+parameterized proposition thus encodes a *property* that some things
+(here people) have and that others don't have (here, the property of
+*being a tennis player*).
 
 A property, also sometimes called a *predicate*, thus also serves to
 identify a *subset* of elements in a given *domain of discourse*. Here
 the domain of discourse is the of all people. The subset of people who
 actually do *play tennis* is exactly the set of people, P, for whom
-*PlaysTennis(P)* is a true proposition. Properties are either true of
-or not true of given things, and they thus also implicitly pick out
-subsets of things that have the given property.
+*PlaysTennis(P)* is true. 
 
 We note briefly, here, that, like functions, propositions can have
-multiple parameters. For example, we can generalize from *Tennys
-plays Tennis **and** Tennys is from Tennessee* to *P plays tennis
-and P is from L,* where P ranges over people and S ranges over 
-locations. We call a proposition with two or more parameters a
-*relation*. A relation picks out *combinations* of elements for
-which corresponding properties are true. So, for example, the
-*pair* (Tennys, Tennessee) is in the *binary relation* (set of
-pairs) picked out by this parameterized proposition, while the
-pair (Kevin, Tennessee) is not, because Kevin is actually from
-New Hampshire, so the proposition *Kevin plays tennis **and**
-Kevin is from Tennessee* is not true. More on relations later!
+multiple parameters. For example, we can generalize from *Tennys plays
+Tennis **and** Tennys is from Tennessee* to *P plays tennis and P is
+from L,* where P ranges over people and L ranges over locations. We
+call a proposition with two or more parameters a *relation*. A
+relation picks out *combinations* of elements for which corresponding
+properties are true. So, for example, the *pair* (Tennys, Tennessee)
+is in the relation (set of *P-L* pairs) picked out by this
+parameterized proposition. On the other hand, the pair, (Kevin,
+Tennessee), is not, because Kevin is actually from New Hampshire, so
+the proposition *Kevin plays tennis **and** Kevin is from Tennessee*
+is not true. More on relations later!
