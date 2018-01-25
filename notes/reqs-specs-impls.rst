@@ -22,11 +22,12 @@ specifications, and *verification* of code against specifications.
 You know that the language of implementation is code. What is the
 language of specification and of requirements?
 
-One possible answer is *natural language*. Requirements and specifications can be
-written in natural languages such as English or Mandarin. The problem is that natural
-language is subject to ambiguity, incompleteness, and inconsistency. This makes it a
-risky medium for communicating the precise behaviors required of complex software
-artifacts. 
+One possible answer is *natural language*. Requirements and
+specifications can be written in natural languages such as English or
+Mandarin. The problem is that natural language is subject to
+ambiguity, incompleteness, and inconsistency. This makes it a risky
+medium for communicating the precise behaviors required of complex
+software artifacts.
 
 The alternative to natural language that we will explore in this class
 is the use of mathematical logic, in particular what we call propositional
@@ -38,8 +39,8 @@ example, *Tennys (the person) plays tennis* is actually a true
 proposition (if we interpret *Tennys* to be the person who just played
 in the French Open).  So is *Tennys is from Tennessee*. And because
 these two propositions are true, so is the *compound* proposition (a
-proposition built up from smaller propositions) that *Tennys is from
-Tennessee **and** Tennys plans tennis.*
+proposition built up from smaller propositions) that Tennys is from
+Tennessee **and** Tennys plans tennis.
 
 Sometimes we want to talk about whether different entities satisfy
 give propositions. For this, we introduce propositions with parameters,
