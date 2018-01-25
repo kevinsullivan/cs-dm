@@ -29,15 +29,17 @@ risky medium for communicating the precise behaviors required of complex softwar
 artifacts. 
 
 The alternative to natural language that we will explore in this class
-is the use of mathematical logic, in particular what we call proposition
+is the use of mathematical logic, in particular what we call propositional
 logic, predicate logic, set theory, and the related field of type theory.
 
-Predicate logic is a language of propositions. Propositions are
-assertions that might or might not be judged to be true. For example,
-*Tennys (the person) plays tennis* is actually a true proposition. So
-is *Tennys is from Tennessee*. And because these two propositions are
-true, so is the proposition that *Tennys is from Tennessee **and**
-Tennys plans tennis.*
+Propositional logic is a language of simple propositions. Propositions
+are assertions that might or might not be judged to be true. For
+example, *Tennys (the person) plays tennis* is actually a true
+proposition (if we interpret *Tennys* to be the person who just played
+in the French Open).  So is *Tennys is from Tennessee*. And because
+these two propositions are true, so is the *compound* proposition (a
+proposition built up from smaller propositions) that *Tennys is from
+Tennessee **and** Tennys plans tennis.*
 
 Sometimes we want to talk about whether different entities satisfy
 give propositions. For this, we introduce propositions with parameters,
