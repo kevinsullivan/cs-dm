@@ -16,8 +16,8 @@ understanding of requirements, specifications, and implementations,
 but also great care in both the *validation* of requirements and of
 specifications, and *verification* of code against specifications.
 
-* Validation: Are we building the right system -- is the specification right; are the requirements right?
-* Verification: Are we building the system right? Does the implementation behave as its specification requires?
+* **Validation:** *Are we building the right system?* is the specification right; are the requirements right?
+* **Verification:** *Are we building the system right?* Does the implementation behave as its specification requires?
 
 You know that the language of implementation is code. What is the
 language of specification and of requirements?
@@ -25,7 +25,7 @@ language of specification and of requirements?
 One possible answer is *natural language*. Requirements and specifications can be
 written in natural languages such as English or Mandarin. The problem is that natural
 language is subject to ambiguity, incompleteness, and inconsistency. This makes it a
-risk medium for communicating the precise behaviors required of complex software
+risky medium for communicating the precise behaviors required of complex software
 artifacts. 
 
 The alternative to natural language that we will explore in this class
