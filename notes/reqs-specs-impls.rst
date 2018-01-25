@@ -7,9 +7,9 @@ not always bugs in implementation code. The most critical problems
 today are not in implementations but in requirements and
 specifications.
 
-* Requirements: Statements of the effects that a system is meant to have in a given domain
-* Specification: Statements of the behavior required of a machine to produce such effects
-* Implementation: The definition (usually in code) of how a machine produces the specified behavior
+* **Requirements:** Statements of the effects that a system is meant to have in a given domain
+* **Specification:** Statements of the behavior required of a machine to produce such effects
+* **Implementation:** The definition (usually in code) of how a machine produces the specified behavior
 
 Avoiding software-caused system failures requires not only a solid
 understanding of requirements, specifications, and implementations,
