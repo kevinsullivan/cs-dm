@@ -1,51 +1,3 @@
-/*
-Dafny support C-style comments
-*/
-
-// Like this
-
-
-// Dafny supports pure functions. Here are two of type int -> int
-// by the way, int is the type for integers in Dafny
-function factorial(n: int): int
-    requires n >= 0
-{
-    if (n == 0) then 1  else  n * factorial (n-1) 
-}
-// oops! something can go wrong. what is it?
-// what pre-condition must n satisfy for this function to work?
-// preconditions are elements of specifications
-// in Dafny, you can write specifications along with code
-// and Dafny does its best to verify code againts such specs!
-
-// nat is the type of natural numbers (integers >= 0)
-// here's a similar function of type nat -> nat
-// note that we don't have the same problem as before
-// Dafny can prove to itself that the recursion always terminates
-function fib(n: nat): nat
-{
-    if n < 2 then n else fib(n-2) + fib(n-1)
-}
-
-// Here's a pure function of type int -> bool
-// it tells you whether a given natural number is even or not
-function evenb (n: nat): bool
-{
-    if (n == 0) then true else if (n==1) then false else evenb(n-2)
-}
-
-// A pure function that returns bool can be called a predicate
-// you don't have to (and can't) given an explicit return type
-predicate evenb2 (n: nat)
-{
-    if (n == 0) then true else if (n==1) then false else evenb(n-2)
-}
-
-
-// pure functions can't do I/O and lots of other stuff
-// but they are very useful in writing specifications
-// methods on the other hand are used to write imperative code
-
 // Here's a method that illustrates boolean operators in Dafny
 method BoolOps() returns (r: bool)
 {
@@ -229,7 +181,7 @@ method ArrayPlay()
 }
 
 /*
-Arrays and objects (instances of classes, to be introduced next) are of
+Arrays, objects (class instances), and traits (to be discussed) are of
 "reference" types, which is to say, values of these types are stored on 
 the heap. Values of other types, including sets and sequences, are of 
 "value types," which is to say values of these types are stored on the 
@@ -238,4 +190,7 @@ passed by value, not reference, when passed as arguments to functions
 and methods. Value types include the basic scalar types (bool, char, 
 nat, int, real), built-in collection types (set, multiset, seq, string, 
 map, imap), tuple, inductive, and co-inductive types (to be discussed).
+Reference type values are allocated dynamically on the heap, are passed 
+by reference, and therefore can be "side effected" (mofified) by methods
+to which they are passed.
 */
