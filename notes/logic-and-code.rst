@@ -20,7 +20,7 @@ language is that it is *procedural*. Programs in these languages
 describe step-by-step *procedures*, in the form of sequences of
 *commands*, for solving given problem instances. Commands in such
 languages operate by (1) reading, computing with, and updating values
-stored in a *mutable memory*, and (2) by interacting with the world
+stored in a *mutable memory*, and (2) interacting with the world
 outside of the computer by executing input and output (IO) commands.
 
 The language of formal requirements and specifications, on the other
