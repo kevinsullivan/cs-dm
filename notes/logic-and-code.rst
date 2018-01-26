@@ -285,11 +285,11 @@ programs as parts of *specifications*.
 
 For example, we might specify that an *imperative* implementation of
 the factorial function must take any natural number *n* as an argument
-and return the value of *factorial(n)* *as defined by our functional
-program for the factorial function*. The logical specification of the
-imperative program will be an *implication* stating that if a proper
-argument is presented, a correct result *as defined by a functional
-program* will be produced.
+and return the value of *fact(n),* our *functional* program for the
+factorial function. The logical specification of the imperative
+program will be an *implication* stating that if a proper argument is
+presented, a correct result *as defined by a functional program* will
+be produced.
 
 We can thus use pure functional programs both for computation *when
 appropriate*, yielding certain benefits in terms of understandability
@@ -335,4 +335,6 @@ to help Dafny see its way to proving that the code satisfies the spec.
 We'll see some of what's involved as we go forward in this class. We
 will also eventually dive in to understand what proofs even are, and
 why in general they are hard to construct. Lucky for mathematicians!
-If this weren't true, they'd all be out of jobs.
+If this weren't true, they'd all be out of jobs. Before we go there,
+though, let's have some fun and learn how to write imperative code in
+Dafny.
