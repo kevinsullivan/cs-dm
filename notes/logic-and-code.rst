@@ -328,7 +328,7 @@ to itself---that the *postcondition* (that the result be right) will
 necessarily hold. Generating proofs is hard, not only for people but
 also for machines. In general it's impossibly hard, so the best that a
 machine can do in practice is to try its best. If Dafny fails, as it
-does in this case, what comes next is that the programmers has to give
+does in this case, what comes next is that the developer has to give
 it some help. This is done by adding some additional logic to the code
 to help Dafny see its way to proving that the code satisfies the spec.
 
