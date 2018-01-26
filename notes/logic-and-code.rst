@@ -218,7 +218,7 @@ abstract mathematical definition. The program, like the definition, is
 recursive in the sense that it *calls* (is defined in terms of)
 itself. Here's the code in Dafny's functional programming sublanguage::
 
-  function method fact(n: int): int 
+  function fact(n: int): int 
     requires n >= 0 // for recursion to be well founded
   { 
     if (n==0) 
