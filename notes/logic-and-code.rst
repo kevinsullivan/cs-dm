@@ -48,14 +48,14 @@ such that *y* squared is equal to *x*." We now have a *declarative
 specification* of the desired relationship between *x* and *y* that a
 program for computing square roots must compute. What we don't have,
 however, is a step-by-step *procedure* for computing this relation by
-finding a satisfactory value of *y* given any *x*). You can't just run
+finding a satisfactory value of *y* given any *x*. You can't just run
 a specification written in the language of mathematical logic.
 
 The solution is to shift from a specification to an implementation
-language: from mathematical logic as a specification language to an
-imperative programming language in which we can write code that runs.
-And in this implementation language, we must then craft a step-by-step
-procedures that when evaluted actually computes the results we seek.
+language: from mathematical logic to an imperative language in which
+we can write code that runs.  And in this implementation language, we
+then craft a step-by-step procedure that, when evaluted, computes the
+results we seek.
 
 Here's an example of a program in the imperative language, Python, for
 computing positive square roots of non-negative numbers using Newton's
@@ -119,8 +119,8 @@ raises an important question? Why not just design a single language
 that's good for both?
 
 The answer is that there are fundamental tradeoffs in language design.
-The most important is a tradeoff between *expressiveness*, on one
-hand, and *efficient execution*, on the other.
+One of the most important is a tradeoff between *expressiveness*, on
+one hand, and *efficient execution*, on the other.
 
 What we see in our square root example is that mathematical logic is
 highly *expressive*. Logic language can be used so say very clearly
@@ -134,12 +134,12 @@ would be hard-pressed, based on a quick look at the Python code above,
 to explain *what* it does (but for the fact that we embedded the spec
 into the code as a doc string).
 
-We are thus driven to a situation in which we have to express what we
-want and how to get it respectively, in very different languages. This
-situation creates a difficult new problem: to verify that a program in
-one language satisfies a specification in a different language.  This
-is the problem of *verification*. Have we built a given program right
-(where right is defined by a specification)?
+We are driven to a situation in which we have to express what we want
+and how to get it, respectively, in very different languages. This
+situation creates a difficult new problem: to verify that a program
+written in an imperative language satisfies a specification written in
+a declarative language.  This is the problem of *verification*. Have
+we built a program right (where right is defined by a specification)?
 
 Tools such as TLA+, Dafny, and others of this variety give us a way
 both to express formal specifications and imperative code in a unified
@@ -171,52 +171,118 @@ Pure Functional Programming as Runnable Mathematics
 ---------------------------------------------------
 
 There's no free lunch: One can have the expressiveness of mathematical
-logic, very useful for specification, or one can have the ability to
-run code efficiently along with indispensable ability to interact with
-an external environment provided by imperative code, but one can not
-have both at once.
+logic, useful for specification, or one can have the ability to run
+code efficiently, along with indispensable ability to interact with an
+external environment provided by imperative code, but one can not have
+all of this at once at once.
 
-That said, there's an incredibly important point in the space between
-these extremes: in *functional* as opposed to imperative *programming*
-languages. Functional programming languages are based not on commands
-that update memories, but simply on the definition of functions and on
-their application to data values. (And by the way, functions are also
-data values in such languages, so functions can be applied to functions
-and functions can return other functions as results!)
+A few additional comments about expressiveness are in order here. When
+we say that imperative programming languages are not as expressive as
+mathematical logic, what we mean is not ony that the code itself is not
+very explicit about what it computes. It's also that it is profoundly
+hard to fully comprehend what imperative code will do when run, in large
+part due precisely to the things that make imperative code efficient: in
+particular to the notion of a mutable memory.
 
-Unlike mathematical logic, definitions written in functional languages
-can be run, often with reasonable efficiency (though usually not with
-the same efficiency as, say, C++ code). At the same time, definitions
-of functions in functional languages often closely mirror their purely
-mathematical definitions.
+One major problem is that when code in one part of a complex program
+updates a variable (the *state* of the program), another part of the
+code, far removed from the first, that might not run until much later,
+can read the value of that very same variable and thus be affected by
+actions taken much earlier by code far away in the program text. When
+programs grow to thousands or millions of lines of code (e.g., as in
+the cases of the Toyota unintended acceleration accident that we read
+about), it can be incredibly hard to understand just how different and
+seemingly unrelated parts of a system will interact.
 
-Consider, for example, the mathematical definition of the factorial
-function and the implementation of this function in the functional
-sub-language of Dafny. Mathematically speaking, the factorial function
-is defined recursively. For any natural (non-negative whole) number,
-*n, factorial(n)* is defined by two cases: if *n = 0* (we will call
-this the *base case*) then *factorial(n)* is 1; otherwise, *(n > 0)*,
-*factorial(n)* is *n \* factorial(n-1)*. We call this the *recursive*
-case.
+As a special case, one execution of a procedure can even affect later
+executions of the same procedure. In pure mathematics, evaluating the
+sum of two and two *always* gives four; but if a procedure written in
+Python updates a *global* variable and then incoporates its value into
+the result the next time the procedure is called, then the procedure
+could easily return a different result each time it is called even if
+the argument values are the same. The human mind is simpl not powerful
+enough to see what can happen when computations distant in time and in
+space (in the sense of being separated in the code) interact with each
+other.
 
-This kind of mathematical definition is said to be recursive, in that
-the definition of *factorial* uses the factorial concept that we are
-in the middle of defining! The reason that the definition makes sense,
-and is not just an endless self loop, is that it is *well-founded*.
-What this means is that for any *n* (a natural number), no matter how
-large, the looping eventually ends. For example, *factorial(3)* is
-defined to be *3 \* factorial(2).* This is *3 \* (2 \* factorial(1)).
-This in turn is *3 \* 2 \* 1 \* factorial(0).* Because *factorial(0)*
-is a base case, defined to be just $1$ without any further recursion,
-the recursion terminates, and the end result is $3 \* 2 \* 1 \* 1*,
-which finally evalutes to *6*. o matter how large *n* is, eventually
-(in a finite number of steps), the recursion will bottom out at the
-base case, and a result will be produced.
+A related problem occurs in imperative programs when two different
+variables, say $x$ and $y$, refer to the same memory location. When
+such *aliasing* occurs, updating the value of $x$ will also change the
+value of $y$, even though no explicit assignment to $y$ was made. A
+peice of code that assumes that $y$ doesn't change unless a change is
+made expliticly might fail catastrophically under such circumstances.
+Aliasing poses severe problems for both human understanding and also
+machine analysis of code written in imperative languages.
 
-A functional program to compute the factorial function mirrors the
+Imperative code is thus potentially *unsafe* in the sense that it can
+not only be very hard to fully understand what it's going to do, but
+it can also have effects on the world, e.g., by producing output
+directing some machine to launch a missile, fire up a nuclear reactor,
+steer a commercial aircraft, etc.
+
+What we'd really like would be a language that gives us everything:
+the expressiveness and the *safety* of mathematical logic (there's no
+concept of a memory in logic, and thus no possibility for unexpected
+interactions through or aliasing of memory), with the efficiency and
+interactivity of imperative code. Sadly, there is no such language.
+
+Fortunately, there is an important point in the space between these
+extremes: in what we call *pure functional,* as opposed to imperative,
+*programming* languages. Pure functional languages are based not on
+commands that update memories and perform I/O, but on the definition
+of functions and their application to data values. The expressiveness
+of such languages is high, in that code often directly refects the
+mathematical definitions of functions. And because there is no notion
+of an updateable (mutable) memory, aliasing and interactions between
+far-flung parts of programs through *global variables* simply cannot
+happen. Furthermore, one cannot perform I/O in such languages. These
+languages thus provide far greater safety guarantees than imperative
+languages.  Finally, unlike mathematical logic, code in functional
+languages can be run with reasonable efficiency, though often not with
+the same efficiency as in, say, C++. 
+
+To see how functional languages allow one to implement functions in
+ways that closely mirror their mathematical definitions, consider the
+factorial function and an implementation of this function in the
+functional *sub-language* of Dafny. (Dafny provides sub-languages for
+specification and for both functional and imperative programming.)
+
+The factorial function is defined recursively. For any natural
+(non-negative whole) number, *n, factorial(n)* is defined by two
+cases: one for when *n* is zero, and one for any other value of
+*n*. First, if *n = 0* (called the *base case*) then *factorial(n)* is
+defined to be 1. Otherwise, for any *n* where *n > 0)*, *factorial(n)*
+is defined recursively as *n \* factorial(n-1)*. This is what we call
+the *recursive* case. By recursive, we mean that the function is used
+in its own definition.
+
+Recursive definitions are ubiquitous in mathematics. In fact, if you
+get right down to it, most every function you've ever thought about is
+defined recursively. For example, the addition of two natural
+(non-negative) numbers *m* and *n* is defined recursively. If $m = 0$,
+the base case, then the answer is *n$. If (m>0), the recursive case,
+then there is some natural number $m'$, the *predecessor* of *m*, and
+in this case the result is one more than (the successor of) the sum of
+*m'* and *n*. such that *m = m'+1*. Recursion is thus fundamentally a
+mathematical and not (just) a computational concept.
+
+The reason that such definitions makes sense, and are not just endless
+self loops, is that they are *well-founded*.  What this means is that
+for any given *n* (a natural number), no matter how large, the looping
+eventually ends. For example, *fact(3)* is defined to be *3 \*
+fact(2).* Expanding the definition of the recursive call to the
+*fact This is *3 \* (2 \* fact(1)).  This in turn is *3
+\* 2 \* 1 \* fact(0).* Because *fact(0)* is a base case,
+defined to be just $1$ without any further recursion, the recursion
+terminates, and the end result is $3 \* 2 \* 1 \* 1*, which finally
+evalutes to *6*. o matter how large *n* is, eventually (in a finite
+number of steps), the recursion will bottom out at the base case, and
+a result will be produced.
+
+Our functional program to compute the factorial function mirrors the
 abstract mathematical definition. The program, like the definition, is
-recursive in the sense that it *calls* (is defined in terms of)
-itself. Here's the code in Dafny's functional programming sublanguage::
+recursive it *uses* (is defined in terms of) itself. Here's the code
+in Dafny's functional programming sub-language::
 
   function fact(n: int): int 
     requires n >= 0 // for recursion to be well founded
@@ -264,14 +330,15 @@ part of a large data structure; rather one must write a function that
 takes a given data structure and that computes and builds a whole new
 one, even if it differs from a given data structure only a little.
 
-A second, even more fundamental limitation, is that there is simply no
+A second, even more fundamental limitation, is that there is no
 concept of interacting with an external environment in the realm of
 pure functions. You've got data values and functions that transform
-given data values into new data values. And that's it. You simply
-cannot do I/O in a pure functional language! There are functional
-languages that are meant for practical programming (such as Haskell),
-but the capabilities to do I/O are bolted on---in very clever, clean
-ways, but the fact remains that I/O is just not a functional concept.
+given values into new values, and that's it. You simply cannot do I/O
+in a pure functional language! There are functional languages that are
+meant for practical programming (such as Haskell), in which you can of
+course do I/O, but the capabilities to do I/O are non-functional. They
+are in a sense *bolted on*. They are bolted on in clever, clean ways,
+but the fact remains that I/O is just not a functional concept.
 
 Fitting it All Together
 -----------------------
