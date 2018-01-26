@@ -31,10 +31,10 @@ we will not study in this class is *temporal logic.*
 
 For purposes of software specification, the most salient property of
 such a logical language is that it is *declarative*.  Expressions in
-logic will state *what* properties or relationships hold in a given
-situation, particularly how results must relate to inputs, without
-providing executable, step-by-step procedures describing *how* to
-actually compute such relationships.
+logic will state *what* properties or relationships must hold in a
+given situation, particularly how results must relate to inputs,
+without providing executable, step-by-step procedures describing *how*
+to actually compute such relationships.
 
 To make the difference between procedural and declarative styles of
 description clear, consider the problem of computing the square root
@@ -73,9 +73,9 @@ method::
 
 This procedure updates the values stored at two locations in memory
 referred to by the variables, *estimate* and *newestimate*. It repeats
-the update process until it *converges* on the desired answer, at
-which point the values of the two variables become equal. The result
-is then returned to the caller of this procedure. 
+the update process until the process *converges* on the answer, which
+occurs when the values of the two variables become equal. The result
+is then returned to the caller of this procedure.
 
 Note that, following good programming style, we included the
 specification of the procedure as a document string in the second line
@@ -86,22 +86,30 @@ document string is just a comment, there's no way for the compiler to
 check consistency between the code and this specification. Third, in
 practice, code evolves (changes over time), and in their rush to ship
 code, developers often forget, or neglect, to update comments. So, in
-practice, even if a given procedure initially consistent with a
-specification given in a comment, it can specifications incorporated
-into code as comments become inconsistent with the code over time.
+practice, even if a given procedure is initially consistent with a
+specification given as comment, inconsistencies can and often do
+develop over time.
 
 
 Integrating Formal Specification with Imperative Programming
 ------------------------------------------------------------
 
-An important approach to solving such problems is to enable the
-integration of *formal* specifications with imperative programs,
-including mechansims for checking the consistency of code with given
-formal specifications. Dafny is a software development tooset that
-provides such a capability. We will explore this idea both to give a
-sense of the current state of the art in program verification and
-to explain why it's important for a computer scientist today to
-have a substantial understanding of logic and proofs.
+A vitally important approach to solving such problems is to enable the
+integration of *formal specifications* with imperative programming
+code along with mechansims (based on *logical proof* technology) for
+checking the consistency of code with specifications. Specifications
+are given not as comments but as expressions in the language of logic
+right along with the code, and checkers attempt to verify that code
+satisfies its corresponding *specs*.
+
+Dafny is a cutting-ede software language and tooset developed at
+Microsoft Research---one of the top computer science research labs in
+the world---that provides such a capability. We will explore Dafny and
+the ideas underlying it in the first part of this course, both to give
+a sense of the current state of the art in program verification and,
+most importantly, to explain why it's vital for a computer scientist
+today to have a substantial understanding of logic and proofs along
+with the ability to *code*.
 
 Why Not a Single Language for both Programming and Specification?
 -----------------------------------------------------------------
@@ -111,33 +119,50 @@ raises an important question? Why not just design a single language
 that's good for both?
 
 The answer is that there are fundamental tradeoffs in language design.
-What we see is that mathematical logic is highly *expressive*, which
-is to say that this language can be used so say very clearly *what*
-we want. On the other hand, it's hard in this language to say *how*
-to get it. In practice, mathematical logic is clear but can't be run,
-at least not efficiently. On the other hand, imperative code states
-*how* a computation is to be carried out, but code generally doesn't
-make clear *what* it's computing.
+The most important is a tradeoff between *expressiveness*, on one
+hand, and *efficient execution*, on the other.
 
-We are thus driven to a situation in which we have to express what
-we want and how to get it in different languages. This situation then
-creates a new problem: how do we know that *how* a program computes
-achieves *what* it's intended to achieve? This is the problem of
-*verification*. Have we built a given program right, relative to its
-given specification? 
+What we see in our square root example is that mathematical logic is
+highly *expressive*. Logic language can be used so say very clearly
+*what* we want. On the other hand, it's hard using logic to say *how*
+to get it. In practice, mathematical logic is clear but can't be *run*
+(at least not efficiently).
 
-Tools such as TLA+, Dafny, and others of this variety give us a
-way not only to express formal specifications and imperative code
-in a unified way (albeit in different sub-languages), but also
-automated methods for *attempting to* verify that given code
-satisfies given specifications.
+On the other hand, imperative code states *how* a computation is to be
+carried out, but enerally doesn't make clear *what* it's computing. You
+would be hard-pressed, based on a quick look at the Python code above,
+to explain *what* it does (but for the fact that we embedded the spec
+into the code as a doc string).
 
-To understand how to use such cutting-edge, state-of-the-art
-software development tools and methods, one must understand not
-only the language of code, but the language of mathematical logic,
-including set and type theory, and what it means to *prove* that
-a program satisfies its specification. One must understand logic
-and proofs. Herein lies the deep relevance of logic and proofs
-to practicing software professionals (as opposed to mere hackers
-who have taken a few programming courses and written a bunch of
-imperative code).
+We are thus driven to a situation in which we have to express what we
+want and how to get it respectively, in very different languages. This
+situation creates a difficult new problem: to verify that a program in
+one language satisfies a specification in a different language.  This
+is the problem of *verification*. Have we built a given program right
+(where right is defined by a specification)?
+
+Tools such as TLA+, Dafny, and others of this variety give us a way
+both to express formal specifications and imperative code in a unified
+way (albeit in different sub-languages), and to have some automated
+checking done in an *attempt* to verify that code satisfies its spec.
+
+We say *attempt* here, because in general verifying the consistency of
+code and a specification is a literally unsolvable problem. In cases
+that arise in practice, much can often be done. It's not always easy,
+but if one requires ultra-high assurance of the consistency of code
+and specification, then there is no choice but to employ the kinds of
+*formal methods* introduced here.
+
+To understand how to use such state-of-the-art software development
+tools and methods, one must understand not only the language of code,
+but also the languages of mathematical logic, including set and type
+theory. One must also understand precisely what it means to *prove*
+that a program satisfies its specification; for generating proofs is
+exactly what tools like Dafny do *under the hood*.
+
+A well educated computer scientist and a professionally trained
+software developer must understand logic and proofs as well as coding,
+and how they work together to help build *trustworthy* systems. Herein
+lies the deep relevance of logic and proofs, which might otherwise
+seem like little more than abstract nonsense and a distraction from
+the task of learning how to program. 
