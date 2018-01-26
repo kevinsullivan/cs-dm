@@ -1,12 +1,14 @@
-The Languages of Software
-=========================
+Logic and Code
+==============
 
 We've discussed requirements, specifications, and implementations as
 software artifacts serving distinct purposes. For good reasons, these
 artifacts are generally written in different languages. In this unit,
-we discuss these different kinds of languages, why they are used for
-different purposes, advantages and disadvantages of each, and why in
-software development
+we discuss these different kinds of languages---mathematical logic for
+specifications and imperative languages for code---why they are used
+for different purposes, the fundamental advantages and disadvantages
+of each, and why modern software development requires fluence in and
+tools for handling artifacts written in multiple such languages.
 
 Imperative Implementations and Declarative Specifications
 ---------------------------------------------------------
