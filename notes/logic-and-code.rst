@@ -25,31 +25,41 @@ outside of the computer by executing input and output (IO) commands.
 
 The language of formal requirements and specifications, on the other
 hand, is some kind of *mathematical logic*. Examples of logics that we
-will study and use include *propositional* and *predicate* logic.  For
-purposes of software specification, the most salient property of such
-a logical language is that it is *declarative*.  Expressions in logic
-will state what properties or relationships hold in a given system,
-e.g., how outputs must relate to inputs, without providing executable,
-step-by-step procedures for actually computing such relationships.
+will study and use include *propositional* and *predicate* logic.  An
+example of a kind of logic important in software development but that
+we will not study in this class is *temporal logic.*
+
+For purposes of software specification, the most salient property of
+such a logical language is that it is *declarative*.  Expressions in
+logic will state *what* properties or relationships hold in a given
+situation, particularly how results must relate to inputs, without
+providing executable, step-by-step procedures describing *how* to
+actually compute such relationships.
 
 To make the difference between procedural and declarative styles of
 description clear, consider the problem of computing the square root
 of a given non-negative number, *x*. We can *specify* the answer in a
-completely clear and precise mathematical logical style by simply
-stating that we require a value, *y*, such that *y^2 = x*. We can
-write this mathematically as *sqrt(x) = y | y^2 = x*. In English, we'd
-pronounce this formula as, "a square root of x is a value y such that
-y squared is equal to x." We now have a *declarative specification* of
-the relationship between *x*, and *y*, that a program for computing
-square roots must compute.
+clear and precise mathematical logical style by simply stating that,
+for any given non-negative number *x*, we require a value, *y*, such
+that *y^2 = x*. We can write this mathematically as *for all x >= 0,
+sqrt(x) = y | y^2 = x*. In English, we'd pronounce this formula as, "
+for any non-negative value, *x*, a square root of *x* is a value *y*
+such that *y* squared is equal to *x*." We now have a *declarative
+specification* of the desired relationship between *x* and *y* that a
+program for computing square roots must compute. What we don't have,
+however, is a step-by-step *procedure* for computing this relation by
+finding a satisfactory value of *y* given any *x*). You can't just run
+a specification written in the language of mathematical logic.
 
-What we don't have is a step-by-step *procedure* for computing this
-relation (a satisfactory value of *y* given any *x*). The solution is
-to shift from specification to implementation, and from mathematical
-logic as a specification language to imperative programming code as an
-implementation language. to find a step-by-step procedures that
-actually computes the results we seek. Here's an example in Pythonm
-using Newton's method for computing square roots.
+The solution is to shift from a specification to an implementation
+language: from mathematical logic as a specification language to an
+imperative programming language in which we can write code that runs.
+And in this implementation language, we must then craft a step-by-step
+procedures that when evaluted actually computes the results we seek.
+
+Here's an example of a program in the imperative language, Python, for
+computing positive square roots of non-negative numbers using Newton's
+method.
 
     def sqrt(x):
         """for x>=0, return non-negative y such that y^2 = x"""
