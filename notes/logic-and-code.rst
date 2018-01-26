@@ -71,22 +71,24 @@ method::
             estimate = newestimate
         return estimate
 
-This procedure repeatedly updating the values stored at two locations
-in memory, referred to by variables, *estimate* and *newestimate*. The
-procedure repeats the update process until the procedure *converges*
-on the desired answer, which occurs when the values become equal. The
-answer is then returned as the desired result.
+This procedure updates the values stored at two locations in memory
+referred to by the variables, *estimate* and *newestimate*. It repeats
+the update process until it *converges* on the desired answer, at
+which point the values of the two variables become equal. The result
+is then returned to the caller of this procedure. 
 
-Note that, following good programming style, in precise English we
-included the specification of the procedure as a document string.
-There are several deep problems with this approach. First, as we've
-discussed, natural language is subject to ambiguity, inconsistency,
-and incompleteness. Second, because the document string is really
-just a comment, there's no way to mechanically assess consistency
-between the code and such an *informal* specification. Third, in
-practice, code evolves, and even if a given procedure initially
-consistent with a specification given in a comment, it can become
-inconsistent with the documented specification over time.
+Note that, following good programming style, we included the
+specification of the procedure as a document string in the second line
+of the program.  There are however several deep problems with this
+approach. First, as we've discussed, natural language is subject to
+ambiguity, inconsistency, and incompleteness. Second, because the
+document string is just a comment, there's no way for the compiler to
+check consistency between the code and this specification. Third, in
+practice, code evolves (changes over time), and in their rush to ship
+code, developers often forget, or neglect, to update comments. So, in
+practice, even if a given procedure initially consistent with a
+specification given in a comment, it can specifications incorporated
+into code as comments become inconsistent with the code over time.
 
 
 Integrating Formal Specification with Imperative Programming
