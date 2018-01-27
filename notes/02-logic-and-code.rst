@@ -281,7 +281,7 @@ a result will be produced.
 
 Our functional program to compute the factorial function mirrors the
 abstract mathematical definition. The program, like the definition, is
-recursive it *uses* (is defined in terms of) itself. Here's the code
+recursive: it *uses* (is defined in terms of) itself. Here's the code
 in Dafny's functional programming sub-language::
 
   function fact(n: int): int 
