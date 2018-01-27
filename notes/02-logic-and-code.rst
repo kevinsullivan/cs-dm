@@ -206,10 +206,10 @@ space (in the sense of being separated in the code) interact with each
 other.
 
 A related problem occurs in imperative programs when two different
-variables, say $x$ and $y$, refer to the same memory location. When
-such *aliasing* occurs, updating the value of $x$ will also change the
-value of $y$, even though no explicit assignment to $y$ was made. A
-peice of code that assumes that $y$ doesn't change unless a change is
+variables, say *x* and *y*, refer to the same memory location. When
+such *aliasing* occurs, updating the value of *x* will also change the
+value of *y*, even though no explicit assignment to *y* was made. A
+peice of code that assumes that *y* doesn't change unless a change is
 made expliticly might fail catastrophically under such circumstances.
 Aliasing poses severe problems for both human understanding and also
 machine analysis of code written in imperative languages.
@@ -259,9 +259,9 @@ in its own definition.
 Recursive definitions are ubiquitous in mathematics. In fact, if you
 get right down to it, most every function you've ever thought about is
 defined recursively. For example, the addition of two natural
-(non-negative) numbers *m* and *n* is defined recursively. If $m = 0$,
-the base case, then the answer is *n$. If (m>0), the recursive case,
-then there is some natural number $m'$, the *predecessor* of *m*, and
+(non-negative) numbers *m* and *n* is defined recursively. If *m = 0*,
+the base case, then the answer is *n*. If (m>0), the recursive case,
+then there is some natural number *m'*, the *predecessor* of *m*, and
 in this case the result is one more than (the successor of) the sum of
 *m'* and *n*. such that *m = m'+1*. Recursion is thus fundamentally a
 mathematical and not (just) a computational concept.
@@ -273,8 +273,8 @@ eventually ends. For example, *fact(3)* is defined to be *3 \*
 fact(2).* Expanding the definition of the recursive call to the
 *fact This is *3 \* (2 \* fact(1)).  This in turn is *3
 \* 2 \* 1 \* fact(0).* Because *fact(0)* is a base case,
-defined to be just $1$ without any further recursion, the recursion
-terminates, and the end result is $3 \* 2 \* 1 \* 1*, which finally
+defined to be just *1* without any further recursion, the recursion
+terminates, and the end result is *3 \* 2 \* 1 \* 1*, which finally
 evalutes to *6*. o matter how large *n* is, eventually (in a finite
 number of steps), the recursion will bottom out at the base case, and
 a result will be produced.
@@ -292,11 +292,11 @@ in Dafny's functional programming sub-language::
     else n * fact(n-1) 
   }
 
-The program takes a value, $n$, of type int (any integer). Then the
+The program takes a value, *n*, of type int (any integer). Then the
 requires *predicate* (a piece of logical specification) restricts the
-value of $n$ to be non-negative. Finally you have the recursive rules
-for computing the value of the function. If $n$ is zero the result is
-one otherwise it's $n$ times the function itself applied to $n-1*.
+value of *n* to be non-negative. Finally you have the recursive rules
+for computing the value of the function. If *n* is zero the result is
+one otherwise it's *n* times the function itself applied to *n-1*.
 
 So here you have something very interesting. First, the code is just
 like the mathematics. Functional programming languages are not nearly
@@ -306,7 +306,7 @@ cases, than imperative code. Programs in pure functional languages are
 more expressive and easier (for humans and machines) to reason about
 than programs written in imperative languages.
 
-Second, we now see the integration of logic and code, The $requires$
+Second, we now see the integration of logic and code, The *requires*
 predicate is a logical proposition *about* the value of the parameter,
 *n*, expressed not as a comment but as a formal and machine-checkable
 part of the program.
@@ -362,13 +362,13 @@ We can thus use pure functional programs both for computation *when
 appropriate*, yielding certain benefits in terms of understandability
 and safety, and as elements in logical specifications of imperative
 code. In Dafny, a pure functional program that is intended only for
-use in specifications is declared as a $function$. A pure functional
+use in specifications is declared as a *function*. A pure functional
 program intended to be called from imperative code is declared as a
-$function method.$ Imperative programs are simply declared as methods.
+*function method.* Imperative programs are simply declared as methods.
 
 Here's a complete example: an imperative program for computing the
-factorial function with a specification that first requires $n>0$
-and that then requires that the result be $fact(n)$ as defined by
+factorial function with a specification that first requires *n>0*
+and that then requires that the result be *fact(n)* as defined by
 our functional program::
 
   method factorial(n: int) returns (f: int) 
