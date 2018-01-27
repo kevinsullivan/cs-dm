@@ -60,6 +60,7 @@ results we seek.
 Here's an example of a program in the imperative language, Python, for
 computing positive square roots of non-negative numbers using Newton's
 method::
+.. code-block: python
 
     def sqrt(x):
         """for x>=0, return non-negative y such that y^2 = x"""
