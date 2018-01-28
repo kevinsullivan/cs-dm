@@ -1,4 +1,4 @@
-module functions
+module functional
 {
 
     /*
@@ -42,7 +42,9 @@ module functions
         if (n==0) then 1 
         else n * fact(n-1) 
     }
-        // Using nat instead of int doesn't work here
+    
+    
+    // Using nat instead of int doesn't work here
     //
     /*
     function method fact'(n: nat): nat

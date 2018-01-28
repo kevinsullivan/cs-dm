@@ -1,6 +1,6 @@
-include "functions.dfy"
+include "functional.dfy"
 
-import func = functions
+import func = functional
 
 /*
 Finally, here's a Main method written in imperative
