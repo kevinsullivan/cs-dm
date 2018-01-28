@@ -1,1 +1,12 @@
 .DS_Store
+_build
+_static
+_templates
+/_build
+.*.sw?
+*.pyc
+__pycache__
+/.vscode
+/.venv
+*.dll
+*.mdb

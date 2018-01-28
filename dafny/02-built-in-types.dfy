@@ -44,7 +44,7 @@ method CharFun()
 
 // To return a value from a method, assign to the return parameter
 // Note: functions have colon then return type, whereas methods 
-// have return keyword then return parameter list
+// use the "returns" keyword with a return parameter list
 method ReturnExample() returns (retval: int)
 {
     retval := 10;
