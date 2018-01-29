@@ -295,6 +295,8 @@ INPUT /usr/local/share/miktex-texmf/fonts/type1/public/amsfonts/cm/cmr7.pfb
 INPUT /usr/local/share/miktex-texmf/fonts/type1/public/amsfonts/cm/cmr7.pfb
 INPUT /usr/local/share/miktex-texmf/fonts/type1/public/amsfonts/cm/cmsy10.pfb
 INPUT /usr/local/share/miktex-texmf/fonts/type1/public/amsfonts/cm/cmsy10.pfb
+INPUT /usr/local/share/miktex-texmf/fonts/type1/public/amsfonts/symbols/msbm10.pfb
+INPUT /usr/local/share/miktex-texmf/fonts/type1/public/amsfonts/symbols/msbm10.pfb
 INPUT /usr/local/share/miktex-texmf/fonts/type1/urw/courier/ucrb8a.pfb
 INPUT /usr/local/share/miktex-texmf/fonts/type1/urw/courier/ucrb8a.pfb
 INPUT /usr/local/share/miktex-texmf/fonts/type1/urw/courier/ucrr8a.pfb

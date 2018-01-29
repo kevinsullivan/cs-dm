@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500) (preloaded format=pdflatex 2017.12.2)  27 JAN 2018 10:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500) (preloaded format=pdflatex 2017.12.2)  29 JAN 2018 01:26
 entering extended mode
 **./MathematicalLogicinSoftwareDevelopment.tex
 (MathematicalLogicinSoftwareDevelopment.tex
@@ -1177,49 +1177,66 @@ LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <9> not available
 (Font)              Font shape `T1/pcr/m/sl' tried instead on input line 237.
  [3
 
-] [4] [5] [6]
-[7] [8]
+] [4]
 Chapter 3.
-(MathematicalLogicinSoftwareDevelopment.ind)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 608.
- [9
+[5
+
+] [6
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 608.
+Chapter 4.
+[7] [8]
+Overfull \hbox (5.04817pt too wide) in paragraph at lines 596--596
+[] 
+ []
+
+[9] [10] [11] [12
+
+]
+Chapter 5.
+[13] [14]
+Chapter 6.
+(MathematicalLogicinSoftwareDevelopment.ind)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 823.
+ [15
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 823.
 
 (MathematicalLogicinSoftwareDevelopment.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 608.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 608.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 823.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 823.
 Package rerunfilecheck Info: File `MathematicalLogicinSoftwareDevelopment.out' 
 has not changed.
-(rerunfilecheck)             Checksum: F4971AC66D6C61CF658BD6B24026C304;2178.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 608.
+(rerunfilecheck)             Checksum: 1B558AF17CFFC237FE0D2444743EDD3F;3685.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 823.
  ) 
 Here is how much of TeX's memory you used:
- 13534 strings out of 495217
- 188008 string characters out of 3181647
- 285036 words of memory out of 3000000
- 16505 multiletter control sequences out of 15000+200000
+ 13564 strings out of 495217
+ 188674 string characters out of 3181647
+ 295643 words of memory out of 3000000
+ 16522 multiletter control sequences out of 15000+200000
  48431 words of font info for 68 fonts, out of 3000000 for 9000
  15 hyphenation exceptions out of 8191
- 37i,26n,45p,483b,455s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 37i,23n,45p,483b,455s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/local/share/miktex-texmf/fonts/enc/dvips/base/8r.enc}</usr/local/share/
 miktex-texmf/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/share/miktex
 -texmf/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/share/miktex-texmf
 /fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/share/miktex-texmf/fonts/
 type1/public/amsfonts/cm/cmr7.pfb></usr/local/share/miktex-texmf/fonts/type1/pu
-blic/amsfonts/cm/cmsy10.pfb></usr/local/share/miktex-texmf/fonts/type1/urw/cour
-ier/ucrb8a.pfb></usr/local/share/miktex-texmf/fonts/type1/urw/courier/ucrr8a.pf
-b></usr/local/share/miktex-texmf/fonts/type1/urw/courier/ucrro8a.pfb></usr/loca
-l/share/miktex-texmf/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/share/mikt
-ex-texmf/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/local/share/miktex-texmf/fo
-nts/type1/urw/times/utmb8a.pfb></usr/local/share/miktex-texmf/fonts/type1/urw/t
-imes/utmr8a.pfb></usr/local/share/miktex-texmf/fonts/type1/urw/times/utmri8a.pf
-b>
-Output written on MathematicalLogicinSoftwareDevelopment.pdf (13 pages, 181967 
+blic/amsfonts/cm/cmsy10.pfb></usr/local/share/miktex-texmf/fonts/type1/public/a
+msfonts/symbols/msbm10.pfb></usr/local/share/miktex-texmf/fonts/type1/urw/couri
+er/ucrb8a.pfb></usr/local/share/miktex-texmf/fonts/type1/urw/courier/ucrr8a.pfb
+></usr/local/share/miktex-texmf/fonts/type1/urw/courier/ucrro8a.pfb></usr/local
+/share/miktex-texmf/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/share/mikte
+x-texmf/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/local/share/miktex-texmf/fon
+ts/type1/urw/times/utmb8a.pfb></usr/local/share/miktex-texmf/fonts/type1/urw/ti
+mes/utmr8a.pfb></usr/local/share/miktex-texmf/fonts/type1/urw/times/utmri8a.pfb
+>
+Output written on MathematicalLogicinSoftwareDevelopment.pdf (19 pages, 211033 
 bytes).
 PDF statistics:
- 165 PDF objects out of 1000 (max. 8388607)
- 22 named destinations out of 1000 (max. 500000)
- 85 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 231 PDF objects out of 1000 (max. 8388607)
+ 35 named destinations out of 1000 (max. 500000)
+ 141 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -76,16 +76,37 @@ program intended to be called from imperative code is declared as a
 Here's a complete example: an imperative program for computing the
 factorial function with a specification that first requires *n>0*
 and that then requires that the result be *fact(n)* as defined by
-our functional program::
+our functional program.
+
+.. code-block:: dafny
+
+   method factorial(n: nat) returns (f: nat) 
+   {
+       if (n == 0) 
+       { 
+           return 1;
+       }
+       var t: nat := n;
+       var a: nat := 1;
+       while (t !=  0)
+       {
+           a := a * t;
+           t := t - 1;
+       }
+       f := a;
+   }
+
+
+
+.. code-block:: dafny
 
   method factorial(n: int) returns (f: int) 
     requires n>= 0
     ensures f == fact(n)
   {
-    if (n==0) 
+    if (n == 0) 
     { 
-        f:= 1; 
-        return;
+        return 1;
     }
     var t := n;
     var a := 1;
@@ -94,7 +115,7 @@ our functional program::
         a := a * t;
         t := t - 1;
     }
-    f := a;
+    return a;
   }
 
 Unfortunately Dafny reports that it cannot guarantee---formally prove

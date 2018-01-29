@@ -257,6 +257,12 @@ out a few details that should be easy to infer):
 
    (3 * (2 * (if\ (1==0)\ then\ 1\ else\ (1 * factorial\ (0)))))
 
+   (3 * (2 * (1 * factorial\ (0))))
+
+   (3 * (2 * (1 * (if\ (0==0)\ then\ 1\ else\ (0 * factorial\ (-1))))))
+
+   (3 * (2 * (1 * (if\ true\ then\ 1\ else\ (0 * factorial\ (-1))))))
+
    (3 * (2 * (1 * 1)))
 
    (3 * (2 * 1))

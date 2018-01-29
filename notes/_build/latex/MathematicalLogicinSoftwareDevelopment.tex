@@ -58,7 +58,7 @@
 
 
 \title{Mathematical Logic in Software Development Documentation}
-\date{Jan 27, 2018}
+\date{Jan 29, 2018}
 \release{1}
 \author{Kevin Sullivan}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -74,7 +74,7 @@
 
 
 \chapter{Requirement, Specifications, and Implementations}
-\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}\label{\detokenize{01-reqs-specs-impls::doc}}
+\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}\label{\detokenize{01-reqs-specs-impls::doc}}\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}
 Software is an increasingly critical component of major societal
 systems, from rockets to power grids to healthcare, etc. Failures are
 not always bugs in implementation code. The most critical problems
@@ -172,7 +172,7 @@ is not true. More on relations later!
 
 
 \chapter{Logic and Code}
-\label{\detokenize{02-logic-and-code:logic-and-code}}\label{\detokenize{02-logic-and-code::doc}}
+\label{\detokenize{02-logic-and-code::doc}}\label{\detokenize{02-logic-and-code:logic-and-code}}
 We’ve discussed requirements, specifications, and implementations as
 software artifacts serving distinct purposes. For good reasons, these
 artifacts are generally written in different languages. In this unit,
@@ -230,13 +230,13 @@ to imperative code as an implementation language.  In such a language,
 we then craft a step-by-step procedure that, when run, computes the
 results we seek. Here’s an example of a program in the imperative
 language, Python, for computing positive square roots of non-negative
-numbers using Newton’s method:
+numbers using Newton’s method.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{k}{def} \PYG{n+nf}{sqrt}\PYG{p}{(}\PYG{n}{x}\PYG{p}{)}\PYG{p}{:}
     \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}for x\PYGZgt{}=0, return non\PYGZhy{}negative y such that y\PYGZca{}2 = x\PYGZdq{}\PYGZdq{}\PYGZdq{}}
     \PYG{n}{estimate} \PYG{o}{=} \PYG{n}{x}\PYG{o}{/}\PYG{l+m+mi}{2}
-    \PYG{k}{while} \PYG{k+kc}{True}\PYG{p}{:}
+    \PYG{k}{while} \PYG{n+nb+bp}{True}\PYG{p}{:}
         \PYG{n}{newestimate} \PYG{o}{=} \PYG{p}{(}\PYG{p}{(}\PYG{n}{estimate}\PYG{o}{+}\PYG{p}{(}\PYG{n}{x}\PYG{o}{/}\PYG{n}{estimate}\PYG{p}{)}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{p}{)}
         \PYG{k}{if} \PYG{n}{newestimate} \PYG{o}{==} \PYG{n}{estimate}\PYG{p}{:}
             \PYG{k}{break}
@@ -263,26 +263,6 @@ code, developers often forget, or neglect, to update comments. So, in
 practice, even if a given procedure is initially consistent with a
 specification given as comment, inconsistencies can and often do
 develop over time.
-
-
-\section{Integrating Formal Specification with Imperative Programming}
-\label{\detokenize{02-logic-and-code:integrating-formal-specification-with-imperative-programming}}
-An important approach to solving such problems is to enable the
-integration of \sphinxstyleemphasis{formal specifications} with imperative programming
-code along with mechansims (based on \sphinxstyleemphasis{logical proof} technology) for
-checking the consistency of code with specifications. Specifications
-are given not as comments but as expressions in the language of logic
-right along with the code, and checkers attempt to verify that code
-satisfies its corresponding \sphinxstyleemphasis{specs}.
-
-Dafny is a cutting-ede software language and tooset developed at
-Microsoft Research—one of the top computer science research labs in
-the world—that provides such a capability. We will explore Dafny and
-the ideas underlying it in the first part of this course, both to give
-a sense of the current state of the art in program verification and,
-most importantly, to explain why it’s vital for a computer scientist
-today to have a substantial understanding of logic and proofs along
-with the ability to \sphinxstyleemphasis{code}.
 
 
 \section{Why Not a Single Language for both Programming and Specification?}
@@ -314,35 +294,9 @@ written in an imperative language satisfies a specification written in
 a declarative language.  This is the problem of \sphinxstyleemphasis{verification}. Have
 we built a program right (where right is defined by a specification)?
 
-Tools such as TLA+, Dafny, and others of this variety give us a way
-both to express formal specifications and imperative code in a unified
-way (albeit in different sub-languages), and to have some automated
-checking done in an \sphinxstyleemphasis{attempt} to verify that code satisfies its spec.
 
-We say \sphinxstyleemphasis{attempt} here, because in general verifying the consistency of
-code and a specification is a literally unsolvable problem. In cases
-that arise in practice, much can often be done. It’s not always easy,
-but if one requires ultra-high assurance of the consistency of code
-and specification, then there is no choice but to employ the kinds of
-\sphinxstyleemphasis{formal methods} introduced here.
-
-To understand how to use such state-of-the-art software development
-tools and methods, one must understand not only the language of code,
-but also the languages of mathematical logic, including set and type
-theory. One must also understand precisely what it means to \sphinxstyleemphasis{prove}
-that a program satisfies its specification; for generating proofs is
-exactly what tools like Dafny do \sphinxstyleemphasis{under the hood}.
-
-A well educated computer scientist and a professionally trained
-software developer must understand logic and proofs as well as coding,
-and how they work together to help build \sphinxstyleemphasis{trustworthy} systems. Herein
-lies the deep relevance of logic and proofs, which might otherwise
-seem like little more than abstract nonsense and a distraction from
-the task of learning how to program.
-
-
-\section{Pure Functional Programming as Runnable Mathematics}
-\label{\detokenize{02-logic-and-code:pure-functional-programming-as-runnable-mathematics}}
+\chapter{Problems with Imperative Code}
+\label{\detokenize{03-problems-with-imperative-code::doc}}\label{\detokenize{03-problems-with-imperative-code:problems-with-imperative-code}}
 There’s no free lunch: One can have the expressiveness of mathematical
 logic, useful for specification, or one can have the ability to run
 code efficiently, along with indispensable ability to interact with an
@@ -393,6 +347,9 @@ it can also have effects on the world, e.g., by producing output
 directing some machine to launch a missile, fire up a nuclear reactor,
 steer a commercial aircraft, etc.
 
+
+\chapter{Pure Functional Programming as Runnable Mathematics}
+\label{\detokenize{04-runnable-math::doc}}\label{\detokenize{04-runnable-math:pure-functional-programming-as-runnable-mathematics}}
 What we’d really like would be a language that gives us everything:
 the expressiveness and the \sphinxstyleemphasis{safety} of mathematical logic (there’s no
 concept of a memory in logic, and thus no possibility for unexpected
@@ -414,114 +371,355 @@ languages.  Finally, unlike mathematical logic, code in functional
 languages can be run with reasonable efficiency, though often not with
 the same efficiency as in, say, C++.
 
-To see how functional languages allow one to implement functions in
-ways that closely mirror their mathematical definitions, consider the
-factorial function and an implementation of this function in the
-functional \sphinxstyleemphasis{sub-language} of Dafny. (Dafny provides sub-languages for
-specification and for both functional and imperative programming.)
+In this chapter, you will see how functional languages allow one to
+implement runnable programs that closely mirror the mathematical
+definitions of the functions that they implement.
 
-The factorial function is defined recursively. For any natural
-(non-negative whole) number, \sphinxstyleemphasis{n, factorial(n)} is defined by two
-cases: one for when \sphinxstyleemphasis{n} is zero, and one for any other value of
-\sphinxstyleemphasis{n}.
+
+\section{The identify function (for integers)}
+\label{\detokenize{04-runnable-math:the-identify-function-for-integers}}
+An \sphinxstyleemphasis{identity function} is a function whose values is simply the value
+of the argument to which it is applied. For example, the identify
+function applied to an integer value, \sphinxstyleemphasis{x}, just evaluates to the value
+of \sphinxstyleemphasis{x}, itself. In the language of mathematical logic, the definition
+of the function would be written like this.
 \begin{equation*}
-\begin{split}f(x)= \begin{cases} 1, & \text{if $x<0$}.\\ 0, & \text{otherwise}.\end{cases}\end{split}
+\begin{split}\forall x \in \mathbb{Z}, x.\end{split}
 \end{equation*}
-First, if \sphinxstyleemphasis{n = 0} (called the \sphinxstyleemphasis{base case}) then \sphinxstyleemphasis{factorial(n)} is
-defined to be 1. Otherwise, for any \sphinxstyleemphasis{n} where \sphinxstyleemphasis{n \textgreater{} 0)}, \sphinxstyleemphasis{factorial(n)}
-is defined recursively as \sphinxstyleemphasis{n * factorial(n-1)}. This is what we call
-the \sphinxstyleemphasis{recursive} case. By recursive, we mean that the function is used
-in its own definition.
+In English, this would be pronounced, “for all (\(\forall\))
+values, \sphinxstyleemphasis{x}, in (\(\in\)) the set of integers
+(\(\mathbb{Z}\)), the function simply reduces to value of \sphinxstyleemphasis{x},
+itself. The infinite set of integers is usually denoted in
+mathematical writing by a script or bold Z. We will use that
+convention in these notes.
 
-Recursive definitions are ubiquitous in mathematics. In fact, if you
-get right down to it, most every function you’ve ever thought about is
-defined recursively. For example, the addition of two natural
-(non-negative) numbers \sphinxstyleemphasis{m} and \sphinxstyleemphasis{n} is defined recursively. If \sphinxstyleemphasis{m = 0},
-the base case, then the answer is \sphinxstyleemphasis{n}. If (m\textgreater{}0), the recursive case,
-then there is some natural number \sphinxstyleemphasis{m’}, the \sphinxstyleemphasis{predecessor} of \sphinxstyleemphasis{m}, and
-in this case the result is one more than (the successor of) the sum of
-\sphinxstyleemphasis{m’} and \sphinxstyleemphasis{n}. such that \sphinxstyleemphasis{m = m’+1}. Recursion is thus fundamentally a
-mathematical and not (just) a computational concept.
-
-The reason that such definitions makes sense, and are not just endless
-self loops, is that they are \sphinxstyleemphasis{well-founded}.  What this means is that
-for any given \sphinxstyleemphasis{n} (a natural number), no matter how large, the looping
-eventually ends. For example, \sphinxstyleemphasis{fact(3)} is defined to be \sphinxstyleemphasis{3 *
-fact(2).} Expanding the definition of the recursive call to the
-\sphinxstyleemphasis{fact This is *3 * (2 * fact(1)).  This in turn is *3
-* 2 * 1 * fact(0).} Because \sphinxstyleemphasis{fact(0)} is a base case,
-defined to be just \sphinxstyleemphasis{1} without any further recursion, the recursion
-terminates, and the end result is \sphinxstyleemphasis{3 * 2 * 1 * 1}, which finally
-evalutes to \sphinxstyleemphasis{6}. o matter how large \sphinxstyleemphasis{n} is, eventually (in a finite
-number of steps), the recursion will bottom out at the base case, and
-a result will be produced.
-
-Our functional program to compute the factorial function mirrors the
-abstract mathematical definition. The program, like the definition, is
-recursive: it \sphinxstyleemphasis{uses} (is defined in terms of) itself. Here’s the code
-in Dafny’s functional programming sub-language.
+While such a mathematical definition is not “runnable”, we can
+\sphinxstyleemphasis{implement} it as a runnable program in pure functional language. The
+code will then closely reflects the abstract mathematical definition.
+And it will run!  Here’s an implementation of \sphinxstyleemphasis{id} written in the
+functional sub-language of Dafny.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-function fact(n: int): int
-  requires n \PYGZgt{}= 0 // for recursion to be well founded
+function method id (x: int): int \PYGZob{} x \PYGZcb{}
+\end{sphinxVerbatim}
+
+The code declares \sphinxstyleemphasis{id} to be what Dafny calls a “function method”,
+which indicates two things.  First, the \sphinxstyleemphasis{function} keyword states that
+the code will be written in a pure functional, not in an imperative,
+style. Second, the \sphinxstyleemphasis{method} keyword instructs the compiler to produce
+runnable code for this function.
+
+Let’s look at the code in detail. First, the name of the function is
+defined to be \sphinxstyleemphasis{id}. Second, the function is defined to take just one
+argument, \sphinxstyleemphasis{x}, declared of type \sphinxstyleemphasis{int}.  The is the Dafny type whose
+values represent integers (negative, zero, and positive whole number)
+of any size. The Dafny type \sphinxstyleemphasis{int} thus represents (or \sphinxstyleemphasis{implements})
+the mathematical set, \({\mathbb Z}\), of all integers. The \sphinxstyleemphasis{int}
+after the argument list and colon then indicates that, when applied to
+an int, the function returns (or \sphinxstyleemphasis{reduces to}) a value of type \sphinxstyleemphasis{int}.
+Finally, within the curly braces, the expression \sphinxstyleemphasis{x}, which we call
+the \sphinxstyleemphasis{body} of this function definition, specifies the value that this
+function reduces to when applied to any \sphinxstyleemphasis{int}. In particular, when
+applied to avalue, \sphinxstyleemphasis{x}, the function application simply reduces to the
+value of \sphinxstyleemphasis{x} itself.
+
+Compare the code with the abstract mathematical definition and you
+will see that but for details, they are basicaly \sphinxstyleemphasis{isomorphic} (a word
+that means identical in structure). It’s not too much of a stretch to
+say that pure functional programs are basically runnable mathematics.
+
+Finally, we need to know how expressions involving applications of
+this function to arguments are evaluated. They fundamental notion at
+the heart of functional programming is this: to evaluate a function
+application expression, such as \sphinxstyleemphasis{id(4)}, you substiute the value of
+the argument (here \$4\$) for every occurence of the argument variable
+(here \sphinxstyleemphasis{x}) in the body of the function definition, the you evaluate
+that expression and return the result. In this case, we substite \sphinxstyleemphasis{4}
+for the \sphinxstyleemphasis{x} in the body, yielding the literal expression, \sphinxstyleemphasis{4}, which,
+when evaluated, yeilds the value \sphinxstyleemphasis{4}, and that’s the result.
+
+
+\section{Data and function types}
+\label{\detokenize{04-runnable-math:data-and-function-types}}
+Before moving on to more interesting functions, we must mention the
+concepts of \$types\$ and \$values\$ as they pertain to both \$data\$ and
+\$functions\$. Two types appear in the example of the \$id\$ function. The
+first, obvious, one is the type \$int\$. The \$values\$ of this type are
+\$data\$ values, namely values representing integers. The second type,
+which is less visible in the example, is the type of the the function,
+\$id\$, itself. As the function takes an argument of type \sphinxstyleemphasis{int} and also
+returns a value of type \sphinxstyleemphasis{int}, we say that the type of \sphinxstyleemphasis{id} is
+\(int \rightarrow int\). You can pronounce this type as \sphinxstyleemphasis{int to
+int}.
+
+
+\section{Other function values of the same type}
+\label{\detokenize{04-runnable-math:other-function-values-of-the-same-type}}
+There are many (indeed an uncountable infinity of) functions that
+convert integer values to other integer values. All such functions
+have the same type, namely \(int \rightarrow int\), but they
+constitute different function \sphinxstyleemphasis{values}. While the type of a function
+is specified in the declaration of the function argument and return
+types, a function \sphinxstyleemphasis{value} is defined by the expression comprising the
+\sphinxstyleemphasis{body} of the function.
+
+An example of a different function of the same type is what we will
+call \sphinxstyleemphasis{inc}, short for \sphinxstyleemphasis{increment}. When applied to an integer value,
+it reduces to (or \sphinxstyleemphasis{returns}) that value plus one. Mathematically, it
+is defined as \(\forall x \in {\mathbb Z}, x + 1\). For example,
+\sphinxstyleemphasis{inc(2)} reduces to \sphinxstyleemphasis{3}, and \sphinxstyleemphasis{inc(-2)}, to \sphinxstyleemphasis{-1}.
+
+Here’s a Dafny functional program that implements this function. You
+should be able to understand this program with ease. Once again, take
+a moment to see the relationship between the abstract mathematical
+definition and the concrete code. They are basically isomorphic. The
+pure functional programmer is writing \sphinxstyleemphasis{runnable mathematics}.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+function method inc (x: int): int \PYGZob{} x + 1 \PYGZcb{}
+\end{sphinxVerbatim}
+
+Another example of a function of the same type is, \sphinxstyleemphasis{square}, defined
+as returing the square of its integer argument. Mathematically it is
+the function, \(\forall x \in {\mathbb Z}, x + 1\). And here is
+a Dafny implementation.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+function method h (x: int): int \PYGZob{} x * x \PYGZcb{}
+\end{sphinxVerbatim}
+
+Evaluating expressions in which this function is applied to an
+argument happens as previously described. To evaluate \sphinxstyleemphasis{square(4)}, for
+example, you rewrite the body, \sphinxstyleemphasis{x * x}, replacing every \sphinxstyleemphasis{x} with a
+\sphinxstyleemphasis{4}, yielding the expression \sphinxstyleemphasis{4 * 4}, then you evaluate that
+expression and return the result, here \sphinxstyleemphasis{16}. Function evaluation is
+done by substituting actual parameter values for all occurrences of
+corresponding formal parameters in the body of a function, evaluating
+the resulting expression, and returning that result.
+
+
+\section{Recursive function definitions and implementations}
+\label{\detokenize{04-runnable-math:recursive-function-definitions-and-implementations}}
+Many mathematical functions are defined \sphinxstyleemphasis{recursively}. Consider the
+familiar \sphinxstyleemphasis{factorial} function. An informal explanation of what the
+function produces when applied to a natural number (a non-negative
+integer), \$n\$, is the product of natural numbers from \$1\$ to \$n\$.
+
+That’s a perfectly understandable definition, but it’s not quite
+precise (or even correct) enough for a mathematician. There are at
+least two problems with this definition. First, it does not define the
+value of the function \sphinxstyleemphasis{for all} natural numbers. In particular, it
+does not say what the value of the function is for zero. Second, you
+can’t just extend the definition by saying that it yields the product
+of all the natural numbers from zero to \$n\$, because that is always
+zero!
+
+Rather, if the function is to be defined for an argument of zero, as
+we require, then we had better define it to have the value one when
+the argument is zero, to preserve the product of all the other numbers
+larger than zero that we might have multiplied together to produce the
+result. The trick is to write a mathematical definition of factorial
+in two cases: one for the value zero, and one for any other number.
+\begin{equation*}
+\begin{split}factorial(n) := \forall n \in {\mathbb Z} \mid n >= 0, \begin{cases}
+\text{if n=0}, & 1,\\ \text{otherwise}, & n *
+factorial(n-1).\end{cases}\end{split}
+\end{equation*}
+To pronounce this mathematical definition in English, one would say
+that for any integer, \$n\$, such that \$n\$ is greater than or equal to
+zero, \sphinxstyleemphasis{factorial(n)} is one if \sphinxstyleemphasis{n} is zero and is otherwise \sphinxstyleemphasis{n} times
+\sphinxstyleemphasis{factorial(n-1)}.
+
+Let’s analyze this definition. First, whereas in earlier examples we
+left mathematical definitions anonymous, here we have given a name,
+\sphinxstyleemphasis{factorial}, to the function, as part of its mathematical definition.
+We have to do this because we need to refer to the function within its
+own definition.  When a definition refers to the thing that is being
+defined, we call the definition \sphinxstyleemphasis{recursive.}
+
+Second, we have restricted the \sphinxstyleemphasis{domain} of the function, which is to
+say the set of values for which it is defined, to the non-negative
+integers only, the set known as the \sphinxstyleemphasis{natural numbers}. The function
+simply isn’t defined for negative numbers.  Mathematicians usually use
+the symbol, \({\mathbb N}\) for this set. We could have written
+the definition a little more concisely using this notation, like this:
+\begin{equation*}
+\begin{split}factorial(n) := \forall n \in {\mathbb N}, \begin{cases}
+\text{if n=0}, & 1,\\ \text{otherwise}, & n *
+factorial(n-1).\end{cases}\end{split}
+\end{equation*}
+Here, then, is a Dafny implementation of the factorial function.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+function method fact(n: int): int
+   requires n \PYGZgt{}= 0 // for recursion to be well founded
 \PYGZob{}
-  if (n==0)
-  then 1
-  else n * fact(n\PYGZhy{}1)
+    if (n==0) then 1
+    else n * fact(n\PYGZhy{}1)
 \PYGZcb{}
 \end{sphinxVerbatim}
 
-The program takes a value, \sphinxstyleemphasis{n}, of type int (any integer). Then the
-requires \sphinxstyleemphasis{predicate} (a piece of logical specification) restricts the
-value of \sphinxstyleemphasis{n} to be non-negative. Finally you have the recursive rules
-for computing the value of the function. If \sphinxstyleemphasis{n} is zero the result is
-one otherwise it’s \sphinxstyleemphasis{n} times the function itself applied to \sphinxstyleemphasis{n-1}.
+This code exactly mirrors our first mathematical definition. The
+restriction on the domain is expressed in the \sphinxstyleemphasis{requires} clause of the
+program. This clause is not runnable code. It’s a specification: a
+\sphinxstyleemphasis{predicate} (a proposition with a parameter) that must hold for the
+program to be used. Dafny will insist that this function only ever be
+applied to values of \sphinxstyleemphasis{n} that have the \sphinxstyleemphasis{property} of being \(>=
+0\). A predicate that must be true for a program to be run is called a
+\sphinxstyleemphasis{pre-condition}.
 
-So here you have something very interesting. First, the code is just
-like the mathematics. Functional programming languages are not nearly
-as expressive as predicate logic (as we’ll see when we really get to
-logic and proofs), but they are much closer to mathematics, in many
-cases, than imperative code. Programs in pure functional languages are
-more expressive and easier (for humans and machines) to reason about
-than programs written in imperative languages.
+To see how the recursion works, consider the application of
+\sphinxstyleemphasis{factorial} to the natural number, \sphinxstyleemphasis{3}. We know that the answer should
+be \sphinxstyleemphasis{6. The evaluation of the expression, *factorial(3)}, works as for
+any function application expression: first you subsitute the value of
+the argument(s) for each occurrence of the formal parameters in the
+body of the function; then you evaluate the resulting expression
+(recursively!) and return the result. For \sphinxstyleemphasis{factorial(3)}, this process
+leads through a sequence of intermediate expressions as follows (leaving
+out a few details that should be easy to infer):
+\begin{align*}\!\begin{aligned}
+factorial\ (3) & \text{ ; a function application expression}\\
+if\ (3 == 0)\ then\ 1\ else\ (3 * factorial\ (3-1)) & \text{ ; expand body with  parameter/argument substitution}\\
+if\ (3 == 0)\ then\ 1\ else\ (3 * factorial\ (2))  & \text{ ; evaluate $(3-1)$}\\
+if\ false\ then\ 1\ else\ (3 * factorial\ (2)) & \text{ ; evaluate $(3==0)$ }\\
+(3 * factorial\ (2)) & \text{ ; evaluate $ifThenElse$ }\\
+(3 * (if\ (2==0)\ then\ 1\ else\ (2 * factorial\ (1))) & \text{ ; etc }\\
+(3 * (2 * factorial\ (1))\\
+(3 * (2 * (if\ (1==0)\ then\ 1\ else\ (1 * factorial\ (0)))))\\
+(3 * (2 * (1 * factorial\ (0))))\\
+(3 * (2 * (1 * (if\ (0==0)\ then\ 1\ else\ (0 * factorial\ (-1))))))\\
+(3 * (2 * (1 * (if\ true\ then\ 1\ else\ (0 * factorial\ (-1))))))\\
+(3 * (2 * (1 * 1)))\\
+(3 * (2 * 1))\\
+(3 * 2)\\
+6\\
+\end{aligned}\end{align*}
+The evaluation process continues until the function application expression
+is reduced to a data value. That’s the answer!
 
-Second, we now see the integration of logic and code, The \sphinxstyleemphasis{requires}
-predicate is a logical proposition \sphinxstyleemphasis{about} the value of the parameter,
-\sphinxstyleemphasis{n}, expressed not as a comment but as a formal and machine-checkable
-part of the program.
+It’s important to understand how recursive function application
+expressions are evaluated. Study this example with care. Once you’re
+sure you see what’s going on, go back and look at the mathematical
+definition, and convince yourself that you can understand it \sphinxstyleemphasis{without}
+having to think about \sphinxstyleemphasis{unrolling} of the recursion as we just did.
 
-Althird, though you can’t see it here in this document, Dafny checks
-to ensure that no code ever calls this function with a value of \sphinxstyleemphasis{n}
-that is less than zero, \sphinxstyleemphasis{and} it proves to itself that the recursion
-is well founded.  That is a lot more than you could ever expect to get
-programming in an imperative language like Python.
+Finally we note that the the precondition is essential. If it were not
+there in the mathematical definition, the definition would not be what
+mathematicians call \sphinxstyleemphasis{well founded}: the recursive definition might
+never stop looping back on itself. Just think about what would happen
+if you could apply the function to \sphinxstyleemphasis{-1}. The definition would involve
+the function applied to \sphinxstyleemphasis{-2}. And the definition of that would involve
+the function applied to \sphinxstyleemphasis{-3}. You can see that there will be an
+infinite regress.
 
-Pure functional programming languages thus provide a way to program
-functions almost as if in pure mathematics. At the same time, such
-programs can be run reasonably efficiently and analyzed by human and
-machanized checkers.
+Similarly, if Dafny would allow the function to be applied to \sphinxstyleemphasis{any}
+value of type \sphinxstyleemphasis{int}, it would be possible, in particular, to apply the
+function to negative values, and that would be bad!  Evaluating the
+expression, \sphinxstyleemphasis{factorial(-1)} would involve the recursive evaluation of
+the expression, \sphinxstyleemphasis{factorial(-2)}, and you can see that the evaluation
+process would never end. The program would go into an “infinite loop”
+(technically an unbounded recursion). By doing so, the program would
+also violate the fundamental promise made by its type: that for \sphinxstyleemphasis{any}
+integer-valued argument, an integer result will be produced. That can
+not happen if the evaluation process never returns a result. We see
+the precondition in the code, implementing the domain restriction in
+the mathematical definition, is indispensible. It makes the definition
+sound and it makes the code correct!
 
-So what’s the downside? Why not always program in such languages?  One
-reason is efficiency. It’s a challenge to get programs in such
-languages to execute efficiency precisely because there is no notion
-of a mutable memory. There’s thus not way (conceptually) to update a
-part of a large data structure; rather one must write a function that
-takes a given data structure and that computes and builds a whole new
-one, even if it differs from a given data structure only a little.
 
-A second, even more fundamental limitation, is that there is no
-concept of interacting with an external environment in the realm of
-pure functions. You’ve got data values and functions that transform
-given values into new values, and that’s it. You simply cannot do I/O
-in a pure functional language! There are functional languages that are
-meant for practical programming (such as Haskell), in which you can of
-course do I/O, but the capabilities to do I/O are non-functional. They
-are in a sense \sphinxstyleemphasis{bolted on}. They are bolted on in clever, clean ways,
-but the fact remains that I/O is just not a functional concept.
+\section{Dafny is a Program Verifier}
+\label{\detokenize{04-runnable-math:dafny-is-a-program-verifier}}
+Restricting the domain of factorial to non-negative integers is
+critical. Combining the non-negative property of ever value to which
+the function is applied with the fact that every recursive application
+is to a smaller value of \sphinxstyleemphasis{n}, allows us to conclude that no \sphinxstyleemphasis{infinite
+decreasing chains} are possible. Any application of the function to a
+non-negative integer \$n\$ will terminate after exactly \sphinxstyleemphasis{n} recursive
+calls to the function. Every non-negative integer, \$n\$ is finite. So
+every call to the function will terminate.
 
+Termination is a critical \sphinxstyleemphasis{property} of programs. The proposition that
+our factorial program with the precondition in place always terminates
+is true as we’ve argued. Without the precondition, the proposition is
+false.
+
+Underneath Dafny’s “hood,” it has a system for proving propositions
+about (i.e., properties of) programs. Here we see that It generates a
+propostion that each recursive function terminates; and it requires a
+proof that each such proposition is true.
+
+With the precondition in place, there not only is a proof, but Dafny
+can find it on its own. If you remove the precondition, Dafny won’t be
+able to find a proof, because, as we just saw, there isn’t one: the
+proposition that evaluation of the function always terminates is not
+true. In this case, because it can’t prove termination, Dafny will
+issue an error stating, in effect, that there is the possibility that
+the program will infinitely loop. Try is in Dafny.  You will see.
+
+In some cases there will be proofs of important propositions that
+Dafny nevertheless can’t find it on its own. In such cases, you may
+have to help it by giving it some additional propositions that it
+can verify and that help point it in the right direction. We’ll see
+more of this later.
+
+The Dafny language and verification system is powerful mechansim for
+finding subtle bugs in code, but it require a knowledge of more than
+just programming. It requires an understanding of specification, and
+of the languages of logic and proofs in which specifications of code
+are expressed and verified.
+
+
+\chapter{Integrating Formal Specification with Imperative Programming}
+\label{\detokenize{05-putting-it-together::doc}}\label{\detokenize{05-putting-it-together:integrating-formal-specification-with-imperative-programming}}
+An important approach to solving such problems is to enable the
+integration of \sphinxstyleemphasis{formal specifications} with imperative programming
+code along with mechansims (based on \sphinxstyleemphasis{logical proof} technology) for
+checking the consistency of code with specifications. Specifications
+are given not as comments but as expressions in the language of logic
+right along with the code, and checkers attempt to verify that code
+satisfies its corresponding \sphinxstyleemphasis{specs}.
+
+Dafny is a cutting-edge software language and tooset developed at
+Microsoft Research—one of the top computer science research labs in
+the world—that provides such a capability. We will explore Dafny and
+the ideas underlying it in the first part of this course, both to give
+a sense of the current state of the art in program verification and,
+most importantly, to explain why it’s vital for a computer scientist
+today to have a substantial understanding of logic and proofs along
+with the ability to \sphinxstyleemphasis{code}.
+
+Tools such as TLA+, Dafny, and others of this variety give us a way
+both to express formal specifications and imperative code in a unified
+way (albeit in different sub-languages), and to have some automated
+checking done in an \sphinxstyleemphasis{attempt} to verify that code satisfies its spec.
+
+We say \sphinxstyleemphasis{attempt} here, because in general verifying the consistency of
+code and a specification is a literally unsolvable problem. In cases
+that arise in practice, much can often be done. It’s not always easy,
+but if one requires ultra-high assurance of the consistency of code
+and specification, then there is no choice but to employ the kinds of
+\sphinxstyleemphasis{formal methods} introduced here.
+
+To understand how to use such state-of-the-art software development
+tools and methods, one must understand not only the language of code,
+but also the languages of mathematical logic, including set and type
+theory. One must also understand precisely what it means to \sphinxstyleemphasis{prove}
+that a program satisfies its specification; for generating proofs is
+exactly what tools like Dafny do \sphinxstyleemphasis{under the hood}.
+
+A well educated computer scientist and a professionally trained
+software developer must understand logic and proofs as well as coding,
+and how they work together to help build \sphinxstyleemphasis{trustworthy} systems. Herein
+lies the deep relevance of logic and proofs, which might otherwise
+seem like little more than abstract nonsense and a distraction from
+the task of learning how to program.
+
+
+\section{To integrate}
+\label{\detokenize{05-putting-it-together:to-integrate}}
 
 \section{Fitting it All Together}
-\label{\detokenize{02-logic-and-code:fitting-it-all-together}}
+\label{\detokenize{05-putting-it-together:fitting-it-all-together}}
 So as we go forward, here’s what we’ll see. Ultimately, for purposes
 of efficiency and interactivity (I/O), we will write imperative code
 to implement software systems. That said, we can often use functional
@@ -548,27 +746,44 @@ program intended to be called from imperative code is declared as a
 Here’s a complete example: an imperative program for computing the
 factorial function with a specification that first requires \sphinxstyleemphasis{n\textgreater{}0}
 and that then requires that the result be \sphinxstyleemphasis{fact(n)} as defined by
-our functional program:
+our functional program.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{method} \PYG{n}{factorial}\PYG{p}{(}\PYG{n}{n}\PYG{p}{:} \PYG{n+nb}{int}\PYG{p}{)} \PYG{n}{returns} \PYG{p}{(}\PYG{n}{f}\PYG{p}{:} \PYG{n+nb}{int}\PYG{p}{)}
-  \PYG{n}{requires} \PYG{n}{n}\PYG{o}{\PYGZgt{}}\PYG{o}{=} \PYG{l+m+mi}{0}
-  \PYG{n}{ensures} \PYG{n}{f} \PYG{o}{==} \PYG{n}{fact}\PYG{p}{(}\PYG{n}{n}\PYG{p}{)}
-\PYG{p}{\PYGZob{}}
-  \PYG{k}{if} \PYG{p}{(}\PYG{n}{n}\PYG{o}{==}\PYG{l+m+mi}{0}\PYG{p}{)}
-  \PYG{p}{\PYGZob{}}
-      \PYG{n}{f}\PYG{p}{:}\PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{;}
-      \PYG{k}{return}\PYG{p}{;}
-  \PYG{p}{\PYGZcb{}}
-  \PYG{n}{var} \PYG{n}{t} \PYG{p}{:}\PYG{o}{=} \PYG{n}{n}\PYG{p}{;}
-  \PYG{n}{var} \PYG{n}{a} \PYG{p}{:}\PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{;}
-  \PYG{k}{while} \PYG{p}{(}\PYG{n}{t} \PYG{o}{!=}  \PYG{l+m+mi}{0}\PYG{p}{)}
-  \PYG{p}{\PYGZob{}}
-      \PYG{n}{a} \PYG{p}{:}\PYG{o}{=} \PYG{n}{a} \PYG{o}{*} \PYG{n}{t}\PYG{p}{;}
-      \PYG{n}{t} \PYG{p}{:}\PYG{o}{=} \PYG{n}{t} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{;}
-  \PYG{p}{\PYGZcb{}}
-  \PYG{n}{f} \PYG{p}{:}\PYG{o}{=} \PYG{n}{a}\PYG{p}{;}
-\PYG{p}{\PYGZcb{}}
+method factorial(n: nat) returns (f: nat)
+\PYGZob{}
+    if (n == 0)
+    \PYGZob{}
+        return 1;
+    \PYGZcb{}
+    var t: nat := n;
+    var a: nat := 1;
+    while (t !=  0)
+    \PYGZob{}
+        a := a * t;
+        t := t \PYGZhy{} 1;
+    \PYGZcb{}
+    f := a;
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method factorial(n: int) returns (f: int)
+  requires n\PYGZgt{}= 0
+  ensures f == fact(n)
+\PYGZob{}
+  if (n == 0)
+  \PYGZob{}
+      return 1;
+  \PYGZcb{}
+  var t := n;
+  var a := 1;
+  while (t !=  0)
+  \PYGZob{}
+      a := a * t;
+      t := t \PYGZhy{} 1;
+  \PYGZcb{}
+  return a;
+\PYGZcb{}
 \end{sphinxVerbatim}
 
 Unfortunately Dafny reports that it cannot guarantee—formally prove

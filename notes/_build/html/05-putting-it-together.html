@@ -113,25 +113,41 @@ program intended to be called from imperative code is declared as a
 <p>Here’s a complete example: an imperative program for computing the
 factorial function with a specification that first requires <em>n&gt;0</em>
 and that then requires that the result be <em>fact(n)</em> as defined by
-our functional program:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">method</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="n">returns</span> <span class="p">(</span><span class="n">f</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span>
-  <span class="n">requires</span> <span class="n">n</span><span class="o">&gt;=</span> <span class="mi">0</span>
-  <span class="n">ensures</span> <span class="n">f</span> <span class="o">==</span> <span class="n">fact</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">n</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
-  <span class="p">{</span>
-      <span class="n">f</span><span class="p">:</span><span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-      <span class="k">return</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="n">var</span> <span class="n">t</span> <span class="p">:</span><span class="o">=</span> <span class="n">n</span><span class="p">;</span>
-  <span class="n">var</span> <span class="n">a</span> <span class="p">:</span><span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-  <span class="k">while</span> <span class="p">(</span><span class="n">t</span> <span class="o">!=</span>  <span class="mi">0</span><span class="p">)</span>
-  <span class="p">{</span>
-      <span class="n">a</span> <span class="p">:</span><span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">t</span><span class="p">;</span>
-      <span class="n">t</span> <span class="p">:</span><span class="o">=</span> <span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="n">f</span> <span class="p">:</span><span class="o">=</span> <span class="n">a</span><span class="p">;</span>
-<span class="p">}</span>
+our functional program.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method factorial(n: nat) returns (f: nat)
+{
+    if (n == 0)
+    {
+        return 1;
+    }
+    var t: nat := n;
+    var a: nat := 1;
+    while (t !=  0)
+    {
+        a := a * t;
+        t := t - 1;
+    }
+    f := a;
+}
+</pre></div>
+</div>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method factorial(n: int) returns (f: int)
+  requires n&gt;= 0
+  ensures f == fact(n)
+{
+  if (n == 0)
+  {
+      return 1;
+  }
+  var t := n;
+  var a := 1;
+  while (t !=  0)
+  {
+      a := a * t;
+      t := t - 1;
+  }
+  return a;
+}
 </pre></div>
 </div>
 <p>Unfortunately Dafny reports that it cannot guarantee—formally prove
