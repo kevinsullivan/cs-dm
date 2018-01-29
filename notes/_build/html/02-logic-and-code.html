@@ -1,0 +1,199 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Logic and Code &#8212; Mathematical Logic in Software Development 1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/sidebar.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Problems with Imperative Code" href="03-problems-with-imperative-code.html" />
+    <link rel="prev" title="Requirement, Specifications, and Implementations" href="01-reqs-specs-impls.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="03-problems-with-imperative-code.html" title="Problems with Imperative Code"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="01-reqs-specs-impls.html" title="Requirement, Specifications, and Implementations"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mathematical Logic in Software Development 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="logic-and-code">
+<h1>Logic and Code<a class="headerlink" href="#logic-and-code" title="Permalink to this headline">¶</a></h1>
+<p>We’ve discussed requirements, specifications, and implementations as
+software artifacts serving distinct purposes. For good reasons, these
+artifacts are generally written in different languages. In this unit,
+we discuss these different kinds of languages—mathematical logic for
+specifications and imperative languages for code—why they are used
+for different purposes, the fundamental advantages and disadvantages
+of each, and why modern software development requires fluence in and
+tools for handling artifacts written in multiple such languages.</p>
+<div class="section" id="imperative-implementations-and-declarative-specifications">
+<h2>Imperative Implementations and Declarative Specifications<a class="headerlink" href="#imperative-implementations-and-declarative-specifications" title="Permalink to this headline">¶</a></h2>
+<p>The language of implementations is code in what we call an <em>imperative
+programming language</em>. Examples of such languages include Python,
+Java, C++, and Javascript. The most salient property of such a
+language is that it is <em>procedural</em>. Programs in these languages
+describe step-by-step <em>procedures</em>, in the form of sequences of
+<em>commands</em>, for solving given problem instances. Commands in such
+languages operate by (1) reading, computing with, and updating values
+stored in a <em>mutable memory</em>, and (2) interacting with the world
+outside of the computer by executing input and output (IO) commands.</p>
+<p>The language of formal requirements and specifications, on the other
+hand, is some kind of <em>mathematical logic</em>. Examples of logics that we
+will study and use include <em>propositional</em> and <em>predicate</em> logic.  An
+example of a kind of logic important in software development but that
+we will not study in this class is <em>temporal logic.</em></p>
+<p>For purposes of software specification, the most salient property of
+such a logical language is that it is <em>declarative</em>.  Expressions in
+logic will state <em>what</em> properties or relationships must hold in a
+given situation, particularly how results must relate to inputs,
+without providing executable, step-by-step procedures describing <em>how</em>
+to actually compute such relationships.</p>
+<p>To make the difference between procedural and declarative styles of
+description clear, consider the problem of computing the positive
+square root of a given non-negative number, <em>x</em>. We can <em>specify</em> the
+answer in a clear and precise logical style by simply stating that,
+for any given non-negative number <em>x</em>, we require a value, <em>y</em>, such
+that <span class="math">\(y^2 = x\)</span>. We would write this mathematically as
+<span class="math">\(\forall x \mid x &gt;= 0, sqrt(x) = y | y^2 = x\)</span>. In English, we’d
+pronounce this formula as, “for any <em>x</em> where <em>x</em> is greater than or
+equal to zero, the square root of <em>x</em> is a value <em>y</em> such that <em>y</em>
+squared is equal to <em>x</em>.”</p>
+<p>We now have a <em>declarative specification</em> of the desired relationship
+between <em>x</em> and <em>y</em>. What we don’t have, however, is a step-by-step
+<em>procedure</em> for computing this relation by finding a value of <em>y</em> for
+any given value of <em>x</em>. You can’t just run a specification written in
+the language of mathematical logic.</p>
+<p>The solution is to shift from mathematics as a specification language
+to imperative code as an implementation language.  In such a language,
+we then craft a step-by-step procedure that, when run, computes the
+results we seek. Here’s an example of a program in the imperative
+language, Python, for computing positive square roots of non-negative
+numbers using Newton’s method.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;for x&gt;=0, return non-negative y such that y^2 = x&quot;&quot;&quot;</span>
+    <span class="n">estimate</span> <span class="o">=</span> <span class="n">x</span><span class="o">/</span><span class="mi">2</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="n">newestimate</span> <span class="o">=</span> <span class="p">((</span><span class="n">estimate</span><span class="o">+</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="n">estimate</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">newestimate</span> <span class="o">==</span> <span class="n">estimate</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">estimate</span> <span class="o">=</span> <span class="n">newestimate</span>
+    <span class="k">return</span> <span class="n">estimate</span>
+</pre></div>
+</div>
+<p>This procedure initializes and then repeatedly updates the values
+stored at two locations in memory, referred to by the two variables,
+<em>estimate</em> and <em>newestimate</em>. It repeats the update process until the
+process <em>converges</em> on the answer, which occurs when the values of the
+two variables become equal. The answer is then returned to the caller
+of this procedure.</p>
+<p>Note that, following good programming style, we included an English
+rendering of the specification as a document string in the second line
+of the program.  There are however several deep problems with this
+approach. First, as we’ve discussed, natural language is subject to
+ambiguity, inconsistency, and incompleteness. Second, because the
+document string is just a comment, there’s no way for the compiler to
+check consistency between the code and this specification. Third, in
+practice, code evolves (changes over time), and in their rush to ship
+code, developers often forget, or neglect, to update comments. So, in
+practice, even if a given procedure is initially consistent with a
+specification given as comment, inconsistencies can and often do
+develop over time.</p>
+</div>
+<div class="section" id="why-not-a-single-language-for-both-programming-and-specification">
+<h2>Why Not a Single Language for both Programming and Specification?<a class="headerlink" href="#why-not-a-single-language-for-both-programming-and-specification" title="Permalink to this headline">¶</a></h2>
+<p>The dichotomy between specification logic and implementation code
+raises an important question? Why not just design a single language
+that’s good for both?</p>
+<p>The answer is that there are fundamental tradeoffs in language design.
+One of the most important is a tradeoff between <em>expressiveness</em>, on
+one hand, and <em>efficient execution</em>, on the other.</p>
+<p>What we see in our square root example is that mathematical logic is
+highly <em>expressive</em>. Logic language can be used so say very clearly
+<em>what</em> we want. On the other hand, it’s hard using logic to say <em>how</em>
+to get it. In practice, mathematical logic is clear but can’t be <em>run</em>
+(at least not efficiently).</p>
+<p>On the other hand, imperative code states <em>how</em> a computation is to be
+carried out, but enerally doesn’t make clear <em>what</em> it’s computing. You
+would be hard-pressed, based on a quick look at the Python code above,
+to explain <em>what</em> it does (but for the fact that we embedded the spec
+into the code as a doc string).</p>
+<p>We are driven to a situation in which we have to express what we want
+and how to get it, respectively, in very different languages. This
+situation creates a difficult new problem: to verify that a program
+written in an imperative language satisfies a specification written in
+a declarative language.  This is the problem of <em>verification</em>. Have
+we built a program right (where right is defined by a specification)?</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="01-reqs-specs-impls.html"
+                        title="previous chapter">Requirement, Specifications, and Implementations</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="03-problems-with-imperative-code.html"
+                        title="next chapter">Problems with Imperative Code</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="03-problems-with-imperative-code.html" title="Problems with Imperative Code"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="01-reqs-specs-impls.html" title="Requirement, Specifications, and Implementations"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mathematical Logic in Software Development 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Kevin Sullivan.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
+  </body>
+</html>

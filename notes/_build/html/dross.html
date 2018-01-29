@@ -1,0 +1,266 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Dafny can’t prove everything that’s provable (without help) &#8212; Mathematical Logic in Software Development 1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/sidebar.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mathematical Logic in Software Development 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="dafny-can-t-prove-everything-that-s-provable-without-help">
+<h1>Dafny can’t prove everything that’s provable (without help)<a class="headerlink" href="#dafny-can-t-prove-everything-that-s-provable-without-help" title="Permalink to this headline">¶</a></h1>
+<p>If we had a machine that could prove any provable statement in
+mathematics, we would no longer need mathematicians. Kurt Godel, whose
+20th century results in mathematical logic were as profound as those
+of Einstein in physics, proved once and for all that there is no such
+algorithm.</p>
+<p>It should not be surprising to learn, then, that Dafny can’t prove
+every provable proposition about programs. In fact, Dafny, and all
+program verifiers, are fundamentally limited in what they can prove.
+Sometimes what they need is some help.</p>
+<p>// Using nat instead of int doesn’t work here
+//
+function method fact’(n: nat): nat
+{</p>
+<blockquote>
+<div>if n==0 then 1 else n * fact(n-1)</div></blockquote>
+<p>}
+// (n-1) violates the non-negativity of the nat
+// type when n is 0 (a valid nat value). Dafny
+// often catches subtle problems of this kind,
+// that might escape the notice of a mere human
+// programmer.
+<a href="#id1"><span class="problematic" id="id2">*</span></a>/</p>
+<p>/*
+Here’s an imperative program for computing factorial.
+<a href="#id3"><span class="problematic" id="id4">*</span></a>/</p>
+<dl class="docutils">
+<dt>method factorial(n: int) returns (f: int)</dt>
+<dd>requires n &gt;= 0
+ensures f == fact(n)</dd>
+</dl>
+<dl class="docutils">
+<dt>{</dt>
+<dd><p class="first">if (n==0)
+{</p>
+<blockquote>
+<div>f:= 1;
+return;</div></blockquote>
+<p>}
+var t := n;
+var a := 1;
+while (t !=  0)</p>
+<blockquote>
+<div>invariant a * fact(t) == fact(n)</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>a := a * t;
+t := t - 1;</dd>
+</dl>
+<p class="last">}
+f := a;</p>
+</dd>
+</dl>
+<p>}</p>
+<p>/*
+Computes the sum of all of the integers from
+zero up to given non-negative integer, n.
+<a href="#id5"><span class="problematic" id="id6">*</span></a>/
+function method sum(n: int): int</p>
+<blockquote>
+<div>requires n &gt;= 0</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>if (n == 0) then 0 else n + sum(n-1)</dd>
+</dl>
+<p>}</p>
+<p>/*
+Implements addition using recursive application
+of increment-by-one. To add x and y, this function
+applies the increment (inc) function x times to y.
+The value of x is restricted to non-negative values
+so that the recursion is guaranteed to terminate.
+Be sure you really understand this example.
+<a href="#id7"><span class="problematic" id="id8">*</span></a>/
+function method add(x:int, y: int): int</p>
+<blockquote>
+<div>requires x &gt;= 0</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>if (x==0) then y else inc(add(x-1, y))</dd>
+</dl>
+<p>}</p>
+<p>/*
+Finally, here’s a Main method written in imperative
+style. It applies the functions we developed above
+to arguments to perform simple “smoke tests” to see
+if each function produces the expected results for
+at least one set of arguments.
+<a href="#id9"><span class="problematic" id="id10">*</span></a>/
+method Main()
+{</p>
+<blockquote>
+<div>print “The value of id_int(3) is “, id_int(3), “n”;
+print “The value of square(3) is “, square(3), “n”;
+print “The value of inc(3) is “, inc(3), “n”;
+print “The value of fact(5) is “, fact(5), “n”;
+print “The value of sum(5) is “, sum(5), “n”;
+print “The value of add(4,5) is “, add(4,5), “n”;
+var fac5 := factorial(5);
+print “The value of factorial(5) is “, fac5, “n”;</div></blockquote>
+<p>}</p>
+</div>
+<div class="section" id="bar">
+<h1>Bar<a class="headerlink" href="#bar" title="Permalink to this headline">¶</a></h1>
+<p>definitions, consider the factorial function and an implementation of
+this function in the functional <em>sub-language</em> of Dafny. (Dafny
+provides sub-languages for specification and for both functional and
+imperative programming.)</p>
+<p>The factorial function is defined recursively. For any natural
+(non-negative whole) number, <em>n, factorial(n)</em> is defined by two
+cases: one for when <em>n</em> is zero, and one for any other value of
+<em>n</em>.</p>
+<div class="math">
+\[\begin{split}f(x)= \begin{cases} 1, &amp; \text{if $x&lt;0$}.\\ 0, &amp; \text{otherwise}.\end{cases}\end{split}\]</div>
+<p>First, if <em>n = 0</em> (called the <em>base case</em>) then <em>factorial(n)</em> is
+defined to be 1. Otherwise, for any <em>n</em> where <em>n &gt; 0)</em>, <em>factorial(n)</em>
+is defined recursively as <em>n * factorial(n-1)</em>. This is what we call
+the <em>recursive</em> case. By recursive, we mean that the function is used
+in its own definition.</p>
+<p>Recursive definitions are ubiquitous in mathematics. In fact, if you
+get right down to it, most every function you’ve ever thought about is
+defined recursively. For example, the addition of two natural
+(non-negative) numbers <em>m</em> and <em>n</em> is defined recursively. If <em>m = 0</em>,
+the base case, then the answer is <em>n</em>. If (m&gt;0), the recursive case,
+then there is some natural number <em>m’</em>, the <em>predecessor</em> of <em>m</em>, and
+in this case the result is one more than (the successor of) the sum of
+<em>m’</em> and <em>n</em>. such that <em>m = m’+1</em>. Recursion is thus fundamentally a
+mathematical and not (just) a computational concept.</p>
+<p>The reason that such definitions makes sense, and are not just endless
+self loops, is that they are <em>well-founded</em>.  What this means is that
+for any given <em>n</em> (a natural number), no matter how large, the looping
+eventually ends. For example, <em>fact(3)</em> is defined to be <em>3 *
+fact(2).</em> Expanding the definition of the recursive call to the
+<em>fact This is *3 * (2 * fact(1)).  This in turn is *3
+* 2 * 1 * fact(0).</em> Because <em>fact(0)</em> is a base case,
+defined to be just <em>1</em> without any further recursion, the recursion
+terminates, and the end result is <em>3 * 2 * 1 * 1</em>, which finally
+evalutes to <em>6</em>. o matter how large <em>n</em> is, eventually (in a finite
+number of steps), the recursion will bottom out at the base case, and
+a result will be produced.</p>
+<p>Our functional program to compute the factorial function mirrors the
+abstract mathematical definition. The program, like the definition, is
+recursive: it is defined in terms of (by calling)  itself. Here’s the code
+in Dafny’s functional programming sub-language.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>function fact(n: int): int
+  requires n &gt;= 0 // for recursion to be well founded
+{
+  if (n==0)
+  then 1
+  else n * fact(n-1)
+}
+</pre></div>
+</div>
+<p>The program takes a value, <em>n</em>, of type int (any integer). Then the
+requires <em>predicate</em> (a piece of logical specification) restricts the
+value of <em>n</em> to be non-negative. Finally you have the recursive rules
+for computing the value of the function. If <em>n</em> is zero the result is
+one otherwise it’s <em>n</em> times the function itself applied to <em>n-1</em>.</p>
+<p>So here you have something very interesting. First, the code is just
+like the mathematics. Functional programming languages are not nearly
+as expressive as predicate logic (as we’ll see when we really get to
+logic and proofs), but they are much closer to mathematics, in many
+cases, than imperative code. Programs in pure functional languages are
+more expressive and easier (for humans and machines) to reason about
+than programs written in imperative languages.</p>
+<p>Second, we now see the integration of logic and code, The <em>requires</em>
+predicate is a logical proposition <em>about</em> the value of the parameter,
+<em>n</em>, expressed not as a comment but as a formal and machine-checkable
+part of the program.</p>
+<p>Althird, though you can’t see it here in this document, Dafny checks
+to ensure that no code ever calls this function with a value of <em>n</em>
+that is less than zero, <em>and</em> it proves to itself that the recursion
+is well founded.  That is a lot more than you could ever expect to get
+programming in an imperative language like Python.</p>
+<p>Pure functional programming languages thus provide a way to program
+functions almost as if in pure mathematics. At the same time, such
+programs can be run reasonably efficiently and analyzed by human and
+machanized checkers.</p>
+<p>So what’s the downside? Why not always program in such languages?  One
+reason is efficiency. It’s a challenge to get programs in such
+languages to execute efficiency precisely because there is no notion
+of a mutable memory. There’s thus not way (conceptually) to update a
+part of a large data structure; rather one must write a function that
+takes a given data structure and that computes and builds a whole new
+one, even if it differs from a given data structure only a little.</p>
+<p>A second, even more fundamental limitation, is that there is no
+concept of interacting with an external environment in the realm of
+pure functions. You’ve got data values and functions that transform
+given values into new values, and that’s it. You simply cannot do I/O
+in a pure functional language! There are functional languages that are
+meant for practical programming (such as Haskell), in which you can of
+course do I/O, but the capabilities to do I/O are non-functional. They
+are in a sense <em>bolted on</em>. They are bolted on in clever, clean ways,
+but the fact remains that I/O is just not a functional concept.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mathematical Logic in Software Development 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Kevin Sullivan.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
+  </body>
+</html>
