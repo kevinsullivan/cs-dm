@@ -218,12 +218,12 @@ same as the real (*mathematical*) reals!
 
 You can easily see what the problem is by using our procedure to
 compute the square root of 2.0 and by then multiplying that number by
-itself. The result of the computation is the number $1.41421356237$,
+itself. The result of the computation is the number *1.41421356237*,
 which we already know has to be wrong to some degree, as the square
 root of two is an *irrational* number that cannot be represented by
 any non-terminating, non-repeating decimal. Indeed, if we multiply
-this number by itself, we get the number, $1.99999999999$. We end up
-in a situation in which *sqrt(2.0) \* sqrt(2.0)$* isn't equal to 2.0!
+this number by itself, we get the number, *1.99999999999*. We end up
+in a situation in which *sqrt(2.0) \* sqrt(2.0)* isn't equal to 2.0!
 
 The problem is that in Python, as in most industrial programming
 languages, *so-called* real numbers (often called *floating point*
