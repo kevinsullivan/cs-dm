@@ -58,7 +58,7 @@
 
 
 \title{Mathematical Logic in Software Development Documentation}
-\date{Jan 29, 2018}
+\date{Jan 30, 2018}
 \release{1}
 \author{Kevin Sullivan}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -74,7 +74,7 @@
 
 
 \chapter{Requirement, Specifications, and Implementations}
-\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}\label{\detokenize{01-reqs-specs-impls::doc}}\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}
+\label{\detokenize{01-reqs-specs-impls::doc}}\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}
 Software is an increasingly critical component of major societal
 systems, from rockets to power grids to healthcare, etc. Failures are
 not always bugs in implementation code. The most critical problems
@@ -171,73 +171,182 @@ the proposition \sphinxstyleemphasis{Kevin plays tennis **and*} Kevin is from Te
 is not true. More on relations later!
 
 
-\chapter{Logic and Code}
-\label{\detokenize{02-logic-and-code::doc}}\label{\detokenize{02-logic-and-code:logic-and-code}}
+\chapter{Logical Specifications, Imperative Implementations}
+\label{\detokenize{02-logic-and-code::doc}}\label{\detokenize{02-logic-and-code:logical-specifications-imperative-implementations}}
 We’ve discussed requirements, specifications, and implementations as
-software artifacts serving distinct purposes. For good reasons, these
-artifacts are generally written in different languages. In this unit,
-we discuss these different kinds of languages—mathematical logic for
-specifications and imperative languages for code—why they are used
-for different purposes, the fundamental advantages and disadvantages
-of each, and why modern software development requires fluence in and
-tools for handling artifacts written in multiple such languages.
+distinct artifacts that serve distinct purposes. For good reasons,
+these artifacts are usually written in different languages. Software
+implementations are usually written in programming languages, and, in
+particular, are usually written in \sphinxstyleemphasis{imperative} programming languages.
+Requirements and specifications, on the other hand, are written either
+in natural language, e.g., English, or in the language of mathematical
+logic.
+
+This unit discusses these different kinds of languages, why they are
+used for different purposes, the advantages and disadvantages of each,
+and why modern software development requires fluency in and tools for
+handling artifacts written in multiple such languages. In particular,
+the educated computer scientist and the capable software developer
+must be fluent in the language of mathematical logic.
 
 
-\section{Imperative Implementations and Declarative Specifications}
-\label{\detokenize{02-logic-and-code:imperative-implementations-and-declarative-specifications}}
-The language of implementations is code in what we call an \sphinxstyleemphasis{imperative
-programming language}. Examples of such languages include Python,
-Java, C++, and Javascript. The most salient property of such a
-language is that it is \sphinxstyleemphasis{procedural}. Programs in these languages
-describe step-by-step \sphinxstyleemphasis{procedures}, in the form of sequences of
-\sphinxstyleemphasis{commands}, for solving given problem instances. Commands in such
-languages operate by (1) reading, computing with, and updating values
-stored in a \sphinxstyleemphasis{mutable memory}, and (2) interacting with the world
-outside of the computer by executing input and output (IO) commands.
+\section{Imperative Languages for Implementations}
+\label{\detokenize{02-logic-and-code:imperative-languages-for-implementations}}
+The language of implementations is code, usually written in what we
+call an \sphinxstyleemphasis{imperative} programming language. Examples of such languages
+include Python, Java, C++, and Javascript.
 
+The essential property of an imperative language is that it is
+\sphinxstyleemphasis{procedural}. Programs in these languages describe step-by-step
+\sphinxstyleemphasis{procedures}, in the form of sequences of \sphinxstyleemphasis{commands}, for solving
+given problem instances. Commands in turn operate (1) by reading,
+computing with, and updating values stored in a \sphinxstyleemphasis{memory}, and (2) by
+interacting with the world outside of the computer by executing input
+and output (I/O) commands.
+
+Input (or \sphinxstyleemphasis{read}) commands obtain data from \sphinxstyleemphasis{sensors.} Sensors include
+mundane devices such as computer mice, trackpads, and keyboards. They
+also include sensors for temperature, magnetism, vibration, chemicals,
+biological agents, radiation, and face and license plate recognition,
+and much more. Sensors convert physical phenomena in the world into
+digital data that programs can manipulate. Computer programs can thus be
+made to \sphinxstyleemphasis{compute about reality beyond the computing machine}.
+
+Output (or \sphinxstyleemphasis{write}) commands turn data back into physical phenomena in
+the world. The cruise control computer in a car is a good example.  It
+periodically senses both the actual speed of the car and the desired
+speed set by the driver. It then computes the difference and finally
+finally it outputs data representing that difference to an \sphinxstyleemphasis{actuator}
+that changes the physical accelerator and transmission settings of the
+car to speed it up or slow it down. Computer programs can thus also be
+made to \sphinxstyleemphasis{manipulate reality beyond the computing machine}.
+
+A special part of the world beyond of the (core of a) computer is its
+\sphinxstyleemphasis{memory}. A memory is to a computer like a diary or a notebook is to a
+person: a place to \sphinxstyleemphasis{write} information at one point in time that can
+then be \sphinxstyleemphasis{read} back later on. Computers use special actuators to write
+data to memory, and special sensors to read it back from memory when
+it is needed later on. Memory devices include \sphinxstyleemphasis{random access memory}
+(RAM), \sphinxstyleemphasis{flash memory}, \sphinxstyleemphasis{hard drives}, \sphinxstyleemphasis{magnetic tapes}, \sphinxstyleemphasis{compact} and
+\sphinxstyleemphasis{bluray} disks, cloud-based data storage systems such as Amazon’s \sphinxstyleemphasis{S3}
+and \sphinxstyleemphasis{Glacier} services, and so forth.
+
+Sequential progams describe sequences of actions involving reading of
+data from sensors (including from memory devices), computing with this
+data, and writing resulting data out to actuators (to memory devices,
+display screens, and physical systems controllers). Consider the
+simple assignment command, \sphinxstyleemphasis{x := x + 1}. It tells the computer to
+first \sphinxstyleemphasis{read} in the value stored in the part of memory designated by
+the variable, \sphinxstyleemphasis{x, to add one to that value, and finally to *write} the
+result back out to the same location in memory. It’s as if the person
+read a number from a notebook, computed a new number, and then erased
+the original number and replaced it with the new number. The concept
+of an updateable memory is at the very heart of the imperative model
+of computation.
+
+
+\section{Declarative Languages for Specifications}
+\label{\detokenize{02-logic-and-code:declarative-languages-for-specifications}}
 The language of formal requirements and specifications, on the other
-hand, is some kind of \sphinxstyleemphasis{mathematical logic}. Examples of logics that we
-will study and use include \sphinxstyleemphasis{propositional} and \sphinxstyleemphasis{predicate} logic.  An
-example of a kind of logic important in software development but that
-we will not study in this class is \sphinxstyleemphasis{temporal logic.}
-
-For purposes of software specification, the most salient property of
-such a logical language is that it is \sphinxstyleemphasis{declarative}.  Expressions in
-logic will state \sphinxstyleemphasis{what} properties or relationships must hold in a
-given situation, particularly how results must relate to inputs,
-without providing executable, step-by-step procedures describing \sphinxstyleemphasis{how}
-to actually compute such relationships.
+hand, is not imperative code but \sphinxstyleemphasis{declarative} logic.  Expressions in
+such logic will state \sphinxstyleemphasis{what} properties or relationships must hold in
+given situation without providing a procedures that describes \sphinxstyleemphasis{how}
+such results are to be obtained.
 
 To make the difference between procedural and declarative styles of
 description clear, consider the problem of computing the positive
-square root of a given non-negative number, \sphinxstyleemphasis{x}. We can \sphinxstyleemphasis{specify} the
-answer in a clear and precise logical style by simply stating that,
-for any given non-negative number \sphinxstyleemphasis{x}, we require a value, \sphinxstyleemphasis{y}, such
-that \(y^2 = x\). We would write this mathematically as
-\(\forall x \mid x >= 0, sqrt(x) = y | y^2 = x\). In English, we’d
-pronounce this formula as, “for any \sphinxstyleemphasis{x} where \sphinxstyleemphasis{x} is greater than or
-equal to zero, the square root of \sphinxstyleemphasis{x} is a value \sphinxstyleemphasis{y} such that \sphinxstyleemphasis{y}
-squared is equal to \sphinxstyleemphasis{x}.”
+square root of any given non-negative number, \sphinxstyleemphasis{x}. We can \sphinxstyleemphasis{specify}
+the result we seek in a clear and precise logical style by saying
+that, for any given non-negative number \sphinxstyleemphasis{x}, we require a value, \sphinxstyleemphasis{y},
+such that \(y^2 = x\). Such a \sphinxstyleemphasis{y}, squared, gives \sphinxstyleemphasis{x}, and this
+makes \sphinxstyleemphasis{y} a square root.
+
+We would write this mathematically as \(\forall x \in {\mathbb R}
+\mid x >= 0, y \in {\mathbb R} | y^2 >= 0 \land y^2 = x\). In English,
+we’d pronounce this expression as, “for any value, \sphinxstyleemphasis{x}, in the real
+numbers, where \sphinxstyleemphasis{x} is greater than or equal to zero, the result is a
+value, \sphinxstyleemphasis{y}, also in the real numbers,, where \sphinxstyleemphasis{y} is greater than or
+equal to zero and \sphinxstyleemphasis{y} squared is equal to \sphinxstyleemphasis{x}.” (The word, \sphinxstyleemphasis{where},
+here is also often pronounced as \sphinxstyleemphasis{such that}. Repeat it to yourself
+both ways until it feels natural to translate the math into spoken
+English.)
+
+Let’s look at this expression with care. First, the symbol,
+\(\forall\), is read as \sphinxstyleemphasis{for all} or \sphinxstyleemphasis{for any}. Second, the symbol
+\({\mathbb R}\), is used in mathematical writing to denote the set
+of the \sphinxstyleemphasis{real numbers}, which includes the \sphinxstyleemphasis{integers} (whole numbers,
+such as \sphinxstyleemphasis{-1}, \sphinxstyleemphasis{0}, and \sphinxstyleemphasis{2}), the rational numbers (such as \(2/3\)
+and \sphinxstyleemphasis{1.5}), and the irrational numbers (such as \sphinxstyleemphasis{pi} and \sphinxstyleemphasis{e}). The
+symbol, \(\in\), pronounced as \sphinxstyleemphasis{in}, represents membership of a
+value, here \sphinxstyleemphasis{x}, in a given set. The expression, \(\forall x \in
+{\mathbb R}\) thus means “for any value, \sphinxstyleemphasis{x}, in the real numbers,” or
+just “for any real number, \sphinxstyleemphasis{x}”.
+
+The vertical bar followed by the statement of the property, \sphinxstyleemphasis{x \textgreater{}= 0},
+restricts the value being considered to one that satisfies the stated
+property. Here the value of \sphinxstyleemphasis{x} is restricted to being greater than or
+equal to zero. The formula including this constraint can thus be read
+as “for any non-negative real number, \sphinxstyleemphasis{x}.” The set of non-negative
+real numbers is thus selected as the \sphinxstyleemphasis{domain} of the function that we
+are specifying.
+
+The comma is our formula is a major break-point. It separates the
+specification of the \sphinxstyleemphasis{domain} of the function from a formula, after
+the comma, that specifies what value, if any, is associated with each
+value in the domain.  You can think of the formula after the comma as
+the \sphinxstyleemphasis{body} of the function. Here it says, assuming that \sphinxstyleemphasis{x} is any
+non-negative real numner, that the associated value, sometimes called
+the \sphinxstyleemphasis{image} of \sphinxstyleemphasis{x} under the function, is a value, \sphinxstyleemphasis{y}, also in the
+real numbers (the \sphinxstyleemphasis{co-domain} of the function), such that \sphinxstyleemphasis{y} is both
+greater than or equal to zero equal \sphinxstyleemphasis{and} \(y^2 = x\). The symbol,
+\(\land\) is the logical symbol for \sphinxstyleemphasis{conjunction}, which is the
+operation that composes two smaller propositions or properties into a
+larger one that is true or satisfied if and only if both constituent
+propositions or properties are. The formula to the right of the comma
+thus picks out exactly the positive (or more accurate a non-negative)
+square root of \sphinxstyleemphasis{x}.
+
+We thus have a precise specification of the positive square root
+function for non-negative real numbers. It is defined for every value
+in the domain insofar as every non-negative real number has a positive
+square root. It is also a \sphinxstyleemphasis{function} in that there is \sphinxstyleemphasis{at most one}
+value for any given argument. If we had left out the non-negativity
+\sphinxstyleemphasis{constraint} on \sphinxstyleemphasis{y} then for every \sphinxstyleemphasis{x} (except \sphinxstyleemphasis{0}) there would be
+\sphinxstyleemphasis{two} square roots, one positive and one negative. We would then no
+longer have a \sphinxstyleemphasis{function}, but rather a \sphinxstyleemphasis{relation}. A function must be
+\sphinxstyleemphasis{single-valued}, with at most one “result” for any given “argument”.
 
 We now have a \sphinxstyleemphasis{declarative specification} of the desired relationship
-between \sphinxstyleemphasis{x} and \sphinxstyleemphasis{y}. What we don’t have, however, is a step-by-step
-\sphinxstyleemphasis{procedure} for computing this relation by finding a value of \sphinxstyleemphasis{y} for
-any given value of \sphinxstyleemphasis{x}. You can’t just run a specification written in
-the language of mathematical logic.
+between \sphinxstyleemphasis{x} and \sphinxstyleemphasis{y}. The definition is clear (once you understand the
+notation), it’s concise, it’s precise. Unfortunately, it isn’t what we
+call \sphinxstyleemphasis{effective}. It doesn’t give us a way to actually \sphinxstyleemphasis{compute} the
+value of the square root of any \sphinxstyleemphasis{x}. You can’t run a specification in
+the language of mathematical logic (at least not in a practical way).
 
-The solution is to shift from mathematics as a specification language
-to imperative code as an implementation language.  In such a language,
-we then craft a step-by-step procedure that, when run, computes the
-results we seek. Here’s an example of a program in the imperative
-language, Python, for computing positive square roots of non-negative
-numbers using Newton’s method.
+
+\section{Refining Declarative Specifications into Imperative Implementations}
+\label{\detokenize{02-logic-and-code:refining-declarative-specifications-into-imperative-implementations}}
+The solution is to \sphinxstyleemphasis{refine} our declarative specification, written in
+the language of mathematical logic, into a computer program, written
+in an imperative language: one that computes \sphinxstyleemphasis{exactly} the function we
+have specified. To refine means to add detail while also preserving
+the essential properties of the original. The details to be added are
+the procedural steps required to compute the function. The essence to
+be preserved is the value of the function at each point in its domain.
+
+In short, we need a step-by-step procedure, in an imperative language,
+that, when \sphinxstyleemphasis{evaluated with a given actual parameter value}, computes
+exactly the specified value. Here’s a program that \sphinxstyleemphasis{almost} does the
+trick. Written in the imperative language, Python, it uses Newton’s
+method to compute \sphinxstyleemphasis{floating point} approximations of positive square
+roots of given non-negative \sphinxstyleemphasis{floating point} arguments.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{k}{def} \PYG{n+nf}{sqrt}\PYG{p}{(}\PYG{n}{x}\PYG{p}{)}\PYG{p}{:}
     \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}for x\PYGZgt{}=0, return non\PYGZhy{}negative y such that y\PYGZca{}2 = x\PYGZdq{}\PYGZdq{}\PYGZdq{}}
-    \PYG{n}{estimate} \PYG{o}{=} \PYG{n}{x}\PYG{o}{/}\PYG{l+m+mi}{2}
+    \PYG{n}{estimate} \PYG{o}{=} \PYG{n}{x}\PYG{o}{/}\PYG{l+m+mf}{2.0}
     \PYG{k}{while} \PYG{n+nb+bp}{True}\PYG{p}{:}
-        \PYG{n}{newestimate} \PYG{o}{=} \PYG{p}{(}\PYG{p}{(}\PYG{n}{estimate}\PYG{o}{+}\PYG{p}{(}\PYG{n}{x}\PYG{o}{/}\PYG{n}{estimate}\PYG{p}{)}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{p}{)}
+        \PYG{n}{newestimate} \PYG{o}{=} \PYG{p}{(}\PYG{p}{(}\PYG{n}{estimate}\PYG{o}{+}\PYG{p}{(}\PYG{n}{x}\PYG{o}{/}\PYG{n}{estimate}\PYG{p}{)}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mf}{2.0}\PYG{p}{)}
         \PYG{k}{if} \PYG{n}{newestimate} \PYG{o}{==} \PYG{n}{estimate}\PYG{p}{:}
             \PYG{k}{break}
         \PYG{n}{estimate} \PYG{o}{=} \PYG{n}{newestimate}
@@ -253,20 +362,75 @@ of this procedure.
 
 Note that, following good programming style, we included an English
 rendering of the specification as a document string in the second line
-of the program.  There are however several deep problems with this
-approach. First, as we’ve discussed, natural language is subject to
-ambiguity, inconsistency, and incompleteness. Second, because the
-document string is just a comment, there’s no way for the compiler to
-check consistency between the code and this specification. Third, in
-practice, code evolves (changes over time), and in their rush to ship
-code, developers often forget, or neglect, to update comments. So, in
-practice, even if a given procedure is initially consistent with a
-specification given as comment, inconsistencies can and often do
-develop over time.
+of the program.  There are however several problems using English or
+other natural language comments to document specifications. First,
+natural language is prone to ambiguity, inconsistency, imprecision,
+and incompleteness. Second, because the document string is just a
+comment, there’s no way for the compiler to check consistency between
+the code and this specification. Third, in practice, code evolves (is
+changed over time), and developers often forget, or neglect, to update
+comments, so, even if an implementation is initially consistent with a
+such a comment, inconsistencies can and often do develop over time.
+
+In this case there is, in fact, a real, potentially catastrophic,
+mathematical inconsistency between the specification and what the
+program computes. The problem is that in Python, as in many everyday
+programming languages, so-called \sphinxstyleemphasis{real} numbers are not exactly the
+same as the real (\sphinxstyleemphasis{mathematical}) reals!
+
+You can easily see what the problem is by using our procedure to
+compute the square root of 2.0 and by then multiplying that number by
+itself. The result of the computation is the number \sphinxstyleemphasis{1.41421356237},
+which we already know has to be wrong to some degree, as the square
+root of two is an \sphinxstyleemphasis{irrational} number that cannot be represented by
+any non-terminating, non-repeating decimal. Indeed, if we multiply
+this number by itself, we get the number, \sphinxstyleemphasis{1.99999999999}. We end up
+in a situation in which \sphinxstyleemphasis{sqrt(2.0) * sqrt(2.0)} isn’t equal to 2.0!
+
+The problem is that in Python, as in most industrial programming
+languages, \sphinxstyleemphasis{so-called} real numbers (often called \sphinxstyleemphasis{floating point}
+numbers) are represented in just 64 binary digits, and that permits
+only a finite number of digits after the decimal to be represented.
+And additional \sphinxstyleemphasis{low-order} bits are simply dropped, leading to what
+we call \sphinxstyleemphasis{floating-point roundoff errors.} That’s what we’re seeing
+here.
+
+In fact, there are problems not only with irrational numbers but with
+rational numbers with repeating decimal expansions when represented in
+the binary notation of the IEEE-754 (2008) standard for floating point
+arithmetic. Try adding \sphinxstyleemphasis{1/10} to itself \sphinxstyleemphasis{10} times in Python. You will
+be surprised by the result. \sphinxstyleemphasis{1/10} is rational but its decimal form is
+repeating in base-2 arithmetic, so there’s no way to represent \sphinxstyleemphasis{1/10}
+precisely as a floating point number in Python, Java, or in many other
+such languages.
+
+There are two possible solutions to this problem. First, we could
+change the specification to require only that \sphinxstyleemphasis{y} squared be very
+close to \sphinxstyleemphasis{x} (within some specified margin of error). The we could
+show that the code satisfies this approximate definition of square
+root. An alternative would be to restrict our programming language to
+represent real numbers as rational numbers, use arbitrarily large
+integer values for numerators and denominators, and avoid defining any
+functions that produce irrational values as results. We’d represent
+\sphinxstyleemphasis{1/10} not as a 64-bit floating point number, for example, but simply
+as the pair of integers \sphinxstyleemphasis{(1,10)}.
+
+This is the solution that Dafny uses.  So-called real numbers in Dafny
+behave not like \sphinxstyleemphasis{finite-precision floating point numbers that are only
+approximate} in general, but like the \sphinxstyleemphasis{mathematical} real numbers they
+represent. The limitation is that not all reals can be represented (as
+values of the \sphinxstyleemphasis{real} type in Dafny. In particular, irrational numbers
+cannot be represented exactly as real numbers. (Of course they can’t
+be represented exactly by IEEE-754 floating point numbers, either.) If
+you want to learn (a lot) more about floating point, or so-called
+\sphinxstyleemphasis{real}, numbers in most programming languages, read the paper by David
+Goldberg entitled, \sphinxstyleemphasis{What Every Computer Scientist Should Know About
+Floating-Point Arithmetic.} It was published in the March, 1991 issue
+of Computing Surveys. You can find it online.
 
 
-\section{Why Not a Single Language for both Programming and Specification?}
-\label{\detokenize{02-logic-and-code:why-not-a-single-language-for-both-programming-and-specification}}
+\section{Why Not a Single Language for Programming and Specification?}
+\label{\detokenize{02-logic-and-code:why-not-a-single-language-for-programming-and-specification}}
 The dichotomy between specification logic and implementation code
 raises an important question? Why not just design a single language
 that’s good for both?
@@ -276,23 +440,30 @@ One of the most important is a tradeoff between \sphinxstyleemphasis{expressiven
 one hand, and \sphinxstyleemphasis{efficient execution}, on the other.
 
 What we see in our square root example is that mathematical logic is
-highly \sphinxstyleemphasis{expressive}. Logic language can be used so say very clearly
-\sphinxstyleemphasis{what} we want. On the other hand, it’s hard using logic to say \sphinxstyleemphasis{how}
-to get it. In practice, mathematical logic is clear but can’t be \sphinxstyleemphasis{run}
-(at least not efficiently).
+highly \sphinxstyleemphasis{expressive}. Logic language can be used so say clearly \sphinxstyleemphasis{what}
+we want. On the other hand, it’s hard using logic to say \sphinxstyleemphasis{how} to get
+it. In practice, mathematical logic is clear but can’t be \sphinxstyleemphasis{run} with
+the efficiency required in practice.
 
 On the other hand, imperative code states \sphinxstyleemphasis{how} a computation is to be
-carried out, but enerally doesn’t make clear \sphinxstyleemphasis{what} it’s computing. You
+carried out, but generally doesn’t make clear \sphinxstyleemphasis{what} it computes. One
 would be hard-pressed, based on a quick look at the Python code above,
-to explain \sphinxstyleemphasis{what} it does (but for the fact that we embedded the spec
-into the code as a doc string).
+for example, to explain \sphinxstyleemphasis{what} it does (but for the comment, which is
+really not part of the code).
 
-We are driven to a situation in which we have to express what we want
-and how to get it, respectively, in very different languages. This
-situation creates a difficult new problem: to verify that a program
-written in an imperative language satisfies a specification written in
-a declarative language.  This is the problem of \sphinxstyleemphasis{verification}. Have
-we built a program right (where right is defined by a specification)?
+We end up having to express \sphinxstyleemphasis{what} we want and \sphinxstyleemphasis{how} to get it in two
+different languages. This situation creates a difficult new problem:
+to verify that a program written in an imperative language satisfies,
+or \sphinxstyleemphasis{refines}, a specification written in a declarative language.  How
+do we know, \sphinxstyleemphasis{for sure}, that a program computes exactly the function
+specified in mathematical logic?
+
+This is the problem of program \sphinxstyleemphasis{verification}. We can \sphinxstyleemphasis{test} a program
+to see if it produces the specified outputs for \sphinxstyleemphasis{some} elements of the
+input domain, but in general it’s infeasible to test \sphinxstyleemphasis{all} inputs. So
+how can we know that we have \sphinxstyleemphasis{built a program} right, where right is
+defined precisely by a formal (mathematical logic) specification) that
+requires that a program work correctly for all (\(\forall\)) inputs?
 
 
 \chapter{Problems with Imperative Code}
@@ -349,7 +520,7 @@ steer a commercial aircraft, etc.
 
 
 \chapter{Pure Functional Programming as Runnable Mathematics}
-\label{\detokenize{04-runnable-math:pure-functional-programming-as-runnable-mathematics}}\label{\detokenize{04-runnable-math::doc}}
+\label{\detokenize{04-runnable-math::doc}}\label{\detokenize{04-runnable-math:pure-functional-programming-as-runnable-mathematics}}
 What we’d really like would be a language that gives us everything:
 the expressiveness and the \sphinxstyleemphasis{safety} of mathematical logic (there’s no
 concept of a memory in logic, and thus no possibility for unexpected

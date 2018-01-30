@@ -1,16 +1,18 @@
 \select@language {english}
 \contentsline {chapter}{\numberline {1}Requirement, Specifications, and Implementations}{1}{chapter.1}
-\contentsline {chapter}{\numberline {2}Logic and Code}{3}{chapter.2}
-\contentsline {section}{\numberline {2.1}Imperative Implementations and Declarative Specifications}{3}{section.2.1}
-\contentsline {section}{\numberline {2.2}Why Not a Single Language for both Programming and Specification?}{4}{section.2.2}
-\contentsline {chapter}{\numberline {3}Problems with Imperative Code}{5}{chapter.3}
-\contentsline {chapter}{\numberline {4}Pure Functional Programming as Runnable Mathematics}{7}{chapter.4}
-\contentsline {section}{\numberline {4.1}The identify function (for integers)}{7}{section.4.1}
-\contentsline {section}{\numberline {4.2}Data and function types}{8}{section.4.2}
-\contentsline {section}{\numberline {4.3}Other function values of the same type}{8}{section.4.3}
-\contentsline {section}{\numberline {4.4}Recursive function definitions and implementations}{9}{section.4.4}
-\contentsline {section}{\numberline {4.5}Dafny is a Program Verifier}{10}{section.4.5}
-\contentsline {chapter}{\numberline {5}Integrating Formal Specification with Imperative Programming}{13}{chapter.5}
-\contentsline {section}{\numberline {5.1}To integrate}{13}{section.5.1}
-\contentsline {section}{\numberline {5.2}Fitting it All Together}{13}{section.5.2}
-\contentsline {chapter}{\numberline {6}Indices and tables}{15}{chapter.6}
+\contentsline {chapter}{\numberline {2}Logical Specifications, Imperative Implementations}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Imperative Languages for Implementations}{3}{section.2.1}
+\contentsline {section}{\numberline {2.2}Declarative Languages for Specifications}{4}{section.2.2}
+\contentsline {section}{\numberline {2.3}Refining Declarative Specifications into Imperative Implementations}{5}{section.2.3}
+\contentsline {section}{\numberline {2.4}Why Not a Single Language for Programming and Specification?}{6}{section.2.4}
+\contentsline {chapter}{\numberline {3}Problems with Imperative Code}{7}{chapter.3}
+\contentsline {chapter}{\numberline {4}Pure Functional Programming as Runnable Mathematics}{9}{chapter.4}
+\contentsline {section}{\numberline {4.1}The identify function (for integers)}{9}{section.4.1}
+\contentsline {section}{\numberline {4.2}Data and function types}{10}{section.4.2}
+\contentsline {section}{\numberline {4.3}Other function values of the same type}{10}{section.4.3}
+\contentsline {section}{\numberline {4.4}Recursive function definitions and implementations}{11}{section.4.4}
+\contentsline {section}{\numberline {4.5}Dafny is a Program Verifier}{12}{section.4.5}
+\contentsline {chapter}{\numberline {5}Integrating Formal Specification with Imperative Programming}{15}{chapter.5}
+\contentsline {section}{\numberline {5.1}To integrate}{15}{section.5.1}
+\contentsline {section}{\numberline {5.2}Fitting it All Together}{15}{section.5.2}
+\contentsline {chapter}{\numberline {6}Indices and tables}{17}{chapter.6}
