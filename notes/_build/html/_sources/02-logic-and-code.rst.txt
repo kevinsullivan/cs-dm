@@ -161,28 +161,35 @@ value of the square root of any *x*. You can't run a specification in
 the language of mathematical logic (at least not in a practical way).
 
 
-Refining logical specifications into imperative programs
---------------------------------------------------------
+Refining Declarative Specifications into Imperative Implementations
+-------------------------------------------------------------------
 
-The solution is to transform our mathematical specification into a
-program in an imperative implementation language *that computes the
-same function*.  In such a language, we need a step-by-step procedure
-that, when run, computes the specified results. Here's a program in
-the imperative language, Python, for computing positive square roots
-of non-negative numbers using Newton's method.
+The solution is to *refine* our declarative specification, written in
+the language of mathematical logic, into a computer program, written
+in an imperative language: one that computes *exactly* the function we
+have specified. To refine means to add detail while also preserving
+the essential properties of the original. The details to be added are
+the procedural steps required to compute the function. The essence to
+be preserved is the value of the function at each point in its domain.
+
+In short, we need a step-by-step procedure, in an imperative language,
+that, when *evaluated with a given actual parameter value*, computes
+exactly the specified value. Here's a program that *almost* does the
+trick. Written in the imperative language, Python, it uses Newton's
+method to compute *floating point* approximations of positive square
+roots of given non-negative *floating point* arguments.
 
 .. code-block:: python
 
-  def sqrt(x):
-      """for x>=0, return non-negative y such that y^2 = x"""
-      estimate = x/2
-      while True:
-          newestimate = ((estimate+(x/estimate))/2)
-          if newestimate == estimate:
-              break
-          estimate = newestimate
-      return estimate
-
+   def sqrt(x):
+       """for x>=0, return non-negative y such that y^2 = x"""
+       estimate = x/2.0
+       while True:
+           newestimate = ((estimate+(x/estimate))/2.0)
+           if newestimate == estimate:
+               break
+           estimate = newestimate
+       return estimate
 
 This procedure initializes and then repeatedly updates the values
 stored at two locations in memory, referred to by the two variables,
@@ -194,8 +201,8 @@ of this procedure.
 Note that, following good programming style, we included an English
 rendering of the specification as a document string in the second line
 of the program.  There are however several problems using English or
-other natural language comments to document specifications in
-code. First, natural language is subject to ambiguity, inconsistency,
+other natural language comments to document specifications. First,
+natural language is prone to ambiguity, inconsistency, imprecision,
 and incompleteness. Second, because the document string is just a
 comment, there's no way for the compiler to check consistency between
 the code and this specification. Third, in practice, code evolves (is
@@ -203,9 +210,65 @@ changed over time), and developers often forget, or neglect, to update
 comments, so, even if an implementation is initially consistent with a
 such a comment, inconsistencies can and often do develop over time.
 
+In this case there is, in fact, a real, potentially catastrophic,
+mathematical inconsistency between the specification and what the
+program computes. The problem is that in Python, as in many everyday
+programming languages, so-called *real* numbers are not exactly the
+same as the real (*mathematical*) reals!
 
-Why Not a Single Language for both Programming and Specification?
------------------------------------------------------------------
+You can easily see what the problem is by using our procedure to
+compute the square root of 2.0 and by then multiplying that number by
+itself. The result of the computation is the number $1.41421356237$,
+which we already know has to be wrong to some degree, as the square
+root of two is an *irrational* number that cannot be represented by
+any non-terminating, non-repeating decimal. Indeed, if we multiply
+this number by itself, we get the number, $1.99999999999$. We end up
+in a situation in which *sqrt(2.0) \* sqrt(2.0)$* isn't equal to 2.0!
+
+The problem is that in Python, as in most industrial programming
+languages, *so-called* real numbers (often called *floating point*
+numbers) are represented in just 64 binary digits, and that permits
+only a finite number of digits after the decimal to be represented.
+And additional *low-order* bits are simply dropped, leading to what
+we call *floating-point roundoff errors.* That's what we're seeing
+here.
+
+In fact, there are problems not only with irrational numbers but with
+rational numbers with repeating decimal expansions when represented in
+the binary notation of the IEEE-754 (2008) standard for floating point
+arithmetic. Try adding *1/10* to itself *10* times in Python. You will
+be surprised by the result. *1/10* is rational but its decimal form is
+repeating in base-2 arithmetic, so there's no way to represent *1/10*
+precisely as a floating point number in Python, Java, or in many other
+such languages.
+
+There are two possible solutions to this problem. First, we could
+change the specification to require only that *y* squared be very
+close to *x* (within some specified margin of error). The we could
+show that the code satisfies this approximate definition of square
+root. An alternative would be to restrict our programming language to
+represent real numbers as rational numbers, use arbitrarily large
+integer values for numerators and denominators, and avoid defining any
+functions that produce irrational values as results. We'd represent
+*1/10* not as a 64-bit floating point number, for example, but simply
+as the pair of integers *(1,10)*. 
+
+This is the solution that Dafny uses.  So-called real numbers in Dafny
+behave not like *finite-precision floating point numbers that are only
+approximate* in general, but like the *mathematical* real numbers they
+represent. The limitation is that not all reals can be represented (as
+values of the *real* type in Dafny. In particular, irrational numbers
+cannot be represented exactly as real numbers. (Of course they can't
+be represented exactly by IEEE-754 floating point numbers, either.) If
+you want to learn (a lot) more about floating point, or so-called
+*real*, numbers in most programming languages, read the paper by David
+Goldberg entitled, *What Every Computer Scientist Should Know About
+Floating-Point Arithmetic.* It was published in the March, 1991 issue
+of Computing Surveys. You can find it online.
+
+
+Why Not a Single Language for Programming and Specification?
+------------------------------------------------------------
 
 The dichotomy between specification logic and implementation code
 raises an important question? Why not just design a single language
