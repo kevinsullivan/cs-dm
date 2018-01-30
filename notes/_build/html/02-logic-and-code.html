@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Logic and Code &#8212; Mathematical Logic in Software Development 1 documentation</title>
+    <title>Logical Specifications, Imperative Implementations &#8212; Mathematical Logic in Software Development 1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -50,59 +50,150 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="logic-and-code">
-<h1>Logic and Code<a class="headerlink" href="#logic-and-code" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="logical-specifications-imperative-implementations">
+<h1>Logical Specifications, Imperative Implementations<a class="headerlink" href="#logical-specifications-imperative-implementations" title="Permalink to this headline">¶</a></h1>
 <p>We’ve discussed requirements, specifications, and implementations as
-software artifacts serving distinct purposes. For good reasons, these
-artifacts are generally written in different languages. In this unit,
-we discuss these different kinds of languages—mathematical logic for
-specifications and imperative languages for code—why they are used
-for different purposes, the fundamental advantages and disadvantages
-of each, and why modern software development requires fluence in and
-tools for handling artifacts written in multiple such languages.</p>
-<div class="section" id="imperative-implementations-and-declarative-specifications">
-<h2>Imperative Implementations and Declarative Specifications<a class="headerlink" href="#imperative-implementations-and-declarative-specifications" title="Permalink to this headline">¶</a></h2>
-<p>The language of implementations is code in what we call an <em>imperative
-programming language</em>. Examples of such languages include Python,
-Java, C++, and Javascript. The most salient property of such a
-language is that it is <em>procedural</em>. Programs in these languages
-describe step-by-step <em>procedures</em>, in the form of sequences of
-<em>commands</em>, for solving given problem instances. Commands in such
-languages operate by (1) reading, computing with, and updating values
-stored in a <em>mutable memory</em>, and (2) interacting with the world
-outside of the computer by executing input and output (IO) commands.</p>
+distinct artifacts that serve distinct purposes. For good reasons,
+these artifacts are usually written in different languages. Software
+implementations are usually written in programming languages, and, in
+particular, are usually written in <em>imperative</em> programming languages.
+Requirements and specifications, on the other hand, are written either
+in natural language, e.g., English, or in the language of mathematical
+logic.</p>
+<p>This unit discusses these different kinds of languages, why they are
+used for different purposes, the advantages and disadvantages of each,
+and why modern software development requires fluency in and tools for
+handling artifacts written in multiple such languages. In particular,
+the educated computer scientist and the capable software developer
+must be fluent in the language of mathematical logic.</p>
+<div class="section" id="imperative-languages-for-implementations">
+<h2>Imperative Languages for Implementations<a class="headerlink" href="#imperative-languages-for-implementations" title="Permalink to this headline">¶</a></h2>
+<p>The language of implementations is code, usually written in what we
+call an <em>imperative</em> programming language. Examples of such languages
+include Python, Java, C++, and Javascript.</p>
+<p>The essential property of an imperative language is that it is
+<em>procedural</em>. Programs in these languages describe step-by-step
+<em>procedures</em>, in the form of sequences of <em>commands</em>, for solving
+given problem instances. Commands in turn operate (1) by reading,
+computing with, and updating values stored in a <em>memory</em>, and (2) by
+interacting with the world outside of the computer by executing input
+and output (I/O) commands.</p>
+<p>Input (or <em>read</em>) commands obtain data from <em>sensors.</em> Sensors include
+mundane devices such as computer mice, trackpads, and keyboards. They
+also include sensors for temperature, magnetism, vibration, chemicals,
+biological agents, radiation, and face and license plate recognition,
+and much more. Sensors convert physical phenomena in the world into
+digital data that programs can manipulate. Computer programs can thus be
+made to <em>compute about reality beyond the computing machine</em>.</p>
+<p>Output (or <em>write</em>) commands turn data back into physical phenomena in
+the world. The cruise control computer in a car is a good example.  It
+periodically senses both the actual speed of the car and the desired
+speed set by the driver. It then computes the difference and finally
+finally it outputs data representing that difference to an <em>actuator</em>
+that changes the physical accelerator and transmission settings of the
+car to speed it up or slow it down. Computer programs can thus also be
+made to <em>manipulate reality beyond the computing machine</em>.</p>
+<p>A special part of the world beyond of the (core of a) computer is its
+<em>memory</em>. A memory is to a computer like a diary or a notebook is to a
+person: a place to <em>write</em> information at one point in time that can
+then be <em>read</em> back later on. Computers use special actuators to write
+data to memory, and special sensors to read it back from memory when
+it is needed later on. Memory devices include <em>random access memory</em>
+(RAM), <em>flash memory</em>, <em>hard drives</em>, <em>magnetic tapes</em>, <em>compact</em> and
+<em>bluray</em> disks, cloud-based data storage systems such as Amazon’s <em>S3</em>
+and <em>Glacier</em> services, and so forth.</p>
+<p>Sequential progams describe sequences of actions involving reading of
+data from sensors (including from memory devices), computing with this
+data, and writing resulting data out to actuators (to memory devices,
+display screens, and physical systems controllers). Consider the
+simple assignment command, <em>x := x + 1</em>. It tells the computer to
+first <em>read</em> in the value stored in the part of memory designated by
+the variable, <em>x, to add one to that value, and finally to *write</em> the
+result back out to the same location in memory. It’s as if the person
+read a number from a notebook, computed a new number, and then erased
+the original number and replaced it with the new number. The concept
+of an updateable memory is at the very heart of the imperative model
+of computation.</p>
+</div>
+<div class="section" id="declarative-languages-for-specifications">
+<h2>Declarative Languages for Specifications<a class="headerlink" href="#declarative-languages-for-specifications" title="Permalink to this headline">¶</a></h2>
 <p>The language of formal requirements and specifications, on the other
-hand, is some kind of <em>mathematical logic</em>. Examples of logics that we
-will study and use include <em>propositional</em> and <em>predicate</em> logic.  An
-example of a kind of logic important in software development but that
-we will not study in this class is <em>temporal logic.</em></p>
-<p>For purposes of software specification, the most salient property of
-such a logical language is that it is <em>declarative</em>.  Expressions in
-logic will state <em>what</em> properties or relationships must hold in a
-given situation, particularly how results must relate to inputs,
-without providing executable, step-by-step procedures describing <em>how</em>
-to actually compute such relationships.</p>
+hand, is not imperative code but <em>declarative</em> logic.  Expressions in
+such logic will state <em>what</em> properties or relationships must hold in
+given situation without providing a procedures that describes <em>how</em>
+such results are to be obtained.</p>
 <p>To make the difference between procedural and declarative styles of
 description clear, consider the problem of computing the positive
-square root of a given non-negative number, <em>x</em>. We can <em>specify</em> the
-answer in a clear and precise logical style by simply stating that,
-for any given non-negative number <em>x</em>, we require a value, <em>y</em>, such
-that <span class="math">\(y^2 = x\)</span>. We would write this mathematically as
-<span class="math">\(\forall x \mid x &gt;= 0, sqrt(x) = y | y^2 = x\)</span>. In English, we’d
-pronounce this formula as, “for any <em>x</em> where <em>x</em> is greater than or
-equal to zero, the square root of <em>x</em> is a value <em>y</em> such that <em>y</em>
-squared is equal to <em>x</em>.”</p>
+square root of any given non-negative number, <em>x</em>. We can <em>specify</em>
+the result we seek in a clear and precise logical style by saying
+that, for any given non-negative number <em>x</em>, we require a value, <em>y</em>,
+such that <span class="math">\(y^2 = x\)</span>. Such a <em>y</em>, squared, gives <em>x</em>, and this
+makes <em>y</em> a square root.</p>
+<p>We would write this mathematically as <span class="math">\(\forall x \in {\mathbb R}
+\mid x &gt;= 0, y \in {\mathbb R} | y^2 &gt;= 0 \land y^2 = x\)</span>. In English,
+we’d pronounce this expression as, “for any value, <em>x</em>, in the real
+numbers, where <em>x</em> is greater than or equal to zero, the result is a
+value, <em>y</em>, also in the real numbers,, where <em>y</em> is greater than or
+equal to zero and <em>y</em> squared is equal to <em>x</em>.” (The word, <em>where</em>,
+here is also often pronounced as <em>such that</em>. Repeat it to yourself
+both ways until it feels natural to translate the math into spoken
+English.)</p>
+<p>Let’s look at this expression with care. First, the symbol,
+<span class="math">\(\forall\)</span>, is read as <em>for all</em> or <em>for any</em>. Second, the symbol
+<span class="math">\({\mathbb R}\)</span>, is used in mathematical writing to denote the set
+of the <em>real numbers</em>, which includes the <em>integers</em> (whole numbers,
+such as <em>-1</em>, <em>0</em>, and <em>2</em>), the rational numbers (such as <span class="math">\(2/3\)</span>
+and <em>1.5</em>), and the irrational numbers (such as <em>pi</em> and <em>e</em>). The
+symbol, <span class="math">\(\in\)</span>, pronounced as <em>in</em>, represents membership of a
+value, here <em>x</em>, in a given set. The expression, <span class="math">\(\forall x \in
+{\mathbb R}\)</span> thus means “for any value, <em>x</em>, in the real numbers,” or
+just “for any real number, <em>x</em>”.</p>
+<p>The vertical bar followed by the statement of the property, <em>x &gt;= 0</em>,
+restricts the value being considered to one that satisfies the stated
+property. Here the value of <em>x</em> is restricted to being greater than or
+equal to zero. The formula including this constraint can thus be read
+as “for any non-negative real number, <em>x</em>.” The set of non-negative
+real numbers is thus selected as the <em>domain</em> of the function that we
+are specifying.</p>
+<p>The comma is our formula is a major break-point. It separates the
+specification of the <em>domain</em> of the function from a formula, after
+the comma, that specifies what value, if any, is associated with each
+value in the domain.  You can think of the formula after the comma as
+the <em>body</em> of the function. Here it says, assuming that <em>x</em> is any
+non-negative real numner, that the associated value, sometimes called
+the <em>image</em> of <em>x</em> under the function, is a value, <em>y</em>, also in the
+real numbers (the <em>co-domain</em> of the function), such that <em>y</em> is both
+greater than or equal to zero equal <em>and</em> <span class="math">\(y^2 = x\)</span>. The symbol,
+<span class="math">\(\land\)</span> is the logical symbol for <em>conjunction</em>, which is the
+operation that composes two smaller propositions or properties into a
+larger one that is true or satisfied if and only if both constituent
+propositions or properties are. The formula to the right of the comma
+thus picks out exactly the positive (or more accurate a non-negative)
+square root of <em>x</em>.</p>
+<p>We thus have a precise specification of the positive square root
+function for non-negative real numbers. It is defined for every value
+in the domain insofar as every non-negative real number has a positive
+square root. It is also a <em>function</em> in that there is <em>at most one</em>
+value for any given argument. If we had left out the non-negativity
+<em>constraint</em> on <em>y</em> then for every <em>x</em> (except <em>0</em>) there would be
+<em>two</em> square roots, one positive and one negative. We would then no
+longer have a <em>function</em>, but rather a <em>relation</em>. A function must be
+<em>single-valued</em>, with at most one “result” for any given “argument”.</p>
 <p>We now have a <em>declarative specification</em> of the desired relationship
-between <em>x</em> and <em>y</em>. What we don’t have, however, is a step-by-step
-<em>procedure</em> for computing this relation by finding a value of <em>y</em> for
-any given value of <em>x</em>. You can’t just run a specification written in
-the language of mathematical logic.</p>
-<p>The solution is to shift from mathematics as a specification language
-to imperative code as an implementation language.  In such a language,
-we then craft a step-by-step procedure that, when run, computes the
-results we seek. Here’s an example of a program in the imperative
-language, Python, for computing positive square roots of non-negative
-numbers using Newton’s method.</p>
+between <em>x</em> and <em>y</em>. The definition is clear (once you understand the
+notation), it’s concise, it’s precise. Unfortunately, it isn’t what we
+call <em>effective</em>. It doesn’t give us a way to actually <em>compute</em> the
+value of the square root of any <em>x</em>. You can’t run a specification in
+the language of mathematical logic (at least not in a practical way).</p>
+</div>
+<div class="section" id="refining-logical-specifications-into-imperative-programs">
+<h2>Refining logical specifications into imperative programs<a class="headerlink" href="#refining-logical-specifications-into-imperative-programs" title="Permalink to this headline">¶</a></h2>
+<p>The solution is to transform our mathematical specification into a
+program in an imperative implementation language <em>that computes the
+same function</em>.  In such a language, we need a step-by-step procedure
+that, when run, computes the specified results. Here’s a program in
+the imperative language, Python, for computing positive square roots
+of non-negative numbers using Newton’s method.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;for x&gt;=0, return non-negative y such that y^2 = x&quot;&quot;&quot;</span>
     <span class="n">estimate</span> <span class="o">=</span> <span class="n">x</span><span class="o">/</span><span class="mi">2</span>
@@ -122,16 +213,15 @@ two variables become equal. The answer is then returned to the caller
 of this procedure.</p>
 <p>Note that, following good programming style, we included an English
 rendering of the specification as a document string in the second line
-of the program.  There are however several deep problems with this
-approach. First, as we’ve discussed, natural language is subject to
-ambiguity, inconsistency, and incompleteness. Second, because the
-document string is just a comment, there’s no way for the compiler to
-check consistency between the code and this specification. Third, in
-practice, code evolves (changes over time), and in their rush to ship
-code, developers often forget, or neglect, to update comments. So, in
-practice, even if a given procedure is initially consistent with a
-specification given as comment, inconsistencies can and often do
-develop over time.</p>
+of the program.  There are however several problems using English or
+other natural language comments to document specifications in
+code. First, natural language is subject to ambiguity, inconsistency,
+and incompleteness. Second, because the document string is just a
+comment, there’s no way for the compiler to check consistency between
+the code and this specification. Third, in practice, code evolves (is
+changed over time), and developers often forget, or neglect, to update
+comments, so, even if an implementation is initially consistent with a
+such a comment, inconsistencies can and often do develop over time.</p>
 </div>
 <div class="section" id="why-not-a-single-language-for-both-programming-and-specification">
 <h2>Why Not a Single Language for both Programming and Specification?<a class="headerlink" href="#why-not-a-single-language-for-both-programming-and-specification" title="Permalink to this headline">¶</a></h2>
@@ -142,21 +232,27 @@ that’s good for both?</p>
 One of the most important is a tradeoff between <em>expressiveness</em>, on
 one hand, and <em>efficient execution</em>, on the other.</p>
 <p>What we see in our square root example is that mathematical logic is
-highly <em>expressive</em>. Logic language can be used so say very clearly
-<em>what</em> we want. On the other hand, it’s hard using logic to say <em>how</em>
-to get it. In practice, mathematical logic is clear but can’t be <em>run</em>
-(at least not efficiently).</p>
+highly <em>expressive</em>. Logic language can be used so say clearly <em>what</em>
+we want. On the other hand, it’s hard using logic to say <em>how</em> to get
+it. In practice, mathematical logic is clear but can’t be <em>run</em> with
+the efficiency required in practice.</p>
 <p>On the other hand, imperative code states <em>how</em> a computation is to be
-carried out, but enerally doesn’t make clear <em>what</em> it’s computing. You
+carried out, but generally doesn’t make clear <em>what</em> it computes. One
 would be hard-pressed, based on a quick look at the Python code above,
-to explain <em>what</em> it does (but for the fact that we embedded the spec
-into the code as a doc string).</p>
-<p>We are driven to a situation in which we have to express what we want
-and how to get it, respectively, in very different languages. This
-situation creates a difficult new problem: to verify that a program
-written in an imperative language satisfies a specification written in
-a declarative language.  This is the problem of <em>verification</em>. Have
-we built a program right (where right is defined by a specification)?</p>
+for example, to explain <em>what</em> it does (but for the comment, which is
+really not part of the code).</p>
+<p>We end up having to express <em>what</em> we want and <em>how</em> to get it in two
+different languages. This situation creates a difficult new problem:
+to verify that a program written in an imperative language satisfies,
+or <em>refines</em>, a specification written in a declarative language.  How
+do we know, <em>for sure</em>, that a program computes exactly the function
+specified in mathematical logic?</p>
+<p>This is the problem of program <em>verification</em>. We can <em>test</em> a program
+to see if it produces the specified outputs for <em>some</em> elements of the
+input domain, but in general it’s infeasible to test <em>all</em> inputs. So
+how can we know that we have <em>built a program</em> right, where right is
+defined precisely by a formal (mathematical logic) specification) that
+requires that a program work correctly for all (<span class="math">\(\forall\)</span>) inputs?</p>
 </div>
 </div>
 

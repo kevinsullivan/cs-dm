@@ -86,7 +86,7 @@ Finally, we need to know how expressions involving applications of
 this function to arguments are evaluated. They fundamental notion at
 the heart of functional programming is this: to evaluate a function
 application expression, such as *id(4)*, you substiute the value of
-the argument (here $4$) for every occurence of the argument variable
+the argument (here *4*) for every occurence of the argument variable
 (here *x*) in the body of the function definition, the you evaluate
 that expression and return the result. In this case, we substite *4*
 for the *x* in the body, yielding the literal expression, *4*, which,
@@ -96,12 +96,12 @@ Data and function types
 -----------------------
 
 Before moving on to more interesting functions, we must mention the
-concepts of $types$ and $values$ as they pertain to both $data$ and
-$functions$. Two types appear in the example of the $id$ function. The
-first, obvious, one is the type $int$. The $values$ of this type are
-$data$ values, namely values representing integers. The second type,
+concepts of *types* and *values* as they pertain to both *data* and
+*functions*. Two types appear in the example of the *id* function. The
+first, obvious, one is the type *int*. The *values* of this type are
+*data* values, namely values representing integers. The second type,
 which is less visible in the example, is the type of the the function,
-$id$, itself. As the function takes an argument of type *int* and also
+*id*, itself. As the function takes an argument of type *int* and also
 returns a value of type *int*, we say that the type of *id* is
 :math:`int \rightarrow int`. You can pronounce this type as *int to
 int*.
@@ -159,7 +159,7 @@ Recursive function definitions and implementations
 Many mathematical functions are defined *recursively*. Consider the
 familiar *factorial* function. An informal explanation of what the
 function produces when applied to a natural number (a non-negative
-integer), $n$, is the product of natural numbers from $1$ to $n$.
+integer), *n*, is the product of natural numbers from *1* to *n*.
 
 That's a perfectly understandable definition, but it's not quite
 precise (or even correct) enough for a mathematician. There are at
@@ -167,7 +167,7 @@ least two problems with this definition. First, it does not define the
 value of the function *for all* natural numbers. In particular, it
 does not say what the value of the function is for zero. Second, you
 can't just extend the definition by saying that it yields the product
-of all the natural numbers from zero to $n$, because that is always
+of all the natural numbers from zero to *n*, because that is always
 zero!
 
 Rather, if the function is to be defined for an argument of zero, as
@@ -184,7 +184,7 @@ in two cases: one for the value zero, and one for any other number.
    factorial(n-1).\end{cases}
 
 To pronounce this mathematical definition in English, one would say
-that for any integer, $n$, such that $n$ is greater than or equal to
+that for any integer, *n*, such that *n* is greater than or equal to
 zero, *factorial(n)* is one if *n* is zero and is otherwise *n* times
 *factorial(n-1)*.
    
@@ -311,8 +311,8 @@ critical. Combining the non-negative property of ever value to which
 the function is applied with the fact that every recursive application
 is to a smaller value of *n*, allows us to conclude that no *infinite
 decreasing chains* are possible. Any application of the function to a
-non-negative integer $n$ will terminate after exactly *n* recursive
-calls to the function. Every non-negative integer, $n$ is finite. So
+non-negative integer *n* will terminate after exactly *n* recursive
+calls to the function. Every non-negative integer, *n* is finite. So
 every call to the function will terminate.
 
 Termination is a critical *property* of programs. The proposition that

@@ -349,7 +349,7 @@ steer a commercial aircraft, etc.
 
 
 \chapter{Pure Functional Programming as Runnable Mathematics}
-\label{\detokenize{04-runnable-math::doc}}\label{\detokenize{04-runnable-math:pure-functional-programming-as-runnable-mathematics}}
+\label{\detokenize{04-runnable-math:pure-functional-programming-as-runnable-mathematics}}\label{\detokenize{04-runnable-math::doc}}
 What we’d really like would be a language that gives us everything:
 the expressiveness and the \sphinxstyleemphasis{safety} of mathematical logic (there’s no
 concept of a memory in logic, and thus no possibility for unexpected
@@ -432,7 +432,7 @@ Finally, we need to know how expressions involving applications of
 this function to arguments are evaluated. They fundamental notion at
 the heart of functional programming is this: to evaluate a function
 application expression, such as \sphinxstyleemphasis{id(4)}, you substiute the value of
-the argument (here \$4\$) for every occurence of the argument variable
+the argument (here \sphinxstyleemphasis{4}) for every occurence of the argument variable
 (here \sphinxstyleemphasis{x}) in the body of the function definition, the you evaluate
 that expression and return the result. In this case, we substite \sphinxstyleemphasis{4}
 for the \sphinxstyleemphasis{x} in the body, yielding the literal expression, \sphinxstyleemphasis{4}, which,
@@ -442,12 +442,12 @@ when evaluated, yeilds the value \sphinxstyleemphasis{4}, and that’s the resul
 \section{Data and function types}
 \label{\detokenize{04-runnable-math:data-and-function-types}}
 Before moving on to more interesting functions, we must mention the
-concepts of \$types\$ and \$values\$ as they pertain to both \$data\$ and
-\$functions\$. Two types appear in the example of the \$id\$ function. The
-first, obvious, one is the type \$int\$. The \$values\$ of this type are
-\$data\$ values, namely values representing integers. The second type,
+concepts of \sphinxstyleemphasis{types} and \sphinxstyleemphasis{values} as they pertain to both \sphinxstyleemphasis{data} and
+\sphinxstyleemphasis{functions}. Two types appear in the example of the \sphinxstyleemphasis{id} function. The
+first, obvious, one is the type \sphinxstyleemphasis{int}. The \sphinxstyleemphasis{values} of this type are
+\sphinxstyleemphasis{data} values, namely values representing integers. The second type,
 which is less visible in the example, is the type of the the function,
-\$id\$, itself. As the function takes an argument of type \sphinxstyleemphasis{int} and also
+\sphinxstyleemphasis{id}, itself. As the function takes an argument of type \sphinxstyleemphasis{int} and also
 returns a value of type \sphinxstyleemphasis{int}, we say that the type of \sphinxstyleemphasis{id} is
 \(int \rightarrow int\). You can pronounce this type as \sphinxstyleemphasis{int to
 int}.
@@ -503,7 +503,7 @@ the resulting expression, and returning that result.
 Many mathematical functions are defined \sphinxstyleemphasis{recursively}. Consider the
 familiar \sphinxstyleemphasis{factorial} function. An informal explanation of what the
 function produces when applied to a natural number (a non-negative
-integer), \$n\$, is the product of natural numbers from \$1\$ to \$n\$.
+integer), \sphinxstyleemphasis{n}, is the product of natural numbers from \sphinxstyleemphasis{1} to \sphinxstyleemphasis{n}.
 
 That’s a perfectly understandable definition, but it’s not quite
 precise (or even correct) enough for a mathematician. There are at
@@ -511,7 +511,7 @@ least two problems with this definition. First, it does not define the
 value of the function \sphinxstyleemphasis{for all} natural numbers. In particular, it
 does not say what the value of the function is for zero. Second, you
 can’t just extend the definition by saying that it yields the product
-of all the natural numbers from zero to \$n\$, because that is always
+of all the natural numbers from zero to \sphinxstyleemphasis{n}, because that is always
 zero!
 
 Rather, if the function is to be defined for an argument of zero, as
@@ -526,7 +526,7 @@ in two cases: one for the value zero, and one for any other number.
 factorial(n-1).\end{cases}\end{split}
 \end{equation*}
 To pronounce this mathematical definition in English, one would say
-that for any integer, \$n\$, such that \$n\$ is greater than or equal to
+that for any integer, \sphinxstyleemphasis{n}, such that \sphinxstyleemphasis{n} is greater than or equal to
 zero, \sphinxstyleemphasis{factorial(n)} is one if \sphinxstyleemphasis{n} is zero and is otherwise \sphinxstyleemphasis{n} times
 \sphinxstyleemphasis{factorial(n-1)}.
 
@@ -634,8 +634,8 @@ critical. Combining the non-negative property of ever value to which
 the function is applied with the fact that every recursive application
 is to a smaller value of \sphinxstyleemphasis{n}, allows us to conclude that no \sphinxstyleemphasis{infinite
 decreasing chains} are possible. Any application of the function to a
-non-negative integer \$n\$ will terminate after exactly \sphinxstyleemphasis{n} recursive
-calls to the function. Every non-negative integer, \$n\$ is finite. So
+non-negative integer \sphinxstyleemphasis{n} will terminate after exactly \sphinxstyleemphasis{n} recursive
+calls to the function. Every non-negative integer, \sphinxstyleemphasis{n} is finite. So
 every call to the function will terminate.
 
 Termination is a critical \sphinxstyleemphasis{property} of programs. The proposition that

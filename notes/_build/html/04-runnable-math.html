@@ -123,7 +123,7 @@ say that pure functional programs are basically runnable mathematics.</p>
 this function to arguments are evaluated. They fundamental notion at
 the heart of functional programming is this: to evaluate a function
 application expression, such as <em>id(4)</em>, you substiute the value of
-the argument (here $4$) for every occurence of the argument variable
+the argument (here <em>4</em>) for every occurence of the argument variable
 (here <em>x</em>) in the body of the function definition, the you evaluate
 that expression and return the result. In this case, we substite <em>4</em>
 for the <em>x</em> in the body, yielding the literal expression, <em>4</em>, which,
@@ -132,12 +132,12 @@ when evaluated, yeilds the value <em>4</em>, and that’s the result.</p>
 <div class="section" id="data-and-function-types">
 <h2>Data and function types<a class="headerlink" href="#data-and-function-types" title="Permalink to this headline">¶</a></h2>
 <p>Before moving on to more interesting functions, we must mention the
-concepts of $types$ and $values$ as they pertain to both $data$ and
-$functions$. Two types appear in the example of the $id$ function. The
-first, obvious, one is the type $int$. The $values$ of this type are
-$data$ values, namely values representing integers. The second type,
+concepts of <em>types</em> and <em>values</em> as they pertain to both <em>data</em> and
+<em>functions</em>. Two types appear in the example of the <em>id</em> function. The
+first, obvious, one is the type <em>int</em>. The <em>values</em> of this type are
+<em>data</em> values, namely values representing integers. The second type,
 which is less visible in the example, is the type of the the function,
-$id$, itself. As the function takes an argument of type <em>int</em> and also
+<em>id</em>, itself. As the function takes an argument of type <em>int</em> and also
 returns a value of type <em>int</em>, we say that the type of <em>id</em> is
 <span class="math">\(int \rightarrow int\)</span>. You can pronounce this type as <em>int to
 int</em>.</p>
@@ -185,14 +185,14 @@ the resulting expression, and returning that result.</p>
 <p>Many mathematical functions are defined <em>recursively</em>. Consider the
 familiar <em>factorial</em> function. An informal explanation of what the
 function produces when applied to a natural number (a non-negative
-integer), $n$, is the product of natural numbers from $1$ to $n$.</p>
+integer), <em>n</em>, is the product of natural numbers from <em>1</em> to <em>n</em>.</p>
 <p>That’s a perfectly understandable definition, but it’s not quite
 precise (or even correct) enough for a mathematician. There are at
 least two problems with this definition. First, it does not define the
 value of the function <em>for all</em> natural numbers. In particular, it
 does not say what the value of the function is for zero. Second, you
 can’t just extend the definition by saying that it yields the product
-of all the natural numbers from zero to $n$, because that is always
+of all the natural numbers from zero to <em>n</em>, because that is always
 zero!</p>
 <p>Rather, if the function is to be defined for an argument of zero, as
 we require, then we had better define it to have the value one when
@@ -205,7 +205,7 @@ in two cases: one for the value zero, and one for any other number.</p>
 \text{if n=0}, &amp; 1,\\ \text{otherwise}, &amp; n *
 factorial(n-1).\end{cases}\end{split}\]</div>
 <p>To pronounce this mathematical definition in English, one would say
-that for any integer, $n$, such that $n$ is greater than or equal to
+that for any integer, <em>n</em>, such that <em>n</em> is greater than or equal to
 zero, <em>factorial(n)</em> is one if <em>n</em> is zero and is otherwise <em>n</em> times
 <em>factorial(n-1)</em>.</p>
 <p>Let’s analyze this definition. First, whereas in earlier examples we
@@ -288,8 +288,8 @@ critical. Combining the non-negative property of ever value to which
 the function is applied with the fact that every recursive application
 is to a smaller value of <em>n</em>, allows us to conclude that no <em>infinite
 decreasing chains</em> are possible. Any application of the function to a
-non-negative integer $n$ will terminate after exactly <em>n</em> recursive
-calls to the function. Every non-negative integer, $n$ is finite. So
+non-negative integer <em>n</em> will terminate after exactly <em>n</em> recursive
+calls to the function. Every non-negative integer, <em>n</em> is finite. So
 every call to the function will terminate.</p>
 <p>Termination is a critical <em>property</em> of programs. The proposition that
 our factorial program with the precondition in place always terminates
