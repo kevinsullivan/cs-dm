@@ -3,14 +3,11 @@ module functional
 
     /*
     An "identity function" for values of type nat.
-    Returns whatever value you pass to it. Note
-    that the body of a pure function is not usual
-    sequential code but simply an expression that
-    computes the desired return value. 
-    */
-    function method id_int (x: int): int { x }
-
-    /*
+    Returns whatever int value you pass to it. Note:
+    the body of a pure function is not sequential 
+    code operating on a memory, code but simply an 
+    expression that computes a desired return value. 
+    
     The "function method" declaration indicates two
     things. First, the code will be written in a pure
     functional style. Second, the code can be called
@@ -21,56 +18,96 @@ module functional
     and so can be involved in verification, but such
     functions are not compiled to executable code.
     */
+    function method id_int (x: int): int { x }
 
 
-    // Return sequare of given int as an int
-    function method square (x: int): int { x * x }
-
-
-    // Return the successor of int x as an int
+    // Compute the successor of nat x. The type nat
+    // is the type of integers >= 0.
     function method inc (x: int): int { x + 1 }
 
 
-    // Given int x computes square of its successor
+    // Compute the square of a given int value
+    function method square (x: int): int { x * x }
+
+
+    /*
+     Given an int x, compute square of its successor.
+     This function is implemented as a *composition*
+     of the inc and square functions. It works by first
+     applying inc to its argument and then applying the
+     square function to that result.
+     */
     function method h (x: int): int { square(inc(x)) }
 
 
-    // Computes factorial of any non-negative integer
+    /*
+     Compute the factorial of any non-negative integer.
+     While you might want to think of the factorial of a
+     number n as the product of the numbers from 1 to n,
+     that's not perfect because we want the function to be
+     defined for all natural numbers, from 0 up; and you
+     can't very well define it as the product of numbers
+     from 0 to n, because that would always be just zero.
+     A better definition is a recursive definition. It has
+     two cases: factorial of zero is one, and factorial of
+     any larger number, n, is n times the factorial of the
+     next smaller number, n-1. When the next smaller number
+     is zero, the result is 1 and the product is then the
+     product of all numbers from 1 to n. Recursion gives
+     us an extremely concise way of representing functions
+     such as factorial. 
+     */
     function method fact(n: int): int 
-        requires n >= 0 // for recursion to be well founded
+        requires n >= 0
     { 
-        if (n==0) then 1 
-        else n * fact(n-1) 
+        if (n==0) then 1    // base case
+        else n * fact(n-1)  // recursive case
     }
     
     
-    // Using nat instead of int doesn't work here
-    //
     /*
+     The nat type is the type of non-negative
+     integers. If we use this type, we can leave
+     off the precondition, as it's already implicit
+     in the nat type. We have to give our function
+     a different name; and we're careful (now!) to
+     make a recursive call to the new function, 
+     fact', rather than to the old one!
+     */
+
     function method fact'(n: nat): nat
     {
-        if n==0 then 1 
-        else 
-        n * fact(n-1)
-    }
-    // (n-1) violates the non-negativity of the nat 
-    // type when n is 0 (a valid nat value). Dafny
-    // often catches subtle problems of this kind,
-    // that might escape the notice of a mere human
-    // programmer.
-    */
+        if n == 0 then 1 
+        else n * fact'(n-1)
+    }    
 
+
+ 
+    /*
+    This function computes the n'th Fibonacci
+    number, for any natural number, n. It directly
+    implements the recursive mathematical definition
+    of the function. The beauty of this code is 
+    that it's runnable math. The problem is that
+    it's terribly inefficient. In fact, it takes
+    time exponential in n. This program makes an
+    excellent specification, but a pretty lousy
+    implementation of the factorial function.
+    */
+    function method fib(n: nat): nat
+    {
+        if (n < 2) then n
+        else fib(n-2) + fib(n-1)
+    }
     
     /* 
     Computes the sum of all of the integers from 
     zero up to given non-negative integer, n. 
     */
-    function method sum(n: int): int 
-        requires n >= 0
+    function method sum(n: nat): nat 
     {
         if (n == 0) then 0 else n + sum(n-1)
     }
-
 
     /*
     Implements addition using recursive application
@@ -80,9 +117,22 @@ module functional
     so that the recursion is guaranteed to terminate.
     Be sure you really understand this example.
     */
-    function method add(x:int, y: int): int
-        requires x >= 0
+    function method add(x:nat, y: nat): nat
     {
         if (x==0) then y else inc(add(x-1, y))
     }
+
+    function method mult(m: nat, n:nat): nat 
+    {
+        if (m==0) then 0
+        else add(n, mult(m-1,n))    
+    }
+
+    function method pow(m: nat, n:nat): nat
+    {
+        if (n == 0) then 1
+        else mult(m, pow(m, n-1))
+    }
 }
+
+
