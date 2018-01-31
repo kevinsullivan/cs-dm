@@ -82,7 +82,6 @@ module functional
     }    
 
 
- 
     /*
     This function computes the n'th Fibonacci
     number, for any natural number, n. It directly
@@ -100,13 +99,14 @@ module functional
         else fib(n-2) + fib(n-1)
     }
     
+
     /* 
     Computes the sum of all of the integers from 
     zero up to given non-negative integer, n. 
     */
-    function method sum(n: nat): nat 
+    function method sumto(n: nat): nat 
     {
-        if (n == 0) then 0 else n + sum(n-1)
+        if (n == 0) then 0 else n + sumto(n-1)
     }
 
     /*
@@ -122,16 +122,25 @@ module functional
         if (x==0) then y else inc(add(x-1, y))
     }
 
+    /*
+    Implements exponentiation, computing m*n,
+    by recursive aplication of addition of n.
+    */
     function method mult(m: nat, n:nat): nat 
     {
         if (m==0) then 0
         else add(n, mult(m-1,n))    
     }
 
-    function method pow(m: nat, n:nat): nat
+/*
+   Implements exponentiation, computing m^n,
+   by recursive application of our multiplation
+   function.
+*/
+    function method exp(m: nat, n:nat): nat
     {
         if (n == 0) then 1
-        else mult(m, pow(m, n-1))
+        else mult(m, exp(m, n-1))
     }
 }
 
