@@ -50,7 +50,7 @@ on the identify of any person, then we end up with a parameterized
 proposition, *P plays tennis*. Substituting the name of any particular
 person for *P* then gives us a proposition *about that person* that we
 can judge to be true or false. A parameterized proposition thus gives
-rise to a whole family of propositions, on for each possible value of
+rise to a whole family of propositions, one for each possible value of
 *P*.
 
 Sometimes we write parameterized propositions so that they look like

@@ -136,7 +136,7 @@ pure functional programmer is writing *runnable mathematics*.
 
 Another example of a function of the same type is, *square*, defined
 as returing the square of its integer argument. Mathematically it is
-the function, :math:`\forall x \in {\mathbb Z}, x + 1`. And here is
+the function, :math:`\forall x \in {\mathbb Z}, x * x`. And here is
 a Dafny implementation. 
 
 .. code-block:: dafny
@@ -331,7 +331,7 @@ able to find a proof, because, as we just saw, there isn't one: the
 proposition that evaluation of the function always terminates is not
 true. In this case, because it can't prove termination, Dafny will
 issue an error stating, in effect, that there is the possibility that
-the program will infinitely loop. Try is in Dafny.  You will see.
+the program will infinitely loop. Try it in Dafny.  You will see.
 
 In some cases there will be proofs of important propositions that
 Dafny nevertheless can't find it on its own. In such cases, you may

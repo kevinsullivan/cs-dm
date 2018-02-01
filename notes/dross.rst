@@ -182,10 +182,10 @@ predicate is a logical proposition *about* the value of the parameter,
 *n*, expressed not as a comment but as a formal and machine-checkable
 part of the program.
 
-Althird, though you can't see it here in this document, Dafny checks
-to ensure that no code ever calls this function with a value of *n*
-that is less than zero, *and* it proves to itself that the recursion
-is well founded.  That is a lot more than you could ever expect to get
+Although you can't see it here in this document, Dafny checks to
+ensure that no code ever calls this function with a value of *n* that
+is less than zero, *and* it proves to itself that the recursion is
+well founded.  That is a lot more than you could ever expect to get
 programming in an imperative language like Python.
 
 Pure functional programming languages thus provide a way to program
