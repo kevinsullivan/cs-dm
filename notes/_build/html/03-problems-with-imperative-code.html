@@ -79,7 +79,7 @@ sum of two and two <em>always</em> gives four; but if a procedure written in
 Python updates a <em>global</em> variable and then incoporates its value into
 the result the next time the procedure is called, then the procedure
 could easily return a different result each time it is called even if
-the argument values are the same. The human mind is simpl not powerful
+the argument values are the same. The human mind is simply not powerful
 enough to see what can happen when computations distant in time and in
 space (in the sense of being separated in the code) interact with each
 other.</p>
@@ -87,8 +87,8 @@ other.</p>
 variables, say <em>x</em> and <em>y</em>, refer to the same memory location. When
 such <em>aliasing</em> occurs, updating the value of <em>x</em> will also change the
 value of <em>y</em>, even though no explicit assignment to <em>y</em> was made. A
-peice of code that assumes that <em>y</em> doesn’t change unless a change is
-made expliticly might fail catastrophically under such circumstances.
+piece of code that assumes that <em>y</em> doesn’t change unless a change is
+made explicitly might fail catastrophically under such circumstances.
 Aliasing poses severe problems for both human understanding and also
 machine analysis of code written in imperative languages.</p>
 <p>Imperative code is thus potentially <em>unsafe</em> in the sense that it can

@@ -166,7 +166,7 @@ pure functional programmer is writing <em>runnable mathematics</em>.</p>
 </div>
 <p>Another example of a function of the same type is, <em>square</em>, defined
 as returing the square of its integer argument. Mathematically it is
-the function, <span class="math">\(\forall x \in {\mathbb Z}, x + 1\)</span>. And here is
+the function, <span class="math">\(\forall x \in {\mathbb Z}, x * x\)</span>. And here is
 a Dafny implementation.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>function method h (x: int): int { x * x }
 </pre></div>
@@ -305,7 +305,7 @@ able to find a proof, because, as we just saw, there isn’t one: the
 proposition that evaluation of the function always terminates is not
 true. In this case, because it can’t prove termination, Dafny will
 issue an error stating, in effect, that there is the possibility that
-the program will infinitely loop. Try is in Dafny.  You will see.</p>
+the program will infinitely loop. Try it in Dafny.  You will see.</p>
 <p>In some cases there will be proofs of important propositions that
 Dafny nevertheless can’t find it on its own. In such cases, you may
 have to help it by giving it some additional propositions that it
