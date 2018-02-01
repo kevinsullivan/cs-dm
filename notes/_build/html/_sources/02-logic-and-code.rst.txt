@@ -98,7 +98,7 @@ such that :math:`y^2 = x`. Such a *y*, squared, gives *x*, and this
 makes *y* a square root.
 
 We would write this mathematically as :math:`\forall x \in {\mathbb R}
-\mid x >= 0, y \in {\mathbb R} | y^2 >= 0 \land y^2 = x`. In English,
+\mid x >= 0, y \in {\mathbb R} | y >= 0 \land y^2 = x`. In English,
 we'd pronounce this expression as, "for any value, *x*, in the real
 numbers, where *x* is greater than or equal to zero, the result is a
 value, *y*, also in the real numbers,, where *y* is greater than or

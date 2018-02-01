@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500) (preloaded format=pdflatex 2017.12.2)  30 JAN 2018 13:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500) (preloaded format=pdflatex 2017.12.2)  1 FEB 2018 10:16
 entering extended mode
 **./MathematicalLogicinSoftwareDevelopment.tex
 (MathematicalLogicinSoftwareDevelopment.tex
@@ -1214,7 +1214,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 994.
  ) 
 Here is how much of TeX's memory you used:
  13572 strings out of 495217
- 188896 string characters out of 3181647
+ 189013 string characters out of 3181647
  295857 words of memory out of 3000000
  16526 multiletter control sequences out of 15000+200000
  48431 words of font info for 68 fonts, out of 3000000 for 9000
@@ -1234,7 +1234,7 @@ x-texmf/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/local/share/miktex-texmf/fon
 ts/type1/urw/times/utmb8a.pfb></usr/local/share/miktex-texmf/fonts/type1/urw/ti
 mes/utmr8a.pfb></usr/local/share/miktex-texmf/fonts/type1/urw/times/utmri8a.pfb
 >
-Output written on MathematicalLogicinSoftwareDevelopment.pdf (21 pages, 226261 
+Output written on MathematicalLogicinSoftwareDevelopment.pdf (21 pages, 226174 
 bytes).
 PDF statistics:
  252 PDF objects out of 1000 (max. 8388607)

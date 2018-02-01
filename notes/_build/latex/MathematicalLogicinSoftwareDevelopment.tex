@@ -58,7 +58,7 @@
 
 
 \title{Mathematical Logic in Software Development Documentation}
-\date{Jan 30, 2018}
+\date{Feb 01, 2018}
 \release{1}
 \author{Kevin Sullivan}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -74,7 +74,7 @@
 
 
 \chapter{Requirement, Specifications, and Implementations}
-\label{\detokenize{01-reqs-specs-impls::doc}}\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}
+\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}\label{\detokenize{01-reqs-specs-impls::doc}}
 Software is an increasingly critical component of major societal
 systems, from rockets to power grids to healthcare, etc. Failures are
 not always bugs in implementation code. The most critical problems
@@ -172,7 +172,7 @@ is not true. More on relations later!
 
 
 \chapter{Logical Specifications, Imperative Implementations}
-\label{\detokenize{02-logic-and-code::doc}}\label{\detokenize{02-logic-and-code:logical-specifications-imperative-implementations}}
+\label{\detokenize{02-logic-and-code:logical-specifications-imperative-implementations}}\label{\detokenize{02-logic-and-code::doc}}
 We’ve discussed requirements, specifications, and implementations as
 distinct artifacts that serve distinct purposes. For good reasons,
 these artifacts are usually written in different languages. Software
@@ -262,7 +262,7 @@ such that \(y^2 = x\). Such a \sphinxstyleemphasis{y}, squared, gives \sphinxsty
 makes \sphinxstyleemphasis{y} a square root.
 
 We would write this mathematically as \(\forall x \in {\mathbb R}
-\mid x >= 0, y \in {\mathbb R} | y^2 >= 0 \land y^2 = x\). In English,
+\mid x >= 0, y \in {\mathbb R} | y >= 0 \land y^2 = x\). In English,
 we’d pronounce this expression as, “for any value, \sphinxstyleemphasis{x}, in the real
 numbers, where \sphinxstyleemphasis{x} is greater than or equal to zero, the result is a
 value, \sphinxstyleemphasis{y}, also in the real numbers,, where \sphinxstyleemphasis{y} is greater than or
@@ -467,7 +467,7 @@ requires that a program work correctly for all (\(\forall\)) inputs?
 
 
 \chapter{Problems with Imperative Code}
-\label{\detokenize{03-problems-with-imperative-code::doc}}\label{\detokenize{03-problems-with-imperative-code:problems-with-imperative-code}}
+\label{\detokenize{03-problems-with-imperative-code:problems-with-imperative-code}}\label{\detokenize{03-problems-with-imperative-code::doc}}
 There’s no free lunch: One can have the expressiveness of mathematical
 logic, useful for specification, or one can have the ability to run
 code efficiently, along with indispensable ability to interact with an
@@ -520,7 +520,7 @@ steer a commercial aircraft, etc.
 
 
 \chapter{Pure Functional Programming as Runnable Mathematics}
-\label{\detokenize{04-runnable-math::doc}}\label{\detokenize{04-runnable-math:pure-functional-programming-as-runnable-mathematics}}
+\label{\detokenize{04-runnable-math:pure-functional-programming-as-runnable-mathematics}}\label{\detokenize{04-runnable-math::doc}}
 What we’d really like would be a language that gives us everything:
 the expressiveness and the \sphinxstyleemphasis{safety} of mathematical logic (there’s no
 concept of a memory in logic, and thus no possibility for unexpected
@@ -841,7 +841,7 @@ are expressed and verified.
 
 
 \chapter{Integrating Formal Specification with Imperative Programming}
-\label{\detokenize{05-putting-it-together::doc}}\label{\detokenize{05-putting-it-together:integrating-formal-specification-with-imperative-programming}}
+\label{\detokenize{05-putting-it-together:integrating-formal-specification-with-imperative-programming}}\label{\detokenize{05-putting-it-together::doc}}
 An important approach to solving such problems is to enable the
 integration of \sphinxstyleemphasis{formal specifications} with imperative programming
 code along with mechansims (based on \sphinxstyleemphasis{logical proof} technology) for
