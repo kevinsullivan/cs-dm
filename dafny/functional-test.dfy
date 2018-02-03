@@ -19,5 +19,10 @@ method Main()
     print "The value of sum(5) is ", func.sumto(5), "\n";
     print "The value of add(4,5) is ", func.add(4,5), "\n";
     print "The value of exp(3,4) is ", func.exp(3,4), "\n";
+    var ev5 := func.ev(5);
+    print "Ev 5 is ", ev5, "\n";
+    var doub10 := func.double(10);
+    print "Double 10 is ", doub10, "\n";
+
 }
 

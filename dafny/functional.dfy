@@ -142,6 +142,24 @@ module functional
         if (n == 0) then 1
         else mult(m, exp(m, n-1))
     }
+
+    function method ev(n: nat): bool
+    {
+        if n == 0 then true
+        else if n == 1 then false 
+        else ev (n-2)  
+    }
+
+    function method double(n: nat): nat{
+        if n==0 then 0
+        else 2 + double(n-1)
+    }
+
+    function method pred(n: nat): nat 
+        requires n > 0
+    {
+        n - 1
+    }
 }
 
 

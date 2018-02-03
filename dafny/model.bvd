@@ -1,28 +1,38 @@
 *** MODEL
 ##_System._tuple#2._#Make2 -> T@U!val!31
-##n#0 -> **##n#0
-##n#0@0 -> (- 321)
+##n#1 -> **##n#1
+##n#2 -> **##n#2
+##n#3 -> **##n#3
+##n#4 -> **##n#4
+##n#5 -> **##n#5
+##n#6 -> **##n#6
+##n#7 -> **##n#7
 $$Language$Dafny -> true
 $_Frame -> **$_Frame
-$_Frame@0 -> T@U!val!41
-$_Frame@0@@0 -> T@U!val!42
-$FunctionContextHeight -> 10
-$Heap@@73 -> T@U!val!40
-$LZ -> T@U!val!39
-$mv_state_const -> 11
+$_Frame@0 -> T@U!val!43
+$_Frame@0@@0 -> T@U!val!46
+$_reverifyPost -> **$_reverifyPost
+$decr$loop#00 -> **$decr$loop#00
+$decr_init$loop#00 -> **$decr_init$loop#00
+$FunctionContextHeight -> 2
+$Heap@@77 -> T@U!val!44
+$Heap@0 -> T@U!val!45
+$LZ -> T@U!val!42
+$mv_state_const -> 13
+$PreLoopHeap$loop#0 -> **$PreLoopHeap$loop#0
 $Tick -> **$Tick
-%lbl%@4256001 -> false
-%lbl%+4234621 -> true
-%lbl%+4234632 -> true
-%lbl%+4234636 -> true
-%lbl%+4255621 -> true
+$w$loop#0 -> **$w$loop#0
+%lbl%@218808 -> false
+%lbl%+185630 -> true
+%lbl%+185633 -> true
+%lbl%+218655 -> true
+a#0 -> **a#0
 alloc -> T@U!val!0
-b$reqreads#0 -> **b$reqreads#0
-b$reqreads#0@0 -> true
 boolType -> T@T!val!2
 BoxType -> T@T!val!7
 charType -> T@T!val!8
-class._0_functional.__default -> T@U!val!33
+class._0_functional.__default -> T@U!val!35
+class._2_imperative.__default -> T@U!val!33
 class._System.__tuple_h2 -> T@U!val!30
 class._System.array -> T@U!val!25
 class._System.bool -> T@U!val!18
@@ -34,19 +44,22 @@ class._System.set -> T@U!val!19
 ClassNameType -> T@T!val!5
 DatatypeTypeType -> T@T!val!10
 DtCtorIdType -> T@T!val!6
+f#0@@0 -> 891
 HandleTypeType -> T@T!val!13
+i#0 -> 906
 intType -> T@T!val!0
 LayerTypeType -> T@T!val!11
-n#0@@41 -> (- 320)
+n#0@@61 -> 841
 NameFamilyType -> T@T!val!12
 NoTraitAtAll -> T@U!val!16
-null -> T@U!val!37
+null -> T@U!val!39
 realType -> T@T!val!1
 refType -> T@T!val!9
 TagBool -> T@U!val!5
 TagChar -> T@U!val!6
 TagClass -> T@U!val!15
-Tagclass._0_functional.__default -> T@U!val!34
+Tagclass._0_functional.__default -> T@U!val!36
+Tagclass._2_imperative.__default -> T@U!val!34
 Tagclass._System.___hFunc0 -> T@U!val!27
 Tagclass._System.___hFunc1 -> T@U!val!28
 Tagclass._System.___hFunc2 -> T@U!val!29
@@ -64,9 +77,10 @@ TagSeq -> T@U!val!12
 TagSet -> T@U!val!9
 TBool -> T@U!val!1
 TChar -> T@U!val!2
-Tclass._0_functional.__default -> T@U!val!38
-Tclass._System.nat -> T@U!val!36
-Tclass._System.object -> T@U!val!35
+Tclass._0_functional.__default -> T@U!val!41
+Tclass._2_imperative.__default -> T@U!val!40
+Tclass._System.nat -> T@U!val!38
+Tclass._System.object -> T@U!val!37
 TInt -> T@U!val!3
 TReal -> T@U!val!4
 TyTagType -> T@T!val!4
@@ -74,6 +88,8 @@ TyType -> T@T!val!3
 unique-value!100 -> distinct-elems!66!val!32
 unique-value!101 -> distinct-elems!66!val!33
 unique-value!102 -> distinct-elems!66!val!34
+unique-value!103 -> distinct-elems!66!val!35
+unique-value!104 -> distinct-elems!66!val!36
 unique-value!68 -> distinct-elems!66!val!0
 unique-value!69 -> distinct-elems!66!val!1
 unique-value!70 -> distinct-elems!66!val!2
@@ -111,7 +127,7 @@ FDim -> {
   else -> 0
 }
 $mv_state -> {
-  11 0 -> true
+  13 0 -> true
   else -> true
 }
 LitInt -> {
@@ -119,15 +135,15 @@ LitInt -> {
   else -> 0
 }
 MapType1Type -> {
-  T@T!val!9 -> T@T!val!15
-  else -> T@T!val!15
+  T@T!val!9 -> T@T!val!16
+  else -> T@T!val!16
 }
 lambda#2 -> {
-  T@U!val!0 T@U!val!37 T@U!val!40 -> T@U!val!41
-  else -> T@U!val!41
+  T@U!val!0 T@U!val!39 T@U!val!44 -> T@U!val!46
+  else -> T@U!val!46
 }
 MapType1TypeInv0 -> {
-  T@T!val!15 -> T@T!val!9
+  T@T!val!16 -> T@T!val!9
   else -> T@T!val!9
 }
 Ctor -> {
@@ -146,8 +162,8 @@ Ctor -> {
   T@T!val!12 -> 18
   T@T!val!13 -> 19
   T@T!val!14 -> 6
-  T@T!val!15 -> 14
-  T@T!val!16 -> 22
+  T@T!val!16 -> 14
+  T@T!val!15 -> 22
   else -> 0
 }
 tickleBool -> {
@@ -160,36 +176,28 @@ $IsGhostField -> {
   else -> false
 }
 MapType4Type -> {
-  T@T!val!9 T@T!val!2 -> T@T!val!16
-  else -> T@T!val!16
+  T@T!val!9 T@T!val!2 -> T@T!val!15
+  else -> T@T!val!15
 }
 MapType4TypeInv0 -> {
-  T@T!val!16 -> T@T!val!9
+  T@T!val!15 -> T@T!val!9
   else -> T@T!val!9
 }
 FieldType -> {
   T@T!val!2 -> T@T!val!14
   else -> T@T!val!14
 }
-lambda#3 -> {
-  T@U!val!0 T@U!val!37 T@U!val!40 -> T@U!val!42
-  else -> T@U!val!42
-}
 MapType4TypeInv1 -> {
-  T@T!val!16 -> T@T!val!2
+  T@T!val!15 -> T@T!val!2
   else -> T@T!val!2
 }
 $IsGoodHeap -> {
-  T@U!val!40 -> true
+  T@U!val!44 -> true
   else -> true
 }
 $IsHeapAnchor -> {
-  T@U!val!40 -> true
+  T@U!val!44 -> true
   else -> true
-}
-U_2_int -> {
-  (- 321) -> (- 321)
-  else -> (- 321)
 }
 distinct-aux-f!!67 -> {
   T@U!val!1 -> distinct-elems!66!val!0
@@ -227,28 +235,23 @@ distinct-aux-f!!67 -> {
   T@U!val!32 -> distinct-elems!66!val!32
   T@U!val!33 -> distinct-elems!66!val!33
   T@U!val!34 -> distinct-elems!66!val!34
+  T@U!val!35 -> distinct-elems!66!val!35
+  T@U!val!36 -> distinct-elems!66!val!36
   else -> distinct-elems!66!val!0
 }
 FieldTypeInv0 -> {
   T@T!val!14 -> T@T!val!2
   else -> T@T!val!2
 }
-int_2_U -> {
-  (- 321) -> (- 321)
-  else -> (- 321)
-}
-$IsAlloc -> {
-  (- 321) T@U!val!3 T@U!val!40 -> true
-  else -> true
-}
 Tag -> {
   T@U!val!1 -> T@U!val!5
   T@U!val!2 -> T@U!val!6
   T@U!val!3 -> T@U!val!7
   T@U!val!4 -> T@U!val!8
-  T@U!val!36 -> T@U!val!22
-  T@U!val!35 -> T@U!val!24
-  T@U!val!38 -> T@U!val!34
+  T@U!val!38 -> T@U!val!22
+  T@U!val!37 -> T@U!val!24
+  T@U!val!40 -> T@U!val!34
+  T@U!val!41 -> T@U!val!36
   else -> T@U!val!5
 }
 type -> {
@@ -287,26 +290,42 @@ type -> {
   T@U!val!32 -> T@T!val!4
   T@U!val!33 -> T@T!val!5
   T@U!val!34 -> T@T!val!4
-  T@U!val!35 -> T@T!val!3
-  T@U!val!36 -> T@T!val!3
-  T@U!val!37 -> T@T!val!9
+  T@U!val!35 -> T@T!val!5
+  T@U!val!36 -> T@T!val!4
+  T@U!val!37 -> T@T!val!3
   T@U!val!38 -> T@T!val!3
-  T@U!val!39 -> T@T!val!11
-  T@U!val!40 -> T@T!val!15
-  T@U!val!41 -> T@T!val!16
-  T@U!val!42 -> T@T!val!16
-  (- 321) -> T@T!val!0
+  T@U!val!39 -> T@T!val!9
+  T@U!val!40 -> T@T!val!3
+  T@U!val!41 -> T@T!val!3
+  T@U!val!42 -> T@T!val!11
+  T@U!val!43 -> T@T!val!15
+  T@U!val!44 -> T@T!val!16
+  T@U!val!45 -> T@T!val!16
+  T@U!val!46 -> T@T!val!15
   else -> T@T!val!4
 }
 *** STATE <initial>
-  $Heap -> T@U!val!40
+  $Heap -> T@U!val!44
   $Tick -> **$Tick
-  n#0 -> (- 320)
+  n#0 -> 841
+  f#0 -> 891
+  $_reverifyPost -> **$_reverifyPost
   $_Frame -> **$_Frame
-  ##n#0 -> **##n#0
-  b$reqreads#0 -> **b$reqreads#0
+  i#0 -> 906
+  a#0 -> **a#0
+  ##n#1 -> **##n#1
+  ##n#2 -> **##n#2
+  $PreLoopHeap$loop#0 -> **$PreLoopHeap$loop#0
+  $decr_init$loop#00 -> **$decr_init$loop#00
+  $w$loop#0 -> **$w$loop#0
+  ##n#3 -> **##n#3
+  ##n#4 -> **##n#4
+  $decr$loop#00 -> **$decr$loop#00
+  ##n#5 -> **##n#5
+  ##n#6 -> **##n#6
+  ##n#7 -> **##n#7
 *** END_STATE
-*** STATE /Users/sullivan/teaching/2102s18/cs-dm/dafny/functional.dfy(60,20): initial state
-  b$reqreads#0 -> true
+*** STATE /Users/sullivan/teaching/2102s18/cs-dm.hw3/dafny/imperative.dfy(50,5): initial state
+  $_Frame -> T@U!val!46
 *** END_STATE
 *** END_MODEL
