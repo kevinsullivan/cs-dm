@@ -51,18 +51,19 @@
 <p>To get a clear sense of the potential differences in performance
 between a pure functional program and an imperative program that
 compute the same function, consider our recursive definition of the
-factorial function.</p>
-<p>We start with the statement that if <em>n</em> is <em>0</em> or <em>1</em> the answer is
-<em>n</em>.  In other words, the <em>sequence</em>, <em>fib(i)</em> of <em>Fibonacci numbers
-indexed by i</em>, starts with, <span class="math">\([0, 1, \ldots ]\)</span>. Here we have the
+Fibonacci function.</p>
+<p>We start off knowing that if <em>n</em> is <em>0</em> or <em>1</em> the answer is <em>n</em>.  In
+other words, the <em>sequence</em>, <em>fib(i)</em> of <em>Fibonacci numbers indexed by
+i</em>, starts with, <span class="math">\([0, 1, \ldots ]\)</span>. We start already having the
 values of <em>fib(0)</em>, the first Fibonacci number and <em>fib(1)</em>, the
-second. The third, <em>fib(2)</em> would be the sum of the first two.</p>
-<p>You will note that we (generally) start indexing sequences at zero
-rather than one. The first element in such a sequence has index <em>0</em>,
-the second has index <em>1</em>, etc.</p>
-<p>For any <em>i &gt;= 1</em>, the next element after <em>i</em>, <em>fib(i+1)</em> (let’s call
-it <em>fib2</em>) is the sum of the previous two elements, banely <em>fib(i-1)</em>
-and fib(i)* (let’s call them <em>fib0</em> and <em>fib1</em>, respectively).</p>
+second. The third, <em>fib(2)</em> is then the sum of the previous two.  Note
+that by convention we index sequences starating at zero rather than
+one. The first element in such a sequence has index <em>0</em>, the second
+has index <em>1</em>, and the <em>n’th</em> has index <em>n - 1</em>.</p>
+<p>Now, for any index <em>i &gt;= 1</em>, the next element, <em>fib(i+1)</em> is the sum
+of the previous two elements, <em>fib(i-1)</em> and <em>fib(i)</em>. Let’s call them
+<em>fib0=fib(i-1), fib1=fib(i)</em>, and <em>fib2=fib(i+1)</em>. Given a <em>fib0</em> and
+a <em>fib1</em> we compute <em>fib2</em> by adding <em>fib0</em> and <em>fib1</em>.</p>
 <p>Our recursive definition, <em>fib(n)</em> is pure math: elegant and precise.
 And because we’ve written in a functional programming language, we can
 even run it if we wish. An imperative program, by constrast, will just

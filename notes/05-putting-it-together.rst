@@ -4,21 +4,21 @@ Integrating Formal Specification with Imperative Programming
 To get a clear sense of the potential differences in performance
 between a pure functional program and an imperative program that
 compute the same function, consider our recursive definition of the
-factorial function.
+Fibonacci function.
 
-We start with the statement that if *n* is *0* or *1* the answer is
-*n*.  In other words, the *sequence*, *fib(i)* of *Fibonacci numbers
-indexed by i*, starts with, :math:`[0, 1, \ldots ]`. Here we have the
+We start off knowing that if *n* is *0* or *1* the answer is *n*.  In
+other words, the *sequence*, *fib(i)* of *Fibonacci numbers indexed by
+i*, starts with, :math:`[0, 1, \ldots ]`. We start already having the
 values of *fib(0)*, the first Fibonacci number and *fib(1)*, the
-second. The third, *fib(2)* would be the sum of the first two.
+second. The third, *fib(2)* is then the sum of the previous two.  Note
+that by convention we index sequences starating at zero rather than
+one. The first element in such a sequence has index *0*, the second
+has index *1*, and the *n'th* has index *n - 1*.
 
-You will note that we (generally) start indexing sequences at zero
-rather than one. The first element in such a sequence has index *0*,
-the second has index *1*, etc.
-
-For any *i >= 1*, the next element after *i*, *fib(i+1)* (let's call
-it *fib2*) is the sum of the previous two elements, banely *fib(i-1)*
-and fib(i)* (let's call them *fib0* and *fib1*, respectively).
+Now, for any index *i >= 1*, the next element, *fib(i+1)* is the sum
+of the previous two elements, *fib(i-1)* and *fib(i)*. Let's call them
+*fib0=fib(i-1), fib1=fib(i)*, and *fib2=fib(i+1)*. Given a *fib0* and
+a *fib1* we compute *fib2* by adding *fib0* and *fib1*. 
 
 Our recursive definition, *fib(n)* is pure math: elegant and precise.
 And because we've written in a functional programming language, we can

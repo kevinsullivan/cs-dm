@@ -74,7 +74,7 @@
 
 
 \chapter{Requirement, Specifications, and Implementations}
-\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}\label{\detokenize{01-reqs-specs-impls::doc}}
+\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}\label{\detokenize{01-reqs-specs-impls::doc}}\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}
 Software is an increasingly critical component of major societal
 systems, from rockets to power grids to healthcare, etc. Failures are
 not always bugs in implementation code. The most critical problems
@@ -467,7 +467,7 @@ requires that a program work correctly for all (\(\forall\)) inputs?
 
 
 \chapter{Problems with Imperative Code}
-\label{\detokenize{03-problems-with-imperative-code:problems-with-imperative-code}}\label{\detokenize{03-problems-with-imperative-code::doc}}
+\label{\detokenize{03-problems-with-imperative-code::doc}}\label{\detokenize{03-problems-with-imperative-code:problems-with-imperative-code}}
 There’s no free lunch: One can have the expressiveness of mathematical
 logic, useful for specification, or one can have the ability to run
 code efficiently, along with indispensable ability to interact with an
@@ -520,7 +520,7 @@ steer a commercial aircraft, etc.
 
 
 \chapter{Pure Functional Programming as Runnable Mathematics}
-\label{\detokenize{04-runnable-math:pure-functional-programming-as-runnable-mathematics}}\label{\detokenize{04-runnable-math::doc}}
+\label{\detokenize{04-runnable-math::doc}}\label{\detokenize{04-runnable-math:pure-functional-programming-as-runnable-mathematics}}
 What we’d really like would be a language that gives us everything:
 the expressiveness and the \sphinxstyleemphasis{safety} of mathematical logic (there’s no
 concept of a memory in logic, and thus no possibility for unexpected
@@ -845,21 +845,21 @@ are expressed and verified.
 To get a clear sense of the potential differences in performance
 between a pure functional program and an imperative program that
 compute the same function, consider our recursive definition of the
-factorial function.
+Fibonacci function.
 
-We start with the statement that if \sphinxstyleemphasis{n} is \sphinxstyleemphasis{0} or \sphinxstyleemphasis{1} the answer is
-\sphinxstyleemphasis{n}.  In other words, the \sphinxstyleemphasis{sequence}, \sphinxstyleemphasis{fib(i)} of \sphinxstyleemphasis{Fibonacci numbers
-indexed by i}, starts with, \([0, 1, \ldots ]\). Here we have the
+We start off knowing that if \sphinxstyleemphasis{n} is \sphinxstyleemphasis{0} or \sphinxstyleemphasis{1} the answer is \sphinxstyleemphasis{n}.  In
+other words, the \sphinxstyleemphasis{sequence}, \sphinxstyleemphasis{fib(i)} of \sphinxstyleemphasis{Fibonacci numbers indexed by
+i}, starts with, \([0, 1, \ldots ]\). We start already having the
 values of \sphinxstyleemphasis{fib(0)}, the first Fibonacci number and \sphinxstyleemphasis{fib(1)}, the
-second. The third, \sphinxstyleemphasis{fib(2)} would be the sum of the first two.
+second. The third, \sphinxstyleemphasis{fib(2)} is then the sum of the previous two.  Note
+that by convention we index sequences starating at zero rather than
+one. The first element in such a sequence has index \sphinxstyleemphasis{0}, the second
+has index \sphinxstyleemphasis{1}, and the \sphinxstyleemphasis{n’th} has index \sphinxstyleemphasis{n - 1}.
 
-You will note that we (generally) start indexing sequences at zero
-rather than one. The first element in such a sequence has index \sphinxstyleemphasis{0},
-the second has index \sphinxstyleemphasis{1}, etc.
-
-For any \sphinxstyleemphasis{i \textgreater{}= 1}, the next element after \sphinxstyleemphasis{i}, \sphinxstyleemphasis{fib(i+1)} (let’s call
-it \sphinxstyleemphasis{fib2}) is the sum of the previous two elements, banely \sphinxstyleemphasis{fib(i-1)}
-and fib(i)* (let’s call them \sphinxstyleemphasis{fib0} and \sphinxstyleemphasis{fib1}, respectively).
+Now, for any index \sphinxstyleemphasis{i \textgreater{}= 1}, the next element, \sphinxstyleemphasis{fib(i+1)} is the sum
+of the previous two elements, \sphinxstyleemphasis{fib(i-1)} and \sphinxstyleemphasis{fib(i)}. Let’s call them
+\sphinxstyleemphasis{fib0=fib(i-1), fib1=fib(i)}, and \sphinxstyleemphasis{fib2=fib(i+1)}. Given a \sphinxstyleemphasis{fib0} and
+a \sphinxstyleemphasis{fib1} we compute \sphinxstyleemphasis{fib2} by adding \sphinxstyleemphasis{fib0} and \sphinxstyleemphasis{fib1}.
 
 Our recursive definition, \sphinxstyleemphasis{fib(n)} is pure math: elegant and precise.
 And because we’ve written in a functional programming language, we can
