@@ -12,7 +12,7 @@ other words, the sequence, *fib(i)* of *Fibonacci numbers indexed by
 i*, starts with, :math:`[0, 1, \ldots ]`.  For any *n >= 2*, *fib(n)*,
 is the sum of the previous two values.  To compute the *n'th*
 Fibonacci number, we can thus start with the first two, sum them up to
-get the next one, then iterate this process, computing the subsequent
+get the next one, then iterate this process, computing the next
 Fibonacci number on each iteration, until we've got the result.
 
 Footnote: by convention we index sequences starating at zero rather
