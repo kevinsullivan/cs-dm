@@ -13,6 +13,11 @@
 \contentsline {section}{\numberline {4.4}Recursive function definitions and implementations}{11}{section.4.4}
 \contentsline {section}{\numberline {4.5}Dafny is a Program Verifier}{12}{section.4.5}
 \contentsline {chapter}{\numberline {5}Integrating Formal Specification with Imperative Programming}{15}{chapter.5}
-\contentsline {section}{\numberline {5.1}To integrate}{15}{section.5.1}
-\contentsline {section}{\numberline {5.2}Fitting it All Together}{15}{section.5.2}
-\contentsline {chapter}{\numberline {6}Indices and tables}{17}{chapter.6}
+\contentsline {section}{\numberline {5.1}Logical Specification}{15}{section.5.1}
+\contentsline {section}{\numberline {5.2}Rigorous Implementation}{16}{section.5.2}
+\contentsline {section}{\numberline {5.3}Formal Verification}{16}{section.5.3}
+\contentsline {section}{\numberline {5.4}Case Study: Implementing the Factorial Function}{16}{section.5.4}
+\contentsline {section}{\numberline {5.5}A Formally Verified Implementation of the Factorial Function}{18}{section.5.5}
+\contentsline {section}{\numberline {5.6}Case Study: Verified Implementation of the Fibonacci Function}{20}{section.5.6}
+\contentsline {section}{\numberline {5.7}What is Dafny?}{21}{section.5.7}
+\contentsline {chapter}{\numberline {6}Indices and tables}{23}{chapter.6}

@@ -119,10 +119,10 @@ specification.
 
 In addition to a proof of partial correctness, we usually do want to
 know that a program also does always terminate. When we have a proof
-of both :math:`P {C] Q` and that the program always terminates, then
+of both :math:`P \{C\} Q` and that the program always terminates, then
 we have a proof of *total correctness*. Dafny is a programming system
 that allows us to specify *P* amd *Q* and that then formally, and to a
-considerable extent automatically, verifies `P {C] Q` and termination.
+considerable extent automatically, verifies `P \{C\} Q` and termination.
 That is, Dafny produces proofs of total correctness.
 
 It is important to bear in mind that a proof that a program refines
@@ -274,15 +274,20 @@ verify that the assertion is always true at this point in the program.
 Strategy: use a while loop to compute the answer. We can do this by
 using a variable, a, to hold a "partial factorial value" in the form
 of a product of the numbers from n down to a loop index, "i," that we
-start at n and decrement down, terminating the loop when n==0. At each
-point just before, during, and right after the loop, a is a product of
-the numbers from n down to i, and the value of i represents how much
-of this product-computing work remains to be done. So, for example, if
-we're computing factorial(10) and a holds the value 10 * 9, then i
-must be 8 because multiplying a by the factors from 8 down to 1
-remains to be done. A critical "invariant" then is that if you
-multiply a by the factorial of i you get the final answer, which is to
-say the factorial of n.  */
+start at n and decrement down, terminating the loop when *n==0*. At
+each point just before, during, and right after the loop, *a* is a
+product of the numbers from *n* down to *i*, and the value of *i*
+represents how much of this product-computing work remains to be
+done. So, for example, if we're computing factorial(10) and a holds
+the value *10 \* 9*, then *i* must be *8* because the task of
+multiplying *a* by the factors from *8* down to *1* remains to be
+done. A critical "invariant" then is that if you multiply *a* by the
+factorial of *i* you get the final answer, the factorial of *n*.
+And in particular, when *i* gets down to *0*, *a* must contain the
+final result, because *a \* fact(0)* will then equal *fact(n)* and
+*fact(0)* is just *1*, so *a* must equal *fact(n)*. This is how we
+design loops so that we can be confident that they do what we want
+tem to do.
 
 Step 1. Set up state for the loop to work. We first initializie a := 1
 and i := n and check that the invariant holds. Note that we are using

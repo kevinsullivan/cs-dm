@@ -148,10 +148,10 @@ nothing other than a proposition that claims that <em>C</em> satisfies its
 specification.</p>
 <p>In addition to a proof of partial correctness, we usually do want to
 know that a program also does always terminate. When we have a proof
-of both <span class="math">\(P {C] Q\)</span> and that the program always terminates, then
+of both <span class="math">\(P \{C\} Q\)</span> and that the program always terminates, then
 we have a proof of <em>total correctness</em>. Dafny is a programming system
 that allows us to specify <em>P</em> amd <em>Q</em> and that then formally, and to a
-considerable extent automatically, verifies <cite>P {C] Q</cite> and termination.
+considerable extent automatically, verifies <cite>P {C} Q</cite> and termination.
 That is, Dafny produces proofs of total correctness.</p>
 <p>It is important to bear in mind that a proof that a program refines
 its formal specification does not necessarily mean that it is fit for
@@ -281,15 +281,20 @@ verify that the assertion is always true at this point in the program.</p>
 <p>Strategy: use a while loop to compute the answer. We can do this by
 using a variable, a, to hold a “partial factorial value” in the form
 of a product of the numbers from n down to a loop index, “i,” that we
-start at n and decrement down, terminating the loop when n==0. At each
-point just before, during, and right after the loop, a is a product of
-the numbers from n down to i, and the value of i represents how much
-of this product-computing work remains to be done. So, for example, if
-we’re computing factorial(10) and a holds the value 10 * 9, then i
-must be 8 because multiplying a by the factors from 8 down to 1
-remains to be done. A critical “invariant” then is that if you
-multiply a by the factorial of i you get the final answer, which is to
-say the factorial of n.  <a href="#id1"><span class="problematic" id="id2">*</span></a>/</p>
+start at n and decrement down, terminating the loop when <em>n==0</em>. At
+each point just before, during, and right after the loop, <em>a</em> is a
+product of the numbers from <em>n</em> down to <em>i</em>, and the value of <em>i</em>
+represents how much of this product-computing work remains to be
+done. So, for example, if we’re computing factorial(10) and a holds
+the value <em>10 * 9</em>, then <em>i</em> must be <em>8</em> because the task of
+multiplying <em>a</em> by the factors from <em>8</em> down to <em>1</em> remains to be
+done. A critical “invariant” then is that if you multiply <em>a</em> by the
+factorial of <em>i</em> you get the final answer, the factorial of <em>n</em>.
+And in particular, when <em>i</em> gets down to <em>0</em>, <em>a</em> must contain the
+final result, because <em>a * fact(0)</em> will then equal <em>fact(n)</em> and
+<em>fact(0)</em> is just <em>1</em>, so <em>a</em> must equal <em>fact(n)</em>. This is how we
+design loops so that we can be confident that they do what we want
+tem to do.</p>
 <p>Step 1. Set up state for the loop to work. We first initializie a := 1
 and i := n and check that the invariant holds. Note that we are using
 our pure functional math-like definition of fact as a <em>specification</em>
