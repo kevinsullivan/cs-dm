@@ -1,0 +1,298 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Dafny Built-In Programming Abstractions &#8212; Discrete Mathematics for Software Professionals 1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/sidebar.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Formal Verification of Imperative Programs" href="05-putting-it-together.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="05-putting-it-together.html" title="Formal Verification of Imperative Programs"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="dafny-built-in-programming-abstractions">
+<h1>Dafny Built-In Programming Abstractions<a class="headerlink" href="#dafny-built-in-programming-abstractions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="boolean-algebra">
+<h2>Boolean Algebra<a class="headerlink" href="#boolean-algebra" title="Permalink to this headline">¶</a></h2>
+<p>Here’s a method that illustrates boolean operators in Dafny</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method BoolOps() returns (r: bool)
+{
+    var t: bool := true;
+    var f := false;
+    var not := !t;
+    var conj := t &amp;&amp; f;     // short-circuiting
+    var disj := t || f;     // short-circuiting
+    var impl := t ==&gt; f;    // right associative, s.c. from left
+    var foll := t &lt;== f;    // left associative, s.c. from right
+    var equv := t &lt;==&gt; t;
+    return true;
+ }
+</pre></div>
+</div>
+</div>
+<div class="section" id="arithmetic">
+<h2>Arithmetic<a class="headerlink" href="#arithmetic" title="Permalink to this headline">¶</a></h2>
+<p>Methods aren’t required to return results. Such methods do their jobs
+by having side effects, e.g., doing output or writing data into global
+variables (usually a bad idea).  Here’s a method that doesn’t return a
+value. It illustrates numerical types, syntax, and operations.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method NumOps()
+{
+    var r1: real := 1000000.0;
+    var i1: int := 1000000;
+    var i2: int := 1_000_000;   // underscores for readiability
+    var i3 := 1_000;            // Dafny can often infer types
+    var b1 := (10 &lt; 20) &amp;&amp; (20 &lt;= 30); // a boolean expression
+    var b2 := 10 &lt; 20 &lt;= 30;    // equivalent, with &quot;chaining&quot;
+    var i4: int := (5.5).Floor; // 5
+    var i5 := (-2.5).Floor;     // -3
+    var i6 := -2.5.Floor;        // -2 = -(2.5.Floor); binding!
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="characters">
+<h2>Characters<a class="headerlink" href="#characters" title="Permalink to this headline">¶</a></h2>
+<p>Characters (char) are handled sort of as they are in C, etc.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method CharFun()
+{
+    var c1: char := &#39;a&#39;;
+    var c2 := &#39;b&#39;;
+    // var i1 := c2 - c1;
+    var i1 := (c2 as int) - (c1 as int);    // type conversion
+    var b1 := c1 &lt; c2;  // ordering operators defined for char
+    var c3 := &#39;\n&#39;;     // c-style escape for non-printing chars
+    var c4 := &#39;\u265B&#39;; // unicode, hex, &quot;chess king&quot; character
+}
+</pre></div>
+</div>
+<p>To return a value from a method, assign to the return parameter
+Note: functions have colon then return type, whereas methods
+use the “returns” keyword with a return parameter list</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method ReturnExample() returns (retval: int)
+{
+    retval := 10;
+}
+</pre></div>
+</div>
+<p>Methods can return multiple values.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method ReturnExample2() returns (x: int, y:int)
+{
+    x := 10;
+    y := 20;
+</pre></div>
+</div>
+<p>}</p>
+<p>The return keyword can be used to return immediatey</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method ReturnExample3() returns (x: int)
+{
+    x := 5;     // don&#39;t &quot;var&quot; decare return variable
+    return;     // return immediately
+    x := 6;     // never gets executed
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="sets-theory">
+<h2>Sets Theory<a class="headerlink" href="#sets-theory" title="Permalink to this headline">¶</a></h2>
+<p>Polymorphic finite and infinite set types.
+set&lt;T&gt; and iset&lt;T&gt;. T must support equality.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method SetPlay()
+{
+    var empty: set&lt;int&gt; := {};
+    var primes := {2, 3, 5, 7, 11};
+    var squares := {1, 4, 9, 16, 25};
+    var b1 := empty &lt; primes;    // strict subset
+    var b2 := primes &lt;= primes;   // subset
+    var b3: bool := primes !! squares; // disjoint
+    var union := primes + squares;
+    var intersection := primes * squares;
+    var difference := primes - {3, 5};
+    var b4 := primes == squares;    // false
+    var i1 := | primes |;   // cardinality (5)
+    var b5 := 4 in primes;  // membership (false)
+    var b6 := 4 !in primes; // non-membership
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="sequences">
+<h2>Sequences<a class="headerlink" href="#sequences" title="Permalink to this headline">¶</a></h2>
+<p>Polymorphic sequences (often called “lists”).
+A function from indices to values. Some of
+the operations require that T support equality.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method SequencePlay()
+{
+    var empty_seq: seq&lt;char&gt; := [];
+    var hi_seq: seq&lt;char&gt; := [&#39;h&#39;, &#39;i&#39;];
+    var b1 := hi_seq == empty_seq; // equality; !=
+    var hchar := hi_seq[0];        // indexing
+    var b2 := [&#39;h&#39;] &lt; hi_seq;   // proper prefix
+    var b3 := hi_seq &lt; hi_seq;  // this is false
+    var b4 := hi_seq &lt;= hi_seq; // prefix, true
+    var sum := hi_seq + hi_seq; // concatenation
+    var len := | hi_seq |;
+    var Hi_seq := hi_seq[0 := &#39;H&#39;]; // update
+    var b5 := &#39;h&#39; in hi_seq; // member, true, !in
+    var s := [0,1,2,3,4,5];
+    var s1 := s[0..2];  // subseqence
+    var s2 := s[1..];   // &quot;drop&quot; prefix of len 1
+    var s3 := s[..2];   // &quot;take&quot; prefix of len 2
+    // there&#39;s a slice operator, too; later
+ }
+</pre></div>
+</div>
+</div>
+<div class="section" id="character-strings">
+<h2>Character Strings<a class="headerlink" href="#character-strings" title="Permalink to this headline">¶</a></h2>
+<p>Dafny has strings. Strings are literally just sequences of characters
+(of type seq&lt;char&gt;), so you can use all the sequence operations on
+strings.  Dafny provides additional helpful syntax for strings.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method StringPlay()
+ {
+     var s1: string := &quot;Hello CS2102!&quot;;
+     var s2 := &quot;Hello CS2102!\n&quot;;   // return
+     var s3 := &quot;\&quot;Hello CS2102!\&quot;&quot;; // quotes
+ }
+</pre></div>
+</div>
+</div>
+<div class="section" id="partial-functions-maps">
+<h2>Partial Functions (Maps)<a class="headerlink" href="#partial-functions-maps" title="Permalink to this headline">¶</a></h2>
+<p>Dafny also supports polymorphic maps, both finite (map&lt;K,V&gt;) and
+infinite (imap&lt;K,V&gt;).  The key type, K, must support equality (==).
+In mathematical terms, a map really represents a binary relation,
+i.e., a set of &lt;K,V&gt; pairs, which is to say a subset of the product
+set, K * V, where we view the types K and V as defining sets of
+values.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method MapPlay()
+{
+    // A map literal is keyword map + a list of maplets.
+    // A maplet is just a single &lt;K,V&gt; pair (or &quot;tuple&quot;).
+    // Here&#39;s an empty map from strings to ints
+    var emptyMap: map&lt;string,int&gt; := map[];
+
+    // Here&#39;s non empty map from strings to ints
+    // A maplet is &quot;k := v,&quot; k and v being of types K and V
+    var aMap: map&lt;string,int&gt;  := map[&quot;Hi&quot; := 1, &quot;There&quot; := 2];
+
+    // Map domain (key) membership
+    var isIn: bool := &quot;There&quot; in aMap; // true
+    var isntIn := &quot;Their&quot; !in aMap;    // true
+
+    // Finite map cardinality (number of maplets in a map)
+    var card := |aMap|;
+
+    //Map lookup
+    var image1 := aMap[&quot;There&quot;];
+    // var image2 := aMap[&quot;Their&quot;]; // error! some kind of magic
+    var image2: int;
+    if (&quot;Their&quot; in aMap) { image2 := aMap[&quot;Their&quot;]; }
+
+    // map update, maplet override and maplet addition
+    aMap := aMap[&quot;There&quot; := 3];
+    aMap := aMap[&quot;Their&quot; := 10];
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="arrays">
+<h2>Arrays<a class="headerlink" href="#arrays" title="Permalink to this headline">¶</a></h2>
+<p>Dafny supports arrays. Here’s we’ll see simple 1-d arrays.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method ArrayPlay()
+{
+    var a := new int[10]; // in general: a: array&lt;T&gt; := new T[n];
+    var a&#39; := new int[10];   // type inference naturally works here
+    var i1 := a.Length;      // Immutable &quot;Length&quot; member holds length of array
+    a[3] := 3;           // array update
+    var i2 := a[3];          // array access
+    var seq1 := a[3..8];    // take first 8, drop first 3, return as sequence
+    var b := 3 in seq1;     // true! (see sequence operations)
+    var seq2 := a[..8];     // take first 8, return rest as sequence
+    var seq3 := a[3..];     // drop first 3, return rest as sequence
+    var seq4 := a[..];      // return entire array as a sequence
+}
+</pre></div>
+</div>
+<p>Arrays, objects (class instances), and traits (to be discussed) are of
+“reference” types, which is to say, values of these types are stored
+on the heap. Values of other types, including sets and sequences, are
+of “value types,” which is to say values of these types are stored on
+the stack; and they’re thus always treated as “local” variables. They
+are passed by value, not reference, when passed as arguments to
+functions and methods. Value types include the basic scalar types
+(bool, char, nat, int, real), built-in collection types (set,
+multiset, seq, string, map, imap), tuple, inductive, and co-inductive
+types (to be discussed).  Reference type values are allocated
+dynamically on the heap, are passed by reference, and therefore can be
+“side effected” (mofified) by methods to which they are passed.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="05-putting-it-together.html"
+                        title="previous chapter">Formal Verification of Imperative Programs</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="05-putting-it-together.html" title="Formal Verification of Imperative Programs"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Kevin Sullivan.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
+  </body>
+</html>

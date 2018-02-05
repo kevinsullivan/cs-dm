@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Mathematical Logic in Software Development documentation build configuration file, created by
+# Discrete Mathematics for Software Professionals documentation build configuration file, created by
 # sphinx-quickstart on Sat Jan 27 09:02:45 2018.
 #
 # This file is execfile()d with the current directory set to its
@@ -47,7 +47,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'Mathematical Logic in Software Development'
+project = 'Discrete Mathematics for Software Professionals'
 copyright = '2018, Kevin Sullivan'
 author = 'Kevin Sullivan'
 
