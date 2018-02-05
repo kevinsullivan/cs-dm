@@ -131,8 +131,9 @@ use the “returns” keyword with a return parameter list</p>
 </div>
 <div class="section" id="set-theory">
 <h2>Set Theory<a class="headerlink" href="#set-theory" title="Permalink to this headline">¶</a></h2>
-<p>Polymorphic finite and infinite set types.
-set&lt;T&gt; and iset&lt;T&gt;. T must support equality.</p>
+<p>Polymorphic finite and infinite set types:
+set&lt;T&gt; and iset&lt;T&gt;. T must support equality.
+Values of these types are immutable.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>method SetPlay()
 {
     var empty: set&lt;int&gt; := {};
@@ -154,9 +155,9 @@ set&lt;T&gt; and iset&lt;T&gt;. T must support equality.</p>
 </div>
 <div class="section" id="sequences">
 <h2>Sequences<a class="headerlink" href="#sequences" title="Permalink to this headline">¶</a></h2>
-<p>Polymorphic sequences (often called “lists”).
-A function from indices to values. Some of
-the operations require that T support equality.</p>
+<p>Polymorphic sequences (often called “lists”): seq&lt;T&gt;. These can be
+understood as functions from indices to values. Some of the operations
+require that T support equality. Values of this type are immutable.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>method SequencePlay()
 {
     var empty_seq: seq&lt;char&gt; := [];

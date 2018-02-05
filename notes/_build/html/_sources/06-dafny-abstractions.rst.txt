@@ -99,8 +99,9 @@ The return keyword can be used to return immediatey
 Set Theory
 -----------
 
-Polymorphic finite and infinite set types.
+Polymorphic finite and infinite set types:
 set<T> and iset<T>. T must support equality.
+Values of these types are immutable.
 
 .. code-block:: dafny
 
@@ -125,9 +126,9 @@ set<T> and iset<T>. T must support equality.
 Sequences
 ---------
 
-Polymorphic sequences (often called "lists").
-A function from indices to values. Some of 
-the operations require that T support equality.
+Polymorphic sequences (often called "lists"): seq<T>. These can be
+understood as functions from indices to values. Some of the operations
+require that T support equality. Values of this type are immutable.
 
 .. code-block:: dafny
 
