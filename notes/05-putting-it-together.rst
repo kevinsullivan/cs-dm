@@ -6,54 +6,64 @@ between a pure functional program and an imperative program that
 compute the same function, consider our recursive definition of the
 Fibonacci function.
 
-We start off knowing that if *n* is *0* or *1* the answer is *n*.  In
-other words, the *sequence*, *fib(i)* of *Fibonacci numbers indexed by
-i*, starts with, :math:`[0, 1, \ldots ]`. We start already having the
-values of *fib(0)*, the first Fibonacci number and *fib(1)*, the
-second. The third, *fib(2)* is then the sum of the previous two.  Note
-that by convention we index sequences starating at zero rather than
-one. The first element in such a sequence has index *0*, the second
-has index *1*, and the *n'th* has index *n - 1*.
+We start off knowing that if the argument to the function, *n*, is *0*
+or *1*, the value of the function for that *n* is just *n* itself.  In
+other words, the sequence, *fib(i)* of *Fibonacci numbers indexed by
+i*, starts with, :math:`[0, 1, \ldots ]`.  For any *n >= 2*, *fib(n)*,
+is the sum of the previous two values.  To compute the *n'th*
+Fibonacci number, we can thus start with the first two, sum them up to
+get the next one, then iterate this process, computing the subsequent
+Fibonacci number on each iteration, until we've got the result.
 
-Now, for any index *i >= 1*, the next element, *fib(i+1)* is the sum
-of the previous two elements, *fib(i-1)* and *fib(i)*. Let's call them
-*fib0=fib(i-1), fib1=fib(i)*, and *fib2=fib(i+1)*. Given a *fib0* and
-a *fib1* we compute *fib2* by adding *fib0* and *fib1*. 
+Footnote: by convention we index sequences starating at zero rather
+than one. The first element in such a sequence thus has index *0*, the
+second has index *1*, and the *n'th* has index *n - 1*. For example,
+*fib(6)* refers to the *7th* Fibonacci number. You should get used to
+thinking in terms of zero-indexed sequences.
 
-Our recursive definition, *fib(n)* is pure math: elegant and precise.
-And because we've written in a functional programming language, we can
-even run it if we wish. An imperative program, by constrast, will just
-repeated add the last two two known Fibonacci numbers together to get
-the next one until the desired *nth* one is computed.
+Now consider our recursive definition, *fib(n)*. It's *pure math*:
+concise, precise, elegant.  And because we've written in a functional
+language, we can even run it if we wish. However, it might not give us
+the performance we require. An imperative program, by constrast, is
+*code*. It's almost like it's encrypted. It's certainly often cryptic.
+But it can be very efficient when run.
 
-Now let's consider the evaluation of each program given the value, *n
-= 7*. Start with the imperative program. The answers for the first two
+To get a sense of performance diferences, consider the evaluation of
+each of two programs to compute *fib(7)*: our functional program and
+an imperative one that we will develop in this chapter.
+
+Start with the imperative program. The answers for the first two
 values are zero and one. If *n* is either zero or one the answer is
-just returned; otherwise it is computed and returned. In this case,
-the program will repeatedly add together the last two known values of
-the function (starting with the *0* and *1*) to obtain the next one.
-It will then store (remember) the previous and current values of the
-function to get ready for the next iteration of the loop, terminating
-once the *n'th* value in the sequence of Fibonacci numbers has been
-computed. The program returns that value.
+just returned. If *n >= 2* an answer has to be computed. In this case,
+the program will repeatedly add together the previous two values of
+the function (starting with *0* and *1*) to obtain the next one.  It
+will then the new and the previously new values of the function to get
+ready for the next iteration.  It will terminate once the *n'th* value
+has been computed. The program returns that value.
 
-Question: How many executions of the loop body are required to compute
-*fib(5)*? Well, we need to execute it for values of *i* of *2, 3, 4,*
-and *5*. It takes *4* **n-1* iterations. To compute the 10th element
-requires that the loop body execute for *i* in the range (inclusive
-of *[2, 3, ..., 10]*, which means nine iterations of the loop will be
-required, or, again, *n-1*. Indeed, it's pretty easy to see that for
-any value of *n*, *n-1* iterations of the loop body will be required
-to compute the *nth* Fibonacci number.
+Question: For any reasonably large value of *n*, the cost of computing
+an answer will be dominated by the work done inside the loop body; and on
+each iteration of the loop a fixed amount of work is done; so it's not a
+bad idea to use the number of loop body executions as a measure of the
+cost of computing an answer for an argument, *n*.
+
+For example, how much does it cost to compute *fib(5)*? Well, we need
+to execute it the loop body to compute *fib(n)* for values of *n* of
+*2, 3, 4,* and *5*. It thus takes *4* iterations of the loop body to
+compute *fib(5)*.
+
+To compute the 10th element requires that the loop body execute for
+arguments in the range of *[2, 3, ..., 10]*. That's nine iterations.
+It's pretty easy to see that for any value of *n*, *n-1* iterations of
+the loop body will be required to compute the *nth* Fibonacci number.
 
 The functional program, on the other hand, is evaluated by repeated
-unfolding of nested recursive definitions until values are computed,
-at which point the values are combined into a final result. Let's see
-if we can see a pattern. We'll measure computational complexity now in
-terms of the number of function evaluations (rather than loop bodies
-executed).
+evaluation of nested recursive function applications until base values
+are reached.  Let's try to see a pattern. We'll measure computational
+complexity now in terms of the number of function evaluations (rather
+than loop bodies executed) required to produce a final answer.
 
-To compute $fib(0)* or $fib(1)$ requires just $1$ function evaluation,
+To compute *fib(0)* or *fib(1)* requires just *1* function evaluation,
 as these are base cases with no recursive calls to solve subproblems.
 To compute *fib(2)* however requires *3* evalations of *fib*, one for
 *2* and one for each of *1* and *0*. Those count as just one each as
@@ -66,7 +76,7 @@ What about when *n* is *3*?  Computing this requires answers for
 total of *5* evaluations. Computing *fib(4)* requires answers for
 *fib(3)* and *fib(2)*, costing *5 + 3*, or *8* evaluations, plus the
 original evaluation is 9. For *fib(5)* we need *9* + *5*, or *14*,
-plus the original makes $15* evaluations.  relation is like this:
+plus the original makes *15* evaluations.  relation is like this:
 :math:`\{ (0,1), (1,1), (2,3), (3,5), (4,9), (5, 15), ... \}.` So, in
 general, the number of evaluations needed to evaluate *fib(i+1)* is
 the sum of the numbers required to compute *fib(i)* and *fib(i-1) +
@@ -146,8 +156,8 @@ Logical Specification
 First, we use mathematical logic to *declaratively specify* properties
 of the behaviors that we require of programs written in *imperative*
 languages. For example, we might require that, when given any natural
-number, $n$, a program compute and return the value of the $factorial$
-of $n$, the mathematical definition of which we've given as $fact(n)$.
+number, *n*, a program compute and return the value of the *factorial*
+of *n*, the mathematical definition of which we've given as *fact(n)*.
 
 Specifications about required relationships between argument values
 and return results are especially important. They specify *what* a
@@ -596,7 +606,7 @@ up the desired state of affairs, we should initialize *i* to be *1*.
 We can state and Dafny can verify a number of conditions that we
 expect and require to hold at this point. First, *fib1* equals
 *fib(i)*. Now to compute the next (*i+1*) Fibonacci number, we need
-not only the value of $fib(i)* but also *fib(i-1)*. We will thus also
+not only the value of *fib(i)* but also *fib(i-1)*. We will thus also
 want *fib0* to hold this value at the start and end of each loop
 iteration, and indeed we do have that state of affairs right now.
 
@@ -607,7 +617,7 @@ iteration, and indeed we do have that state of affairs right now.
 
 To compute *fib(n)* for any *n* greater than or equal to *2* will
 require at least one execution of the loop body. We'll thus set our
-loop condition to be $i < n$. This ensures that the loop body will
+loop condition to be *i < n*. This ensures that the loop body will
 run, as *i* is *1* and *n* is at least *2*, so the condition *i < n*
 is *true*, which dictates that the loop body must be evaluated.
 
@@ -619,8 +629,8 @@ value of *fib1* to *fib0* and the value of *fib2* to *fib1*.
 
 Let's work an example. Suppose *n* happens to be *2*. The loop body
 will run, and after the one execution, *i* will have the value, *2*;
-*fib1* will have the value of $fib(2)$, and *fib0* will have the value
-of *fib(1)$. Because *i* is now *2* and *n* is still *2*, the loop
+*fib1* will have the value of *fib(2)*, and *fib0* will have the value
+of *fib(1)*. Because *i* is now *2* and *n* is still *2*, the loop
 condition will now be false and the loop will terminate. The value of
 *fib1* will of course be *fib(i)* but now we'll also have that *i ==
 n* (it takes a little reasoning to prove this), so *fib(i)* will be

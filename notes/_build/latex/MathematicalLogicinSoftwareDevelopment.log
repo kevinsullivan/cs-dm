@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500) (preloaded format=pdflatex 2017.12.2)  4 FEB 2018 21:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500) (preloaded format=pdflatex 2017.12.2)  4 FEB 2018 21:59
 entering extended mode
 **./MathematicalLogicinSoftwareDevelopment.tex
 (MathematicalLogicinSoftwareDevelopment.tex
@@ -1200,27 +1200,27 @@ Chapter 5.
 ]
 Chapter 6.
 (MathematicalLogicinSoftwareDevelopment.ind)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1575.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1585.
  [25]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1575.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1585.
 
 (MathematicalLogicinSoftwareDevelopment.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1575.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1575.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1585.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1585.
 
 Package rerunfilecheck Info: File `MathematicalLogicinSoftwareDevelopment.out' 
 has not changed.
 (rerunfilecheck)             Checksum: 7344CD38A94CCFEAA2860F0C76C65B31;5806.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1575.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1585.
  ) 
 Here is how much of TeX's memory you used:
  13596 strings out of 495217
  189536 string characters out of 3181647
- 289207 words of memory out of 3000000
+ 290207 words of memory out of 3000000
  16537 multiletter control sequences out of 15000+200000
  48431 words of font info for 68 fonts, out of 3000000 for 9000
  15 hyphenation exceptions out of 8191
- 37i,23n,45p,481b,440s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 37i,23n,45p,481b,455s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/local/share/miktex-texmf/fonts/enc/dvips/base/8r.enc}</usr/local/share/
 miktex-texmf/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/share/miktex
 -texmf/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/share/miktex-texmf
@@ -1235,7 +1235,7 @@ x-texmf/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/local/share/miktex-texmf/fon
 ts/type1/urw/times/utmb8a.pfb></usr/local/share/miktex-texmf/fonts/type1/urw/ti
 mes/utmr8a.pfb></usr/local/share/miktex-texmf/fonts/type1/urw/times/utmri8a.pfb
 >
-Output written on MathematicalLogicinSoftwareDevelopment.pdf (29 pages, 268239 
+Output written on MathematicalLogicinSoftwareDevelopment.pdf (29 pages, 267685 
 bytes).
 PDF statistics:
  312 PDF objects out of 1000 (max. 8388607)
