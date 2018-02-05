@@ -8,7 +8,7 @@ factorial function.
 
 We start with the statement that if *n* is *0* or *1* the answer is
 *n*.  In other words, the *sequence*, *fib(i)* of *Fibonacci numbers
-indexed by i*, starts with, :math:`\[0, 1, \ldots\]`. Here we have the
+indexed by i*, starts with, :math:`[0, 1, \ldots ]`. Here we have the
 values of *fib(0)*, the first Fibonacci number and *fib(1)*, the
 second. The third, *fib(2)* would be the sum of the first two.
 

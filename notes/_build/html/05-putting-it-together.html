@@ -48,13 +48,126 @@
             
   <div class="section" id="integrating-formal-specification-with-imperative-programming">
 <h1>Integrating Formal Specification with Imperative Programming<a class="headerlink" href="#integrating-formal-specification-with-imperative-programming" title="Permalink to this headline">¶</a></h1>
+<p>To get a clear sense of the potential differences in performance
+between a pure functional program and an imperative program that
+compute the same function, consider our recursive definition of the
+factorial function.</p>
+<p>We start with the statement that if <em>n</em> is <em>0</em> or <em>1</em> the answer is
+<em>n</em>.  In other words, the <em>sequence</em>, <em>fib(i)</em> of <em>Fibonacci numbers
+indexed by i</em>, starts with, <span class="math">\([0, 1, \ldots ]\)</span>. Here we have the
+values of <em>fib(0)</em>, the first Fibonacci number and <em>fib(1)</em>, the
+second. The third, <em>fib(2)</em> would be the sum of the first two.</p>
+<p>You will note that we (generally) start indexing sequences at zero
+rather than one. The first element in such a sequence has index <em>0</em>,
+the second has index <em>1</em>, etc.</p>
+<p>For any <em>i &gt;= 1</em>, the next element after <em>i</em>, <em>fib(i+1)</em> (let’s call
+it <em>fib2</em>) is the sum of the previous two elements, banely <em>fib(i-1)</em>
+and fib(i)* (let’s call them <em>fib0</em> and <em>fib1</em>, respectively).</p>
+<p>Our recursive definition, <em>fib(n)</em> is pure math: elegant and precise.
+And because we’ve written in a functional programming language, we can
+even run it if we wish. An imperative program, by constrast, will just
+repeated add the last two two known Fibonacci numbers together to get
+the next one until the desired <em>nth</em> one is computed.</p>
+<p>Now let’s consider the evaluation of each program given the value, <em>n
+= 7</em>. Start with the imperative program. The answers for the first two
+values are zero and one. If <em>n</em> is either zero or one the answer is
+just returned; otherwise it is computed and returned. In this case,
+the program will repeatedly add together the last two known values of
+the function (starting with the <em>0</em> and <em>1</em>) to obtain the next one.
+It will then store (remember) the previous and current values of the
+function to get ready for the next iteration of the loop, terminating
+once the <em>n’th</em> value in the sequence of Fibonacci numbers has been
+computed. The program returns that value.</p>
+<p>Question: How many executions of the loop body are required to compute
+<em>fib(5)</em>? Well, we need to execute it for values of <em>i</em> of <em>2, 3, 4,</em>
+and <em>5</em>. It takes <em>4</em> <a href="#id1"><span class="problematic" id="id2">**</span></a>n-1* iterations. To compute the 10th element
+requires that the loop body execute for <em>i</em> in the range (inclusive
+of <em>[2, 3, …, 10]</em>, which means nine iterations of the loop will be
+required, or, again, <em>n-1</em>. Indeed, it’s pretty easy to see that for
+any value of <em>n</em>, <em>n-1</em> iterations of the loop body will be required
+to compute the <em>nth</em> Fibonacci number.</p>
+<p>The functional program, on the other hand, is evaluated by repeated
+unfolding of nested recursive definitions until values are computed,
+at which point the values are combined into a final result. Let’s see
+if we can see a pattern. We’ll measure computational complexity now in
+terms of the number of function evaluations (rather than loop bodies
+executed).</p>
+<p>To compute $fib(0)* or $fib(1)$ requires just $1$ function evaluation,
+as these are base cases with no recursive calls to solve subproblems.
+To compute <em>fib(2)</em> however requires <em>3</em> evalations of <em>fib</em>, one for
+<em>2</em> and one for each of <em>1</em> and <em>0</em>. Those count as just one each as
+there are no further recursive calls. So the relationship between <em>n</em>
+and the number of function evaluations currently looks like this:
+<span class="math">\(\{ (0,1), (1,1), (2,3), ... \}.\)</span></p>
+<p>What about when <em>n</em> is <em>3</em>?  Computing this requires answers for
+<em>fib(2)</em>, costing <em>3</em> evaluations, and <em>fib(1)</em>, costing one, for a
+total of <em>5</em> evaluations. Computing <em>fib(4)</em> requires answers for
+<em>fib(3)</em> and <em>fib(2)</em>, costing <em>5 + 3</em>, or <em>8</em> evaluations, plus the
+original evaluation is 9. For <em>fib(5)</em> we need <em>9</em> + <em>5</em>, or <em>14</em>,
+plus the original makes $15* evaluations.  relation is like this:
+<span class="math">\(\{ (0,1), (1,1), (2,3), (3,5), (4,9), (5, 15), ... \}.\)</span> So, in
+general, the number of evaluations needed to evaluate <em>fib(i+1)</em> is
+the sum of the numbers required to compute <em>fib(i)</em> and <em>fib(i-1) +
+1.</em> Now that we see the formula, we can compute the next entry in the
+sequence easily: the number of function evaluations needed to compute
+<em>fib(6)</em> is <em>15 + 9 + 1</em>, i.e., 25. Computing the value of <em>fib(7)</em>
+costs <em>41</em> evaluations; <em>fib(8), *67*l *fib(9), 109</em>, <em>fib(10), 177</em>
+and <em>fib(11), 286</em> function evaluations.</p>
+<p>With out imperative program, the number of loop body interations grows
+linearly with <em>n</em>. We could say that the computational cost of running
+the imperative program to compute <em>fib(n)</em>, let’s call it <em>cost(n) is
+just *n+1</em>. How does the cost of the (doubly) recursive program grow
+as a function of <em>n</em>? Well, one thing to notice is that the cost of
+computing the Fibonacci sequence is close to the Fibonacci sequence
+itself! The first two values in the <em>cost</em> sequence are <em>1</em> and <em>1</em>,
+and each subsequence element is the sum of the previous two <em>plus 1</em>.
+It’s not exactly the Fibonacci sequence, but it turns out to grow at
+the same rate overall. Without getting into details, the Fibonacci
+sequence, and thus also the cost of computing it recursively, grows at
+an exponential rate, with an exponent of about <em>1.6</em>. Increasing <em>n</em>
+by <em>1</em> does quite double the previous cost, but it does multiply it by
+about <em>1.6</em>.</p>
+<p>No matter how small the exponent, exponential functions eventually
+grow very large very quickly. You can already see that the cost to
+compute <em>fib(n)</em> recursively for values of <em>n</em> larger than just ten or
+so is vastly greater than the cost to compute it iteratively. The math
+(the recursive definition clear but inefficient. The program is
+efficient, but woefully not transparent as to its function. We need
+the latter program for practical computation. But how do we ensure
+that hard to understand imperative code flawlessly implements the same
+function that we expressed so elegantly in mathematical logic and its
+computational expression in pure functional programming?</p>
 <p>We address such problems by combining a few ideas. First, we use logic
 to express <em>declarative</em> specifications that precisely define <em>what</em> a
-given imperative program must do while <em>abstracting from</em>
-implementation details. Second, we implement the specified program in
-a way that uses and that supports logical reasoning about its
-behavior. Finally, we use logic proof techniques (or tools that do it
-for us) to <em>formally verify</em> that the program satisifies its specification.</p>
+given imperative program must do, an in particular what results it
+must return as a function of the arguements it received.</p>
+<p>We can use functions defined in the pure functional programming style
+as specifications, e.g., as giving the mathematical definition of the
+<em>factorial</em> function that an imperative program is meant to implement.</p>
+<p>Second, we implement the specified program in an imperative language
+in a way that supports logical reasoning about its behavior. What kind
+of support is needed to facilitate logical reasoning is broached in
+this chapter. For example, we have to specify not only the desired
+relationship between argument and result values, but also how loops
+are designed to work in our code; and we need to design loops in ways
+that make it easier to explain in formal logic how they do what they
+are meant to do.</p>
+<p>Finally, we use logical proofs to <em>verify</em> that the program satisifies
+its specification.</p>
+<p>We develop these idea in this chapter. First we explain how formal
+specifications in mathematical logic for imperative programs are often
+organized. Next we explore how writing imperative programs without the
+benefits of specification languages and verifications tools can make
+it hard to spot bugs in code. Next we enhance our implementation of
+the factorial function with specifications, show how Dafny flags the
+bug, and fix out program. Doing this requires that we deepen the way
+we understand loops. We end with a detailed presentation of the design
+and verification of an imperative program to compute elements in the
+Fibonacci sequence. Given any natural number <em>n</em>, our program must
+return the value of <em>fib(n)</em>, but it must also do it efficiently.  The
+careful design of a loop is once again the very heart of the problem.
+We will see how Dafny can help us to reason rigorously about loops,
+and that, with just a bit of help, it can reason about them for us.</p>
 <div class="section" id="logical-specification">
 <h2>Logical Specification<a class="headerlink" href="#logical-specification" title="Permalink to this headline">¶</a></h2>
 <p>First, we use mathematical logic to <em>declaratively specify</em> properties

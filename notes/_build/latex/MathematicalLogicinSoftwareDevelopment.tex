@@ -74,7 +74,7 @@
 
 
 \chapter{Requirement, Specifications, and Implementations}
-\label{\detokenize{01-reqs-specs-impls::doc}}\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}
+\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}\label{\detokenize{01-reqs-specs-impls::doc}}
 Software is an increasingly critical component of major societal
 systems, from rockets to power grids to healthcare, etc. Failures are
 not always bugs in implementation code. The most critical problems
@@ -172,7 +172,7 @@ is not true. More on relations later!
 
 
 \chapter{Logical Specifications, Imperative Implementations}
-\label{\detokenize{02-logic-and-code::doc}}\label{\detokenize{02-logic-and-code:logical-specifications-imperative-implementations}}
+\label{\detokenize{02-logic-and-code:logical-specifications-imperative-implementations}}\label{\detokenize{02-logic-and-code::doc}}
 We’ve discussed requirements, specifications, and implementations as
 distinct artifacts that serve distinct purposes. For good reasons,
 these artifacts are usually written in different languages. Software
@@ -520,7 +520,7 @@ steer a commercial aircraft, etc.
 
 
 \chapter{Pure Functional Programming as Runnable Mathematics}
-\label{\detokenize{04-runnable-math::doc}}\label{\detokenize{04-runnable-math:pure-functional-programming-as-runnable-mathematics}}
+\label{\detokenize{04-runnable-math:pure-functional-programming-as-runnable-mathematics}}\label{\detokenize{04-runnable-math::doc}}
 What we’d really like would be a language that gives us everything:
 the expressiveness and the \sphinxstyleemphasis{safety} of mathematical logic (there’s no
 concept of a memory in logic, and thus no possibility for unexpected
@@ -841,14 +841,143 @@ are expressed and verified.
 
 
 \chapter{Integrating Formal Specification with Imperative Programming}
-\label{\detokenize{05-putting-it-together::doc}}\label{\detokenize{05-putting-it-together:integrating-formal-specification-with-imperative-programming}}
+\label{\detokenize{05-putting-it-together:integrating-formal-specification-with-imperative-programming}}\label{\detokenize{05-putting-it-together::doc}}
+To get a clear sense of the potential differences in performance
+between a pure functional program and an imperative program that
+compute the same function, consider our recursive definition of the
+factorial function.
+
+We start with the statement that if \sphinxstyleemphasis{n} is \sphinxstyleemphasis{0} or \sphinxstyleemphasis{1} the answer is
+\sphinxstyleemphasis{n}.  In other words, the \sphinxstyleemphasis{sequence}, \sphinxstyleemphasis{fib(i)} of \sphinxstyleemphasis{Fibonacci numbers
+indexed by i}, starts with, \([0, 1, \ldots ]\). Here we have the
+values of \sphinxstyleemphasis{fib(0)}, the first Fibonacci number and \sphinxstyleemphasis{fib(1)}, the
+second. The third, \sphinxstyleemphasis{fib(2)} would be the sum of the first two.
+
+You will note that we (generally) start indexing sequences at zero
+rather than one. The first element in such a sequence has index \sphinxstyleemphasis{0},
+the second has index \sphinxstyleemphasis{1}, etc.
+
+For any \sphinxstyleemphasis{i \textgreater{}= 1}, the next element after \sphinxstyleemphasis{i}, \sphinxstyleemphasis{fib(i+1)} (let’s call
+it \sphinxstyleemphasis{fib2}) is the sum of the previous two elements, banely \sphinxstyleemphasis{fib(i-1)}
+and fib(i)* (let’s call them \sphinxstyleemphasis{fib0} and \sphinxstyleemphasis{fib1}, respectively).
+
+Our recursive definition, \sphinxstyleemphasis{fib(n)} is pure math: elegant and precise.
+And because we’ve written in a functional programming language, we can
+even run it if we wish. An imperative program, by constrast, will just
+repeated add the last two two known Fibonacci numbers together to get
+the next one until the desired \sphinxstyleemphasis{nth} one is computed.
+
+Now let’s consider the evaluation of each program given the value, \sphinxstyleemphasis{n
+= 7}. Start with the imperative program. The answers for the first two
+values are zero and one. If \sphinxstyleemphasis{n} is either zero or one the answer is
+just returned; otherwise it is computed and returned. In this case,
+the program will repeatedly add together the last two known values of
+the function (starting with the \sphinxstyleemphasis{0} and \sphinxstyleemphasis{1}) to obtain the next one.
+It will then store (remember) the previous and current values of the
+function to get ready for the next iteration of the loop, terminating
+once the \sphinxstyleemphasis{n’th} value in the sequence of Fibonacci numbers has been
+computed. The program returns that value.
+
+Question: How many executions of the loop body are required to compute
+\sphinxstyleemphasis{fib(5)}? Well, we need to execute it for values of \sphinxstyleemphasis{i} of \sphinxstyleemphasis{2, 3, 4,}
+and \sphinxstyleemphasis{5}. It takes \sphinxstyleemphasis{4} {\color{red}\bfseries{}**}n-1* iterations. To compute the 10th element
+requires that the loop body execute for \sphinxstyleemphasis{i} in the range (inclusive
+of \sphinxstyleemphasis{{[}2, 3, …, 10{]}}, which means nine iterations of the loop will be
+required, or, again, \sphinxstyleemphasis{n-1}. Indeed, it’s pretty easy to see that for
+any value of \sphinxstyleemphasis{n}, \sphinxstyleemphasis{n-1} iterations of the loop body will be required
+to compute the \sphinxstyleemphasis{nth} Fibonacci number.
+
+The functional program, on the other hand, is evaluated by repeated
+unfolding of nested recursive definitions until values are computed,
+at which point the values are combined into a final result. Let’s see
+if we can see a pattern. We’ll measure computational complexity now in
+terms of the number of function evaluations (rather than loop bodies
+executed).
+
+To compute \$fib(0)* or \$fib(1)\$ requires just \$1\$ function evaluation,
+as these are base cases with no recursive calls to solve subproblems.
+To compute \sphinxstyleemphasis{fib(2)} however requires \sphinxstyleemphasis{3} evalations of \sphinxstyleemphasis{fib}, one for
+\sphinxstyleemphasis{2} and one for each of \sphinxstyleemphasis{1} and \sphinxstyleemphasis{0}. Those count as just one each as
+there are no further recursive calls. So the relationship between \sphinxstyleemphasis{n}
+and the number of function evaluations currently looks like this:
+\(\{ (0,1), (1,1), (2,3), ... \}.\)
+
+What about when \sphinxstyleemphasis{n} is \sphinxstyleemphasis{3}?  Computing this requires answers for
+\sphinxstyleemphasis{fib(2)}, costing \sphinxstyleemphasis{3} evaluations, and \sphinxstyleemphasis{fib(1)}, costing one, for a
+total of \sphinxstyleemphasis{5} evaluations. Computing \sphinxstyleemphasis{fib(4)} requires answers for
+\sphinxstyleemphasis{fib(3)} and \sphinxstyleemphasis{fib(2)}, costing \sphinxstyleemphasis{5 + 3}, or \sphinxstyleemphasis{8} evaluations, plus the
+original evaluation is 9. For \sphinxstyleemphasis{fib(5)} we need \sphinxstyleemphasis{9} + \sphinxstyleemphasis{5}, or \sphinxstyleemphasis{14},
+plus the original makes \$15* evaluations.  relation is like this:
+\(\{ (0,1), (1,1), (2,3), (3,5), (4,9), (5, 15), ... \}.\) So, in
+general, the number of evaluations needed to evaluate \sphinxstyleemphasis{fib(i+1)} is
+the sum of the numbers required to compute \sphinxstyleemphasis{fib(i)} and \sphinxstyleemphasis{fib(i-1) +
+1.} Now that we see the formula, we can compute the next entry in the
+sequence easily: the number of function evaluations needed to compute
+\sphinxstyleemphasis{fib(6)} is \sphinxstyleemphasis{15 + 9 + 1}, i.e., 25. Computing the value of \sphinxstyleemphasis{fib(7)}
+costs \sphinxstyleemphasis{41} evaluations; \sphinxstyleemphasis{fib(8), *67*l *fib(9), 109}, \sphinxstyleemphasis{fib(10), 177}
+and \sphinxstyleemphasis{fib(11), 286} function evaluations.
+
+With out imperative program, the number of loop body interations grows
+linearly with \sphinxstyleemphasis{n}. We could say that the computational cost of running
+the imperative program to compute \sphinxstyleemphasis{fib(n)}, let’s call it \sphinxstyleemphasis{cost(n) is
+just *n+1}. How does the cost of the (doubly) recursive program grow
+as a function of \sphinxstyleemphasis{n}? Well, one thing to notice is that the cost of
+computing the Fibonacci sequence is close to the Fibonacci sequence
+itself! The first two values in the \sphinxstyleemphasis{cost} sequence are \sphinxstyleemphasis{1} and \sphinxstyleemphasis{1},
+and each subsequence element is the sum of the previous two \sphinxstyleemphasis{plus 1}.
+It’s not exactly the Fibonacci sequence, but it turns out to grow at
+the same rate overall. Without getting into details, the Fibonacci
+sequence, and thus also the cost of computing it recursively, grows at
+an exponential rate, with an exponent of about \sphinxstyleemphasis{1.6}. Increasing \sphinxstyleemphasis{n}
+by \sphinxstyleemphasis{1} does quite double the previous cost, but it does multiply it by
+about \sphinxstyleemphasis{1.6}.
+
+No matter how small the exponent, exponential functions eventually
+grow very large very quickly. You can already see that the cost to
+compute \sphinxstyleemphasis{fib(n)} recursively for values of \sphinxstyleemphasis{n} larger than just ten or
+so is vastly greater than the cost to compute it iteratively. The math
+(the recursive definition clear but inefficient. The program is
+efficient, but woefully not transparent as to its function. We need
+the latter program for practical computation. But how do we ensure
+that hard to understand imperative code flawlessly implements the same
+function that we expressed so elegantly in mathematical logic and its
+computational expression in pure functional programming?
+
 We address such problems by combining a few ideas. First, we use logic
 to express \sphinxstyleemphasis{declarative} specifications that precisely define \sphinxstyleemphasis{what} a
-given imperative program must do while \sphinxstyleemphasis{abstracting from}
-implementation details. Second, we implement the specified program in
-a way that uses and that supports logical reasoning about its
-behavior. Finally, we use logic proof techniques (or tools that do it
-for us) to \sphinxstyleemphasis{formally verify} that the program satisifies its specification.
+given imperative program must do, an in particular what results it
+must return as a function of the arguements it received.
+
+We can use functions defined in the pure functional programming style
+as specifications, e.g., as giving the mathematical definition of the
+\sphinxstyleemphasis{factorial} function that an imperative program is meant to implement.
+
+Second, we implement the specified program in an imperative language
+in a way that supports logical reasoning about its behavior. What kind
+of support is needed to facilitate logical reasoning is broached in
+this chapter. For example, we have to specify not only the desired
+relationship between argument and result values, but also how loops
+are designed to work in our code; and we need to design loops in ways
+that make it easier to explain in formal logic how they do what they
+are meant to do.
+
+Finally, we use logical proofs to \sphinxstyleemphasis{verify} that the program satisifies
+its specification.
+
+We develop these idea in this chapter. First we explain how formal
+specifications in mathematical logic for imperative programs are often
+organized. Next we explore how writing imperative programs without the
+benefits of specification languages and verifications tools can make
+it hard to spot bugs in code. Next we enhance our implementation of
+the factorial function with specifications, show how Dafny flags the
+bug, and fix out program. Doing this requires that we deepen the way
+we understand loops. We end with a detailed presentation of the design
+and verification of an imperative program to compute elements in the
+Fibonacci sequence. Given any natural number \sphinxstyleemphasis{n}, our program must
+return the value of \sphinxstyleemphasis{fib(n)}, but it must also do it efficiently.  The
+careful design of a loop is once again the very heart of the problem.
+We will see how Dafny can help us to reason rigorously about loops,
+and that, with just a bit of help, it can reason about them for us.
 
 
 \section{Logical Specification}
