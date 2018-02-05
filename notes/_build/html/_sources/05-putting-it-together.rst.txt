@@ -1,5 +1,5 @@
-Integrating Formal Specification with Imperative Programming
-============================================================
+Formal Verification of Imperative Programs
+==========================================
 
 To get a clear sense of the potential differences in performance
 between a pure functional program and an imperative program that
@@ -29,88 +29,103 @@ the performance we require. An imperative program, by constrast, is
 But it can be very efficient when run.
 
 To get a sense of performance diferences, consider the evaluation of
-each of two programs to compute *fib(7)*: our functional program and
+each of two programs to compute *fib(5)*: our functional program and
 an imperative one that we will develop in this chapter.
 
-Start with the imperative program. The answers for the first two
-values are zero and one. If *n* is either zero or one the answer is
-just returned. If *n >= 2* an answer has to be computed. In this case,
-the program will repeatedly add together the previous two values of
-the function (starting with *0* and *1*) to obtain the next one.  It
-will then the new and the previously new values of the function to get
-ready for the next iteration.  It will terminate once the *n'th* value
-has been computed. The program returns that value.
+Start with the imperative program. If the argument, *n*, is either
+zero or one, the answer is just returned. If *n >= 2* an answer has to
+be computed. In this case, the program will repeatedly add together
+the previous two values of the function, starting with *0* and *1*, to
+obtain the next one until it computes the result for $n$.  The program
+returns that value.
 
-Question: For any reasonably large value of *n*, the cost of computing
-an answer will be dominated by the work done inside the loop body; and on
-each iteration of the loop a fixed amount of work is done; so it's not a
-bad idea to use the number of loop body executions as a measure of the
-cost of computing an answer for an argument, *n*.
+For a given value of *n*, what is the cost of computing an answer?
+It's easy to see that the cost will be dominated by the work done
+inside the loop body; and on each iteration of the loop, a fixed
+amount of work is done; so it's not a bad idea to use the number of
+loop body executions as a measure of the cost of computing an answer
+for an argument, *n*.
 
-For example, how much does it cost to compute *fib(5)*? Well, we need
-to execute it the loop body to compute *fib(n)* for values of *n* of
-*2, 3, 4,* and *5*. It thus takes *4* iterations of the loop body to
-compute *fib(5)*.
-
-To compute the 10th element requires that the loop body execute for
-arguments in the range of *[2, 3, ..., 10]*. That's nine iterations.
-It's pretty easy to see that for any value of *n*, *n-1* iterations of
-the loop body will be required to compute the *nth* Fibonacci number.
+So, what does it cost to compute *fib(5)*? Well, we need to execute it
+the loop body to compute *fib(i)* for values of *i* of *2, 3, 4,* and
+*5*. It thus takes *4* loop body iterations to compute *fib(5)*. To
+compute the 10th element requires that the loop body execute for *i*
+in the range of *[2, 3, ..., 10]*. That's nine iterations.  It's easy
+to see that for any value of *n*, the cost to compute *fib(n)* will be
+*n-1* loop body iterations.
 
 The functional program, on the other hand, is evaluated by repeated
-evaluation of nested recursive function applications until base values
-are reached.  Let's try to see a pattern. We'll measure computational
+evaluation of nested recursive function applications until base cases
+are reached.  Let's think about the cost of evaluation for increasing
+values of $n$ and try to see a pattern. We'll measure computational
 complexity now in terms of the number of function evaluations (rather
 than loop bodies executed) required to produce a final answer.
 
 To compute *fib(0)* or *fib(1)* requires just *1* function evaluation,
-as these are base cases with no recursive calls to solve subproblems.
-To compute *fib(2)* however requires *3* evalations of *fib*, one for
-*2* and one for each of *1* and *0*. Those count as just one each as
-there are no further recursive calls. So the relationship between *n*
-and the number of function evaluations currently looks like this:
-:math:`\{ (0,1), (1,1), (2,3), ... \}.`
+the first call to the function, as these are base cases requiring no
+further recursion. To compute *fib(2)* however requires *3* evalations
+of *fib*: one for each of *fib(1)* and *fib(0)* plus the evaluation of
+the top-level function. The relationship between *n* and the number of
+function evaluations currently looks like this: :math:`\{ (0,1),
+(1,1), (2,3), ... \}.`
 
 What about when *n* is *3*?  Computing this requires answers for
-*fib(2)*, costing *3* evaluations, and *fib(1)*, costing one, for a
-total of *5* evaluations. Computing *fib(4)* requires answers for
-*fib(3)* and *fib(2)*, costing *5 + 3*, or *8* evaluations, plus the
-original evaluation is 9. For *fib(5)* we need *9* + *5*, or *14*,
-plus the original makes *15* evaluations.  relation is like this:
-:math:`\{ (0,1), (1,1), (2,3), (3,5), (4,9), (5, 15), ... \}.` So, in
-general, the number of evaluations needed to evaluate *fib(i+1)* is
-the sum of the numbers required to compute *fib(i)* and *fib(i-1) +
-1.* Now that we see the formula, we can compute the next entry in the
-sequence easily: the number of function evaluations needed to compute
-*fib(6)* is *15 + 9 + 1*, i.e., 25. Computing the value of *fib(7)*
-costs *41* evaluations; *fib(8), *67*l *fib(9), 109*, *fib(10), 177*
-and *fib(11), 286* function evaluations.
+*fib(2)*, which by the resuts we just computed costs *3* evaluations,
+and for *fib(1)*, which costing *1*, for a total of *5* evaluations
+including the top-level evaluation. Computing *fib(4)* requires that
+we compute *fib(3)* and *fib(2)*, costing *5 + 3*, or *8* evaluations,
+plus one for a total of 9. For *fib(5)* we need *9* + *5*, or *14*
+plus one more, making *15* evaluations.  The relation of cost to $n$
+(the problem size) is now like this: :math:`\{ (0,1), (1,1), (2,3),
+(3,5), (4,9), (5, 15), ... \}.`
 
-With out imperative program, the number of loop body interations grows
-linearly with *n*. We could say that the computational cost of running
-the imperative program to compute *fib(n)*, let's call it *cost(n) is
-just *n+1*. How does the cost of the (doubly) recursive program grow
-as a function of *n*? Well, one thing to notice is that the cost of
-computing the Fibonacci sequence is close to the Fibonacci sequence
+It reasonably easy to see that in general, the number of evaluations
+needed to evaluate *fib(i+1)* is the sum of the numbers required to
+evaluate *fib(i)* plus the number to evaluate *fib(i-1)* plus *1.*
+
+Now that we see the formula, we can quickly compute the following
+values of cost as a function of *n*. The number of evaluations needed
+to compute *fib(6)* is *15 + 9 + 1*, i.e., 25. For *fib(7)* it's *41*.
+For *fib(8), *67*; for *fib(9), 109*; for *fib(10), 177*;l and for
+*fib(11), 286* function evaluations. The cost measured by the number
+of function evaluations is growing much more quickly than $n$ itself.
+
+With our imperative program, the number of loop body interations grows
+*linearly* in *n*. We could say that the computational cost of running
+the imperative program to compute *fib(n)*, let's call it *cost(n), is
+*n+1*. How does the cost of the pure functional program compare? One
+thing to notice is that the cost of computing a Fibonacci element
+using our iterative approach is related to the Fibonacci sequence
 itself! The first two values in the *cost* sequence are *1* and *1*,
 and each subsequence element is the sum of the previous two *plus 1*.
-It's not exactly the Fibonacci sequence, but it turns out to grow at
-the same rate overall. Without getting into details, the Fibonacci
-sequence, and thus also the cost of computing it recursively, grows at
-an exponential rate, with an exponent of about *1.6*. Increasing *n*
-by *1* does quite double the previous cost, but it does multiply it by
+It's not exactly the Fibonacci sequence, but it turns out to grow at a
+very similar rate. The Fibonacci sequence, and thus also the cost of
+computing it recursively, grows at an *exponential* rate in *n*, with
+an exponent of about *1.6*. Increasing *n* by *1* doesn't quite double
+the cost of computing *fib(n)*, but it does multiply it by a factor of
 about *1.6*.
 
 No matter how small the exponent, exponential functions eventually
-grow very large very quickly. You can already see that the cost to
-compute *fib(n)* recursively for values of *n* larger than just ten or
-so is vastly greater than the cost to compute it iteratively. The math
-(the recursive definition clear but inefficient. The program is
-efficient, but woefully not transparent as to its function. We need
-the latter program for practical computation. But how do we ensure
-that hard to understand imperative code flawlessly implements the same
-function that we expressed so elegantly in mathematical logic and its
-computational expression in pure functional programming?
+grow very large very quickly. In fact, in the limit, any exponential
+function (with any exponent greater than one) grows faster than any
+polynomial function no matter how high in rank and no matter how large
+the coefficients. The exponential-in-*n* cost of our beautiful but
+inefficient functional program grows vastly faster than the linear
+cost of our ugly but efficient imperative program as we increase *n*.
+For any reasonably large value of *n* (like 1000), it will be highly
+impractical to use the pure functional program, computation, whereas
+the imperative program will run quickly for values of $n$ in the
+billions.
+
+You can already see that the cost to compute *fib(n)* recursively for
+values of *n* larger than just ten or so is vastly greater than the
+cost to compute it iteratively. The math (the recursive definition
+clear but inefficient. The program is efficient, but woefully not
+transparent as to its function. We need the latter program for
+practical computation. But how do we ensure that hard to understand
+imperative code flawlessly implements the same function that we
+expressed so elegantly in mathematical logic and its computational
+expression in pure functional programming?
 
 We address such problems by combining a few ideas. First, we use logic
 to express *declarative* specifications that precisely define *what* a
