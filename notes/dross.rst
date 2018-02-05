@@ -211,3 +211,100 @@ course do I/O, but the capabilities to do I/O are non-functional. They
 are in a sense *bolted on*. They are bolted on in clever, clean ways,
 but the fact remains that I/O is just not a functional concept.
 
+=============
+
+To integrate
+------------
+
+Fitting it All Together
+-----------------------
+
+So as we go forward, here's what we'll see. Ultimately, for purposes
+of efficiency and interactivity (I/O), we will write imperative code
+to implement software systems. That said, we can often use functional
+code to implement subroutines that perform computations that do not
+require mutable storage or I/O. We will *also* use pure functional
+programs as parts of *specifications*. 
+
+For example, we might specify that an *imperative* implementation of
+the factorial function must take any natural number *n* as an argument
+and return the value of *fact(n),* our *functional* program for the
+factorial function. The logical specification of the imperative
+program will be an *implication* stating that if a proper argument is
+presented, a correct result *as defined by a functional program* will
+be produced.
+
+We can thus use pure functional programs both for computation *when
+appropriate*, yielding certain benefits in terms of understandability
+and safety, and as elements in logical specifications of imperative
+code. In Dafny, a pure functional program that is intended only for
+use in specifications is declared as a *function*. A pure functional
+program intended to be called from imperative code is declared as a
+*function method.* Imperative programs are simply declared as methods.
+
+--------
+
+We'll see some of what's involved as we go forward in this class. We
+will also eventually dive in to understand what proofs even are, and
+why in general they are hard to construct.  Before we go there,
+though, let's have some fun and learn how to write imperative code in
+Dafny.
+
+==
+
+===========
+
+
+   include "functional.dfy"
+   module imperative {
+   import opened functional
+
+We start by prepending the function.dfy file to this one, as the
+compiler needs the definitions in both files to work. We enclose the
+definitions in this file in a module called *imperative*. And we
+import and open the functional module in the functional.dfy file.  To
+import them makes them available in this file. Opening the module
+means we don't need to use the module name as a prefix to use them.
+
+
+Now we give a typical imperative program for computing the factorial
+function. The program takes any natural number, *n*, and returns an
+answer in *f*. The value of *f* is computed first by case analysis.
+If *n* is zero, the correct result, *1*, is returned. Otherwise, in
+the case where *n > 0*, we *loop* to compute the factorial of *n*.
+
+We set a variable, *a* (for *accumulator*) to *1*. Each time through
+the loop we will multiply a by a value, $i$, that decreases from n to
+1 as the loop runs. The loop is guaranteed to terminate in a finite
+number of steps because one can only decrement a natural number value,
+*i*, a finite number of times before it reaches *0*, at which point
+the loop stops.
+
+.. code-block:: dafny
+
+   method factorial(n: nat) returns (f: nat) 
+   // For any n, return the factorial of n
+   {
+       if (n == 0) 
+       { 
+           return 1;
+       }
+       var i: nat := n;
+       var a: nat := 1;
+       while (i !=  0)
+       {
+           a := a * n;
+           i := i - 1;
+       }
+       return a;
+   }
+
+We have documented the specification informally in a comment akin to
+the "doc strings" one uses to document Python program specifications.
+The problem with this approach is that there's no practical way to
+check the code against the specification expressed in the comment.
+The problem with this *code* is that actually has an error, bug. Read
+it carefull to see if you can find the bug before you go on. You can
+see that there's a major error jst smoke testing the program. Give it
+a try.
+

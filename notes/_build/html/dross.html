@@ -238,6 +238,88 @@ course do I/O, but the capabilities to do I/O are non-functional. They
 are in a sense <em>bolted on</em>. They are bolted on in clever, clean ways,
 but the fact remains that I/O is just not a functional concept.</p>
 </div>
+<hr class="docutils" />
+<div class="section" id="to-integrate">
+<h1>To integrate<a class="headerlink" href="#to-integrate" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="fitting-it-all-together">
+<h1>Fitting it All Together<a class="headerlink" href="#fitting-it-all-together" title="Permalink to this headline">¶</a></h1>
+<p>So as we go forward, here’s what we’ll see. Ultimately, for purposes
+of efficiency and interactivity (I/O), we will write imperative code
+to implement software systems. That said, we can often use functional
+code to implement subroutines that perform computations that do not
+require mutable storage or I/O. We will <em>also</em> use pure functional
+programs as parts of <em>specifications</em>.</p>
+<p>For example, we might specify that an <em>imperative</em> implementation of
+the factorial function must take any natural number <em>n</em> as an argument
+and return the value of <em>fact(n),</em> our <em>functional</em> program for the
+factorial function. The logical specification of the imperative
+program will be an <em>implication</em> stating that if a proper argument is
+presented, a correct result <em>as defined by a functional program</em> will
+be produced.</p>
+<p>We can thus use pure functional programs both for computation <em>when
+appropriate</em>, yielding certain benefits in terms of understandability
+and safety, and as elements in logical specifications of imperative
+code. In Dafny, a pure functional program that is intended only for
+use in specifications is declared as a <em>function</em>. A pure functional
+program intended to be called from imperative code is declared as a
+<em>function method.</em> Imperative programs are simply declared as methods.</p>
+<hr class="docutils" />
+<p>We’ll see some of what’s involved as we go forward in this class. We
+will also eventually dive in to understand what proofs even are, and
+why in general they are hard to construct.  Before we go there,
+though, let’s have some fun and learn how to write imperative code in
+Dafny.</p>
+<p>==</p>
+<hr class="docutils" />
+<blockquote>
+<div>include “functional.dfy”
+module imperative {
+import opened functional</div></blockquote>
+<p>We start by prepending the function.dfy file to this one, as the
+compiler needs the definitions in both files to work. We enclose the
+definitions in this file in a module called <em>imperative</em>. And we
+import and open the functional module in the functional.dfy file.  To
+import them makes them available in this file. Opening the module
+means we don’t need to use the module name as a prefix to use them.</p>
+<p>Now we give a typical imperative program for computing the factorial
+function. The program takes any natural number, <em>n</em>, and returns an
+answer in <em>f</em>. The value of <em>f</em> is computed first by case analysis.
+If <em>n</em> is zero, the correct result, <em>1</em>, is returned. Otherwise, in
+the case where <em>n &gt; 0</em>, we <em>loop</em> to compute the factorial of <em>n</em>.</p>
+<p>We set a variable, <em>a</em> (for <em>accumulator</em>) to <em>1</em>. Each time through
+the loop we will multiply a by a value, $i$, that decreases from n to
+1 as the loop runs. The loop is guaranteed to terminate in a finite
+number of steps because one can only decrement a natural number value,
+<em>i</em>, a finite number of times before it reaches <em>0</em>, at which point
+the loop stops.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method factorial(n: nat) returns (f: nat)
+// For any n, return the factorial of n
+{
+    if (n == 0)
+    {
+        return 1;
+    }
+    var i: nat := n;
+    var a: nat := 1;
+    while (i !=  0)
+    {
+        a := a * n;
+        i := i - 1;
+    }
+    return a;
+}
+</pre></div>
+</div>
+<p>We have documented the specification informally in a comment akin to
+the “doc strings” one uses to document Python program specifications.
+The problem with this approach is that there’s no practical way to
+check the code against the specification expressed in the comment.
+The problem with this <em>code</em> is that actually has an error, bug. Read
+it carefull to see if you can find the bug before you go on. You can
+see that there’s a major error jst smoke testing the program. Give it
+a try.</p>
+</div>
 
 
           </div>
