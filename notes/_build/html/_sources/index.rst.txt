@@ -16,6 +16,7 @@ Welcome to Mathematical Logic in Software Development
    04-runnable-math
    05-putting-it-together
    06-dafny-abstractions
+   App1-Git
 
 
 Indices and tables
