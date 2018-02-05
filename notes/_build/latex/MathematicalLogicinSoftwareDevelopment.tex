@@ -172,7 +172,7 @@ is not true. More on relations later!
 
 
 \chapter{Logical Specifications, Imperative Implementations}
-\label{\detokenize{02-logic-and-code:logical-specifications-imperative-implementations}}\label{\detokenize{02-logic-and-code::doc}}
+\label{\detokenize{02-logic-and-code::doc}}\label{\detokenize{02-logic-and-code:logical-specifications-imperative-implementations}}
 We’ve discussed requirements, specifications, and implementations as
 distinct artifacts that serve distinct purposes. For good reasons,
 these artifacts are usually written in different languages. Software
@@ -840,8 +840,8 @@ of the languages of logic and proofs in which specifications of code
 are expressed and verified.
 
 
-\chapter{Integrating Formal Specification with Imperative Programming}
-\label{\detokenize{05-putting-it-together::doc}}\label{\detokenize{05-putting-it-together:integrating-formal-specification-with-imperative-programming}}
+\chapter{Formal Verification of Imperative Programs}
+\label{\detokenize{05-putting-it-together::doc}}\label{\detokenize{05-putting-it-together:formal-verification-of-imperative-programs}}
 To get a clear sense of the potential differences in performance
 between a pure functional program and an imperative program that
 compute the same function, consider our recursive definition of the
@@ -870,88 +870,103 @@ the performance we require. An imperative program, by constrast, is
 But it can be very efficient when run.
 
 To get a sense of performance diferences, consider the evaluation of
-each of two programs to compute \sphinxstyleemphasis{fib(7)}: our functional program and
+each of two programs to compute \sphinxstyleemphasis{fib(5)}: our functional program and
 an imperative one that we will develop in this chapter.
 
-Start with the imperative program. The answers for the first two
-values are zero and one. If \sphinxstyleemphasis{n} is either zero or one the answer is
-just returned. If \sphinxstyleemphasis{n \textgreater{}= 2} an answer has to be computed. In this case,
-the program will repeatedly add together the previous two values of
-the function (starting with \sphinxstyleemphasis{0} and \sphinxstyleemphasis{1}) to obtain the next one.  It
-will then the new and the previously new values of the function to get
-ready for the next iteration.  It will terminate once the \sphinxstyleemphasis{n’th} value
-has been computed. The program returns that value.
+Start with the imperative program. If the argument, \sphinxstyleemphasis{n}, is either
+zero or one, the answer is just returned. If \sphinxstyleemphasis{n \textgreater{}= 2} an answer has to
+be computed. In this case, the program will repeatedly add together
+the previous two values of the function, starting with \sphinxstyleemphasis{0} and \sphinxstyleemphasis{1}, to
+obtain the next one until it computes the result for \$n\$.  The program
+returns that value.
 
-Question: For any reasonably large value of \sphinxstyleemphasis{n}, the cost of computing
-an answer will be dominated by the work done inside the loop body; and on
-each iteration of the loop a fixed amount of work is done; so it’s not a
-bad idea to use the number of loop body executions as a measure of the
-cost of computing an answer for an argument, \sphinxstyleemphasis{n}.
+For a given value of \sphinxstyleemphasis{n}, what is the cost of computing an answer?
+It’s easy to see that the cost will be dominated by the work done
+inside the loop body; and on each iteration of the loop, a fixed
+amount of work is done; so it’s not a bad idea to use the number of
+loop body executions as a measure of the cost of computing an answer
+for an argument, \sphinxstyleemphasis{n}.
 
-For example, how much does it cost to compute \sphinxstyleemphasis{fib(5)}? Well, we need
-to execute it the loop body to compute \sphinxstyleemphasis{fib(n)} for values of \sphinxstyleemphasis{n} of
-\sphinxstyleemphasis{2, 3, 4,} and \sphinxstyleemphasis{5}. It thus takes \sphinxstyleemphasis{4} iterations of the loop body to
-compute \sphinxstyleemphasis{fib(5)}.
-
-To compute the 10th element requires that the loop body execute for
-arguments in the range of \sphinxstyleemphasis{{[}2, 3, …, 10{]}}. That’s nine iterations.
-It’s pretty easy to see that for any value of \sphinxstyleemphasis{n}, \sphinxstyleemphasis{n-1} iterations of
-the loop body will be required to compute the \sphinxstyleemphasis{nth} Fibonacci number.
+So, what does it cost to compute \sphinxstyleemphasis{fib(5)}? Well, we need to execute it
+the loop body to compute \sphinxstyleemphasis{fib(i)} for values of \sphinxstyleemphasis{i} of \sphinxstyleemphasis{2, 3, 4,} and
+\sphinxstyleemphasis{5}. It thus takes \sphinxstyleemphasis{4} loop body iterations to compute \sphinxstyleemphasis{fib(5)}. To
+compute the 10th element requires that the loop body execute for \sphinxstyleemphasis{i}
+in the range of \sphinxstyleemphasis{{[}2, 3, …, 10{]}}. That’s nine iterations.  It’s easy
+to see that for any value of \sphinxstyleemphasis{n}, the cost to compute \sphinxstyleemphasis{fib(n)} will be
+\sphinxstyleemphasis{n-1} loop body iterations.
 
 The functional program, on the other hand, is evaluated by repeated
-evaluation of nested recursive function applications until base values
-are reached.  Let’s try to see a pattern. We’ll measure computational
+evaluation of nested recursive function applications until base cases
+are reached.  Let’s think about the cost of evaluation for increasing
+values of \$n\$ and try to see a pattern. We’ll measure computational
 complexity now in terms of the number of function evaluations (rather
 than loop bodies executed) required to produce a final answer.
 
 To compute \sphinxstyleemphasis{fib(0)} or \sphinxstyleemphasis{fib(1)} requires just \sphinxstyleemphasis{1} function evaluation,
-as these are base cases with no recursive calls to solve subproblems.
-To compute \sphinxstyleemphasis{fib(2)} however requires \sphinxstyleemphasis{3} evalations of \sphinxstyleemphasis{fib}, one for
-\sphinxstyleemphasis{2} and one for each of \sphinxstyleemphasis{1} and \sphinxstyleemphasis{0}. Those count as just one each as
-there are no further recursive calls. So the relationship between \sphinxstyleemphasis{n}
-and the number of function evaluations currently looks like this:
-\(\{ (0,1), (1,1), (2,3), ... \}.\)
+the first call to the function, as these are base cases requiring no
+further recursion. To compute \sphinxstyleemphasis{fib(2)} however requires \sphinxstyleemphasis{3} evalations
+of \sphinxstyleemphasis{fib}: one for each of \sphinxstyleemphasis{fib(1)} and \sphinxstyleemphasis{fib(0)} plus the evaluation of
+the top-level function. The relationship between \sphinxstyleemphasis{n} and the number of
+function evaluations currently looks like this: \(\{ (0,1),
+(1,1), (2,3), ... \}.\)
 
 What about when \sphinxstyleemphasis{n} is \sphinxstyleemphasis{3}?  Computing this requires answers for
-\sphinxstyleemphasis{fib(2)}, costing \sphinxstyleemphasis{3} evaluations, and \sphinxstyleemphasis{fib(1)}, costing one, for a
-total of \sphinxstyleemphasis{5} evaluations. Computing \sphinxstyleemphasis{fib(4)} requires answers for
-\sphinxstyleemphasis{fib(3)} and \sphinxstyleemphasis{fib(2)}, costing \sphinxstyleemphasis{5 + 3}, or \sphinxstyleemphasis{8} evaluations, plus the
-original evaluation is 9. For \sphinxstyleemphasis{fib(5)} we need \sphinxstyleemphasis{9} + \sphinxstyleemphasis{5}, or \sphinxstyleemphasis{14},
-plus the original makes \sphinxstyleemphasis{15} evaluations.  relation is like this:
-\(\{ (0,1), (1,1), (2,3), (3,5), (4,9), (5, 15), ... \}.\) So, in
-general, the number of evaluations needed to evaluate \sphinxstyleemphasis{fib(i+1)} is
-the sum of the numbers required to compute \sphinxstyleemphasis{fib(i)} and \sphinxstyleemphasis{fib(i-1) +
-1.} Now that we see the formula, we can compute the next entry in the
-sequence easily: the number of function evaluations needed to compute
-\sphinxstyleemphasis{fib(6)} is \sphinxstyleemphasis{15 + 9 + 1}, i.e., 25. Computing the value of \sphinxstyleemphasis{fib(7)}
-costs \sphinxstyleemphasis{41} evaluations; \sphinxstyleemphasis{fib(8), *67*l *fib(9), 109}, \sphinxstyleemphasis{fib(10), 177}
-and \sphinxstyleemphasis{fib(11), 286} function evaluations.
+\sphinxstyleemphasis{fib(2)}, which by the resuts we just computed costs \sphinxstyleemphasis{3} evaluations,
+and for \sphinxstyleemphasis{fib(1)}, which costing \sphinxstyleemphasis{1}, for a total of \sphinxstyleemphasis{5} evaluations
+including the top-level evaluation. Computing \sphinxstyleemphasis{fib(4)} requires that
+we compute \sphinxstyleemphasis{fib(3)} and \sphinxstyleemphasis{fib(2)}, costing \sphinxstyleemphasis{5 + 3}, or \sphinxstyleemphasis{8} evaluations,
+plus one for a total of 9. For \sphinxstyleemphasis{fib(5)} we need \sphinxstyleemphasis{9} + \sphinxstyleemphasis{5}, or \sphinxstyleemphasis{14}
+plus one more, making \sphinxstyleemphasis{15} evaluations.  The relation of cost to \$n\$
+(the problem size) is now like this: \(\{ (0,1), (1,1), (2,3),
+(3,5), (4,9), (5, 15), ... \}.\)
 
-With out imperative program, the number of loop body interations grows
-linearly with \sphinxstyleemphasis{n}. We could say that the computational cost of running
-the imperative program to compute \sphinxstyleemphasis{fib(n)}, let’s call it \sphinxstyleemphasis{cost(n) is
-just *n+1}. How does the cost of the (doubly) recursive program grow
-as a function of \sphinxstyleemphasis{n}? Well, one thing to notice is that the cost of
-computing the Fibonacci sequence is close to the Fibonacci sequence
+It reasonably easy to see that in general, the number of evaluations
+needed to evaluate \sphinxstyleemphasis{fib(i+1)} is the sum of the numbers required to
+evaluate \sphinxstyleemphasis{fib(i)} plus the number to evaluate \sphinxstyleemphasis{fib(i-1)} plus \sphinxstyleemphasis{1.}
+
+Now that we see the formula, we can quickly compute the following
+values of cost as a function of \sphinxstyleemphasis{n}. The number of evaluations needed
+to compute \sphinxstyleemphasis{fib(6)} is \sphinxstyleemphasis{15 + 9 + 1}, i.e., 25. For \sphinxstyleemphasis{fib(7)} it’s \sphinxstyleemphasis{41}.
+For \sphinxstyleemphasis{fib(8), *67}; for \sphinxstyleemphasis{fib(9), 109}; for \sphinxstyleemphasis{fib(10), 177};l and for
+\sphinxstyleemphasis{fib(11), 286} function evaluations. The cost measured by the number
+of function evaluations is growing much more quickly than \$n\$ itself.
+
+With our imperative program, the number of loop body interations grows
+\sphinxstyleemphasis{linearly} in \sphinxstyleemphasis{n}. We could say that the computational cost of running
+the imperative program to compute \sphinxstyleemphasis{fib(n)}, let’s call it \sphinxstyleemphasis{cost(n), is
+*n+1}. How does the cost of the pure functional program compare? One
+thing to notice is that the cost of computing a Fibonacci element
+using our iterative approach is related to the Fibonacci sequence
 itself! The first two values in the \sphinxstyleemphasis{cost} sequence are \sphinxstyleemphasis{1} and \sphinxstyleemphasis{1},
 and each subsequence element is the sum of the previous two \sphinxstyleemphasis{plus 1}.
-It’s not exactly the Fibonacci sequence, but it turns out to grow at
-the same rate overall. Without getting into details, the Fibonacci
-sequence, and thus also the cost of computing it recursively, grows at
-an exponential rate, with an exponent of about \sphinxstyleemphasis{1.6}. Increasing \sphinxstyleemphasis{n}
-by \sphinxstyleemphasis{1} does quite double the previous cost, but it does multiply it by
+It’s not exactly the Fibonacci sequence, but it turns out to grow at a
+very similar rate. The Fibonacci sequence, and thus also the cost of
+computing it recursively, grows at an \sphinxstyleemphasis{exponential} rate in \sphinxstyleemphasis{n}, with
+an exponent of about \sphinxstyleemphasis{1.6}. Increasing \sphinxstyleemphasis{n} by \sphinxstyleemphasis{1} doesn’t quite double
+the cost of computing \sphinxstyleemphasis{fib(n)}, but it does multiply it by a factor of
 about \sphinxstyleemphasis{1.6}.
 
 No matter how small the exponent, exponential functions eventually
-grow very large very quickly. You can already see that the cost to
-compute \sphinxstyleemphasis{fib(n)} recursively for values of \sphinxstyleemphasis{n} larger than just ten or
-so is vastly greater than the cost to compute it iteratively. The math
-(the recursive definition clear but inefficient. The program is
-efficient, but woefully not transparent as to its function. We need
-the latter program for practical computation. But how do we ensure
-that hard to understand imperative code flawlessly implements the same
-function that we expressed so elegantly in mathematical logic and its
-computational expression in pure functional programming?
+grow very large very quickly. In fact, in the limit, any exponential
+function (with any exponent greater than one) grows faster than any
+polynomial function no matter how high in rank and no matter how large
+the coefficients. The exponential-in-\sphinxstyleemphasis{n} cost of our beautiful but
+inefficient functional program grows vastly faster than the linear
+cost of our ugly but efficient imperative program as we increase \sphinxstyleemphasis{n}.
+For any reasonably large value of \sphinxstyleemphasis{n} (like 1000), it will be highly
+impractical to use the pure functional program, computation, whereas
+the imperative program will run quickly for values of \$n\$ in the
+billions.
+
+You can already see that the cost to compute \sphinxstyleemphasis{fib(n)} recursively for
+values of \sphinxstyleemphasis{n} larger than just ten or so is vastly greater than the
+cost to compute it iteratively. The math (the recursive definition
+clear but inefficient. The program is efficient, but woefully not
+transparent as to its function. We need the latter program for
+practical computation. But how do we ensure that hard to understand
+imperative code flawlessly implements the same function that we
+expressed so elegantly in mathematical logic and its computational
+expression in pure functional programming?
 
 We address such problems by combining a few ideas. First, we use logic
 to express \sphinxstyleemphasis{declarative} specifications that precisely define \sphinxstyleemphasis{what} a
@@ -1112,8 +1127,8 @@ separate from that of \sphinxstyleemphasis{verifying} that a given program imple
 specification correctly.
 
 
-\section{Case Study: Implementing the Factorial Function}
-\label{\detokenize{05-putting-it-together:case-study-implementing-the-factorial-function}}
+\section{Typical Implementation of the Factorial Function}
+\label{\detokenize{05-putting-it-together:typical-implementation-of-the-factorial-function}}
 So far the material in this chapter has been pretty abstract. Now
 we’ll see what it means in practice. To start, let’s consider an
 ordinary imperative program, as you might have written in Python or
@@ -1209,8 +1224,8 @@ about how the while loop behaves. It turns out that providing extra
 information about while loops is where much of the difficulty lies.
 
 
-\section{A Formally Verified Implementation of the Factorial Function}
-\label{\detokenize{05-putting-it-together:a-formally-verified-implementation-of-the-factorial-function}}
+\section{A Verified Implementation of the Factorial Function}
+\label{\detokenize{05-putting-it-together:a-verified-implementation-of-the-factorial-function}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 
 \end{sphinxVerbatim}
@@ -1375,8 +1390,8 @@ intellectual tool, inceasingly used for precise specification and
 semi-automated reasoning about and verification of real programs.
 
 
-\section{Case Study: Verified Implementation of the Fibonacci Function}
-\label{\detokenize{05-putting-it-together:case-study-verified-implementation-of-the-fibonacci-function}}
+\section{A Verified Implementation of the Fibonacci Function}
+\label{\detokenize{05-putting-it-together:a-verified-implementation-of-the-fibonacci-function}}
 Similarly, here an imperative implementation of the fibonacci
 function, without a spec.
 
