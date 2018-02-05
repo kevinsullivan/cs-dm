@@ -96,7 +96,7 @@ The return keyword can be used to return immediatey
        x := 6;     // never gets executed
    }
 
-Sets Theory
+Set Theory
 -----------
 
 Polymorphic finite and infinite set types.
