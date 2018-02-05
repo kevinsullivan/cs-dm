@@ -288,8 +288,8 @@ The problem of *validating* specification againts real-world needs is
 separate from that of *verifying* that a given program implements its
 specification correctly.
 
-Case Study: Implementing the Factorial Function
------------------------------------------------
+Typical Implementation of the Factorial Function
+------------------------------------------------
 
 So far the material in this chapter has been pretty abstract. Now
 we'll see what it means in practice. To start, let's consider an
@@ -386,8 +386,8 @@ to prove it. In particular, Dafny would need a litte more information
 about how the while loop behaves. It turns out that providing extra
 information about while loops is where much of the difficulty lies.
 
-A Formally Verified Implementation of the Factorial Function
-------------------------------------------------------------
+A Verified Implementation of the Factorial Function
+---------------------------------------------------
 
 .. code-block:: dafny
 
@@ -560,8 +560,8 @@ engineering.  It's not just an academic curiosity. It is a critical
 intellectual tool, inceasingly used for precise specification and
 semi-automated reasoning about and verification of real programs. 
 
-Case Study: Verified Implementation of the Fibonacci Function
--------------------------------------------------------------
+A Verified Implementation of the Fibonacci Function
+---------------------------------------------------
 
 Similarly, here an imperative implementation of the fibonacci
 function, without a spec.

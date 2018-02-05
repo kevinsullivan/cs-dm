@@ -295,8 +295,8 @@ The problem of <em>validating</em> specification againts real-world needs is
 separate from that of <em>verifying</em> that a given program implements its
 specification correctly.</p>
 </div>
-<div class="section" id="case-study-implementing-the-factorial-function">
-<h2>Case Study: Implementing the Factorial Function<a class="headerlink" href="#case-study-implementing-the-factorial-function" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="typical-implementation-of-the-factorial-function">
+<h2>Typical Implementation of the Factorial Function<a class="headerlink" href="#typical-implementation-of-the-factorial-function" title="Permalink to this headline">¶</a></h2>
 <p>So far the material in this chapter has been pretty abstract. Now
 we’ll see what it means in practice. To start, let’s consider an
 ordinary imperative program, as you might have written in Python or
@@ -382,8 +382,8 @@ to prove it. In particular, Dafny would need a litte more information
 about how the while loop behaves. It turns out that providing extra
 information about while loops is where much of the difficulty lies.</p>
 </div>
-<div class="section" id="a-formally-verified-implementation-of-the-factorial-function">
-<h2>A Formally Verified Implementation of the Factorial Function<a class="headerlink" href="#a-formally-verified-implementation-of-the-factorial-function" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="a-verified-implementation-of-the-factorial-function">
+<h2>A Verified Implementation of the Factorial Function<a class="headerlink" href="#a-verified-implementation-of-the-factorial-function" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
@@ -520,8 +520,8 @@ engineering.  It’s not just an academic curiosity. It is a critical
 intellectual tool, inceasingly used for precise specification and
 semi-automated reasoning about and verification of real programs.</p>
 </div>
-<div class="section" id="case-study-verified-implementation-of-the-fibonacci-function">
-<h2>Case Study: Verified Implementation of the Fibonacci Function<a class="headerlink" href="#case-study-verified-implementation-of-the-fibonacci-function" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="a-verified-implementation-of-the-fibonacci-function">
+<h2>A Verified Implementation of the Fibonacci Function<a class="headerlink" href="#a-verified-implementation-of-the-fibonacci-function" title="Permalink to this headline">¶</a></h2>
 <p>Similarly, here an imperative implementation of the fibonacci
 function, without a spec.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>method fibonacci(n: nat) returns (r: nat)
