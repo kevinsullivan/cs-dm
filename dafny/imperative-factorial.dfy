@@ -1,6 +1,6 @@
 include "functional.dfy"
 
-module imperative
+module imperative_factorial
 {
     /* 
        Allow use of definitions in functional
@@ -25,27 +25,64 @@ module imperative
     erroy by just test-running this program and
     checking the output. It's clearly wrong.
     */
-    method factorial(n: nat) returns (f: nat) 
+    method factorial_unverified(n: nat) returns (f: nat) 
     // For any n, return the factorial of n
     {
+        // First handle known case for n==0
         if (n == 0) 
         { 
             return 1;
         }
-        var t: nat := n;
+
+        /* 
+        Otherwise solve problem iteratively.
+        We will set up a variable a, short for
+        accumulator, that will accumulate a
+        product of the numbers from n down to
+        a loop index i; and we will set up i
+        to run from n down to 1. So when the
+        loop is done running, the value of a
+        will be the product of the numbers 
+        from n down to 1, which is the value
+        we seek. Here's something interesting:
+        at the beginning of each loop iteration,
+        a holds a partial answer and i indicates
+        what work remains to be done. So, for
+        example, if n is 10 and i is 4, then
+        a 10*9*8*7*6*5 and i being 4 indicates
+        that we still have to multiply a by 
+        4, 3, 2, and 1. In fact, what we see
+        now is that at the start of every loop
+        body execution, fact(n) == a * fact(i).
+        This is a relationships that holds to
+        start with and that is preserved by 
+        the execution of the loop body. Study
+        this code very carefully to confirm 
+        this for yourself.
+        */
+        var i: nat := n;
         var a: nat := 1;
-        while (t !=  0)
+
+        /*
+        Now all we have to do is run the loop.
+        Sadly there's a bug in this code. You
+        can run it and it will certainly return
+        a result, but in general it will not be
+        right. Can you find the bug?
+        */
+        while (i >  0)
         {
             a := a * n;
-            t := t - 1;
+            i := i - 1;
         }
         return a;
     }
 
+    
     /*
     Here's an imperative program for computing factorial.
     */
-    method verified_factorial(n: nat) returns (f: nat) 
+    method factorial_verified(n: nat) returns (f: nat) 
         ensures f == fact(n)
     {
         // If base case, return result without recursion
@@ -216,118 +253,5 @@ module imperative
             being used for precise for specification 
             and verification of practical programs.
         */
-    }
-
-    /*
-    Similarly, here an imperative implementation 
-    of the fibonacci function, without a spec.
-    */
-    method fibonacci(n: nat) returns (r: nat)
-    {
-        /*
-            Represent values for two base cases.
-        */
-        var fib0, fib1 := 0, 1; //parallel assmt
-
-        /*
-           Return base case result if appropriate
-        */
-        if (n == 0) { return fib0; }
-        if (n == 1) { return fib1; }
-
-        /*
-           At this point, we know n (a nat) >= 2.
-        */
-        assert n >= 2;
-
-        /*
-           Our strategy for computing fib(n) is
-           to use a while loop with an index i.
-           Our design will be based on the idea
-           that at the beginning and end of each 
-           loop iteration, that we have computed
-           fib(i) and that its value is stored in
-           fib1. Then within the loop body we'll 
-           compute fib(i+1) and then increment i.
- 
-           At this point, we've already computed
-           fib(0), stored in fib0, and and fib(1), 
-           in fib1, so we should initialize i to 
-           be 1. 
-           
-           We'll want to terminate the loop when 
-           i == n, at which point fib1 should
-           have the value fib(i), where i ==n,
-           so fib(i) will be fib(n). That is the
-           strategy. So let's go.
-        */
-        var i := 1;
-
-        /*
-            We can state and Dafny can verify a
-            number of conditions that we expect
-            and require to hold at this point.
-        */
-        assert fib1 == fib(i);
-        assert fib0 == fib(i-1);
-        assert i <= n;
-
-
-        /*
-            Here's the loop. We can be sure it will
-            run at least once, because at this point
-            n must be greater than or equal to 2 ...
-        */
-        assert n >= 2;
-        /*
-            and we know that i is 1, and 1 < 2, which
-            satisfies the loop condition. If n were to
-            be equal to 2, the loop body would run, the
-            value of fib2 would be set to the sum of 
-            the current values of fib1 and fib0, giving
-            us fib2; then fib0 will be set to the current
-            value of fib1, fib1 will be set of the value
-            of fib2, and i will be incremented, at which
-            point the critical condition will be restored: 
-            fib1 == fib(i), but where i is now equal to 2.
-            We also know that i started off less than n,
-            it gets incremented by only 1 each time the
-            loop body executes, and the loop terminates
-            when it is no longer true that i < n. So it
-            remains true at all times that i <= n. For
-            Dafny to be able to verify that a loop does
-            what it's meant to do, we have to declare 
-            the invariants that are required to hold.
-        */
-        while (i < n) 
-            invariant i <= n;
-            invariant fib0 == fib(i-1);
-            invariant fib1 == fib(i);
-        {
-            var fib2 := fib0 + fib1;
-            fib0 := fib1;
-            fib1 := fib2;
-            i := i + 1;
-        }
-        /*
-            So we know that every iteration of the loop
-            body has preserved the condition that fib1 is
-            equal to fib(i). What else do we know? Well,
-            a little bit of logical reasoning leads us to
-            conclude that i == n. Combining these facts
-            then leads to the final result: fib1==fib(n)
-        */
-        assert i <= n;      // invariant
-        assert !(i < n);    // loop condition is false
-        assert (i <= n) && !(i < n) ==> (i == n);
-        assert i == n;      // deductive conclusion
-        assert fib1 == fib(i); // invariant
-        assert fib1 == fib(i) && (i==n) ==> fib1 == fib(n);
-        assert fib1 == fib(n);
-
-        /*
-            We now have a proven-correct result!
-        */
-        return fib1;
     }
 }

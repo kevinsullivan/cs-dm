@@ -58,7 +58,7 @@
 
 
 \title{Mathematical Logic in Software Development Documentation}
-\date{Feb 04, 2018}
+\date{Feb 05, 2018}
 \release{1}
 \author{Kevin Sullivan}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -74,7 +74,7 @@
 
 
 \chapter{Requirement, Specifications, and Implementations}
-\label{\detokenize{01-reqs-specs-impls::doc}}\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}
+\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}\label{\detokenize{01-reqs-specs-impls::doc}}\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}
 Software is an increasingly critical component of major societal
 systems, from rockets to power grids to healthcare, etc. Failures are
 not always bugs in implementation code. The most critical problems
@@ -1578,6 +1578,335 @@ and how they work together to help build \sphinxstyleemphasis{trustworthy} syste
 lies the deep relevance of logic and proofs, which might otherwise
 seem like little more than abstract nonsense and a distraction from
 the task of learning how to program.
+
+
+\chapter{Dafny Built-In Programming Abstractions}
+\label{\detokenize{06-dafny-abstractions::doc}}\label{\detokenize{06-dafny-abstractions:dafny-built-in-programming-abstractions}}
+
+\section{Boolean Algebra}
+\label{\detokenize{06-dafny-abstractions:boolean-algebra}}
+Here’s a method that illustrates boolean operators in Dafny
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method BoolOps() returns (r: bool)
+\PYGZob{}
+    var t: bool := true;
+    var f := false;
+    var not := !t;
+    var conj := t \PYGZam{}\PYGZam{} f;     // short\PYGZhy{}circuiting
+    var disj := t \textbar{}\textbar{} f;     // short\PYGZhy{}circuiting
+    var impl := t ==\PYGZgt{} f;    // right associative, s.c. from left
+    var foll := t \PYGZlt{}== f;    // left associative, s.c. from right
+    var equv := t \PYGZlt{}==\PYGZgt{} t;
+    return true;
+ \PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\section{Arithmetic}
+\label{\detokenize{06-dafny-abstractions:arithmetic}}
+Methods aren’t required to return results. Such methods do their jobs
+by having side effects, e.g., doing output or writing data into global
+variables (usually a bad idea).  Here’s a method that doesn’t return a
+value. It illustrates numerical types, syntax, and operations.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method NumOps()
+\PYGZob{}
+    var r1: real := 1000000.0;
+    var i1: int := 1000000;
+    var i2: int := 1\PYGZus{}000\PYGZus{}000;   // underscores for readiability
+    var i3 := 1\PYGZus{}000;            // Dafny can often infer types
+    var b1 := (10 \PYGZlt{} 20) \PYGZam{}\PYGZam{} (20 \PYGZlt{}= 30); // a boolean expression
+    var b2 := 10 \PYGZlt{} 20 \PYGZlt{}= 30;    // equivalent, with \PYGZdq{}chaining\PYGZdq{}
+    var i4: int := (5.5).Floor; // 5
+    var i5 := (\PYGZhy{}2.5).Floor;     // \PYGZhy{}3
+    var i6 := \PYGZhy{}2.5.Floor;        // \PYGZhy{}2 = \PYGZhy{}(2.5.Floor); binding!
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\section{Characters}
+\label{\detokenize{06-dafny-abstractions:characters}}
+Characters (char) are handled sort of as they are in C, etc.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method CharFun()
+\PYGZob{}
+    var c1: char := \PYGZsq{}a\PYGZsq{};
+    var c2 := \PYGZsq{}b\PYGZsq{};
+    // var i1 := c2 \PYGZhy{} c1;
+    var i1 := (c2 as int) \PYGZhy{} (c1 as int);    // type conversion
+    var b1 := c1 \PYGZlt{} c2;  // ordering operators defined for char
+    var c3 := \PYGZsq{}\PYGZbs{}n\PYGZsq{};     // c\PYGZhy{}style escape for non\PYGZhy{}printing chars
+    var c4 := \PYGZsq{}\PYGZbs{}u265B\PYGZsq{}; // unicode, hex, \PYGZdq{}chess king\PYGZdq{} character
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+To return a value from a method, assign to the return parameter
+Note: functions have colon then return type, whereas methods
+use the “returns” keyword with a return parameter list
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method ReturnExample() returns (retval: int)
+\PYGZob{}
+    retval := 10;
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+Methods can return multiple values.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method ReturnExample2() returns (x: int, y:int)
+\PYGZob{}
+    x := 10;
+    y := 20;
+\end{sphinxVerbatim}
+
+\}
+
+The return keyword can be used to return immediatey
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method ReturnExample3() returns (x: int)
+\PYGZob{}
+    x := 5;     // don\PYGZsq{}t \PYGZdq{}var\PYGZdq{} decare return variable
+    return;     // return immediately
+    x := 6;     // never gets executed
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\section{Set Theory}
+\label{\detokenize{06-dafny-abstractions:set-theory}}
+Polymorphic finite and infinite set types:
+set\textless{}T\textgreater{} and iset\textless{}T\textgreater{}. T must support equality.
+Values of these types are immutable.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method SetPlay()
+\PYGZob{}
+    var empty: set\PYGZlt{}int\PYGZgt{} := \PYGZob{}\PYGZcb{};
+    var primes := \PYGZob{}2, 3, 5, 7, 11\PYGZcb{};
+    var squares := \PYGZob{}1, 4, 9, 16, 25\PYGZcb{};
+    var b1 := empty \PYGZlt{} primes;    // strict subset
+    var b2 := primes \PYGZlt{}= primes;   // subset
+    var b3: bool := primes !! squares; // disjoint
+    var union := primes + squares;
+    var intersection := primes * squares;
+    var difference := primes \PYGZhy{} \PYGZob{}3, 5\PYGZcb{};
+    var b4 := primes == squares;    // false
+    var i1 := \textbar{} primes \textbar{};   // cardinality (5)
+    var b5 := 4 in primes;  // membership (false)
+    var b6 := 4 !in primes; // non\PYGZhy{}membership
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\section{Sequences}
+\label{\detokenize{06-dafny-abstractions:sequences}}
+Polymorphic sequences (often called “lists”): seq\textless{}T\textgreater{}. These can be
+understood as functions from indices to values. Some of the operations
+require that T support equality. Values of this type are immutable.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method SequencePlay()
+\PYGZob{}
+    var empty\PYGZus{}seq: seq\PYGZlt{}char\PYGZgt{} := [];
+    var hi\PYGZus{}seq: seq\PYGZlt{}char\PYGZgt{} := [\PYGZsq{}h\PYGZsq{}, \PYGZsq{}i\PYGZsq{}];
+    var b1 := hi\PYGZus{}seq == empty\PYGZus{}seq; // equality; !=
+    var hchar := hi\PYGZus{}seq[0];        // indexing
+    var b2 := [\PYGZsq{}h\PYGZsq{}] \PYGZlt{} hi\PYGZus{}seq;   // proper prefix
+    var b3 := hi\PYGZus{}seq \PYGZlt{} hi\PYGZus{}seq;  // this is false
+    var b4 := hi\PYGZus{}seq \PYGZlt{}= hi\PYGZus{}seq; // prefix, true
+    var sum := hi\PYGZus{}seq + hi\PYGZus{}seq; // concatenation
+    var len := \textbar{} hi\PYGZus{}seq \textbar{};
+    var Hi\PYGZus{}seq := hi\PYGZus{}seq[0 := \PYGZsq{}H\PYGZsq{}]; // update
+    var b5 := \PYGZsq{}h\PYGZsq{} in hi\PYGZus{}seq; // member, true, !in
+    var s := [0,1,2,3,4,5];
+    var s1 := s[0..2];  // subseqence
+    var s2 := s[1..];   // \PYGZdq{}drop\PYGZdq{} prefix of len 1
+    var s3 := s[..2];   // \PYGZdq{}take\PYGZdq{} prefix of len 2
+    // there\PYGZsq{}s a slice operator, too; later
+ \PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\section{Character Strings}
+\label{\detokenize{06-dafny-abstractions:character-strings}}
+Dafny has strings. Strings are literally just sequences of characters
+(of type seq\textless{}char\textgreater{}), so you can use all the sequence operations on
+strings.  Dafny provides additional helpful syntax for strings.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method StringPlay()
+ \PYGZob{}
+     var s1: string := \PYGZdq{}Hello CS2102!\PYGZdq{};
+     var s2 := \PYGZdq{}Hello CS2102!\PYGZbs{}n\PYGZdq{};   // return
+     var s3 := \PYGZdq{}\PYGZbs{}\PYGZdq{}Hello CS2102!\PYGZbs{}\PYGZdq{}\PYGZdq{}; // quotes
+ \PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\section{Partial Functions (Maps)}
+\label{\detokenize{06-dafny-abstractions:partial-functions-maps}}
+Dafny also supports polymorphic maps, both finite (map\textless{}K,V\textgreater{}) and
+infinite (imap\textless{}K,V\textgreater{}).  The key type, K, must support equality (==).
+In mathematical terms, a map really represents a binary relation,
+i.e., a set of \textless{}K,V\textgreater{} pairs, which is to say a subset of the product
+set, K * V, where we view the types K and V as defining sets of
+values.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method MapPlay()
+\PYGZob{}
+    // A map literal is keyword map + a list of maplets.
+    // A maplet is just a single \PYGZlt{}K,V\PYGZgt{} pair (or \PYGZdq{}tuple\PYGZdq{}).
+    // Here\PYGZsq{}s an empty map from strings to ints
+    var emptyMap: map\PYGZlt{}string,int\PYGZgt{} := map[];
+
+    // Here\PYGZsq{}s non empty map from strings to ints
+    // A maplet is \PYGZdq{}k := v,\PYGZdq{} k and v being of types K and V
+    var aMap: map\PYGZlt{}string,int\PYGZgt{}  := map[\PYGZdq{}Hi\PYGZdq{} := 1, \PYGZdq{}There\PYGZdq{} := 2];
+
+    // Map domain (key) membership
+    var isIn: bool := \PYGZdq{}There\PYGZdq{} in aMap; // true
+    var isntIn := \PYGZdq{}Their\PYGZdq{} !in aMap;    // true
+
+    // Finite map cardinality (number of maplets in a map)
+    var card := \textbar{}aMap\textbar{};
+
+    //Map lookup
+    var image1 := aMap[\PYGZdq{}There\PYGZdq{}];
+    // var image2 := aMap[\PYGZdq{}Their\PYGZdq{}]; // error! some kind of magic
+    var image2: int;
+    if (\PYGZdq{}Their\PYGZdq{} in aMap) \PYGZob{} image2 := aMap[\PYGZdq{}Their\PYGZdq{}]; \PYGZcb{}
+
+    // map update, maplet override and maplet addition
+    aMap := aMap[\PYGZdq{}There\PYGZdq{} := 3];
+    aMap := aMap[\PYGZdq{}Their\PYGZdq{} := 10];
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\section{Arrays}
+\label{\detokenize{06-dafny-abstractions:arrays}}
+Dafny supports arrays. Here’s we’ll see simple 1-d arrays.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method ArrayPlay()
+\PYGZob{}
+    var a := new int[10]; // in general: a: array\PYGZlt{}T\PYGZgt{} := new T[n];
+    var a\PYGZsq{} := new int[10];   // type inference naturally works here
+    var i1 := a.Length;      // Immutable \PYGZdq{}Length\PYGZdq{} member holds length of array
+    a[3] := 3;           // array update
+    var i2 := a[3];          // array access
+    var seq1 := a[3..8];    // take first 8, drop first 3, return as sequence
+    var b := 3 in seq1;     // true! (see sequence operations)
+    var seq2 := a[..8];     // take first 8, return rest as sequence
+    var seq3 := a[3..];     // drop first 3, return rest as sequence
+    var seq4 := a[..];      // return entire array as a sequence
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+Arrays, objects (class instances), and traits (to be discussed) are of
+“reference” types, which is to say, values of these types are stored
+on the heap. Values of other types, including sets and sequences, are
+of “value types,” which is to say values of these types are stored on
+the stack; and they’re thus always treated as “local” variables. They
+are passed by value, not reference, when passed as arguments to
+functions and methods. Value types include the basic scalar types
+(bool, char, nat, int, real), built-in collection types (set,
+multiset, seq, string, map, imap), tuple, inductive, and co-inductive
+types (to be discussed).  Reference type values are allocated
+dynamically on the heap, are passed by reference, and therefore can be
+“side effected” (mofified) by methods to which they are passed.
+
+
+\chapter{Setting Up to Use Git}
+\label{\detokenize{App1-Git:setting-up-to-use-git}}\label{\detokenize{App1-Git::doc}}
+
+\section{Git and Distributed Software Development}
+\label{\detokenize{App1-Git:git-and-distributed-software-development}}
+Large systems built by hundreds or thousands of developers around the world
+* Challenge is to coordinate many changes being made around the globe
+* Often have a shared, reference copy that everyone shares (e.g., on GitHub)
+* Can’t really have thousand of people making uncontrolled changes
+* Rather, everyone has entire history of whole project on local machine
+* Anyone can edit their own copy
+* Anyone with privileges can push local changes back to central version
+* Anyone can ask central developers to “pull” local changes into central repo
+* Anyone can register an “issue” with main developers
+* Updates made to central repo can then be “pulled” down to local versions
+* But git won’t overwrite local changes \textendash{} it will say “there’s a conflict”
+
+
+\section{Setting Up}
+\label{\detokenize{App1-Git:setting-up}}
+Let’s make sure everyone is set up with git and up-to-date copy of cs-dm repo
+\begin{itemize}
+\item {} 
+Open a terminal window {[}check; if not, install MSYS2 per instructions{]}
+
+\item {} 
+Run “git” command \textendash{} does it run? {[}check; if not, install git{]}
+
+\item {} 
+Change into directory you’re using for this class {[}advice, no spaces; check?{]}
+
+\item {} 
+List files in this directory; ls.
+
+\item {} 
+Rename any current cs-dm directory to cs-dm.old
+
+\item {} 
+Clone current cs-dm directory
+
+\item {} 
+Rename to cs-dm-reference; you will NOT make local changes here
+
+\item {} 
+Clone current cs-dm directory again; rename to cs-dm-hw3
+
+\item {} 
+Open cs-dm-hw3/dafny folder in VS Code; you’re set to do next HW
+
+\end{itemize}
+
+
+\section{A Demo}
+\label{\detokenize{App1-Git:a-demo}}
+Let’s see how git works; I will fix errors in code; I will push; you will pull; that’s it!
+\begin{itemize}
+\item {} 
+Point browser at cs-dm-reference/notes/\_build/html/index.html
+
+\item {} 
+Open separate browser window on GitHub repo
+
+\item {} 
+Let’s look at the issues; and fix them!
+
+\item {} 
+In notes, let’s find mistake
+
+\item {} 
+Now I will fix it, rebuild the HTML and PDF files, and push an update to GitHub
+
+\item {} 
+Now you should cd into cs-dm-reference directory (the one you won’t edit)
+
+\item {} 
+Do a git pull to pull the changes now on GitHub into your local repo
+
+\item {} 
+And refresh browser to display the now updated HTML files!
+
+\item {} 
+Note: You should do a git pull in each copy of the repo needing an update
+
+\end{itemize}
 
 
 \chapter{Indices and tables}

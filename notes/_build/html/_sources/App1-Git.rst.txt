@@ -1,4 +1,8 @@
-Let’s talk about Git and distributed software development
+Setting Up to Use Git
+=====================
+
+Git and Distributed Software Development
+----------------------------------------
 
 Large systems built by hundreds or thousands of developers around the world
 * Challenge is to coordinate many changes being made around the globe
@@ -12,7 +16,11 @@ Large systems built by hundreds or thousands of developers around the world
 * Updates made to central repo can then be “pulled” down to local versions
 * But git won’t overwrite local changes -- it will say “there’s a conflict”
 
+Setting Up
+----------
+
 Let’s make sure everyone is set up with git and up-to-date copy of cs-dm repo
+
 * Open a terminal window [check; if not, install MSYS2 per instructions]
 * Run “git” command -- does it run? [check; if not, install git]
 * Change into directory you’re using for this class [advice, no spaces; check?]
@@ -23,7 +31,11 @@ Let’s make sure everyone is set up with git and up-to-date copy of cs-dm repo
 * Clone current cs-dm directory again; rename to cs-dm-hw3
 * Open cs-dm-hw3/dafny folder in VS Code; you’re set to do next HW
 
+A Demo
+------
+
 Let’s see how git works; I will fix errors in code; I will push; you will pull; that’s it!
+
 * Point browser at cs-dm-reference/notes/_build/html/index.html
 * Open separate browser window on GitHub repo
 * Let’s look at the issues; and fix them!
