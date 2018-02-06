@@ -25,6 +25,7 @@
     <script type="text/javascript" src="_static/sidebar.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Setting Up to Use Git" href="App1-Git.html" />
     <link rel="prev" title="Formal Verification of Imperative Programs" href="05-putting-it-together.html" /> 
   </head>
   <body>
@@ -34,6 +35,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="App1-Git.html" title="Setting Up to Use Git"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="05-putting-it-together.html" title="Formal Verification of Imperative Programs"
              accesskey="P">previous</a> |</li>
@@ -48,20 +52,44 @@
             
   <div class="section" id="dafny-built-in-programming-abstractions">
 <h1>Dafny Built-In Programming Abstractions<a class="headerlink" href="#dafny-built-in-programming-abstractions" title="Permalink to this headline">¶</a></h1>
+<p>Dafny natively supports a range of abstract data types akin to those
+found in widely used, industrial imperative programming languages and
+systems, such as Python and Java. In this chapter, we introduce and
+briefly illustrate the use of these types. The types we discuss are
+as follow:</p>
+<ul class="simple">
+<li>bool, supporting Boolean algebra</li>
+<li>int, nat, and real types, supporting <em>exact</em> arithmetic (unlike
+the numerical types found in most industrial languages</li>
+<li>char, supporting character types</li>
+<li>set&lt;T&gt; and iset&lt;T&gt;, polymorphic set theory for finite and infinite sets</li>
+<li>seq&lt;T&gt; and iseq&lt;T&gt;, polymorphic finite and infinite sequences</li>
+<li>string, supporting character sequences (with addtional helpful functions)</li>
+<li>map&lt;K,V&gt; and imap&lt;K,V&gt;, polymorphic finite and infinite partial functions</li>
+<li>array&lt;T&gt;, polymorphic 1- and multi-dimensional arrays</li>
+</ul>
 <div class="section" id="boolean-algebra">
 <h2>Boolean Algebra<a class="headerlink" href="#boolean-algebra" title="Permalink to this headline">¶</a></h2>
-<p>Here’s a method that illustrates boolean operators in Dafny</p>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>method BoolOps() returns (r: bool)
+<p>The bool abstract data type (ADT) in Dafny provides a bool data type
+with values, <em>true</em> and <em>false</em>, along with the Boolean operators that
+are supported by most programming langauges, along with a few that are
+not commonly supported by industrial programming languages and
+systems.</p>
+<p>Here’s a method that computes nothing useful and returns no values,
+but that illustrates the range of Boolean operators in Dafny. We also
+use the examples in this chapter to discuss a few other aspects of the
+Dafny language.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method BoolOps(a: bool) returns (r: bool)  // bool -&gt; bool
 {
-    var t: bool := true;
-    var f := false;
-    var not := !t;
-    var conj := t &amp;&amp; f;     // short-circuiting
-    var disj := t || f;     // short-circuiting
-    var impl := t ==&gt; f;    // right associative, s.c. from left
-    var foll := t &lt;== f;    // left associative, s.c. from right
-    var equv := t &lt;==&gt; t;
-    return true;
+    var t: bool := true;    // explicit type declaration
+    var f := false;         // type inferred automatically
+    var not := !t;          // negation
+    var conj := t &amp;&amp; f;     // conjunction, short-circuit evaluation
+    var disj := t || f;     // disjunction, short-circuit (sc) evaluation
+    var impl := t ==&gt; f;    // implication, right associative, sc from left
+    var foll := t &lt;== f;    // follows, left associative, sc from right
+    var equv := t &lt;==&gt; t;   // iff, bi-implication
+    return true;            // returning a Boolean value
  }
 </pre></div>
 </div>
@@ -275,6 +303,9 @@ dynamically on the heap, are passed by reference, and therefore can be
   <h4>Previous topic</h4>
   <p class="topless"><a href="05-putting-it-together.html"
                         title="previous chapter">Formal Verification of Imperative Programs</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="App1-Git.html"
+                        title="next chapter">Setting Up to Use Git</a></p>
         </div>
       </div>
       <div class="clearer"></div>
@@ -285,6 +316,9 @@ dynamically on the heap, are passed by reference, and therefore can be
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="App1-Git.html" title="Setting Up to Use Git"
+             >next</a> |</li>
         <li class="right" >
           <a href="05-putting-it-together.html" title="Formal Verification of Imperative Programs"
              >previous</a> |</li>

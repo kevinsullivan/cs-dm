@@ -22,15 +22,15 @@
 \contentsline {section}{\numberline {5.7}What is Dafny?}{23}{section.5.7}
 \contentsline {chapter}{\numberline {6}Dafny Built-In Programming Abstractions}{25}{chapter.6}
 \contentsline {section}{\numberline {6.1}Boolean Algebra}{25}{section.6.1}
-\contentsline {section}{\numberline {6.2}Arithmetic}{25}{section.6.2}
+\contentsline {section}{\numberline {6.2}Arithmetic}{26}{section.6.2}
 \contentsline {section}{\numberline {6.3}Characters}{26}{section.6.3}
-\contentsline {section}{\numberline {6.4}Set Theory}{26}{section.6.4}
+\contentsline {section}{\numberline {6.4}Set Theory}{27}{section.6.4}
 \contentsline {section}{\numberline {6.5}Sequences}{27}{section.6.5}
-\contentsline {section}{\numberline {6.6}Character Strings}{27}{section.6.6}
-\contentsline {section}{\numberline {6.7}Partial Functions (Maps)}{27}{section.6.7}
+\contentsline {section}{\numberline {6.6}Character Strings}{28}{section.6.6}
+\contentsline {section}{\numberline {6.7}Partial Functions (Maps)}{28}{section.6.7}
 \contentsline {section}{\numberline {6.8}Arrays}{28}{section.6.8}
-\contentsline {chapter}{\numberline {7}Setting Up to Use Git}{29}{chapter.7}
-\contentsline {section}{\numberline {7.1}Git and Distributed Software Development}{29}{section.7.1}
-\contentsline {section}{\numberline {7.2}Setting Up}{29}{section.7.2}
-\contentsline {section}{\numberline {7.3}A Demo}{29}{section.7.3}
-\contentsline {chapter}{\numberline {8}Indices and tables}{31}{chapter.8}
+\contentsline {chapter}{\numberline {7}Setting Up to Use Git}{31}{chapter.7}
+\contentsline {section}{\numberline {7.1}Git and Distributed Software Development}{31}{section.7.1}
+\contentsline {section}{\numberline {7.2}Setting Up}{31}{section.7.2}
+\contentsline {section}{\numberline {7.3}A Demo}{32}{section.7.3}
+\contentsline {chapter}{\numberline {8}Indices and tables}{33}{chapter.8}

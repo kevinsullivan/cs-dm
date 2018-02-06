@@ -58,7 +58,7 @@
 
 
 \title{Mathematical Logic in Software Development Documentation}
-\date{Feb 05, 2018}
+\date{Feb 06, 2018}
 \release{1}
 \author{Kevin Sullivan}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -74,7 +74,7 @@
 
 
 \chapter{Requirement, Specifications, and Implementations}
-\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}\label{\detokenize{01-reqs-specs-impls::doc}}\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}
+\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}\label{\detokenize{01-reqs-specs-impls::doc}}
 Software is an increasingly critical component of major societal
 systems, from rockets to power grids to healthcare, etc. Failures are
 not always bugs in implementation code. The most critical problems
@@ -172,7 +172,7 @@ is not true. More on relations later!
 
 
 \chapter{Logical Specifications, Imperative Implementations}
-\label{\detokenize{02-logic-and-code::doc}}\label{\detokenize{02-logic-and-code:logical-specifications-imperative-implementations}}
+\label{\detokenize{02-logic-and-code:logical-specifications-imperative-implementations}}\label{\detokenize{02-logic-and-code::doc}}
 We’ve discussed requirements, specifications, and implementations as
 distinct artifacts that serve distinct purposes. For good reasons,
 these artifacts are usually written in different languages. Software
@@ -467,7 +467,7 @@ requires that a program work correctly for all (\(\forall\)) inputs?
 
 
 \chapter{Problems with Imperative Code}
-\label{\detokenize{03-problems-with-imperative-code::doc}}\label{\detokenize{03-problems-with-imperative-code:problems-with-imperative-code}}
+\label{\detokenize{03-problems-with-imperative-code:problems-with-imperative-code}}\label{\detokenize{03-problems-with-imperative-code::doc}}
 There’s no free lunch: One can have the expressiveness of mathematical
 logic, useful for specification, or one can have the ability to run
 code efficiently, along with indispensable ability to interact with an
@@ -520,7 +520,7 @@ steer a commercial aircraft, etc.
 
 
 \chapter{Pure Functional Programming as Runnable Mathematics}
-\label{\detokenize{04-runnable-math::doc}}\label{\detokenize{04-runnable-math:pure-functional-programming-as-runnable-mathematics}}
+\label{\detokenize{04-runnable-math:pure-functional-programming-as-runnable-mathematics}}\label{\detokenize{04-runnable-math::doc}}
 What we’d really like would be a language that gives us everything:
 the expressiveness and the \sphinxstyleemphasis{safety} of mathematical logic (there’s no
 concept of a memory in logic, and thus no possibility for unexpected
@@ -841,7 +841,7 @@ are expressed and verified.
 
 
 \chapter{Formal Verification of Imperative Programs}
-\label{\detokenize{05-putting-it-together::doc}}\label{\detokenize{05-putting-it-together:formal-verification-of-imperative-programs}}
+\label{\detokenize{05-putting-it-together:formal-verification-of-imperative-programs}}\label{\detokenize{05-putting-it-together::doc}}
 To get a clear sense of the potential differences in performance
 between a pure functional program and an imperative program that
 compute the same function, consider our recursive definition of the
@@ -1255,7 +1255,9 @@ as we would have just returned if it were zero, and it can’t be
 negative because its type is \sphinxstyleemphasis{nat}. We can nevertheless formally
 assert (write a proposition about the state of the program) that \sphinxstyleemphasis{n}
 is greater than zero. Dafny will try to (and here will successfully)
-verify that the assertion is always true at this point in the program.
+verify that the assertion is true at this point in the program, no
+matter what path through conditionals, while loops, and sequences of
+commands the program took to get here.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 assert n \PYGZgt{} 0;
@@ -1581,24 +1583,66 @@ the task of learning how to program.
 
 
 \chapter{Dafny Built-In Programming Abstractions}
-\label{\detokenize{06-dafny-abstractions::doc}}\label{\detokenize{06-dafny-abstractions:dafny-built-in-programming-abstractions}}
+\label{\detokenize{06-dafny-abstractions:dafny-built-in-programming-abstractions}}\label{\detokenize{06-dafny-abstractions::doc}}
+Dafny natively supports a range of abstract data types akin to those
+found in widely used, industrial imperative programming languages and
+systems, such as Python and Java. In this chapter, we introduce and
+briefly illustrate the use of these types. The types we discuss are
+as follow:
+\begin{itemize}
+\item {} 
+bool, supporting Boolean algebra
+
+\item {} 
+int, nat, and real types, supporting \sphinxstyleemphasis{exact} arithmetic (unlike
+the numerical types found in most industrial languages
+
+\item {} 
+char, supporting character types
+
+\item {} 
+set\textless{}T\textgreater{} and iset\textless{}T\textgreater{}, polymorphic set theory for finite and infinite sets
+
+\item {} 
+seq\textless{}T\textgreater{} and iseq\textless{}T\textgreater{}, polymorphic finite and infinite sequences
+
+\item {} 
+string, supporting character sequences (with addtional helpful functions)
+
+\item {} 
+map\textless{}K,V\textgreater{} and imap\textless{}K,V\textgreater{}, polymorphic finite and infinite partial functions
+
+\item {} 
+array\textless{}T\textgreater{}, polymorphic 1- and multi-dimensional arrays
+
+\end{itemize}
+
 
 \section{Boolean Algebra}
 \label{\detokenize{06-dafny-abstractions:boolean-algebra}}
-Here’s a method that illustrates boolean operators in Dafny
+The bool abstract data type (ADT) in Dafny provides a bool data type
+with values, \sphinxstyleemphasis{true} and \sphinxstyleemphasis{false}, along with the Boolean operators that
+are supported by most programming langauges, along with a few that are
+not commonly supported by industrial programming languages and
+systems.
+
+Here’s a method that computes nothing useful and returns no values,
+but that illustrates the range of Boolean operators in Dafny. We also
+use the examples in this chapter to discuss a few other aspects of the
+Dafny language.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-method BoolOps() returns (r: bool)
+method BoolOps(a: bool) returns (r: bool)  // bool \PYGZhy{}\PYGZgt{} bool
 \PYGZob{}
-    var t: bool := true;
-    var f := false;
-    var not := !t;
-    var conj := t \PYGZam{}\PYGZam{} f;     // short\PYGZhy{}circuiting
-    var disj := t \textbar{}\textbar{} f;     // short\PYGZhy{}circuiting
-    var impl := t ==\PYGZgt{} f;    // right associative, s.c. from left
-    var foll := t \PYGZlt{}== f;    // left associative, s.c. from right
-    var equv := t \PYGZlt{}==\PYGZgt{} t;
-    return true;
+    var t: bool := true;    // explicit type declaration
+    var f := false;         // type inferred automatically
+    var not := !t;          // negation
+    var conj := t \PYGZam{}\PYGZam{} f;     // conjunction, short\PYGZhy{}circuit evaluation
+    var disj := t \textbar{}\textbar{} f;     // disjunction, short\PYGZhy{}circuit (sc) evaluation
+    var impl := t ==\PYGZgt{} f;    // implication, right associative, sc from left
+    var foll := t \PYGZlt{}== f;    // follows, left associative, sc from right
+    var equv := t \PYGZlt{}==\PYGZgt{} t;   // iff, bi\PYGZhy{}implication
+    return true;            // returning a Boolean value
  \PYGZcb{}
 \end{sphinxVerbatim}
 
@@ -1829,16 +1873,38 @@ dynamically on the heap, are passed by reference, and therefore can be
 \section{Git and Distributed Software Development}
 \label{\detokenize{App1-Git:git-and-distributed-software-development}}
 Large systems built by hundreds or thousands of developers around the world
-* Challenge is to coordinate many changes being made around the globe
-* Often have a shared, reference copy that everyone shares (e.g., on GitHub)
-* Can’t really have thousand of people making uncontrolled changes
-* Rather, everyone has entire history of whole project on local machine
-* Anyone can edit their own copy
-* Anyone with privileges can push local changes back to central version
-* Anyone can ask central developers to “pull” local changes into central repo
-* Anyone can register an “issue” with main developers
-* Updates made to central repo can then be “pulled” down to local versions
-* But git won’t overwrite local changes \textendash{} it will say “there’s a conflict”
+\begin{itemize}
+\item {} 
+Challenge is to coordinate many changes being made around the globe
+
+\item {} 
+Often have a shared, reference copy that everyone shares (e.g., on GitHub)
+
+\item {} 
+Can’t really have thousand of people making uncontrolled changes
+
+\item {} 
+Rather, everyone has entire history of whole project on local machine
+
+\item {} 
+Anyone can edit their own copy
+
+\item {} 
+Anyone with privileges can push local changes back to central version
+
+\item {} 
+Anyone can ask central developers to “pull” local changes into central repo
+
+\item {} 
+Anyone can register an “issue” with main developers
+
+\item {} 
+Updates made to central repo can then be “pulled” down to local versions
+
+\item {} 
+But git won’t overwrite local changes \textendash{} it will say “there’s a conflict”
+
+\end{itemize}
 
 
 \section{Setting Up}

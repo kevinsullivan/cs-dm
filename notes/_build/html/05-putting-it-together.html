@@ -412,7 +412,9 @@ as we would have just returned if it were zero, and it can’t be
 negative because its type is <em>nat</em>. We can nevertheless formally
 assert (write a proposition about the state of the program) that <em>n</em>
 is greater than zero. Dafny will try to (and here will successfully)
-verify that the assertion is always true at this point in the program.</p>
+verify that the assertion is true at this point in the program, no
+matter what path through conditionals, while loops, and sequences of
+commands the program took to get here.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>assert n &gt; 0;
 </pre></div>
 </div>

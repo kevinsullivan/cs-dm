@@ -420,7 +420,9 @@ as we would have just returned if it were zero, and it can't be
 negative because its type is *nat*. We can nevertheless formally
 assert (write a proposition about the state of the program) that *n*
 is greater than zero. Dafny will try to (and here will successfully)
-verify that the assertion is always true at this point in the program.
+verify that the assertion is true at this point in the program, no
+matter what path through conditionals, while loops, and sequences of
+commands the program took to get here.
 
 .. code-block:: dafny
 

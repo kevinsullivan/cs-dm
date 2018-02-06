@@ -1,24 +1,49 @@
 Dafny Built-In Programming Abstractions
 =======================================
 
+Dafny natively supports a range of abstract data types akin to those
+found in widely used, industrial imperative programming languages and
+systems, such as Python and Java. In this chapter, we introduce and
+briefly illustrate the use of these types. The types we discuss are
+as follow:
+
+* bool, supporting Boolean algebra
+* int, nat, and real types, supporting *exact* arithmetic (unlike
+  the numerical types found in most industrial languages
+* char, supporting character types
+* set<T> and iset<T>, polymorphic set theory for finite and infinite sets
+* seq<T> and iseq<T>, polymorphic finite and infinite sequences
+* string, supporting character sequences (with addtional helpful functions)
+* map<K,V> and imap<K,V>, polymorphic finite and infinite partial functions
+* array<T>, polymorphic 1- and multi-dimensional arrays
+
 Boolean Algebra
 ---------------
 
-Here's a method that illustrates boolean operators in Dafny
+The bool abstract data type (ADT) in Dafny provides a bool data type
+with values, *true* and *false*, along with the Boolean operators that
+are supported by most programming langauges, along with a few that are
+not commonly supported by industrial programming languages and
+systems.
+
+Here's a method that computes nothing useful and returns no values,
+but that illustrates the range of Boolean operators in Dafny. We also
+use the examples in this chapter to discuss a few other aspects of the
+Dafny language.
 
 .. code-block:: dafny
 
-   method BoolOps() returns (r: bool)
+   method BoolOps(a: bool) returns (r: bool)  // bool -> bool
    {
-       var t: bool := true;
-       var f := false;
-       var not := !t;
-       var conj := t && f;     // short-circuiting
-       var disj := t || f;     // short-circuiting
-       var impl := t ==> f;    // right associative, s.c. from left
-       var foll := t <== f;    // left associative, s.c. from right
-       var equv := t <==> t;
-       return true;
+       var t: bool := true;    // explicit type declaration
+       var f := false;         // type inferred automatically
+       var not := !t;          // negation
+       var conj := t && f;     // conjunction, short-circuit evaluation
+       var disj := t || f;     // disjunction, short-circuit (sc) evaluation
+       var impl := t ==> f;    // implication, right associative, sc from left
+       var foll := t <== f;    // follows, left associative, sc from right
+       var equv := t <==> t;   // iff, bi-implication
+       return true;            // returning a Boolean value
     }
 
 

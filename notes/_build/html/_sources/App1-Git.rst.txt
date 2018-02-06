@@ -5,6 +5,7 @@ Git and Distributed Software Development
 ----------------------------------------
 
 Large systems built by hundreds or thousands of developers around the world
+
 * Challenge is to coordinate many changes being made around the globe
 * Often have a shared, reference copy that everyone shares (e.g., on GitHub)
 * Can’t really have thousand of people making uncontrolled changes
