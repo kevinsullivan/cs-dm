@@ -552,21 +552,22 @@ We can also have Dafny check that our loop invariant still holds.
 
 And now comes the most crucial step of all in our reasoning. We can
 deduce that a now holds the correct answer. That this is so follows
-from the conjunction of the two assertions we just made. First, that i
-is not greater than 0 and given that its type is nat, the only
-possible value it can have now is 0. And that's what we'd expect,
-because that's the condition on which the loop terminates, which is
-just did! But better than just saying it, let us also formalize,
-document, and check it.
+from the conjunction of the two assertions we just made. First, that
+*i* is not greater than *0* and given that its type is *nat*, the only
+possible value it can have now is *0*. That's what we'd expect, as it
+is the condition on which the loop terminates (which it just did!) But
+better than just saying it, let us also formalize, document, and check
+it.
 
 .. code-block:: dafny
 
         assert i == 0;
 
-Now it's easy to see. No matter what value i has, a * fact(i) ==
-fact(n), and i == 0, so we have a * fact(0) == fact(n), and we know
-that fact(0) is 1 because we see that in the very mathematical
-definition of fact, so it must be that a = fact(n). Dafny can check!
+Now it's easy to see. No matter what value *i* has, we know that
+:math:`a * fact(i) == fact(n),` and we know that *i == 0*, so it must
+be that :math:`a * fact(0) == fact(n),` and fact(0) is *1* (from its
+mathematical definition), so it must be that *a= fact(n)*. And Dafny
+confirms it!
         
 
 .. code-block:: dafny
@@ -634,12 +635,13 @@ verify this assertion for us.
         assert n >= 2;
 
 So now we have to deal with the case where *n >= 2*. Our strategy for
-computing fib(n) in this case is to use a while loop with an index i.
-Our design will be based on the idea that at the beginning and end of
-each loop iteration (we are currently at the beginning), we will have
-computed fib(i) and that its value is stored in fib1. We've already
-assigned the value of fib(0) to fib0, and of fib(1) to fib1, so to set
-up the desired state of affairs, we should initialize *i* to be *1*.
+computing *fib(n)* in this case is to use a while loop with an index
+*i*.  Our design will be based on the idea that at the beginning and
+end of each loop iteration (we are currently at the beginning), we
+will have computed *fib(i)* and that its value is stored in
+*fib1*. We've already assigned the value of *fib(0)* to *fib0*, and
+*fib(1)* to *fib1*, so to set up the desired state of affairs, we
+should initialize *i* to be *1*.
 
 .. code-block:: dafny
 
@@ -648,7 +650,7 @@ up the desired state of affairs, we should initialize *i* to be *1*.
 
 We can state and Dafny can verify a number of conditions that we
 expect and require to hold at this point. First, *fib1* equals
-*fib(i)*. Now to compute the next (*i+1*) Fibonacci number, we need
+*fib(i)*. Now to compute the next (*i+1st*) Fibonacci number, we need
 not only the value of *fib(i)* but also *fib(i-1)*. We will thus also
 want *fib0* to hold this value at the start and end of each loop
 iteration, and indeed we do have that state of affairs right now.
@@ -660,15 +662,17 @@ iteration, and indeed we do have that state of affairs right now.
 
 To compute *fib(n)* for any *n* greater than or equal to *2* will
 require at least one execution of the loop body. We'll thus set our
-loop condition to be *i < n*. This ensures that the loop body will
-run, as *i* is *1* and *n* is at least *2*, so the condition *i < n*
-is *true*, which dictates that the loop body must be evaluated.
+loop condition to be *i < n*. This ensures that the loop body will run
+at least once, to compute *fib(2)*, as *i* is *1* and *n* is at least
+*2*; so the loop condition *i < n* is *true*, which dictates that the
+loop body must be evaluated at least once.
 
-Within the loop body we'll compute fib(i+1) (we call it *fib2* within
-the loop) by adding together *fib0* and *fib1*; then we increment i;
-then we update *fib0* and *fib1* so that for the *new* value of *i*
-they hold *fib(i-1)* and *fib(i)*. To do this we assign the initial
-value of *fib1* to *fib0* and the value of *fib2* to *fib1*. 
+Within the loop body we'll compute *fib(i+1)* (we call it *fib2*
+within the loop) by adding together *fib0* and *fib1*; then we
+increment *i*; then we update *fib0* and *fib1* so that for the *new*
+value of *i* they hold *fib(i-1)* and *fib(i)*. To do this we assign
+the initial value of *fib1* to *fib0* and the value of *fib2* to
+*fib1*.
 
 Let's work an example. Suppose *n* happens to be *2*. The loop body
 will run, and after the one execution, *i* will have the value, *2*;
@@ -679,21 +683,21 @@ condition will now be false and the loop will terminate. The value of
 n* (it takes a little reasoning to prove this), so *fib(i)* will be
 *fib(n)*, which is the result we want and that we return.
 
-We can also informally prove to ourself that this strategy gives us
-a program that always terminates and returns a value. That is, it does
+We can also informally prove to ourself that this strategy gives us a
+program that always terminates and returns a value. That is, it does
 not go into an infinite loop. To see this, note that the value of *i*
 is initally less than or equal to *n*, and it increases by only *1* on
 each time through the loop. The value of *n* is finite, so the value
 of *i* will eventually equal the value of *n* at which point the loop
 condition will be falsified and the looping will end.
 
-That's our strategy. So let's go. Here's the while loop that we have
-designed. And here, for the first time, we see something crucial. We
-tell Dafny about certain properties of the state of the program that
-hold both before and after every execution of the loop body. We call
-such properties *invariants*. Dafny needs to know these invariants to
-prove to itself (and to us) that the loop does what it is intended to
-do: that the result at the end will be as desired.
+That's our strategy. Here's the while loop that we have designed. Now
+for the first time, we see something crucial. In general, Dafny has no
+idea how many times a loop body will execute. Intead, what it needs to
+know are properties of the state of the program that hold no matter
+how many times the loop executes, that, when combined with the fact
+that the has terminated allows one to conclude that the loop does what
+it's meant to do. We call such properties *loop invariants*. 
 
 .. code-block:: dafny
 
@@ -714,25 +718,25 @@ our design of the loop to work. First, *i* must never exceed *n*. If
 it did, the loop would spin off into infinity. Second, to compute the
 next (the *i+1st)* Fibonacci number we have to have the previous *two*
 in memory. So *fib0* better hold *fib(i-1)* and *fib1*, *fib(i)*. Note
-that these conditions do not have to hold *within* the execution of
-the loop body, but they do have to hold before before and after each
-execution.
+that these conditions do not have to hold at all times *within* the
+execution of the loop body, where things are being updated, but they
+do have to hold before before and after each execution.
 
-The body of the loop is just as we described it above, and we can use
-our own minds to deduce that if the invariants hold before the loop
-body runs (and they do), then they will also hold after it runs. We
-can also see that after the loop terminates, it must be that *i==n*.
-This is because we know that it's always true that *i <= n* and the
-loop condition must now be false, which is to say that *i* can no
-longer be strictly less than *n*, so *i* must now equal *n*. Logic
-says so, and logic is right. What is amazing is that we can write
-these assertions in Dafny if we wish to, and Dafny will verify that
-they are true statements about the state of the program after the
-loop has run. We have *proved* (or rather Dafny has proved and we
-have recapitulated the proof in this sequence of assertions) that
-we have without a doubt computed the right answer. Dafny has also
-proved to itself that the loop always terminates, and so we have
-in effect a formal proof of total correctness for this program.
+The body of the loop is just as we described it above. We can use our
+minds to deduce that if the invariants hold before each loop body runs
+(and they do), then they will also hold after it runs. We can also see
+that after the loop terminates, it must be that *i==n*, because we
+know that it's always true that *i <= n* and the loop condition must
+now be false, which is to say that *i* can no longer be strictly less
+than *n*, so *i* must now equal *n*. Logic says so.
+
+What is amazing is that we can write these assertions in Dafny if we
+wish to, and Dafny will verify that they are true statements about the
+state of the program after the loop has run. We have *proved* (or
+rather Dafny has proved and we have confirmed) that our loop always
+computes the right answer. Dafny has also proved to itself that the
+loop always terminates. We have a formal proof of total correctness
+for this program.
 
 .. code-block:: dafny
 
@@ -749,19 +753,18 @@ in effect a formal proof of total correctness for this program.
 What is Dafny, Again?
 =====================
 
-Dafny is a cutting-edge software language and tooset developed at
-Microsoft Research---one of the top computer science research labs in
-the world---that provides such a capability. We will explore Dafny and
-the ideas underlying it in the first part of this course, both to give
-a sense of the current state of the art in program verification and,
-most importantly, to explain why it's vital for a computer scientist
-today to have a substantial understanding of logic and proofs along
-with the ability to *code*.
+Dafny is a cutting-edge software language and tooset for verification
+of imperative code. It was developed at Microsoft Research---one of
+the top computer science research labs in the world. We are exploring
+Dafny and the ideas underlying it in the first part of this course to
+give a sense of why it's vital for a computer scientist today to have
+a substantial understanding of logic and proofs along with the ability
+to *code*.
 
 Tools such as TLA+, Dafny, and others of this variety give us a way
 both to express formal specifications and imperative code in a unified
 way (albeit in different sub-languages), and to have some automated
-checking done in an *attempt* to verify that code satisfies its spec.
+checking done in an attempt to verify that code satisfies its spec.
 
 We say *attempt* here, because in general verifying the consistency of
 code and a specification is a literally unsolvable problem. In cases
@@ -775,13 +778,14 @@ To understand how to use such state-of-the-art software development
 tools and methods, one must understand not only the language of code,
 but also the languages of mathematical logic, including set and type
 theory. One must also understand precisely what it means to *prove*
-that a program satisfies its specification; for generating proofs is
-exactly what tools like Dafny do *under the hood*.
+that a program satisfies its specification. And for that, one must
+develop a sense for propositions and proofs: what they are and how
+they are built and evaluated.
 
-A well educated computer scientist and a professionally trained
-software developer must understand logic and proofs as well as coding,
-and how they work together to help build *trustworthy* systems. Herein
-lies the deep relevance of logic and proofs, which might otherwise
-seem like little more than abstract nonsense and a distraction from
-the task of learning how to program.
+The well educated computer scientist and the professional software
+engineer must understand logic and proofs as well as coding, and how
+they work together to help build *trustworthy* systems. Herein lies
+the deep relevance of logic and proofs, which might otherwise seem
+like little more than abstract nonsense and a distraction from the
+task of learning how to program.
 
