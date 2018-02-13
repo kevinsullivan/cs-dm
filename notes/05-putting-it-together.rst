@@ -415,8 +415,6 @@ So let's see how to get a program with a proof of correctness.
 A Verified Implementation of the Factorial Function
 ===================================================
 
-.. code-block:: dafny
-
 Here's verified imperative program for computing factorial. We start
 by documenting the overall program specification.
 
