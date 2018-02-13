@@ -2,7 +2,7 @@
 5. Formal Verification of Imperative Programs
 *********************************************
 
-To get a clear sense of the potential differences in performance
+To get a clearer sense of the potential differences in performance
 between a pure functional program and an imperative program that
 compute the same function, consider our recursive definition of the
 Fibonacci function.
@@ -11,10 +11,10 @@ We start off knowing that if the argument to the function, *n*, is *0*
 or *1*, the value of the function for that *n* is just *n* itself.  In
 other words, the sequence, *fib(i)* of *Fibonacci numbers indexed by
 i*, starts with, :math:`[0, 1, \ldots ]`.  For any *n >= 2*, *fib(n)*,
-is the sum of the previous two values.  To compute the *n'th*
+is the sum of the previous two values.  To compute the *n'th (n >= 2)*
 Fibonacci number, we can thus start with the first two, sum them up to
-get the next one, then iterate this process, computing the next
-Fibonacci number on each iteration, until we've got the result.
+get the next one, then iterate this process, computing the next value
+on each iteration, until we've got the result.
 
 Footnote: by convention we index sequences starating at zero rather
 than one. The first element in such a sequence thus has index *0*, the
@@ -23,131 +23,142 @@ second has index *1*, and the *n'th* has index *n - 1*. For example,
 thinking in terms of zero-indexed sequences.
 
 Now consider our recursive definition, *fib(n)*. It's *pure math*:
-concise, precise, elegant.  And because we've written in a functional
-language, we can even run it if we wish. However, it might not give us
+concise, precise, elegant.  And because we've written it in a
+functional language, we can even run it. However, it might not give us
 the performance we require. An imperative program, by constrast, is
-*code*. It's almost like it's encrypted. It's certainly often cryptic.
-But it can be very efficient when run.
+*code*. It's cryptic but it can be very efficient when run.
 
 To get a sense of performance diferences, consider the evaluation of
 each of two programs to compute *fib(5)*: our functional program and
 an imperative one that we will develop in this chapter.
 
-Start with the imperative program. If the argument, *n*, is either
-zero or one, the answer is just returned. If *n >= 2* an answer has to
-be computed. In this case, the program will repeatedly add together
-the previous two values of the function, starting with *0* and *1*, to
-obtain the next one until it computes the result for $n$.  The program
-returns that value.
+Consider the imperative program. If the argument, *n*, is either zero
+or one, the answer is just returned. If *n >= 2* an answer has to be
+computed. In this case, the program will repeatedly add together the
+previous two values of the function, starting with *0* and *1*, until
+it computes the result for *n*.  The program returns that value.
 
 For a given value of *n*, what is the cost of computing an answer?
-It's easy to see that the cost will be dominated by the work done
-inside the loop body; and on each iteration of the loop, a fixed
-amount of work is done; so it's not a bad idea to use the number of
-loop body executions as a measure of the cost of computing an answer
-for an argument, *n*.
+The cost will be dominated by the work done inside the loop body; and
+on each iteration of the loop, a fixed amount of work is done; so it's
+not a bad idea to use the number of loop body executions as a measure
+of the cost of computing an answer for an argument, *n*.
 
-So, what does it cost to compute *fib(5)*? Well, we need to execute it
+So, what does it cost to compute *fib(5)*? Well, we need to execute
 the loop body to compute *fib(i)* for values of *i* of *2, 3, 4,* and
 *5*. It thus takes *4* loop body iterations to compute *fib(5)*. To
 compute the 10th element requires that the loop body execute for *i*
 in the range of *[2, 3, ..., 10]*. That's nine iterations.  It's easy
 to see that for any value of *n*, the cost to compute *fib(n)* will be
-*n-1* loop body iterations.
+*n-1* loop body iterations. We can compute the *100,000th* Fibonacci
+number by running a simple loop body *about* that many times. On a
+modern computer, the computation will be completed very quickly.
 
 The functional program, on the other hand, is evaluated by repeated
 evaluation of nested recursive function applications until base cases
 are reached.  Let's think about the cost of evaluation for increasing
-values of $n$ and try to see a pattern. We'll measure computational
+values of *n* and try to see a pattern. We'll measure computational
 complexity now in terms of the number of function evaluations (rather
 than loop bodies executed) required to produce a final answer.
 
-To compute *fib(0)* or *fib(1)* requires just *1* function evaluation,
-the first call to the function, as these are base cases requiring no
-further recursion. To compute *fib(2)* however requires *3* evalations
-of *fib*: one for each of *fib(1)* and *fib(0)* plus the evaluation of
-the top-level function. The relationship between *n* and the number of
-function evaluations currently looks like this: :math:`\{ (0,1),
-(1,1), (2,3), ... \}.`
+To compute *fib(0)* or *fib(1)* requires just *1* function evaluation
+(the first and only call to the function), as these are base cases
+requiring no further recursion. To compute *fib(2)* however requires
+*3* evalations of *fib*: one for each of *fib(1)* and *fib(0)* plus
+the evaluation of the top-level function. The relationship between *n*
+and the number of function evaluations currently looks like this:
+:math:`\{ (0,1), (1,1), (2,3), ... \}.` The first element of each pair
+is *n* and the second element is the cost to compute *fib(n)*.
 
 What about when *n* is *3*?  Computing this requires answers for
 *fib(2)*, which by the resuts we just computed costs *3* evaluations,
-and for *fib(1)*, which costing *1*, for a total of *5* evaluations
+and for *fib(1)*, which costs *1*, for a total of *5* evaluations
 including the top-level evaluation. Computing *fib(4)* requires that
 we compute *fib(3)* and *fib(2)*, costing *5 + 3*, or *8* evaluations,
-plus one for a total of 9. For *fib(5)* we need *9* + *5*, or *14*
-plus one more, making *15* evaluations.  The relation of cost to $n$
-(the problem size) is now like this: :math:`\{ (0,1), (1,1), (2,3),
-(3,5), (4,9), (5, 15), ... \}.`
+plus the original, top-level call, for a total of 9. For *fib(5)* we
+need *9* + *5*, or *14* plus one more, making *15* evaluations.  The
+relation of cost to *n* (the problem size) is now like this: :math:`\{
+(0,1), (1,1), (2,3), (3,5), (4,9), (5, 15), ... \}.`
 
-It reasonably easy to see that in general, the number of evaluations
-needed to evaluate *fib(i+1)* is the sum of the numbers required to
-evaluate *fib(i)* plus the number to evaluate *fib(i-1)* plus *1.*
+In general, the number of evaluations needed to evaluate *fib(i+1)* is
+the sum of the numbers required to evaluate *fib(i)* plus the number
+to evaluate *fib(i-1)* plus *1.* If we use *C* to represent the cost
+function, then we could say, :math:`C(n) = C(n-1) + C(n-2) + 1`. This
+kind of function is called a recurrence relation, and there are clever
+ways to solve such functions to determine what function *C* me be. Of
+course we can also write a recursive function to compute *C(n)*, if
+we need only to compute it for relatively small values of *n*.
 
-Now that we see the formula, we can quickly compute the following
-values of cost as a function of *n*. The number of evaluations needed
-to compute *fib(6)* is *15 + 9 + 1*, i.e., 25. For *fib(7)* it's *41*.
-For *fib(8), *67*; for *fib(9), 109*; for *fib(10), 177*;l and for
-*fib(11), 286* function evaluations. The cost measured by the number
-of function evaluations is growing much more quickly than $n$ itself.
+Now that we have the formula, we can quickly compute the costs to
+compute *fib(n)* for numerous values of *n*. The number of evaluations
+needed to compute *fib(6)* is *15 + 9 + 1*, i.e., 25. For *fib(7)*
+it's *41*.  For *fib(8), *67*; for *fib(9), 109*; for *fib(10), 177*;
+and for *fib(11), 286* function evaluations.
 
-With our imperative program, the number of loop body interations grows
-*linearly* in *n*. We could say that the computational cost of running
-the imperative program to compute *fib(n)*, let's call it *cost(n), is
-*n+1*. How does the cost of the pure functional program compare? One
-thing to notice is that the cost of computing a Fibonacci element
-using our iterative approach is related to the Fibonacci sequence
-itself! The first two values in the *cost* sequence are *1* and *1*,
-and each subsequence element is the sum of the previous two *plus 1*.
-It's not exactly the Fibonacci sequence, but it turns out to grow at a
-very similar rate. The Fibonacci sequence, and thus also the cost of
-computing it recursively, grows at an *exponential* rate in *n*, with
-an exponent of about *1.6*. Increasing *n* by *1* doesn't quite double
-the cost of computing *fib(n)*, but it does multiply it by a factor of
-about *1.6*.
+One thing is clear: The cost to compute the *n'th* Fibonacci number,
+as measured by the number of function evaluations, using our beautiful
+functional program, is growing much more quickly than *n* itself, and
+indeed it is growing faster and faster as *n* increases. We would say
+the cost is *super-linear*, whereas with our imperative program, the
+number of loop body interations grows *linearly* in *n*.
+
+How exactly does the cost of the pure functional program compare? One
+thing to notice is that the cost of computing a Fibonacci element with
+our functional program is related to the Fibonacci sequence itself!
+The first two values in the *cost* sequence are *1* and *1*, and each
+subsequence element is the sum of the previous two *plus 1*.  It's not
+exactly the Fibonacci sequence, but it turns out to grow at a very
+similar rate. The Fibonacci sequence, thus also the cost of computing
+it recursively, grows at what turns out to be a rate *exponential* in
+*n*, with an exponent of about *1.6*. Increasing *n* by *1* doesn't
+just add a little to the cost; it almost doubles it (multiplying it by
+a factor of *1.6*).
 
 No matter how small the exponent, exponential functions eventually
 grow very large very quickly. In fact, in the limit, any exponential
 function (with any exponent greater than one) grows faster than any
 polynomial function no matter how high in rank and no matter how large
-the coefficients. The exponential-in-*n* cost of our beautiful but
-inefficient functional program grows vastly faster than the linear
-cost of our ugly but efficient imperative program as we increase *n*.
-For any reasonably large value of *n* (like 1000), it will be highly
-impractical to use the pure functional program, computation, whereas
-the imperative program will run quickly for values of $n$ in the
-billions.
+its coefficients are. The exponential-in-*n* cost of our beautiful but
+inefficient functional program grows far faster than the cost of our
+ugly but efficient imperative program as we increase *n*.  For any
+even modestly large value of *n* (e.g., greater than 50 or so), it
+will be impractical to use the pure functional program, whereas the
+imperative program will run quickly for values of *n* in the millions.
+What eventually slows it down is not the number of additions that it
+has to do but the sizes of the numbers that it has to add.
 
 You can already see that the cost to compute *fib(n)* recursively for
-values of *n* larger than just ten or so is vastly greater than the
-cost to compute it iteratively. The math (the recursive definition
-clear but inefficient. The program is efficient, but woefully not
-transparent as to its function. We need the latter program for
+values of *n* larger than just ten or so is much greater than the cost
+to compute it iteratively. Our mathematical/functional definition is
+clear but inefficient. The imperative program is efficient, but not at
+all transparent as to its function. We need the latter program for
 practical computation. But how do we ensure that hard to understand
-imperative code flawlessly implements the same function that we
-expressed so elegantly in mathematical logic and its computational
-expression in pure functional programming?
+imperative code implements the same function that we expressed so
+elegantly in mathematical logic?
 
-We address such problems by combining a few ideas. First, we use logic
-to express *declarative* specifications that precisely define *what* a
-given imperative program must do, an in particular what results it
-must return as a function of the arguements it received.
+We address such problems by combining a few ideas. First, we use
+logic, including functional programming, to express *declarative*
+specifications that precisely define *what* a given imperative program
+must do, and in particular what results it must return as a function
+of the arguements it received, without saying how the computation
+should be done.
 
 We can use functions defined in the pure functional programming style
-as specifications, e.g., as giving the mathematical definition of the
-*factorial* function that an imperative program is meant to implement.
+as parts of specifications, e.g., as giving a mathematical definition
+of the *factorial* function that an imperative program will then have
+to implement.
 
 Second, we implement the specified program in an imperative language
-in a way that supports logical reasoning about its behavior. What kind
-of support is needed to facilitate logical reasoning is broached in
-this chapter. For example, we have to specify not only the desired
-relationship between argument and result values, but also how loops
-are designed to work in our code; and we need to design loops in ways
-that make it easier to explain in formal logic how they do what they
-are meant to do. 
+in a way that supports logical reasoning about its behavior. For
+example, we have to specify not only the desired relationship between
+argument and result values, but also how loops are designed to work in
+our code; and we need to design loops in ways that make it easier to
+explain in formal logic how they do what they are meant to do.
 
 Finally, we use logical proofs to *verify* that the program satisifies
-its specification.
+its specification. Later in this course, we'll see how to produce
+those proofs ourselves. For now we'll be satisfied to let Dafny
+generate them for us!
 
 We develop these idea in this chapter. First we explain how formal
 specifications in mathematical logic for imperative programs are often
@@ -160,10 +171,9 @@ we understand loops. We end with a detailed presentation of the design
 and verification of an imperative program to compute elements in the
 Fibonacci sequence. Given any natural number *n*, our program must
 return the value of *fib(n)*, but it must also do it efficiently.  The
-careful design of a loop is once again the very heart of the problem.
-We will see how Dafny can help us to reason rigorously about loops,
-and that, with just a bit of help, it can reason about them for us.
-
+careful design of a loop is once again the heart of the problem.  We
+will see how Dafny can help us to reason rigorously about loops, and
+that, with just a bit of help, it can reason about them for us.
 
 
 Logical Specification
@@ -171,7 +181,7 @@ Logical Specification
 
 First, we use mathematical logic to *declaratively specify* properties
 of the behaviors that we require of programs written in *imperative*
-languages. For example, we might require that, when given any natural
+languages. For example, we might require that, when given *any* natural
 number, *n*, a program compute and return the value of the *factorial*
 of *n*, the mathematical definition of which we've given as *fact(n)*.
 
@@ -180,7 +190,7 @@ and return results are especially important. They specify *what* a
 program must compute without specifying how. Specifications are thus
 *abstract*: they omit *implementation details*, leaving it to the
 programmer to decide how best to *refine* the specification into a
-working program.
+working imperative program.
 
 For example we might specify that a program (1) must accept any
 integer valued argument greater than or equal to zero (a piece of a
@@ -191,8 +201,8 @@ argument value (a *postcondition*).
 In purely mathematical terms, a specification of this kind defines a
 *binary relation* between argument and return values, and imposes on
 the program a requirement that whenever it is given the first value in
-such a pair, it must compute a second value so that the :math:`(first
-value, second value)` pair is in the specified relation.
+such a pair, it must compute a second value so that the pair,
+:math:`(first value, second value)`, is in the specified relation.
 
 A binary relation in ordinary mathematics is just a set of pairs of
 values. A function is a special binary relation with at most one pair
@@ -201,38 +211,48 @@ relation.
 
 For example, pairs of non-negative integers in the relation that
 constitutes the factorial function include :math:`(0,1), (1,1), (2,2),
-(3,6), (4,24)` and :math:`(5,120)`, but not :math:`(5,25)`.
+(3,6), (4,24)` and :math:`(5,120)`, but not :math:`(5,25)`. Some of
+the pairs in the relation defining the Fibonacci function are
+:math:`\{ (0,0), (1,1), (2,1), (3,2), (5,3), (6,5), \ldots`. These
+relations are also *functions* because there is *at most* one pair
+with a given first element. The functions are also said to be *total*
+because for *every* natural number, there is a pair with that number
+as its first element. 
 
-On the other hand, square root is a relation but not a *function*. It
-is not singled valued. Both :math:`(4,2)` and :math:`(4,-2)`, two
-pairs with the same first element but different second elements, are
-in the relation. That is because both *2* and *-2* are squarer roots
-of *4*.  The *positive square root* relation, on the other hand, is a
-function, comprising those pairs in the square root relation where
-both elements are non-negative. It thus includes :math:`(4,2)` but
-not  :math:`(4,-2)`.
+On the other hand, square root is a *relation* on the real numbers but
+not a *function*, because it is not singled valued. Both :math:`(4,2)`
+and :math:`(4,-2)`, distinct pairs with the same first element are
+both in the relation. That is because both *2* and *-2* are square
+roots of *4*. We also note that the square root relation *on the real
+numbers* is *partial* rather than total, in that it is not defined for
+some elements of the real numbers (for any that are negative).  The
+*non-negative square root* relation, on the other hand, is a function,
+comprising only those pairs in the square root relation where both
+elements are non-negative. It includes the pair, :math:`(4,2)` but not
+:math:`(4,-2)`. Viewed as a relation on the *non-negative* reals, it
+is also a total function.
 
-We could formulate the square root *relation* as a *function* in a
+We could re-formulate the square root *relation* as a *function* in a
 different way: by viewing it as a relation that associates with each
 non-negative integer the single *set* of its square roots. The pair
-:math:`(4, \{2, -2\}` is in this relation, for example. The relation is
-now also a function in that there is only one such pair with a given
-first element.
+:math:`(4, \{2, -2\}` is in this relation, for example. The relation
+is now also a function in that there is only one such pair with a
+given first element. We could even extend the relation to negative
+values by returning an empty set as the result of the application
+of the function to a negative number.
 
-Now what we mean when we say that a program computes a function or a
-relation is that whenever it is given a valid argument representing
-the *first* value of a pair in the relation, it computes a *second*
-value such that the pair, :math:`(first, second)` is in the given
-relation. When we say, for example, that a program *computes the
-factorial function*, we mean that if we give it a non-negative number,
-*n*, it returns a number *m* such that the pair *(n,m)* is *in* the
-relation. And for *(n,m)* to be in the relation it must be that
-:math:`m = fact(n)`. The program thus has to return :math:`fact(n)`.
-
-A program that computes a *function* is deterministic, in the sense
-that it can return at most one result: because there is at most one
-result. When a program computes a relation that is not a function, it
-can return any value, *m*, where *(n,m)* is in the specified relation.
+Now it should be clear when we say colloquially that a program
+*computes a function or a relation*. Whenever it is given a valid
+argument representing the *first* value of a pair in the relation, it
+computes a *second* value such that the pair, :math:`(first, second)`
+is in the given relation. When we say, for example, that a program
+*computes the factorial function*, we mean that if we give it a
+non-negative number, *n*, it returns a number *m* such that the pair
+*(n,m)* is *in* the relation. And for *(n,m)* to be in the relation it
+must be that :math:`m = fact(n)`. Given, *n*, such a program thus has
+to return :math:`fact(n)`. A program that computes a *function* is
+deterministic, in the sense that it can return at most one result:
+because there is at most one result.
 
 Rigorous Implementation
 =======================
@@ -245,52 +265,58 @@ can use formal specifications when programming in any language, but it
 helps greatly if the language has strong, static type checking. It is
 even better if the language supports formal specification and logical
 reasoning mechanisms right alongside of its imperative and functional
-programming capabilities. Dafny is such a language.
+programming capabilities. Dafny is such a language and system. It is
+not just a language, but a verifier.
 
 In addition to choosing a language with features that help to support
-formal reasoning (such as strong, static typing), we sometimes also
-aim to write imperative code in a way that makes it easier to reason
-about formally (using mathematical logic). As we will see below, for
-example, the way that we write our while loops can make it easier or
-harder to reason about their correctness.
+formal reasoning, we sometimes also aim to write imperative code in a
+way that makes it easier to reason about formally. As we'll see below,
+for example, the way that we write our while loops can make it easier
+or harder to reason about their correctness. Even whether we iterate
+from zero up to *n* or from *n* down to zero can affect the difficulty
+of writing specification elements for a program.
 
 
 Formal Verification
 ===================
 
-Our ultimate aim to deduce that, as written, a program satisfies its
-input-output specification.  In more detail, if we're given a program,
-*C* with a precondition, *P*, and a postcondition *Q*, we want a proof
-that verifies that if *C* is started in a state that satisfies *P* and
-if it terminates (doesn't go into an infinite loop), that it ends in a
-state that satisfies *Q*. We call this property *partial correctness*.
+The aim of formal verification is to deduce (to use deductive logic to
+*prove*) that, as written, a program satisfies its specification.  In
+more detail, if we're given a program, *C* with a precondition, *P*,
+and a postcondition *Q*, we want a proof that verifies that if *C* is
+started in a state that satisfies *P* and if it terminates (doesn't go
+into an infinite loop), that it ends in a state that satisfies *Q*. We
+call this property *partial correctness*. 
 
-We write the proposition that *C* is partially correct in this sense
-(that if it's started in a state that satisfies the assertion, *P*,
-and if it terminates then, it will do so in a state that satisfies
-*Q*) as :math:`P {C} Q.` This is a so-called *Hoare triple* (named
+We write the proposition that *C* is partially correct (that if it's
+started in a state that satisfies the assertion, *P*, and that if it
+terminates, then it will do so in a state that satisfies assertion
+*Q*) as :math:`P {C} Q.` This is a so-called *Hoare triple*, named
 after the famous computer scientist, Sir Anthony (Tony) Hoare. It is
 nothing other than a proposition that claims that *C* satisfies its
-specification.
+*pre-condition/post-condition* specification.
 
 In addition to a proof of partial correctness, we usually do want to
 know that a program also does always terminate. When we have a proof
 of both :math:`P \{C\} Q` and that the program always terminates, then
 we have a proof of *total correctness*. Dafny is a programming system
-that allows us to specify *P* amd *Q* and that then formally, and to a
-considerable extent automatically, verifies `P \{C\} Q` and termination.
-That is, Dafny produces proofs of total correctness.
+that allows us to specify *P* and *Q* and it then formally, and to a
+considerable extent automatically, verifies both `P \{C\} Q` and
+termination.  That is, Dafny produces proofs of total correctness.
 
 It is important to bear in mind that a proof that a program refines
-its formal specification does not necessarily mean that it is fit for
-its intended purpose! If the specification is wrong, then all bets are
-off, even if the program is correct relative to its specification.
-The problem of *validating* specification againts real-world needs is
-separate from that of *verifying* that a given program implements its
-specification correctly.
+(implements) its formal specification does not necessarily mean that
+it is fit for its intended purpose! If the specification is wrong,
+then all bets are off, even if the program is correct relative to its
+specification.  The problem of *validating* specification againts
+real-world needs is separate from that of *verifying* that a given
+program implements its specification correctly. Formal methods can
+help here, as well, by verifying that *specifications* have certain
+desired properties, but formal validation of specifications is not
+our main concern at the moment.
 
-Typical Implementation of the Factorial Function
-================================================
+An Implementation of the Factorial Function
+===========================================
 
 So far the material in this chapter has been pretty abstract. Now
 we'll see what it means in practice. To start, let's consider an
@@ -325,21 +351,19 @@ behavior of the program when the argument is 0, 1, 2, 3, etc.  Does it
 always compute the right result? Where is the bug? What is wrong? And
 how could this logical error have been detected automatically?
 
-The problem is that the program lacks a complete specification. The
-program does *something*, taking a nat and possibly returning a nat
+A key problem is that the program lacks a precise specification. The
+program does *something*, taking a nat and possibly returning a *nat*
 (unless it goes into an infinite loop) but there's no way to analyze
 its correctness in the absence of a specification that defines what
-*right* even means.
+it even means to be correct. 
 
-Now let's see what happens when we make the specification complete.
-The precondition will continue to be expressed by the type of the
-argument, *n*, being *nat*. However, we have added a postcondition
-that requires the return result to be the factorial of *n*. Note that
-we used our functional definition of the *factorial* function in the
-*specification* of our imperative code. The pure functional program is
-really just a mathematical definition of factorial. What we assert
-with the postcondition is thus that the imperative program computes
-the factorial function as it is defined in pure mathematics.
+Now let's see what happens when we add a formal specification.  The
+only precondition here, that *n >= 0*, will continue to be expressed
+by the *type* of the argument, *n*, being *nat*. However, we have now
+added a postcondition that requires the return result be the factorial
+of *n*, as defined by our functional program!  What we assert with the
+postcondition is that the imperative program computes the factorial
+function as it is defined in pure (albeit runnable) mathematics.
 
 .. code-block:: dafny
 
@@ -377,7 +401,7 @@ imperative languages satisfy declarative specifications can be hard.
 
 When Dafny fails to verify a program (find a proof that it satisfies
 its specification), there is one of two reasons. Either the program
-really does fail to satisfy its specificaiton; or the program is good
+really does fail to satisfy its specification; or the program is good
 but Dafny does not have enough information to know how to prove it. 
 
 With the preceding program, the postcondition really isn't satisfied
@@ -386,6 +410,7 @@ Dafny would need a little more information than is given in this code
 to prove it. In particular, Dafny would need a litte more information
 about how the while loop behaves. It turns out that providing extra
 information about while loops is where much of the difficulty lies.
+So let's see how to get a program with a proof of correctness.
 
 A Verified Implementation of the Factorial Function
 ===================================================

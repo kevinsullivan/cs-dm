@@ -880,7 +880,7 @@ Start with the imperative program. If the argument, \sphinxstyleemphasis{n}, is 
 zero or one, the answer is just returned. If \sphinxstyleemphasis{n \textgreater{}= 2} an answer has to
 be computed. In this case, the program will repeatedly add together
 the previous two values of the function, starting with \sphinxstyleemphasis{0} and \sphinxstyleemphasis{1}, to
-obtain the next one until it computes the result for \$n\$.  The program
+obtain the next one until it computes the result for \sphinxstyleemphasis{n}.  The program
 returns that value.
 
 For a given value of \sphinxstyleemphasis{n}, what is the cost of computing an answer?
@@ -901,7 +901,7 @@ to see that for any value of \sphinxstyleemphasis{n}, the cost to compute \sphin
 The functional program, on the other hand, is evaluated by repeated
 evaluation of nested recursive function applications until base cases
 are reached.  Let’s think about the cost of evaluation for increasing
-values of \$n\$ and try to see a pattern. We’ll measure computational
+values of \sphinxstyleemphasis{n} and try to see a pattern. We’ll measure computational
 complexity now in terms of the number of function evaluations (rather
 than loop bodies executed) required to produce a final answer.
 
@@ -919,7 +919,7 @@ and for \sphinxstyleemphasis{fib(1)}, which costing \sphinxstyleemphasis{1}, for
 including the top-level evaluation. Computing \sphinxstyleemphasis{fib(4)} requires that
 we compute \sphinxstyleemphasis{fib(3)} and \sphinxstyleemphasis{fib(2)}, costing \sphinxstyleemphasis{5 + 3}, or \sphinxstyleemphasis{8} evaluations,
 plus one for a total of 9. For \sphinxstyleemphasis{fib(5)} we need \sphinxstyleemphasis{9} + \sphinxstyleemphasis{5}, or \sphinxstyleemphasis{14}
-plus one more, making \sphinxstyleemphasis{15} evaluations.  The relation of cost to \$n\$
+plus one more, making \sphinxstyleemphasis{15} evaluations.  The relation of cost to \sphinxstyleemphasis{n}
 (the problem size) is now like this: \(\{ (0,1), (1,1), (2,3),
 (3,5), (4,9), (5, 15), ... \}.\)
 
@@ -932,7 +932,7 @@ values of cost as a function of \sphinxstyleemphasis{n}. The number of evaluatio
 to compute \sphinxstyleemphasis{fib(6)} is \sphinxstyleemphasis{15 + 9 + 1}, i.e., 25. For \sphinxstyleemphasis{fib(7)} it’s \sphinxstyleemphasis{41}.
 For \sphinxstyleemphasis{fib(8), *67}; for \sphinxstyleemphasis{fib(9), 109}; for \sphinxstyleemphasis{fib(10), 177};l and for
 \sphinxstyleemphasis{fib(11), 286} function evaluations. The cost measured by the number
-of function evaluations is growing much more quickly than \$n\$ itself.
+of function evaluations is growing much more quickly than \sphinxstyleemphasis{n} itself.
 
 With our imperative program, the number of loop body interations grows
 \sphinxstyleemphasis{linearly} in \sphinxstyleemphasis{n}. We could say that the computational cost of running
@@ -958,7 +958,7 @@ inefficient functional program grows vastly faster than the linear
 cost of our ugly but efficient imperative program as we increase \sphinxstyleemphasis{n}.
 For any reasonably large value of \sphinxstyleemphasis{n} (like 1000), it will be highly
 impractical to use the pure functional program, computation, whereas
-the imperative program will run quickly for values of \$n\$ in the
+the imperative program will run quickly for values of \sphinxstyleemphasis{n} in the
 billions.
 
 You can already see that the cost to compute \sphinxstyleemphasis{fib(n)} recursively for
@@ -2025,8 +2025,9 @@ ToString() method for Dafny data types.
 print \PYGZdq{}Print: The set is \PYGZdq{}, \PYGZob{} 1, 2, 3\PYGZcb{}, \PYGZdq{}\PYGZbs{}n\PYGZdq{}; // print the set
 \end{sphinxVerbatim}
 
-Return (terminate execution of a method)
 
+\subsection{Return}
+\label{\detokenize{06-dafny-language:return}}
 From the reference manual: A return statement can only be used in a
 method. It terminates the execution of the method. To return a value
 from a method, the value is assigned to one of the named return values
@@ -2038,10 +2039,38 @@ block of the method.  Return statements can be just the return keyword
 take a list of values to return. If a list is given the number of
 values given must be the same as the number of named return values.
 
-We illustrate the use of return at the end of this program.
+To return a value from a method, assign to the return parameter
+and then either use an explicit return statement or just let the
+method complete.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-return;
+method ReturnExample() returns (retval: int)
+\PYGZob{}
+    retval := 10;
+    // implicit return here
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+Methods can return multiple values.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method ReturnExample2() returns (x: int, y:int)
+\PYGZob{}
+    x := 10;
+    y := 20;
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+The return keyword can be used to return immediatey
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method ReturnExample3() returns (x: int)
+\PYGZob{}
+    x := 5;     // don\PYGZsq{}t \PYGZdq{}var\PYGZdq{} decare return variable
+    return;     // return immediately
+    x := 6;     // never gets executed
+    assert 0 == 1; // can\PYGZsq{}t be reached to never gets checked!
+\PYGZcb{}
 \end{sphinxVerbatim}
 
 
@@ -2171,7 +2200,7 @@ of memory.
 
 To allocate memory for a new array for n elements of type T one
 uses an expression like this: a: array\textless{}T\textgreater{} := new T{[}n{]}. The type
-of \sphinxstyleemphasis{a} here is “an array of elements of type \sphinxstyleemphasis{T}, and the size
+of \sphinxstyleemphasis{a} here is “an array of elements of type \sphinxstyleemphasis{T},” and the size
 of the allocated memory chunk is big enough to hold \sphinxstyleemphasis{n} values
 of this type.
 
@@ -2202,24 +2231,16 @@ command explains that the method body is allowed to change the value
 of a.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-
-\end{sphinxVerbatim}
-\begin{description}
-\item[{method incr(a: array\textless{}nat\textgreater{}) returns (r: array\textless{}nat\textgreater{})}] \leavevmode
+method incr(a: array\PYGZlt{}nat\PYGZgt{}) returns (r: array\PYGZlt{}nat\PYGZgt{})
 requires a != null;
-requires a.Length \textgreater{} 0;
+requires a.Length \PYGZgt{} 0;
 modifies a;
-ensures a{[}0{]} == old(a{[}0{]}) + 1;
-
-\end{description}
-\begin{description}
-\item[{\{}] \leavevmode
-a{[}0{]} := a{[}0{]} + 1;
-return a;
-
-\end{description}
-
-\}
+ensures a[0] == old(a[0]) + 1;
+\PYGZob{}
+    a[0] := a[0] + 1;
+    return a;
+\PYGZcb{}
+\end{sphinxVerbatim}
 
 
 \subsection{Cardinality Expressions}

@@ -38,44 +38,45 @@
 \contentsline {subsection}{\numberline {6.2.6}While (iteration)}{30}{subsection.6.2.6}
 \contentsline {subsection}{\numberline {6.2.7}Assert (assert a proposition about the state of the program)}{31}{subsection.6.2.7}
 \contentsline {subsection}{\numberline {6.2.8}Print (produce output on console)}{31}{subsection.6.2.8}
-\contentsline {section}{\numberline {6.3}Expressions}{31}{section.6.3}
-\contentsline {subsection}{\numberline {6.3.1}Literals Expressions}{31}{subsection.6.3.1}
-\contentsline {subsection}{\numberline {6.3.2}If (Conditional) Expressions}{31}{subsection.6.3.2}
+\contentsline {subsection}{\numberline {6.2.9}Return}{31}{subsection.6.2.9}
+\contentsline {section}{\numberline {6.3}Expressions}{32}{section.6.3}
+\contentsline {subsection}{\numberline {6.3.1}Literals Expressions}{32}{subsection.6.3.1}
+\contentsline {subsection}{\numberline {6.3.2}If (Conditional) Expressions}{32}{subsection.6.3.2}
 \contentsline {subsection}{\numberline {6.3.3}Conjunction and Disjunction Expressions}{32}{subsection.6.3.3}
-\contentsline {subsection}{\numberline {6.3.4}Sequence, Set, Multiset, and Map Expressions}{32}{subsection.6.3.4}
-\contentsline {subsection}{\numberline {6.3.5}Relational Expressions}{32}{subsection.6.3.5}
+\contentsline {subsection}{\numberline {6.3.4}Sequence, Set, Multiset, and Map Expressions}{33}{subsection.6.3.4}
+\contentsline {subsection}{\numberline {6.3.5}Relational Expressions}{33}{subsection.6.3.5}
 \contentsline {subsection}{\numberline {6.3.6}Array Allocation Expressions}{33}{subsection.6.3.6}
-\contentsline {subsection}{\numberline {6.3.7}Old Expressions}{33}{subsection.6.3.7}
+\contentsline {subsection}{\numberline {6.3.7}Old Expressions}{34}{subsection.6.3.7}
 \contentsline {subsection}{\numberline {6.3.8}Cardinality Expressions}{34}{subsection.6.3.8}
 \contentsline {subsection}{\numberline {6.3.9}Let Expressions}{34}{subsection.6.3.9}
-\contentsline {chapter}{\numberline {7}7. Toward Logic: Boolean Algebra}{35}{chapter.7}
-\contentsline {section}{\numberline {7.1}The \sphinxstyleemphasis {bool} Type in Dafny}{35}{section.7.1}
-\contentsline {section}{\numberline {7.2}Boolean Algebra}{36}{section.7.2}
-\contentsline {subsection}{\numberline {7.2.1}Nullary, Unary, Binary, and n-Ary Operators}{36}{subsection.7.2.1}
-\contentsline {subsection}{\numberline {7.2.2}The Unary Operators of Boolean Algebra}{36}{subsection.7.2.2}
-\contentsline {subsubsection}{Constant False}{37}{subsubsection*.3}
-\contentsline {subsubsection}{Constant True}{37}{subsubsection*.4}
-\contentsline {subsubsection}{Identity Function(s)}{37}{subsubsection*.5}
-\contentsline {subsubsection}{Negation}{37}{subsubsection*.6}
-\contentsline {subsection}{\numberline {7.2.3}Binary Boolean Operators}{38}{subsection.7.2.3}
-\contentsline {subsubsection}{And (conjunction)}{38}{subsubsection*.7}
-\contentsline {subsubsection}{Nand (not and)}{38}{subsubsection*.8}
-\contentsline {subsubsection}{Or (disjunction)}{39}{subsubsection*.9}
-\contentsline {subsubsection}{Xor (exclusive or)}{39}{subsubsection*.10}
-\contentsline {subsubsection}{Nor (not or)}{39}{subsubsection*.11}
-\contentsline {subsubsection}{Implies}{39}{subsubsection*.12}
-\contentsline {subsubsection}{Follows}{40}{subsubsection*.13}
-\contentsline {subsection}{\numberline {7.2.4}A Ternary Binary Operator}{40}{subsection.7.2.4}
-\contentsline {section}{\numberline {7.3}Logic: Formal Languages for Syntactic Reasoning}{40}{section.7.3}
-\contentsline {section}{\numberline {7.4}Boolean Algebra, Expressions, and Decision Problems}{41}{section.7.4}
-\contentsline {subsection}{\numberline {7.4.1}The Syntax of Boolean Expressions}{42}{subsection.7.4.1}
-\contentsline {subsection}{\numberline {7.4.2}Interpretations in Boolean Logic}{43}{subsection.7.4.2}
-\contentsline {subsection}{\numberline {7.4.3}The Semantics of Boolean Expressions}{43}{subsection.7.4.3}
-\contentsline {subsection}{\numberline {7.4.4}Interpretations}{43}{subsection.7.4.4}
-\contentsline {subsection}{\numberline {7.4.5}Validity, Satisfiability, Unsatisfiability}{43}{subsection.7.4.5}
-\contentsline {subsection}{\numberline {7.4.6}The Most Important Unsolved Problem in Computer Science}{43}{subsection.7.4.6}
-\contentsline {chapter}{\numberline {8}Setting Up to Use Git}{45}{chapter.8}
-\contentsline {section}{\numberline {8.1}Git and Distributed Software Development}{45}{section.8.1}
-\contentsline {section}{\numberline {8.2}Setting Up}{45}{section.8.2}
-\contentsline {section}{\numberline {8.3}A Demo}{46}{section.8.3}
-\contentsline {chapter}{\numberline {9}Indices and tables}{47}{chapter.9}
+\contentsline {chapter}{\numberline {7}7. Toward Logic: Boolean Algebra}{37}{chapter.7}
+\contentsline {section}{\numberline {7.1}The \sphinxstyleemphasis {bool} Type in Dafny}{37}{section.7.1}
+\contentsline {section}{\numberline {7.2}Boolean Algebra}{38}{section.7.2}
+\contentsline {subsection}{\numberline {7.2.1}Nullary, Unary, Binary, and n-Ary Operators}{38}{subsection.7.2.1}
+\contentsline {subsection}{\numberline {7.2.2}The Unary Operators of Boolean Algebra}{38}{subsection.7.2.2}
+\contentsline {subsubsection}{Constant False}{39}{subsubsection*.3}
+\contentsline {subsubsection}{Constant True}{39}{subsubsection*.4}
+\contentsline {subsubsection}{Identity Function(s)}{39}{subsubsection*.5}
+\contentsline {subsubsection}{Negation}{39}{subsubsection*.6}
+\contentsline {subsection}{\numberline {7.2.3}Binary Boolean Operators}{40}{subsection.7.2.3}
+\contentsline {subsubsection}{And (conjunction)}{40}{subsubsection*.7}
+\contentsline {subsubsection}{Nand (not and)}{40}{subsubsection*.8}
+\contentsline {subsubsection}{Or (disjunction)}{41}{subsubsection*.9}
+\contentsline {subsubsection}{Xor (exclusive or)}{41}{subsubsection*.10}
+\contentsline {subsubsection}{Nor (not or)}{41}{subsubsection*.11}
+\contentsline {subsubsection}{Implies}{41}{subsubsection*.12}
+\contentsline {subsubsection}{Follows}{42}{subsubsection*.13}
+\contentsline {subsection}{\numberline {7.2.4}A Ternary Binary Operator}{42}{subsection.7.2.4}
+\contentsline {section}{\numberline {7.3}Logic: Formal Languages for Syntactic Reasoning}{42}{section.7.3}
+\contentsline {section}{\numberline {7.4}Boolean Algebra, Expressions, and Decision Problems}{43}{section.7.4}
+\contentsline {subsection}{\numberline {7.4.1}The Syntax of Boolean Expressions}{44}{subsection.7.4.1}
+\contentsline {subsection}{\numberline {7.4.2}Interpretations in Boolean Logic}{45}{subsection.7.4.2}
+\contentsline {subsection}{\numberline {7.4.3}The Semantics of Boolean Expressions}{45}{subsection.7.4.3}
+\contentsline {subsection}{\numberline {7.4.4}Interpretations}{45}{subsection.7.4.4}
+\contentsline {subsection}{\numberline {7.4.5}Validity, Satisfiability, Unsatisfiability}{45}{subsection.7.4.5}
+\contentsline {subsection}{\numberline {7.4.6}The Most Important Unsolved Problem in Computer Science}{45}{subsection.7.4.6}
+\contentsline {chapter}{\numberline {8}Setting Up to Use Git}{47}{chapter.8}
+\contentsline {section}{\numberline {8.1}Git and Distributed Software Development}{47}{section.8.1}
+\contentsline {section}{\numberline {8.2}Setting Up}{47}{section.8.2}
+\contentsline {section}{\numberline {8.3}A Demo}{48}{section.8.3}
+\contentsline {chapter}{\numberline {9}Indices and tables}{49}{chapter.9}
