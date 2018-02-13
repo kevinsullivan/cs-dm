@@ -397,10 +397,11 @@ in with Boolean values in the right column. How many ways are there to
 fill in :math:`2^n` Boolean values?
 
 
+Exercise: Write down the truth table for this Boolean if-then-else
+operator.
 
-
-Languages for Symbolic Reasoning: Syntax
-=====================================================================
+Logic: Formal Languages for Syntactic Reasoning
+===============================================
 
 Mathematical logic is grounded in the definition of valid sentences in
 formal languages and the definition of rules for transforming one such
@@ -440,73 +441,108 @@ in and on the world.
 Boolean Algebra, Expressions, and Decision Problems
 ===================================================
 
-The rest of this section illustrates and further develops these ideas,
-using Boolean algebra and the structure and evaluations of a language
-of Boolean expressions, as a first case study in precise definition of
-the syntax (sentence structure) and semantics (evaluation) of a simple
-formal language: that of Boolean expressions including variables.
+The rest of this chapter illustrates and further develops these ideas
+using Boolean algebra, and a language of Boolean expressions, as a
+case study in precise definition of the syntax (expression structure)
+and semantics (expression evaluation) of a simple formal language: of
+Boolean expressions containing Boolean variables.
 
 To illustrate the potential utility of this language and its semantics
-we will define three closely related *decision problems*, show how they
-can be solved in Dafny, and discuss how they lead directly to the most
-important unsolved problem in the theory of computation.
-
-The all three decision problems start with a Boolean expression, one
-that can contain variables, and they ask where there is any way to
-assign *true* and *false* values to the variables to make the overall
-expression evaluate to *true*. The first asks whether the expression
-is *satisfiable*? That is, is there at least one binding of variables
-to values that makes the expression (evaluate to) *true*. The asks
-whether the expression is *valid*. Does every combination of variable
-values make the expression true. Last, is it *unsatisfiable*? Is it
-the case that *no* combination of variable values makes the expression
-true.
-
-The problem of deciding *efficiently* whether there is a combination
-of Boolean variable values that makes any given Boolean expression
-true is the most important unsolved problem in computer science. We
-currently do not know of a solution that with runtime complexity that
-is better than exponential the number of variables in an expression.
-It's easy to determine whether an assignment of values to variables
-does the trick: just evaluate the expression with those values for the
-variables. But *finding* such a combination today requires, for the
-hardest of these problems, trying all :math:``2^n`` combinations of
-Boolean values for *n* variables.
-
-At the same time, we do not know that there is *not* a more efficient
-algorithm. Many experts would bet that there isn't one, but until we
-know for sure, there is a tantalizing possibility that someone someday
-will find an *efficient decision procedure* for Boolean satisfiability.
+we will define three related *decision problems*. A decision problem
+is a *kind* of problem for which there is an algorithm that can solve
+any instance of the problem. The three decision problems we will study
+start with a Boolean expression, one that can contain variables, and
+ask where there is an assignment of *true* and *false* values to the
+variables in the expression to make the overall expression evaluate to
+*true*.
 
 Here's an example. Suppose you're given the Boolean expression,
 :math:`(P \lor Q) \land (\lnot R)`. The top-level operator is
 *and*. The whole expression thus evaluates to *true* if and only if
-both subexpressions do. The first, :math:`(P \lor Q)`, evaluates to
-*true* if either or both of *P* or *Q* do. The second evaluates to
-true if and only if *R* is false. If this is the case, then there are
-three ways to make the left side true, making the whole expression
-true: set *P true* and *Q false*; set *P false* and *Q true*; and set
-both to *true*.
+both subexpressions do: :math:`(P \lor Q)` and :math:`\land (\lnot
+R)`, respectively. The first, :math:`(P \lor Q)`, evaluates to *true*
+if either of the variables, *P* and *Q*, are set to true. The second
+evaluates to true if and only if the variable *R* is false. There are
+thus settings of the variables that make the formula true. In each of
+them, *R* is *false*, and either or both of *P* and *Q* are set to
+true.
 
-To close this exploration of computational complexity theory, we'll
-just note that we solved an instances of another related problem: not
-only to determine whether there is at least one (whether *there
-exists*) at least one combination of variable values that makes the
-expression true, but further determining how many different ways there
-are to do it.
+Given a Boolean expression with variables, an *interpretation* for
+that expression is a binding of the variables in that expression to
+corresponding Boolean values. A Boolean expression with no variables
+is like a proposition: it is true or false on its own. An expression
+with one or more variables will be true or false depending on how the
+variables are used in the expression.
 
-Researchers and advanced practitioners of logic and computation
-sometimes use the word *model* to refer to a combination of variable
-values that makes an expression true. The problem of finding a Boolean
-expression that *satisfies* a Boolean formula is thus somtetimes
-called the *model finding* problem. By contrast, the problem of
-determining how many ways there are to satisfy a Boolean expression is
-called the *model counting* problem.
+An interpretation that makes such a formula true is called a *model*.
+The problem of finding a model is called, naturally enough, the model
+finding problem, and the problem of finding *all* models that make a
+Boolean expression true, the *model enumeration* or *model counting*
+problem.
 
-Solutions to these problems have a vast array of practical uses.  As
-one still example, many logic puzzles can be represented as Boolean
-expressions, and a model finder can be used to determine whether there
-are any "solutions", if so, what one solution is. 
+The first major *decision problem* that we identify is, for any given
+Boolean expression, to determine whether it is *satisfiable*. That is,
+is there at least one interpretation (assignment of truth values to
+the variables in the expression that makes the expression evaluate to
+*true*?  We saw, for example, that the expression, :math:`(P \lor Q)
+\land (\lnot R)` is satifiable, and, moreover, that :math:`\{ (P,
+true), (Q, false), (R, false) \}` is a (one of three) interpretations
+that makes the expression true.
+
+Such an interpretation is called a *model*. The problem of finding a
+model (if there is one), and thereby showing that an expression is
+satisfiable, is naturally enough called the* model finding* problem.
+
+A second problem is to determine whether a Boolean expression is
+*valid*. An expression is valid if *every* interpretation makes the
+expression true. For example, the Boolean expression :math:`P \lor
+\neg P` is always true. If *P* is set to true, the formula becomes
+:math:`true \lor false`. If *P* is set to false, the formula is then
+:math:`true \lor false`. Those are the only two interpretations and
+under either of them, the resulting expression evaluates to true.
+
+A third related problem is to determine whether a Boolean expression
+is it *unsatisfiable*? This case occurs when there is *no* combination
+of variable values makes the expression true. The expression :math:`P
+\land \neg P` is unsatisfiable, for example. There is no value of $P$
+(either *true* or *false*) that makes the resulting formula true.
+
+These decision problems are all solvable. There are algorithms that in
+a finite number of steps can determine answers to all of them. In the
+worst case, one need only look at all possible combinations of true
+and false values for each of the (finite number of) variables in an
+expression. If there are *n* variables, that is at most :math:`2^n`
+combinations of such values. Checking the value of an expression for
+each of these interpretations will determine whether it's satisfiable,
+unsatisfiable, or valid. In this chapter, we will see how these ideas
+can be translated into runnable code.
+
+The much more interesting question is whether there is a fundamentally
+more efficient approach than checking all possible interpretations: an
+approach with a cost that increases *exponentially* in the number of
+variables in an expression. This is the greatest open question in all
+of computer science, and one of the greatest open questions in all of
+mathematics.
+
+So let's see how it all works. The rest of this chapter first defines
+a *syntax* for Boolean expressions. Then it defines a *semantics* in
+the form of a procedure for *evaluating* any given Boolean expression
+given a corresponding *interpretation*, i.e., a mapping from variables
+in the expression to corresponding Boolean values. Next we define a
+procedure that, for any given set of Boolean variables, computes and
+returns a list of *all* interpretations. We also define a procedure
+that, given any Boolean expression returns the set of variables in the
+expression. For ths set we calculate the set of all interpretations.
+Finally, by evaluating the expression on each such interpretation, we
+decide whether the expression is satisfiable, unsatisfiable, or valid.
+
+Along the way, we will meet *inductive definitions* as a fundamental
+approach to concisely specifying languages with a potentially infinite
+number of expressions, and the *match* expression for dealing with
+values of inductively defined types. We will also see uses of several
+of Dafny's built-in abstract data types, including sets, sequences,
+and maps. So let's get going.
+
 
 The Syntax of Boolean Expressions
 ---------------------------------
@@ -556,35 +592,6 @@ rendered true or false.
 Interpretations in Boolean Logic
 --------------------------------
 
-Given a Boolean expression with variables, an *interpretation* for
-that expression is a binding of the variables in that expression to
-corresponding Boolean values. A Boolean expression with no variables
-is like a proposition: it is true or false on its own. An expression
-with one or more variables will be true or false depending on how the
-variables are used in the expression.
-
-To make this idea precise, we will present a Dafny function that
-when given a Boolean expression in our little language returns the
-set of variables that appear in that expression.
-
-
-
-
-
-A particularly important concept is that of the set of all possible
-interpretations for a given Boolean expression: i.e., all the ways in
-which values can be assigned to the variables in the expression. An
-expression has *n* variables has :math:`2^n` interpretations.
-
-To see that the number of interpretations is exponential in the number
-of variables in an expression, consider that there are two values for
-the first variable. For each of those two, there are two values for
-the second variable, for a total of four interpretations for just two
-variables. For each of those four, there are two possible values of a
-third variable, so eight interpretations for three variables; and so
-forth. Each time one adds one more variable, one *doubles* the number
-of interpretations. This is a class example of exponential growth.
-    
 
 The Semantics of Boolean Expressions
 ------------------------------------
@@ -645,5 +652,52 @@ Interpretations
 ---------------
 
 Validity, Satisfiability, Unsatisfiability
-==========================================
+------------------------------------------
+
+The Most Important Unsolved Problem in Computer Science
+-------------------------------------------------------
+
+It is now possible for you to understand what is the most important
+*open question* (unsolved mathematical problem) in computer science.
+Is there an *efficient* algorithm for determining whether any given
+Boolean formula is satisfiable?
+
+
+
+whether there is a combination of Boolean
+variable values that makes any given Boolean expression true is the
+most important unsolved problem in computer science. We currently do
+not know of a solution that with runtime complexity that is better
+than exponential the number of variables in an expression.  It's easy
+to determine whether an assignment of values to variables does the
+trick: just evaluate the expression with those values for the
+variables. But *finding* such a combination today requires, for the
+hardest of these problems, trying all :math:``2^n`` combinations of
+Boolean values for *n* variables.
+
+At the same time, we do not know that there is *not* a more efficient
+algorithm. Many experts would bet that there isn't one, but until we
+know for sure, there is a tantalizing possibility that someone someday
+will find an *efficient decision procedure* for Boolean satisfiability.
+
+To close this exploration of computational complexity theory, we'll
+just note that we solved an instances of another related problem: not
+only to determine whether there is at least one (whether *there
+exists*) at least one combination of variable values that makes the
+expression true, but further determining how many different ways there
+are to do it.
+
+Researchers and advanced practitioners of logic and computation
+sometimes use the word *model* to refer to a combination of variable
+values that makes an expression true. The problem of finding a Boolean
+expression that *satisfies* a Boolean formula is thus somtetimes
+called the *model finding* problem. By contrast, the problem of
+determining how many ways there are to satisfy a Boolean expression is
+called the *model counting* problem.
+
+Solutions to these problems have a vast array of practical uses.  As
+one still example, many logic puzzles can be represented as Boolean
+expressions, and a model finder can be used to determine whether there
+are any "solutions", if so, what one solution is. 
+
 

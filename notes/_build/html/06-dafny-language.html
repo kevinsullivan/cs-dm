@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/sidebar.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Toward Logic: Boolean Algebra" href="07-boolean-algebra.html" />
+    <link rel="next" title="7. Toward Logic: Boolean Algebra" href="07-boolean-algebra.html" />
     <link rel="prev" title="5. Formal Verification of Imperative Programs" href="05-putting-it-together.html" /> 
   </head>
   <body>
@@ -35,7 +35,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="07-boolean-algebra.html" title="Toward Logic: Boolean Algebra"
+          <a href="07-boolean-algebra.html" title="7. Toward Logic: Boolean Algebra"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="05-putting-it-together.html" title="5. Formal Verification of Imperative Programs"
@@ -69,8 +69,8 @@ the numerical types found in most industrial languages</li>
 <li>map&lt;K,V&gt; and imap&lt;K,V&gt;, polymorphic finite and infinite partial functions</li>
 <li>array&lt;T&gt;, polymorphic 1- and multi-dimensional arrays</li>
 </ul>
-<div class="section" id="boolean-algebra">
-<h3>Boolean Algebra<a class="headerlink" href="#boolean-algebra" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="booleans">
+<h3>Booleans<a class="headerlink" href="#booleans" title="Permalink to this headline">¶</a></h3>
 <p>The bool abstract data type (ADT) in Dafny provides a bool data type
 with values, <em>true</em> and <em>false</em>, along with the Boolean operators that
 are supported by most programming langauges, along with a few that are
@@ -127,32 +127,6 @@ value. It illustrates numerical types, syntax, and operations.</p>
     var b1 := c1 &lt; c2;  // ordering operators defined for char
     var c3 := &#39;\n&#39;;     // c-style escape for non-printing chars
     var c4 := &#39;\u265B&#39;; // unicode, hex, &quot;chess king&quot; character
-}
-</pre></div>
-</div>
-<p>To return a value from a method, assign to the return parameter
-Note: functions have colon then return type, whereas methods
-use the “returns” keyword with a return parameter list</p>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>method ReturnExample() returns (retval: int)
-{
-    retval := 10;
-}
-</pre></div>
-</div>
-<p>Methods can return multiple values.</p>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>method ReturnExample2() returns (x: int, y:int)
-{
-    x := 10;
-    y := 20;
-</pre></div>
-</div>
-<p>}</p>
-<p>The return keyword can be used to return immediatey</p>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>method ReturnExample3() returns (x: int)
-{
-    x := 5;     // don&#39;t &quot;var&quot; decare return variable
-    return;     // return immediately
-    x := 6;     // never gets executed
 }
 </pre></div>
 </div>
@@ -459,7 +433,9 @@ ToString() method for Dafny data types.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>print &quot;Print: The set is &quot;, { 1, 2, 3}, &quot;\n&quot;; // print the set
 </pre></div>
 </div>
-<p>Return (terminate execution of a method)</p>
+</div>
+<div class="section" id="return">
+<h3>Return<a class="headerlink" href="#return" title="Permalink to this headline">¶</a></h3>
 <p>From the reference manual: A return statement can only be used in a
 method. It terminates the execution of the method. To return a value
 from a method, the value is assigned to one of the named return values
@@ -470,8 +446,32 @@ block of the method.  Return statements can be just the return keyword
 (where the current value of the out parameters are used), or they can
 take a list of values to return. If a list is given the number of
 values given must be the same as the number of named return values.</p>
-<p>We illustrate the use of return at the end of this program.</p>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>return;
+<p>To return a value from a method, assign to the return parameter
+and then either use an explicit return statement or just let the
+method complete.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method ReturnExample() returns (retval: int)
+{
+    retval := 10;
+    // implicit return here
+}
+</pre></div>
+</div>
+<p>Methods can return multiple values.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method ReturnExample2() returns (x: int, y:int)
+{
+    x := 10;
+    y := 20;
+}
+</pre></div>
+</div>
+<p>The return keyword can be used to return immediatey</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method ReturnExample3() returns (x: int)
+{
+    x := 5;     // don&#39;t &quot;var&quot; decare return variable
+    return;     // return immediately
+    x := 6;     // never gets executed
+    assert 0 == 1; // can&#39;t be reached to never gets checked!
+}
 </pre></div>
 </div>
 </div>
@@ -586,7 +586,7 @@ has been allocated for the array values, in the <em>heap</em> part
 of memory.</p>
 <p>To allocate memory for a new array for n elements of type T one
 uses an expression like this: a: array&lt;T&gt; := new T[n]. The type
-of <em>a</em> here is “an array of elements of type <em>T</em>, and the size
+of <em>a</em> here is “an array of elements of type <em>T</em>,” and the size
 of the allocated memory chunk is big enough to hold <em>n</em> values
 of this type.</p>
 <p>Multi-dimensional arrays (matrices) are also supported. The types of
@@ -612,22 +612,17 @@ value plus one. The <em>requires</em> (preconditions) statements are needed
 to ensure that the array is not null and not zero length. The modifies
 command explains that the method body is allowed to change the value
 of a.</p>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-<dl class="docutils">
-<dt>method incr(a: array&lt;nat&gt;) returns (r: array&lt;nat&gt;)</dt>
-<dd>requires a != null;
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method incr(a: array&lt;nat&gt;) returns (r: array&lt;nat&gt;)
+requires a != null;
 requires a.Length &gt; 0;
 modifies a;
-ensures a[0] == old(a[0]) + 1;</dd>
-</dl>
-<dl class="docutils">
-<dt>{</dt>
-<dd>a[0] := a[0] + 1;
-return a;</dd>
-</dl>
-<p>}</p>
+ensures a[0] == old(a[0]) + 1;
+{
+    a[0] := a[0] + 1;
+    return a;
+}
+</pre></div>
+</div>
 </div>
 <div class="section" id="cardinality-expressions">
 <h3>Cardinality Expressions<a class="headerlink" href="#cardinality-expressions" title="Permalink to this headline">¶</a></h3>
@@ -681,7 +676,7 @@ assert sumsquared == 36;     // because of the let expression
                         title="previous chapter">5. Formal Verification of Imperative Programs</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="07-boolean-algebra.html"
-                        title="next chapter">Toward Logic: Boolean Algebra</a></p>
+                        title="next chapter">7. Toward Logic: Boolean Algebra</a></p>
         </div>
       </div>
       <div class="clearer"></div>
@@ -693,7 +688,7 @@ assert sumsquared == 36;     // because of the let expression
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="07-boolean-algebra.html" title="Toward Logic: Boolean Algebra"
+          <a href="07-boolean-algebra.html" title="7. Toward Logic: Boolean Algebra"
              >next</a> |</li>
         <li class="right" >
           <a href="05-putting-it-together.html" title="5. Formal Verification of Imperative Programs"

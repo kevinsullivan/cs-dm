@@ -21,8 +21,8 @@ as follow:
 * map<K,V> and imap<K,V>, polymorphic finite and infinite partial functions
 * array<T>, polymorphic 1- and multi-dimensional arrays
 
-Boolean Algebra
----------------
+Booleans
+--------
 
 The bool abstract data type (ADT) in Dafny provides a bool data type
 with values, *true* and *false*, along with the Boolean operators that
@@ -92,37 +92,6 @@ Characters (char) are handled sort of as they are in C, etc.
        var c4 := '\u265B'; // unicode, hex, "chess king" character
    }
 
-To return a value from a method, assign to the return parameter
-Note: functions have colon then return type, whereas methods 
-use the "returns" keyword with a return parameter list
-
-.. code-block:: dafny
-
-   method ReturnExample() returns (retval: int)
-   {
-       retval := 10;
-   }
-
-Methods can return multiple values.
-
-.. code-block:: dafny
-
-   method ReturnExample2() returns (x: int, y:int)
-   {
-       x := 10; 
-       y := 20;
-}
-
-The return keyword can be used to return immediatey
-
-.. code-block:: dafny
-
-   method ReturnExample3() returns (x: int)
-   {
-       x := 5;     // don't "var" decare return variable
-       return;     // return immediately
-       x := 6;     // never gets executed
-   }
 
 Sets
 ----
@@ -473,7 +442,8 @@ ToString() method for Dafny data types.
     print "Print: The set is ", { 1, 2, 3}, "\n"; // print the set
 
 
-Return (terminate execution of a method)
+Return
+------
 
 From the reference manual: A return statement can only be used in a
 method. It terminates the execution of the method. To return a value
@@ -486,11 +456,39 @@ block of the method.  Return statements can be just the return keyword
 take a list of values to return. If a list is given the number of
 values given must be the same as the number of named return values.
 
-We illustrate the use of return at the end of this program.
+To return a value from a method, assign to the return parameter
+and then either use an explicit return statement or just let the
+method complete.
 
 .. code-block:: dafny
 
-    return;
+   method ReturnExample() returns (retval: int)
+   {
+       retval := 10;
+       // implicit return here
+   }
+
+Methods can return multiple values.
+
+.. code-block:: dafny
+
+   method ReturnExample2() returns (x: int, y:int)
+   {
+       x := 10; 
+       y := 20;
+   }
+
+The return keyword can be used to return immediatey
+
+.. code-block:: dafny
+
+   method ReturnExample3() returns (x: int)
+   {
+       x := 5;     // don't "var" decare return variable
+       return;     // return immediately
+       x := 6;     // never gets executed
+       assert 0 == 1; // can't be reached to never gets checked!
+   }
 
 
 Expressions
@@ -624,7 +622,7 @@ of memory.
 
 To allocate memory for a new array for n elements of type T one
 uses an expression like this: a: array<T> := new T[n]. The type
-of *a* here is "an array of elements of type *T*, and the size
+of *a* here is "an array of elements of type *T*," and the size
 of the allocated memory chunk is big enough to hold *n* values
 of this type.
 
@@ -657,15 +655,15 @@ of a.
 
 .. code-block:: dafny
 
-method incr(a: array<nat>) returns (r: array<nat>) 
+    method incr(a: array<nat>) returns (r: array<nat>) 
     requires a != null;
     requires a.Length > 0;
     modifies a; 
     ensures a[0] == old(a[0]) + 1;  
-{
-    a[0] := a[0] + 1;
-    return a;
-}
+    {
+	a[0] := a[0] + 1;
+	return a;
+    }
 
 
 

@@ -1,10 +1,10 @@
 # Fdb version 3
-["makeindex MathematicalLogicinSoftwareDevelopment.idx"] 1518187197 "MathematicalLogicinSoftwareDevelopment.idx" "MathematicalLogicinSoftwareDevelopment.ind" "MathematicalLogicinSoftwareDevelopment" 1518187198
-  "MathematicalLogicinSoftwareDevelopment.idx" 1518187198 0 d41d8cd98f00b204e9800998ecf8427e ""
+["makeindex MathematicalLogicinSoftwareDevelopment.idx"] 1518187197 "MathematicalLogicinSoftwareDevelopment.idx" "MathematicalLogicinSoftwareDevelopment.ind" "MathematicalLogicinSoftwareDevelopment" 1518550920
+  "MathematicalLogicinSoftwareDevelopment.idx" 1518550919 0 d41d8cd98f00b204e9800998ecf8427e ""
   (generated)
-  "MathematicalLogicinSoftwareDevelopment.ilg"
   "MathematicalLogicinSoftwareDevelopment.ind"
-["pdflatex"] 1518187197 "MathematicalLogicinSoftwareDevelopment.tex" "MathematicalLogicinSoftwareDevelopment.pdf" "MathematicalLogicinSoftwareDevelopment" 1518187198
+  "MathematicalLogicinSoftwareDevelopment.ilg"
+["pdflatex"] 1518550918 "MathematicalLogicinSoftwareDevelopment.tex" "MathematicalLogicinSoftwareDevelopment.pdf" "MathematicalLogicinSoftwareDevelopment" 1518550920
   "/Users/sullivan/.miktex/texmfs/data/miktex/data/le/pdftex/pdflatex.fmt" 1512199238 734783 d14813228bf2c0fd7feb82c18ec33433 ""
   "/Users/sullivan/.miktex/texmfs/data/pdftex/config/pdftex.map" 1518187085 83721 56dfc66f96b4bc7777806d83f0266370 ""
   "/Users/sullivan/.miktex/texmfs/install/tex/latex/prftree/prftree.sty" 1472893880 44094 c11bd94e34391d5035409c4a848ac260 ""
@@ -43,10 +43,10 @@
   "/usr/local/share/miktex-texmf/fonts/tfm/public/cm/cmsy10.tfm" 1136765053 1124 6c73e740cf17375f03eec0ee63599741 ""
   "/usr/local/share/miktex-texmf/fonts/type1/public/amsfonts/cm/cmex10.pfb" 1247596667 30251 6afa5cb1d0204815a708a080681d4674 ""
   "/usr/local/share/miktex-texmf/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1247596667 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
+  "/usr/local/share/miktex-texmf/fonts/type1/public/amsfonts/cm/cmmi7.pfb" 1247596667 36281 c355509802a035cadc5f15869451dcee ""
   "/usr/local/share/miktex-texmf/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1247596667 35752 024fb6c41858982481f6968b5fc26508 ""
   "/usr/local/share/miktex-texmf/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1247596667 32762 224316ccc9ad3ca0423a14971cfa7fc1 ""
   "/usr/local/share/miktex-texmf/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1247596667 32569 5e5ddc8df908dea60932f3c484a54c0d ""
-  "/usr/local/share/miktex-texmf/fonts/type1/public/amsfonts/cm/cmsy7.pfb" 1247596666 32716 08e384dc442464e7285e891af9f45947 ""
   "/usr/local/share/miktex-texmf/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1247596673 34694 ad62b13721ee8eda1dcc8993c8bd7041 ""
   "/usr/local/share/miktex-texmf/fonts/type1/urw/courier/ucrb8a.pfb" 1136846148 50493 4ed1f7e9eba8f1f3e1ec25195460190d ""
   "/usr/local/share/miktex-texmf/fonts/type1/urw/courier/ucrr8a.pfb" 1136846148 45758 19968a0990191524e34e1994d4a31cb6 ""
@@ -161,20 +161,20 @@
   "/usr/local/share/miktex-texmf/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "/usr/local/share/miktex-texmf/tex/latex/wrapfig/wrapfig.sty" 1044403200 26220 3701aebf80ccdef248c0c20dd062fea9 ""
   "/usr/local/share/miktex-texmf/tex/latex/xcolor/xcolor.sty" 1463135581 57049 74963e80d77be39a0b7442967b27c75b ""
-  "MathematicalLogicinSoftwareDevelopment.aux" 1518187198 11983 7761948d13dd47bc13a1fb343552b162 ""
+  "MathematicalLogicinSoftwareDevelopment.aux" 1518550919 20302 2cac68588042e9581488d925f58f51f5 ""
   "MathematicalLogicinSoftwareDevelopment.ind" 1518187197 0 d41d8cd98f00b204e9800998ecf8427e "makeindex MathematicalLogicinSoftwareDevelopment.idx"
-  "MathematicalLogicinSoftwareDevelopment.out" 1518187198 8659 b9a12770c9484e1eb40fcc8723a3c97a ""
-  "MathematicalLogicinSoftwareDevelopment.tex" 1518187195 131723 d194686306c95785414fd477d0c76054 ""
-  "MathematicalLogicinSoftwareDevelopment.toc" 1518187198 3820 8c76e3c17948f14c8f5d4adb62c34446 ""
+  "MathematicalLogicinSoftwareDevelopment.out" 1518550919 7855 0e5bb97ccb3387a45b84fe02dce61bdd ""
+  "MathematicalLogicinSoftwareDevelopment.tex" 1518550916 166628 aacefde73518c668d331677f5d4e7cfb ""
+  "MathematicalLogicinSoftwareDevelopment.toc" 1518550919 7218 055702ae57eec34af1f5da18ebb3c3ad ""
   "footnotehyper-sphinx.sty" 1513570062 8841 e18cbb7bca599a223414f9b8a156abee ""
   "sphinx.sty" 1513570062 62670 74cadfc8799b8ec9c0014b7f476b628d ""
-  "sphinxhighlight.sty" 1518187194 8137 4d78debd4be87274c4c84e54ebccbb7b ""
+  "sphinxhighlight.sty" 1518550915 8137 44867db6c4e4997199743fef4f645d85 ""
   "sphinxmanual.cls" 1513570062 3589 0b0aac49c6f36925cf5f9d524a75a978 ""
   "sphinxmulticell.sty" 1513570062 14618 0defbdc8536ad2e67f1eac6a1431bc55 ""
   (generated)
   "MathematicalLogicinSoftwareDevelopment.log"
-  "MathematicalLogicinSoftwareDevelopment.out"
   "MathematicalLogicinSoftwareDevelopment.aux"
   "MathematicalLogicinSoftwareDevelopment.toc"
+  "MathematicalLogicinSoftwareDevelopment.out"
   "MathematicalLogicinSoftwareDevelopment.idx"
   "MathematicalLogicinSoftwareDevelopment.pdf"

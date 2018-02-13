@@ -641,3 +641,89 @@ multiset, seq, string, map, imap), tuple, inductive, and co-inductive
 types (to be discussed).  Reference type values are allocated
 dynamically on the heap, are passed by reference, and therefore can be
 "side effected" (mofified) by methods to which they are passed.
+
+
+=======
+
+The problem of deciding *efficiently* whether there is a combination
+of Boolean variable values that makes any given Boolean expression
+true is the most important unsolved problem in computer science. We
+currently do not know of a solution that with runtime complexity that
+is better than exponential the number of variables in an expression.
+It's easy to determine whether an assignment of values to variables
+does the trick: just evaluate the expression with those values for the
+variables. But *finding* such a combination today requires, for the
+hardest of these problems, trying all :math:``2^n`` combinations of
+Boolean values for *n* variables.
+
+At the same time, we do not know that there is *not* a more efficient
+algorithm. Many experts would bet that there isn't one, but until we
+know for sure, there is a tantalizing possibility that someone someday
+will find an *efficient decision procedure* for Boolean satisfiability.
+
+To close this exploration of computational complexity theory, we'll
+just note that we solved an instances of another related problem: not
+only to determine whether there is at least one (whether *there
+exists*) at least one combination of variable values that makes the
+expression true, but further determining how many different ways there
+are to do it.
+
+Researchers and advanced practitioners of logic and computation
+sometimes use the word *model* to refer to a combination of variable
+values that makes an expression true. The problem of finding a Boolean
+expression that *satisfies* a Boolean formula is thus somtetimes
+called the *model finding* problem. By contrast, the problem of
+determining how many ways there are to satisfy a Boolean expression is
+called the *model counting* problem.
+
+Solutions to these problems have a vast array of practical uses.  As
+one still example, many logic puzzles can be represented as Boolean
+expressions, and a model finder can be used to determine whether there
+are any "solutions", if so, what one solution is. 
+
+-----------
+
+How hard is the model finding problem? Is it even *decidable* in
+theory?  That is, is there an algorithm that can solve any instance of
+the problem? Given any Boolean expressions, such an algorithm in a
+finite number of steps would either find a model or determine and
+report that there is no model that the expression is *unsatisfiable*.
+
+The problem is actually decidable. To see this one need only note that
+there is a finite number of interpretations for a Boolean expression
+with a finite number, *n*, namely :math:`2^n`. That is, the number of
+interpretations is *exponential in the number of variables*. To see
+that this is so, consider that there are two interpretation if there
+is one variable (the first sets the variable to true, the second, to
+false). For each of those two, there are then two values for a second
+variable, for a total of four interpretations. For each of those four,
+there are two values of a third variable, making eight interpretations
+for three variables. Each time one adds one more variable, the number
+of interpretations *doubles*. This is an example of exponential
+growth.
+
+
+In computer science, we often use Boolean expressions, with variables,
+to specify properties that we require hold for certain objects. For a
+property to hold, the negation of the property must not hold. But if
+there is a model of the negation of a property, then there is a case
+in which the property does *not* hold. The problem of checking to see
+if there is a model of the negation of a desired property is called
+the *model checking* problem. Model checking is a vitally important
+process in many areas of computer science.
+
+The formulation of these problems is simple, but the problems are not
+computationally simple at all. They remain foci of intense research
+and are central the most important unresolved mystery in all computer
+science: whether there is an *efficient* algorithm the model finding
+problem. 
+
+In the rest of this chapter, we will make these idea precise by
+actually implementing them in Dafny. 
+
+, we will present a Dafny function that
+when given a Boolean expression in our little language returns the
+set of variables that appear in that expression.
+
+====
+
