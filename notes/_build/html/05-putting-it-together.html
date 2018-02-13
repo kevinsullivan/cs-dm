@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Formal Verification of Imperative Programs &#8212; Discrete Mathematics for Software Professionals 1 documentation</title>
+    <title>5. Formal Verification of Imperative Programs &#8212; Discrete Mathematics for Software Professionals 1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -21,12 +21,11 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="_static/sidebar.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Dafny Built-In Programming Abstractions" href="06-dafny-abstractions.html" />
-    <link rel="prev" title="Pure Functional Programming as Runnable Mathematics" href="04-runnable-math.html" /> 
+    <link rel="next" title="Toward Logic: Boolean Algebra" href="06-boolean-logic.html" />
+    <link rel="prev" title="4. Pure Functional Programming as Runnable Mathematics" href="04-runnable-math.html" /> 
   </head>
   <body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -36,10 +35,10 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="06-dafny-abstractions.html" title="Dafny Built-In Programming Abstractions"
+          <a href="06-boolean-logic.html" title="Toward Logic: Boolean Algebra"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="04-runnable-math.html" title="Pure Functional Programming as Runnable Mathematics"
+          <a href="04-runnable-math.html" title="4. Pure Functional Programming as Runnable Mathematics"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
       </ul>
@@ -51,7 +50,7 @@
           <div class="body" role="main">
             
   <div class="section" id="formal-verification-of-imperative-programs">
-<h1>Formal Verification of Imperative Programs<a class="headerlink" href="#formal-verification-of-imperative-programs" title="Permalink to this headline">¶</a></h1>
+<h1>5. Formal Verification of Imperative Programs<a class="headerlink" href="#formal-verification-of-imperative-programs" title="Permalink to this headline">¶</a></h1>
 <p>To get a clear sense of the potential differences in performance
 between a pure functional program and an imperative program that
 compute the same function, consider our recursive definition of the
@@ -59,7 +58,7 @@ Fibonacci function.</p>
 <p>We start off knowing that if the argument to the function, <em>n</em>, is <em>0</em>
 or <em>1</em>, the value of the function for that <em>n</em> is just <em>n</em> itself.  In
 other words, the sequence, <em>fib(i)</em> of <em>Fibonacci numbers indexed by
-i</em>, starts with, <span class="math">\([0, 1, \ldots ]\)</span>.  For any <em>n &gt;= 2</em>, <em>fib(n)</em>,
+i</em>, starts with, <img class="math" src="_images/math/d6d348c9fec97ea8bbe7cf69259bfbeda3f0a86d.png" alt="[0, 1, \ldots ]"/>.  For any <em>n &gt;= 2</em>, <em>fib(n)</em>,
 is the sum of the previous two values.  To compute the <em>n’th</em>
 Fibonacci number, we can thus start with the first two, sum them up to
 get the next one, then iterate this process, computing the next
@@ -108,8 +107,8 @@ the first call to the function, as these are base cases requiring no
 further recursion. To compute <em>fib(2)</em> however requires <em>3</em> evalations
 of <em>fib</em>: one for each of <em>fib(1)</em> and <em>fib(0)</em> plus the evaluation of
 the top-level function. The relationship between <em>n</em> and the number of
-function evaluations currently looks like this: <span class="math">\(\{ (0,1),
-(1,1), (2,3), ... \}.\)</span></p>
+function evaluations currently looks like this: <img class="math" src="_images/math/e4d5a22ca4f3789bfab332604bd2033d3d6ca55f.png" alt="\{ (0,1),
+(1,1), (2,3), ... \}."/></p>
 <p>What about when <em>n</em> is <em>3</em>?  Computing this requires answers for
 <em>fib(2)</em>, which by the resuts we just computed costs <em>3</em> evaluations,
 and for <em>fib(1)</em>, which costing <em>1</em>, for a total of <em>5</em> evaluations
@@ -117,8 +116,8 @@ including the top-level evaluation. Computing <em>fib(4)</em> requires that
 we compute <em>fib(3)</em> and <em>fib(2)</em>, costing <em>5 + 3</em>, or <em>8</em> evaluations,
 plus one for a total of 9. For <em>fib(5)</em> we need <em>9</em> + <em>5</em>, or <em>14</em>
 plus one more, making <em>15</em> evaluations.  The relation of cost to $n$
-(the problem size) is now like this: <span class="math">\(\{ (0,1), (1,1), (2,3),
-(3,5), (4,9), (5, 15), ... \}.\)</span></p>
+(the problem size) is now like this: <img class="math" src="_images/math/55ccb398389367a9a11aaa195a10e73d2e5237dd.png" alt="\{ (0,1), (1,1), (2,3),
+(3,5), (4,9), (5, 15), ... \}."/></p>
 <p>It reasonably easy to see that in general, the number of evaluations
 needed to evaluate <em>fib(i+1)</em> is the sum of the numbers required to
 evaluate <em>fib(i)</em> plus the number to evaluate <em>fib(i-1)</em> plus <em>1.</em></p>
@@ -214,38 +213,38 @@ argument value (a <em>postcondition</em>).</p>
 <p>In purely mathematical terms, a specification of this kind defines a
 <em>binary relation</em> between argument and return values, and imposes on
 the program a requirement that whenever it is given the first value in
-such a pair, it must compute a second value so that the <span class="math">\((first
-value, second value)\)</span> pair is in the specified relation.</p>
+such a pair, it must compute a second value so that the <img class="math" src="_images/math/40c3153f6759b645f97b6cbb41fa95973cf1c614.png" alt="(first
+value, second value)"/> pair is in the specified relation.</p>
 <p>A binary relation in ordinary mathematics is just a set of pairs of
 values. A function is a special binary relation with at most one pair
 with a given first value. A function is said to be a <em>single-valued</em>
 relation.</p>
 <p>For example, pairs of non-negative integers in the relation that
-constitutes the factorial function include <span class="math">\((0,1), (1,1), (2,2),
-(3,6), (4,24)\)</span> and <span class="math">\((5,120)\)</span>, but not <span class="math">\((5,25)\)</span>.</p>
+constitutes the factorial function include <img class="math" src="_images/math/ae62edf814c717fd922732ed256516f6009975b7.png" alt="(0,1), (1,1), (2,2),
+(3,6), (4,24)"/> and <img class="math" src="_images/math/0f4f7855d834c15ad6f85cc5827f03a4962d7578.png" alt="(5,120)"/>, but not <img class="math" src="_images/math/c2f82a5bbb7c3901dbbe16f0095f1d4f5a18ded8.png" alt="(5,25)"/>.</p>
 <p>On the other hand, square root is a relation but not a <em>function</em>. It
-is not singled valued. Both <span class="math">\((4,2)\)</span> and <span class="math">\((4,-2)\)</span>, two
+is not singled valued. Both <img class="math" src="_images/math/1b7acb805a656ce4ef94682e2801da6877ec5377.png" alt="(4,2)"/> and <img class="math" src="_images/math/d07699891d863d384e38bd636bdd5b9acbb15e7a.png" alt="(4,-2)"/>, two
 pairs with the same first element but different second elements, are
 in the relation. That is because both <em>2</em> and <em>-2</em> are squarer roots
 of <em>4</em>.  The <em>positive square root</em> relation, on the other hand, is a
 function, comprising those pairs in the square root relation where
-both elements are non-negative. It thus includes <span class="math">\((4,2)\)</span> but
-not  <span class="math">\((4,-2)\)</span>.</p>
+both elements are non-negative. It thus includes <img class="math" src="_images/math/1b7acb805a656ce4ef94682e2801da6877ec5377.png" alt="(4,2)"/> but
+not  <img class="math" src="_images/math/d07699891d863d384e38bd636bdd5b9acbb15e7a.png" alt="(4,-2)"/>.</p>
 <p>We could formulate the square root <em>relation</em> as a <em>function</em> in a
 different way: by viewing it as a relation that associates with each
 non-negative integer the single <em>set</em> of its square roots. The pair
-<span class="math">\((4, \{2, -2\}\)</span> is in this relation, for example. The relation is
+<img class="math" src="_images/math/7be00c356e44a98838dccb8316098b269b5f09ee.png" alt="(4, \{2, -2\}"/> is in this relation, for example. The relation is
 now also a function in that there is only one such pair with a given
 first element.</p>
 <p>Now what we mean when we say that a program computes a function or a
 relation is that whenever it is given a valid argument representing
 the <em>first</em> value of a pair in the relation, it computes a <em>second</em>
-value such that the pair, <span class="math">\((first, second)\)</span> is in the given
+value such that the pair, <img class="math" src="_images/math/f740fbbb0fac5ec5c0233d4402773184a07ddd90.png" alt="(first, second)"/> is in the given
 relation. When we say, for example, that a program <em>computes the
 factorial function</em>, we mean that if we give it a non-negative number,
 <em>n</em>, it returns a number <em>m</em> such that the pair <em>(n,m)</em> is <em>in</em> the
 relation. And for <em>(n,m)</em> to be in the relation it must be that
-<span class="math">\(m = fact(n)\)</span>. The program thus has to return <span class="math">\(fact(n)\)</span>.</p>
+<img class="math" src="_images/math/ecefb159f55afb2d10579e24bafdc9448c0a0090.png" alt="m = fact(n)"/>. The program thus has to return <img class="math" src="_images/math/81d4171a788af9ec16c0d560ce8574dbc60fd5da.png" alt="fact(n)"/>.</p>
 <p>A program that computes a <em>function</em> is deterministic, in the sense
 that it can return at most one result: because there is at most one
 result. When a program computes a relation that is not a function, it
@@ -280,13 +279,13 @@ state that satisfies <em>Q</em>. We call this property <em>partial correctness</
 <p>We write the proposition that <em>C</em> is partially correct in this sense
 (that if it’s started in a state that satisfies the assertion, <em>P</em>,
 and if it terminates then, it will do so in a state that satisfies
-<em>Q</em>) as <span class="math">\(P {C} Q.\)</span> This is a so-called <em>Hoare triple</em> (named
+<em>Q</em>) as <img class="math" src="_images/math/1005427c41bd16605ea373e0571bc699d4bca2fc.png" alt="P {C} Q."/> This is a so-called <em>Hoare triple</em> (named
 after the famous computer scientist, Sir Anthony (Tony) Hoare. It is
 nothing other than a proposition that claims that <em>C</em> satisfies its
 specification.</p>
 <p>In addition to a proof of partial correctness, we usually do want to
 know that a program also does always terminate. When we have a proof
-of both <span class="math">\(P \{C\} Q\)</span> and that the program always terminates, then
+of both <img class="math" src="_images/math/4da94627e9da2ba39eb6a9489f35991358b6d425.png" alt="P \{C\} Q"/> and that the program always terminates, then
 we have a proof of <em>total correctness</em>. Dafny is a programming system
 that allows us to specify <em>P</em> amd <em>Q</em> and that then formally, and to a
 considerable extent automatically, verifies <cite>P {C} Q</cite> and termination.
@@ -657,8 +656,8 @@ return fib1;
 </pre></div>
 </div>
 </div>
-<div class="section" id="what-is-dafny">
-<h2>What is Dafny?<a class="headerlink" href="#what-is-dafny" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-is-dafny-again">
+<h2>What is Dafny, Again?<a class="headerlink" href="#what-is-dafny-again" title="Permalink to this headline">¶</a></h2>
 <p>Dafny is a cutting-edge software language and tooset developed at
 Microsoft Research—one of the top computer science research labs in
 the world—that provides such a capability. We will explore Dafny and
@@ -700,10 +699,10 @@ the task of learning how to program.</p>
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="04-runnable-math.html"
-                        title="previous chapter">Pure Functional Programming as Runnable Mathematics</a></p>
+                        title="previous chapter">4. Pure Functional Programming as Runnable Mathematics</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="06-dafny-abstractions.html"
-                        title="next chapter">Dafny Built-In Programming Abstractions</a></p>
+  <p class="topless"><a href="06-boolean-logic.html"
+                        title="next chapter">Toward Logic: Boolean Algebra</a></p>
         </div>
       </div>
       <div class="clearer"></div>
@@ -715,16 +714,16 @@ the task of learning how to program.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="06-dafny-abstractions.html" title="Dafny Built-In Programming Abstractions"
+          <a href="06-boolean-logic.html" title="Toward Logic: Boolean Algebra"
              >next</a> |</li>
         <li class="right" >
-          <a href="04-runnable-math.html" title="Pure Functional Programming as Runnable Mathematics"
+          <a href="04-runnable-math.html" title="4. Pure Functional Programming as Runnable Mathematics"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2018, Kevin Sullivan.
+        &#169; Copyright .
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
     </div>
   </body>

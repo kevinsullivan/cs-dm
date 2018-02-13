@@ -1,0 +1,5 @@
+":math:`P`", ":math:`Q`", ":math:`P \oplus Q`"
+"true", "true", "false"
+"true", "false", "true"
+"false", "true", "true"
+"false", "false", "false"

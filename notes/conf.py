@@ -31,8 +31,11 @@
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.mathjax',
-    'sphinx.ext.githubpages']
+extensions = [
+                'sphinx.ext.githubpages'
+#              , 'sphinx.ext.pngmath'
+              , 'sphinx.ext.imgmath'
+]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -48,7 +51,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'Discrete Mathematics for Software Professionals'
-copyright = '2018, Kevin Sullivan'
+ecopyright = '2018, Kevin Sullivan'
 author = 'Kevin Sullivan'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -113,6 +116,13 @@ html_sidebars = {
     ]
 }
 
+imgmath_latex_preamble = r"""
+\usepackage{amsmath}
+\usepackage{turnstile}
+\usepackage{bussproofs}
+\usepackage{prftree}
+\usepackage{cases}
+"""
 
 # -- Options for HTMLHelp output ------------------------------------------
 
@@ -136,9 +146,12 @@ latex_elements = {
     #
     # 'preamble': '',
     'preamble': r"""
-\usepackage{amsmath}
+    \usepackage{amsmath}
     \usepackage{cases}
-""",
+    \usepackage{turnstile}
+    \usepackage{bussproofs}
+    \usepackage{prftree}
+    """,
 
     # Latex figure (float) alignment
     #

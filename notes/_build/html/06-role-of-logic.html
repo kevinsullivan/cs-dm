@@ -1,0 +1,854 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>6. Logic in Computer Science &#8212; Discrete Mathematics for Software Professionals 1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/sidebar.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="logic-in-computer-science">
+<h1>6. Logic in Computer Science<a class="headerlink" href="#logic-in-computer-science" title="Permalink to this headline">¶</a></h1>
+<p>Logic is the study of the nature, forms, and processes of <em>defensible</em>
+reasoning. The central question is what propositions can we reasonably
+accept as being true? In more detail, how can we reason from what we
+already know or accept to be true to new propsitions, with reasonable
+confidence that these will also be true.</p>
+<p>Today we recognize that rigorous reasoning falls into two categories:
+<em>inductive</em> and <em>deductive</em>. Inductive reasoning draws conclusions
+(new propositions) by generalizing from examples (observations). The
+sun’s come up every day so far, so it will come up again tomorrow.
+The only swans we have ever seen are white, so there are no black
+swans. These are examples of inductive reasoning.</p>
+<p>Unless one had made all possible observations (seen the sun come up
+every day for all eternity; seen every swan that ever was or will be),
+then inductive reasoning is not <em>sound</em>: it is not <em>guaranteed</em> to
+produce results that are <em>certain</em> to be true.</p>
+<div class="section" id="inductive-reasoning">
+<h2>Inductive Reasoning<a class="headerlink" href="#inductive-reasoning" title="Permalink to this headline">¶</a></h2>
+<p>Inductive reasoning is a form of reasoning where one draws conclusions
+based on generalization from examples. The parable of the Black Swans
+illustrates the concept well. Until 1697, Europeans had never seen a
+black swan. They had only seen white swans. On the basis of these many
+examples, they generally accepted as true a long-standing belief that
+black swans simply do not exist. Their confidence in their conclusion
+was so strong that <em>black swan</em> was commonly used as an idiom meaning
+<em>an impossibility</em>.</p>
+<p>Yet in that fateful year, 1697, Dutch explorers venturing to Western
+Australia discovered the impossible: they were the first Europeans to
+see with their own eyes a real black swan. The prior believe of all of
+Europe in the non-existence of black swans was shattered by a single
+observation.</p>
+<p>Inductive reasoning can be extremely useful. It can lead to important
+hypotheses backed by significant bodies of evidence. But this form of
+reasoning not <em>sound</em>. No matter how many examples have been observed
+(unless it is all of them), inductive reasoning can yield conclusions
+that just aren’t true. Jonh Stuart Mill, paraphrasing David Hume, said
+““No amount of observations of white swans can allow the inference
+that all swans are white, but the observation of a single black swan
+is sufficient to refute that conclusion.”</p>
+<p>In the software development field, concluding that a system satisfies
+its specification based on the results of <em>testing</em> the systen on some
+but not all of its permitted inputs is a form of inductive reasoning.
+The reasoning goes like this: We’ve done a whole bunch of testing and
+we haven’t found a bug yet, so we’ll take it as true that the program
+satsifies its specification.</p>
+<p>Most software systems have more possible inputs that there are atoms
+in the universe, so testing all possible inputs (<em>exhaustive</em> testing)
+is usually infeasible in practice. One can only test most programs on
+subsets of their permitted input values. Drawing conclusions about the
+correctness of code in general on the basis of not yet having found an
+input that causes an error is akin to concluding that there are no
+black swans (bugs in code) because one has only ever seen white swans
+(good behaviors) in practice.</p>
+<p>Following Hume and Mill, the famous Dutch software theorist, Edsgar
+Dijkstra (pronounced <em>DIKE-stra</em>), famously stated that, “Program
+testing can be a very effective way to show the presence of bugs, but
+is hopelessly inadequate for showing their absence.”</p>
+<p>Much software is developed and used in practice without and kind of
+precise, documented specification. Developing software intuitively is
+often a practical, affordable, satisfying, and effective approach.  In
+many situations, it’s unclear to anyone before the software starts to
+be produced what exactly is needed; and there is often acceptable risk
+in producing and using software developed in an intuitive, craft-like
+manner.</p>
+<p>Indeed, writing software, like writing novels or poems, is often an
+exploration: you discover something wonderful by writing it, without a
+real understanding of exactly how things will turn out. An experienced
+carpenter can similarly build a beautiful house, often collaborating
+with someone who needs that house, with little more than a broad plan
+in mind, with <em>justifiable confidence</em> that issues that might arise
+can be dealt with as things go along.</p>
+<p>Software testing is often a practical, effective approach to producing
+<em>good enough</em> software in this manner. In general it won’t prove the
+absence of bugs in code, but it can provide acceptably strong evidence
+in support of hypotheses (always with some risk of being proven wrong)
+of suitability for use.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="deductive-reasoning">
+<h2>Deductive Reasoning<a class="headerlink" href="#deductive-reasoning" title="Permalink to this headline">¶</a></h2>
+<p>The alternative to (often useful but) unsound inductive reasoning is
+<em>deductive</em> reasoning. Deductive reasoning provides absolute assurance
+of the truth of given conclusions, provided that the premises on which
+the conclusions are based are valid.</p>
+<p>The earliest surviving results in deductive logic are due to the Greek
+philosopher, Aristotle. He formulated sound reasoning as employing
+what he called <em>syllogisms</em>. These are rules that permit one to deduce
+<em>conclusions</em> about what statements are true from <em>premises</em>, which
+are statements that one has already accepted as true.</p>
+<p>Here is an example of a syllogistic argment. Premise 1: All people are
+mortal. Premise 2: Thomas Jefferson is a person. Conclusion: Thomas
+Jefferson (TJ) is mortal. The reasoning is unassailable. There is no
+remaining doubt. If the premises are true, then the conclusion <em>must</em>
+be true as well. Deductive reasoning, unlike inductive reasoning, is
+<em>sound</em>.</p>
+<p>Aristotle’s logic was based on a catalog of such syllogisms. The one
+that we just used is known as <em>modus ponens.</em> The schema for such an
+argument is that if every <em>X</em> has a property <em>P</em> and <em>T</em> is an <em>X</em>
+then <em>T</em>, in particular, must have property <em>P</em>.</p>
+<p>Modern mathematical (or <em>symbolic</em>) logic was developed by 19th and
+early 20th century philosophers including the American philosopher,
+Charles Saunders Peirce (pronounced “purse”), Gottlieb von Frege,
+George Boole, and others. It took from Aristotle a concern for sound
+reasoning, while adopting rigorous notations of modern mathematics.</p>
+<p>Here are two equivalent ways using modern notation that one might use
+to formulate Aristotle’s syllogism as it relates to Thomas Jefferson.
+Here’s one: <img class="math" src="_images/math/4fa4cb96eb538c4ad5deac9e030aa7366a327e46.png" alt="Person(x) \rightarrow Mortal(x), Mortal(TJ)
+\sststile{}{} Mortal(TJ)"/>. This expression is called a <em>sequent</em>. It
+has two parts separated by a <em>turnstile</em>, <img class="math" src="_images/math/a0f07647dfacd0dee79cf52c3cdd3d71e6391e62.png" alt="\sststile{}{}"/>. To
+the left of the turnstile is a list of premises. To the right is a
+conclusion.  The first premise, an <em>implication</em>, can be read as
+saying “x being a person <em>implies</em> that x is mortal,” or, in a more
+natural manner of speaking, “if x is a person then x is mortal.” The
+second premise can be read as “TJ is a person.”  The conclusion then
+states, “TJ is mortal.”</p>
+<p>Sometimes a vertical rather than a horizonal notation is used to say
+the same thing.</p>
+<div class="math">
+<p><img src="_images/math/6e68b7a4f7c54681ff37db0e6f512a6a19067107.png" alt="\begin{displaymath}
+  \prftree[r]{${\rightarrow}_{elim}$}
+     {\prfassumption{Person(x) \rightarrow Mortal(x)}}
+    {\prfassumption{Person(TJ)}}
+    {Mortal(TJ)}
+\end{displaymath}"/></p>
+</div><p>In this rendering of the very same sequent, the premises are written
+above the line, and the conclusion below. To the right of the sequent,
+we’ve added an annotation, <img class="math" src="_images/math/2074b0d84ac720d7d8761c2ed65d83b7251e85f4.png" alt="{\rightarrow}_{elim}"/>, to document
+which <em>rule of inference</em> we have used to deduce the conclusion from
+the premises. In this case the rule we;ve used is called <em>implication
+elimination</em>. This rule formalizes <em>modus ponens</em>. If <em>P</em> and <em>Q</em> are
+any propositions, and if we accept as premises that <em>if P is true then
+Q is true</em> and that <em>P is true</em> then the <img class="math" src="_images/math/2074b0d84ac720d7d8761c2ed65d83b7251e85f4.png" alt="{\rightarrow}_{elim}"/>
+rule allows us to conclude that <em>Q</em> must be true. We can write the
+rule in a general form like this, where <em>P</em> and <em>Q</em> here stand for
+<em>any</em> propositions.</p>
+<div class="math">
+<p><img src="_images/math/9b28c785dc074b361ba3879d53d3d18ee3bc27bb.png" alt="\begin{displaymath}
+  \prftree[r]{${\rightarrow}_{elim}$}
+     {\prfassumption{P \rightarrow Q}}
+    {\prfassumption{P}}
+    {Q}
+\end{displaymath}"/></p>
+</div><p>Deductive reasoning, then, is based on the use of <em>inference rules</em> to
+move from sets of premises that are accepted as true to conclusions
+that <em>must</em> therefore be true. Deduction removes all doubt about the
+truth of conclusions. If given premises are true and sound inference
+rules are used then conclusions deduced from the premises <em>must</em> be
+true. If for example we accept as true that all people are mortal and
+that Thomas Jefferson is a person, then there can be no remaining
+doubt that Thomas Jefferson is also mortal.</p>
+<p>Both inductive and deductive reasoning play vital roles in science and
+engineering, in general, in computer science, more specifically, and
+in software development, in particular. A major question in software
+development is whether a program correctly implements a specification.
+To conclude that it does based on observations of currect behavior
+when it is testing on some but not all possible inputs is a kind of
+inductive reasoning. One moves from limited observations (no bugs seen
+so far) to broader conclusion (no bugs) by generalizing from limited
+observations.  However, any such conclusion leaves considerable room
+for doubt. Maybe not <em>all</em> bugs have been found, after all.  Drawing
+conclusions based on the results of software testing is thus also said
+to be <em>unsound</em>.</p>
+<p>By contrast, constructing a mathematical <em>proof</em> that a program
+behaves as specified for all possible inputs uses deductive reasoning
+to remove any remaining doubt.  Things can still go wrong, such as the
+hardware on which software runs being faulty, or the proof being
+wrong, but as long as such a proof it good, then any remaining doubt
+is eliminated entirely.</p>
+<p><em>Formal verification</em> is the term that describes the use of deductive
+logic, and in particular the construction of proofs of propositions
+that <em>programs behave as specified</em>. Formal verification is used in
+cases where very high levels of justificable confidence in the correct
+operation of software is required. It is thus vital to the engineering
+of software for life-critical medical devices, nuclear weapons, power
+plants, financial systems, and critical infrastructure, e.g., for air
+traffic control, flight avionics, and automated vechicles. The formal
+verfication of software can, and increasingly does, play a vital role
+in many sectors of the economy. <em>Proofs</em> of key propositions about the
+behaviors of programs are a gold standard for high levels of assurance
+of the fitness of software for intended uses.</p>
+<p>Deductive logic and proof techniques are even more broadly important
+in computer science. Develoeprs of new algorithms formulate and prove
+propositions about their runtime and memory use (“space”) complexity.
+Cryptologists formulate and prove security properties of methods for
+protecting sensitive information. Networking researchers prove that
+communication protocols never lose information without providing an
+alert. People who develop the software that runs major data centers
+(underpinning such services as Amazon, Google, and Netflix) formuate
+and prove properties about the protocols used to maintain consistent
+copies of data across multiple data centers, as a safeguard against
+loss of information due natural disasters, human error, or malicious
+attacks.</p>
+<p>To understand formal verification, and thus to understand the state of
+the art in software development, and to gain fluency in the science of
+computer science more generally, genuinely requires an understanding
+of mathematical logic and proofs. This course provides an introduction
+to these topics using formal specification and verification as one of
+several areas in computer science where these ideas have important
+applications.</p>
+<p>So far in this course you have seen how mathematical logic can be used
+to write formal specifications of the required behaviors of programs
+and to verify that programs exhibit such behaviors for <em>all</em> possible
+inputs. The big example we’ve developed so far is a formally specified
+and verified program to efficiently compute fibonacci numbers. We’ve
+also seen how an automated verification tool (Dafny), which is based
+on deductive logic and proof techniques, can formally verify software
+by generating <em>proofs</em> that you as a programmer often never even see.</p>
+<p>While both inductive and deductive reasoning play important roles in
+computer science, it is deductive reasoning that that is most widely
+employed across the field. That is because we often want to be <em>sure</em>
+about properties of programs, algorithms, protocols, kids of problems,
+and so forth.</p>
+<p>We hope that the course so far has helped you see that deductive logic
+and proof techniques are deeply important in computer science and in
+software development, in particular. More than academic abstractions,
+they really are vital tools of the trade. Indeed, so central are logic
+and proofs to computer science that logic has been called the calculus
+of computer science. That it, logic plays a role in computer science
+akin to that of the calculus in engineering and the natural sciences.</p>
+<p>So with formal specification and verification of efficient, imperative
+programs as motivating example now <em>in the bag</em>, it’s time to start to
+<em>open the black box</em> and to see in more detail what it means to be a
+logic, a proposition, an interpretation, an inference rule, a proof.</p>
+<p>The question of what ways of reasoning are defensible, rather than
+<em>fallacious</em>, has been explored for millenia.</p>
+<p>The early Greek
+philosopher, Aristotle, is generally credited with having developed
+one of the first rigorous accounts of logically defensible reasoning.</p>
+<p>uses deductive reasoning, based on
+the construction of mathematical <em>proofs</em> that a program behaves as
+specified for all possible inputs, even when there might be an
+astronomical or even infinite number of possible inputs.</p>
+<div class="section" id="inductive-and-deductive-reasoning">
+<h3>Inductive and Deductive Reasoning<a class="headerlink" href="#inductive-and-deductive-reasoning" title="Permalink to this headline">¶</a></h3>
+<hr class="docutils" />
+<p>Dafny supports a range of abstract data types akin to those found in
+widely used, industrial imperative programming languages and systems,
+such as Python and Java. In this chapter, we introduce and briefly
+illustrate the use of these types. The types we discuss are as follow:</p>
+<ul class="simple">
+<li>bool, supporting Boolean algebra</li>
+<li>int, nat, and real types, supporting <em>exact</em> arithmetic (unlike
+the numerical types found in most industrial languages</li>
+<li>char, supporting character types</li>
+<li>set&lt;T&gt; and iset&lt;T&gt;, polymorphic set theory for finite and infinite sets</li>
+<li>seq&lt;T&gt; and iseq&lt;T&gt;, polymorphic finite and infinite sequences</li>
+<li>string, supporting character sequences (with addtional helpful functions)</li>
+<li>map&lt;K,V&gt; and imap&lt;K,V&gt;, polymorphic finite and infinite partial functions</li>
+<li>array&lt;T&gt;, polymorphic 1- and multi-dimensional arrays</li>
+</ul>
+</div>
+</div>
+<div class="section" id="boolean-algebra">
+<h2>Boolean Algebra<a class="headerlink" href="#boolean-algebra" title="Permalink to this headline">¶</a></h2>
+<p><img class="math" src="_images/math/f80738ff5d9630b4ae9b08fec321ad6f9be2c7d5.png" alt="always\_true: bool \rightarrow bool"/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/60fc3cd0bc16d533c8b9ca8b0cba520ac546a83d.png" alt="true"/></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>true</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>false</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<p><img class="math" src="_images/math/0c1f5e34d63c576631813de5742b4b1103c651c1.png" alt="always\_false: bool \rightarrow bool"/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/e8927e4b64da902a58ab82dfa5b13e03079ffc4a.png" alt="false"/></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>true</td>
+<td>false</td>
+</tr>
+<tr class="row-odd"><td>false</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<p><img class="math" src="_images/math/62efac78f39de25386e3231fa428287bbba5e935.png" alt="id: bool \rightarrow bool"/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>true</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>false</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<p><img class="math" src="_images/math/4e452b0b95ff7cb5081bb1e2504bb5e066a83066.png" alt="not: bool \rightarrow bool"/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/3c4a4627594e44da711f5a789e1d3f3cf996b7e2.png" alt="\neg P"/></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>true</td>
+<td>false</td>
+</tr>
+<tr class="row-odd"><td>false</td>
+<td>true</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p><img class="math" src="_images/math/c11d28ea4191bcc48dd44bc37afda4520acd4721.png" alt="and: bool \rightarrow bool \rightarrow bool"/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/a80e21781161e0f0697d3bdfdd259eabda0ca73c.png" alt="P \land Q"/></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>true</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>true</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr class="row-even"><td>false</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr class="row-odd"><td>false</td>
+<td>false</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<p><img class="math" src="_images/math/2d44d9158d9d68771f9bd6403755457e2b15346d.png" alt="or: bool \rightarrow bool \rightarrow bool"/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/aa422ac57e488bb086391e75eb12112b8fbe6a9c.png" alt="P \lor Q"/></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>true</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>true</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr class="row-even"><td>false</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>false</td>
+<td>false</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<p><img class="math" src="_images/math/77e64c9aa21bf8555b0dfdef23cec50f90be7e7a.png" alt="nand: bool \rightarrow bool \rightarrow bool"/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/2281aa10640d8f5c9d395c1aca38626dbc994f72.png" alt="P \uparrow Q"/></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>true</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr class="row-odd"><td>true</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr class="row-even"><td>false</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>false</td>
+<td>false</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<p><img class="math" src="_images/math/d9bc717dfe0a883d49109e2d11102bcd92a92b1b.png" alt="nor: bool \rightarrow bool \rightarrow bool"/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/ff18c651f3b83677c3f88464e7a9242cb8b4e3e8.png" alt="P \downarrow Q"/></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>true</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr class="row-odd"><td>true</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr class="row-even"><td>false</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr class="row-odd"><td>false</td>
+<td>false</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<p><img class="math" src="_images/math/6d9a0325864192153f5bb5de984897c4d3c8dcd9.png" alt="xor: bool \rightarrow bool \rightarrow bool"/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/e8c064e97ba564d5469d86b6a8a25f059914bbcf.png" alt="P \oplus Q"/></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>true</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr class="row-odd"><td>true</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr class="row-even"><td>false</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>false</td>
+<td>false</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<p><img class="math" src="_images/math/cd522a129a30637c9ca744d97c3d6cf6e821a727.png" alt="implies: bool \rightarrow bool \rightarrow bool"/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/1f8084a9160065072b7a07d1b9af08b0f592a3d8.png" alt="P \rightarrow Q"/></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>true</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>true</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr class="row-even"><td>false</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>false</td>
+<td>false</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<p><img class="math" src="_images/math/87e3012038f435ec404353b20129031c361204d4.png" alt="follows: bool \rightarrow bool \rightarrow bool"/></p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/2547895afe93b172b98c0297754a8a6809a8ab1a.png" alt="P \leftarrow Q"/></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>true</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>true</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr class="row-even"><td>false</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr class="row-odd"><td>false</td>
+<td>false</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<p>The bool abstract data type (ADT) in Dafny provides a bool data type
+with values, <em>true</em> and <em>false</em>, along with the Boolean operators that
+are supported by most programming langauges, along with a few that are
+not commonly supported by industrial programming languages and
+systems.</p>
+<p>Here’s a method that computes nothing useful and returns no values,
+but that illustrates the range of Boolean operators in Dafny. We also
+use the examples in this chapter to discuss a few other aspects of the
+Dafny language.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method BoolOps(a: bool) returns (r: bool)  // bool -&gt; bool
+{
+    var t: bool := true;    // explicit type declaration
+    var f := false;         // type inferred automatically
+    var not := !t;          // negation
+    var conj := t &amp;&amp; f;     // conjunction, short-circuit evaluation
+    var disj := t || f;     // disjunction, short-circuit (sc) evaluation
+    var impl := t ==&gt; f;    // implication, right associative, sc from left
+    var foll := t &lt;== f;    // follows, left associative, sc from right
+    var equv := t &lt;==&gt; t;   // iff, bi-implication
+    return true;            // returning a Boolean value
+ }
+</pre></div>
+</div>
+</div>
+<div class="section" id="arithmetic">
+<h2>Arithmetic<a class="headerlink" href="#arithmetic" title="Permalink to this headline">¶</a></h2>
+<p>Methods aren’t required to return results. Such methods do their jobs
+by having side effects, e.g., doing output or writing data into global
+variables (usually a bad idea).  Here’s a method that doesn’t return a
+value. It illustrates numerical types, syntax, and operations.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method NumOps()
+{
+    var r1: real := 1000000.0;
+    var i1: int := 1000000;
+    var i2: int := 1_000_000;   // underscores for readiability
+    var i3 := 1_000;            // Dafny can often infer types
+    var b1 := (10 &lt; 20) &amp;&amp; (20 &lt;= 30); // a boolean expression
+    var b2 := 10 &lt; 20 &lt;= 30;    // equivalent, with &quot;chaining&quot;
+    var i4: int := (5.5).Floor; // 5
+    var i5 := (-2.5).Floor;     // -3
+    var i6 := -2.5.Floor;        // -2 = -(2.5.Floor); binding!
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="characters">
+<h2>Characters<a class="headerlink" href="#characters" title="Permalink to this headline">¶</a></h2>
+<p>Characters (char) are handled sort of as they are in C, etc.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method CharFun()
+{
+    var c1: char := &#39;a&#39;;
+    var c2 := &#39;b&#39;;
+    // var i1 := c2 - c1;
+    var i1 := (c2 as int) - (c1 as int);    // type conversion
+    var b1 := c1 &lt; c2;  // ordering operators defined for char
+    var c3 := &#39;\n&#39;;     // c-style escape for non-printing chars
+    var c4 := &#39;\u265B&#39;; // unicode, hex, &quot;chess king&quot; character
+}
+</pre></div>
+</div>
+<p>To return a value from a method, assign to the return parameter
+Note: functions have colon then return type, whereas methods
+use the “returns” keyword with a return parameter list</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method ReturnExample() returns (retval: int)
+{
+    retval := 10;
+}
+</pre></div>
+</div>
+<p>Methods can return multiple values.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method ReturnExample2() returns (x: int, y:int)
+{
+    x := 10;
+    y := 20;
+</pre></div>
+</div>
+<p>}</p>
+<p>The return keyword can be used to return immediatey</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method ReturnExample3() returns (x: int)
+{
+    x := 5;     // don&#39;t &quot;var&quot; decare return variable
+    return;     // return immediately
+    x := 6;     // never gets executed
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="set-theory">
+<h2>Set Theory<a class="headerlink" href="#set-theory" title="Permalink to this headline">¶</a></h2>
+<p>Polymorphic finite and infinite set types:
+set&lt;T&gt; and iset&lt;T&gt;. T must support equality.
+Values of these types are immutable.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method SetPlay()
+{
+    var empty: set&lt;int&gt; := {};
+    var primes := {2, 3, 5, 7, 11};
+    var squares := {1, 4, 9, 16, 25};
+    var b1 := empty &lt; primes;    // strict subset
+    var b2 := primes &lt;= primes;   // subset
+    var b3: bool := primes !! squares; // disjoint
+    var union := primes + squares;
+    var intersection := primes * squares;
+    var difference := primes - {3, 5};
+    var b4 := primes == squares;    // false
+    var i1 := | primes |;   // cardinality (5)
+    var b5 := 4 in primes;  // membership (false)
+    var b6 := 4 !in primes; // non-membership
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="sequences">
+<h2>Sequences<a class="headerlink" href="#sequences" title="Permalink to this headline">¶</a></h2>
+<p>Polymorphic sequences (often called “lists”): seq&lt;T&gt;. These can be
+understood as functions from indices to values. Some of the operations
+require that T support equality. Values of this type are immutable.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method SequencePlay()
+{
+    var empty_seq: seq&lt;char&gt; := [];
+    var hi_seq: seq&lt;char&gt; := [&#39;h&#39;, &#39;i&#39;];
+    var b1 := hi_seq == empty_seq; // equality; !=
+    var hchar := hi_seq[0];        // indexing
+    var b2 := [&#39;h&#39;] &lt; hi_seq;   // proper prefix
+    var b3 := hi_seq &lt; hi_seq;  // this is false
+    var b4 := hi_seq &lt;= hi_seq; // prefix, true
+    var sum := hi_seq + hi_seq; // concatenation
+    var len := | hi_seq |;
+    var Hi_seq := hi_seq[0 := &#39;H&#39;]; // update
+    var b5 := &#39;h&#39; in hi_seq; // member, true, !in
+    var s := [0,1,2,3,4,5];
+    var s1 := s[0..2];  // subseqence
+    var s2 := s[1..];   // &quot;drop&quot; prefix of len 1
+    var s3 := s[..2];   // &quot;take&quot; prefix of len 2
+    // there&#39;s a slice operator, too; later
+ }
+</pre></div>
+</div>
+</div>
+<div class="section" id="character-strings">
+<h2>Character Strings<a class="headerlink" href="#character-strings" title="Permalink to this headline">¶</a></h2>
+<p>Dafny has strings. Strings are literally just sequences of characters
+(of type seq&lt;char&gt;), so you can use all the sequence operations on
+strings.  Dafny provides additional helpful syntax for strings.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method StringPlay()
+ {
+     var s1: string := &quot;Hello CS2102!&quot;;
+     var s2 := &quot;Hello CS2102!\n&quot;;   // return
+     var s3 := &quot;\&quot;Hello CS2102!\&quot;&quot;; // quotes
+ }
+</pre></div>
+</div>
+</div>
+<div class="section" id="partial-functions-maps">
+<h2>Partial Functions (Maps)<a class="headerlink" href="#partial-functions-maps" title="Permalink to this headline">¶</a></h2>
+<p>Dafny also supports polymorphic maps, both finite (map&lt;K,V&gt;) and
+infinite (imap&lt;K,V&gt;).  The key type, K, must support equality (==).
+In mathematical terms, a map really represents a binary relation,
+i.e., a set of &lt;K,V&gt; pairs, which is to say a subset of the product
+set, K * V, where we view the types K and V as defining sets of
+values.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method MapPlay()
+{
+    // A map literal is keyword map + a list of maplets.
+    // A maplet is just a single &lt;K,V&gt; pair (or &quot;tuple&quot;).
+    // Here&#39;s an empty map from strings to ints
+    var emptyMap: map&lt;string,int&gt; := map[];
+
+    // Here&#39;s non empty map from strings to ints
+    // A maplet is &quot;k := v,&quot; k and v being of types K and V
+    var aMap: map&lt;string,int&gt;  := map[&quot;Hi&quot; := 1, &quot;There&quot; := 2];
+
+    // Map domain (key) membership
+    var isIn: bool := &quot;There&quot; in aMap; // true
+    var isntIn := &quot;Their&quot; !in aMap;    // true
+
+    // Finite map cardinality (number of maplets in a map)
+    var card := |aMap|;
+
+    //Map lookup
+    var image1 := aMap[&quot;There&quot;];
+    // var image2 := aMap[&quot;Their&quot;]; // error! some kind of magic
+    var image2: int;
+    if (&quot;Their&quot; in aMap) { image2 := aMap[&quot;Their&quot;]; }
+
+    // map update, maplet override and maplet addition
+    aMap := aMap[&quot;There&quot; := 3];
+    aMap := aMap[&quot;Their&quot; := 10];
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="arrays">
+<h2>Arrays<a class="headerlink" href="#arrays" title="Permalink to this headline">¶</a></h2>
+<p>Dafny supports arrays. Here’s we’ll see simple 1-d arrays.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method ArrayPlay()
+{
+    var a := new int[10]; // in general: a: array&lt;T&gt; := new T[n];
+    var a&#39; := new int[10];   // type inference naturally works here
+    var i1 := a.Length;      // Immutable &quot;Length&quot; member holds length of array
+    a[3] := 3;           // array update
+    var i2 := a[3];          // array access
+    var seq1 := a[3..8];    // take first 8, drop first 3, return as sequence
+    var b := 3 in seq1;     // true! (see sequence operations)
+    var seq2 := a[..8];     // take first 8, return rest as sequence
+    var seq3 := a[3..];     // drop first 3, return rest as sequence
+    var seq4 := a[..];      // return entire array as a sequence
+}
+</pre></div>
+</div>
+<p>Arrays, objects (class instances), and traits (to be discussed) are of
+“reference” types, which is to say, values of these types are stored
+on the heap. Values of other types, including sets and sequences, are
+of “value types,” which is to say values of these types are stored on
+the stack; and they’re thus always treated as “local” variables. They
+are passed by value, not reference, when passed as arguments to
+functions and methods. Value types include the basic scalar types
+(bool, char, nat, int, real), built-in collection types (set,
+multiset, seq, string, map, imap), tuple, inductive, and co-inductive
+types (to be discussed).  Reference type values are allocated
+dynamically on the heap, are passed by reference, and therefore can be
+“side effected” (mofified) by methods to which they are passed.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright .
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
+  </body>
+</html>

@@ -1,5 +1,6 @@
-Formal Verification of Imperative Programs
-==========================================
+*********************************************
+5. Formal Verification of Imperative Programs
+*********************************************
 
 To get a clear sense of the potential differences in performance
 between a pure functional program and an imperative program that
@@ -166,7 +167,7 @@ and that, with just a bit of help, it can reason about them for us.
 
 
 Logical Specification
----------------------
+=====================
 
 First, we use mathematical logic to *declaratively specify* properties
 of the behaviors that we require of programs written in *imperative*
@@ -234,7 +235,7 @@ result. When a program computes a relation that is not a function, it
 can return any value, *m*, where *(n,m)* is in the specified relation.
 
 Rigorous Implementation
------------------------
+=======================
 
 Having written a formal specification of the required *input-output*
 behavior of a program, we next write imperative code in a manner, and
@@ -255,7 +256,7 @@ harder to reason about their correctness.
 
 
 Formal Verification
--------------------
+===================
 
 Our ultimate aim to deduce that, as written, a program satisfies its
 input-output specification.  In more detail, if we're given a program,
@@ -289,7 +290,7 @@ separate from that of *verifying* that a given program implements its
 specification correctly.
 
 Typical Implementation of the Factorial Function
-------------------------------------------------
+================================================
 
 So far the material in this chapter has been pretty abstract. Now
 we'll see what it means in practice. To start, let's consider an
@@ -387,7 +388,7 @@ about how the while loop behaves. It turns out that providing extra
 information about while loops is where much of the difficulty lies.
 
 A Verified Implementation of the Factorial Function
----------------------------------------------------
+===================================================
 
 .. code-block:: dafny
 
@@ -563,7 +564,7 @@ intellectual tool, inceasingly used for precise specification and
 semi-automated reasoning about and verification of real programs. 
 
 A Verified Implementation of the Fibonacci Function
----------------------------------------------------
+===================================================
 
 Similarly, here an imperative implementation of the fibonacci
 function, without a spec.
@@ -720,8 +721,8 @@ in effect a formal proof of total correctness for this program.
         return fib1;
 
 
-What is Dafny?
---------------
+What is Dafny, Again?
+=====================
 
 Dafny is a cutting-edge software language and tooset developed at
 Microsoft Research---one of the top computer science research labs in

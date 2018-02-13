@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Logical Specifications, Imperative Implementations &#8212; Discrete Mathematics for Software Professionals 1 documentation</title>
+    <title>2. Logical Specifications, Imperative Implementations &#8212; Discrete Mathematics for Software Professionals 1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -21,12 +21,11 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="_static/sidebar.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Problems with Imperative Code" href="03-problems-with-imperative-code.html" />
-    <link rel="prev" title="Requirement, Specifications, and Implementations" href="01-reqs-specs-impls.html" /> 
+    <link rel="next" title="3. Problems with Imperative Code" href="03-problems-with-imperative-code.html" />
+    <link rel="prev" title="1. Requirement, Specifications, and Implementations" href="01-reqs-specs-impls.html" /> 
   </head>
   <body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -36,10 +35,10 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="03-problems-with-imperative-code.html" title="Problems with Imperative Code"
+          <a href="03-problems-with-imperative-code.html" title="3. Problems with Imperative Code"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="01-reqs-specs-impls.html" title="Requirement, Specifications, and Implementations"
+          <a href="01-reqs-specs-impls.html" title="1. Requirement, Specifications, and Implementations"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
       </ul>
@@ -51,7 +50,7 @@
           <div class="body" role="main">
             
   <div class="section" id="logical-specifications-imperative-implementations">
-<h1>Logical Specifications, Imperative Implementations<a class="headerlink" href="#logical-specifications-imperative-implementations" title="Permalink to this headline">¶</a></h1>
+<h1>2. Logical Specifications, Imperative Implementations<a class="headerlink" href="#logical-specifications-imperative-implementations" title="Permalink to this headline">¶</a></h1>
 <p>We’ve discussed requirements, specifications, and implementations as
 distinct artifacts that serve distinct purposes. For good reasons,
 these artifacts are usually written in different languages. Software
@@ -127,10 +126,10 @@ description clear, consider the problem of computing the positive
 square root of any given non-negative number, <em>x</em>. We can <em>specify</em>
 the result we seek in a clear and precise logical style by saying
 that, for any given non-negative number <em>x</em>, we require a value, <em>y</em>,
-such that <span class="math">\(y^2 = x\)</span>. Such a <em>y</em>, squared, gives <em>x</em>, and this
+such that <img class="math" src="_images/math/6efc6b8d5ee4907bdc637280c889d914c80e876b.png" alt="y^2 = x"/>. Such a <em>y</em>, squared, gives <em>x</em>, and this
 makes <em>y</em> a square root.</p>
-<p>We would write this mathematically as <span class="math">\(\forall x \in {\mathbb R}
-\mid x &gt;= 0, y \in {\mathbb R} | y &gt;= 0 \land y^2 = x\)</span>. In English,
+<p>We would write this mathematically as <img class="math" src="_images/math/5e01721cb0addd14492bb97628ef1a0b5386a9d5.png" alt="\forall x \in {\mathbb R}
+\mid x &gt;= 0, y \in {\mathbb R} | y &gt;= 0 \land y^2 = x"/>. In English,
 we’d pronounce this expression as, “for any value, <em>x</em>, in the real
 numbers, where <em>x</em> is greater than or equal to zero, the result is a
 value, <em>y</em>, also in the real numbers, where <em>y</em> is greater than or
@@ -139,14 +138,14 @@ here is also often pronounced as <em>such that</em>. Repeat it to yourself
 both ways until it feels natural to translate the math into spoken
 English.)</p>
 <p>Let’s look at this expression with care. First, the symbol,
-<span class="math">\(\forall\)</span>, is read as <em>for all</em> or <em>for any</em>. Second, the symbol
-<span class="math">\({\mathbb R}\)</span>, is used in mathematical writing to denote the set
+<img class="math" src="_images/math/ebd95d6fe2eb407c57a5cc341daa811cfafb2cf6.png" alt="\forall"/>, is read as <em>for all</em> or <em>for any</em>. Second, the symbol
+<img class="math" src="_images/math/20f7f4b2fcb4983a6488f37828c9f03b1823bb33.png" alt="{\mathbb R}"/>, is used in mathematical writing to denote the set
 of the <em>real numbers</em>, which includes the <em>integers</em> (whole numbers,
-such as <em>-1</em>, <em>0</em>, and <em>2</em>), the rational numbers (such as <span class="math">\(2/3\)</span>
+such as <em>-1</em>, <em>0</em>, and <em>2</em>), the rational numbers (such as <img class="math" src="_images/math/e9dbd5558ce57d7595a5d9c726ffd1156253124b.png" alt="2/3"/>
 and <em>1.5</em>), and the irrational numbers (such as <em>pi</em> and <em>e</em>). The
-symbol, <span class="math">\(\in\)</span>, pronounced as <em>in</em>, represents membership of a
-value, here <em>x</em>, in a given set. The expression, <span class="math">\(\forall x \in
-{\mathbb R}\)</span> thus means “for any value, <em>x</em>, in the real numbers,” or
+symbol, <img class="math" src="_images/math/d23d737cd2edc84060c5983759a705ec03c7d263.png" alt="\in"/>, pronounced as <em>in</em>, represents membership of a
+value, here <em>x</em>, in a given set. The expression, <img class="math" src="_images/math/c83afd51142920efde0fd2c4ad8825e92dc79dad.png" alt="\forall x \in
+{\mathbb R}"/> thus means “for any value, <em>x</em>, in the real numbers,” or
 just “for any real number, <em>x</em>”.</p>
 <p>The vertical bar followed by the statement of the property, <em>x &gt;= 0</em>,
 restricts the value being considered to one that satisfies the stated
@@ -163,8 +162,8 @@ the <em>body</em> of the function. Here it says, assuming that <em>x</em> is any
 non-negative real numner, that the associated value, sometimes called
 the <em>image</em> of <em>x</em> under the function, is a value, <em>y</em>, also in the
 real numbers (the <em>co-domain</em> of the function), such that <em>y</em> is both
-greater than or equal to zero equal <em>and</em> <span class="math">\(y^2 = x\)</span>. The symbol,
-<span class="math">\(\land\)</span> is the logical symbol for <em>conjunction</em>, which is the
+greater than or equal to zero equal <em>and</em> <img class="math" src="_images/math/6efc6b8d5ee4907bdc637280c889d914c80e876b.png" alt="y^2 = x"/>. The symbol,
+<img class="math" src="_images/math/493a01ca652e687ba188f86da3fc3a2715d179b5.png" alt="\land"/> is the logical symbol for <em>conjunction</em>, which is the
 operation that composes two smaller propositions or properties into a
 larger one that is true or satisfied if and only if both constituent
 propositions or properties are. The formula to the right of the comma
@@ -309,7 +308,7 @@ to see if it produces the specified outputs for <em>some</em> elements of the
 input domain, but in general it’s infeasible to test <em>all</em> inputs. So
 how can we know that we have <em>built a program</em> right, where right is
 defined precisely by a formal (mathematical logic) specification) that
-requires that a program work correctly for all (<span class="math">\(\forall\)</span>) inputs?</p>
+requires that a program work correctly for all (<img class="math" src="_images/math/ebd95d6fe2eb407c57a5cc341daa811cfafb2cf6.png" alt="\forall"/>) inputs?</p>
 </div>
 </div>
 
@@ -321,10 +320,10 @@ requires that a program work correctly for all (<span class="math">\(\forall\)</
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="01-reqs-specs-impls.html"
-                        title="previous chapter">Requirement, Specifications, and Implementations</a></p>
+                        title="previous chapter">1. Requirement, Specifications, and Implementations</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="03-problems-with-imperative-code.html"
-                        title="next chapter">Problems with Imperative Code</a></p>
+                        title="next chapter">3. Problems with Imperative Code</a></p>
         </div>
       </div>
       <div class="clearer"></div>
@@ -336,16 +335,16 @@ requires that a program work correctly for all (<span class="math">\(\forall\)</
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="03-problems-with-imperative-code.html" title="Problems with Imperative Code"
+          <a href="03-problems-with-imperative-code.html" title="3. Problems with Imperative Code"
              >next</a> |</li>
         <li class="right" >
-          <a href="01-reqs-specs-impls.html" title="Requirement, Specifications, and Implementations"
+          <a href="01-reqs-specs-impls.html" title="1. Requirement, Specifications, and Implementations"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2018, Kevin Sullivan.
+        &#169; Copyright .
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
     </div>
   </body>

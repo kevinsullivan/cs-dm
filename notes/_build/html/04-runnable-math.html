@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Pure Functional Programming as Runnable Mathematics &#8212; Discrete Mathematics for Software Professionals 1 documentation</title>
+    <title>4. Pure Functional Programming as Runnable Mathematics &#8212; Discrete Mathematics for Software Professionals 1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -21,12 +21,11 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="_static/sidebar.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Formal Verification of Imperative Programs" href="05-putting-it-together.html" />
-    <link rel="prev" title="Problems with Imperative Code" href="03-problems-with-imperative-code.html" /> 
+    <link rel="next" title="5. Formal Verification of Imperative Programs" href="05-putting-it-together.html" />
+    <link rel="prev" title="3. Problems with Imperative Code" href="03-problems-with-imperative-code.html" /> 
   </head>
   <body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -36,10 +35,10 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="05-putting-it-together.html" title="Formal Verification of Imperative Programs"
+          <a href="05-putting-it-together.html" title="5. Formal Verification of Imperative Programs"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="03-problems-with-imperative-code.html" title="Problems with Imperative Code"
+          <a href="03-problems-with-imperative-code.html" title="3. Problems with Imperative Code"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
       </ul>
@@ -51,7 +50,7 @@
           <div class="body" role="main">
             
   <div class="section" id="pure-functional-programming-as-runnable-mathematics">
-<h1>Pure Functional Programming as Runnable Mathematics<a class="headerlink" href="#pure-functional-programming-as-runnable-mathematics" title="Permalink to this headline">¶</a></h1>
+<h1>4. Pure Functional Programming as Runnable Mathematics<a class="headerlink" href="#pure-functional-programming-as-runnable-mathematics" title="Permalink to this headline">¶</a></h1>
 <p>What we’d really like would be a language that gives us everything:
 the expressiveness and the <em>safety</em> of mathematical logic (there’s no
 concept of a memory in logic, and thus no possibility for unexpected
@@ -82,10 +81,10 @@ function applied to an integer value, <em>x</em>, just evaluates to the value
 of <em>x</em>, itself. In the language of mathematical logic, the definition
 of the function would be written like this.</p>
 <div class="math">
-\[\forall x \in \mathbb{Z}, x.\]</div>
-<p>In English, this would be pronounced, “for all (<span class="math">\(\forall\)</span>)
-values, <em>x</em>, in (<span class="math">\(\in\)</span>) the set of integers
-(<span class="math">\(\mathbb{Z}\)</span>), the function simply reduces to value of <em>x</em>,
+<p><img src="_images/math/07cba1ad343ff6a4740c62449fbf2df113bb763c.png" alt="\forall x \in \mathbb{Z}, x."/></p>
+</div><p>In English, this would be pronounced, “for all (<img class="math" src="_images/math/ebd95d6fe2eb407c57a5cc341daa811cfafb2cf6.png" alt="\forall"/>)
+values, <em>x</em>, in (<img class="math" src="_images/math/d23d737cd2edc84060c5983759a705ec03c7d263.png" alt="\in"/>) the set of integers
+(<img class="math" src="_images/math/2ce48f081d097f662de466bbb0aacedc045aeec5.png" alt="\mathbb{Z}"/>), the function simply reduces to value of <em>x</em>,
 itself. The infinite set of integers is usually denoted in
 mathematical writing by a script or bold Z. We will use that
 convention in these notes.</p>
@@ -107,7 +106,7 @@ defined to be <em>id</em>. Second, the function is defined to take just one
 argument, <em>x</em>, declared of type <em>int</em>.  The is the Dafny type whose
 values represent integers (negative, zero, and positive whole number)
 of any size. The Dafny type <em>int</em> thus represents (or <em>implements</em>)
-the mathematical set, <span class="math">\({\mathbb Z}\)</span>, of all integers. The <em>int</em>
+the mathematical set, <img class="math" src="_images/math/c5fe1da7163f7137cd10500051a3775eb4bbd68c.png" alt="{\mathbb Z}"/>, of all integers. The <em>int</em>
 after the argument list and colon then indicates that, when applied to
 an int, the function returns (or <em>reduces to</em>) a value of type <em>int</em>.
 Finally, within the curly braces, the expression <em>x</em>, which we call
@@ -139,14 +138,14 @@ first, obvious, one is the type <em>int</em>. The <em>values</em> of this type a
 which is less visible in the example, is the type of the the function,
 <em>id</em>, itself. As the function takes an argument of type <em>int</em> and also
 returns a value of type <em>int</em>, we say that the type of <em>id</em> is
-<span class="math">\(int \rightarrow int\)</span>. You can pronounce this type as <em>int to
+<img class="math" src="_images/math/d3d219c1cd22d241f910083e5f1e4da0008bff92.png" alt="int \rightarrow int"/>. You can pronounce this type as <em>int to
 int</em>.</p>
 </div>
 <div class="section" id="other-function-values-of-the-same-type">
 <h2>Other function values of the same type<a class="headerlink" href="#other-function-values-of-the-same-type" title="Permalink to this headline">¶</a></h2>
 <p>There are many (indeed an uncountable infinity of) functions that
 convert integer values to other integer values. All such functions
-have the same type, namely <span class="math">\(int \rightarrow int\)</span>, but they
+have the same type, namely <img class="math" src="_images/math/d3d219c1cd22d241f910083e5f1e4da0008bff92.png" alt="int \rightarrow int"/>, but they
 constitute different function <em>values</em>. While the type of a function
 is specified in the declaration of the function argument and return
 types, a function <em>value</em> is defined by the expression comprising the
@@ -154,7 +153,7 @@ types, a function <em>value</em> is defined by the expression comprising the
 <p>An example of a different function of the same type is what we will
 call <em>inc</em>, short for <em>increment</em>. When applied to an integer value,
 it reduces to (or <em>returns</em>) that value plus one. Mathematically, it
-is defined as <span class="math">\(\forall x \in {\mathbb Z}, x + 1\)</span>. For example,
+is defined as <img class="math" src="_images/math/528e7cc14105684051327c98c72317b5740e1b9f.png" alt="\forall x \in {\mathbb Z}, x + 1"/>. For example,
 <em>inc(2)</em> reduces to <em>3</em>, and <em>inc(-2)</em>, to <em>-1</em>.</p>
 <p>Here’s a Dafny functional program that implements this function. You
 should be able to understand this program with ease. Once again, take
@@ -166,7 +165,7 @@ pure functional programmer is writing <em>runnable mathematics</em>.</p>
 </div>
 <p>Another example of a function of the same type is, <em>square</em>, defined
 as returing the square of its integer argument. Mathematically it is
-the function, <span class="math">\(\forall x \in {\mathbb Z}, x * x\)</span>. And here is
+the function, <img class="math" src="_images/math/12304ca0fc47b3ae39d3e63d8a1ab38a975347d3.png" alt="\forall x \in {\mathbb Z}, x * x"/>. And here is
 a Dafny implementation.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>function method h (x: int): int { x * x }
 </pre></div>
@@ -179,9 +178,8 @@ expression and return the result, here <em>16</em>. Function evaluation is
 done by substituting actual parameter values for all occurrences of
 corresponding formal parameters in the body of a function, evaluating
 the resulting expression, and returning that result.</p>
-</div>
-<div class="section" id="recursive-function-definitions-and-implementations">
-<h2>Recursive function definitions and implementations<a class="headerlink" href="#recursive-function-definitions-and-implementations" title="Permalink to this headline">¶</a></h2>
+<p>Recursive function definitions and implementations
+=================================================+</p>
 <p>Many mathematical functions are defined <em>recursively</em>. Consider the
 familiar <em>factorial</em> function. An informal explanation of what the
 function produces when applied to a natural number (a non-negative
@@ -201,10 +199,10 @@ larger than zero that we might have multiplied together to produce the
 result. The trick is to write a mathematical definition of factorial
 in two cases: one for the value zero, and one for any other number.</p>
 <div class="math">
-\[\begin{split}factorial(n) := \forall n \in {\mathbb Z} \mid n &gt;= 0, \begin{cases}
+<p><img src="_images/math/8b55f235536fb859ae0c89c6f795579e5f0f68d9.png" alt="factorial(n) := \forall n \in {\mathbb Z} \mid n &gt;= 0, \begin{cases}
 \text{if n=0}, &amp; 1,\\ \text{otherwise}, &amp; n *
-factorial(n-1).\end{cases}\end{split}\]</div>
-<p>To pronounce this mathematical definition in English, one would say
+factorial(n-1).\end{cases}"/></p>
+</div><p>To pronounce this mathematical definition in English, one would say
 that for any integer, <em>n</em>, such that <em>n</em> is greater than or equal to
 zero, <em>factorial(n)</em> is one if <em>n</em> is zero and is otherwise <em>n</em> times
 <em>factorial(n-1)</em>.</p>
@@ -218,13 +216,13 @@ defined, we call the definition <em>recursive.</em></p>
 say the set of values for which it is defined, to the non-negative
 integers only, the set known as the <em>natural numbers</em>. The function
 simply isn’t defined for negative numbers.  Mathematicians usually use
-the symbol, <span class="math">\({\mathbb N}\)</span> for this set. We could have written
+the symbol, <img class="math" src="_images/math/c8f55b4d0816bb06f543ad34702b2642a045ba47.png" alt="{\mathbb N}"/> for this set. We could have written
 the definition a little more concisely using this notation, like this:</p>
 <div class="math">
-\[\begin{split}factorial(n) := \forall n \in {\mathbb N}, \begin{cases}
+<p><img src="_images/math/3081dfa3fd8990ac82194e376df873a44ef80af9.png" alt="factorial(n) := \forall n \in {\mathbb N}, \begin{cases}
 \text{if n=0}, &amp; 1,\\ \text{otherwise}, &amp; n *
-factorial(n-1).\end{cases}\end{split}\]</div>
-<p>Here, then, is a Dafny implementation of the factorial function.</p>
+factorial(n-1).\end{cases}"/></p>
+</div><p>Here, then, is a Dafny implementation of the factorial function.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>function method fact(n: int): int
    requires n &gt;= 0 // for recursion to be well founded
 {
@@ -238,8 +236,8 @@ restriction on the domain is expressed in the <em>requires</em> clause of the
 program. This clause is not runnable code. It’s a specification: a
 <em>predicate</em> (a proposition with a parameter) that must hold for the
 program to be used. Dafny will insist that this function only ever be
-applied to values of <em>n</em> that have the <em>property</em> of being <span class="math">\(&gt;=
-0\)</span>. A predicate that must be true for a program to be run is called a
+applied to values of <em>n</em> that have the <em>property</em> of being <img class="math" src="_images/math/cc875bc38a43f3d76b1d106c825e09cabd853ff2.png" alt="&gt;=
+0"/>. A predicate that must be true for a program to be run is called a
 <em>pre-condition</em>.</p>
 <p>To see how the recursion works, consider the application of
 <em>factorial</em> to the natural number, <em>3</em>. We know that the answer should
@@ -251,8 +249,36 @@ body of the function; then you evaluate the resulting expression
 leads through a sequence of intermediate expressions as follows (leaving
 out a few details that should be easy to infer):</p>
 <div class="math">
-\[ \begin{align}\begin{aligned}factorial\ (3) &amp; \text{ ; a function application expression}\\if\ (3 == 0)\ then\ 1\ else\ (3 * factorial\ (3-1)) &amp; \text{ ; expand body with  parameter/argument substitution}\\if\ (3 == 0)\ then\ 1\ else\ (3 * factorial\ (2))  &amp; \text{ ; evaluate $(3-1)$}\\if\ false\ then\ 1\ else\ (3 * factorial\ (2)) &amp; \text{ ; evaluate $(3==0)$ }\\(3 * factorial\ (2)) &amp; \text{ ; evaluate $ifThenElse$ }\\(3 * (if\ (2==0)\ then\ 1\ else\ (2 * factorial\ (1))) &amp; \text{ ; etc }\\(3 * (2 * factorial\ (1))\\(3 * (2 * (if\ (1==0)\ then\ 1\ else\ (1 * factorial\ (0)))))\\(3 * (2 * (1 * factorial\ (0))))\\(3 * (2 * (1 * (if\ (0==0)\ then\ 1\ else\ (0 * factorial\ (-1))))))\\(3 * (2 * (1 * (if\ true\ then\ 1\ else\ (0 * factorial\ (-1))))))\\(3 * (2 * (1 * 1)))\\(3 * (2 * 1))\\(3 * 2)\\6\end{aligned}\end{align} \]</div>
-<p>The evaluation process continues until the function application expression
+<p><img src="_images/math/96edc6c1dd06eb66d7dc5a26bd427b76aa5af5c3.png" alt="factorial\ (3) &amp; \text{ ; a function application expression}
+
+if\ (3 == 0)\ then\ 1\ else\ (3 * factorial\ (3-1)) &amp; \text{ ; expand body with  parameter/argument substitution}
+
+if\ (3 == 0)\ then\ 1\ else\ (3 * factorial\ (2))  &amp; \text{ ; evaluate $(3-1)$}
+
+if\ false\ then\ 1\ else\ (3 * factorial\ (2)) &amp; \text{ ; evaluate $(3==0)$ }
+
+(3 * factorial\ (2)) &amp; \text{ ; evaluate $ifThenElse$ }
+
+(3 * (if\ (2==0)\ then\ 1\ else\ (2 * factorial\ (1))) &amp; \text{ ; etc }
+
+(3 * (2 * factorial\ (1))
+
+(3 * (2 * (if\ (1==0)\ then\ 1\ else\ (1 * factorial\ (0)))))
+
+(3 * (2 * (1 * factorial\ (0))))
+
+(3 * (2 * (1 * (if\ (0==0)\ then\ 1\ else\ (0 * factorial\ (-1))))))
+
+(3 * (2 * (1 * (if\ true\ then\ 1\ else\ (0 * factorial\ (-1))))))
+
+(3 * (2 * (1 * 1)))
+
+(3 * (2 * 1))
+
+(3 * 2)
+
+6"/></p>
+</div><p>The evaluation process continues until the function application expression
 is reduced to a data value. That’s the answer!</p>
 <p>It’s important to understand how recursive function application
 expressions are evaluated. Study this example with care. Once you’re
@@ -327,10 +353,10 @@ are expressed and verified.</p>
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="03-problems-with-imperative-code.html"
-                        title="previous chapter">Problems with Imperative Code</a></p>
+                        title="previous chapter">3. Problems with Imperative Code</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="05-putting-it-together.html"
-                        title="next chapter">Formal Verification of Imperative Programs</a></p>
+                        title="next chapter">5. Formal Verification of Imperative Programs</a></p>
         </div>
       </div>
       <div class="clearer"></div>
@@ -342,16 +368,16 @@ are expressed and verified.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="05-putting-it-together.html" title="Formal Verification of Imperative Programs"
+          <a href="05-putting-it-together.html" title="5. Formal Verification of Imperative Programs"
              >next</a> |</li>
         <li class="right" >
-          <a href="03-problems-with-imperative-code.html" title="Problems with Imperative Code"
+          <a href="03-problems-with-imperative-code.html" title="3. Problems with Imperative Code"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2018, Kevin Sullivan.
+        &#169; Copyright .
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
     </div>
   </body>

@@ -21,7 +21,6 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="_static/sidebar.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -156,8 +155,8 @@ imperative programming.)</p>
 cases: one for when <em>n</em> is zero, and one for any other value of
 <em>n</em>.</p>
 <div class="math">
-\[\begin{split}f(x)= \begin{cases} 1, &amp; \text{if $x&lt;0$}.\\ 0, &amp; \text{otherwise}.\end{cases}\end{split}\]</div>
-<p>First, if <em>n = 0</em> (called the <em>base case</em>) then <em>factorial(n)</em> is
+<p><img src="_images/math/414dc4542e5b8c1f42d7fe32cfecfd1d4526d4e3.png" alt="f(x)= \begin{cases} 1, &amp; \text{if $x&lt;0$}.\\ 0, &amp; \text{otherwise}.\end{cases}"/></p>
+</div><p>First, if <em>n = 0</em> (called the <em>base case</em>) then <em>factorial(n)</em> is
 defined to be 1. Otherwise, for any <em>n</em> where <em>n &gt; 0)</em>, <em>factorial(n)</em>
 is defined recursively as <em>n * factorial(n-1)</em>. This is what we call
 the <em>recursive</em> case. By recursive, we mean that the function is used
@@ -319,6 +318,291 @@ The problem with this <em>code</em> is that actually has an error, bug. Read
 it carefull to see if you can find the bug before you go on. You can
 see that there’s a major error jst smoke testing the program. Give it
 a try.</p>
+<hr class="docutils" />
+<p>Indeed, natural science is based to a considerable extent on inductive
+reasoning. Observations in the form of tests of hypotheses are taken
+as evidence in support of hypotheses about how the world works. When
+there is a sufficient body of evidence, a hypothesis is elevated to a
+theory.  Statistical techniques are often used to quanitfy remaining
+doubt.  Theories are always subject to falsification in principle,
+though in practice the evidence for some theories is so strong that
+for all intents and purposes, some questions are all but settled, and
+acting on alternative hypotheses would be irrational.</p>
+<blockquote>
+<div>A Syntax for Boolean Expressions</div></blockquote>
+<hr class="docutils" />
+<p>How can we precisely and concisely specify the entire (infinite) set
+of well formed Boolean expressions? In this section, we will find an
+answer in the concept of <em>inductive definitions</em>, which are closely
+related to recursive functions.</p>
+<p>We’ll define what it means to be a Boolean expression using several
+cases, some of which will explain how to form larger such expressions
+from smaller ones, ad infinitum. So here we go.</p>
+<p>Case #1: Literal Expressions. For each Boolean value, <em>b</em> (<em>0 or 1</em>)
+we have a corresponding Boolean expression, <em>Lit(b)</em>. So far, then, we
+have just two Boolean expressions: <em>Lit(true)</em> and <em>Lit(false)</em>. We
+can think of <em>Lit</em> as a kind of function that takes a Boolean value
+and that constructs a Boolean expression from it.</p>
+<p>Case #2: Boolean Variables. We will assume that we have some set of
+<em>Boolean variables</em>. For simplicity, let’s assume that this set is
+<img class="math" src="_images/math/d3e24597e650be52a06c04034ccdfd94b5b0eb59.png" alt="\{ P, Q, R \}"/>. For each variable, $V$, we have a corresponding
+Boolean expression, $BVar(V)$. Now we have three more expressions,
+<em>BVar(P)$, *BVar(Q)</em> and <em>BVar(R)</em>.</p>
+<p>First, we will
+define two <em>literal</em> expressions, one for each of the two Boolean
+values. We will call them <em>BLit(0)</em> and <em>BLit(1)</em>.
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+For each kind of expression we will also need a way to <em>evaluate</em> it:
+to say what Boolean value it evaluates to. For this, we will define a
+function that (for now) takes a Boolean <em>expression</em> as an argument
+and that returns a Boolean <em>value</em> as a result. We will call this
+evaluation function for Boolean expressions <em>beval</em>.</p>
+<p>Now we need to explain how this function behaves for each of the kinds
+of Boolean expressions we have defined do far. This is an easy one. We
+will define <em>beval(BLit(0))</em> to evaluate to <em>0</em>, and <em>beval(BLit(1))</em>
+to evaluate to <em>1</em>.</p>
+<p>Boolean logic is named after its inventor, George Boole,
+the British philosopher, mathematician, and logician.</p>
+<p>Dafny supports a range of abstract data types akin to those found in
+widely used, industrial imperative programming languages and systems,
+such as Python and Java. In this chapter, we introduce and briefly
+illustrate the use of these types. The types we discuss are as follow:</p>
+<ul class="simple">
+<li>bool, supporting Boolean algebra</li>
+<li>int, nat, and real types, supporting <em>exact</em> arithmetic (unlike
+the numerical types found in most industrial languages</li>
+<li>char, supporting character types</li>
+<li>set&lt;T&gt; and iset&lt;T&gt;, polymorphic set theory for finite and infinite sets</li>
+<li>seq&lt;T&gt; and iseq&lt;T&gt;, polymorphic finite and infinite sequences</li>
+<li>string, supporting character sequences (with addtional helpful functions)</li>
+<li>map&lt;K,V&gt; and imap&lt;K,V&gt;, polymorphic finite and infinite partial functions</li>
+<li>array&lt;T&gt;, polymorphic 1- and multi-dimensional arrays</li>
+</ul>
+</div>
+<div class="section" id="boolean-algebra">
+<h1>Boolean Algebra<a class="headerlink" href="#boolean-algebra" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p>The bool abstract data type (ADT) in Dafny provides a bool data type
+with values, <em>true</em> and <em>false</em>, along with the Boolean operators that
+are supported by most programming langauges, along with a few that are
+not commonly supported by industrial programming languages and
+systems.</p>
+<p>Here’s a method that computes nothing useful and returns no values,
+but that illustrates the range of Boolean operators in Dafny. We also
+use the examples in this chapter to discuss a few other aspects of the
+Dafny language.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method BoolOps(a: bool) returns (r: bool)  // bool -&gt; bool
+{
+    var t: bool := true;    // explicit type declaration
+    var f := false;         // type inferred automatically
+    var not := !t;          // negation
+    var conj := t &amp;&amp; f;     // conjunction, short-circuit evaluation
+    var disj := t || f;     // disjunction, short-circuit (sc) evaluation
+    var impl := t ==&gt; f;    // implication, right associative, sc from left
+    var foll := t &lt;== f;    // follows, left associative, sc from right
+    var equv := t &lt;==&gt; t;   // iff, bi-implication
+    return true;            // returning a Boolean value
+ }
+</pre></div>
+</div>
+</div>
+<div class="section" id="arithmetic">
+<h1>Arithmetic<a class="headerlink" href="#arithmetic" title="Permalink to this headline">¶</a></h1>
+<p>Methods aren’t required to return results. Such methods do their jobs
+by having side effects, e.g., doing output or writing data into global
+variables (usually a bad idea).  Here’s a method that doesn’t return a
+value. It illustrates numerical types, syntax, and operations.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method NumOps()
+{
+    var r1: real := 1000000.0;
+    var i1: int := 1000000;
+    var i2: int := 1_000_000;   // underscores for readiability
+    var i3 := 1_000;            // Dafny can often infer types
+    var b1 := (10 &lt; 20) &amp;&amp; (20 &lt;= 30); // a boolean expression
+    var b2 := 10 &lt; 20 &lt;= 30;    // equivalent, with &quot;chaining&quot;
+    var i4: int := (5.5).Floor; // 5
+    var i5 := (-2.5).Floor;     // -3
+    var i6 := -2.5.Floor;        // -2 = -(2.5.Floor); binding!
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="characters">
+<h1>Characters<a class="headerlink" href="#characters" title="Permalink to this headline">¶</a></h1>
+<p>Characters (char) are handled sort of as they are in C, etc.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method CharFun()
+{
+    var c1: char := &#39;a&#39;;
+    var c2 := &#39;b&#39;;
+    // var i1 := c2 - c1;
+    var i1 := (c2 as int) - (c1 as int);    // type conversion
+    var b1 := c1 &lt; c2;  // ordering operators defined for char
+    var c3 := &#39;\n&#39;;     // c-style escape for non-printing chars
+    var c4 := &#39;\u265B&#39;; // unicode, hex, &quot;chess king&quot; character
+}
+</pre></div>
+</div>
+<p>To return a value from a method, assign to the return parameter
+Note: functions have colon then return type, whereas methods
+use the “returns” keyword with a return parameter list</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method ReturnExample() returns (retval: int)
+{
+    retval := 10;
+}
+</pre></div>
+</div>
+<p>Methods can return multiple values.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method ReturnExample2() returns (x: int, y:int)
+{
+    x := 10;
+    y := 20;
+</pre></div>
+</div>
+<p>}</p>
+<p>The return keyword can be used to return immediatey</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method ReturnExample3() returns (x: int)
+{
+    x := 5;     // don&#39;t &quot;var&quot; decare return variable
+    return;     // return immediately
+    x := 6;     // never gets executed
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="set-theory">
+<h1>Set Theory<a class="headerlink" href="#set-theory" title="Permalink to this headline">¶</a></h1>
+<p>Polymorphic finite and infinite set types:
+set&lt;T&gt; and iset&lt;T&gt;. T must support equality.
+Values of these types are immutable.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method SetPlay()
+{
+    var empty: set&lt;int&gt; := {};
+    var primes := {2, 3, 5, 7, 11};
+    var squares := {1, 4, 9, 16, 25};
+    var b1 := empty &lt; primes;    // strict subset
+    var b2 := primes &lt;= primes;   // subset
+    var b3: bool := primes !! squares; // disjoint
+    var union := primes + squares;
+    var intersection := primes * squares;
+    var difference := primes - {3, 5};
+    var b4 := primes == squares;    // false
+    var i1 := | primes |;   // cardinality (5)
+    var b5 := 4 in primes;  // membership (false)
+    var b6 := 4 !in primes; // non-membership
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="sequences">
+<h1>Sequences<a class="headerlink" href="#sequences" title="Permalink to this headline">¶</a></h1>
+<p>Polymorphic sequences (often called “lists”): seq&lt;T&gt;. These can be
+understood as functions from indices to values. Some of the operations
+require that T support equality. Values of this type are immutable.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method SequencePlay()
+{
+    var empty_seq: seq&lt;char&gt; := [];
+    var hi_seq: seq&lt;char&gt; := [&#39;h&#39;, &#39;i&#39;];
+    var b1 := hi_seq == empty_seq; // equality; !=
+    var hchar := hi_seq[0];        // indexing
+    var b2 := [&#39;h&#39;] &lt; hi_seq;   // proper prefix
+    var b3 := hi_seq &lt; hi_seq;  // this is false
+    var b4 := hi_seq &lt;= hi_seq; // prefix, true
+    var sum := hi_seq + hi_seq; // concatenation
+    var len := | hi_seq |;
+    var Hi_seq := hi_seq[0 := &#39;H&#39;]; // update
+    var b5 := &#39;h&#39; in hi_seq; // member, true, !in
+    var s := [0,1,2,3,4,5];
+    var s1 := s[0..2];  // subseqence
+    var s2 := s[1..];   // &quot;drop&quot; prefix of len 1
+    var s3 := s[..2];   // &quot;take&quot; prefix of len 2
+    // there&#39;s a slice operator, too; later
+ }
+</pre></div>
+</div>
+</div>
+<div class="section" id="character-strings">
+<h1>Character Strings<a class="headerlink" href="#character-strings" title="Permalink to this headline">¶</a></h1>
+<p>Dafny has strings. Strings are literally just sequences of characters
+(of type seq&lt;char&gt;), so you can use all the sequence operations on
+strings.  Dafny provides additional helpful syntax for strings.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method StringPlay()
+ {
+     var s1: string := &quot;Hello CS2102!&quot;;
+     var s2 := &quot;Hello CS2102!\n&quot;;   // return
+     var s3 := &quot;\&quot;Hello CS2102!\&quot;&quot;; // quotes
+ }
+</pre></div>
+</div>
+</div>
+<div class="section" id="partial-functions-maps">
+<h1>Partial Functions (Maps)<a class="headerlink" href="#partial-functions-maps" title="Permalink to this headline">¶</a></h1>
+<p>Dafny also supports polymorphic maps, both finite (map&lt;K,V&gt;) and
+infinite (imap&lt;K,V&gt;).  The key type, K, must support equality (==).
+In mathematical terms, a map really represents a binary relation,
+i.e., a set of &lt;K,V&gt; pairs, which is to say a subset of the product
+set, K * V, where we view the types K and V as defining sets of
+values.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method MapPlay()
+{
+    // A map literal is keyword map + a list of maplets.
+    // A maplet is just a single &lt;K,V&gt; pair (or &quot;tuple&quot;).
+    // Here&#39;s an empty map from strings to ints
+    var emptyMap: map&lt;string,int&gt; := map[];
+
+    // Here&#39;s non empty map from strings to ints
+    // A maplet is &quot;k := v,&quot; k and v being of types K and V
+    var aMap: map&lt;string,int&gt;  := map[&quot;Hi&quot; := 1, &quot;There&quot; := 2];
+
+    // Map domain (key) membership
+    var isIn: bool := &quot;There&quot; in aMap; // true
+    var isntIn := &quot;Their&quot; !in aMap;    // true
+
+    // Finite map cardinality (number of maplets in a map)
+    var card := |aMap|;
+
+    //Map lookup
+    var image1 := aMap[&quot;There&quot;];
+    // var image2 := aMap[&quot;Their&quot;]; // error! some kind of magic
+    var image2: int;
+    if (&quot;Their&quot; in aMap) { image2 := aMap[&quot;Their&quot;]; }
+
+    // map update, maplet override and maplet addition
+    aMap := aMap[&quot;There&quot; := 3];
+    aMap := aMap[&quot;Their&quot; := 10];
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="arrays">
+<h1>Arrays<a class="headerlink" href="#arrays" title="Permalink to this headline">¶</a></h1>
+<p>Dafny supports arrays. Here’s we’ll see simple 1-d arrays.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method ArrayPlay()
+{
+    var a := new int[10]; // in general: a: array&lt;T&gt; := new T[n];
+    var a&#39; := new int[10];   // type inference naturally works here
+    var i1 := a.Length;      // Immutable &quot;Length&quot; member holds length of array
+    a[3] := 3;           // array update
+    var i2 := a[3];          // array access
+    var seq1 := a[3..8];    // take first 8, drop first 3, return as sequence
+    var b := 3 in seq1;     // true! (see sequence operations)
+    var seq2 := a[..8];     // take first 8, return rest as sequence
+    var seq3 := a[3..];     // drop first 3, return rest as sequence
+    var seq4 := a[..];      // return entire array as a sequence
+}
+</pre></div>
+</div>
+<p>Arrays, objects (class instances), and traits (to be discussed) are of
+“reference” types, which is to say, values of these types are stored
+on the heap. Values of other types, including sets and sequences, are
+of “value types,” which is to say values of these types are stored on
+the stack; and they’re thus always treated as “local” variables. They
+are passed by value, not reference, when passed as arguments to
+functions and methods. Value types include the basic scalar types
+(bool, char, nat, int, real), built-in collection types (set,
+multiset, seq, string, map, imap), tuple, inductive, and co-inductive
+types (to be discussed).  Reference type values are allocated
+dynamically on the heap, are passed by reference, and therefore can be
+“side effected” (mofified) by methods to which they are passed.</p>
 </div>
 
 
@@ -341,7 +625,7 @@ a try.</p>
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2018, Kevin Sullivan.
+        &#169; Copyright .
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
     </div>
   </body>

@@ -1,18 +1,18 @@
 \select@language {english}
-\contentsline {chapter}{\numberline {1}Requirement, Specifications, and Implementations}{1}{chapter.1}
-\contentsline {chapter}{\numberline {2}Logical Specifications, Imperative Implementations}{3}{chapter.2}
+\contentsline {chapter}{\numberline {1}1. Requirement, Specifications, and Implementations}{1}{chapter.1}
+\contentsline {chapter}{\numberline {2}2. Logical Specifications, Imperative Implementations}{3}{chapter.2}
 \contentsline {section}{\numberline {2.1}Imperative Languages for Implementations}{3}{section.2.1}
 \contentsline {section}{\numberline {2.2}Declarative Languages for Specifications}{4}{section.2.2}
 \contentsline {section}{\numberline {2.3}Refining Declarative Specifications into Imperative Implementations}{5}{section.2.3}
 \contentsline {section}{\numberline {2.4}Why Not a Single Language for Programming and Specification?}{6}{section.2.4}
-\contentsline {chapter}{\numberline {3}Problems with Imperative Code}{7}{chapter.3}
-\contentsline {chapter}{\numberline {4}Pure Functional Programming as Runnable Mathematics}{9}{chapter.4}
+\contentsline {chapter}{\numberline {3}3. Problems with Imperative Code}{7}{chapter.3}
+\contentsline {chapter}{\numberline {4}4. Pure Functional Programming as Runnable Mathematics}{9}{chapter.4}
 \contentsline {section}{\numberline {4.1}The identify function (for integers)}{9}{section.4.1}
 \contentsline {section}{\numberline {4.2}Data and function types}{10}{section.4.2}
 \contentsline {section}{\numberline {4.3}Other function values of the same type}{10}{section.4.3}
 \contentsline {section}{\numberline {4.4}Recursive function definitions and implementations}{11}{section.4.4}
 \contentsline {section}{\numberline {4.5}Dafny is a Program Verifier}{12}{section.4.5}
-\contentsline {chapter}{\numberline {5}Formal Verification of Imperative Programs}{15}{chapter.5}
+\contentsline {chapter}{\numberline {5}5. Formal Verification of Imperative Programs}{15}{chapter.5}
 \contentsline {section}{\numberline {5.1}Logical Specification}{17}{section.5.1}
 \contentsline {section}{\numberline {5.2}Rigorous Implementation}{17}{section.5.2}
 \contentsline {section}{\numberline {5.3}Formal Verification}{18}{section.5.3}
@@ -20,17 +20,26 @@
 \contentsline {section}{\numberline {5.5}A Verified Implementation of the Factorial Function}{19}{section.5.5}
 \contentsline {section}{\numberline {5.6}A Verified Implementation of the Fibonacci Function}{21}{section.5.6}
 \contentsline {section}{\numberline {5.7}What is Dafny?}{23}{section.5.7}
-\contentsline {chapter}{\numberline {6}Dafny Built-In Programming Abstractions}{25}{chapter.6}
-\contentsline {section}{\numberline {6.1}Boolean Algebra}{25}{section.6.1}
-\contentsline {section}{\numberline {6.2}Arithmetic}{26}{section.6.2}
-\contentsline {section}{\numberline {6.3}Characters}{26}{section.6.3}
-\contentsline {section}{\numberline {6.4}Set Theory}{27}{section.6.4}
-\contentsline {section}{\numberline {6.5}Sequences}{27}{section.6.5}
-\contentsline {section}{\numberline {6.6}Character Strings}{28}{section.6.6}
-\contentsline {section}{\numberline {6.7}Partial Functions (Maps)}{28}{section.6.7}
-\contentsline {section}{\numberline {6.8}Arrays}{28}{section.6.8}
-\contentsline {chapter}{\numberline {7}Setting Up to Use Git}{31}{chapter.7}
-\contentsline {section}{\numberline {7.1}Git and Distributed Software Development}{31}{section.7.1}
-\contentsline {section}{\numberline {7.2}Setting Up}{31}{section.7.2}
-\contentsline {section}{\numberline {7.3}A Demo}{32}{section.7.3}
-\contentsline {chapter}{\numberline {8}Indices and tables}{33}{chapter.8}
+\contentsline {chapter}{\numberline {6}6. Boolean Logic}{25}{chapter.6}
+\contentsline {section}{\numberline {6.1}Boolean Algebra}{26}{section.6.1}
+\contentsline {section}{\numberline {6.2}Arithmetic}{28}{section.6.2}
+\contentsline {section}{\numberline {6.3}Characters}{28}{section.6.3}
+\contentsline {section}{\numberline {6.4}Set Theory}{29}{section.6.4}
+\contentsline {section}{\numberline {6.5}Sequences}{30}{section.6.5}
+\contentsline {section}{\numberline {6.6}Character Strings}{30}{section.6.6}
+\contentsline {section}{\numberline {6.7}Partial Functions (Maps)}{30}{section.6.7}
+\contentsline {section}{\numberline {6.8}Arrays}{31}{section.6.8}
+\contentsline {chapter}{\numberline {7}6. Dafny Built-In Programming Abstractions}{33}{chapter.7}
+\contentsline {section}{\numberline {7.1}Boolean Algebra}{33}{section.7.1}
+\contentsline {section}{\numberline {7.2}Arithmetic}{35}{section.7.2}
+\contentsline {section}{\numberline {7.3}Characters}{36}{section.7.3}
+\contentsline {section}{\numberline {7.4}Set Theory}{36}{section.7.4}
+\contentsline {section}{\numberline {7.5}Sequences}{37}{section.7.5}
+\contentsline {section}{\numberline {7.6}Character Strings}{37}{section.7.6}
+\contentsline {section}{\numberline {7.7}Partial Functions (Maps)}{37}{section.7.7}
+\contentsline {section}{\numberline {7.8}Arrays}{38}{section.7.8}
+\contentsline {chapter}{\numberline {8}Setting Up to Use Git}{39}{chapter.8}
+\contentsline {section}{\numberline {8.1}Git and Distributed Software Development}{39}{section.8.1}
+\contentsline {section}{\numberline {8.2}Setting Up}{39}{section.8.2}
+\contentsline {section}{\numberline {8.3}A Demo}{40}{section.8.3}
+\contentsline {chapter}{\numberline {9}Indices and tables}{41}{chapter.9}

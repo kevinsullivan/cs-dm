@@ -1,5 +1,6 @@
-Pure Functional Programming as Runnable Mathematics
-===================================================
+******************************************************
+4. Pure Functional Programming as Runnable Mathematics
+******************************************************
 
 What we'd really like would be a language that gives us everything:
 the expressiveness and the *safety* of mathematical logic (there's no
@@ -28,7 +29,7 @@ definitions of the functions that they implement.
 
 
 The identify function (for integers)
-------------------------------------
+====================================
 
 An *identity function* is a function whose values is simply the value
 of the argument to which it is applied. For example, the identify
@@ -93,7 +94,8 @@ for the *x* in the body, yielding the literal expression, *4*, which,
 when evaluated, yeilds the value *4*, and that's the result.
 
 Data and function types
------------------------
+=======================
+
 
 Before moving on to more interesting functions, we must mention the
 concepts of *types* and *values* as they pertain to both *data* and
@@ -107,7 +109,7 @@ returns a value of type *int*, we say that the type of *id* is
 int*.
 
 Other function values of the same type
---------------------------------------
+======================================
 
 There are many (indeed an uncountable infinity of) functions that
 convert integer values to other integer values. All such functions
@@ -154,7 +156,7 @@ the resulting expression, and returning that result.
 
 
 Recursive function definitions and implementations
---------------------------------------------------
+=================================================+
 
 Many mathematical functions are defined *recursively*. Consider the
 familiar *factorial* function. An informal explanation of what the
@@ -304,7 +306,7 @@ the mathematical definition, is indispensible. It makes the definition
 sound and it makes the code correct!
 
 Dafny is a Program Verifier
----------------------------
+===========================
 
 Restricting the domain of factorial to non-negative integers is
 critical. Combining the non-negative property of ever value to which

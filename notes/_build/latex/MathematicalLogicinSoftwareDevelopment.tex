@@ -53,12 +53,15 @@
 \setcounter{tocdepth}{1}
 
 
-\usepackage{amsmath}
+    \usepackage{amsmath}
     \usepackage{cases}
-
+    \usepackage{turnstile}
+    \usepackage{bussproofs}
+    \usepackage{prftree}
+    
 
 \title{Mathematical Logic in Software Development Documentation}
-\date{Feb 06, 2018}
+\date{Feb 09, 2018}
 \release{1}
 \author{Kevin Sullivan}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -73,8 +76,8 @@
 
 
 
-\chapter{Requirement, Specifications, and Implementations}
-\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}\label{\detokenize{01-reqs-specs-impls::doc}}
+\chapter{1. Requirement, Specifications, and Implementations}
+\label{\detokenize{01-reqs-specs-impls::doc}}\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}
 Software is an increasingly critical component of major societal
 systems, from rockets to power grids to healthcare, etc. Failures are
 not always bugs in implementation code. The most critical problems
@@ -171,8 +174,8 @@ the proposition \sphinxstyleemphasis{Kevin plays tennis **and*} Kevin is from Te
 is not true. More on relations later!
 
 
-\chapter{Logical Specifications, Imperative Implementations}
-\label{\detokenize{02-logic-and-code:logical-specifications-imperative-implementations}}\label{\detokenize{02-logic-and-code::doc}}
+\chapter{2. Logical Specifications, Imperative Implementations}
+\label{\detokenize{02-logic-and-code::doc}}\label{\detokenize{02-logic-and-code:logical-specifications-imperative-implementations}}
 We’ve discussed requirements, specifications, and implementations as
 distinct artifacts that serve distinct purposes. For good reasons,
 these artifacts are usually written in different languages. Software
@@ -466,8 +469,8 @@ defined precisely by a formal (mathematical logic) specification) that
 requires that a program work correctly for all (\(\forall\)) inputs?
 
 
-\chapter{Problems with Imperative Code}
-\label{\detokenize{03-problems-with-imperative-code:problems-with-imperative-code}}\label{\detokenize{03-problems-with-imperative-code::doc}}
+\chapter{3. Problems with Imperative Code}
+\label{\detokenize{03-problems-with-imperative-code::doc}}\label{\detokenize{03-problems-with-imperative-code:problems-with-imperative-code}}
 There’s no free lunch: One can have the expressiveness of mathematical
 logic, useful for specification, or one can have the ability to run
 code efficiently, along with indispensable ability to interact with an
@@ -519,8 +522,8 @@ directing some machine to launch a missile, fire up a nuclear reactor,
 steer a commercial aircraft, etc.
 
 
-\chapter{Pure Functional Programming as Runnable Mathematics}
-\label{\detokenize{04-runnable-math:pure-functional-programming-as-runnable-mathematics}}\label{\detokenize{04-runnable-math::doc}}
+\chapter{4. Pure Functional Programming as Runnable Mathematics}
+\label{\detokenize{04-runnable-math::doc}}\label{\detokenize{04-runnable-math:pure-functional-programming-as-runnable-mathematics}}
 What we’d really like would be a language that gives us everything:
 the expressiveness and the \sphinxstyleemphasis{safety} of mathematical logic (there’s no
 concept of a memory in logic, and thus no possibility for unexpected
@@ -840,7 +843,7 @@ of the languages of logic and proofs in which specifications of code
 are expressed and verified.
 
 
-\chapter{Formal Verification of Imperative Programs}
+\chapter{5. Formal Verification of Imperative Programs}
 \label{\detokenize{05-putting-it-together:formal-verification-of-imperative-programs}}\label{\detokenize{05-putting-it-together::doc}}
 To get a clear sense of the potential differences in performance
 between a pure functional program and an imperative program that
@@ -1582,8 +1585,812 @@ seem like little more than abstract nonsense and a distraction from
 the task of learning how to program.
 
 
-\chapter{Dafny Built-In Programming Abstractions}
-\label{\detokenize{06-dafny-abstractions:dafny-built-in-programming-abstractions}}\label{\detokenize{06-dafny-abstractions::doc}}
+\chapter{6. Boolean Logic}
+\label{\detokenize{06-boolean-logic::doc}}\label{\detokenize{06-boolean-logic:boolean-logic}}
+Logic is the study of the nature, forms, and processes of sound
+\sphinxstyleemphasis{inferential}, or \sphinxstyleemphasis{deductive}, reasoning. The earliest surviving
+results we have in logic are due to Aristotle. He understood sound
+reasoning to be reasoning in the form of \sphinxstyleemphasis{syllogisms}, or rules for
+correctly deducing \sphinxstyleemphasis{conclusions,} in the form of \sphinxstyleemphasis{propositions} about
+things, from \sphinxstyleemphasis{premises}, which are other other propositions that are
+either known or assumed to be true, so that if the premises are true,
+then \sphinxstyleemphasis{without any doubt it must necessarily be the case} that the
+conclusions are also true.
+
+Here is an example of a syllogistic argment. Premise 1: All people are
+mortal. Premise 2: Thomas Jefferson is a person. Conclusion: Thomas
+Jefferson (TJ) must be mortal. The reasoning is unassailable. If we
+accept the \sphinxstyleemphasis{premises} that every person in the set of all people is
+mortal, and that Thomas Jefferson is a person, then we can conclude
+with certainty TJ must also be mortal.
+
+Aristotle’s logic was based on a catalog of such syllogisms, or rules
+for deductive reasoning. Modern logic has evolve to use a mathematical
+style of writing and reasoning in. In modern, \sphinxstyleemphasis{symbolic} logic, we
+would document our argument using one of a few equivalent notations.
+
+Here’s one: \(\forall p \in person, mortal(p); TJ \in person
+\sststile{}{} mortal(TJ)\). To the left of the \sphinxstyleemphasis{turnstile} symbol,
+\(\sststile{}{}\), are two \sphinxstyleemphasis{premises} separated by a semicolon.
+The first says \sphinxstyleemphasis{all people are mortal}. More precisely, it could be
+pronounced like this: for all persons, \$p\$, in the set, \sphinxstyleemphasis{people}, \sphinxstyleemphasis{p}
+has the property of being \sphinxstyleemphasis{mortal}, \sphinxstyleemphasis{mortal(p)} is a true proposition.
+The second premise can be read as \sphinxstyleemphasis{TJ is a person}, or, TJ is \sphinxstyleemphasis{in} (is
+a \sphinxstyleemphasis{member} of) the set of people. The left side of the expression,
+before the turnstile, can now be read as “If you accept that (1) all
+people are mortal, and (2) TJ is a person….”  Next, can read the
+turnstile as, “… then you can deduce that….”  And, to the right of
+the turnstile is the conclusion, which you can read as “TJ is mortal.”
+The whole expression can be read like this: If you accept that all
+people are mortal and that TJ is a person, then you can conclude with
+certainty that TJ is mortal.”
+\begin{displaymath}
+   \prftree[r]{$\scriptstyle\supset\mathrm{I}$}
+   {\prftree[r]{$\scriptstyle\supset\mathrm{I}$}
+   {\prftree[r]{$\scriptstyle\supset\mathrm{E}$}
+   {\prfboundedassumption{A}}
+   {\prfboundedassumption{\neg A}}
+   {\bot}}
+   {\neg\neg A}}
+   {A \supset \neg\neg A}
+\end{displaymath}
+Sometimes a vertical rather than a horizonal notation is used to say
+the same thing. It would look like this.
+
+
+
+\begin{prooftree}
+\AxiomC{A}
+\AxiomC{B}
+\AxiomC{C}
+\TrinaryInfC{D}
+\end{prooftree}`
+
+Here’s a slightly different way to write it: :math:{\color{red}\bfseries{}{}`}H: person -\textgreater{} mortal;
+person(TJ) sststile\{\}\{\} mortal(TJ). You can read this like this: If we
+accept a hypothesis, \sphinxstyleemphasis{H}, that being a person implies being mortal, and
+if we accept that TJ is a person, then we can deduce that TJ is mortal.
+
+To the left of the
+\sphinxstyleemphasis{turnstile} symbol (\(\sststile{}{}\)) are two \sphinxstyleemphasis{premises},
+which is to say propositions that are known or assumed to be true,
+separated by a semicolon. The first says \sphinxstyleemphasis{all people are mortal}. More
+precisely, it can be read like this: for all persons, \$p\$, in the set,
+\sphinxstyleemphasis{people}, \sphinxstyleemphasis{p} has the property of being \sphinxstyleemphasis{mortal}. That is to say that
+\sphinxstyleemphasis{mortal(p)} is a true proposition for every \$p\$. The second premise
+can be read as \sphinxstyleemphasis{TJ is a person}, or, more precisely, TJ is \sphinxstyleemphasis{in} (is a
+\sphinxstyleemphasis{member} of) the set, people. The whole left side of the expression,
+before the turnstile, can then be read as “If you know or assume
+that (1) all people are mortal, and (2) TJ is a person….” Next, can
+read the turnstile as, “… then you can deduce that….” And finally,
+to the right of the turnstile is the conclusion, “TJ is mortal.” Thus
+the whole expression can be read as: If you accept that all people are
+mortal and that TJ is a person, then you can conclude with certainty
+that TJ is mortal.”
+
+Dafny natively supports a range of abstract data types akin to those
+found in widely used, industrial imperative programming languages and
+systems, such as Python and Java. In this chapter, we introduce and
+briefly illustrate the use of these types. The types we discuss are
+as follow:
+\begin{itemize}
+\item {} 
+bool, supporting Boolean algebra
+
+\item {} 
+int, nat, and real types, supporting \sphinxstyleemphasis{exact} arithmetic (unlike
+the numerical types found in most industrial languages
+
+\item {} 
+char, supporting character types
+
+\item {} 
+set\textless{}T\textgreater{} and iset\textless{}T\textgreater{}, polymorphic set theory for finite and infinite sets
+
+\item {} 
+seq\textless{}T\textgreater{} and iseq\textless{}T\textgreater{}, polymorphic finite and infinite sequences
+
+\item {} 
+string, supporting character sequences (with addtional helpful functions)
+
+\item {} 
+map\textless{}K,V\textgreater{} and imap\textless{}K,V\textgreater{}, polymorphic finite and infinite partial functions
+
+\item {} 
+array\textless{}T\textgreater{}, polymorphic 1- and multi-dimensional arrays
+
+\end{itemize}
+
+
+\section{Boolean Algebra}
+\label{\detokenize{06-boolean-logic:boolean-algebra}}
+\(always\_true: bool \rightarrow bool\)
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{12}|\X{6}{12}|}
+\hline
+
+\(P\)
+&
+\(True\)
+\\
+\hline
+true
+&
+true
+\\
+\hline
+false
+&
+true
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+\(always\_false: bool \rightarrow bool\)
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{12}|\X{6}{12}|}
+\hline
+
+\(P\)
+&
+\(False\)
+\\
+\hline
+true
+&
+false
+\\
+\hline
+false
+&
+false
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+\(id: bool \rightarrow bool\)
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{12}|\X{6}{12}|}
+\hline
+
+\(P\)
+&
+\(P\)
+\\
+\hline
+true
+&
+true
+\\
+\hline
+false
+&
+false
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+\(not: bool \rightarrow bool\)
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{12}|\X{6}{12}|}
+\hline
+
+\(P\)
+&
+\(\neg P\)
+\\
+\hline
+true
+&
+false
+\\
+\hline
+false
+&
+true
+\\
+\hline&\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+\(and: bool \rightarrow bool \rightarrow bool\)
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
+\hline
+
+\(P\)
+&
+\(Q\)
+&
+\(P \land Q\)
+\\
+\hline
+true
+&
+true
+&
+true
+\\
+\hline
+true
+&
+false
+&
+false
+\\
+\hline
+false
+&
+true
+&
+false
+\\
+\hline
+false
+&
+false
+&
+false
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+\(or: bool \rightarrow bool \rightarrow bool\)
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
+\hline
+
+\(P\)
+&
+\(Q\)
+&
+\(P \lor Q\)
+\\
+\hline
+true
+&
+true
+&
+true
+\\
+\hline
+true
+&
+false
+&
+true
+\\
+\hline
+false
+&
+true
+&
+true
+\\
+\hline
+false
+&
+false
+&
+false
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+\(nand: bool \rightarrow bool \rightarrow bool\)
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
+\hline
+
+\(P\)
+&
+\(Q\)
+&
+\(P \uparrow Q\)
+\\
+\hline
+true
+&
+true
+&
+false
+\\
+\hline
+true
+&
+false
+&
+true
+\\
+\hline
+false
+&
+true
+&
+true
+\\
+\hline
+false
+&
+false
+&
+true
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+\(nor: bool \rightarrow bool \rightarrow bool\)
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
+\hline
+
+\(P\)
+&
+\(Q\)
+&
+\(P \downarrow Q\)
+\\
+\hline
+true
+&
+true
+&
+false
+\\
+\hline
+true
+&
+false
+&
+false
+\\
+\hline
+false
+&
+true
+&
+false
+\\
+\hline
+false
+&
+false
+&
+true
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+\(xor: bool \rightarrow bool \rightarrow bool\)
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
+\hline
+
+\(P\)
+&
+\(Q\)
+&
+\(P \oplus Q\)
+\\
+\hline
+true
+&
+true
+&
+false
+\\
+\hline
+true
+&
+false
+&
+true
+\\
+\hline
+false
+&
+true
+&
+true
+\\
+\hline
+false
+&
+false
+&
+false
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+\(implies: bool \rightarrow bool \rightarrow bool\)
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
+\hline
+
+\(P\)
+&
+\(Q\)
+&
+\(P \rightarrow Q\)
+\\
+\hline
+true
+&
+true
+&
+true
+\\
+\hline
+true
+&
+false
+&
+false
+\\
+\hline
+false
+&
+true
+&
+true
+\\
+\hline
+false
+&
+false
+&
+true
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+\(follows: bool \rightarrow bool \rightarrow bool\)
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
+\hline
+
+\(P\)
+&
+\(Q\)
+&
+\(P \leftarrow Q\)
+\\
+\hline
+true
+&
+true
+&
+true
+\\
+\hline
+true
+&
+false
+&
+true
+\\
+\hline
+false
+&
+true
+&
+false
+\\
+\hline
+false
+&
+false
+&
+true
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+The bool abstract data type (ADT) in Dafny provides a bool data type
+with values, \sphinxstyleemphasis{true} and \sphinxstyleemphasis{false}, along with the Boolean operators that
+are supported by most programming langauges, along with a few that are
+not commonly supported by industrial programming languages and
+systems.
+
+Here’s a method that computes nothing useful and returns no values,
+but that illustrates the range of Boolean operators in Dafny. We also
+use the examples in this chapter to discuss a few other aspects of the
+Dafny language.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method BoolOps(a: bool) returns (r: bool)  // bool \PYGZhy{}\PYGZgt{} bool
+\PYGZob{}
+    var t: bool := true;    // explicit type declaration
+    var f := false;         // type inferred automatically
+    var not := !t;          // negation
+    var conj := t \PYGZam{}\PYGZam{} f;     // conjunction, short\PYGZhy{}circuit evaluation
+    var disj := t \textbar{}\textbar{} f;     // disjunction, short\PYGZhy{}circuit (sc) evaluation
+    var impl := t ==\PYGZgt{} f;    // implication, right associative, sc from left
+    var foll := t \PYGZlt{}== f;    // follows, left associative, sc from right
+    var equv := t \PYGZlt{}==\PYGZgt{} t;   // iff, bi\PYGZhy{}implication
+    return true;            // returning a Boolean value
+ \PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\section{Arithmetic}
+\label{\detokenize{06-boolean-logic:arithmetic}}
+Methods aren’t required to return results. Such methods do their jobs
+by having side effects, e.g., doing output or writing data into global
+variables (usually a bad idea).  Here’s a method that doesn’t return a
+value. It illustrates numerical types, syntax, and operations.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method NumOps()
+\PYGZob{}
+    var r1: real := 1000000.0;
+    var i1: int := 1000000;
+    var i2: int := 1\PYGZus{}000\PYGZus{}000;   // underscores for readiability
+    var i3 := 1\PYGZus{}000;            // Dafny can often infer types
+    var b1 := (10 \PYGZlt{} 20) \PYGZam{}\PYGZam{} (20 \PYGZlt{}= 30); // a boolean expression
+    var b2 := 10 \PYGZlt{} 20 \PYGZlt{}= 30;    // equivalent, with \PYGZdq{}chaining\PYGZdq{}
+    var i4: int := (5.5).Floor; // 5
+    var i5 := (\PYGZhy{}2.5).Floor;     // \PYGZhy{}3
+    var i6 := \PYGZhy{}2.5.Floor;        // \PYGZhy{}2 = \PYGZhy{}(2.5.Floor); binding!
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\section{Characters}
+\label{\detokenize{06-boolean-logic:characters}}
+Characters (char) are handled sort of as they are in C, etc.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method CharFun()
+\PYGZob{}
+    var c1: char := \PYGZsq{}a\PYGZsq{};
+    var c2 := \PYGZsq{}b\PYGZsq{};
+    // var i1 := c2 \PYGZhy{} c1;
+    var i1 := (c2 as int) \PYGZhy{} (c1 as int);    // type conversion
+    var b1 := c1 \PYGZlt{} c2;  // ordering operators defined for char
+    var c3 := \PYGZsq{}\PYGZbs{}n\PYGZsq{};     // c\PYGZhy{}style escape for non\PYGZhy{}printing chars
+    var c4 := \PYGZsq{}\PYGZbs{}u265B\PYGZsq{}; // unicode, hex, \PYGZdq{}chess king\PYGZdq{} character
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+To return a value from a method, assign to the return parameter
+Note: functions have colon then return type, whereas methods
+use the “returns” keyword with a return parameter list
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method ReturnExample() returns (retval: int)
+\PYGZob{}
+    retval := 10;
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+Methods can return multiple values.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method ReturnExample2() returns (x: int, y:int)
+\PYGZob{}
+    x := 10;
+    y := 20;
+\end{sphinxVerbatim}
+
+\}
+
+The return keyword can be used to return immediatey
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method ReturnExample3() returns (x: int)
+\PYGZob{}
+    x := 5;     // don\PYGZsq{}t \PYGZdq{}var\PYGZdq{} decare return variable
+    return;     // return immediately
+    x := 6;     // never gets executed
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\section{Set Theory}
+\label{\detokenize{06-boolean-logic:set-theory}}
+Polymorphic finite and infinite set types:
+set\textless{}T\textgreater{} and iset\textless{}T\textgreater{}. T must support equality.
+Values of these types are immutable.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method SetPlay()
+\PYGZob{}
+    var empty: set\PYGZlt{}int\PYGZgt{} := \PYGZob{}\PYGZcb{};
+    var primes := \PYGZob{}2, 3, 5, 7, 11\PYGZcb{};
+    var squares := \PYGZob{}1, 4, 9, 16, 25\PYGZcb{};
+    var b1 := empty \PYGZlt{} primes;    // strict subset
+    var b2 := primes \PYGZlt{}= primes;   // subset
+    var b3: bool := primes !! squares; // disjoint
+    var union := primes + squares;
+    var intersection := primes * squares;
+    var difference := primes \PYGZhy{} \PYGZob{}3, 5\PYGZcb{};
+    var b4 := primes == squares;    // false
+    var i1 := \textbar{} primes \textbar{};   // cardinality (5)
+    var b5 := 4 in primes;  // membership (false)
+    var b6 := 4 !in primes; // non\PYGZhy{}membership
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\section{Sequences}
+\label{\detokenize{06-boolean-logic:sequences}}
+Polymorphic sequences (often called “lists”): seq\textless{}T\textgreater{}. These can be
+understood as functions from indices to values. Some of the operations
+require that T support equality. Values of this type are immutable.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method SequencePlay()
+\PYGZob{}
+    var empty\PYGZus{}seq: seq\PYGZlt{}char\PYGZgt{} := [];
+    var hi\PYGZus{}seq: seq\PYGZlt{}char\PYGZgt{} := [\PYGZsq{}h\PYGZsq{}, \PYGZsq{}i\PYGZsq{}];
+    var b1 := hi\PYGZus{}seq == empty\PYGZus{}seq; // equality; !=
+    var hchar := hi\PYGZus{}seq[0];        // indexing
+    var b2 := [\PYGZsq{}h\PYGZsq{}] \PYGZlt{} hi\PYGZus{}seq;   // proper prefix
+    var b3 := hi\PYGZus{}seq \PYGZlt{} hi\PYGZus{}seq;  // this is false
+    var b4 := hi\PYGZus{}seq \PYGZlt{}= hi\PYGZus{}seq; // prefix, true
+    var sum := hi\PYGZus{}seq + hi\PYGZus{}seq; // concatenation
+    var len := \textbar{} hi\PYGZus{}seq \textbar{};
+    var Hi\PYGZus{}seq := hi\PYGZus{}seq[0 := \PYGZsq{}H\PYGZsq{}]; // update
+    var b5 := \PYGZsq{}h\PYGZsq{} in hi\PYGZus{}seq; // member, true, !in
+    var s := [0,1,2,3,4,5];
+    var s1 := s[0..2];  // subseqence
+    var s2 := s[1..];   // \PYGZdq{}drop\PYGZdq{} prefix of len 1
+    var s3 := s[..2];   // \PYGZdq{}take\PYGZdq{} prefix of len 2
+    // there\PYGZsq{}s a slice operator, too; later
+ \PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\section{Character Strings}
+\label{\detokenize{06-boolean-logic:character-strings}}
+Dafny has strings. Strings are literally just sequences of characters
+(of type seq\textless{}char\textgreater{}), so you can use all the sequence operations on
+strings.  Dafny provides additional helpful syntax for strings.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method StringPlay()
+ \PYGZob{}
+     var s1: string := \PYGZdq{}Hello CS2102!\PYGZdq{};
+     var s2 := \PYGZdq{}Hello CS2102!\PYGZbs{}n\PYGZdq{};   // return
+     var s3 := \PYGZdq{}\PYGZbs{}\PYGZdq{}Hello CS2102!\PYGZbs{}\PYGZdq{}\PYGZdq{}; // quotes
+ \PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\section{Partial Functions (Maps)}
+\label{\detokenize{06-boolean-logic:partial-functions-maps}}
+Dafny also supports polymorphic maps, both finite (map\textless{}K,V\textgreater{}) and
+infinite (imap\textless{}K,V\textgreater{}).  The key type, K, must support equality (==).
+In mathematical terms, a map really represents a binary relation,
+i.e., a set of \textless{}K,V\textgreater{} pairs, which is to say a subset of the product
+set, K * V, where we view the types K and V as defining sets of
+values.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method MapPlay()
+\PYGZob{}
+    // A map literal is keyword map + a list of maplets.
+    // A maplet is just a single \PYGZlt{}K,V\PYGZgt{} pair (or \PYGZdq{}tuple\PYGZdq{}).
+    // Here\PYGZsq{}s an empty map from strings to ints
+    var emptyMap: map\PYGZlt{}string,int\PYGZgt{} := map[];
+
+    // Here\PYGZsq{}s non empty map from strings to ints
+    // A maplet is \PYGZdq{}k := v,\PYGZdq{} k and v being of types K and V
+    var aMap: map\PYGZlt{}string,int\PYGZgt{}  := map[\PYGZdq{}Hi\PYGZdq{} := 1, \PYGZdq{}There\PYGZdq{} := 2];
+
+    // Map domain (key) membership
+    var isIn: bool := \PYGZdq{}There\PYGZdq{} in aMap; // true
+    var isntIn := \PYGZdq{}Their\PYGZdq{} !in aMap;    // true
+
+    // Finite map cardinality (number of maplets in a map)
+    var card := \textbar{}aMap\textbar{};
+
+    //Map lookup
+    var image1 := aMap[\PYGZdq{}There\PYGZdq{}];
+    // var image2 := aMap[\PYGZdq{}Their\PYGZdq{}]; // error! some kind of magic
+    var image2: int;
+    if (\PYGZdq{}Their\PYGZdq{} in aMap) \PYGZob{} image2 := aMap[\PYGZdq{}Their\PYGZdq{}]; \PYGZcb{}
+
+    // map update, maplet override and maplet addition
+    aMap := aMap[\PYGZdq{}There\PYGZdq{} := 3];
+    aMap := aMap[\PYGZdq{}Their\PYGZdq{} := 10];
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\section{Arrays}
+\label{\detokenize{06-boolean-logic:arrays}}
+Dafny supports arrays. Here’s we’ll see simple 1-d arrays.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method ArrayPlay()
+\PYGZob{}
+    var a := new int[10]; // in general: a: array\PYGZlt{}T\PYGZgt{} := new T[n];
+    var a\PYGZsq{} := new int[10];   // type inference naturally works here
+    var i1 := a.Length;      // Immutable \PYGZdq{}Length\PYGZdq{} member holds length of array
+    a[3] := 3;           // array update
+    var i2 := a[3];          // array access
+    var seq1 := a[3..8];    // take first 8, drop first 3, return as sequence
+    var b := 3 in seq1;     // true! (see sequence operations)
+    var seq2 := a[..8];     // take first 8, return rest as sequence
+    var seq3 := a[3..];     // drop first 3, return rest as sequence
+    var seq4 := a[..];      // return entire array as a sequence
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+Arrays, objects (class instances), and traits (to be discussed) are of
+“reference” types, which is to say, values of these types are stored
+on the heap. Values of other types, including sets and sequences, are
+of “value types,” which is to say values of these types are stored on
+the stack; and they’re thus always treated as “local” variables. They
+are passed by value, not reference, when passed as arguments to
+functions and methods. Value types include the basic scalar types
+(bool, char, nat, int, real), built-in collection types (set,
+multiset, seq, string, map, imap), tuple, inductive, and co-inductive
+types (to be discussed).  Reference type values are allocated
+dynamically on the heap, are passed by reference, and therefore can be
+“side effected” (mofified) by methods to which they are passed.
+
+
+\chapter{6. Dafny Built-In Programming Abstractions}
+\label{\detokenize{06-dafny-abstractions::doc}}\label{\detokenize{06-dafny-abstractions:dafny-built-in-programming-abstractions}}
 Dafny natively supports a range of abstract data types akin to those
 found in widely used, industrial imperative programming languages and
 systems, such as Python and Java. In this chapter, we introduce and
@@ -1620,6 +2427,444 @@ array\textless{}T\textgreater{}, polymorphic 1- and multi-dimensional arrays
 
 \section{Boolean Algebra}
 \label{\detokenize{06-dafny-abstractions:boolean-algebra}}
+\(always\_true: bool \rightarrow bool\)
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{12}|\X{6}{12}|}
+\hline
+
+\(P\)
+&
+\(True\)
+\\
+\hline
+true
+&
+true
+\\
+\hline
+false
+&
+true
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+\(always\_false: bool \rightarrow bool\)
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{12}|\X{6}{12}|}
+\hline
+
+\(P\)
+&
+\(False\)
+\\
+\hline
+true
+&
+false
+\\
+\hline
+false
+&
+false
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+\(id: bool \rightarrow bool\)
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{12}|\X{6}{12}|}
+\hline
+
+\(P\)
+&
+\(P\)
+\\
+\hline
+true
+&
+true
+\\
+\hline
+false
+&
+false
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+\(not: bool \rightarrow bool\)
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{12}|\X{6}{12}|}
+\hline
+
+\(P\)
+&
+\(\neg P\)
+\\
+\hline
+true
+&
+false
+\\
+\hline
+false
+&
+true
+\\
+\hline&\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+\(and: bool \rightarrow bool \rightarrow bool\)
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
+\hline
+
+\(P\)
+&
+\(Q\)
+&
+\(P \land Q\)
+\\
+\hline
+true
+&
+true
+&
+true
+\\
+\hline
+true
+&
+false
+&
+false
+\\
+\hline
+false
+&
+true
+&
+false
+\\
+\hline
+false
+&
+false
+&
+false
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+\(or: bool \rightarrow bool \rightarrow bool\)
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
+\hline
+
+\(P\)
+&
+\(Q\)
+&
+\(P \lor Q\)
+\\
+\hline
+true
+&
+true
+&
+true
+\\
+\hline
+true
+&
+false
+&
+true
+\\
+\hline
+false
+&
+true
+&
+true
+\\
+\hline
+false
+&
+false
+&
+false
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+\(nand: bool \rightarrow bool \rightarrow bool\)
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
+\hline
+
+\(P\)
+&
+\(Q\)
+&
+\(P \uparrow Q\)
+\\
+\hline
+true
+&
+true
+&
+false
+\\
+\hline
+true
+&
+false
+&
+true
+\\
+\hline
+false
+&
+true
+&
+true
+\\
+\hline
+false
+&
+false
+&
+true
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+\(nor: bool \rightarrow bool \rightarrow bool\)
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
+\hline
+
+\(P\)
+&
+\(Q\)
+&
+\(P \downarrow Q\)
+\\
+\hline
+true
+&
+true
+&
+false
+\\
+\hline
+true
+&
+false
+&
+false
+\\
+\hline
+false
+&
+true
+&
+false
+\\
+\hline
+false
+&
+false
+&
+true
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+\(xor: bool \rightarrow bool \rightarrow bool\)
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
+\hline
+
+\(P\)
+&
+\(Q\)
+&
+\(P \oplus Q\)
+\\
+\hline
+true
+&
+true
+&
+false
+\\
+\hline
+true
+&
+false
+&
+true
+\\
+\hline
+false
+&
+true
+&
+true
+\\
+\hline
+false
+&
+false
+&
+false
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+\(implies: bool \rightarrow bool \rightarrow bool\)
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
+\hline
+
+\(P\)
+&
+\(Q\)
+&
+\(P \rightarrow Q\)
+\\
+\hline
+true
+&
+true
+&
+true
+\\
+\hline
+true
+&
+false
+&
+false
+\\
+\hline
+false
+&
+true
+&
+true
+\\
+\hline
+false
+&
+false
+&
+true
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+\(follows: bool \rightarrow bool \rightarrow bool\)
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
+\hline
+
+\(P\)
+&
+\(Q\)
+&
+\(P \leftarrow Q\)
+\\
+\hline
+true
+&
+true
+&
+true
+\\
+\hline
+true
+&
+false
+&
+true
+\\
+\hline
+false
+&
+true
+&
+false
+\\
+\hline
+false
+&
+false
+&
+true
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
 The bool abstract data type (ADT) in Dafny provides a bool data type
 with values, \sphinxstyleemphasis{true} and \sphinxstyleemphasis{false}, along with the Boolean operators that
 are supported by most programming langauges, along with a few that are

@@ -1,5 +1,6 @@
-Logical Specifications, Imperative Implementations
-==================================================
+*****************************************************
+2. Logical Specifications, Imperative Implementations
+*****************************************************
 
 We've discussed requirements, specifications, and implementations as
 distinct artifacts that serve distinct purposes. For good reasons,
@@ -18,7 +19,7 @@ the educated computer scientist and the capable software developer
 must be fluent in the language of mathematical logic.
 
 Imperative Languages for Implementations
-----------------------------------------
+========================================
 
 The language of implementations is code, usually written in what we
 call an *imperative* programming language. Examples of such languages
@@ -73,7 +74,7 @@ of an updateable memory is at the very heart of the imperative model
 of computation.
 
 Declarative Languages for Specifications
-----------------------------------------
+========================================
 
 The language of formal requirements and specifications, on the other
 hand, is not imperative code but *declarative* logic.  Expressions in
@@ -162,7 +163,7 @@ the language of mathematical logic (at least not in a practical way).
 
 
 Refining Declarative Specifications into Imperative Implementations
--------------------------------------------------------------------
+===================================================================
 
 The solution is to *refine* our declarative specification, written in
 the language of mathematical logic, into a computer program, written
@@ -268,7 +269,7 @@ of Computing Surveys. You can find it online.
 
 
 Why Not a Single Language for Programming and Specification?
-------------------------------------------------------------
+============================================================
 
 The dichotomy between specification logic and implementation code
 raises an important question? Why not just design a single language
