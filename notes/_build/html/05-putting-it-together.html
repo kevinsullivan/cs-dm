@@ -51,9 +51,20 @@
             
   <div class="section" id="formal-verification-of-imperative-programs">
 <h1>5. Formal Verification of Imperative Programs<a class="headerlink" href="#formal-verification-of-imperative-programs" title="Permalink to this headline">¶</a></h1>
+<p>In this chapter, we first elaborate on the idea that pure functional
+programming make for mathematically clear but potentially inefficient
+specifications, while imperative code makes for efficient code but is
+hardly clear as to its purpose, and is thus hard to reason about. To
+get the benefits of both, we use functional programming to write key
+parts of specifications for imperative code, and then we use tools or
+manual methods to <em>prove</em> that the imperative code does what such a
+speification requires.</p>
+<div class="section" id="performance-vs-undertandability">
+<h2>Performance vs. Undertandability<a class="headerlink" href="#performance-vs-undertandability" title="Permalink to this headline">¶</a></h2>
 <p>To get a clearer sense of the potential differences in performance
 between a pure functional program and an imperative program that
-compute the same function, consider our recursive definition of the
+compute the same function, and tradeoffs one makes between clarity of
+intent and execution speed, consider our recursive definition of the
 Fibonacci function.</p>
 <p>We start off knowing that if the argument to the function, <em>n</em>, is <em>0</em>
 or <em>1</em>, the value of the function for that <em>n</em> is just <em>n</em> itself.  In
@@ -148,131 +159,185 @@ it recursively, grows at what turns out to be a rate <em>exponential</em> in
 <em>n</em>, with an exponent of about <em>1.6</em>. Increasing <em>n</em> by <em>1</em> doesn’t
 just add a little to the cost; it almost doubles it (multiplying it by
 a factor of <em>1.6</em>).</p>
-<p>No matter how small the exponent, exponential functions eventually
-grow very large very quickly. In fact, in the limit, any exponential
-function (with any exponent greater than one) grows faster than any
-polynomial function no matter how high in rank and no matter how large
-its coefficients are. The exponential-in-<em>n</em> cost of our beautiful but
-inefficient functional program grows far faster than the cost of our
-ugly but efficient imperative program as we increase <em>n</em>.  For any
-even modestly large value of <em>n</em> (e.g., greater than 50 or so), it
-will be impractical to use the pure functional program, whereas the
-imperative program will run quickly for values of <em>n</em> in the millions.
-What eventually slows it down is not the number of additions that it
-has to do but the sizes of the numbers that it has to add.</p>
+<p>No matter how small the exponent (with any exponent greater than one),
+exponential functions eventually grow very quickly. In the limit, any
+exponential function grows faster than any polynomial no matter how
+high in rank it is and no matter how large its coefficients are.</p>
+<p>The exponential-in-<em>n</em> cost of our clear but inefficient functional
+program grows far faster than the cost of our ugly but efficient
+imperative program as we increase <em>n</em>.  For any even modestly large
+value of <em>n</em> (e.g., greater than 50 or so), it will be impractical to
+use the pure functional program, whereas the imperative program will
+reasonably run quickly even on a small personal computer for values of
+<em>n</em> well into in the millions.  What eventually slows it down is not
+the number of additions that it has to do but the sizes of the numbers
+that it has to add.</p>
 <p>You can already see that the cost to compute <em>fib(n)</em> recursively for
 values of <em>n</em> larger than just ten or so is much greater than the cost
 to compute it iteratively. Our mathematical/functional definition is
-clear but inefficient. The imperative program is efficient, but not at
-all transparent as to its function. We need the latter program for
-practical computation. But how do we ensure that hard to understand
-imperative code implements the same function that we expressed so
-elegantly in mathematical logic?</p>
+clear (“intellectually tractable”) but inefficient. The imperative
+program, on the other hand, is efficient, but not at all transparent.
+We need the latter program for practical computation. But how do we
+ensure that it implements the same function that we expressed in our
+elegant mathematical definition?</p>
+</div>
+<div class="section" id="specification-implementation-and-verification">
+<h2>Specification, Implementation, and Verification<a class="headerlink" href="#specification-implementation-and-verification" title="Permalink to this headline">¶</a></h2>
 <p>We address such problems by combining a few ideas. First, we use
-logic, including functional programming, to express <em>declarative</em>
-specifications that precisely define <em>what</em> a given imperative program
-must do, and in particular what results it must return as a function
-of the arguements it received, without saying how the computation
+logic, including mathematical specifications written in part using
+functional programming, to express <em>declarative</em> specifications.  Such
+specification precisely define <em>what</em> a given imperative program must
+compute, and in particular what results it must return as a function
+of the arguements it receives, without saying <em>how</em> the computation
 should be done.</p>
 <p>We can use functions defined in the pure functional programming style
 as parts of specifications, e.g., as giving a mathematical definition
 of the <em>factorial</em> function that an imperative program will then have
 to implement.</p>
-<p>Second, we implement the specified program in an imperative language
-in a way that supports logical reasoning about its behavior. For
-example, we have to specify not only the desired relationship between
-argument and result values, but also how loops are designed to work in
-our code; and we need to design loops in ways that make it easier to
-explain in formal logic how they do what they are meant to do.</p>
+<p>Second, we implement the specified program in an imperative language.
+Ideally we do so in a way that supports logical reasoning about its
+behavior. For example, we have to specify not only the relationship
+between argument and result values that are required, but also how
+loops are designed to work in our code. We then need to design loops
+in ways that make it easier to explain, in formal logic, how they do
+what they are meant to do.</p>
 <p>Finally, we use logical proofs to <em>verify</em> that the program satisifies
-its specification. Later in this course, we’ll see how to produce
-those proofs ourselves. For now we’ll be satisfied to let Dafny
-generate them for us!</p>
-<p>We develop these idea in this chapter. First we explain how formal
-specifications in mathematical logic for imperative programs are often
-organized. Next we explore how writing imperative programs without the
-benefits of specification languages and verifications tools can make
-it hard to spot bugs in code. Next we enhance our implementation of
-the factorial function with specifications, show how Dafny flags the
-bug, and fix out program. Doing this requires that we deepen the way
-we understand loops. We end with a detailed presentation of the design
-and verification of an imperative program to compute elements in the
-Fibonacci sequence. Given any natural number <em>n</em>, our program must
-return the value of <em>fib(n)</em>, but it must also do it efficiently.  The
-careful design of a loop is once again the heart of the problem.  We
-will see how Dafny can help us to reason rigorously about loops, and
-that, with just a bit of help, it can reason about them for us.</p>
-<div class="section" id="logical-specification">
-<h2>Logical Specification<a class="headerlink" href="#logical-specification" title="Permalink to this headline">¶</a></h2>
+its specification. Later in this course, we’ll see how to create such
+proofs ourselves. For now we’ll be happy to let Dafny generate them
+for us mostly automatically!</p>
+<p>The rest of this chapter develops these ideas in more depth with
+concrete examples.  First we explain how formal specifications in
+mathematical logic for imperative programs are often organized. Next
+we explore how writing imperative programs without the benefits of
+specification languages and verifications tools can make it hard to
+spot bugs in code. Next we enhance our implementation of the factorial
+function with specifications, show how Dafny flags the bug, and fix
+the program. Doing this requires that we deepen the way we understand
+loops. We end with a detailed presentation of the verification of an
+imperative program to compute values in the Fibonacci sequence. Given
+any natural number <em>n</em>, our program must return the value of <em>fib(n)</em>,
+but it must also do it efficiently.  The design and precise, logical
+description of key properties of a loop is once again the heart of the
+problem.  We will see how Dafny can help us to reason rigorously about
+loops, and that giving it a little help enables it to reason about
+them for us.</p>
+</div>
+<div class="section" id="declarative-input-output-specifications">
+<h2>Declarative Input-Output Specifications<a class="headerlink" href="#declarative-input-output-specifications" title="Permalink to this headline">¶</a></h2>
 <p>First, we use mathematical logic to <em>declaratively specify</em> properties
 of the behaviors that we require of programs written in <em>imperative</em>
-languages. For example, we might require that, when given <em>any</em> natural
-number, <em>n</em>, a program compute and return the value of the <em>factorial</em>
-of <em>n</em>, the mathematical definition of which we’ve given as <em>fact(n)</em>.</p>
+languages. For example, we might require that, when given <em>any</em>
+natural number, <em>n</em>, a program compute and return the value of the
+<em>factorial</em> of <em>n</em>, the mathematical definition of which we’ve given
+as <em>fact(n)</em>.  In general, we want to specify how the results returned
+by an imperative program relate to the arguments on which it was run.
+We call such a specification an <em>input-output</em> specification. (Here
+we ignore <em>side-effect</em> behaviors such as reading from and writing
+to input and output devices.)</p>
 <p>Specifications about required relationships between argument values
-and return results are especially important. They specify <em>what</em> a
-program must compute without specifying how. Specifications are thus
-<em>abstract</em>: they omit <em>implementation details</em>, leaving it to the
-programmer to decide how best to <em>refine</em> the specification into a
-working imperative program.</p>
+and return results specify <em>what</em> a program must compute without
+specifying how it should be done. Specifications are thus <em>abstract</em>:
+they omit <em>implementation details</em>, leaving it to the programmer to
+decide how best to <em>refine</em> the specification into efficient code.</p>
 <p>For example we might specify that a program (1) must accept any
 integer valued argument greater than or equal to zero (a piece of a
 specification that we call a <em>precondition</em>), and (2) that as long as
 the precondition holds, then it must return the factorial of the given
 argument value (a <em>postcondition</em>).</p>
+<div class="section" id="input-output-relations">
+<h3>Input-Output Relations<a class="headerlink" href="#input-output-relations" title="Permalink to this headline">¶</a></h3>
 <p>In purely mathematical terms, a specification of this kind defines a
-<em>binary relation</em> between argument and return values, and imposes on
-the program a requirement that whenever it is given the first value in
-such a pair, it must compute a second value so that the pair,
-<img class="math" src="_images/math/bddd3d2fcb301909d7a30a542aed27eb9c6200dd.png" alt="(first value, second value)"/>, is in the specified relation.</p>
-<p>A binary relation in ordinary mathematics is just a set of pairs of
-values. A function is a special binary relation with at most one pair
-with a given first value. A function is said to be a <em>single-valued</em>
-relation.</p>
-<p>For example, pairs of non-negative integers in the relation that
-constitutes the factorial function include <img class="math" src="_images/math/ae62edf814c717fd922732ed256516f6009975b7.png" alt="(0,1), (1,1), (2,2),
-(3,6), (4,24)"/> and <img class="math" src="_images/math/0f4f7855d834c15ad6f85cc5827f03a4962d7578.png" alt="(5,120)"/>, but not <img class="math" src="_images/math/c2f82a5bbb7c3901dbbe16f0095f1d4f5a18ded8.png" alt="(5,25)"/>. Some of
-the pairs in the relation defining the Fibonacci function are
-<img class="math" src="_images/math/acdc60ccbd22cdd08adb564629e04b8e0e63116a.png" alt="\{ (0,0), (1,1), (2,1), (3,2), (5,3), (6,5), \ldots"/>. These
-relations are also <em>functions</em> because there is <em>at most</em> one pair
-with a given first element. The functions are also said to be <em>total</em>
-because for <em>every</em> natural number, there is a pair with that number
-as its first element.</p>
-<p>On the other hand, square root is a <em>relation</em> on the real numbers but
-not a <em>function</em>, because it is not singled valued. Both <img class="math" src="_images/math/1b7acb805a656ce4ef94682e2801da6877ec5377.png" alt="(4,2)"/>
-and <img class="math" src="_images/math/d07699891d863d384e38bd636bdd5b9acbb15e7a.png" alt="(4,-2)"/>, distinct pairs with the same first element are
-both in the relation. That is because both <em>2</em> and <em>-2</em> are square
-roots of <em>4</em>. We also note that the square root relation <em>on the real
-numbers</em> is <em>partial</em> rather than total, in that it is not defined for
-some elements of the real numbers (for any that are negative).  The
-<em>non-negative square root</em> relation, on the other hand, is a function,
-comprising only those pairs in the square root relation where both
-elements are non-negative. It includes the pair, <img class="math" src="_images/math/1b7acb805a656ce4ef94682e2801da6877ec5377.png" alt="(4,2)"/> but not
-<img class="math" src="_images/math/d07699891d863d384e38bd636bdd5b9acbb15e7a.png" alt="(4,-2)"/>. Viewed as a relation on the <em>non-negative</em> reals, it
-is also a total function.</p>
-<p>We could re-formulate the square root <em>relation</em> as a <em>function</em> in a
-different way: by viewing it as a relation that associates with each
-non-negative integer the single <em>set</em> of its square roots. The pair
-<img class="math" src="_images/math/7be00c356e44a98838dccb8316098b269b5f09ee.png" alt="(4, \{2, -2\}"/> is in this relation, for example. The relation
-is now also a function in that there is only one such pair with a
-given first element. We could even extend the relation to negative
-values by returning an empty set as the result of the application
-of the function to a negative number.</p>
-<p>Now it should be clear when we say colloquially that a program
-<em>computes a function or a relation</em>. Whenever it is given a valid
-argument representing the <em>first</em> value of a pair in the relation, it
-computes a <em>second</em> value such that the pair, <img class="math" src="_images/math/f740fbbb0fac5ec5c0233d4402773184a07ddd90.png" alt="(first, second)"/>
-is in the given relation. When we say, for example, that a program
-<em>computes the factorial function</em>, we mean that if we give it a
-non-negative number, <em>n</em>, it returns a number <em>m</em> such that the pair
-<em>(n,m)</em> is <em>in</em> the relation. And for <em>(n,m)</em> to be in the relation it
-must be that <img class="math" src="_images/math/ecefb159f55afb2d10579e24bafdc9448c0a0090.png" alt="m = fact(n)"/>. Given, <em>n</em>, such a program thus has
-to return <img class="math" src="_images/math/81d4171a788af9ec16c0d560ce8574dbc60fd5da.png" alt="fact(n)"/>. A program that computes a <em>function</em> is
-deterministic, in the sense that it can return at most one result:
-because there is at most one result.</p>
+<em>binary relation</em> between argument (input) and return (output) values,
+and imposes on the program a requirement that whenever it is given the
+first value in such an <em>input-output</em> pair, it must compute a second
+(output) value so that the pair, <img class="math" src="_images/math/9e7007b18642212aa4d9de61039343b1b9b87423.png" alt="(input, output)"/>, is in the
+specified relation.</p>
 </div>
-<div class="section" id="rigorous-implementation">
-<h2>Rigorous Implementation<a class="headerlink" href="#rigorous-implementation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="relations-and-functions">
+<h3>Relations and Functions<a class="headerlink" href="#relations-and-functions" title="Permalink to this headline">¶</a></h3>
+<p>A binary relation in ordinary mathematics is just a set of pairs of
+values. A function is a binary relation with at most one pair with a
+given first value. A function is a <em>single-valued</em> relation. What we
+often need to specify, in particular, is an input-output <em>function</em>.</p>
+<p>For example, pairs in the factorial relation include <img class="math" src="_images/math/8d5089934a4e6dafe42a3a178647872ce0e7ae39.png" alt="(0,1),
+(1,1), (2,2), (3,6), (4,24)"/> and <img class="math" src="_images/math/0f4f7855d834c15ad6f85cc5827f03a4962d7578.png" alt="(5,120)"/>, but not the pair
+<img class="math" src="_images/math/c2f82a5bbb7c3901dbbe16f0095f1d4f5a18ded8.png" alt="(5,25)"/>. Some of the pairs in the Fibonacci relation include
+<img class="math" src="_images/math/dd98235f46a359bfedc58a2654909fde09c0f099.png" alt="\{ (0,0), (1,1), (2,1), (3,2), (5,3)"/> and <em>(6,5)</em>. These
+relations are also <em>functions</em> because there is <em>at most</em> one pair
+with a given first element. Finally, these functions are also said to
+be <em>total</em> because for <em>every</em> natural number, there is a pair with
+that number as its first element.</p>
+<p>On the other hand, square root is a <em>relation</em>, a set of pairs of real
+numbers, but not a <em>function</em>, because it is not singled valued. Both
+of the pairs, <img class="math" src="_images/math/1b7acb805a656ce4ef94682e2801da6877ec5377.png" alt="(4,2)"/> and <img class="math" src="_images/math/d07699891d863d384e38bd636bdd5b9acbb15e7a.png" alt="(4,-2)"/>, which are distinct but
+have same first element, are in the relation. That is so because both
+<em>2</em> and <em>-2</em> are square roots of <em>4</em>.</p>
+</div>
+<div class="section" id="total-and-partial-functions">
+<h3>Total and Partial Functions<a class="headerlink" href="#total-and-partial-functions" title="Permalink to this headline">¶</a></h3>
+<p>We also note that the square root relation <em>on the real numbers</em> is
+what we call <em>partial</em> rather than total: in that it is not defined
+for some real numbers. In particular, it is not defined for (i.e., it
+does not have any pairs where the first element is) any negative real
+number.</p>
+</div>
+<div class="section" id="turning-partial-functions-into-total-functions">
+<h3>Turning Partial Functions into Total Functions<a class="headerlink" href="#turning-partial-functions-into-total-functions" title="Permalink to this headline">¶</a></h3>
+<p>Partial functions and non-function relations both present problems for
+programmers. Let’s first consider relations that sometimes have <em>more</em>
+than one value of a given type for a given argument. What value should
+a program return?</p>
+<p>The square root function is a good example. Given a positive argument
+there will be <em>two</em> square roots, one positive and one negative. If
+the function is require to return a single number as an answer, which
+one should it return?</p>
+<p>There is really no good answer. Rather, the solution is usually to
+change the program specification slightly. For example, rather than
+promising to return <em>the</em> square root (a concept that is not well
+defined when there are two square roots for the same number) such a
+program might promise to return the non-negative square root, of which
+there is always just one (given a non-negative argument. What we have
+done here is to implement a different relation, and one that is now
+also a function.</p>
+<p>A different way to re-formulate the square root <em>relation</em> as a
+<em>function</em> would be to view it as returning a single <em>set</em> of values
+as a result: a set containing all of the square roots of a given
+argument.  The pair <img class="math" src="_images/math/7be00c356e44a98838dccb8316098b269b5f09ee.png" alt="(4, \{2, -2\}"/> is in this relation, for
+example, and the relation is also a function in that there is only one
+such pair with any given first element.</p>
+<p>So far we have dealt with the situation where a relation holds more
+than one result for a given argument. The other difficult situation
+occurs when there is no result or a given argument, i.e., when the
+function or relation is undefined for some argument values. What
+should a program return then?</p>
+<p>Once again, there’s no good answer. Rather, we generally tweak the
+specification to require the implementation of a slightly different
+relation. One approach would be to narrow the domain of values that
+the <em>program</em> can take to the domain on which the actual mathematical
+function is defined. So instead of specifying a square root function
+as taking any real number, we could speficy that it requires that an
+argument value be non-negative. When we add such a precondition to a
+method or function specification in Daphy, the effect is that Dafny
+checks every place in the code where the method or function is called
+to verify that the argument values satisfy that pre-condition.</p>
+<p>Alternately, we might “tweak” the type of the return value, so that
+the program can return some value of the promised type, even if the
+underlying mathematical function is not defined for the arguments. So,
+for example, if instead of promising to return a single number as a
+square root we promise to return a set of numbers, then in cases where
+the function is undefined, we just return the empty set of numbers.
+In this case, the empty set as a return value can be interpreted as
+signifying that no numerical answer could be returned.</p>
+<p>Finally, in languages such as Java and Python, when a program
+encounters a state where a valid value cannot be computed and
+returned, it can invoke an error handling routine to take some kind of
+“exceptional” action. This is the purpose of exceptions in Java,
+Python, etc. We will not entertain the use of exceptions in this
+course.</p>
+</div>
+</div>
+<div class="section" id="imperative-implementation">
+<h2>Imperative Implementation<a class="headerlink" href="#imperative-implementation" title="Permalink to this headline">¶</a></h2>
 <p>Having written a formal specification of the required <em>input-output</em>
 behavior of a program, we next write imperative code in a manner, and
 in a language, that supports the use of formal logic to <em>reason</em> about
@@ -303,17 +368,20 @@ call this property <em>partial correctness</em>.</p>
 <p>We write the proposition that <em>C</em> is partially correct (that if it’s
 started in a state that satisfies the assertion, <em>P</em>, and that if it
 terminates, then it will do so in a state that satisfies assertion
-<em>Q</em>) as <img class="math" src="_images/math/1005427c41bd16605ea373e0571bc699d4bca2fc.png" alt="P {C} Q."/> This is a so-called <em>Hoare triple</em>, named
+<em>Q</em>) as <img class="math" src="_images/math/b063dc477da14b0ac5629361a924239a6d21680f.png" alt="P \{ C \} Q."/> This is a so-called <em>Hoare triple</em>, named
 after the famous computer scientist, Sir Anthony (Tony) Hoare. It is
 nothing other than a proposition that claims that <em>C</em> satisfies its
-<em>pre-condition/post-condition</em> specification.</p>
+<em>pre-condition/post-condition</em> specification. Another way to read it
+is as saying that the combination of the pre-condition being satisfied
+and the the program being run implies that the post-condition will be
+satisfied.</p>
 <p>In addition to a proof of partial correctness, we usually do want to
 know that a program also does always terminate. When we have a proof
-of both <img class="math" src="_images/math/4da94627e9da2ba39eb6a9489f35991358b6d425.png" alt="P \{C\} Q"/> and that the program always terminates, then
-we have a proof of <em>total correctness</em>. Dafny is a programming system
-that allows us to specify <em>P</em> and <em>Q</em> and it then formally, and to a
-considerable extent automatically, verifies both <cite>P {C} Q</cite> and
-termination.  That is, Dafny produces proofs of total correctness.</p>
+of both <img class="math" src="_images/math/9ac7caaeb39aaac009f4b0ce25410310e640f332.png" alt="P \{ C \} Q"/> and that the program always terminates,
+then we have a proof of <em>total correctness</em>. Dafny is a programming
+system that allows us to specify <em>P</em> and <em>Q</em> and it then formally, and
+to a considerable extent automatically, verifies both <cite>P { C } Q</cite>
+and termination.  That is, Dafny produces proofs of total correctness.</p>
 <p>It is important to bear in mind that a proof that a program refines
 (implements) its formal specification does not necessarily mean that
 it is fit for its intended purpose! If the specification is wrong,
@@ -325,17 +393,20 @@ help here, as well, by verifying that <em>specifications</em> have certain
 desired properties, but formal validation of specifications is not
 our main concern at the moment.</p>
 </div>
-<div class="section" id="an-implementation-of-the-factorial-function">
-<h2>An Implementation of the Factorial Function<a class="headerlink" href="#an-implementation-of-the-factorial-function" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="case-study-the-factorial-function">
+<h2>Case Study: The Factorial Function<a class="headerlink" href="#case-study-the-factorial-function" title="Permalink to this headline">¶</a></h2>
 <p>So far the material in this chapter has been pretty abstract. Now
-we’ll see what it means in practice. To start, let’s consider an
-ordinary imperative program, as you might have written in Python or
-Java, for computing the factorial function. The name of the function
-is the only indication of the intended behavior of this program. There
-is no documented specification. The program takes an argument of type
-nat (which guarantees that the argument has the property of being
-non-negative). It then returns a nat which the programmer implicitly
-claims (given the function name) is the factorial of the argument.</p>
+we’ll see what it means in practice.</p>
+<div class="section" id="a-buggy-implementation">
+<h3>A Buggy Implementation<a class="headerlink" href="#a-buggy-implementation" title="Permalink to this headline">¶</a></h3>
+<p>To start, let’s consider an ordinary imperative program, as you might
+have written in Python or Java, for computing values of the factorial
+function. The name of the function is the only indication here of the
+intended behavior of this program. There is no clear specification.</p>
+<p>The program takes an argument of type nat (which guarantees that the
+argument has the property of being non-negative). It then returns a
+nat which the programmer implicitly claims (given the function name)
+is the factorial of the argument.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>method factorial(n: nat) returns (f: nat)
 {
     if (n == 0)
@@ -353,22 +424,28 @@ claims (given the function name) is the factorial of the argument.</p>
 }
 </pre></div>
 </div>
-<p>Sadly, this program contains a bug. Try to find it. Reason about the
-behavior of the program when the argument is 0, 1, 2, 3, etc.  Does it
-always compute the right result? Where is the bug? What is wrong? And
-how could this logical error have been detected automatically?</p>
+<p>It’s not immediately obvious whether this code is correct or not,
+relative to what we know it’s meant to do. Sadly, this program also
+contains a bug. Try to find it. Reason about the behavior of the
+program when the argument is 0, 1, 2, 3, etc.  Does it always compute
+the right result? Where is the bug? What is wrong? And how could this
+logical error have been detected automatically?</p>
+</div>
+<div class="section" id="specifications-establish-correctness-criteria">
+<h3>Specifications Establish Correctness Criteria<a class="headerlink" href="#specifications-establish-correctness-criteria" title="Permalink to this headline">¶</a></h3>
 <p>A key problem is that the program lacks a precise specification. The
 program does <em>something</em>, taking a nat and possibly returning a <em>nat</em>
 (unless it goes into an infinite loop) but there’s no way to analyze
-its correctness in the absence of a specification that defines what
-it even means to be correct.</p>
-<p>Now let’s see what happens when we add a formal specification.  The
-only precondition here, that <em>n &gt;= 0</em>, will continue to be expressed
+its correctness in the absence of a specification that defines what it
+even means to be correct.</p>
+<p>Now let’s see what happens when we add a formal specification.  Look
+at the following code block. That <em>n &gt;= 0</em> continues to be expressed
 by the <em>type</em> of the argument, <em>n</em>, being <em>nat</em>. However, we have now
-added a postcondition that requires the return result be the factorial
-of <em>n</em>, as defined by our functional program!  What we assert with the
-postcondition is that the imperative program computes the factorial
-function as it is defined in pure (albeit runnable) mathematics.</p>
+added a postcondition that <em>ensures</em> that the return result will be
+the factorial of <em>n</em> as defined by our functional program!  What we
+assert is that the result produced by our imperative code is the same
+result that <em>would have been produced</em> if we had run the functional
+program.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>method factorial(n: nat) returns (f: nat)
     ensures f == fact(n)
 {
@@ -387,13 +464,13 @@ function as it is defined in pure (albeit runnable) mathematics.</p>
 }
 </pre></div>
 </div>
-<p>Dafny now reports that it cannot guarantee—formally prove to
-itself—that the <em>postcondition</em> is guaranteed to hold. Generating
-proofs is hard, not only for people but also for machines. In fact,
-one of seminal results of 20th century mathematical logic was to prove
-that there is no general-purpose algorithm for proving propositions in
-mathematical logic. That’s good news for mathematicians!  If this
-weren’t true, we wouldn’t need them!</p>
+<p>With a specification in place, Dafny now reports that it cannot
+guarantee—formally prove to itself—that the <em>postcondition</em> is
+guaranteed to hold. Generating proofs is hard, not only for people but
+also for machines. In fact, one of seminal results of 20th century
+mathematical logic was to prove that there is no general-purpose
+algorithm for proving propositions in mathematical logic. That’s good
+news for mathematicians!  If this weren’t true, we wouldn’t need them!</p>
 <p>So, the best that a machine can do is to try to find a proof for any
 given proposition. Sometimes proofs are easy to generate. For example,
 it’s easy to prove <em>1 = 1</em> by the <em>reflexive</em> propery of equality.
@@ -404,17 +481,22 @@ its specification), there is one of two reasons. Either the program
 really does fail to satisfy its specification; or the program is good
 but Dafny does not have enough information to know how to prove it.</p>
 <p>With the preceding program, the postcondition really isn’t satisfied
-due to the bug in the program. But even if the program were correct,
-Dafny would need a little more information than is given in this code
-to prove it. In particular, Dafny would need a litte more information
-about how the while loop behaves. It turns out that providing extra
-information about while loops is where much of the difficulty lies.
-So let’s see how to get a program with a proof of correctness.</p>
+due to the bug in the program. When Dafny fails to verify, it gives
+us a strong reason to double-check our code to be sure we have not
+made some kind of mistake in reasoning.</p>
+<p>But even if the program were correct, Dafny would still need a little
+more than is given here to prove it. In particular, Dafny would need a
+litte more information about how the while loop behaves. It turns out
+that providing such extra information about while loops is where much
+of the difficulty lies.</p>
 </div>
 <div class="section" id="a-verified-implementation-of-the-factorial-function">
-<h2>A Verified Implementation of the Factorial Function<a class="headerlink" href="#a-verified-implementation-of-the-factorial-function" title="Permalink to this headline">¶</a></h2>
-<p>Here’s verified imperative program for computing factorial. We start
-by documenting the overall program specification.</p>
+<h3>A Verified Implementation of the Factorial Function<a class="headerlink" href="#a-verified-implementation-of-the-factorial-function" title="Permalink to this headline">¶</a></h3>
+<p>Here, then, is a verified imperative program for computing
+factorial. We start by documenting the overall program specification.
+The key element here is the ensures clause. This clause links our
+imperative program with our functional specification and tells Dafny
+to make sure that the reuqired relationship holds.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>method verified_factorial(n: nat) returns (f: nat)
     ensures f == fact(n)
 </pre></div>
@@ -429,73 +511,82 @@ no need for any further computation.</p>
 </pre></div>
 </div>
 <p>The rest of the code handles the case where <em>n &gt; 1</em>. At this point in
-the program execution, we believe that <em>n</em> must be greater than zero,
-as we would have just returned if it were zero, and it can’t be
-negative because its type is <em>nat</em>. We can nevertheless formally
-assert (write a proposition about the state of the program) that <em>n</em>
-is greater than zero. Dafny will try to (and here will successfully)
-verify that the assertion is true at this point in the program, no
-matter what path through conditionals, while loops, and sequences of
-commands the program took to get here.</p>
+the program execution, we believe that <em>n</em> must be greater than zero.
+We would have just returned if it were zero, and it can’t be negative
+because its type is <em>nat</em>. We can nevertheless formally assert (write
+a proposition about the state of the program) that <em>n</em> is greater than
+zero. Dafny will try to (and here will successfully) verify that the
+assertion is true at this point in the program, no matter what path
+through conditionals, while loops, commands led to this point in the
+program.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>assert n &gt; 0;
 </pre></div>
 </div>
-<p>Strategy: use a while loop to compute the answer. We can do this by
-using a variable, a, to hold a “partial factorial value” in the form
-of a product of the numbers from n down to a loop index, “i,” that we
-start at n and decrement down, terminating the loop when <em>n==0</em>. At
-each point just before, during, and right after the loop, <em>a</em> is a
-product of the numbers from <em>n</em> down to <em>i</em>, and the value of <em>i</em>
-represents how much of this product-computing work remains to be
+<p>To compute an answer for the non-zero input case, we will use a loop.
+We can do this by using a variable, a, to hold a “partial factorial
+value” in the form of a product of the numbers from n down to a loop
+index, “i,” that we start at n and decrement, terminating the loop
+when <em>n==0</em>.</p>
+<p>At each point just before, during, and right after the loop, <em>a</em> is a
+product of the numbers from <em>n</em> down to but not including <em>i</em>, and the
+value of <em>i</em> represents how much product-computing work remains to be
 done. So, for example, if we’re computing factorial(10) and a holds
-the value <em>10 * 9</em>, then <em>i</em> must be <em>8</em> because the task of
-multiplying <em>a</em> by the factors from <em>8</em> down to <em>1</em> remains to be
-done. A critical “invariant” then is that if you multiply <em>a</em> by the
-factorial of <em>i</em> you get the final answer, the factorial of <em>n</em>.
-And in particular, when <em>i</em> gets down to <em>0</em>, <em>a</em> must contain the
-final result, because <em>a * fact(0)</em> will then equal <em>fact(n)</em> and
-<em>fact(0)</em> is just <em>1</em>, so <em>a</em> must equal <em>fact(n)</em>. This is how we
-design loops so that we can be confident that they do what we want
-tem to do.</p>
+the value <em>10 * 9</em>, then <em>i</em> must be <em>8</em> because multiplying <em>a</em> by
+the factors from <em>8</em> to <em>1</em> remains to be done.</p>
+<p>A critical “invariant” then is that if you multiply <em>a</em> by the
+factorial of <em>i</em> you get the the factorial of <em>n</em>.  When we say that
+this is an invariant, we mean that it holds before and also after any
+execution of the loop body, but not necessarily within the loop
+body. In particular, when <em>i</em> gets down to <em>0</em>, this relation means
+that <em>a</em> must contain the final result, because <em>a * fact(0)</em> will
+then equal <em>fact(n)</em> and <em>fact(0)</em> is just <em>1</em>, so <em>a</em> must equal
+<em>fact(n)</em>.</p>
+<p>This is how we design loops so that we can be confident that they do
+what we want tem to do. So now let’s go through the steps required to
+implement our looping strategy.</p>
 <p>Step 1. Set up state for the loop to work. We first initializie a := 1
-and i := n and check that the invariant holds. Note that we are using
-our pure functional math-like definition of fact as a <em>specification</em>
-of the factorial function we’re implementing.</p>
+and i := n.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>var i: nat := n;    // nat type of i explicit
 var a := 1;         // can let Dafny infer it
 </pre></div>
 </div>
+<p>It would now be a good idea to ask Dafny to check that the invariant
+holds. See the next bit of code, below. Note that we are again using
+our pure functional definition, <em>fact</em>, as a <em>specification</em> of the
+function we’re implementing.</p>
 <p>In Dafny, we can use matnematical logic to express what must be true
 at any given point in the execution of a program in the form of an
 “assertion.” Here we assert that our loop invariant holds. The Dafny
 verifier tries to prove that the assertion is a true propsition about
-the state of the program when control reaches this point in the
-execution of this program.</p>
+the state of the program when control reaches this point, no matter
+what path might have been taken to arrive at this point.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>assert a * fact(i) == fact(n); // &quot;invariant&quot;
 </pre></div>
 </div>
-<p>Step 2: Now evaluate the loop to get the answer. To evaluate a loop,
-first, evaluate the loop condition (i &gt; 0).Then , if the result is
-false, terminate the loop. Otherwise, evaluate the loop body, then
-iterate (run the loop again, starting by evaluating the loop
+<p>Step 2: Now we write the actual loop command. Recall how a <em>while</em>
+loop works. To evaluate a loop, one evaluates the loop condition. If
+the result is false, the loop body does not execute and the loop
+terminates.  Otherwise, the loop body is executed once and then the
+whole loop is run again (starting with a new evaluation of the loop
 condition).</p>
-<p>Note that we can deduce that the loop body is going to execute at
-least once. It will run if i &gt; 0. What is i? We initialized it to n
-and haven’t change it since then so it must still be equal to n. Do we
-know that n is greater than 0? We do, because (1) it can’t be negative
-owning to its type, and (2) it can’t be 0 because if it were 0 the
-program would already have returned. But we can now do better than
-just reasoning in our heads; we can use logic to express what we
-believe to be true and let Dafny try to check it for us automatically.</p>
+<p>We want our loop body to run at least once, as we already handled the
+case where it doesn’t need to run at all. It will run if i &gt; 0. What
+is i? We initialized it to n and haven’t change it since then so it
+must still be equal to n. Do we know that n is greater than 0? We do,
+because (1) it can’t be negative owning to its type, and (2) it can’t
+be 0 because if it were 0 the program would already have returned.</p>
+<p>We can now do better than just reasoning in our heads. We can also use
+logic to express what we believe to be true and let Dafny try to check
+it for us automatically.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>assert i &gt; 0;
 </pre></div>
 </div>
-<p>Let’s just think briefly about cases. We know i can’t be zero. It
-could be one. If it’s one, then the loop body will run. The loop body
-will run. a, which starts at 1, will be multiplied by i, which is 1,
-then i will be decremented.  It will have the value 0 and the loop
-will not run again, leaving a with the value 1, which is the right
-answer. So, okay, let’s run the loop.</p>
+<p>Now if <em>i</em> is one, then the loop body will run once. The value of <em>a</em>,
+which starts at 1, will be multiplied by i, which is 1, then i will be
+decremented, taking the the value 0. The loop will be run again, but
+the loop condition will be found to be false, and to the loop body
+will not be executed and the loop will terminate. When it does, it
+will leave <em>a</em> with the value 1, which is the right answer.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>while (i &gt;  0)
     invariant 0 &lt;= i &lt;= n
     invariant fact(n) == a * fact(i)
@@ -505,12 +596,28 @@ answer. So, okay, let’s run the loop.</p>
 }
 </pre></div>
 </div>
-<p>At this point, we know that the loop condition is false. In English,
-we’d say it is no longer true that i is greater than zero.” We can do
-better that saying this in natural language then forgetting it. We can
-use formal logic to formalize and document our belief and if we do
-this then Dafny pays us well for our effort by checking that our
-assertion is true.</p>
+<p>If <em>i</em> is greater than 1, the loop body will execute, multiplying <em>a</em>
+by the current value of <em>i</em> and <em>i</em> will be decremented. The vaue of
+<em>a</em> will be the partial value of the factorial computed so far, and
+the value of <em>i</em> will represent the work that remains to be done. When
+<em>i</em> reaches zero, all the work will be done, and <em>a</em> will contain the
+final result.</p>
+<p>However, Dafny cannot determine on its own that this will be the case.
+What it needs to know to reason “mechanically” about the program is a
+bit of additional information about what remains true no matter <em>how</em>
+many times the loop body executes (zero or more). That information is
+expressed in the loop <em>invariants</em>. The first one is true but not of
+much use. The second one is the key to enabling Dafny to verify that
+after the loop, <em>a == fact(n)</em>.</p>
+<p>The invariant itself just says that at all points before and after the
+loop body executes, that partial factorial value computed so far times
+the factorial of <em>i</em> (which remains to be computed) is the answer that
+we seek. Once the loop is done we (and Dafny) <em>also</em> know that <em>i == 0</em>.
+It is the combination of the invariant and this fact that enables Dafny
+to see that it must be the case that <em>a == fact(n)</em>.</p>
+<p>We can verify by using asserts after the loop that our beliefs about
+what the state of the program must be are correct. First, let’s have
+Dafny check that the loop condition is now false.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>assert !(i &gt; 0);
 </pre></div>
 </div>
@@ -519,21 +626,21 @@ assertion is true.</p>
 </pre></div>
 </div>
 <p>And now comes the most crucial step of all in our reasoning. We can
-deduce that a now holds the correct answer. That this is so follows
+deduce that <em>a</em> now holds the correct answer. That this is so follows
 from the conjunction of the two assertions we just made. First, that
 <em>i</em> is not greater than <em>0</em> and given that its type is <em>nat</em>, the only
 possible value it can have now is <em>0</em>. That’s what we’d expect, as it
-is the condition on which the loop terminates (which it just did!) But
-better than just saying it, let us also formalize, document, and check
-it.</p>
+is the condition on which the loop terminates (which it just did). But
+better than just saying all of this, let us also formalize, document,
+and check it using the Dafny verifier.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>assert i == 0;
 </pre></div>
 </div>
-<p>Now it’s easy to see. No matter what value <em>i</em> has, we know that
-<img class="math" src="_images/math/ad82ca55b2161087ebbfa94fcea97fb5a09997cb.png" alt="a * fact(i) == fact(n),"/> and we know that <em>i == 0</em>, so it must
-be that <img class="math" src="_images/math/2c1b4ee1cff93f95564d5e3456181548807c9e50.png" alt="a * fact(0) == fact(n),"/> and fact(0) is <em>1</em> (from its
-mathematical definition), so it must be that <em>a= fact(n)</em>. And Dafny
-confirms it!</p>
+<p>Now it’s easy to see. No matter what value <em>i</em> has, we know that the
+loop invariant holds: <img class="math" src="_images/math/ad82ca55b2161087ebbfa94fcea97fb5a09997cb.png" alt="a * fact(i) == fact(n),"/> and we also know
+that <em>i == 0</em>. So it must be that <img class="math" src="_images/math/3c66b73cf306943edbe6de7b4d4f81b086bc6af3.png" alt="a * fact(0) == fact(n)."/> And
+fact(0) is <em>1</em> (from its mathematical definition). So it must be that
+<em>a == fact(n)</em>. And Dafny confirms it!</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>assert a == fact(n);
 </pre></div>
 </div>
@@ -549,19 +656,22 @@ engineering.  It’s not just an academic curiosity. It is a critical
 intellectual tool, inceasingly used for precise specification and
 semi-automated reasoning about and verification of real programs.</p>
 </div>
-<div class="section" id="a-verified-implementation-of-the-fibonacci-function">
-<h2>A Verified Implementation of the Fibonacci Function<a class="headerlink" href="#a-verified-implementation-of-the-fibonacci-function" title="Permalink to this headline">¶</a></h2>
-<p>Similarly, here an imperative implementation of the fibonacci
-function, without a spec.</p>
+</div>
+<div class="section" id="case-study-the-fibonacci-function">
+<h2>Case Study: The Fibonacci Function<a class="headerlink" href="#case-study-the-fibonacci-function" title="Permalink to this headline">¶</a></h2>
+<p>Similarly, here is a verified imperative implementation of the
+Fibonacci function. We start by adding a specification in the
+form of an ensures clause, appealing to our functional program,
+to tell Dafny what the imperative program must compute.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>method fibonacci(n: nat) returns (r: nat)
     ensures r == fib(n)
 </pre></div>
 </div>
-<p>Now for the body. First we represent values for the two
-cases where the result requires no further computation.
-Initially, <em>fib0</em> will store the value of <em>fib(0)</em> and
-<em>fib1</em> will store the value of <em>fib(1)</em>.</p>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>var fib0, fib1 := 0, 1; //parallel assmt
+<p>Now for the body. First we represent values for the two cases where
+the result requires no further computation.  Initially, <em>fib0</em> will
+store the value of <em>fib(0)</em>, namely <em>0</em>, and <em>fib1</em> will store the
+value of <em>fib(1)</em>, namely <em>1</em>.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>var fib0, fib1 := 0, 1; //parallel assignment
 </pre></div>
 </div>
 <p>Next, we test to see if either of these cases applies,
@@ -571,34 +681,32 @@ if (n == 1) { return fib1; }
 </pre></div>
 </div>
 <p>At this point, we know something more about the state of the program
-than was the case when we started. We can deduce, which is to say that
-we know, that <em>n</em> has to be greater than or equal to <em>2</em>. This is
-because it initially had to be greater than or equal to zero due to
-its type, and then we would already have returned if it were <em>0</em> or
-<em>1</em>, to it must now be <em>2</em> or greater. We can document the belief
-that the current state of the program has to property that the value
-of the variable <em>n</em> is greater than or equal to <em>2</em>, and Dafny will
-verify this assertion for us.</p>
+than was the case when we started. We can deduce that <em>n</em> has to be
+greater than or equal to <em>2</em>. This is because it initially had to be
+greater than or equal to zero due to its type, and we would already
+have returned if it were <em>0</em> or <em>1</em>. It must now be <em>2</em> or greater. We
+can assert this proposition about the state of the program at this
+point, and Dafny will verify it for us.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>assert n &gt;= 2;
 </pre></div>
 </div>
 <p>So now we have to deal with the case where <em>n &gt;= 2</em>. Our strategy for
-computing <em>fib(n)</em> in this case is to use a while loop with an index
-<em>i</em>.  Our design will be based on the idea that at the beginning and
-end of each loop iteration (we are currently at the beginning), we
-will have computed <em>fib(i)</em> and that its value is stored in
-<em>fib1</em>. We’ve already assigned the value of <em>fib(0)</em> to <em>fib0</em>, and
-<em>fib(1)</em> to <em>fib1</em>, so to set up the desired state of affairs, we
-should initialize <em>i</em> to be <em>1</em>.</p>
+computing <em>fib(n)</em> in this case is, again, to use a while loop. We
+will establish a loop index <em>i</em>.  Our design will be based on the idea
+that at the beginning and end of each loop iteration (we are currently
+at the beginning), we will have already computed <em>fib(i)</em> and that its
+value is in <em>fib1</em>. We’ve already assigned the value of <em>fib(0)</em> to
+<em>fib0</em>, and <em>fib(1)</em> to <em>fib1</em>, so to set up the desired state, we
+initialize <em>i</em> to be <em>1</em>.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>var i := 1;
 </pre></div>
 </div>
-<p>We can state and Dafny can verify a number of conditions that we
-expect and require to hold at this point. First, <em>fib1</em> equals
-<em>fib(i)</em>. Now to compute the next (<em>i+1st</em>) Fibonacci number, we need
-not only the value of <em>fib(i)</em> but also <em>fib(i-1)</em>. We will thus also
-want <em>fib0</em> to hold this value at the start and end of each loop
-iteration, and indeed we do have that state of affairs right now.</p>
+<p>We can now assert and Dafny can verify a number of conditions that we
+expect and require to hold. First, <em>fib1</em> equals <em>fib(i)</em>. To compute
+the next (<em>i+1st</em>) Fibonacci number, we need not only the value of
+<em>fib(i)</em> but also <em>fib(i-1)</em>. We will thus also want <em>fib0</em> to hold
+this value at the start and end of each loop iteration. Indeed we do
+have this state of affairs right now.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>assert fib1 == fib(i);
 assert fib0 == fib(i-1);
 </pre></div>
@@ -609,20 +717,21 @@ loop condition to be <em>i &lt; n</em>. This ensures that the loop body will run
 at least once, to compute <em>fib(2)</em>, as <em>i</em> is <em>1</em> and <em>n</em> is at least
 <em>2</em>; so the loop condition <em>i &lt; n</em> is <em>true</em>, which dictates that the
 loop body must be evaluated at least once.</p>
-<p>Within the loop body we’ll compute <em>fib(i+1)</em> (we call it <em>fib2</em>
-within the loop) by adding together <em>fib0</em> and <em>fib1</em>; then we
-increment <em>i</em>; then we update <em>fib0</em> and <em>fib1</em> so that for the <em>new</em>
-value of <em>i</em> they hold <em>fib(i-1)</em> and <em>fib(i)</em>. To do this we assign
-the initial value of <em>fib1</em> to <em>fib0</em> and the value of <em>fib2</em> to
-<em>fib1</em>.</p>
+<p>Within the loop body we’ll compute <em>fib(i+1)</em> (we call it <em>fib2</em>) by
+adding together <em>fib0</em> and <em>fib1</em>; then we increment <em>i</em>; then we
+update <em>fib0</em> and <em>fib1</em> so that for the <em>new</em> value of <em>i</em> they hold
+<em>fib(i-1)</em> and <em>fib(i)</em>. To do this we assign the initial value of
+<em>fib1</em> to <em>fib0</em> and the value of <em>fib2</em> to <em>fib1</em>. Think hard so as
+to confirm for yourself that this sequence of actions re-establishes
+the loop invariant.</p>
 <p>Let’s work an example. Suppose <em>n</em> happens to be <em>2</em>. The loop body
 will run, and after the one execution, <em>i</em> will have the value, <em>2</em>;
 <em>fib1</em> will have the value of <em>fib(2)</em>, and <em>fib0</em> will have the value
-of <em>fib(1)</em>. Because <em>i</em> is now <em>2</em> and <em>n</em> is still <em>2</em>, the loop
-condition will now be false and the loop will terminate. The value of
-<em>fib1</em> will of course be <em>fib(i)</em> but now we’ll also have that <em>i ==
-n</em> (it takes a little reasoning to prove this), so <em>fib(i)</em> will be
-<em>fib(n)</em>, which is the result we want and that we return.</p>
+of <em>fib(1)</em>. Because <em>i</em> is now <em>2</em> and <em>n</em> is <em>2</em>, the loop condition
+will now be false and the loop will terminate. The value of <em>fib1</em>
+will of course be <em>fib(i)</em> but now we also have the negation of the
+loop condition, i.e., <em>i == n</em>. So <em>fib(i)</em> will be <em>fib(n)</em>, which is
+the result we want and that we return.</p>
 <p>We can also informally prove to ourself that this strategy gives us a
 program that always terminates and returns a value. That is, it does
 not go into an infinite loop. To see this, note that the value of <em>i</em>
@@ -630,6 +739,13 @@ is initally less than or equal to <em>n</em>, and it increases by only <em>1</em
 each time through the loop. The value of <em>n</em> is finite, so the value
 of <em>i</em> will eventually equal the value of <em>n</em> at which point the loop
 condition will be falsified and the looping will end.</p>
+<p>What Dafny looks for to verify that a given loop terminates is a value
+that <em>decreases</em> each time the loop runs and that is bounded below so
+that it cannot decrease forever. As <em>i</em> increases in this loop, it can
+not be the decreasing quantity. What Dafny takes instead is <em>n - i</em>.
+When <em>i</em> is <em>0</em> this value is large, and as <em>i</em> gets closer to <em>n</em> it
+decreases until when <em>i == n</em>, the difference is zero, and that is the
+bound at which the loop terminates.</p>
 <p>That’s our strategy. Here’s the while loop that we have designed. Now
 for the first time, we see something crucial. In general, Dafny has no
 idea how many times a loop body will execute. Intead, what it needs to
@@ -667,10 +783,9 @@ than <em>n</em>, so <em>i</em> must now equal <em>n</em>. Logic says so.</p>
 <p>What is amazing is that we can write these assertions in Dafny if we
 wish to, and Dafny will verify that they are true statements about the
 state of the program after the loop has run. We have <em>proved</em> (or
-rather Dafny has proved and we have confirmed) that our loop always
-computes the right answer. Dafny has also proved to itself that the
-loop always terminates. We have a formal proof of total correctness
-for this program.</p>
+rather Dafny has proved) that our loop always terminates with the
+right answer. We have a formal proof of <em>total correctness</em> for this
+program.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>assert i &lt;= n;      // invariant
 assert !(i &lt; n);    // loop condition is false
 assert (i &lt;= n) &amp;&amp; !(i &lt; n) ==&gt; (i == n);

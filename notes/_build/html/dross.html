@@ -695,6 +695,24 @@ of base cases for the type of expression being considered, along with
 ways of combining any smaller <em>expressions</em> into larger ones of the
 same kind.</p>
 <hr class="docutils" />
+<p>Now it should be clear when we say colloquially that a program
+<em>computes a function or a relation</em>. Whenever it is given a valid
+argument representing the <em>first</em> value of a pair in the relation, it
+computes a <em>second</em> value such that the pair, <img class="math" src="_images/math/f740fbbb0fac5ec5c0233d4402773184a07ddd90.png" alt="(first, second)"/>
+is in the given relation. When we say, for example, that a program
+<em>computes the factorial function</em>, we mean that if we give it a
+non-negative number, <em>n</em>, it returns a number <em>m</em> such that the pair
+<em>(n,m)</em> is <em>in</em> the relation. And for <em>(n,m)</em> to be in the relation it
+must be that <img class="math" src="_images/math/ecefb159f55afb2d10579e24bafdc9448c0a0090.png" alt="m = fact(n)"/>. Given, <em>n</em>, such a program thus has
+to return <img class="math" src="_images/math/81d4171a788af9ec16c0d560ce8574dbc60fd5da.png" alt="fact(n)"/>. A program that computes a <em>function</em> is
+deterministic, in the sense that it can return at most one result:
+because there is at most one result.</p>
+<p>A method or a function promises to return a value for any
+argument of the type that the method is declared to take. But if the
+function being implemented is not defined for that value then there is
+a problem: what should the method or function return? For example, if
+one five a negative number to a function meant to real-valued square
+roots, there simply is no right answer.</p>
 </div>
 
 

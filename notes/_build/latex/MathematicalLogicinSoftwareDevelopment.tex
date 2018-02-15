@@ -61,7 +61,7 @@
     
 
 \title{Mathematical Logic in Software Development Documentation}
-\date{Feb 13, 2018}
+\date{Feb 15, 2018}
 \release{1}
 \author{Kevin Sullivan}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -77,7 +77,7 @@
 
 
 \chapter{1. Requirement, Specifications, and Implementations}
-\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}\label{\detokenize{01-reqs-specs-impls::doc}}
+\label{\detokenize{01-reqs-specs-impls::doc}}\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}
 Software is an increasingly critical component of major societal
 systems, from rockets to power grids to healthcare, etc. Failures are
 not always bugs in implementation code. The most critical problems
@@ -470,7 +470,7 @@ requires that a program work correctly for all (\(\forall\)) inputs?
 
 
 \chapter{3. Problems with Imperative Code}
-\label{\detokenize{03-problems-with-imperative-code:problems-with-imperative-code}}\label{\detokenize{03-problems-with-imperative-code::doc}}
+\label{\detokenize{03-problems-with-imperative-code::doc}}\label{\detokenize{03-problems-with-imperative-code:problems-with-imperative-code}}
 There’s no free lunch: One can have the expressiveness of mathematical
 logic, useful for specification, or one can have the ability to run
 code efficiently, along with indispensable ability to interact with an
@@ -523,7 +523,7 @@ steer a commercial aircraft, etc.
 
 
 \chapter{4. Pure Functional Programming as Runnable Mathematics}
-\label{\detokenize{04-runnable-math:pure-functional-programming-as-runnable-mathematics}}\label{\detokenize{04-runnable-math::doc}}
+\label{\detokenize{04-runnable-math::doc}}\label{\detokenize{04-runnable-math:pure-functional-programming-as-runnable-mathematics}}
 What we’d really like would be a language that gives us everything:
 the expressiveness and the \sphinxstyleemphasis{safety} of mathematical logic (there’s no
 concept of a memory in logic, and thus no possibility for unexpected
@@ -844,20 +844,33 @@ are expressed and verified.
 
 
 \chapter{5. Formal Verification of Imperative Programs}
-\label{\detokenize{05-putting-it-together:formal-verification-of-imperative-programs}}\label{\detokenize{05-putting-it-together::doc}}
-To get a clear sense of the potential differences in performance
+\label{\detokenize{05-putting-it-together::doc}}\label{\detokenize{05-putting-it-together:formal-verification-of-imperative-programs}}
+In this chapter, we first elaborate on the idea that pure functional
+programming make for mathematically clear but potentially inefficient
+specifications, while imperative code makes for efficient code but is
+hardly clear as to its purpose, and is thus hard to reason about. To
+get the benefits of both, we use functional programming to write key
+parts of specifications for imperative code, and then we use tools or
+manual methods to \sphinxstyleemphasis{prove} that the imperative code does what such a
+speification requires.
+
+
+\section{Performance vs. Undertandability}
+\label{\detokenize{05-putting-it-together:performance-vs-undertandability}}
+To get a clearer sense of the potential differences in performance
 between a pure functional program and an imperative program that
-compute the same function, consider our recursive definition of the
+compute the same function, and tradeoffs one makes between clarity of
+intent and execution speed, consider our recursive definition of the
 Fibonacci function.
 
 We start off knowing that if the argument to the function, \sphinxstyleemphasis{n}, is \sphinxstyleemphasis{0}
 or \sphinxstyleemphasis{1}, the value of the function for that \sphinxstyleemphasis{n} is just \sphinxstyleemphasis{n} itself.  In
 other words, the sequence, \sphinxstyleemphasis{fib(i)} of \sphinxstyleemphasis{Fibonacci numbers indexed by
 i}, starts with, \([0, 1, \ldots ]\).  For any \sphinxstyleemphasis{n \textgreater{}= 2}, \sphinxstyleemphasis{fib(n)},
-is the sum of the previous two values.  To compute the \sphinxstyleemphasis{n’th}
+is the sum of the previous two values.  To compute the \sphinxstyleemphasis{n’th (n \textgreater{}= 2)}
 Fibonacci number, we can thus start with the first two, sum them up to
-get the next one, then iterate this process, computing the next
-Fibonacci number on each iteration, until we’ve got the result.
+get the next one, then iterate this process, computing the next value
+on each iteration, until we’ve got the result.
 
 Footnote: by convention we index sequences starating at zero rather
 than one. The first element in such a sequence thus has index \sphinxstyleemphasis{0}, the
@@ -866,37 +879,36 @@ second has index \sphinxstyleemphasis{1}, and the \sphinxstyleemphasis{n’th} h
 thinking in terms of zero-indexed sequences.
 
 Now consider our recursive definition, \sphinxstyleemphasis{fib(n)}. It’s \sphinxstyleemphasis{pure math}:
-concise, precise, elegant.  And because we’ve written in a functional
-language, we can even run it if we wish. However, it might not give us
+concise, precise, elegant.  And because we’ve written it in a
+functional language, we can even run it. However, it might not give us
 the performance we require. An imperative program, by constrast, is
-\sphinxstyleemphasis{code}. It’s almost like it’s encrypted. It’s certainly often cryptic.
-But it can be very efficient when run.
+\sphinxstyleemphasis{code}. It’s cryptic but it can be very efficient when run.
 
 To get a sense of performance diferences, consider the evaluation of
 each of two programs to compute \sphinxstyleemphasis{fib(5)}: our functional program and
 an imperative one that we will develop in this chapter.
 
-Start with the imperative program. If the argument, \sphinxstyleemphasis{n}, is either
-zero or one, the answer is just returned. If \sphinxstyleemphasis{n \textgreater{}= 2} an answer has to
-be computed. In this case, the program will repeatedly add together
-the previous two values of the function, starting with \sphinxstyleemphasis{0} and \sphinxstyleemphasis{1}, to
-obtain the next one until it computes the result for \sphinxstyleemphasis{n}.  The program
-returns that value.
+Consider the imperative program. If the argument, \sphinxstyleemphasis{n}, is either zero
+or one, the answer is just returned. If \sphinxstyleemphasis{n \textgreater{}= 2} an answer has to be
+computed. In this case, the program will repeatedly add together the
+previous two values of the function, starting with \sphinxstyleemphasis{0} and \sphinxstyleemphasis{1}, until
+it computes the result for \sphinxstyleemphasis{n}.  The program returns that value.
 
 For a given value of \sphinxstyleemphasis{n}, what is the cost of computing an answer?
-It’s easy to see that the cost will be dominated by the work done
-inside the loop body; and on each iteration of the loop, a fixed
-amount of work is done; so it’s not a bad idea to use the number of
-loop body executions as a measure of the cost of computing an answer
-for an argument, \sphinxstyleemphasis{n}.
+The cost will be dominated by the work done inside the loop body; and
+on each iteration of the loop, a fixed amount of work is done; so it’s
+not a bad idea to use the number of loop body executions as a measure
+of the cost of computing an answer for an argument, \sphinxstyleemphasis{n}.
 
-So, what does it cost to compute \sphinxstyleemphasis{fib(5)}? Well, we need to execute it
+So, what does it cost to compute \sphinxstyleemphasis{fib(5)}? Well, we need to execute
 the loop body to compute \sphinxstyleemphasis{fib(i)} for values of \sphinxstyleemphasis{i} of \sphinxstyleemphasis{2, 3, 4,} and
 \sphinxstyleemphasis{5}. It thus takes \sphinxstyleemphasis{4} loop body iterations to compute \sphinxstyleemphasis{fib(5)}. To
 compute the 10th element requires that the loop body execute for \sphinxstyleemphasis{i}
 in the range of \sphinxstyleemphasis{{[}2, 3, …, 10{]}}. That’s nine iterations.  It’s easy
 to see that for any value of \sphinxstyleemphasis{n}, the cost to compute \sphinxstyleemphasis{fib(n)} will be
-\sphinxstyleemphasis{n-1} loop body iterations.
+\sphinxstyleemphasis{n-1} loop body iterations. We can compute the \sphinxstyleemphasis{100,000th} Fibonacci
+number by running a simple loop body \sphinxstyleemphasis{about} that many times. On a
+modern computer, the computation will be completed very quickly.
 
 The functional program, on the other hand, is evaluated by repeated
 evaluation of nested recursive function applications until base cases
@@ -905,123 +917,148 @@ values of \sphinxstyleemphasis{n} and try to see a pattern. We’ll measure comp
 complexity now in terms of the number of function evaluations (rather
 than loop bodies executed) required to produce a final answer.
 
-To compute \sphinxstyleemphasis{fib(0)} or \sphinxstyleemphasis{fib(1)} requires just \sphinxstyleemphasis{1} function evaluation,
-the first call to the function, as these are base cases requiring no
-further recursion. To compute \sphinxstyleemphasis{fib(2)} however requires \sphinxstyleemphasis{3} evalations
-of \sphinxstyleemphasis{fib}: one for each of \sphinxstyleemphasis{fib(1)} and \sphinxstyleemphasis{fib(0)} plus the evaluation of
-the top-level function. The relationship between \sphinxstyleemphasis{n} and the number of
-function evaluations currently looks like this: \(\{ (0,1),
-(1,1), (2,3), ... \}.\)
+To compute \sphinxstyleemphasis{fib(0)} or \sphinxstyleemphasis{fib(1)} requires just \sphinxstyleemphasis{1} function evaluation
+(the first and only call to the function), as these are base cases
+requiring no further recursion. To compute \sphinxstyleemphasis{fib(2)} however requires
+\sphinxstyleemphasis{3} evalations of \sphinxstyleemphasis{fib}: one for each of \sphinxstyleemphasis{fib(1)} and \sphinxstyleemphasis{fib(0)} plus
+the evaluation of the top-level function. The relationship between \sphinxstyleemphasis{n}
+and the number of function evaluations currently looks like this:
+\(\{ (0,1), (1,1), (2,3), ... \}.\) The first element of each pair
+is \sphinxstyleemphasis{n} and the second element is the cost to compute \sphinxstyleemphasis{fib(n)}.
 
 What about when \sphinxstyleemphasis{n} is \sphinxstyleemphasis{3}?  Computing this requires answers for
 \sphinxstyleemphasis{fib(2)}, which by the resuts we just computed costs \sphinxstyleemphasis{3} evaluations,
-and for \sphinxstyleemphasis{fib(1)}, which costing \sphinxstyleemphasis{1}, for a total of \sphinxstyleemphasis{5} evaluations
+and for \sphinxstyleemphasis{fib(1)}, which costs \sphinxstyleemphasis{1}, for a total of \sphinxstyleemphasis{5} evaluations
 including the top-level evaluation. Computing \sphinxstyleemphasis{fib(4)} requires that
 we compute \sphinxstyleemphasis{fib(3)} and \sphinxstyleemphasis{fib(2)}, costing \sphinxstyleemphasis{5 + 3}, or \sphinxstyleemphasis{8} evaluations,
-plus one for a total of 9. For \sphinxstyleemphasis{fib(5)} we need \sphinxstyleemphasis{9} + \sphinxstyleemphasis{5}, or \sphinxstyleemphasis{14}
-plus one more, making \sphinxstyleemphasis{15} evaluations.  The relation of cost to \sphinxstyleemphasis{n}
-(the problem size) is now like this: \(\{ (0,1), (1,1), (2,3),
-(3,5), (4,9), (5, 15), ... \}.\)
+plus the original, top-level call, for a total of 9. For \sphinxstyleemphasis{fib(5)} we
+need \sphinxstyleemphasis{9} + \sphinxstyleemphasis{5}, or \sphinxstyleemphasis{14} plus one more, making \sphinxstyleemphasis{15} evaluations.  The
+relation of cost to \sphinxstyleemphasis{n} (the problem size) is now like this: \(\{
+(0,1), (1,1), (2,3), (3,5), (4,9), (5, 15), ... \}.\)
 
-It reasonably easy to see that in general, the number of evaluations
-needed to evaluate \sphinxstyleemphasis{fib(i+1)} is the sum of the numbers required to
-evaluate \sphinxstyleemphasis{fib(i)} plus the number to evaluate \sphinxstyleemphasis{fib(i-1)} plus \sphinxstyleemphasis{1.}
+In general, the number of evaluations needed to evaluate \sphinxstyleemphasis{fib(i+1)} is
+the sum of the numbers required to evaluate \sphinxstyleemphasis{fib(i)} plus the number
+to evaluate \sphinxstyleemphasis{fib(i-1)} plus \sphinxstyleemphasis{1.} If we use \sphinxstyleemphasis{C} to represent the cost
+function, then we could say, \(C(n) = C(n-1) + C(n-2) + 1\). This
+kind of function is called a recurrence relation, and there are clever
+ways to solve such functions to determine what function \sphinxstyleemphasis{C} me be. Of
+course we can also write a recursive function to compute \sphinxstyleemphasis{C(n)}, if
+we need only to compute it for relatively small values of \sphinxstyleemphasis{n}.
 
-Now that we see the formula, we can quickly compute the following
-values of cost as a function of \sphinxstyleemphasis{n}. The number of evaluations needed
-to compute \sphinxstyleemphasis{fib(6)} is \sphinxstyleemphasis{15 + 9 + 1}, i.e., 25. For \sphinxstyleemphasis{fib(7)} it’s \sphinxstyleemphasis{41}.
-For \sphinxstyleemphasis{fib(8), *67}; for \sphinxstyleemphasis{fib(9), 109}; for \sphinxstyleemphasis{fib(10), 177};l and for
-\sphinxstyleemphasis{fib(11), 286} function evaluations. The cost measured by the number
-of function evaluations is growing much more quickly than \sphinxstyleemphasis{n} itself.
+Now that we have the formula, we can quickly compute the costs to
+compute \sphinxstyleemphasis{fib(n)} for numerous values of \sphinxstyleemphasis{n}. The number of evaluations
+needed to compute \sphinxstyleemphasis{fib(6)} is \sphinxstyleemphasis{15 + 9 + 1}, i.e., 25. For \sphinxstyleemphasis{fib(7)}
+it’s \sphinxstyleemphasis{41}.  For \sphinxstyleemphasis{fib(8), *67}; for \sphinxstyleemphasis{fib(9), 109}; for \sphinxstyleemphasis{fib(10), 177};
+and for \sphinxstyleemphasis{fib(11), 286} function evaluations.
 
-With our imperative program, the number of loop body interations grows
-\sphinxstyleemphasis{linearly} in \sphinxstyleemphasis{n}. We could say that the computational cost of running
-the imperative program to compute \sphinxstyleemphasis{fib(n)}, let’s call it \sphinxstyleemphasis{cost(n), is
-*n+1}. How does the cost of the pure functional program compare? One
-thing to notice is that the cost of computing a Fibonacci element
-using our iterative approach is related to the Fibonacci sequence
-itself! The first two values in the \sphinxstyleemphasis{cost} sequence are \sphinxstyleemphasis{1} and \sphinxstyleemphasis{1},
-and each subsequence element is the sum of the previous two \sphinxstyleemphasis{plus 1}.
-It’s not exactly the Fibonacci sequence, but it turns out to grow at a
-very similar rate. The Fibonacci sequence, and thus also the cost of
-computing it recursively, grows at an \sphinxstyleemphasis{exponential} rate in \sphinxstyleemphasis{n}, with
-an exponent of about \sphinxstyleemphasis{1.6}. Increasing \sphinxstyleemphasis{n} by \sphinxstyleemphasis{1} doesn’t quite double
-the cost of computing \sphinxstyleemphasis{fib(n)}, but it does multiply it by a factor of
-about \sphinxstyleemphasis{1.6}.
+One thing is clear: The cost to compute the \sphinxstyleemphasis{n’th} Fibonacci number,
+as measured by the number of function evaluations, using our beautiful
+functional program, is growing much more quickly than \sphinxstyleemphasis{n} itself, and
+indeed it is growing faster and faster as \sphinxstyleemphasis{n} increases. We would say
+the cost is \sphinxstyleemphasis{super-linear}, whereas with our imperative program, the
+number of loop body interations grows \sphinxstyleemphasis{linearly} in \sphinxstyleemphasis{n}.
 
-No matter how small the exponent, exponential functions eventually
-grow very large very quickly. In fact, in the limit, any exponential
-function (with any exponent greater than one) grows faster than any
-polynomial function no matter how high in rank and no matter how large
-the coefficients. The exponential-in-\sphinxstyleemphasis{n} cost of our beautiful but
-inefficient functional program grows vastly faster than the linear
-cost of our ugly but efficient imperative program as we increase \sphinxstyleemphasis{n}.
-For any reasonably large value of \sphinxstyleemphasis{n} (like 1000), it will be highly
-impractical to use the pure functional program, computation, whereas
-the imperative program will run quickly for values of \sphinxstyleemphasis{n} in the
-billions.
+How exactly does the cost of the pure functional program compare? One
+thing to notice is that the cost of computing a Fibonacci element with
+our functional program is related to the Fibonacci sequence itself!
+The first two values in the \sphinxstyleemphasis{cost} sequence are \sphinxstyleemphasis{1} and \sphinxstyleemphasis{1}, and each
+subsequence element is the sum of the previous two \sphinxstyleemphasis{plus 1}.  It’s not
+exactly the Fibonacci sequence, but it turns out to grow at a very
+similar rate. The Fibonacci sequence, thus also the cost of computing
+it recursively, grows at what turns out to be a rate \sphinxstyleemphasis{exponential} in
+\sphinxstyleemphasis{n}, with an exponent of about \sphinxstyleemphasis{1.6}. Increasing \sphinxstyleemphasis{n} by \sphinxstyleemphasis{1} doesn’t
+just add a little to the cost; it almost doubles it (multiplying it by
+a factor of \sphinxstyleemphasis{1.6}).
+
+No matter how small the exponent (with any exponent greater than one),
+exponential functions eventually grow very quickly. In the limit, any
+exponential function grows faster than any polynomial no matter how
+high in rank it is and no matter how large its coefficients are.
+
+The exponential-in-\sphinxstyleemphasis{n} cost of our clear but inefficient functional
+program grows far faster than the cost of our ugly but efficient
+imperative program as we increase \sphinxstyleemphasis{n}.  For any even modestly large
+value of \sphinxstyleemphasis{n} (e.g., greater than 50 or so), it will be impractical to
+use the pure functional program, whereas the imperative program will
+reasonably run quickly even on a small personal computer for values of
+\sphinxstyleemphasis{n} well into in the millions.  What eventually slows it down is not
+the number of additions that it has to do but the sizes of the numbers
+that it has to add.
 
 You can already see that the cost to compute \sphinxstyleemphasis{fib(n)} recursively for
-values of \sphinxstyleemphasis{n} larger than just ten or so is vastly greater than the
-cost to compute it iteratively. The math (the recursive definition
-clear but inefficient. The program is efficient, but woefully not
-transparent as to its function. We need the latter program for
-practical computation. But how do we ensure that hard to understand
-imperative code flawlessly implements the same function that we
-expressed so elegantly in mathematical logic and its computational
-expression in pure functional programming?
+values of \sphinxstyleemphasis{n} larger than just ten or so is much greater than the cost
+to compute it iteratively. Our mathematical/functional definition is
+clear (“intellectually tractable”) but inefficient. The imperative
+program, on the other hand, is efficient, but not at all transparent.
+We need the latter program for practical computation. But how do we
+ensure that it implements the same function that we expressed in our
+elegant mathematical definition?
 
-We address such problems by combining a few ideas. First, we use logic
-to express \sphinxstyleemphasis{declarative} specifications that precisely define \sphinxstyleemphasis{what} a
-given imperative program must do, an in particular what results it
-must return as a function of the arguements it received.
+
+\section{Specification, Implementation, and Verification}
+\label{\detokenize{05-putting-it-together:specification-implementation-and-verification}}
+We address such problems by combining a few ideas. First, we use
+logic, including mathematical specifications written in part using
+functional programming, to express \sphinxstyleemphasis{declarative} specifications.  Such
+specification precisely define \sphinxstyleemphasis{what} a given imperative program must
+compute, and in particular what results it must return as a function
+of the arguements it receives, without saying \sphinxstyleemphasis{how} the computation
+should be done.
 
 We can use functions defined in the pure functional programming style
-as specifications, e.g., as giving the mathematical definition of the
-\sphinxstyleemphasis{factorial} function that an imperative program is meant to implement.
+as parts of specifications, e.g., as giving a mathematical definition
+of the \sphinxstyleemphasis{factorial} function that an imperative program will then have
+to implement.
 
-Second, we implement the specified program in an imperative language
-in a way that supports logical reasoning about its behavior. What kind
-of support is needed to facilitate logical reasoning is broached in
-this chapter. For example, we have to specify not only the desired
-relationship between argument and result values, but also how loops
-are designed to work in our code; and we need to design loops in ways
-that make it easier to explain in formal logic how they do what they
-are meant to do.
+Second, we implement the specified program in an imperative language.
+Ideally we do so in a way that supports logical reasoning about its
+behavior. For example, we have to specify not only the relationship
+between argument and result values that are required, but also how
+loops are designed to work in our code. We then need to design loops
+in ways that make it easier to explain, in formal logic, how they do
+what they are meant to do.
 
 Finally, we use logical proofs to \sphinxstyleemphasis{verify} that the program satisifies
-its specification.
+its specification. Later in this course, we’ll see how to create such
+proofs ourselves. For now we’ll be happy to let Dafny generate them
+for us mostly automatically!
 
-We develop these idea in this chapter. First we explain how formal
-specifications in mathematical logic for imperative programs are often
-organized. Next we explore how writing imperative programs without the
-benefits of specification languages and verifications tools can make
-it hard to spot bugs in code. Next we enhance our implementation of
-the factorial function with specifications, show how Dafny flags the
-bug, and fix out program. Doing this requires that we deepen the way
-we understand loops. We end with a detailed presentation of the design
-and verification of an imperative program to compute elements in the
-Fibonacci sequence. Given any natural number \sphinxstyleemphasis{n}, our program must
-return the value of \sphinxstyleemphasis{fib(n)}, but it must also do it efficiently.  The
-careful design of a loop is once again the very heart of the problem.
-We will see how Dafny can help us to reason rigorously about loops,
-and that, with just a bit of help, it can reason about them for us.
+The rest of this chapter develops these ideas in more depth with
+concrete examples.  First we explain how formal specifications in
+mathematical logic for imperative programs are often organized. Next
+we explore how writing imperative programs without the benefits of
+specification languages and verifications tools can make it hard to
+spot bugs in code. Next we enhance our implementation of the factorial
+function with specifications, show how Dafny flags the bug, and fix
+the program. Doing this requires that we deepen the way we understand
+loops. We end with a detailed presentation of the verification of an
+imperative program to compute values in the Fibonacci sequence. Given
+any natural number \sphinxstyleemphasis{n}, our program must return the value of \sphinxstyleemphasis{fib(n)},
+but it must also do it efficiently.  The design and precise, logical
+description of key properties of a loop is once again the heart of the
+problem.  We will see how Dafny can help us to reason rigorously about
+loops, and that giving it a little help enables it to reason about
+them for us.
 
 
-\section{Logical Specification}
-\label{\detokenize{05-putting-it-together:logical-specification}}
+\section{Declarative Input-Output Specifications}
+\label{\detokenize{05-putting-it-together:declarative-input-output-specifications}}
 First, we use mathematical logic to \sphinxstyleemphasis{declaratively specify} properties
 of the behaviors that we require of programs written in \sphinxstyleemphasis{imperative}
-languages. For example, we might require that, when given any natural
-number, \sphinxstyleemphasis{n}, a program compute and return the value of the \sphinxstyleemphasis{factorial}
-of \sphinxstyleemphasis{n}, the mathematical definition of which we’ve given as \sphinxstyleemphasis{fact(n)}.
+languages. For example, we might require that, when given \sphinxstyleemphasis{any}
+natural number, \sphinxstyleemphasis{n}, a program compute and return the value of the
+\sphinxstyleemphasis{factorial} of \sphinxstyleemphasis{n}, the mathematical definition of which we’ve given
+as \sphinxstyleemphasis{fact(n)}.  In general, we want to specify how the results returned
+by an imperative program relate to the arguments on which it was run.
+We call such a specification an \sphinxstyleemphasis{input-output} specification. (Here
+we ignore \sphinxstyleemphasis{side-effect} behaviors such as reading from and writing
+to input and output devices.)
 
 Specifications about required relationships between argument values
-and return results are especially important. They specify \sphinxstyleemphasis{what} a
-program must compute without specifying how. Specifications are thus
-\sphinxstyleemphasis{abstract}: they omit \sphinxstyleemphasis{implementation details}, leaving it to the
-programmer to decide how best to \sphinxstyleemphasis{refine} the specification into a
-working program.
+and return results specify \sphinxstyleemphasis{what} a program must compute without
+specifying how it should be done. Specifications are thus \sphinxstyleemphasis{abstract}:
+they omit \sphinxstyleemphasis{implementation details}, leaving it to the programmer to
+decide how best to \sphinxstyleemphasis{refine} the specification into efficient code.
 
 For example we might specify that a program (1) must accept any
 integer valued argument greater than or equal to zero (a piece of a
@@ -1029,55 +1066,113 @@ specification that we call a \sphinxstyleemphasis{precondition}), and (2) that a
 the precondition holds, then it must return the factorial of the given
 argument value (a \sphinxstyleemphasis{postcondition}).
 
+
+\subsection{Input-Output Relations}
+\label{\detokenize{05-putting-it-together:input-output-relations}}
 In purely mathematical terms, a specification of this kind defines a
-\sphinxstyleemphasis{binary relation} between argument and return values, and imposes on
-the program a requirement that whenever it is given the first value in
-such a pair, it must compute a second value so that the \((first
-value, second value)\) pair is in the specified relation.
+\sphinxstyleemphasis{binary relation} between argument (input) and return (output) values,
+and imposes on the program a requirement that whenever it is given the
+first value in such an \sphinxstyleemphasis{input-output} pair, it must compute a second
+(output) value so that the pair, \((input, output)\), is in the
+specified relation.
 
+
+\subsection{Relations and Functions}
+\label{\detokenize{05-putting-it-together:relations-and-functions}}
 A binary relation in ordinary mathematics is just a set of pairs of
-values. A function is a special binary relation with at most one pair
-with a given first value. A function is said to be a \sphinxstyleemphasis{single-valued}
-relation.
+values. A function is a binary relation with at most one pair with a
+given first value. A function is a \sphinxstyleemphasis{single-valued} relation. What we
+often need to specify, in particular, is an input-output \sphinxstyleemphasis{function}.
 
-For example, pairs of non-negative integers in the relation that
-constitutes the factorial function include \((0,1), (1,1), (2,2),
-(3,6), (4,24)\) and \((5,120)\), but not \((5,25)\).
+For example, pairs in the factorial relation include \((0,1),
+(1,1), (2,2), (3,6), (4,24)\) and \((5,120)\), but not the pair
+\((5,25)\). Some of the pairs in the Fibonacci relation include
+\(\{ (0,0), (1,1), (2,1), (3,2), (5,3)\) and \sphinxstyleemphasis{(6,5)}. These
+relations are also \sphinxstyleemphasis{functions} because there is \sphinxstyleemphasis{at most} one pair
+with a given first element. Finally, these functions are also said to
+be \sphinxstyleemphasis{total} because for \sphinxstyleemphasis{every} natural number, there is a pair with
+that number as its first element.
 
-On the other hand, square root is a relation but not a \sphinxstyleemphasis{function}. It
-is not singled valued. Both \((4,2)\) and \((4,-2)\), two
-pairs with the same first element but different second elements, are
-in the relation. That is because both \sphinxstyleemphasis{2} and \sphinxstyleemphasis{-2} are squarer roots
-of \sphinxstyleemphasis{4}.  The \sphinxstyleemphasis{positive square root} relation, on the other hand, is a
-function, comprising those pairs in the square root relation where
-both elements are non-negative. It thus includes \((4,2)\) but
-not  \((4,-2)\).
-
-We could formulate the square root \sphinxstyleemphasis{relation} as a \sphinxstyleemphasis{function} in a
-different way: by viewing it as a relation that associates with each
-non-negative integer the single \sphinxstyleemphasis{set} of its square roots. The pair
-\((4, \{2, -2\}\) is in this relation, for example. The relation is
-now also a function in that there is only one such pair with a given
-first element.
-
-Now what we mean when we say that a program computes a function or a
-relation is that whenever it is given a valid argument representing
-the \sphinxstyleemphasis{first} value of a pair in the relation, it computes a \sphinxstyleemphasis{second}
-value such that the pair, \((first, second)\) is in the given
-relation. When we say, for example, that a program \sphinxstyleemphasis{computes the
-factorial function}, we mean that if we give it a non-negative number,
-\sphinxstyleemphasis{n}, it returns a number \sphinxstyleemphasis{m} such that the pair \sphinxstyleemphasis{(n,m)} is \sphinxstyleemphasis{in} the
-relation. And for \sphinxstyleemphasis{(n,m)} to be in the relation it must be that
-\(m = fact(n)\). The program thus has to return \(fact(n)\).
-
-A program that computes a \sphinxstyleemphasis{function} is deterministic, in the sense
-that it can return at most one result: because there is at most one
-result. When a program computes a relation that is not a function, it
-can return any value, \sphinxstyleemphasis{m}, where \sphinxstyleemphasis{(n,m)} is in the specified relation.
+On the other hand, square root is a \sphinxstyleemphasis{relation}, a set of pairs of real
+numbers, but not a \sphinxstyleemphasis{function}, because it is not singled valued. Both
+of the pairs, \((4,2)\) and \((4,-2)\), which are distinct but
+have same first element, are in the relation. That is so because both
+\sphinxstyleemphasis{2} and \sphinxstyleemphasis{-2} are square roots of \sphinxstyleemphasis{4}.
 
 
-\section{Rigorous Implementation}
-\label{\detokenize{05-putting-it-together:rigorous-implementation}}
+\subsection{Total and Partial Functions}
+\label{\detokenize{05-putting-it-together:total-and-partial-functions}}
+We also note that the square root relation \sphinxstyleemphasis{on the real numbers} is
+what we call \sphinxstyleemphasis{partial} rather than total: in that it is not defined
+for some real numbers. In particular, it is not defined for (i.e., it
+does not have any pairs where the first element is) any negative real
+number.
+
+
+\subsection{Turning Partial Functions into Total Functions}
+\label{\detokenize{05-putting-it-together:turning-partial-functions-into-total-functions}}
+Partial functions and non-function relations both present problems for
+programmers. Let’s first consider relations that sometimes have \sphinxstyleemphasis{more}
+than one value of a given type for a given argument. What value should
+a program return?
+
+The square root function is a good example. Given a positive argument
+there will be \sphinxstyleemphasis{two} square roots, one positive and one negative. If
+the function is require to return a single number as an answer, which
+one should it return?
+
+There is really no good answer. Rather, the solution is usually to
+change the program specification slightly. For example, rather than
+promising to return \sphinxstyleemphasis{the} square root (a concept that is not well
+defined when there are two square roots for the same number) such a
+program might promise to return the non-negative square root, of which
+there is always just one (given a non-negative argument. What we have
+done here is to implement a different relation, and one that is now
+also a function.
+
+A different way to re-formulate the square root \sphinxstyleemphasis{relation} as a
+\sphinxstyleemphasis{function} would be to view it as returning a single \sphinxstyleemphasis{set} of values
+as a result: a set containing all of the square roots of a given
+argument.  The pair \((4, \{2, -2\}\) is in this relation, for
+example, and the relation is also a function in that there is only one
+such pair with any given first element.
+
+So far we have dealt with the situation where a relation holds more
+than one result for a given argument. The other difficult situation
+occurs when there is no result or a given argument, i.e., when the
+function or relation is undefined for some argument values. What
+should a program return then?
+
+Once again, there’s no good answer. Rather, we generally tweak the
+specification to require the implementation of a slightly different
+relation. One approach would be to narrow the domain of values that
+the \sphinxstyleemphasis{program} can take to the domain on which the actual mathematical
+function is defined. So instead of specifying a square root function
+as taking any real number, we could speficy that it requires that an
+argument value be non-negative. When we add such a precondition to a
+method or function specification in Daphy, the effect is that Dafny
+checks every place in the code where the method or function is called
+to verify that the argument values satisfy that pre-condition.
+
+Alternately, we might “tweak” the type of the return value, so that
+the program can return some value of the promised type, even if the
+underlying mathematical function is not defined for the arguments. So,
+for example, if instead of promising to return a single number as a
+square root we promise to return a set of numbers, then in cases where
+the function is undefined, we just return the empty set of numbers.
+In this case, the empty set as a return value can be interpreted as
+signifying that no numerical answer could be returned.
+
+Finally, in languages such as Java and Python, when a program
+encounters a state where a valid value cannot be computed and
+returned, it can invoke an error handling routine to take some kind of
+“exceptional” action. This is the purpose of exceptions in Java,
+Python, etc. We will not entertain the use of exceptions in this
+course.
+
+
+\section{Imperative Implementation}
+\label{\detokenize{05-putting-it-together:imperative-implementation}}
 Having written a formal specification of the required \sphinxstyleemphasis{input-output}
 behavior of a program, we next write imperative code in a manner, and
 in a language, that supports the use of formal logic to \sphinxstyleemphasis{reason} about
@@ -1086,61 +1181,76 @@ can use formal specifications when programming in any language, but it
 helps greatly if the language has strong, static type checking. It is
 even better if the language supports formal specification and logical
 reasoning mechanisms right alongside of its imperative and functional
-programming capabilities. Dafny is such a language.
+programming capabilities. Dafny is such a language and system. It is
+not just a language, but a verifier.
 
 In addition to choosing a language with features that help to support
-formal reasoning (such as strong, static typing), we sometimes also
-aim to write imperative code in a way that makes it easier to reason
-about formally (using mathematical logic). As we will see below, for
-example, the way that we write our while loops can make it easier or
-harder to reason about their correctness.
+formal reasoning, we sometimes also aim to write imperative code in a
+way that makes it easier to reason about formally. As we’ll see below,
+for example, the way that we write our while loops can make it easier
+or harder to reason about their correctness. Even whether we iterate
+from zero up to \sphinxstyleemphasis{n} or from \sphinxstyleemphasis{n} down to zero can affect the difficulty
+of writing specification elements for a program.
 
 
 \section{Formal Verification}
 \label{\detokenize{05-putting-it-together:formal-verification}}
-Our ultimate aim to deduce that, as written, a program satisfies its
-input-output specification.  In more detail, if we’re given a program,
-\sphinxstyleemphasis{C} with a precondition, \sphinxstyleemphasis{P}, and a postcondition \sphinxstyleemphasis{Q}, we want a proof
-that verifies that if \sphinxstyleemphasis{C} is started in a state that satisfies \sphinxstyleemphasis{P} and
-if it terminates (doesn’t go into an infinite loop), that it ends in a
-state that satisfies \sphinxstyleemphasis{Q}. We call this property \sphinxstyleemphasis{partial correctness}.
+The aim of formal verification is to deduce (to use deductive logic to
+\sphinxstyleemphasis{prove}) that, as written, a program satisfies its specification.  In
+more detail, if we’re given a program, \sphinxstyleemphasis{C} with a precondition, \sphinxstyleemphasis{P},
+and a postcondition \sphinxstyleemphasis{Q}, we want a proof that verifies that if \sphinxstyleemphasis{C} is
+started in a state that satisfies \sphinxstyleemphasis{P} and if it terminates (doesn’t go
+into an infinite loop), that it ends in a state that satisfies \sphinxstyleemphasis{Q}. We
+call this property \sphinxstyleemphasis{partial correctness}.
 
-We write the proposition that \sphinxstyleemphasis{C} is partially correct in this sense
-(that if it’s started in a state that satisfies the assertion, \sphinxstyleemphasis{P},
-and if it terminates then, it will do so in a state that satisfies
-\sphinxstyleemphasis{Q}) as \(P {C} Q.\) This is a so-called \sphinxstyleemphasis{Hoare triple} (named
+We write the proposition that \sphinxstyleemphasis{C} is partially correct (that if it’s
+started in a state that satisfies the assertion, \sphinxstyleemphasis{P}, and that if it
+terminates, then it will do so in a state that satisfies assertion
+\sphinxstyleemphasis{Q}) as \(P \{ C \} Q.\) This is a so-called \sphinxstyleemphasis{Hoare triple}, named
 after the famous computer scientist, Sir Anthony (Tony) Hoare. It is
 nothing other than a proposition that claims that \sphinxstyleemphasis{C} satisfies its
-specification.
+\sphinxstyleemphasis{pre-condition/post-condition} specification. Another way to read it
+is as saying that the combination of the pre-condition being satisfied
+and the the program being run implies that the post-condition will be
+satisfied.
 
 In addition to a proof of partial correctness, we usually do want to
 know that a program also does always terminate. When we have a proof
-of both \(P \{C\} Q\) and that the program always terminates, then
-we have a proof of \sphinxstyleemphasis{total correctness}. Dafny is a programming system
-that allows us to specify \sphinxstyleemphasis{P} amd \sphinxstyleemphasis{Q} and that then formally, and to a
-considerable extent automatically, verifies \sphinxtitleref{P \{C\} Q} and termination.
-That is, Dafny produces proofs of total correctness.
+of both \(P \{ C \} Q\) and that the program always terminates,
+then we have a proof of \sphinxstyleemphasis{total correctness}. Dafny is a programming
+system that allows us to specify \sphinxstyleemphasis{P} and \sphinxstyleemphasis{Q} and it then formally, and
+to a considerable extent automatically, verifies both \sphinxtitleref{P \{ C \} Q}
+and termination.  That is, Dafny produces proofs of total correctness.
 
 It is important to bear in mind that a proof that a program refines
-its formal specification does not necessarily mean that it is fit for
-its intended purpose! If the specification is wrong, then all bets are
-off, even if the program is correct relative to its specification.
-The problem of \sphinxstyleemphasis{validating} specification againts real-world needs is
-separate from that of \sphinxstyleemphasis{verifying} that a given program implements its
-specification correctly.
+(implements) its formal specification does not necessarily mean that
+it is fit for its intended purpose! If the specification is wrong,
+then all bets are off, even if the program is correct relative to its
+specification.  The problem of \sphinxstyleemphasis{validating} specification againts
+real-world needs is separate from that of \sphinxstyleemphasis{verifying} that a given
+program implements its specification correctly. Formal methods can
+help here, as well, by verifying that \sphinxstyleemphasis{specifications} have certain
+desired properties, but formal validation of specifications is not
+our main concern at the moment.
 
 
-\section{Typical Implementation of the Factorial Function}
-\label{\detokenize{05-putting-it-together:typical-implementation-of-the-factorial-function}}
+\section{Case Study: The Factorial Function}
+\label{\detokenize{05-putting-it-together:case-study-the-factorial-function}}
 So far the material in this chapter has been pretty abstract. Now
-we’ll see what it means in practice. To start, let’s consider an
-ordinary imperative program, as you might have written in Python or
-Java, for computing the factorial function. The name of the function
-is the only indication of the intended behavior of this program. There
-is no documented specification. The program takes an argument of type
-nat (which guarantees that the argument has the property of being
-non-negative). It then returns a nat which the programmer implicitly
-claims (given the function name) is the factorial of the argument.
+we’ll see what it means in practice.
+
+
+\subsection{A Buggy Implementation}
+\label{\detokenize{05-putting-it-together:a-buggy-implementation}}
+To start, let’s consider an ordinary imperative program, as you might
+have written in Python or Java, for computing values of the factorial
+function. The name of the function is the only indication here of the
+intended behavior of this program. There is no clear specification.
+
+The program takes an argument of type nat (which guarantees that the
+argument has the property of being non-negative). It then returns a
+nat which the programmer implicitly claims (given the function name)
+is the factorial of the argument.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 method factorial(n: nat) returns (f: nat)
@@ -1160,26 +1270,30 @@ method factorial(n: nat) returns (f: nat)
 \PYGZcb{}
 \end{sphinxVerbatim}
 
-Sadly, this program contains a bug. Try to find it. Reason about the
-behavior of the program when the argument is 0, 1, 2, 3, etc.  Does it
-always compute the right result? Where is the bug? What is wrong? And
-how could this logical error have been detected automatically?
+It’s not immediately obvious whether this code is correct or not,
+relative to what we know it’s meant to do. Sadly, this program also
+contains a bug. Try to find it. Reason about the behavior of the
+program when the argument is 0, 1, 2, 3, etc.  Does it always compute
+the right result? Where is the bug? What is wrong? And how could this
+logical error have been detected automatically?
 
-The problem is that the program lacks a complete specification. The
-program does \sphinxstyleemphasis{something}, taking a nat and possibly returning a nat
+
+\subsection{Specifications Establish Correctness Criteria}
+\label{\detokenize{05-putting-it-together:specifications-establish-correctness-criteria}}
+A key problem is that the program lacks a precise specification. The
+program does \sphinxstyleemphasis{something}, taking a nat and possibly returning a \sphinxstyleemphasis{nat}
 (unless it goes into an infinite loop) but there’s no way to analyze
-its correctness in the absence of a specification that defines what
-\sphinxstyleemphasis{right} even means.
+its correctness in the absence of a specification that defines what it
+even means to be correct.
 
-Now let’s see what happens when we make the specification complete.
-The precondition will continue to be expressed by the type of the
-argument, \sphinxstyleemphasis{n}, being \sphinxstyleemphasis{nat}. However, we have added a postcondition
-that requires the return result to be the factorial of \sphinxstyleemphasis{n}. Note that
-we used our functional definition of the \sphinxstyleemphasis{factorial} function in the
-\sphinxstyleemphasis{specification} of our imperative code. The pure functional program is
-really just a mathematical definition of factorial. What we assert
-with the postcondition is thus that the imperative program computes
-the factorial function as it is defined in pure mathematics.
+Now let’s see what happens when we add a formal specification.  Look
+at the following code block. That \sphinxstyleemphasis{n \textgreater{}= 0} continues to be expressed
+by the \sphinxstyleemphasis{type} of the argument, \sphinxstyleemphasis{n}, being \sphinxstyleemphasis{nat}. However, we have now
+added a postcondition that \sphinxstyleemphasis{ensures} that the return result will be
+the factorial of \sphinxstyleemphasis{n} as defined by our functional program!  What we
+assert is that the result produced by our imperative code is the same
+result that \sphinxstyleemphasis{would have been produced} if we had run the functional
+program.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 method factorial(n: nat) returns (f: nat)
@@ -1200,13 +1314,13 @@ method factorial(n: nat) returns (f: nat)
 \PYGZcb{}
 \end{sphinxVerbatim}
 
-Dafny now reports that it cannot guarantee—formally prove to
-itself—that the \sphinxstyleemphasis{postcondition} is guaranteed to hold. Generating
-proofs is hard, not only for people but also for machines. In fact,
-one of seminal results of 20th century mathematical logic was to prove
-that there is no general-purpose algorithm for proving propositions in
-mathematical logic. That’s good news for mathematicians!  If this
-weren’t true, we wouldn’t need them!
+With a specification in place, Dafny now reports that it cannot
+guarantee—formally prove to itself—that the \sphinxstyleemphasis{postcondition} is
+guaranteed to hold. Generating proofs is hard, not only for people but
+also for machines. In fact, one of seminal results of 20th century
+mathematical logic was to prove that there is no general-purpose
+algorithm for proving propositions in mathematical logic. That’s good
+news for mathematicians!  If this weren’t true, we wouldn’t need them!
 
 So, the best that a machine can do is to try to find a proof for any
 given proposition. Sometimes proofs are easy to generate. For example,
@@ -1216,25 +1330,28 @@ imperative languages satisfy declarative specifications can be hard.
 
 When Dafny fails to verify a program (find a proof that it satisfies
 its specification), there is one of two reasons. Either the program
-really does fail to satisfy its specificaiton; or the program is good
+really does fail to satisfy its specification; or the program is good
 but Dafny does not have enough information to know how to prove it.
 
 With the preceding program, the postcondition really isn’t satisfied
-due to the bug in the program. But even if the program were correct,
-Dafny would need a little more information than is given in this code
-to prove it. In particular, Dafny would need a litte more information
-about how the while loop behaves. It turns out that providing extra
-information about while loops is where much of the difficulty lies.
+due to the bug in the program. When Dafny fails to verify, it gives
+us a strong reason to double-check our code to be sure we have not
+made some kind of mistake in reasoning.
+
+But even if the program were correct, Dafny would still need a little
+more than is given here to prove it. In particular, Dafny would need a
+litte more information about how the while loop behaves. It turns out
+that providing such extra information about while loops is where much
+of the difficulty lies.
 
 
-\section{A Verified Implementation of the Factorial Function}
+\subsection{A Verified Implementation of the Factorial Function}
 \label{\detokenize{05-putting-it-together:a-verified-implementation-of-the-factorial-function}}
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-
-\end{sphinxVerbatim}
-
-Here’s verified imperative program for computing factorial. We start
-by documenting the overall program specification.
+Here, then, is a verified imperative program for computing
+factorial. We start by documenting the overall program specification.
+The key element here is the ensures clause. This clause links our
+imperative program with our functional specification and tells Dafny
+to make sure that the reuqired relationship holds.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 method verified\PYGZus{}factorial(n: nat) returns (f: nat)
@@ -1253,83 +1370,97 @@ if (n == 0)
 \end{sphinxVerbatim}
 
 The rest of the code handles the case where \sphinxstyleemphasis{n \textgreater{} 1}. At this point in
-the program execution, we believe that \sphinxstyleemphasis{n} must be greater than zero,
-as we would have just returned if it were zero, and it can’t be
-negative because its type is \sphinxstyleemphasis{nat}. We can nevertheless formally
-assert (write a proposition about the state of the program) that \sphinxstyleemphasis{n}
-is greater than zero. Dafny will try to (and here will successfully)
-verify that the assertion is true at this point in the program, no
-matter what path through conditionals, while loops, and sequences of
-commands the program took to get here.
+the program execution, we believe that \sphinxstyleemphasis{n} must be greater than zero.
+We would have just returned if it were zero, and it can’t be negative
+because its type is \sphinxstyleemphasis{nat}. We can nevertheless formally assert (write
+a proposition about the state of the program) that \sphinxstyleemphasis{n} is greater than
+zero. Dafny will try to (and here will successfully) verify that the
+assertion is true at this point in the program, no matter what path
+through conditionals, while loops, commands led to this point in the
+program.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 assert n \PYGZgt{} 0;
 \end{sphinxVerbatim}
 
-Strategy: use a while loop to compute the answer. We can do this by
-using a variable, a, to hold a “partial factorial value” in the form
-of a product of the numbers from n down to a loop index, “i,” that we
-start at n and decrement down, terminating the loop when \sphinxstyleemphasis{n==0}. At
-each point just before, during, and right after the loop, \sphinxstyleemphasis{a} is a
-product of the numbers from \sphinxstyleemphasis{n} down to \sphinxstyleemphasis{i}, and the value of \sphinxstyleemphasis{i}
-represents how much of this product-computing work remains to be
+To compute an answer for the non-zero input case, we will use a loop.
+We can do this by using a variable, a, to hold a “partial factorial
+value” in the form of a product of the numbers from n down to a loop
+index, “i,” that we start at n and decrement, terminating the loop
+when \sphinxstyleemphasis{n==0}.
+
+At each point just before, during, and right after the loop, \sphinxstyleemphasis{a} is a
+product of the numbers from \sphinxstyleemphasis{n} down to but not including \sphinxstyleemphasis{i}, and the
+value of \sphinxstyleemphasis{i} represents how much product-computing work remains to be
 done. So, for example, if we’re computing factorial(10) and a holds
-the value \sphinxstyleemphasis{10 * 9}, then \sphinxstyleemphasis{i} must be \sphinxstyleemphasis{8} because the task of
-multiplying \sphinxstyleemphasis{a} by the factors from \sphinxstyleemphasis{8} down to \sphinxstyleemphasis{1} remains to be
-done. A critical “invariant” then is that if you multiply \sphinxstyleemphasis{a} by the
-factorial of \sphinxstyleemphasis{i} you get the final answer, the factorial of \sphinxstyleemphasis{n}.
-And in particular, when \sphinxstyleemphasis{i} gets down to \sphinxstyleemphasis{0}, \sphinxstyleemphasis{a} must contain the
-final result, because \sphinxstyleemphasis{a * fact(0)} will then equal \sphinxstyleemphasis{fact(n)} and
-\sphinxstyleemphasis{fact(0)} is just \sphinxstyleemphasis{1}, so \sphinxstyleemphasis{a} must equal \sphinxstyleemphasis{fact(n)}. This is how we
-design loops so that we can be confident that they do what we want
-tem to do.
+the value \sphinxstyleemphasis{10 * 9}, then \sphinxstyleemphasis{i} must be \sphinxstyleemphasis{8} because multiplying \sphinxstyleemphasis{a} by
+the factors from \sphinxstyleemphasis{8} to \sphinxstyleemphasis{1} remains to be done.
+
+A critical “invariant” then is that if you multiply \sphinxstyleemphasis{a} by the
+factorial of \sphinxstyleemphasis{i} you get the the factorial of \sphinxstyleemphasis{n}.  When we say that
+this is an invariant, we mean that it holds before and also after any
+execution of the loop body, but not necessarily within the loop
+body. In particular, when \sphinxstyleemphasis{i} gets down to \sphinxstyleemphasis{0}, this relation means
+that \sphinxstyleemphasis{a} must contain the final result, because \sphinxstyleemphasis{a * fact(0)} will
+then equal \sphinxstyleemphasis{fact(n)} and \sphinxstyleemphasis{fact(0)} is just \sphinxstyleemphasis{1}, so \sphinxstyleemphasis{a} must equal
+\sphinxstyleemphasis{fact(n)}.
+
+This is how we design loops so that we can be confident that they do
+what we want tem to do. So now let’s go through the steps required to
+implement our looping strategy.
 
 Step 1. Set up state for the loop to work. We first initializie a := 1
-and i := n and check that the invariant holds. Note that we are using
-our pure functional math-like definition of fact as a \sphinxstyleemphasis{specification}
-of the factorial function we’re implementing.
+and i := n.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 var i: nat := n;    // nat type of i explicit
 var a := 1;         // can let Dafny infer it
 \end{sphinxVerbatim}
 
+It would now be a good idea to ask Dafny to check that the invariant
+holds. See the next bit of code, below. Note that we are again using
+our pure functional definition, \sphinxstyleemphasis{fact}, as a \sphinxstyleemphasis{specification} of the
+function we’re implementing.
+
 In Dafny, we can use matnematical logic to express what must be true
 at any given point in the execution of a program in the form of an
 “assertion.” Here we assert that our loop invariant holds. The Dafny
 verifier tries to prove that the assertion is a true propsition about
-the state of the program when control reaches this point in the
-execution of this program.
+the state of the program when control reaches this point, no matter
+what path might have been taken to arrive at this point.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 assert a * fact(i) == fact(n); // \PYGZdq{}invariant\PYGZdq{}
 \end{sphinxVerbatim}
 
-Step 2: Now evaluate the loop to get the answer. To evaluate a loop,
-first, evaluate the loop condition (i \textgreater{} 0).Then , if the result is
-false, terminate the loop. Otherwise, evaluate the loop body, then
-iterate (run the loop again, starting by evaluating the loop
+Step 2: Now we write the actual loop command. Recall how a \sphinxstyleemphasis{while}
+loop works. To evaluate a loop, one evaluates the loop condition. If
+the result is false, the loop body does not execute and the loop
+terminates.  Otherwise, the loop body is executed once and then the
+whole loop is run again (starting with a new evaluation of the loop
 condition).
 
-Note that we can deduce that the loop body is going to execute at
-least once. It will run if i \textgreater{} 0. What is i? We initialized it to n
-and haven’t change it since then so it must still be equal to n. Do we
-know that n is greater than 0? We do, because (1) it can’t be negative
-owning to its type, and (2) it can’t be 0 because if it were 0 the
-program would already have returned. But we can now do better than
-just reasoning in our heads; we can use logic to express what we
-believe to be true and let Dafny try to check it for us automatically.
+We want our loop body to run at least once, as we already handled the
+case where it doesn’t need to run at all. It will run if i \textgreater{} 0. What
+is i? We initialized it to n and haven’t change it since then so it
+must still be equal to n. Do we know that n is greater than 0? We do,
+because (1) it can’t be negative owning to its type, and (2) it can’t
+be 0 because if it were 0 the program would already have returned.
+
+We can now do better than just reasoning in our heads. We can also use
+logic to express what we believe to be true and let Dafny try to check
+it for us automatically.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 assert i \PYGZgt{} 0;
 \end{sphinxVerbatim}
 
-Let’s just think briefly about cases. We know i can’t be zero. It
-could be one. If it’s one, then the loop body will run. The loop body
-will run. a, which starts at 1, will be multiplied by i, which is 1,
-then i will be decremented.  It will have the value 0 and the loop
-will not run again, leaving a with the value 1, which is the right
-answer. So, okay, let’s run the loop.
+Now if \sphinxstyleemphasis{i} is one, then the loop body will run once. The value of \sphinxstyleemphasis{a},
+which starts at 1, will be multiplied by i, which is 1, then i will be
+decremented, taking the the value 0. The loop will be run again, but
+the loop condition will be found to be false, and to the loop body
+will not be executed and the loop will terminate. When it does, it
+will leave \sphinxstyleemphasis{a} with the value 1, which is the right answer.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 while (i \PYGZgt{}  0)
@@ -1341,12 +1472,31 @@ while (i \PYGZgt{}  0)
 \PYGZcb{}
 \end{sphinxVerbatim}
 
-At this point, we know that the loop condition is false. In English,
-we’d say it is no longer true that i is greater than zero.” We can do
-better that saying this in natural language then forgetting it. We can
-use formal logic to formalize and document our belief and if we do
-this then Dafny pays us well for our effort by checking that our
-assertion is true.
+If \sphinxstyleemphasis{i} is greater than 1, the loop body will execute, multiplying \sphinxstyleemphasis{a}
+by the current value of \sphinxstyleemphasis{i} and \sphinxstyleemphasis{i} will be decremented. The vaue of
+\sphinxstyleemphasis{a} will be the partial value of the factorial computed so far, and
+the value of \sphinxstyleemphasis{i} will represent the work that remains to be done. When
+\sphinxstyleemphasis{i} reaches zero, all the work will be done, and \sphinxstyleemphasis{a} will contain the
+final result.
+
+However, Dafny cannot determine on its own that this will be the case.
+What it needs to know to reason “mechanically” about the program is a
+bit of additional information about what remains true no matter \sphinxstyleemphasis{how}
+many times the loop body executes (zero or more). That information is
+expressed in the loop \sphinxstyleemphasis{invariants}. The first one is true but not of
+much use. The second one is the key to enabling Dafny to verify that
+after the loop, \sphinxstyleemphasis{a == fact(n)}.
+
+The invariant itself just says that at all points before and after the
+loop body executes, that partial factorial value computed so far times
+the factorial of \sphinxstyleemphasis{i} (which remains to be computed) is the answer that
+we seek. Once the loop is done we (and Dafny) \sphinxstyleemphasis{also} know that \sphinxstyleemphasis{i == 0}.
+It is the combination of the invariant and this fact that enables Dafny
+to see that it must be the case that \sphinxstyleemphasis{a == fact(n)}.
+
+We can verify by using asserts after the loop that our beliefs about
+what the state of the program must be are correct. First, let’s have
+Dafny check that the loop condition is now false.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 assert !(i \PYGZgt{} 0);
@@ -1359,22 +1509,23 @@ assert a * fact(i) == fact(n);
 \end{sphinxVerbatim}
 
 And now comes the most crucial step of all in our reasoning. We can
-deduce that a now holds the correct answer. That this is so follows
-from the conjunction of the two assertions we just made. First, that i
-is not greater than 0 and given that its type is nat, the only
-possible value it can have now is 0. And that’s what we’d expect,
-because that’s the condition on which the loop terminates, which is
-just did! But better than just saying it, let us also formalize,
-document, and check it.
+deduce that \sphinxstyleemphasis{a} now holds the correct answer. That this is so follows
+from the conjunction of the two assertions we just made. First, that
+\sphinxstyleemphasis{i} is not greater than \sphinxstyleemphasis{0} and given that its type is \sphinxstyleemphasis{nat}, the only
+possible value it can have now is \sphinxstyleemphasis{0}. That’s what we’d expect, as it
+is the condition on which the loop terminates (which it just did). But
+better than just saying all of this, let us also formalize, document,
+and check it using the Dafny verifier.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 assert i == 0;
 \end{sphinxVerbatim}
 
-Now it’s easy to see. No matter what value i has, a * fact(i) ==
-fact(n), and i == 0, so we have a * fact(0) == fact(n), and we know
-that fact(0) is 1 because we see that in the very mathematical
-definition of fact, so it must be that a = fact(n). Dafny can check!
+Now it’s easy to see. No matter what value \sphinxstyleemphasis{i} has, we know that the
+loop invariant holds: \(a * fact(i) == fact(n),\) and we also know
+that \sphinxstyleemphasis{i == 0}. So it must be that \(a * fact(0) == fact(n).\) And
+fact(0) is \sphinxstyleemphasis{1} (from its mathematical definition). So it must be that
+\sphinxstyleemphasis{a == fact(n)}. And Dafny confirms it!
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 assert a == fact(n);
@@ -1395,23 +1546,25 @@ intellectual tool, inceasingly used for precise specification and
 semi-automated reasoning about and verification of real programs.
 
 
-\section{A Verified Implementation of the Fibonacci Function}
-\label{\detokenize{05-putting-it-together:a-verified-implementation-of-the-fibonacci-function}}
-Similarly, here an imperative implementation of the fibonacci
-function, without a spec.
+\section{Case Study: The Fibonacci Function}
+\label{\detokenize{05-putting-it-together:case-study-the-fibonacci-function}}
+Similarly, here is a verified imperative implementation of the
+Fibonacci function. We start by adding a specification in the
+form of an ensures clause, appealing to our functional program,
+to tell Dafny what the imperative program must compute.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 method fibonacci(n: nat) returns (r: nat)
     ensures r == fib(n)
 \end{sphinxVerbatim}
 
-Now for the body. First we represent values for the two
-cases where the result requires no further computation.
-Initially, \sphinxstyleemphasis{fib0} will store the value of \sphinxstyleemphasis{fib(0)} and
-\sphinxstyleemphasis{fib1} will store the value of \sphinxstyleemphasis{fib(1)}.
+Now for the body. First we represent values for the two cases where
+the result requires no further computation.  Initially, \sphinxstyleemphasis{fib0} will
+store the value of \sphinxstyleemphasis{fib(0)}, namely \sphinxstyleemphasis{0}, and \sphinxstyleemphasis{fib1} will store the
+value of \sphinxstyleemphasis{fib(1)}, namely \sphinxstyleemphasis{1}.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-var fib0, fib1 := 0, 1; //parallel assmt
+var fib0, fib1 := 0, 1; //parallel assignment
 \end{sphinxVerbatim}
 
 Next, we test to see if either of these cases applies,
@@ -1423,37 +1576,36 @@ if (n == 1) \PYGZob{} return fib1; \PYGZcb{}
 \end{sphinxVerbatim}
 
 At this point, we know something more about the state of the program
-than was the case when we started. We can deduce, which is to say that
-we know, that \sphinxstyleemphasis{n} has to be greater than or equal to \sphinxstyleemphasis{2}. This is
-because it initially had to be greater than or equal to zero due to
-its type, and then we would already have returned if it were \sphinxstyleemphasis{0} or
-\sphinxstyleemphasis{1}, to it must now be \sphinxstyleemphasis{2} or greater. We can document the belief
-that the current state of the program has to property that the value
-of the variable \sphinxstyleemphasis{n} is greater than or equal to \sphinxstyleemphasis{2}, and Dafny will
-verify this assertion for us.
+than was the case when we started. We can deduce that \sphinxstyleemphasis{n} has to be
+greater than or equal to \sphinxstyleemphasis{2}. This is because it initially had to be
+greater than or equal to zero due to its type, and we would already
+have returned if it were \sphinxstyleemphasis{0} or \sphinxstyleemphasis{1}. It must now be \sphinxstyleemphasis{2} or greater. We
+can assert this proposition about the state of the program at this
+point, and Dafny will verify it for us.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 assert n \PYGZgt{}= 2;
 \end{sphinxVerbatim}
 
 So now we have to deal with the case where \sphinxstyleemphasis{n \textgreater{}= 2}. Our strategy for
-computing fib(n) in this case is to use a while loop with an index i.
-Our design will be based on the idea that at the beginning and end of
-each loop iteration (we are currently at the beginning), we will have
-computed fib(i) and that its value is stored in fib1. We’ve already
-assigned the value of fib(0) to fib0, and of fib(1) to fib1, so to set
-up the desired state of affairs, we should initialize \sphinxstyleemphasis{i} to be \sphinxstyleemphasis{1}.
+computing \sphinxstyleemphasis{fib(n)} in this case is, again, to use a while loop. We
+will establish a loop index \sphinxstyleemphasis{i}.  Our design will be based on the idea
+that at the beginning and end of each loop iteration (we are currently
+at the beginning), we will have already computed \sphinxstyleemphasis{fib(i)} and that its
+value is in \sphinxstyleemphasis{fib1}. We’ve already assigned the value of \sphinxstyleemphasis{fib(0)} to
+\sphinxstyleemphasis{fib0}, and \sphinxstyleemphasis{fib(1)} to \sphinxstyleemphasis{fib1}, so to set up the desired state, we
+initialize \sphinxstyleemphasis{i} to be \sphinxstyleemphasis{1}.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 var i := 1;
 \end{sphinxVerbatim}
 
-We can state and Dafny can verify a number of conditions that we
-expect and require to hold at this point. First, \sphinxstyleemphasis{fib1} equals
-\sphinxstyleemphasis{fib(i)}. Now to compute the next (\sphinxstyleemphasis{i+1}) Fibonacci number, we need
-not only the value of \sphinxstyleemphasis{fib(i)} but also \sphinxstyleemphasis{fib(i-1)}. We will thus also
-want \sphinxstyleemphasis{fib0} to hold this value at the start and end of each loop
-iteration, and indeed we do have that state of affairs right now.
+We can now assert and Dafny can verify a number of conditions that we
+expect and require to hold. First, \sphinxstyleemphasis{fib1} equals \sphinxstyleemphasis{fib(i)}. To compute
+the next (\sphinxstyleemphasis{i+1st}) Fibonacci number, we need not only the value of
+\sphinxstyleemphasis{fib(i)} but also \sphinxstyleemphasis{fib(i-1)}. We will thus also want \sphinxstyleemphasis{fib0} to hold
+this value at the start and end of each loop iteration. Indeed we do
+have this state of affairs right now.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 assert fib1 == fib(i);
@@ -1462,40 +1614,51 @@ assert fib0 == fib(i\PYGZhy{}1);
 
 To compute \sphinxstyleemphasis{fib(n)} for any \sphinxstyleemphasis{n} greater than or equal to \sphinxstyleemphasis{2} will
 require at least one execution of the loop body. We’ll thus set our
-loop condition to be \sphinxstyleemphasis{i \textless{} n}. This ensures that the loop body will
-run, as \sphinxstyleemphasis{i} is \sphinxstyleemphasis{1} and \sphinxstyleemphasis{n} is at least \sphinxstyleemphasis{2}, so the condition \sphinxstyleemphasis{i \textless{} n}
-is \sphinxstyleemphasis{true}, which dictates that the loop body must be evaluated.
+loop condition to be \sphinxstyleemphasis{i \textless{} n}. This ensures that the loop body will run
+at least once, to compute \sphinxstyleemphasis{fib(2)}, as \sphinxstyleemphasis{i} is \sphinxstyleemphasis{1} and \sphinxstyleemphasis{n} is at least
+\sphinxstyleemphasis{2}; so the loop condition \sphinxstyleemphasis{i \textless{} n} is \sphinxstyleemphasis{true}, which dictates that the
+loop body must be evaluated at least once.
 
-Within the loop body we’ll compute fib(i+1) (we call it \sphinxstyleemphasis{fib2} within
-the loop) by adding together \sphinxstyleemphasis{fib0} and \sphinxstyleemphasis{fib1}; then we increment i;
-then we update \sphinxstyleemphasis{fib0} and \sphinxstyleemphasis{fib1} so that for the \sphinxstyleemphasis{new} value of \sphinxstyleemphasis{i}
-they hold \sphinxstyleemphasis{fib(i-1)} and \sphinxstyleemphasis{fib(i)}. To do this we assign the initial
-value of \sphinxstyleemphasis{fib1} to \sphinxstyleemphasis{fib0} and the value of \sphinxstyleemphasis{fib2} to \sphinxstyleemphasis{fib1}.
+Within the loop body we’ll compute \sphinxstyleemphasis{fib(i+1)} (we call it \sphinxstyleemphasis{fib2}) by
+adding together \sphinxstyleemphasis{fib0} and \sphinxstyleemphasis{fib1}; then we increment \sphinxstyleemphasis{i}; then we
+update \sphinxstyleemphasis{fib0} and \sphinxstyleemphasis{fib1} so that for the \sphinxstyleemphasis{new} value of \sphinxstyleemphasis{i} they hold
+\sphinxstyleemphasis{fib(i-1)} and \sphinxstyleemphasis{fib(i)}. To do this we assign the initial value of
+\sphinxstyleemphasis{fib1} to \sphinxstyleemphasis{fib0} and the value of \sphinxstyleemphasis{fib2} to \sphinxstyleemphasis{fib1}. Think hard so as
+to confirm for yourself that this sequence of actions re-establishes
+the loop invariant.
 
 Let’s work an example. Suppose \sphinxstyleemphasis{n} happens to be \sphinxstyleemphasis{2}. The loop body
 will run, and after the one execution, \sphinxstyleemphasis{i} will have the value, \sphinxstyleemphasis{2};
 \sphinxstyleemphasis{fib1} will have the value of \sphinxstyleemphasis{fib(2)}, and \sphinxstyleemphasis{fib0} will have the value
-of \sphinxstyleemphasis{fib(1)}. Because \sphinxstyleemphasis{i} is now \sphinxstyleemphasis{2} and \sphinxstyleemphasis{n} is still \sphinxstyleemphasis{2}, the loop
-condition will now be false and the loop will terminate. The value of
-\sphinxstyleemphasis{fib1} will of course be \sphinxstyleemphasis{fib(i)} but now we’ll also have that \sphinxstyleemphasis{i ==
-n} (it takes a little reasoning to prove this), so \sphinxstyleemphasis{fib(i)} will be
-\sphinxstyleemphasis{fib(n)}, which is the result we want and that we return.
+of \sphinxstyleemphasis{fib(1)}. Because \sphinxstyleemphasis{i} is now \sphinxstyleemphasis{2} and \sphinxstyleemphasis{n} is \sphinxstyleemphasis{2}, the loop condition
+will now be false and the loop will terminate. The value of \sphinxstyleemphasis{fib1}
+will of course be \sphinxstyleemphasis{fib(i)} but now we also have the negation of the
+loop condition, i.e., \sphinxstyleemphasis{i == n}. So \sphinxstyleemphasis{fib(i)} will be \sphinxstyleemphasis{fib(n)}, which is
+the result we want and that we return.
 
-We can also informally prove to ourself that this strategy gives us
-a program that always terminates and returns a value. That is, it does
+We can also informally prove to ourself that this strategy gives us a
+program that always terminates and returns a value. That is, it does
 not go into an infinite loop. To see this, note that the value of \sphinxstyleemphasis{i}
 is initally less than or equal to \sphinxstyleemphasis{n}, and it increases by only \sphinxstyleemphasis{1} on
 each time through the loop. The value of \sphinxstyleemphasis{n} is finite, so the value
 of \sphinxstyleemphasis{i} will eventually equal the value of \sphinxstyleemphasis{n} at which point the loop
 condition will be falsified and the looping will end.
 
-That’s our strategy. So let’s go. Here’s the while loop that we have
-designed. And here, for the first time, we see something crucial. We
-tell Dafny about certain properties of the state of the program that
-hold both before and after every execution of the loop body. We call
-such properties \sphinxstyleemphasis{invariants}. Dafny needs to know these invariants to
-prove to itself (and to us) that the loop does what it is intended to
-do: that the result at the end will be as desired.
+What Dafny looks for to verify that a given loop terminates is a value
+that \sphinxstyleemphasis{decreases} each time the loop runs and that is bounded below so
+that it cannot decrease forever. As \sphinxstyleemphasis{i} increases in this loop, it can
+not be the decreasing quantity. What Dafny takes instead is \sphinxstyleemphasis{n - i}.
+When \sphinxstyleemphasis{i} is \sphinxstyleemphasis{0} this value is large, and as \sphinxstyleemphasis{i} gets closer to \sphinxstyleemphasis{n} it
+decreases until when \sphinxstyleemphasis{i == n}, the difference is zero, and that is the
+bound at which the loop terminates.
+
+That’s our strategy. Here’s the while loop that we have designed. Now
+for the first time, we see something crucial. In general, Dafny has no
+idea how many times a loop body will execute. Intead, what it needs to
+know are properties of the state of the program that hold no matter
+how many times the loop executes, that, when combined with the fact
+that the has terminated allows one to conclude that the loop does what
+it’s meant to do. We call such properties \sphinxstyleemphasis{loop invariants}.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 while (i \PYGZlt{} n)
@@ -1515,25 +1678,24 @@ our design of the loop to work. First, \sphinxstyleemphasis{i} must never exceed
 it did, the loop would spin off into infinity. Second, to compute the
 next (the \sphinxstyleemphasis{i+1st)} Fibonacci number we have to have the previous \sphinxstyleemphasis{two}
 in memory. So \sphinxstyleemphasis{fib0} better hold \sphinxstyleemphasis{fib(i-1)} and \sphinxstyleemphasis{fib1}, \sphinxstyleemphasis{fib(i)}. Note
-that these conditions do not have to hold \sphinxstyleemphasis{within} the execution of
-the loop body, but they do have to hold before before and after each
-execution.
+that these conditions do not have to hold at all times \sphinxstyleemphasis{within} the
+execution of the loop body, where things are being updated, but they
+do have to hold before before and after each execution.
 
-The body of the loop is just as we described it above, and we can use
-our own minds to deduce that if the invariants hold before the loop
-body runs (and they do), then they will also hold after it runs. We
-can also see that after the loop terminates, it must be that \sphinxstyleemphasis{i==n}.
-This is because we know that it’s always true that \sphinxstyleemphasis{i \textless{}= n} and the
-loop condition must now be false, which is to say that \sphinxstyleemphasis{i} can no
-longer be strictly less than \sphinxstyleemphasis{n}, so \sphinxstyleemphasis{i} must now equal \sphinxstyleemphasis{n}. Logic
-says so, and logic is right. What is amazing is that we can write
-these assertions in Dafny if we wish to, and Dafny will verify that
-they are true statements about the state of the program after the
-loop has run. We have \sphinxstyleemphasis{proved} (or rather Dafny has proved and we
-have recapitulated the proof in this sequence of assertions) that
-we have without a doubt computed the right answer. Dafny has also
-proved to itself that the loop always terminates, and so we have
-in effect a formal proof of total correctness for this program.
+The body of the loop is just as we described it above. We can use our
+minds to deduce that if the invariants hold before each loop body runs
+(and they do), then they will also hold after it runs. We can also see
+that after the loop terminates, it must be that \sphinxstyleemphasis{i==n}, because we
+know that it’s always true that \sphinxstyleemphasis{i \textless{}= n} and the loop condition must
+now be false, which is to say that \sphinxstyleemphasis{i} can no longer be strictly less
+than \sphinxstyleemphasis{n}, so \sphinxstyleemphasis{i} must now equal \sphinxstyleemphasis{n}. Logic says so.
+
+What is amazing is that we can write these assertions in Dafny if we
+wish to, and Dafny will verify that they are true statements about the
+state of the program after the loop has run. We have \sphinxstyleemphasis{proved} (or
+rather Dafny has proved) that our loop always terminates with the
+right answer. We have a formal proof of \sphinxstyleemphasis{total correctness} for this
+program.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 assert i \PYGZlt{}= n;      // invariant
@@ -1549,19 +1711,18 @@ return fib1;
 
 \section{What is Dafny, Again?}
 \label{\detokenize{05-putting-it-together:what-is-dafny-again}}
-Dafny is a cutting-edge software language and tooset developed at
-Microsoft Research—one of the top computer science research labs in
-the world—that provides such a capability. We will explore Dafny and
-the ideas underlying it in the first part of this course, both to give
-a sense of the current state of the art in program verification and,
-most importantly, to explain why it’s vital for a computer scientist
-today to have a substantial understanding of logic and proofs along
-with the ability to \sphinxstyleemphasis{code}.
+Dafny is a cutting-edge software language and tooset for verification
+of imperative code. It was developed at Microsoft Research—one of
+the top computer science research labs in the world. We are exploring
+Dafny and the ideas underlying it in the first part of this course to
+give a sense of why it’s vital for a computer scientist today to have
+a substantial understanding of logic and proofs along with the ability
+to \sphinxstyleemphasis{code}.
 
 Tools such as TLA+, Dafny, and others of this variety give us a way
 both to express formal specifications and imperative code in a unified
 way (albeit in different sub-languages), and to have some automated
-checking done in an \sphinxstyleemphasis{attempt} to verify that code satisfies its spec.
+checking done in an attempt to verify that code satisfies its spec.
 
 We say \sphinxstyleemphasis{attempt} here, because in general verifying the consistency of
 code and a specification is a literally unsolvable problem. In cases
@@ -1574,15 +1735,16 @@ To understand how to use such state-of-the-art software development
 tools and methods, one must understand not only the language of code,
 but also the languages of mathematical logic, including set and type
 theory. One must also understand precisely what it means to \sphinxstyleemphasis{prove}
-that a program satisfies its specification; for generating proofs is
-exactly what tools like Dafny do \sphinxstyleemphasis{under the hood}.
+that a program satisfies its specification. And for that, one must
+develop a sense for propositions and proofs: what they are and how
+they are built and evaluated.
 
-A well educated computer scientist and a professionally trained
-software developer must understand logic and proofs as well as coding,
-and how they work together to help build \sphinxstyleemphasis{trustworthy} systems. Herein
-lies the deep relevance of logic and proofs, which might otherwise
-seem like little more than abstract nonsense and a distraction from
-the task of learning how to program.
+The well educated computer scientist and the professional software
+engineer must understand logic and proofs as well as coding, and how
+they work together to help build \sphinxstyleemphasis{trustworthy} systems. Herein lies
+the deep relevance of logic and proofs, which might otherwise seem
+like little more than abstract nonsense and a distraction from the
+task of learning how to program.
 
 
 \chapter{6. Dafny Language: Types, Statements, Expressions}
@@ -2287,28 +2449,51 @@ assert sumsquared == 36;     // because of the let expression
 \end{sphinxVerbatim}
 
 
-\chapter{7. Toward Logic: Boolean Algebra}
-\label{\detokenize{07-boolean-algebra:toward-logic-boolean-algebra}}\label{\detokenize{07-boolean-algebra::doc}}
-As a stepping stone toward a deeper exploration of deductive logic, we
-explore the related notion of Boolean \sphinxstyleemphasis{algebra}.  Boolean algebra is
-akin to ordinary high school algebra, and as such, deals with values,
-variables, and functions.  However, the values in Boolean algebra are
-limited to the two values in the set, \(bool = \{ 0, 1\}\). Based
-on the connection between Boolean algebra and \sphinxstyleemphasis{propositional logic},
-these values are often written as \sphinxstyleemphasis{false} and \sphinxstyleemphasis{true}, respectively.
+\chapter{7. Boolean Algebra}
+\label{\detokenize{07-boolean-algebra::doc}}\label{\detokenize{07-boolean-algebra:boolean-algebra}}
+As a first stepping stone toward a deeper exploration of deductive
+logic, we explore the related notion of Boolean \sphinxstyleemphasis{algebra}. Boolean
+algebra is a mathematical framework for representing and reasoning
+about truth.
+
+This algebra is akin to ordinary high school algebra, and as such,
+deals with values, operators, and the syntax and the evaluation of
+expressions involving values and operators.  However, the values in
+Boolean algebra are limited to the two values in the set, \(bool
+= \{ 0, 1\}\). They are often written instead as \sphinxstyleemphasis{false} and \sphinxstyleemphasis{true},
+respectively. And rather than arithmetic operators such as numeric
+negation, addition, and subtraction, Boolean algebra defines a set of
+\sphinxstyleemphasis{Boolean operators}. They are typically given names such as \sphinxstyleemphasis{and},
+\sphinxstyleemphasis{or}, and \sphinxstyleemphasis{not}, and they both operate on and yield Boolean values.
+
+In this chapter, we first discuss Boolean algebra in programming, a
+setting with which the reader is already familar, baesd on a first
+course in programming. We then take a deeper look at the syntax and
+semantics of \sphinxstyleemphasis{expressions} in Boolean algebra. We do this by seeing
+how to use \sphinxstyleemphasis{inductive definitions} and \sphinxstyleemphasis{recursive functions} in the
+Dafny language to implement an \sphinxstyleemphasis{inductive data type} for representing
+Boolean expressions and a recursive \sphinxstyleemphasis{evaluation} function that when
+given any Boolean expression tells whether it is \sphinxstyleemphasis{true} or \sphinxstyleemphasis{false}.
 
 
-\section{The \sphinxstyleemphasis{bool} Type in Dafny}
-\label{\detokenize{07-boolean-algebra:the-bool-type-in-dafny}}
+\section{Boolean Algebra in Dafny}
+\label{\detokenize{07-boolean-algebra:boolean-algebra-in-dafny}}
 All general-purpose programming languages support Boolean
 algebra. Dafny does so through its \sphinxstyleemphasis{bool} data type and the
 \sphinxstyleemphasis{operators} associated with it. Having taking a programming course,
 you will already have been exposed to all of the important ideas.
+In Dafny, as in many languages, the Boolean values are called
+\sphinxstyleemphasis{true} and \sphinxstyleemphasis{false} (rather than \sphinxstyleemphasis{1} and \sphinxstyleemphasis{0}).
+
+The Boolean operators are also denoted not by words, such as \sphinxstyleemphasis{or} and
+\sphinxstyleemphasis{not} but by math-like operators. For example, \sphinxstyleemphasis{!} is the not operator
+and \sphinxstyleemphasis{\textbar{}\textbar{}} is the \sphinxstyleemphasis{or} operator.
+
 Here’s a (useless) Dafny method that illustrates how Boolean values
-can be used in Dafny. It presents a method, \$BoolOps\$, that takes a
-Boolean value and returns one. The commands within the method body
-illustrate the use of Boolean constant values and unary and binary
-operators provided by the Dafny language.
+and operators can be used in Dafny. It presents a method, \$BoolOps\$,
+that takes a Boolean value and returns one. The commands within the
+method body illustrate the use of Boolean constant (literal) values
+and the unary and binary operators provided by the Dafny language.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 method BoolOps(a: bool) returns (r: bool)
@@ -2354,8 +2539,8 @@ returns true if the first is strictly less than the second, otherwise
 it returns false.
 
 
-\section{Boolean Algebra}
-\label{\detokenize{07-boolean-algebra:boolean-algebra}}
+\section{Boolean Values}
+\label{\detokenize{07-boolean-algebra:boolean-values}}
 Boolean algebra is an algebra, which is a set of values and of
 operations that take and return these values. The set of values in
 Boolean algebra, is just the set containing \sphinxstyleemphasis{0} and \sphinxstyleemphasis{1}.
@@ -2373,6 +2558,9 @@ symbols we use to represent these values don’t really matter. What
 really makes Boolean algebra what it is are the \sphinxstyleemphasis{operators} defined
 by Boolean algebra and how they behave.
 
+
+\section{Boolean Operators}
+\label{\detokenize{07-boolean-algebra:boolean-operators}}
 An algebra, again, is a set of values of a particular kind and a set
 of operators involving that kind of value. Having introduced the set
 of two values of the Boolean type, let’s turn to the \sphinxstyleemphasis{operations} of
@@ -3014,73 +3202,445 @@ one rarely sees these names used in practice.
 
 \subsection{A Ternary Binary Operator}
 \label{\detokenize{07-boolean-algebra:a-ternary-binary-operator}}
-Finally, to emphasize the point that there are binary operations of
-all arities, we introduce just one ternary Boolean operator. It takes
-three Boolean arguments and returns a Boolean result. It’s type is
-thus ::\sphinxtitleref{bool rightarrow bool rightarrow bool rightarrow bool}. We
-will call it \sphinxstyleemphasis{ifThenElse\_\{bool\}}.  The way it works is that the value
-of the first argument determines which of the next two arguments
-values the function returns. If the first argument is \sphinxstyleemphasis{true} then it
-returns the second argument, otherwise it returns the third. So, for
-example, \sphinxstyleemphasis{ifThenElse\_\{bool\}(true, true, false)} returns true.
+We can of course define Boolean operators of any arity. As just one
+example, we introduce a \sphinxstyleemphasis{ternary} (3-ary) Boolean operator. It takes
+three Boolean values as arguments and returns a Boolean result. It’s
+type is thus ::\sphinxtitleref{bool rightarrow bool rightarrow bool rightarrow
+bool}. We will call it \sphinxstyleemphasis{ifThenElse\_\{bool\}}.
 
-It is sometimes helpful to break up the name of such a function into
-parts (if, then, and else( and to spread out the arguments between the
-parts. So \sphinxstyleemphasis{ifThenElse\_\{bool\}(true, true, false)} could be written as
-\sphinxstyleemphasis{if true then true else false.} The link to conditional expressions
-and commands in everyday programming should clear.
+The way this operator works is that the value of the first argument
+determines which of the next two arguments values the function will
+return. If the first argument is \sphinxstyleemphasis{true} then the value of the whole
+expression is the value of the second argument, otherwise it is the
+value of the third. So, for example, \sphinxstyleemphasis{ifThenElse\_\{bool\}(true, true,
+false)} evaluates to true, while \sphinxstyleemphasis{ifThenElse\_\{bool\}(false, true,
+false)} is false.
 
-As an exercise for the reader: How many ternary Boolean operations are
-there? Hint: an operator with \sphinxstyleemphasis{n} Boolean arguments has \(2^n\)
-possible combinations of input values. This means that there will be
-\(2^n\) rows in its truth table, and so \(2^n\) blanks to fill
-in with Boolean values in the right column. How many ways are there to
-fill in \(2^n\) Boolean values?
+It is sometimes helpful to write Boolean expressions involving \sphinxstyleemphasis{n-ary}
+operators for \sphinxstyleemphasis{n\textgreater{}1} using something other than function application
+(prefix) notation. So, rather than \sphinxstyleemphasis{and(true,false)}, with the
+operator in front of the arguments (\sphinxstyleemphasis{prefix} notation), we would
+typically write \sphinxstyleemphasis{true \&\& false} to mean the same thing. We have first
+sed a symbol, \sphinxstyleemphasis{\&\&}, instead of the English word, \sphinxstyleemphasis{and} to name the
+operator of interest. We have also put the function name (now \sphinxstyleemphasis{\&\&})
+\sphinxstyleemphasis{between} the arguments rather than in front of them. This is called
+\sphinxstyleemphasis{infix} notation.
 
-Exercise: Write down the truth table for this Boolean if-then-else
+With ternary and other operators, it can even make sense to break up
+the name of the operator and spread its parts across the whole
+expression. For example, instead of writing, \sphinxstyleemphasis{ifThenElse\_\{bool\}(true,
+true, false)}, we could write it as \sphinxstyleemphasis{IF true THEN true ELSE false.}
+Here, the capitalized words all together represent the name of the
+function applied to the three Boolean arguments in the expression.
+
+As an aside, when we use infix notation, we have to do some extra
+work, namely to specify the \sphinxstyleemphasis{order of operations}, so that when we
+write expressions, the meaning is unambiguous. We have to say which
+operators have higher and lower \sphinxstyleemphasis{precedence}, and whether operators
+are \sphinxstyleemphasis{left}, \sphinxstyleemphasis{right}, or not associative. In everyday arithmetic, for
+example, multiplication has higher precedence than addition, so the
+expression \sphinxstyleemphasis{3 + 4 * 5} is read as \sphinxstyleemphasis{3 + (4 * 5)} even though the \sphinxstyleemphasis{+}
+operator comes first in the expression.
+
+Exercise: How many ternary Boolean operations are there? Hint: for an
+operator with \sphinxstyleemphasis{n} Boolean arguments there are \(2^n\) combinations
+of input values. This means that there will be \(2^n\) rows in its
+truth table, and so \(2^n\) blanks to fill in with Boolean values
+in the right column. How many ways are there to fill in \(2^n\)
+Boolean values? Express your answer in terms of \sphinxstyleemphasis{n}.
+
+Exercise: Write down the truth table for our Boolean if-then-else
 operator.
 
 
-\section{Logic: Formal Languages for Syntactic Reasoning}
-\label{\detokenize{07-boolean-algebra:logic-formal-languages-for-syntactic-reasoning}}
-Mathematical logic is grounded in the definition of valid sentences in
-formal languages and the definition of rules for transforming one such
-sentence into another in a valid way. For example, \sphinxstyleemphasis{2 + 2} is a valid
-expression in the languages of arithmetic (but \sphinxstyleemphasis{2 2 + +} isn’t), and
-the rules of mathematical logic allow this expression to be replaced
-with the expression, \sphinxstyleemphasis{4}, but not by \sphinxstyleemphasis{5}.
+\section{Formal Languages: Syntax and Semantics}
+\label{\detokenize{07-boolean-algebra:formal-languages-syntax-and-semantics}}
+Any introduction to programming will have made it clear that there is
+an infinite set of Boolean expressions. For example, in Dafny, \sphinxstyleemphasis{true}
+is a Boolean expression; so are \sphinxstyleemphasis{false}, \sphinxstyleemphasis{true \textbar{}\textbar{} false}, \sphinxstyleemphasis{(true \textbar{}\textbar{}
+false) \&\& (!false)}, and one could keep going on forever.
 
-Why would anyone care about precisely defined transformations between
-expressions in abstract languages? Well, it turns out that \sphinxstyleemphasis{syntactic}
-reasoning is pretty useful. The idea is that we represent a real-world
-phenomenon symbolically, in such a language, so the abstract sentence
-means something in the real world.
+Boolean \sphinxstyleemphasis{expressions}, as we see here, are a different kind of thing
+than Boolean \sphinxstyleemphasis{values}. There are only two Boolean values, but there is
+an infinity of Boolean expressions. The connection is that each such
+expression has a corresponding Boolean truth value. For example, the
+expression, \sphinxstyleemphasis{(true \textbar{}\textbar{} false) \&\& (!false)} has the value, \sphinxstyleemphasis{true}.
 
-Now comes the key idea: if we imbue mathematical expressions with
-real-world meanings and then transform these expression in accordance
-with valid rules for acceptable transformations of such expressions,
-then the resulting expressions will also be meaningful.
+The set of valid Boolean expressions is defined by the \sphinxstyleemphasis{syntax} of the
+Boolean expression language. The sequence of symbols, \sphinxstyleemphasis{(true \textbar{}\textbar{} false)
+\&\& (!false)}, is a valid expression in the language, for example, but
+\sphinxstyleemphasis{)( true false()\textbar{}\textbar{}) false !\&\&} is not, just as the sequence of words,
+“Mary works long hours” is a valid sentence in the English language,
+but “long works hours Mary” isn’t.
 
-A logic, then, is basically a formal language, one that defines a set
-of well formed expressions, and that provides a set of \sphinxstyleemphasis{inference}
-rules for taking a set of expressions as premises and deriving another
-one as a consequence. Mathematical logic allows us to replace human
-mental reasoning with the mechanical \sphinxstyleemphasis{transformation of symbolic
-expressions}.
+The syntax of a language defines the set of valid sentences in the
+language. The semantics of a language gives a meaning to each valid
+sentence in the language. In the case of Boolean expressions, the
+meaning given to each valid “sentence” (expression) is simply the
+Boolean value that that expression \sphinxstyleemphasis{reduces to}.
 
-To define a logic, we only have to say how to form valid expressions,
-and what the rules are for transforming such expression in valid ways.
-To use such a logic for practical good, which is the ultimate aim, of
-course, we have to learn the art of figuring out how to represent the
-real-world phenomena of interest into symbolic forms in ways that will
-allow us then to use the available transformation rules repeatedly to
-deduce a new expression, one that holds the answer to the question we
-asked, or the result we need to act upon to have some desired effect
-in and on the world.
+In the rest of this chapter, we use the case of Boolean expressions to
+introduce the concepts of the \sphinxstyleemphasis{syntax} and the \sphinxstyleemphasis{semantics} of \sphinxstyleemphasis{formal
+languages}. The syntax of a formal language precisely defines a set of
+\sphinxstyleemphasis{expressions} (sometimes called sentences or formulae). A \sphinxstyleemphasis{semantics}
+associates a \sphinxstyleemphasis{meaning}, in the form of a \sphinxstyleemphasis{value}, with each expression
+in the language.
 
 
-\section{Boolean Algebra, Expressions, and Decision Problems}
-\label{\detokenize{07-boolean-algebra:boolean-algebra-expressions-and-decision-problems}}
+\section{The Syntax of Boolean Expressions: Inductive Definitions}
+\label{\detokenize{07-boolean-algebra:the-syntax-of-boolean-expressions-inductive-definitions}}
+As an example of syntax, the \sphinxstyleemphasis{true}, in the statement, \sphinxstyleemphasis{var b :=
+true;} is a valid expression in the language of Boolean expressions,
+as defined by the \sphinxstyleemphasis{syntaxt} of this language. The semantics of the
+language associates the Boolean \sphinxstyleemphasis{value}, \sphinxstyleemphasis{true}, with this expression.
+
+You probably just noticed that we used the same symbol, \sphinxstyleemphasis{true}, for
+both an expression and a value, blurring the distinction between
+expressions and values. Expressions that directly represent values are
+called \sphinxstyleemphasis{literal expressions}. Many languages use the usual name for a
+value as a literal expression, and the semantics of the language then
+associate each such expression with its corresponding value.
+
+In the semantics of practical formal languages, literal expressions
+are assigned the values that they name. So the \sphinxstyleemphasis{expression}, \sphinxstyleemphasis{true},
+means the \sphinxstyleemphasis{value}, \sphinxstyleemphasis{true}, for example. Similarly, when \sphinxstyleemphasis{3} appears on
+the right side of an assignment/update statement, such as in \sphinxstyleemphasis{x := 3},
+it is an \sphinxstyleemphasis{expression}, a literal expression, that when \sphinxstyleemphasis{evaluated} is
+taken to \sphinxstyleemphasis{mean} the natural number (that we usually represent as) \sphinxstyleemphasis{3}.
+
+As computer scientists interested in languages and meaning, we can
+make these concepts of syntax and semantics not only precisely clear
+but also \sphinxstyleemphasis{runnable}. So let’s get started.
+
+
+\subsection{The Syntax and Semantics of \sphinxstyleemphasis{Simplified} Boolean Expression Language}
+\label{\detokenize{07-boolean-algebra:the-syntax-and-semantics-of-simplified-boolean-expression-language}}
+We start by considering a simplified language of Boolean expressions:
+one with only two literal expressions.  To make it clear that they are
+not Boolean values but expressions, we will call them not \sphinxstyleemphasis{true} and
+\sphinxstyleemphasis{false} but \sphinxstyleemphasis{bTrue} and \sphinxstyleemphasis{bFalse}.
+
+
+\subsubsection{Syntax}
+\label{\detokenize{07-boolean-algebra:syntax}}
+We can represent the syntax of this language in Dafny using what we
+call an \sphinxstyleemphasis{inductive data type definition.} A data type defines a set of
+values. So what we need to define is a data type whose values are all
+and only the valid expressions in the language. The data type defines
+the \sphinxstyleemphasis{syntax} of the language.
+
+In the current case, we need a type with only two values, each one of
+them representing a valid expression in our language. Here’s how we’d
+write it in Dafny.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+datatype Bexp =
+     bTrue \textbar{}
+     bFalse
+\end{sphinxVerbatim}
+
+The definition starts with the \sphinxstyleemphasis{datatype} keyword, followed by the
+name of the type being defined (\sphinxstyleemphasis{Bexp}, short for Boolean expression)
+then an equals sign, and finally a list of \sphinxstyleemphasis{constructors} separated by
+vertical bar characters. The constructors define the ways in which the
+values of the type (or \sphinxstyleemphasis{terms}) can be created. Each constructor has a
+and can take optional parameters. Here the names are \sphinxstyleemphasis{bTrue} and
+\sphinxstyleemphasis{bFalse} and neither takes any parameters.
+
+The only values of an inductive type are those that can be built using
+the provided constructors. So the language that we have specified thus
+far has only two values, which we take to be the valid expressions in
+the language we are specifying, namely \sphinxstyleemphasis{bTrue} and \sphinxstyleemphasis{bFalse}.  That is
+all there is to specifying the \sphinxstyleemphasis{syntax} of our simplified language of
+Boolean expressions.
+
+
+\subsubsection{Semantics}
+\label{\detokenize{07-boolean-algebra:semantics}}
+To give a preview of what is coming, we now specify a semantics for
+this language. Speaking informally, we want to associate, to each of
+the expressions, a correponding meaning in the form of a Boolean
+value.  We do this by defining a \sphinxstyleemphasis{function} that takes an expression
+(a value of type \sphinxstyleemphasis{bExp}) as an argument and that returns the Boolean
+\sphinxstyleemphasis{value} that the semantics defines as the meaning of that expression.
+Here, we want a function that returns Dafny’s Boolean value \sphinxstyleemphasis{true} for
+the expression, \sphinxstyleemphasis{bTrue}, and the Boolean value \sphinxstyleemphasis{false} for \sphinxstyleemphasis{bFalse}.
+
+Here’s how we can write this function in Dafny.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+function method bEval(e: bExp): bool
+\PYGZob{}
+  match e
+  \PYGZob{}
+      case bTrue =\PYGZgt{} true
+      case bFalse =\PYGZgt{} false
+  \PYGZcb{}
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+As a shorhand for \sphinxstyleemphasis{Boolean semantic evaluator} we call it \sphinxstyleemphasis{bEval}. It
+takes an expression (a value of type, \sphinxstyleemphasis{bExp}) and returns a Boolean
+value.  The function implementation uses an important construct that
+is probably new to most readers: a \sphinxstyleemphasis{match} expression. What a match
+expression does is to: first determine how a value of an inductive
+type was buit, namely what constructor was used and what arguments
+were provided (if any) and then to compute a result for the case at
+hand.
+
+The match expression starts with the match keyword followed by the
+variable naming the value being matched. Then within curly braces
+there is a \sphinxstyleemphasis{case} for each constructor for the type of that value.
+There are two constructors for the type, \sphinxstyleemphasis{bExp}, so there are two
+cases. Each case starts with the \sphinxstyleemphasis{case} keyword, then the name of a
+constructor followed by an argument list if the construtor took
+parameters. Neither constructor took any parameters, so there is no
+need to deal with parameters here. The left side thus determines how
+the value was constructed. Each case has an arrow, \sphinxstyleemphasis{=\textgreater{}}, that is
+followed by an expression that when evaluated yields the result \sphinxstyleemphasis{for
+that case}.
+
+The code here can thus be read as saying, first look at the given
+expression, then determine if it was \sphinxstyleemphasis{bTrue} or \sphinxstyleemphasis{bFalse}. In the first
+case, return \sphinxstyleemphasis{true}. In the second case, return \sphinxstyleemphasis{false}. That is all
+there is to defining a semantics for this simple language.
+
+
+\subsection{The Syntax of a Complete Boolean Expression Language}
+\label{\detokenize{07-boolean-algebra:the-syntax-of-a-complete-boolean-expression-language}}
+The real language of Boolean expressions has many more than two valid
+expressions, of course. In Dafny’s Boolean expression sub-language,
+for example, one can write not only the literal expressions, \sphinxstyleemphasis{true}
+and \sphinxstyleemphasis{false}, but also expressions such as \sphinxstyleemphasis{(true \textbar{}\textbar{} false) \&\& (not
+false)}.
+
+There is an infinity of such expressions, because given any one or two
+valid expressions (starting with \sphinxstyleemphasis{true} and \sphinxstyleemphasis{false}) we can always
+build a bigger expression by combing the two given ones with a Boolean
+operator. No matter how complex expressions \sphinxstyleemphasis{P} and \sphinxstyleemphasis{Q} are, we can,
+for example, always form the even more complex expressions, \sphinxstyleemphasis{!P}, \sphinxstyleemphasis{P
+\&\& Q}, and \sphinxstyleemphasis{P \textbar{}\textbar{} Q}, among others.
+
+How can we extend the syntax of our simplified language so that it
+specifies the infinity set of well formed expressions in the language
+of Boolean expressions? The answer is that we need to add some more
+cosntructors. In particular, for each Boolean operator (including
+\sphinxstyleemphasis{and, or}, and \sphinxstyleemphasis{not}), we need a a constructor that takes the right
+number of smaller expressions as arguments and the builds the right
+larger expression.
+
+For example, if \sphinxstyleemphasis{P} and \sphinxstyleemphasis{Q} are arbitrary “smaller” expressions, we
+need a consructor to build the expression \sphinxstyleemphasis{P and Q}, a constructor to
+build the expression, \sphinxstyleemphasis{P or Q}, and one that can build the expressions
+\sphinxstyleemphasis{not P} and \sphinxstyleemphasis{not Q}. Here then is the induction: some constructors of
+the \sphinxstyleemphasis{bExp} type will take values of the very type we’re defining as
+parameters. And because we’ve defined some values as constants, we
+have some expressions to get started with. Here’s how we’d write the
+code in Dafny.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+datatype bExp =
+     bTrue \textbar{}
+     bFalse \textbar{}
+     bNot (e: bExp) \textbar{}
+     bAnd (e1: bExp, e2: bExp) \textbar{}
+     bOr (e1: bExp, e2: bExp)
+\end{sphinxVerbatim}
+
+We’ve added three new constructors: one corresponding to each of the
+\sphinxstyleemphasis{operator} in Boolean algebra (to keep things simple, we’re dealing
+with only three of them here). We have named each constructor in a way
+that makes the connection to the corresponding operator clear.
+
+We also see that these new constructors take parameters. The \sphinxstyleemphasis{bNot}
+constructor takes a “smaller” expression, \sphinxstyleemphasis{e}, and builds/returns the
+expression, \sphinxstyleemphasis{bNot e}, which we will interpret as \sphinxstyleemphasis{not e}, or, as we’d
+write it in Dafny, \sphinxstyleemphasis{!e}. Similarly, given expressions, \sphinxstyleemphasis{e1} and \sphinxstyleemphasis{e2},
+the \sphinxstyleemphasis{bAnd} and \sphinxstyleemphasis{bOr} operators construct the expressions \sphinxstyleemphasis{bAnd(e1,e2)}
+and \sphinxstyleemphasis{bOr(e1,e2)}, respectively, representing \sphinxstyleemphasis{e1 and e2} and \sphinxstyleemphasis{e1 or
+e2}, respectively, or, in Dafny syntax, \sphinxstyleemphasis{e1 \&\& e2} and \sphinxstyleemphasis{e1 \textbar{}\textbar{} e2}.
+
+An expression in our \sphinxstyleemphasis{bExp} language for the Dafny expression \sphinxstyleemphasis{(true
+\textbar{}\textbar{} false) and (not false))} would be written as \sphinxstyleemphasis{bAnd( (bOr (bTrue,
+bFalse)), (bNot bFalse))}. Writing complex expressions like this in
+a single line of code can get awkward, to we could also structure the
+code like this:
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+var T: bExp := bTrue;
+var F:      := bFalse;
+var P:      := bOr ( T,  F );
+var Q       := bNot ( F );
+var R       := bAnd ( P, Q );
+\end{sphinxVerbatim}
+
+
+\section{The Semantics of Boolean Expressions: Recursive Evaluation}
+\label{\detokenize{07-boolean-algebra:the-semantics-of-boolean-expressions-recursive-evaluation}}
+The remaining question, then, is how to give meanings to each of the
+expressions in the infinite set of expressions that can be built by
+finite numbers of applications of the constructor of our extended
+\sphinxstyleemphasis{bExp} type? When we had only two values in the type, it was easy to
+write a function that returned the right meaning-value for each of the
+two cases. We can’t possibly write a separate case, though, for each
+of an infinite number of expressions. The solution lies again in the
+realm of recursive functions.
+
+Such a function will simply do mechanically what you the reader would
+do if presented with a complex Boolean expression to evaluate.  You
+first figure out what operator was applied to what smaller expression
+or expressions. You then evaluate those expressions to get values for
+them. And finally you apply the Boolean operator to those values to
+get a result.
+
+Take the expression, \sphinxstyleemphasis{(true \textbar{}\textbar{} false) and (not false))}, which in our
+language is expressed by the term, \sphinxstyleemphasis{bAnd( (bOr (bTrue, bFalse)), (bNot
+bFalse))}. First we identify the \sphinxstyleemphasis{constructor} that was used to build
+the expression In this case it’s the constructor corresponding to the
+\sphinxstyleemphasis{and} operator: \sphinxstyleemphasis{\&\&} in the Dafny expression and the \sphinxstyleemphasis{bAnd} in our own
+expression language. What we then do depends on what case has occured.
+
+In the case at hand, we are looking at the constructor for the \sphinxstyleemphasis{and}
+operator. It took two smaller expressions as arguments. To enable the
+precise expression of the return result, ew given temporary names to
+the argument values that were passed to the constructor. We can call
+them \sphinxstyleemphasis{e1} and \sphinxstyleemphasis{e2}, for example.
+sub-expressions that the operator was applied to.
+
+In this case, \sphinxstyleemphasis{e1} would be \sphinxstyleemphasis{(true \textbar{}\textbar{} false)} and \sphinxstyleemphasis{e2} would be \sphinxstyleemphasis{(not
+false)}. To compute the value of the whole expression, we then obtain
+Boolean values for each of \sphinxstyleemphasis{e1} and \sphinxstyleemphasis{e2} and then combine them using
+the Boolean \sphinxstyleemphasis{and} operator.
+
+The secret is that we get the values for \sphinxstyleemphasis{e1} and \sphinxstyleemphasis{e2} by the very
+same means: recursively! Within the evaluation of the overall Boolean
+expression, we thus recursively evaluate the subexpressions. Let’s
+work through the recursive evaluation of \sphinxstyleemphasis{e1}. It was built using the
+\sphinxstyleemphasis{bOr} constructor. That constructor took two arguments, and they were,
+in this instance, the literal expressions, \sphinxstyleemphasis{bTrue} and \sphinxstyleemphasis{bFalse}. To
+obtain an overall result, we recursively evaluate each of these
+expressions and then combine the result using the Boolean \sphinxstyleemphasis{or}
+operator. Let’s look at the recursive evaluation of the \sphinxstyleemphasis{bTrue}
+expression. It just evaluates to the Boolean value, \sphinxstyleemphasis{true} with no
+further recursion, so we’re done with that. The \sphinxstyleemphasis{bFalse} evaluates to
+\sphinxstyleemphasis{false}. These two values are then combined using \sphinxstyleemphasis{or} resulting in
+a value of \sphinxstyleemphasis{true} for \sphinxstyleemphasis{eq}. A similarly recursive process produces
+the value, \sphinxstyleemphasis{true}, for \sphinxstyleemphasis{e2}. (Reason through the details yourself!)
+And finally the two Boolean values, \sphinxstyleemphasis{true} and \sphinxstyleemphasis{true} are combined
+using Boolean \sphinxstyleemphasis{and}, and a value for the overall expression is thus
+computed and returned.
+
+Here’s the Dafny code.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+function method bEval(e: bExp): (r: bool)
+\PYGZob{}
+    match e
+    \PYGZob{}
+        case bTrue =\PYGZgt{} true
+        case bFase =\PYGZgt{} false
+        case bNot(e: bExp) =\PYGZgt{} !bEval(e)
+        case bAnd(e1, e2) =\PYGZgt{} bEval(e1) \PYGZam{}\PYGZam{} bEval(e2)
+        case bOrEe1, e2) =\PYGZgt{}  bEval(e1) \textbar{}\textbar{} bEval(e2)
+    \PYGZcb{}
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+This code extends our simpler example by adding three cases, one for
+each of the new constructor. These constructors took smaller
+expression values as arguments, so the corresponding cases have used
+parameter lists to temporarily give names (\sphinxstyleemphasis{e1}, \sphinxstyleemphasis{e2}, etc.) to the
+arguments that were given when the constructor was orginally used.
+These names are then used to write the expressions on the right sides
+of the arrows, to compute the final results.
+
+These result-computing expressions use recursive evalation of the
+constitute subexpressions to obtain their meanings (actual Boolean
+values in Dafny) which they then combine using actual Dafny Boolean
+operators to produce final results.
+
+The meaning (Boolean value) of any of the infinite number of Boolean
+expressions in the Boolean expression language defined by our syntax
+(or \sphinxstyleemphasis{grammar}) can be found by a simple application of our \sphinxstyleemphasis{bEval}
+function. To compute the value of \$R\$, above, for example, we just run
+\sphinxstyleemphasis{bEval(R)}. For this \sphinxstyleemphasis{R}, this function will without any doubt return
+the intended result, \sphinxstyleemphasis{true}.
+
+
+\section{The Syntax and Semantics of Programming Languages}
+\label{\detokenize{07-boolean-algebra:the-syntax-and-semantics-of-programming-languages}}
+Syntax defines legal expressions. Semantics give each legal expression
+an associated meaning. The meanings of Boolean expressions are Boolean
+values. Using exactly the same ideas used here for Boolean expressions
+we could not only specify but compute with the syntax semantics of a
+language of arithmetic expressions.
+
+Indeed, the same ideas apply to programming language. A programming
+language has a syntax. It defines the set of valid “programs” in that
+language. A programming language also has a semantics, It specifies
+what each such program means. However, th meaning of a program is not
+captured in a single value. Rather, it is expressed ina relation that
+explains how running the programs transforms any pre-execution state
+that satisfies the program preconditions into a post-execution state.
+
+
+\chapter{8. Propositional Logic}
+\label{\detokenize{08-propositional-logic::doc}}\label{\detokenize{08-propositional-logic:propositional-logic}}
+A mathematical logic is defined by (1) a \sphinxstyleemphasis{syntax} that specifies the
+set (usually infinite) of \sphinxstyleemphasis{well formed expressions} in the language
+(also called \sphinxstyleemphasis{well formed formulae}, or \sphinxstyleemphasis{wffs}), and (2) a \sphinxstyleemphasis{semantics}
+by which one can evaluate \sphinxstyleemphasis{truth value} of any such expression.
+
+Each sentence in a logical language is intended to represent a \sphinxstyleemphasis{truth
+claim}: an assertion, about the prevailing \sphinxstyleemphasis{state of affairs} in some
+\sphinxstyleemphasis{domain of discourse} that is either true or false. Dafny \sphinxstyleemphasis{assertions}
+are logical expressions in this sense: they assert that the state of a
+program at a specific point in its execution has certain properties
+(e.g., that the value of a loop index is greater than zero) , or that
+a specific relationship always holds between the state of the program
+before and after some code is run (e.g., pre- and post-conditions and
+loop invariants).
+
+To use a logic for practical purposes, one must (1) understand how to
+represent states of affairs in the domain of discourse of interest as
+expressions in the logical language of the logic, and (2) hae some
+means of evaluating the truth values of the resulting expressions. In
+Dafny, one must understand the logical language in which assertions
+and related constructs (such as pre- and post-conditions) are written.
+
+In many cases\textendash{}the magic of an automated verifier such as Dafny\textendash{}a
+programmer can rely on Dafny to evaluate truth values of assertions
+automatically. When Dafny is unable to verify the truth of a claim,
+however, the programmer will also have to understand something about
+the way that truth is ascertained in the logic, so as to be able to
+provide Dafny with the help it might need to be able to complete its
+verification task.
+
+In this chapter, we take a major step toward understanding logic and
+proofs by introducing the language \sphinxstyleemphasis{propositional logic} and a means
+of evaluating the truth of any sentence in the language. The language
+is closely related to the language of Boolean expressions introduced
+in the last chapter. The main syntactic difference is that we add a
+notion of \sphinxstyleemphasis{propositional variables}. We will defined the semantics of
+this language by introducing the concept of an \sphinxstyleemphasis{interpration}, which
+specifies a Boolean truth value for each such variable. We will then
+evaluate the truth value of an expression \sphinxstyleemphasis{given an interpration for
+the proposition variables in that expression} by replacing each of the
+variables with its corresponding Boolean value and then using our
+Boolean expression evaluator to determing the truth value of the
+expression.
+
+We will also note that this formulation gives rise to an important new
+set of logical problems. Given an expression, does there exist an
+interpretation that makes that expression evaluate to true? Do all
+interpretations make it value to true? Can it be there there are no
+interpretations that make a given expression evaluate to true?  And,
+finally, are there \sphinxstyleemphasis{efficient} algorithms for \sphinxstyleemphasis{deciding} whether or
+not the answer to any such question is yes or no.
+
+
+\section{Introduction}
+\label{\detokenize{08-propositional-logic:introduction}}
 The rest of this chapter illustrates and further develops these ideas
 using Boolean algebra, and a language of Boolean expressions, as a
 case study in precise definition of the syntax (expression structure)
@@ -3184,8 +3744,8 @@ of Dafny’s built-in abstract data types, including sets, sequences,
 and maps. So let’s get going.
 
 
-\subsection{The Syntax of Boolean Expressions}
-\label{\detokenize{07-boolean-algebra:the-syntax-of-boolean-expressions}}
+\section{Syntax}
+\label{\detokenize{08-propositional-logic:syntax}}
 Any basic introduction to programming will have made it clear that
 there is an infinite set of Boolean expressions. First, we can take
 the Boolean values, \sphinxstyleemphasis{true} and \sphinxstyleemphasis{false}, as \sphinxstyleemphasis{literal} expressions.
@@ -3228,11 +3788,11 @@ assign them \sphinxstyleemphasis{true} and \sphinxstyleemphasis{false} values, t
 rendered true or false.
 
 
-\subsection{Interpretations in Boolean Logic}
-\label{\detokenize{07-boolean-algebra:interpretations-in-boolean-logic}}
+\section{Semantics}
+\label{\detokenize{08-propositional-logic:semantics}}
 
-\subsection{The Semantics of Boolean Expressions}
-\label{\detokenize{07-boolean-algebra:the-semantics-of-boolean-expressions}}
+\subsection{Interpretations}
+\label{\detokenize{08-propositional-logic:interpretations}}
 Evaluate a Boolean expression in a given environment.  The recursive
 structure of this algorithm reflects the inductive structure of the
 expressions we’ve defined.
@@ -3241,6 +3801,9 @@ expressions we’ve defined.
 type interp = map\PYGZlt{}Bvar, bool\PYGZgt{}
 \end{sphinxVerbatim}
 
+
+\subsection{Evaluation}
+\label{\detokenize{08-propositional-logic:evaluation}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 function method Beval(e: Bexp, i: interp): (r: bool)
 \PYGZob{}
@@ -3284,14 +3847,8 @@ expressions by transforming it repeatedly into simpler forms but in
 ways that preserve its meaning until we reach a single Boolean value.
 
 
-\subsection{Interpretations}
-\label{\detokenize{07-boolean-algebra:interpretations}}
-
-\subsection{Validity, Satisfiability, Unsatisfiability}
-\label{\detokenize{07-boolean-algebra:validity-satisfiability-unsatisfiability}}
-
-\subsection{The Most Important Unsolved Problem in Computer Science}
-\label{\detokenize{07-boolean-algebra:the-most-important-unsolved-problem-in-computer-science}}
+\section{Decision Problems}
+\label{\detokenize{08-propositional-logic:decision-problems}}
 It is now possible for you to understand what is the most important
 \sphinxstyleemphasis{open question} (unsolved mathematical problem) in computer science.
 Is there an \sphinxstyleemphasis{efficient} algorithm for determining whether any given
@@ -3334,112 +3891,31 @@ expressions, and a model finder can be used to determine whether there
 are any “solutions”, if so, what one solution is.
 
 
-\chapter{Setting Up to Use Git}
-\label{\detokenize{App1-Git:setting-up-to-use-git}}\label{\detokenize{App1-Git::doc}}
+\chapter{Natural Deduction}
+\label{\detokenize{09-natural-deduction::doc}}\label{\detokenize{09-natural-deduction:natural-deduction}}
+One way
+to defineand (3) a set of \sphinxstyleemphasis{inference} rules that define ways that one
+can transform one set of expressions (premises) into another (a
+conclusion) in such a manner that whenver all the premises are true,
+the conclusion will be, too.
 
-\section{Git and Distributed Software Development}
-\label{\detokenize{App1-Git:git-and-distributed-software-development}}
-Large systems built by hundreds or thousands of developers around the world
-\begin{itemize}
-\item {} 
-Challenge is to coordinate many changes being made around the globe
+Why would anyone care about rules for transforming expressions in
+abstract languages? Well, it turns out that \sphinxstyleemphasis{syntactic} reasoning is
+pretty useful. The idea is that we represent a real-world phenomenon
+symbolically, in such a language, so the abstract sentence means
+something in the real world.
 
-\item {} 
-Often have a shared, reference copy that everyone shares (e.g., on GitHub)
+Now comes the key idea: if we imbue mathematical expressions with
+real-world meanings and then transform these expression in accordance
+with valid rules for acceptable transformations of such expressions,
+then the resulting expressions will also be meaningful.
 
-\item {} 
-Can’t really have thousand of people making uncontrolled changes
-
-\item {} 
-Rather, everyone has entire history of whole project on local machine
-
-\item {} 
-Anyone can edit their own copy
-
-\item {} 
-Anyone with privileges can push local changes back to central version
-
-\item {} 
-Anyone can ask central developers to “pull” local changes into central repo
-
-\item {} 
-Anyone can register an “issue” with main developers
-
-\item {} 
-Updates made to central repo can then be “pulled” down to local versions
-
-\item {} 
-But git won’t overwrite local changes \textendash{} it will say “there’s a conflict”
-
-\end{itemize}
-
-
-\section{Setting Up}
-\label{\detokenize{App1-Git:setting-up}}
-Let’s make sure everyone is set up with git and up-to-date copy of cs-dm repo
-\begin{itemize}
-\item {} 
-Open a terminal window {[}check; if not, install MSYS2 per instructions{]}
-
-\item {} 
-Run “git” command \textendash{} does it run? {[}check; if not, install git{]}
-
-\item {} 
-Change into directory you’re using for this class {[}advice, no spaces; check?{]}
-
-\item {} 
-List files in this directory; ls.
-
-\item {} 
-Rename any current cs-dm directory to cs-dm.old
-
-\item {} 
-Clone current cs-dm directory
-
-\item {} 
-Rename to cs-dm-reference; you will NOT make local changes here
-
-\item {} 
-Clone current cs-dm directory again; rename to cs-dm-hw3
-
-\item {} 
-Open cs-dm-hw3/dafny folder in VS Code; you’re set to do next HW
-
-\end{itemize}
-
-
-\section{A Demo}
-\label{\detokenize{App1-Git:a-demo}}
-Let’s see how git works; I will fix errors in code; I will push; you will pull; that’s it!
-\begin{itemize}
-\item {} 
-Point browser at cs-dm-reference/notes/\_build/html/index.html
-
-\item {} 
-Open separate browser window on GitHub repo
-
-\item {} 
-Let’s look at the issues; and fix them!
-
-\item {} 
-In notes, let’s find mistake
-
-\item {} 
-Now I will fix it, rebuild the HTML and PDF files, and push an update to GitHub
-
-\item {} 
-Now you should cd into cs-dm-reference directory (the one you won’t edit)
-
-\item {} 
-Do a git pull to pull the changes now on GitHub into your local repo
-
-\item {} 
-And refresh browser to display the now updated HTML files!
-
-\item {} 
-Note: You should do a git pull in each copy of the repo needing an update
-
-\end{itemize}
+A logic, then, is basically a formal language, one that defines a set
+of well formed expressions, and that provides a set of \sphinxstyleemphasis{inference}
+rules for taking a set of expressions as premises and deriving another
+one as a consequence. Mathematical logic allows us to replace human
+mental reasoning with the mechanical \sphinxstyleemphasis{transformation of symbolic
+expressions}.
 
 
 \chapter{Indices and tables}

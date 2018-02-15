@@ -753,3 +753,26 @@ ways of combining any smaller *expressions* into larger ones of the
 same kind.
 
 =======
+
+Now it should be clear when we say colloquially that a program
+*computes a function or a relation*. Whenever it is given a valid
+argument representing the *first* value of a pair in the relation, it
+computes a *second* value such that the pair, :math:`(first, second)`
+is in the given relation. When we say, for example, that a program
+*computes the factorial function*, we mean that if we give it a
+non-negative number, *n*, it returns a number *m* such that the pair
+*(n,m)* is *in* the relation. And for *(n,m)* to be in the relation it
+must be that :math:`m = fact(n)`. Given, *n*, such a program thus has
+to return :math:`fact(n)`. A program that computes a *function* is
+deterministic, in the sense that it can return at most one result:
+because there is at most one result.
+
+
+
+A method or a function promises to return a value for any
+argument of the type that the method is declared to take. But if the
+function being implemented is not defined for that value then there is
+a problem: what should the method or function return? For example, if
+one five a negative number to a function meant to real-valued square
+roots, there simply is no right answer.
+
