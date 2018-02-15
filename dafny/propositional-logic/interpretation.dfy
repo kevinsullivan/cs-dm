@@ -27,12 +27,12 @@
     instead just write "interp".
     */
 
-    type Binterp = map<Bvar, bool>
+    type pInterp = map<pVar, bool>
 
     /*
     We note that a map might not be "total": that
     is, it might not contain an entry for every 
-    variable (Bvar) we have declared to exist. If
+    variable (bVar) we have declared to exist. If
     we try to look up a value that is not defined
     in the map, we'll get an error. For example, if
     i is an interpetation (a map<string, bool>) and
@@ -55,12 +55,12 @@
     our main points.
     */
 
-    function method lookup(v: Bvar, i: Binterp): bool
+    function method lookup(v: pVar, i: pInterp): bool
     {
         if (v in i) then i[v] else false
     }
 
-    method show(vs: seq<Bvar>, interp: Binterp)
+    method show(vs: seq<pVar>, interp: pInterp)
     {
         var n := | vs |;
         var i := 0;
@@ -89,8 +89,8 @@
         the sequence vs such that every variable maps 
         to false.
     */
-    method init_interp(vs: seq<Bvar>) 
-        returns (result: Binterp)
+    method init_interp(vs: seq<pVar>) 
+        returns (result: pInterp)
     {
         // start with an empty map
         result := map[];
@@ -115,8 +115,8 @@
     by in effect treating the sequence of values as a 
     binary integer and by incrementing it by one.
     */
-    method next_interp(vs: seq<Bvar>, interp: Binterp) 
-        returns (result: Binterp)
+    method next_interp(vs: seq<pVar>, interp: pInterp) 
+        returns (result: pInterp)
     {
         result := interp;
         var i := | vs | - 1;
@@ -149,12 +149,9 @@
     mappings from these variables to Boolean values. Watch
     out: for large numbers of variables the result be very
     large.
-
-    We provide this function in lieu of the iterator below,
-    which the compiler seems to have a problem with. 
     */
-    method all_interps(vs: seq<Bvar>) 
-        returns (result: seq<Binterp>)
+    method all_interps(vs: seq<pVar>) 
+        returns (result: seq<pInterp>)
     {
         result := [];
         var interp := init_interp(vs);

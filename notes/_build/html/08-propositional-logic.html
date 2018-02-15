@@ -1,0 +1,356 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>8. Propositional Logic &#8212; Discrete Mathematics for Software Professionals 1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/sidebar.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Natural Deduction" href="09-natural-deduction.html" />
+    <link rel="prev" title="7. Boolean Algebra" href="07-boolean-algebra.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="09-natural-deduction.html" title="Natural Deduction"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="07-boolean-algebra.html" title="7. Boolean Algebra"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="propositional-logic">
+<h1>8. Propositional Logic<a class="headerlink" href="#propositional-logic" title="Permalink to this headline">¶</a></h1>
+<p>A mathematical logic is defined by (1) a <em>syntax</em> that specifies the
+set (usually infinite) of <em>well formed expressions</em> in the language
+(also called <em>well formed formulae</em>, or <em>wffs</em>), and (2) a <em>semantics</em>
+by which one can evaluate <em>truth value</em> of any such expression.</p>
+<p>Each sentence in a logical language is intended to represent a <em>truth
+claim</em>: an assertion, about the prevailing <em>state of affairs</em> in some
+<em>domain of discourse</em> that is either true or false. Dafny <em>assertions</em>
+are logical expressions in this sense: they assert that the state of a
+program at a specific point in its execution has certain properties
+(e.g., that the value of a loop index is greater than zero) , or that
+a specific relationship always holds between the state of the program
+before and after some code is run (e.g., pre- and post-conditions and
+loop invariants).</p>
+<p>To use a logic for practical purposes, one must (1) understand how to
+represent states of affairs in the domain of discourse of interest as
+expressions in the logical language of the logic, and (2) hae some
+means of evaluating the truth values of the resulting expressions. In
+Dafny, one must understand the logical language in which assertions
+and related constructs (such as pre- and post-conditions) are written.</p>
+<p>In many cases–the magic of an automated verifier such as Dafny–a
+programmer can rely on Dafny to evaluate truth values of assertions
+automatically. When Dafny is unable to verify the truth of a claim,
+however, the programmer will also have to understand something about
+the way that truth is ascertained in the logic, so as to be able to
+provide Dafny with the help it might need to be able to complete its
+verification task.</p>
+<p>In this chapter, we take a major step toward understanding logic and
+proofs by introducing the language <em>propositional logic</em> and a means
+of evaluating the truth of any sentence in the language. The language
+is closely related to the language of Boolean expressions introduced
+in the last chapter. The main syntactic difference is that we add a
+notion of <em>propositional variables</em>. We will defined the semantics of
+this language by introducing the concept of an <em>interpration</em>, which
+specifies a Boolean truth value for each such variable. We will then
+evaluate the truth value of an expression <em>given an interpration for
+the proposition variables in that expression</em> by replacing each of the
+variables with its corresponding Boolean value and then using our
+Boolean expression evaluator to determing the truth value of the
+expression.</p>
+<p>We will also note that this formulation gives rise to an important new
+set of logical problems. Given an expression, does there exist an
+interpretation that makes that expression evaluate to true? Do all
+interpretations make it value to true? Can it be there there are no
+interpretations that make a given expression evaluate to true?  And,
+finally, are there <em>efficient</em> algorithms for <em>deciding</em> whether or
+not the answer to any such question is yes or no.</p>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The rest of this chapter illustrates and further develops these ideas
+using Boolean algebra, and a language of Boolean expressions, as a
+case study in precise definition of the syntax (expression structure)
+and semantics (expression evaluation) of a simple formal language: of
+Boolean expressions containing Boolean variables.</p>
+<p>To illustrate the potential utility of this language and its semantics
+we will define three related <em>decision problems</em>. A decision problem
+is a <em>kind</em> of problem for which there is an algorithm that can solve
+any instance of the problem. The three decision problems we will study
+start with a Boolean expression, one that can contain variables, and
+ask where there is an assignment of <em>true</em> and <em>false</em> values to the
+variables in the expression to make the overall expression evaluate to
+<em>true</em>.</p>
+<p>Here’s an example. Suppose you’re given the Boolean expression,
+<img class="math" src="_images/math/d2134fca2cb0c27ee5426a41d9e7f422f2f28f85.png" alt="(P \lor Q) \land (\lnot R)"/>. The top-level operator is
+<em>and</em>. The whole expression thus evaluates to <em>true</em> if and only if
+both subexpressions do: <img class="math" src="_images/math/8ccab6e3d02d6250b96a915c819fbc55f4973b76.png" alt="(P \lor Q)"/> and <img class="math" src="_images/math/6524fd438167cf39571cb8b03f192e7d1a3cccac.png" alt="\land (\lnot
+R)"/>, respectively. The first, <img class="math" src="_images/math/8ccab6e3d02d6250b96a915c819fbc55f4973b76.png" alt="(P \lor Q)"/>, evaluates to <em>true</em>
+if either of the variables, <em>P</em> and <em>Q</em>, are set to true. The second
+evaluates to true if and only if the variable <em>R</em> is false. There are
+thus settings of the variables that make the formula true. In each of
+them, <em>R</em> is <em>false</em>, and either or both of <em>P</em> and <em>Q</em> are set to
+true.</p>
+<p>Given a Boolean expression with variables, an <em>interpretation</em> for
+that expression is a binding of the variables in that expression to
+corresponding Boolean values. A Boolean expression with no variables
+is like a proposition: it is true or false on its own. An expression
+with one or more variables will be true or false depending on how the
+variables are used in the expression.</p>
+<p>An interpretation that makes such a formula true is called a <em>model</em>.
+The problem of finding a model is called, naturally enough, the model
+finding problem, and the problem of finding <em>all</em> models that make a
+Boolean expression true, the <em>model enumeration</em> or <em>model counting</em>
+problem.</p>
+<p>The first major <em>decision problem</em> that we identify is, for any given
+Boolean expression, to determine whether it is <em>satisfiable</em>. That is,
+is there at least one interpretation (assignment of truth values to
+the variables in the expression that makes the expression evaluate to
+<em>true</em>?  We saw, for example, that the expression, <img class="math" src="_images/math/1811e5e86af3b503fed59dffdb7cd69d32066edd.png" alt="(P \lor Q)
+\land (\lnot R)"/> is satifiable, and, moreover, that <img class="math" src="_images/math/bee5c4be08fb08dd5dfd00e92e9aa5a8f6ff4b30.png" alt="\{ (P,
+true), (Q, false), (R, false) \}"/> is a (one of three) interpretations
+that makes the expression true.</p>
+<p>Such an interpretation is called a <em>model</em>. The problem of finding a
+model (if there is one), and thereby showing that an expression is
+satisfiable, is naturally enough called the* model finding* problem.</p>
+<p>A second problem is to determine whether a Boolean expression is
+<em>valid</em>. An expression is valid if <em>every</em> interpretation makes the
+expression true. For example, the Boolean expression <img class="math" src="_images/math/e0ae6d7224d00dafd9d3e53ab47570a2ed0406e8.png" alt="P \lor
+\neg P"/> is always true. If <em>P</em> is set to true, the formula becomes
+<img class="math" src="_images/math/8a5469c0c0dd09859bf67a983b3b58a7bc12ebf0.png" alt="true \lor false"/>. If <em>P</em> is set to false, the formula is then
+<img class="math" src="_images/math/8a5469c0c0dd09859bf67a983b3b58a7bc12ebf0.png" alt="true \lor false"/>. Those are the only two interpretations and
+under either of them, the resulting expression evaluates to true.</p>
+<p>A third related problem is to determine whether a Boolean expression
+is it <em>unsatisfiable</em>? This case occurs when there is <em>no</em> combination
+of variable values makes the expression true. The expression <img class="math" src="_images/math/11c06d2d7a184be52638dd0a726b38ec0ab135b9.png" alt="P
+\land \neg P"/> is unsatisfiable, for example. There is no value of $P$
+(either <em>true</em> or <em>false</em>) that makes the resulting formula true.</p>
+<p>These decision problems are all solvable. There are algorithms that in
+a finite number of steps can determine answers to all of them. In the
+worst case, one need only look at all possible combinations of true
+and false values for each of the (finite number of) variables in an
+expression. If there are <em>n</em> variables, that is at most <img class="math" src="_images/math/798d39775b3c54beddeb31ad508597409e6e7c43.png" alt="2^n"/>
+combinations of such values. Checking the value of an expression for
+each of these interpretations will determine whether it’s satisfiable,
+unsatisfiable, or valid. In this chapter, we will see how these ideas
+can be translated into runnable code.</p>
+<p>The much more interesting question is whether there is a fundamentally
+more efficient approach than checking all possible interpretations: an
+approach with a cost that increases <em>exponentially</em> in the number of
+variables in an expression. This is the greatest open question in all
+of computer science, and one of the greatest open questions in all of
+mathematics.</p>
+<p>So let’s see how it all works. The rest of this chapter first defines
+a <em>syntax</em> for Boolean expressions. Then it defines a <em>semantics</em> in
+the form of a procedure for <em>evaluating</em> any given Boolean expression
+given a corresponding <em>interpretation</em>, i.e., a mapping from variables
+in the expression to corresponding Boolean values. Next we define a
+procedure that, for any given set of Boolean variables, computes and
+returns a list of <em>all</em> interpretations. We also define a procedure
+that, given any Boolean expression returns the set of variables in the
+expression. For ths set we calculate the set of all interpretations.
+Finally, by evaluating the expression on each such interpretation, we
+decide whether the expression is satisfiable, unsatisfiable, or valid.</p>
+<p>Along the way, we will meet <em>inductive definitions</em> as a fundamental
+approach to concisely specifying languages with a potentially infinite
+number of expressions, and the <em>match</em> expression for dealing with
+values of inductively defined types. We will also see uses of several
+of Dafny’s built-in abstract data types, including sets, sequences,
+and maps. So let’s get going.</p>
+</div>
+<div class="section" id="syntax">
+<h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<p>Any basic introduction to programming will have made it clear that
+there is an infinite set of Boolean expressions. First, we can take
+the Boolean values, <em>true</em> and <em>false</em>, as <em>literal</em> expressions.
+Second, we can take <em>Boolean variables</em>, such as <em>P</em> or <em>Q</em>, as a
+Boolean <em>variable</em> expressions. Finally, we take take each Boolean
+operator as having an associated expression constructor that takes one
+or more smaller <em>Boolean expressions</em> as arguments.</p>
+<p>Notice that in this last step, we introduced the idea of constructing
+larger Boolean expressions out of smaller ones. We are thus defining
+the set of all Boolean expressions <em>inductively</em>. For example, if <em>P</em>
+is a Boolean variable expression, then we can construct a valid larger
+expression, <img class="math" src="_images/math/09aad34152247adcbd0eb29387e536cc8b02149f.png" alt="P \land true"/> to express the conjunction of the
+value of <em>P</em> (whatever it might be( with the value, <em>true</em>. From here
+we could build the larger expression, <em>P lor (P land true)</em>, and so
+on, ad infinitum.</p>
+<p>We define an infinite set of “variables” as terms of the form
+mkVar(s), where s, astring, represents the name of the variable. The
+term mkVar(“P”), for example, is our way of writing “the var named P.”</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>datatype Bvar = mkVar(name: string)
+</pre></div>
+</div>
+<p>Here’s the definition of the <em>syntax</em>:</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>datatype Bexp =
+    litExp (b: bool) |
+    varExp (v: Bvar) |
+    notExp (e: Bexp) |
+    andExp (e1: Bexp, e2: Bexp) |
+    orExp (e1: Bexp, e2: Bexp)
+</pre></div>
+</div>
+<p>Boolean expresions, as we’ve defined them here, are like propositions
+with paramaters. The parameters are the variables. Depending on how we
+assign them <em>true</em> and <em>false</em> values, the overall proposition might be
+rendered true or false.</p>
+</div>
+<div class="section" id="semantics">
+<h2>Semantics<a class="headerlink" href="#semantics" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="interpretations">
+<h3>Interpretations<a class="headerlink" href="#interpretations" title="Permalink to this headline">¶</a></h3>
+<p>Evaluate a Boolean expression in a given environment.  The recursive
+structure of this algorithm reflects the inductive structure of the
+expressions we’ve defined.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>type interp = map&lt;Bvar, bool&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="evaluation">
+<h3>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>function method Beval(e: Bexp, i: interp): (r: bool)
+{
+    match e
+    {
+        case litExp(b: bool) =&gt; b
+        case varExp(v: Bvar) =&gt; lookup(v,i)
+        case notExp(e1: Bexp) =&gt; !Beval(e1,i)
+        case andExp(e1, e2) =&gt; Beval(e1,i) &amp;&amp; Beval(e2, i)
+        case orExp(e1, e2) =&gt;  Beval(e1, i) || Beval(e2, i)
+    }
+}
+</pre></div>
+</div>
+<p>}</p>
+<p>Lookup value of given variable, v, in a given interpretation, i. If
+there is not value for v in i, then just return false. This is not a
+great design, in that a return of false could mean one of two things,
+and it’s ambiguous: either the value of the variable really is false,
+or it’s undefined.  For now, though, it’s good enough to illustate our
+main points.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>function method lookup(v: Bvar, i: interp): bool
+{
+    if (v in i) then i[v]
+    else false
+}
+</pre></div>
+</div>
+<p>Now that we know the basic values and operations of Boolean algebra,
+we can be precise about the forms of and valid ways of transforming
+<em>Boolean expressions.</em> For example, we’ve seen that we can transform
+the expression <em>true and true</em> into <em>true</em>. But what about <em>true and
+((false xor true) or (not (false implies true)))</em>?</p>
+<p>To make sense of such expressions, we need to define what it means for
+one to be well formed, and how to evaluate any such well formed
+expressions by transforming it repeatedly into simpler forms but in
+ways that preserve its meaning until we reach a single Boolean value.</p>
+</div>
+</div>
+<div class="section" id="decision-problems">
+<h2>Decision Problems<a class="headerlink" href="#decision-problems" title="Permalink to this headline">¶</a></h2>
+<p>It is now possible for you to understand what is the most important
+<em>open question</em> (unsolved mathematical problem) in computer science.
+Is there an <em>efficient</em> algorithm for determining whether any given
+Boolean formula is satisfiable?</p>
+<p>whether there is a combination of Boolean
+variable values that makes any given Boolean expression true is the
+most important unsolved problem in computer science. We currently do
+not know of a solution that with runtime complexity that is better
+than exponential the number of variables in an expression.  It’s easy
+to determine whether an assignment of values to variables does the
+trick: just evaluate the expression with those values for the
+variables. But <em>finding</em> such a combination today requires, for the
+hardest of these problems, trying all :math:<code class="docutils literal"><span class="pre">2^n</span></code> combinations of
+Boolean values for <em>n</em> variables.</p>
+<p>At the same time, we do not know that there is <em>not</em> a more efficient
+algorithm. Many experts would bet that there isn’t one, but until we
+know for sure, there is a tantalizing possibility that someone someday
+will find an <em>efficient decision procedure</em> for Boolean satisfiability.</p>
+<p>To close this exploration of computational complexity theory, we’ll
+just note that we solved an instances of another related problem: not
+only to determine whether there is at least one (whether <em>there
+exists</em>) at least one combination of variable values that makes the
+expression true, but further determining how many different ways there
+are to do it.</p>
+<p>Researchers and advanced practitioners of logic and computation
+sometimes use the word <em>model</em> to refer to a combination of variable
+values that makes an expression true. The problem of finding a Boolean
+expression that <em>satisfies</em> a Boolean formula is thus somtetimes
+called the <em>model finding</em> problem. By contrast, the problem of
+determining how many ways there are to satisfy a Boolean expression is
+called the <em>model counting</em> problem.</p>
+<p>Solutions to these problems have a vast array of practical uses.  As
+one still example, many logic puzzles can be represented as Boolean
+expressions, and a model finder can be used to determine whether there
+are any “solutions”, if so, what one solution is.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="07-boolean-algebra.html"
+                        title="previous chapter">7. Boolean Algebra</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="09-natural-deduction.html"
+                        title="next chapter">Natural Deduction</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="09-natural-deduction.html" title="Natural Deduction"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="07-boolean-algebra.html" title="7. Boolean Algebra"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright .
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
+  </body>
+</html>

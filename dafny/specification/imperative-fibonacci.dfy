@@ -179,8 +179,8 @@ module imperative_fibonacci
         */
         assert i <= n;      // invariant
         assert !(i < n);    // loop condition is false
-        assert (i <= n) && !(i < n) ==> (i == n);
         assert i == n;      // deductive conclusion
+        assert (i <= n) && !(i < n) ==> (i == n);
         assert fib1 == fib(i); // invariant
         assert fib1 == fib(i) && (i==n) ==> fib1 == fib(n);
         assert fib1 == fib(n);

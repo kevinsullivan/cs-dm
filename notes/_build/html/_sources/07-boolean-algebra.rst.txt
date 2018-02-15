@@ -1,27 +1,51 @@
-********************************
-7. Toward Logic: Boolean Algebra
-********************************
+******************
+7. Boolean Algebra
+******************
 
-As a stepping stone toward a deeper exploration of deductive logic, we
-explore the related notion of Boolean *algebra*.  Boolean algebra is
-akin to ordinary high school algebra, and as such, deals with values,
-variables, and functions.  However, the values in Boolean algebra are
-limited to the two values in the set, :math:`bool = \{ 0, 1\}`. Based
-on the connection between Boolean algebra and *propositional logic*,
-these values are often written as *false* and *true*, respectively.
+As a first stepping stone toward a deeper exploration of deductive
+logic, we explore the related notion of Boolean *algebra*. Boolean
+algebra is a mathematical framework for representing and reasoning
+about truth.
 
-The *bool* Type in Dafny
+This algebra is akin to ordinary high school algebra, and as such,
+deals with values, operators, and the syntax and the evaluation of
+expressions involving values and operators.  However, the values in
+Boolean algebra are limited to the two values in the set, :math:`bool
+= \{ 0, 1\}`. They are often written instead as *false* and *true*,
+respectively. And rather than arithmetic operators such as numeric
+negation, addition, and subtraction, Boolean algebra defines a set of
+*Boolean operators*. They are typically given names such as *and*,
+*or*, and *not*, and they both operate on and yield Boolean values.
+
+In this chapter, we first discuss Boolean algebra in programming, a
+setting with which the reader is already familar, baesd on a first
+course in programming. We then take a deeper look at the syntax and
+semantics of *expressions* in Boolean algebra. We do this by seeing
+how to use *inductive definitions* and *recursive functions* in the
+Dafny language to implement an *inductive data type* for representing
+Boolean expressions and a recursive *evaluation* function that when
+given any Boolean expression tells whether it is *true* or *false*.
+
+Boolean Algebra in Dafny
 ========================
 
 All general-purpose programming languages support Boolean
 algebra. Dafny does so through its *bool* data type and the
 *operators* associated with it. Having taking a programming course,
 you will already have been exposed to all of the important ideas.
+In Dafny, as in many languages, the Boolean values are called
+*true* and *false* (rather than *1* and *0*).
+
+The Boolean operators are also denoted not by words, such as *or* and
+*not* but by math-like operators. For example, *!* is the not operator
+and *||* is the *or* operator.
+
+
 Here's a (useless) Dafny method that illustrates how Boolean values
-can be used in Dafny. It presents a method, $BoolOps$, that takes a
-Boolean value and returns one. The commands within the method body
-illustrate the use of Boolean constant values and unary and binary
-operators provided by the Dafny language. 
+and operators can be used in Dafny. It presents a method, $BoolOps$,
+that takes a Boolean value and returns one. The commands within the
+method body illustrate the use of Boolean constant (literal) values
+and the unary and binary operators provided by the Dafny language.
 
 .. code-block:: dafny
 
@@ -67,9 +91,8 @@ The less than operator, for example, takes two numerical arguments and
 returns true if the first is strictly less than the second, otherwise
 it returns false.
 
-Boolean Algebra
-===============
-
+Boolean Values
+==============
 
 Boolean algebra is an algebra, which is a set of values and of
 operations that take and return these values. The set of values in
@@ -90,10 +113,14 @@ symbols we use to represent these values don't really matter. What
 really makes Boolean algebra what it is are the *operators* defined
 by Boolean algebra and how they behave.
 
+Boolean Operators
+=================
+
 An algebra, again, is a set of values of a particular kind and a set
 of operators involving that kind of value. Having introduced the set
 of two values of the Boolean type, let's turn to the *operations* of
 Boolean algebra.
+
 
 Nullary, Unary, Binary, and n-Ary Operators
 -------------------------------------------
@@ -373,331 +400,387 @@ one rarely sees these names used in practice.
 A Ternary Binary Operator
 -------------------------
 
-Finally, to emphasize the point that there are binary operations of
-all arities, we introduce just one ternary Boolean operator. It takes
-three Boolean arguments and returns a Boolean result. It's type is
-thus ::`bool \rightarrow bool \rightarrow bool \rightarrow bool`. We
-will call it *ifThenElse_{bool}*.  The way it works is that the value
-of the first argument determines which of the next two arguments
-values the function returns. If the first argument is *true* then it
-returns the second argument, otherwise it returns the third. So, for
-example, *ifThenElse_{bool}(true, true, false)* returns true.
+We can of course define Boolean operators of any arity. As just one
+example, we introduce a *ternary* (3-ary) Boolean operator. It takes
+three Boolean values as arguments and returns a Boolean result. It's
+type is thus ::`bool \rightarrow bool \rightarrow bool \rightarrow
+bool`. We will call it *ifThenElse_{bool}*.
 
-It is sometimes helpful to break up the name of such a function into
-parts (if, then, and else( and to spread out the arguments between the
-parts. So *ifThenElse_{bool}(true, true, false)* could be written as
-*if true then true else false.* The link to conditional expressions
-and commands in everyday programming should clear.
+The way this operator works is that the value of the first argument
+determines which of the next two arguments values the function will
+return. If the first argument is *true* then the value of the whole
+expression is the value of the second argument, otherwise it is the
+value of the third. So, for example, *ifThenElse_{bool}(true, true,
+false)* evaluates to true, while *ifThenElse_{bool}(false, true,
+false)* is false.
 
-As an exercise for the reader: How many ternary Boolean operations are
-there? Hint: an operator with *n* Boolean arguments has :math:`2^n`
-possible combinations of input values. This means that there will be
-:math:`2^n` rows in its truth table, and so :math:`2^n` blanks to fill
-in with Boolean values in the right column. How many ways are there to
-fill in :math:`2^n` Boolean values?
+It is sometimes helpful to write Boolean expressions involving *n-ary*
+operators for *n>1* using something other than function application
+(prefix) notation. So, rather than *and(true,false)*, with the
+operator in front of the arguments (*prefix* notation), we would
+typically write *true && false* to mean the same thing. We have first
+sed a symbol, *&&*, instead of the English word, *and* to name the
+operator of interest. We have also put the function name (now *&&*)
+*between* the arguments rather than in front of them. This is called
+*infix* notation.
+
+With ternary and other operators, it can even make sense to break up
+the name of the operator and spread its parts across the whole
+expression. For example, instead of writing, *ifThenElse_{bool}(true,
+true, false)*, we could write it as *IF true THEN true ELSE false.*
+Here, the capitalized words all together represent the name of the
+function applied to the three Boolean arguments in the expression.
+
+As an aside, when we use infix notation, we have to do some extra
+work, namely to specify the *order of operations*, so that when we
+write expressions, the meaning is unambiguous. We have to say which
+operators have higher and lower *precedence*, and whether operators
+are *left*, *right*, or not associative. In everyday arithmetic, for
+example, multiplication has higher precedence than addition, so the
+expression *3 + 4 * 5* is read as *3 + (4 * 5)* even though the *+*
+operator comes first in the expression. 
+
+Exercise: How many ternary Boolean operations are there? Hint: for an
+operator with *n* Boolean arguments there are :math:`2^n` combinations
+of input values. This means that there will be :math:`2^n` rows in its
+truth table, and so :math:`2^n` blanks to fill in with Boolean values
+in the right column. How many ways are there to fill in :math:`2^n`
+Boolean values? Express your answer in terms of *n*.
 
 
-Exercise: Write down the truth table for this Boolean if-then-else
+Exercise: Write down the truth table for our Boolean if-then-else
 operator.
 
-Logic: Formal Languages for Syntactic Reasoning
-===============================================
+Formal Languages: Syntax and Semantics
+======================================
 
-Mathematical logic is grounded in the definition of valid sentences in
-formal languages and the definition of rules for transforming one such
-sentence into another in a valid way. For example, *2 + 2* is a valid
-expression in the languages of arithmetic (but *2 2 + +* isn't), and
-the rules of mathematical logic allow this expression to be replaced
-with the expression, *4*, but not by *5*.
+Any introduction to programming will have made it clear that there is
+an infinite set of Boolean expressions. For example, in Dafny, *true*
+is a Boolean expression; so are *false*, *true || false*, *(true ||
+false) && (!false)*, and one could keep going on forever.
 
-Why would anyone care about precisely defined transformations between
-expressions in abstract languages? Well, it turns out that *syntactic*
-reasoning is pretty useful. The idea is that we represent a real-world
-phenomenon symbolically, in such a language, so the abstract sentence
-means something in the real world.
+Boolean *expressions*, as we see here, are a different kind of thing
+than Boolean *values*. There are only two Boolean values, but there is
+an infinity of Boolean expressions. The connection is that each such
+expression has a corresponding Boolean truth value. For example, the
+expression, *(true || false) && (!false)* has the value, *true*.
 
-Now comes the key idea: if we imbue mathematical expressions with
-real-world meanings and then transform these expression in accordance
-with valid rules for acceptable transformations of such expressions,
-then the resulting expressions will also be meaningful.
+The set of valid Boolean expressions is defined by the *syntax* of the
+Boolean expression language. The sequence of symbols, *(true || false)
+&& (!false)*, is a valid expression in the language, for example, but
+*)( true false()||) false !&&* is not, just as the sequence of words,
+"Mary works long hours" is a valid sentence in the English language,
+but "long works hours Mary" isn't.
 
-A logic, then, is basically a formal language, one that defines a set
-of well formed expressions, and that provides a set of *inference*
-rules for taking a set of expressions as premises and deriving another
-one as a consequence. Mathematical logic allows us to replace human
-mental reasoning with the mechanical *transformation of symbolic
-expressions*. 
+The syntax of a language defines the set of valid sentences in the
+language. The semantics of a language gives a meaning to each valid
+sentence in the language. In the case of Boolean expressions, the
+meaning given to each valid "sentence" (expression) is simply the
+Boolean value that that expression *reduces to*.
 
-To define a logic, we only have to say how to form valid expressions,
-and what the rules are for transforming such expression in valid ways.
-To use such a logic for practical good, which is the ultimate aim, of
-course, we have to learn the art of figuring out how to represent the
-real-world phenomena of interest into symbolic forms in ways that will
-allow us then to use the available transformation rules repeatedly to
-deduce a new expression, one that holds the answer to the question we
-asked, or the result we need to act upon to have some desired effect
-in and on the world.
+In the rest of this chapter, we use the case of Boolean expressions to
+introduce the concepts of the *syntax* and the *semantics* of *formal
+languages*. The syntax of a formal language precisely defines a set of
+*expressions* (sometimes called sentences or formulae). A *semantics*
+associates a *meaning*, in the form of a *value*, with each expression
+in the language.
 
-Boolean Algebra, Expressions, and Decision Problems
-===================================================
+The Syntax of Boolean Expressions: Inductive Definitions
+========================================================
 
-The rest of this chapter illustrates and further develops these ideas
-using Boolean algebra, and a language of Boolean expressions, as a
-case study in precise definition of the syntax (expression structure)
-and semantics (expression evaluation) of a simple formal language: of
-Boolean expressions containing Boolean variables.
+As an example of syntax, the *true*, in the statement, *var b :=
+true;* is a valid expression in the language of Boolean expressions,
+as defined by the *syntaxt* of this language. The semantics of the
+language associates the Boolean *value*, *true*, with this expression.
 
-To illustrate the potential utility of this language and its semantics
-we will define three related *decision problems*. A decision problem
-is a *kind* of problem for which there is an algorithm that can solve
-any instance of the problem. The three decision problems we will study
-start with a Boolean expression, one that can contain variables, and
-ask where there is an assignment of *true* and *false* values to the
-variables in the expression to make the overall expression evaluate to
-*true*.
+You probably just noticed that we used the same symbol, *true*, for
+both an expression and a value, blurring the distinction between
+expressions and values. Expressions that directly represent values are
+called *literal expressions*. Many languages use the usual name for a
+value as a literal expression, and the semantics of the language then
+associate each such expression with its corresponding value.
 
-Here's an example. Suppose you're given the Boolean expression,
-:math:`(P \lor Q) \land (\lnot R)`. The top-level operator is
-*and*. The whole expression thus evaluates to *true* if and only if
-both subexpressions do: :math:`(P \lor Q)` and :math:`\land (\lnot
-R)`, respectively. The first, :math:`(P \lor Q)`, evaluates to *true*
-if either of the variables, *P* and *Q*, are set to true. The second
-evaluates to true if and only if the variable *R* is false. There are
-thus settings of the variables that make the formula true. In each of
-them, *R* is *false*, and either or both of *P* and *Q* are set to
-true.
+In the semantics of practical formal languages, literal expressions
+are assigned the values that they name. So the *expression*, *true*,
+means the *value*, *true*, for example. Similarly, when *3* appears on
+the right side of an assignment/update statement, such as in *x := 3*,
+it is an *expression*, a literal expression, that when *evaluated* is
+taken to *mean* the natural number (that we usually represent as) *3*.
 
-Given a Boolean expression with variables, an *interpretation* for
-that expression is a binding of the variables in that expression to
-corresponding Boolean values. A Boolean expression with no variables
-is like a proposition: it is true or false on its own. An expression
-with one or more variables will be true or false depending on how the
-variables are used in the expression.
+As computer scientists interested in languages and meaning, we can
+make these concepts of syntax and semantics not only precisely clear
+but also *runnable*. So let's get started.
 
-An interpretation that makes such a formula true is called a *model*.
-The problem of finding a model is called, naturally enough, the model
-finding problem, and the problem of finding *all* models that make a
-Boolean expression true, the *model enumeration* or *model counting*
-problem.
+The Syntax and Semantics of *Simplified* Boolean Expression Language
+--------------------------------------------------------------------
 
-The first major *decision problem* that we identify is, for any given
-Boolean expression, to determine whether it is *satisfiable*. That is,
-is there at least one interpretation (assignment of truth values to
-the variables in the expression that makes the expression evaluate to
-*true*?  We saw, for example, that the expression, :math:`(P \lor Q)
-\land (\lnot R)` is satifiable, and, moreover, that :math:`\{ (P,
-true), (Q, false), (R, false) \}` is a (one of three) interpretations
-that makes the expression true.
+We start by considering a simplified language of Boolean expressions:
+one with only two literal expressions.  To make it clear that they are
+not Boolean values but expressions, we will call them not *true* and
+*false* but *bTrue* and *bFalse*.
 
-Such an interpretation is called a *model*. The problem of finding a
-model (if there is one), and thereby showing that an expression is
-satisfiable, is naturally enough called the* model finding* problem.
+Syntax
+^^^^^^
 
-A second problem is to determine whether a Boolean expression is
-*valid*. An expression is valid if *every* interpretation makes the
-expression true. For example, the Boolean expression :math:`P \lor
-\neg P` is always true. If *P* is set to true, the formula becomes
-:math:`true \lor false`. If *P* is set to false, the formula is then
-:math:`true \lor false`. Those are the only two interpretations and
-under either of them, the resulting expression evaluates to true.
+We can represent the syntax of this language in Dafny using what we
+call an *inductive data type definition.* A data type defines a set of
+values. So what we need to define is a data type whose values are all
+and only the valid expressions in the language. The data type defines
+the *syntax* of the language.
 
-A third related problem is to determine whether a Boolean expression
-is it *unsatisfiable*? This case occurs when there is *no* combination
-of variable values makes the expression true. The expression :math:`P
-\land \neg P` is unsatisfiable, for example. There is no value of $P$
-(either *true* or *false*) that makes the resulting formula true.
-
-These decision problems are all solvable. There are algorithms that in
-a finite number of steps can determine answers to all of them. In the
-worst case, one need only look at all possible combinations of true
-and false values for each of the (finite number of) variables in an
-expression. If there are *n* variables, that is at most :math:`2^n`
-combinations of such values. Checking the value of an expression for
-each of these interpretations will determine whether it's satisfiable,
-unsatisfiable, or valid. In this chapter, we will see how these ideas
-can be translated into runnable code.
-
-The much more interesting question is whether there is a fundamentally
-more efficient approach than checking all possible interpretations: an
-approach with a cost that increases *exponentially* in the number of
-variables in an expression. This is the greatest open question in all
-of computer science, and one of the greatest open questions in all of
-mathematics.
-
-So let's see how it all works. The rest of this chapter first defines
-a *syntax* for Boolean expressions. Then it defines a *semantics* in
-the form of a procedure for *evaluating* any given Boolean expression
-given a corresponding *interpretation*, i.e., a mapping from variables
-in the expression to corresponding Boolean values. Next we define a
-procedure that, for any given set of Boolean variables, computes and
-returns a list of *all* interpretations. We also define a procedure
-that, given any Boolean expression returns the set of variables in the
-expression. For ths set we calculate the set of all interpretations.
-Finally, by evaluating the expression on each such interpretation, we
-decide whether the expression is satisfiable, unsatisfiable, or valid.
-
-Along the way, we will meet *inductive definitions* as a fundamental
-approach to concisely specifying languages with a potentially infinite
-number of expressions, and the *match* expression for dealing with
-values of inductively defined types. We will also see uses of several
-of Dafny's built-in abstract data types, including sets, sequences,
-and maps. So let's get going.
-
-
-The Syntax of Boolean Expressions
----------------------------------
-
-Any basic introduction to programming will have made it clear that
-there is an infinite set of Boolean expressions. First, we can take
-the Boolean values, *true* and *false*, as *literal* expressions.
-Second, we can take *Boolean variables*, such as *P* or *Q*, as a
-Boolean *variable* expressions. Finally, we take take each Boolean
-operator as having an associated expression constructor that takes one
-or more smaller *Boolean expressions* as arguments.
-
-Notice that in this last step, we introduced the idea of constructing
-larger Boolean expressions out of smaller ones. We are thus defining
-the set of all Boolean expressions *inductively*. For example, if *P*
-is a Boolean variable expression, then we can construct a valid larger
-expression, :math:`P \land true` to express the conjunction of the
-value of *P* (whatever it might be( with the value, *true*. From here
-we could build the larger expression, *P \lor (P \land true)*, and so
-on, ad infinitum.
-
-We define an infinite set of "variables" as terms of the form
-mkVar(s), where s, astring, represents the name of the variable. The
-term mkVar("P"), for example, is our way of writing "the var named P."
+In the current case, we need a type with only two values, each one of
+them representing a valid expression in our language. Here's how we'd
+write it in Dafny. 
 
 .. code-block:: dafny
 
-    datatype Bvar = mkVar(name: string) 
+   datatype Bexp =
+	bTrue |
+	bFalse
 
+The definition starts with the *datatype* keyword, followed by the
+name of the type being defined (*Bexp*, short for Boolean expression)
+then an equals sign, and finally a list of *constructors* separated by
+vertical bar characters. The constructors define the ways in which the
+values of the type (or *terms*) can be created. Each constructor has a
+and can take optional parameters. Here the names are *bTrue* and
+*bFalse* and neither takes any parameters.
 
-Here's the definition of the *syntax*:
+The only values of an inductive type are those that can be built using
+the provided constructors. So the language that we have specified thus
+far has only two values, which we take to be the valid expressions in
+the language we are specifying, namely *bTrue* and *bFalse*.  That is
+all there is to specifying the *syntax* of our simplified language of
+Boolean expressions.
 
-.. code-block:: dafny
+Semantics
+^^^^^^^^^
+To give a preview of what is coming, we now specify a semantics for
+this language. Speaking informally, we want to associate, to each of
+the expressions, a correponding meaning in the form of a Boolean
+value.  We do this by defining a *function* that takes an expression
+(a value of type *bExp*) as an argument and that returns the Boolean
+*value* that the semantics defines as the meaning of that expression.
+Here, we want a function that returns Dafny's Boolean value *true* for
+the expression, *bTrue*, and the Boolean value *false* for *bFalse*.
 
-    datatype Bexp = 
-        litExp (b: bool) | 
-        varExp (v: Bvar) | 
-        notExp (e: Bexp) |
-        andExp (e1: Bexp, e2: Bexp) |
-        orExp (e1: Bexp, e2: Bexp)
-
-Boolean expresions, as we've defined them here, are like propositions
-with paramaters. The parameters are the variables. Depending on how we
-assign them *true* and *false* values, the overall proposition might be
-rendered true or false.
-
-Interpretations in Boolean Logic
---------------------------------
-
-
-The Semantics of Boolean Expressions
-------------------------------------
-
-
-Evaluate a Boolean expression in a given environment.  The recursive
-structure of this algorithm reflects the inductive structure of the
-expressions we've defined.
-
-.. code-block:: dafny
-
-    type interp = map<Bvar, bool>
-
+Here's how we can write this function in Dafny.  
 
 .. code-block:: dafny
 
-    function method Beval(e: Bexp, i: interp): (r: bool) 
+   function method bEval(e: bExp): bool 
+   {
+     match e
+     {
+         case bTrue => true
+         case bFalse => false
+     }
+   }
+		
+As a shorhand for *Boolean semantic evaluator* we call it *bEval*. It
+takes an expression (a value of type, *bExp*) and returns a Boolean
+value.  The function implementation uses an important construct that
+is probably new to most readers: a *match* expression. What a match
+expression does is to: first determine how a value of an inductive
+type was buit, namely what constructor was used and what arguments
+were provided (if any) and then to compute a result for the case at
+hand.
+
+The match expression starts with the match keyword followed by the
+variable naming the value being matched. Then within curly braces
+there is a *case* for each constructor for the type of that value.
+There are two constructors for the type, *bExp*, so there are two
+cases. Each case starts with the *case* keyword, then the name of a
+constructor followed by an argument list if the construtor took
+parameters. Neither constructor took any parameters, so there is no
+need to deal with parameters here. The left side thus determines how
+the value was constructed. Each case has an arrow, *=>*, that is
+followed by an expression that when evaluated yields the result *for
+that case*.
+
+The code here can thus be read as saying, first look at the given
+expression, then determine if it was *bTrue* or *bFalse*. In the first
+case, return *true*. In the second case, return *false*. That is all
+there is to defining a semantics for this simple language.
+
+The Syntax of a Complete Boolean Expression Language
+----------------------------------------------------
+
+The real language of Boolean expressions has many more than two valid
+expressions, of course. In Dafny's Boolean expression sub-language,
+for example, one can write not only the literal expressions, *true*
+and *false*, but also expressions such as *(true || false) && (not
+false)*.
+
+There is an infinity of such expressions, because given any one or two
+valid expressions (starting with *true* and *false*) we can always
+build a bigger expression by combing the two given ones with a Boolean
+operator. No matter how complex expressions *P* and *Q* are, we can,
+for example, always form the even more complex expressions, *!P*, *P
+&& Q*, and *P || Q*, among others.
+
+How can we extend the syntax of our simplified language so that it
+specifies the infinity set of well formed expressions in the language
+of Boolean expressions? The answer is that we need to add some more
+cosntructors. In particular, for each Boolean operator (including
+*and, or*, and *not*), we need a a constructor that takes the right
+number of smaller expressions as arguments and the builds the right
+larger expression.
+
+For example, if *P* and *Q* are arbitrary "smaller" expressions, we
+need a consructor to build the expression *P and Q*, a constructor to
+build the expression, *P or Q*, and one that can build the expressions
+*not P* and *not Q*. Here then is the induction: some constructors of
+the *bExp* type will take values of the very type we're defining as
+parameters. And because we've defined some values as constants, we
+have some expressions to get started with. Here's how we'd write the
+code in Dafny.
+
+.. code-block:: dafny
+
+   datatype bExp = 
+        bTrue |
+        bFalse | 
+        bNot (e: bExp) |
+        bAnd (e1: bExp, e2: bExp) |
+        bOr (e1: bExp, e2: bExp)
+
+We've added three new constructors: one corresponding to each of the
+*operator* in Boolean algebra (to keep things simple, we're dealing
+with only three of them here). We have named each constructor in a way
+that makes the connection to the corresponding operator clear.
+
+We also see that these new constructors take parameters. The *bNot*
+constructor takes a "smaller" expression, *e*, and builds/returns the
+expression, *bNot e*, which we will interpret as *not e*, or, as we'd
+write it in Dafny, *!e*. Similarly, given expressions, *e1* and *e2*,
+the *bAnd* and *bOr* operators construct the expressions *bAnd(e1,e2)*
+and *bOr(e1,e2)*, respectively, representing *e1 and e2* and *e1 or
+e2*, respectively, or, in Dafny syntax, *e1 && e2* and *e1 || e2*.
+
+An expression in our *bExp* language for the Dafny expression *(true
+|| false) and (not false))* would be written as *bAnd( (bOr (bTrue,
+bFalse)), (bNot bFalse))*. Writing complex expressions like this in
+a single line of code can get awkward, to we could also structure the
+code like this:
+
+.. code-block:: dafny
+
+   var T: bExp := bTrue;
+   var F:      := bFalse;
+   var P:      := bOr ( T,  F );
+   var Q       := bNot ( F );
+   var R       := bAnd ( P, Q );
+
+
+The Semantics of Boolean Expressions: Recursive Evaluation
+==========================================================
+
+The remaining question, then, is how to give meanings to each of the
+expressions in the infinite set of expressions that can be built by
+finite numbers of applications of the constructor of our extended
+*bExp* type? When we had only two values in the type, it was easy to
+write a function that returned the right meaning-value for each of the
+two cases. We can't possibly write a separate case, though, for each
+of an infinite number of expressions. The solution lies again in the
+realm of recursive functions.
+
+Such a function will simply do mechanically what you the reader would
+do if presented with a complex Boolean expression to evaluate.  You
+first figure out what operator was applied to what smaller expression
+or expressions. You then evaluate those expressions to get values for
+them. And finally you apply the Boolean operator to those values to
+get a result.
+
+Take the expression, *(true || false) and (not false))*, which in our
+language is expressed by the term, *bAnd( (bOr (bTrue, bFalse)), (bNot
+bFalse))*. First we identify the *constructor* that was used to build
+the expression In this case it's the constructor corresponding to the
+*and* operator: *&&* in the Dafny expression and the *bAnd* in our own
+expression language. What we then do depends on what case has occured.
+
+In the case at hand, we are looking at the constructor for the *and*
+operator. It took two smaller expressions as arguments. To enable the
+precise expression of the return result, ew given temporary names to
+the argument values that were passed to the constructor. We can call
+them *e1* and *e2*, for example. 
+sub-expressions that the operator was applied to.
+
+In this case, *e1* would be *(true || false)* and *e2* would be *(not
+false)*. To compute the value of the whole expression, we then obtain
+Boolean values for each of *e1* and *e2* and then combine them using
+the Boolean *and* operator.
+
+The secret is that we get the values for *e1* and *e2* by the very
+same means: recursively! Within the evaluation of the overall Boolean
+expression, we thus recursively evaluate the subexpressions. Let's
+work through the recursive evaluation of *e1*. It was built using the
+*bOr* constructor. That constructor took two arguments, and they were,
+in this instance, the literal expressions, *bTrue* and *bFalse*. To
+obtain an overall result, we recursively evaluate each of these
+expressions and then combine the result using the Boolean *or*
+operator. Let's look at the recursive evaluation of the *bTrue*
+expression. It just evaluates to the Boolean value, *true* with no
+further recursion, so we're done with that. The *bFalse* evaluates to
+*false*. These two values are then combined using *or* resulting in
+a value of *true* for *eq*. A similarly recursive process produces
+the value, *true*, for *e2*. (Reason through the details yourself!)
+And finally the two Boolean values, *true* and *true* are combined
+using Boolean *and*, and a value for the overall expression is thus
+computed and returned.
+
+Here's the Dafny code.
+
+.. code-block:: dafny
+
+    function method bEval(e: bExp): (r: bool) 
     {
         match e 
         {
-            case litExp(b: bool) => b
-            case varExp(v: Bvar) => lookup(v,i)
-            case notExp(e1: Bexp) => !Beval(e1,i)
-            case andExp(e1, e2) => Beval(e1,i) && Beval(e2, i)
-            case orExp(e1, e2) =>  Beval(e1, i) || Beval(e2, i)
+            case bTrue => true
+            case bFase => false
+            case bNot(e: bExp) => !bEval(e)
+            case bAnd(e1, e2) => bEval(e1) && bEval(e2)
+            case bOrEe1, e2) =>  bEval(e1) || bEval(e2)
         }
     }    
-}
 
+This code extends our simpler example by adding three cases, one for
+each of the new constructor. These constructors took smaller
+expression values as arguments, so the corresponding cases have used
+parameter lists to temporarily give names (*e1*, *e2*, etc.) to the
+arguments that were given when the constructor was orginally used.
+These names are then used to write the expressions on the right sides
+of the arrows, to compute the final results.
 
-Lookup value of given variable, v, in a given interpretation, i. If
-there is not value for v in i, then just return false. This is not a
-great design, in that a return of false could mean one of two things,
-and it's ambiguous: either the value of the variable really is false,
-or it's undefined.  For now, though, it's good enough to illustate our
-main points.
+These result-computing expressions use recursive evalation of the
+constitute subexpressions to obtain their meanings (actual Boolean
+values in Dafny) which they then combine using actual Dafny Boolean
+operators to produce final results.
 
-.. code-block:: dafny
+The meaning (Boolean value) of any of the infinite number of Boolean
+expressions in the Boolean expression language defined by our syntax
+(or *grammar*) can be found by a simple application of our *bEval*
+function. To compute the value of $R$, above, for example, we just run
+*bEval(R)*. For this *R*, this function will without any doubt return
+the intended result, *true*.
 
-    function method lookup(v: Bvar, i: interp): bool
-    {
-        if (v in i) then i[v]
-        else false
-    }
+The Syntax and Semantics of Programming Languages
+=================================================
 
-Now that we know the basic values and operations of Boolean algebra,
-we can be precise about the forms of and valid ways of transforming
-*Boolean expressions.* For example, we've seen that we can transform
-the expression *true and true* into *true*. But what about *true and
-((false xor true) or (not (false implies true)))*?
+Syntax defines legal expressions. Semantics give each legal expression
+an associated meaning. The meanings of Boolean expressions are Boolean
+values. Using exactly the same ideas used here for Boolean expressions
+we could not only specify but compute with the syntax semantics of a
+language of arithmetic expressions.
 
-To make sense of such expressions, we need to define what it means for
-one to be well formed, and how to evaluate any such well formed
-expressions by transforming it repeatedly into simpler forms but in
-ways that preserve its meaning until we reach a single Boolean value.
+Indeed, the same ideas apply to programming language. A programming
+language has a syntax. It defines the set of valid "programs" in that
+language. A programming language also has a semantics, It specifies
+what each such program means. However, th meaning of a program is not
+captured in a single value. Rather, it is expressed ina relation that
+explains how running the programs transforms any pre-execution state
+that satisfies the program preconditions into a post-execution state.
 
-Interpretations
----------------
-
-Validity, Satisfiability, Unsatisfiability
-------------------------------------------
-
-The Most Important Unsolved Problem in Computer Science
--------------------------------------------------------
-
-It is now possible for you to understand what is the most important
-*open question* (unsolved mathematical problem) in computer science.
-Is there an *efficient* algorithm for determining whether any given
-Boolean formula is satisfiable?
-
-
-
-whether there is a combination of Boolean
-variable values that makes any given Boolean expression true is the
-most important unsolved problem in computer science. We currently do
-not know of a solution that with runtime complexity that is better
-than exponential the number of variables in an expression.  It's easy
-to determine whether an assignment of values to variables does the
-trick: just evaluate the expression with those values for the
-variables. But *finding* such a combination today requires, for the
-hardest of these problems, trying all :math:``2^n`` combinations of
-Boolean values for *n* variables.
-
-At the same time, we do not know that there is *not* a more efficient
-algorithm. Many experts would bet that there isn't one, but until we
-know for sure, there is a tantalizing possibility that someone someday
-will find an *efficient decision procedure* for Boolean satisfiability.
-
-To close this exploration of computational complexity theory, we'll
-just note that we solved an instances of another related problem: not
-only to determine whether there is at least one (whether *there
-exists*) at least one combination of variable values that makes the
-expression true, but further determining how many different ways there
-are to do it.
-
-Researchers and advanced practitioners of logic and computation
-sometimes use the word *model* to refer to a combination of variable
-values that makes an expression true. The problem of finding a Boolean
-expression that *satisfies* a Boolean formula is thus somtetimes
-called the *model finding* problem. By contrast, the problem of
-determining how many ways there are to satisfy a Boolean expression is
-called the *model counting* problem.
-
-Solutions to these problems have a vast array of practical uses.  As
-one still example, many logic puzzles can be represented as Boolean
-expressions, and a model finder can be used to determine whether there
-are any "solutions", if so, what one solution is. 
 
 

@@ -101,7 +101,7 @@ module imperative_factorial
            the form of a product of the numbers from 
            n down to a loop index, "i," that we start
            at n and decrement down, terminating the
-           loop when n==0. At each point just before,
+           loop when i==0. At each point just before,
            during, and right after the loop, a is a
            product of the numbers from n down to i, 
            and the value of i represents how much of
@@ -125,6 +125,7 @@ module imperative_factorial
            definition of fact as a *specification* of
            the factorial function we're implementing.
         */
+        
         var i: nat := n;    // nat type of i explicit
         var a := 1;         // can let Dafny infer it
 

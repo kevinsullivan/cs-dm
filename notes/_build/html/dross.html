@@ -672,6 +672,29 @@ actually implementing them in Dafny.</p>
 when given a Boolean expression in our little language returns the
 set of variables that appear in that expression.</p>
 <hr class="docutils" />
+<p>Here we are focused on constructors. To make the distinction clear,
+we will use the names <em>and</em>, <em>or</em>, <em>not</em>, and so forth for Boolean
+operators, and the related names, <em>bNotExp, bAndExp, bOrExp</em>, etc.,
+for the corresponding expression constructors.</p>
+<p>Again, each constructor takes one or more Boolean expressions as its
+arguments and yields a larger expression as a result. For example, the
+<em>bNotExp</em> constructor takes one expression (such as <em>litFalse</em>) and
+yields larger expression, here, <em>bNotExp(litFalse)</em>. The <em>bOrExp</em>
+constructor takes two expression as arguments, e.g., <em>litTrue</em> and
+<em>litFalse</em>, yielding the term, <em>bOrExp(litTrue,litFalse)</em>. Finally,
+the <em>bAndExp</em> constructor take two expressions, such as the two we
+just constructed, and yields the term, <em>bAndExp(bOrExp(litTrue,
+litFalse), bNotExp(listFalse))</em>. This expression could in turn be an
+argument to a constructor that would build an ever larger one.</p>
+<p>However, we’re not limited to building larger expressions only from
+<em>literal</em> expressions. Given any two expressions, no matter how big
+they already are, we can use them to build a larger expression.  So,
+for example, we can also build the expression, <em>(true || false) &amp;&amp;
+(!false)</em>. All inductive definitions work this way. One provides a set
+of base cases for the type of expression being considered, along with
+ways of combining any smaller <em>expressions</em> into larger ones of the
+same kind.</p>
+<hr class="docutils" />
 </div>
 
 

@@ -17,7 +17,8 @@ method Main()
     print "The value of inc(3) is ", func.inc(3), "\n";
     print "The value of fact(5) is ", func.fact(5), "\n";
 */
-    print "The value is ", func.fib(40), "\n";
+    print "The value of fib(10) is ", func.fib(10), "\n";
+    print "The value of sum_squares(5) is ", func.sum_squares(5), "\n";
 /*
     print "The value of sum(5) is ", func.sumto(5), "\n";
     print "The value of add(4,5) is ", func.add(4,5), "\n";

@@ -4,45 +4,42 @@ include "evaluation.dfy"
 module bexptest
 {
     import opened expression
-    import opened interpretation
     import opened evaluation
 
     method Main()
     {
         /*
-            let's build the expression (P \/ Q) /\ ~R
-            in plain text, that's (P or Q) and (not R)
+            let's build the expression (true \/ false) /\ ~false.
+            In plain text, that's (true or false) and (not false).
         */
-        var P := mkVar("P");
-        var Q := mkVar("Q");
-        var R := mkVar("R");
-    
-        var Pexp := varExp(P);
-        var Qexp := varExp(Q);
-        var Rexp := varExp(R);
-        var notRexp := notExp(Rexp);
-        var PorQexp := orExp(Pexp,Qexp);
-        var PorQandnotRexp := andExp(PorQexp,notRexp);
+        var P := bTrue;
+        var Q := bFalse;
+        var R := bFalse;
+        var notR := bNot(R);
+        var PorQ := bOr(P,Q);
+        var PorQandNotR := bAnd(PorQ, notR);
 
         /*
-            Now let's build an "interpretation."
-            This is a binding of variables in our
-            little language to Boolean values, in
-            the form of a map.
+        If you print the term itself, you'll see a lot of cruft
+        inserted by the compiler, but if you peer through it all,
+        you can disern the structure of the term: it's an "and"
+        "box" with two smaller values inside. Each of those is in
+        turn a box. The first is an "or" box with "litTrue" and
+        "litFalse" inside. The second's a "not" box with "litFalse"
+        inside. Values of inductively defined types often have this
+        kind of nested, recursive struture. 
+        
+        You can also draw such a structure as a (computer sciency)"tree". Here it would have "and" at the top, with two sub-
+        trees, the first an "or" tree, the second, a "not" tree. The
+        children of the "or" tree would be "true" and "false", and
+        of the not tree, "false".
         */
-        var st: Binterp := map[
-                                P := true, 
-                                Q := false, 
-                                R := true
-                               ];
 
-        // Finally, let's do a "smoke test"
-        print "\nThe state is ", st, "\n";
-        print "P is ", Beval(Pexp, st), "\n";
-        print "Q is ", Beval(Qexp, st), "\n";
-        print "R is ", Beval(Rexp, st), "\n";
-        print "notR is ", Beval(notRexp, st), "\n";
-        print "PorQ is ", Beval(PorQexp, st), "\n";
-        print "PorQ_and_notR is ", Beval(PorQandnotRexp, st), "\n\n";
+        // Here we print the term. Warning: messy output.
+        print "\n\n(P or Q) and (not R) is ", PorQandNotR, "\n";
+
+        // Evaluating the expression yields its Boolean value!
+        var v := bEval(PorQandNotR);
+        print "\n\nIts value is ", v, "\n";
     }
 }

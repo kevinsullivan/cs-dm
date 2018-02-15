@@ -110,6 +110,17 @@ module functional
     }
 
     /*
+    A function to compute the sum of the
+    squares of the numbers from 0 to n.
+    */
+
+    function method sum_squares(n: nat): nat
+    {
+        if (n == 0) then 0
+        else n * n + sum_squares(n-1)
+    }
+
+    /*
     Implements addition using recursive application
     of increment-by-one. To add x and y, this function 
     applies the increment (inc) function x times to y. 

@@ -7,15 +7,15 @@ module bool_satisfiability
     import opened evaluation
 
 
-    method satisfiable(e: Bexp) 
-        returns (result: bool, model: Binterp)
+    method satisfiable(e: pExp) 
+        returns (result: bool, model: pInterp)
     {
         var vars := seqVarsIn(e);
         var interps := all_interps(vars);
         var i := 0;
         while (i < | interps |) 
         {
-            if (Beval(e,interps[i])) 
+            if (pEval(e,interps[i])) 
             { 
                 result := true;
                 model := interps[i];
@@ -31,8 +31,8 @@ module bool_satisfiability
     otherwise return false and a counterexample, i.e., a model, i.e.,
     an interpretation, that makes the expression true.
     */
-    method unsatisfiable(e: Bexp) 
-        returns (sat: bool, counterexample: Binterp)
+    method unsatisfiable(e: pExp) 
+        returns (sat: bool, counterexample: pInterp)
     {
         var model: Binterp;
         sat, model := satisfiable(e);
@@ -46,15 +46,15 @@ module bool_satisfiability
     a counter-example, i.e., an interpretation for which the
     given expression is false
     */
-    method valid(e: Bexp) 
-        returns (result: bool, counterexample: Binterp)
+    method valid(e: pExp) 
+        returns (result: bool, counterexample: pInterp)
     {
         var vars := seqVarsIn(e);
         var interps := all_interps(vars);
         var i := 0;
         while (i < | interps |) 
         {
-            if (!Beval(e,interps[i])) 
+            if (!pEval(e,interps[i])) 
             { 
                 result := false;
                 counterexample := interps[i];

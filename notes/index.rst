@@ -17,8 +17,8 @@ Welcome to Mathematical Logic in Software Development
    05-putting-it-together
    06-dafny-language
    07-boolean-algebra
-   06-dafny-abstractions
-   App1-Git
+   08-propositional-logic
+   09-natural-deduction
 
 
 Indices and tables

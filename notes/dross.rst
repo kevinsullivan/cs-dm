@@ -727,3 +727,29 @@ set of variables that appear in that expression.
 
 ====
 
+Here we are focused on constructors. To make the distinction clear,
+we will use the names *and*, *or*, *not*, and so forth for Boolean
+operators, and the related names, *bNotExp, bAndExp, bOrExp*, etc.,
+for the corresponding expression constructors. 
+
+Again, each constructor takes one or more Boolean expressions as its
+arguments and yields a larger expression as a result. For example, the
+*bNotExp* constructor takes one expression (such as *litFalse*) and
+yields larger expression, here, *bNotExp(litFalse)*. The *bOrExp*
+constructor takes two expression as arguments, e.g., *litTrue* and
+*litFalse*, yielding the term, *bOrExp(litTrue,litFalse)*. Finally,
+the *bAndExp* constructor take two expressions, such as the two we
+just constructed, and yields the term, *bAndExp(bOrExp(litTrue,
+litFalse), bNotExp(listFalse))*. This expression could in turn be an
+argument to a constructor that would build an ever larger one.
+
+However, we're not limited to building larger expressions only from
+*literal* expressions. Given any two expressions, no matter how big
+they already are, we can use them to build a larger expression.  So,
+for example, we can also build the expression, *(true || false) &&
+(!false)*. All inductive definitions work this way. One provides a set
+of base cases for the type of expression being considered, along with
+ways of combining any smaller *expressions* into larger ones of the
+same kind.
+
+=======
