@@ -1,4 +1,4 @@
- include "expression.dfy"
+ include "syntax.dfy"
  
  module evaluation
  {

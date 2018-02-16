@@ -1,4 +1,4 @@
-module expression
+module syntax
 {
     /*
         Now we define the *syntax* of a little language 
@@ -12,7 +12,7 @@ module expression
     of type, pVar.
     */
 
-    datatype pVar = mkVar(name: string) 
+    datatype pVar = mkPVar(name: string) 
 
     /*
     Note to instructor-self: This method not used.
@@ -21,7 +21,7 @@ module expression
     {
         match b
         {
-            case mkVar(s: string) => s
+            case mkPVar(s: string) => s
         }
     }
 
@@ -30,13 +30,18 @@ module expression
    The syntax of our language of propositions.
    */
     datatype pExp = 
+        // constants
+        pTrue |
+        pFalse |
+
         // variable expressions
         pVarExp (v: pVar) | 
 
         // operator application expression
         pNot (e: pExp) |
         pAnd (e1: pExp, e2: pExp) |
-        pOr (e1: pExp, e2: pExp)
+        pOr (e1: pExp, e2: pExp) |
+        pImpl (e1: pExp, e2: pExp)
 
 
     
@@ -96,14 +101,20 @@ module expression
     {
         match e
         {
-            // a var expression adds the variable it not yet there
+            // Constant expressions add no variables
+            case pFalse => r
+            case pTrue => r
+            
+            // var expression adds variable if it's not yet there
             case pVarExp (v: pVar) => r + { v }
   
-            // add, or , and not expression adds the variables below 
+            // add, or , and not expression add variables below them 
             case pNot (e: pExp) => r + setVarsIn(e)
             case pAnd (e1: pExp, e2: pExp) =>
                 r + setVarsIn(e1) + setVarsIn(e2)
             case pOr (e1: pExp, e2: pExp) =>
+                r + setVarsIn(e1) + setVarsIn(e2)
+            case pImpl (e1: pExp, e2: pExp) =>
                 r + setVarsIn(e1) + setVarsIn(e2)
         }
     }
@@ -132,6 +143,12 @@ module expression
     sequence in some arbitrary order by calling a recursive 
     helper function with an initially empty sequence. This is 
     a second example of the design pattern seen above.
+
+    Note that Dafny requires the *decreases* statement in the
+    loop specification, to help it know how to prove that the
+    loop terminates. The statement tells Dafny that it is the
+    set, s', that "gets smaller until ulimately bottoming out"
+    at the empty set. 
     */
     method setVarsToSeq(s: set<pVar>) returns (result: seq<pVar>)
     {
@@ -145,5 +162,38 @@ module expression
             s' := s' - { v };
         }
         return l;
+    }
+
+    method showPExp(e: pExp) returns (f: string) 
+        decreases e
+    {
+        match e {
+            case pTrue => return "true";
+            case pFalse => return "false";
+            case pVarExp(s) => return s.name;
+            case pNot(e') =>
+            {
+                var s:= showPExp(e');
+                return "Not(" +  s + ")"; 
+            }
+            case pAnd(e1,e2) => 
+            {
+                var s1:= showPExp(e1);
+                var s2:= showPExp(e2);
+                return "And(" + s1 + ", " + s2 + ")";
+            }
+            case pOr(e1,e2) => 
+            {
+                var s1:= showPExp(e1);
+                var s2:= showPExp(e2);
+                return "Or(" + s1 + ", " + s2 + ")";
+            }
+            case pImpl(e1,e2) => 
+            {
+                var s1:= showPExp(e1);
+                var s2:= showPExp(e2);
+                return "Implies(" + s1 + ", " + s2 + ")";
+            }
+        }
     }
 }

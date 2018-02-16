@@ -1,33 +1,38 @@
- include "expression.dfy"
+ include "syntax.dfy"
 
  module interpretation
  {
-    import opened expression
+    import opened syntax
 
    /*
     We define an "interpretation" that maps our
-    variables to corresponding (bool) values. The
-    word, "interpretation" is generally used in 
-    logical discourse. In programming languages, 
-    it might be called an environment. You can also
-    think of it as the "memory" in which values of
-    our Boolean variables will be stored.
-
+    Boolean variables to corresponding (bool) values. 
+    In programming languages, such a mapping from
+    variables to values is called an environment. 
+    Another term for the same idea is "state." The
+    state of a program is the value of each of its
+    variables at a given point in program execution.
+    
     We represent an interpretation as a Dafny map
-    from string names to Boolean values. Such a
-    map is written as "map<string,bool>". When we
-    need to evaluate a variable expression, we'll
-    just look up the value of the variable in such
+    from our own Boolean variables to Dafny bool 
+    values: i.e., map<bVar,bool>. 
+    
+    When we need to evaluate a variable expression, 
+    we'll  look up the value of the variable in such
     a map. 
 
-    To make the purpose of this particular 
-    map<string, bool> clear, we give this type a
-    "type synonym," namely "interp." From this point
-    on, instead of writing map<string, bool> we can
-    instead just write "interp".
+    To make the purpose of this particular type of
+    map clear, we define a "type synonym," namely 
+    "pInterpretation." From this point on, instead 
+    of writing map<bVar, bool> we use the synonym.
+    Type synonyms don't change the behavior of code
+    in any way, but they can make the intent of the 
+    code clearer to human readers. In this sense,
+    they support a form of "abstraction", hiding 
+    complex details behind a more meaningful name.
     */
 
-    type pInterp = map<pVar, bool>
+    type pInterpretation = map<pVar, bool>
 
     /*
     We note that a map might not be "total": that
@@ -55,12 +60,28 @@
     our main points.
     */
 
-    function method lookup(v: pVar, i: pInterp): bool
+    function method pVarValue(v: pVar, i: pInterpretation): bool
+        //    requires v in i
     {
+        //    i[v]
         if (v in i) then i[v] else false
     }
 
-    method show(vs: seq<pVar>, interp: pInterp)
+    method show_pInterps(interps: seq<pInterpretation>, vs: seq<pVar>)
+    {
+        var i := 0;
+        print "{\n";
+        while (i < |interps|)
+        {
+            show_pInterp(vs, interps[i]);
+            if i < |interps| - 1 { print ",\n"; }
+            i := i + 1;
+        }
+        print "\n}\n";
+    }
+
+    method show_pInterp(vs: seq<pVar>, interp: pInterpretation)
+        //requires forall v :: v in vs ==> v in interp
     {
         var n := | vs |;
         var i := 0;
@@ -68,7 +89,7 @@
         while (i < n) {
             match vs[i] 
             {
-                case mkVar(s:string) => 
+                case mkPVar(s:string) => 
                     if vs[i] in interp {
                         print s, " := ", interp[vs[i]], ", ";
                     }
@@ -78,71 +99,6 @@
         print "]";
     }
 
-    function method pow2(n: nat): (r: nat)
-        ensures r >= 1
-    { 
-        if n == 0 then 1 else 2 * pow2(n-1) 
-    }
-
-    /*
-        Return an interpretation for the variables in 
-        the sequence vs such that every variable maps 
-        to false.
-    */
-    method init_interp(vs: seq<pVar>) 
-        returns (result: pInterp)
-    {
-        // start with an empty map
-        result := map[];
-
-        // iterate through variables in vs
-        var i := 0;
-        while (i < | vs |)
-        {
-            // for each one, add a maplet from it to false
-            result := result[ vs[i] := false ];
-            i := i + 1;
-        }
-
-        // that's it
-        return result;
-    }
-
-    /*
-    Takes a sequence of variables and an interpretation
-    (meant to be) for those variables, and computes the
-    "next" interpretation for those variables. It does this
-    by in effect treating the sequence of values as a 
-    binary integer and by incrementing it by one.
-    */
-    method next_interp(vs: seq<pVar>, interp: pInterp) 
-        returns (result: pInterp)
-    {
-        result := interp;
-        var i := | vs | - 1;
-        while (i >= 0 ) 
-        {
-            // should be able to get rid of this with precondition
-            if (! (vs[i] in interp)) { return; }
-            assert vs[i] in interp;
-
-            // The first time we find a 0, make it 1 and we're done
-            if (interp[ vs[i] ] == false) 
-            { 
-                result := result[ vs[i] := true ];
-                break; 
-            } 
-            else
-            {
-                result := result[ vs[i] := false ];
-                // 1 + 1 = 0 plus a carry, so keep looping
-            }
-
-            i := i - 1;
-        }
-        return result;
-    }
-
     /*
     Given a sequence, vs, of Boolean variables, return a 
     sequence of all (2^|vs|) possible interpretations, i.e.,
@@ -150,21 +106,55 @@
     out: for large numbers of variables the result be very
     large.
     */
-    method all_interps(vs: seq<pVar>) 
-        returns (result: seq<pInterp>)
+ }
+
+    /*************** 
+
+    function method init_interp'(vs: seq<pVar>): pInterpretation
     {
-        result := [];
-        var interp := init_interp(vs);
-        var i: nat := 0;
-        var n := pow2(|vs|);
-        while (i < n)
-        {
-            result := result + [interp];
-            interp := next_interp(vs, interp);
-            i := i + 1;
-        }
-        return result;
+        init_interp'_helper(vs, map[])
     }
 
- }  
- 
+
+
+    function method init_interp'_helper(vs: seq<pVar>, i: pInterpretation): (p: pInterpretation)
+        // ensures forall v :: v in vs ==> v in p
+    {
+        if | vs | == 0 
+        then i
+        else init_interp'_helper(vs[1..], i[vs[0] := false])
+    }
+
+
+    function method next_interp'(vs: seq<pVar>, a: seq<pInterpretation>): pInterpretation
+        requires | a | >= 1;
+    {
+        increment_interp'(vs, a[0], | vs |)
+    }
+
+
+    function method  increment_interp' (vs: seq<pVar>, i: pInterpretation, idx: nat): pInterpretation
+        requires 0 <= idx < |vs|
+        requires forall v :: v in vs ==> v in i
+    {
+       if idx == 0 then i 
+       else if vs[idx] !in i then i
+       else if i[vs[idx]] == false then i[ vs[idx] := true ]
+       else increment_interp'(vs, i[ vs[idx] := false ], idx - 1)
+    }
+
+    function method all_interps'(vs: seq<pVar>): (result: seq<pInterpretation>)
+    {
+        all_interps'_help(vs, pow2(|vs|), [ init_interp'(vs) ])
+    }
+
+    function method all_interps'_help(vs: seq<pVar>, fl: nat, a: seq<pInterpretation>):
+        (result: seq<pInterpretation>)
+            requires | a |  >= 1;
+    {
+        if fl == 0 
+        then a  
+        else all_interps'_help(vs, fl - 1, [ next_interp'(vs, a)] + a )     
+    }
+}
+    */

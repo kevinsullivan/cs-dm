@@ -91,5 +91,6 @@
 \contentsline {subsection}{\numberline {8.3.1}Interpretations}{53}{subsection.8.3.1}
 \contentsline {subsection}{\numberline {8.3.2}Evaluation}{53}{subsection.8.3.2}
 \contentsline {section}{\numberline {8.4}Decision Problems}{54}{section.8.4}
+\contentsline {section}{\numberline {8.5}Logical Consequence}{54}{section.8.5}
 \contentsline {chapter}{\numberline {9}Natural Deduction}{55}{chapter.9}
 \contentsline {chapter}{\numberline {10}Indices and tables}{57}{chapter.10}

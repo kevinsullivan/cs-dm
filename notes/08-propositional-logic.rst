@@ -270,10 +270,10 @@ ways that preserve its meaning until we reach a single Boolean value.
 Decision Problems
 =================
 
-It is now possible for you to understand what is the most important
-*open question* (unsolved mathematical problem) in computer science.
-Is there an *efficient* algorithm for determining whether any given
-Boolean formula is satisfiable?
+We can now characterize the most important *open question* (unsolved
+mathematical problem) in computer science.  Is there an *efficient*
+algorithm for determining whether any given Boolean formula is
+satisfiable?
 
 whether there is a combination of Boolean
 variable values that makes any given Boolean expression true is the
@@ -311,4 +311,11 @@ one still example, many logic puzzles can be represented as Boolean
 expressions, and a model finder can be used to determine whether there
 are any "solutions", if so, what one solution is. 
 
+Logical Consequence
+===================
 
+Finally, logic consequence. A set of logical propositions, premises,
+is said to entail another, a conclusion, if in every interpretation
+where all of the premises are true the conclusion is also true. See
+the file, consequence.dfy, for a consequence checker that works by
+exhaustive checking of all interpretations. <More to come>.

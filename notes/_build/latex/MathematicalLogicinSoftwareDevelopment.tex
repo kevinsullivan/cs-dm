@@ -61,7 +61,7 @@
     
 
 \title{Mathematical Logic in Software Development Documentation}
-\date{Feb 15, 2018}
+\date{Feb 16, 2018}
 \release{1}
 \author{Kevin Sullivan}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -77,7 +77,7 @@
 
 
 \chapter{1. Requirement, Specifications, and Implementations}
-\label{\detokenize{01-reqs-specs-impls::doc}}\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}
+\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}\label{\detokenize{01-reqs-specs-impls::doc}}\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}
 Software is an increasingly critical component of major societal
 systems, from rockets to power grids to healthcare, etc. Failures are
 not always bugs in implementation code. The most critical problems
@@ -175,7 +175,7 @@ is not true. More on relations later!
 
 
 \chapter{2. Logical Specifications, Imperative Implementations}
-\label{\detokenize{02-logic-and-code:logical-specifications-imperative-implementations}}\label{\detokenize{02-logic-and-code::doc}}
+\label{\detokenize{02-logic-and-code::doc}}\label{\detokenize{02-logic-and-code:logical-specifications-imperative-implementations}}
 We’ve discussed requirements, specifications, and implementations as
 distinct artifacts that serve distinct purposes. For good reasons,
 these artifacts are usually written in different languages. Software
@@ -523,7 +523,7 @@ steer a commercial aircraft, etc.
 
 
 \chapter{4. Pure Functional Programming as Runnable Mathematics}
-\label{\detokenize{04-runnable-math::doc}}\label{\detokenize{04-runnable-math:pure-functional-programming-as-runnable-mathematics}}
+\label{\detokenize{04-runnable-math:pure-functional-programming-as-runnable-mathematics}}\label{\detokenize{04-runnable-math::doc}}
 What we’d really like would be a language that gives us everything:
 the expressiveness and the \sphinxstyleemphasis{safety} of mathematical logic (there’s no
 concept of a memory in logic, and thus no possibility for unexpected
@@ -1748,7 +1748,7 @@ task of learning how to program.
 
 
 \chapter{6. Dafny Language: Types, Statements, Expressions}
-\label{\detokenize{06-dafny-language:dafny-language-types-statements-expressions}}\label{\detokenize{06-dafny-language::doc}}
+\label{\detokenize{06-dafny-language::doc}}\label{\detokenize{06-dafny-language:dafny-language-types-statements-expressions}}
 
 \section{Built-In Types}
 \label{\detokenize{06-dafny-language:built-in-types}}
@@ -3585,7 +3585,7 @@ that satisfies the program preconditions into a post-execution state.
 
 
 \chapter{8. Propositional Logic}
-\label{\detokenize{08-propositional-logic::doc}}\label{\detokenize{08-propositional-logic:propositional-logic}}
+\label{\detokenize{08-propositional-logic:propositional-logic}}\label{\detokenize{08-propositional-logic::doc}}
 A mathematical logic is defined by (1) a \sphinxstyleemphasis{syntax} that specifies the
 set (usually infinite) of \sphinxstyleemphasis{well formed expressions} in the language
 (also called \sphinxstyleemphasis{well formed formulae}, or \sphinxstyleemphasis{wffs}), and (2) a \sphinxstyleemphasis{semantics}
@@ -3849,10 +3849,10 @@ ways that preserve its meaning until we reach a single Boolean value.
 
 \section{Decision Problems}
 \label{\detokenize{08-propositional-logic:decision-problems}}
-It is now possible for you to understand what is the most important
-\sphinxstyleemphasis{open question} (unsolved mathematical problem) in computer science.
-Is there an \sphinxstyleemphasis{efficient} algorithm for determining whether any given
-Boolean formula is satisfiable?
+We can now characterize the most important \sphinxstyleemphasis{open question} (unsolved
+mathematical problem) in computer science.  Is there an \sphinxstyleemphasis{efficient}
+algorithm for determining whether any given Boolean formula is
+satisfiable?
 
 whether there is a combination of Boolean
 variable values that makes any given Boolean expression true is the
@@ -3891,8 +3891,17 @@ expressions, and a model finder can be used to determine whether there
 are any “solutions”, if so, what one solution is.
 
 
+\section{Logical Consequence}
+\label{\detokenize{08-propositional-logic:logical-consequence}}
+Finally, logic consequence. A set of logical propositions, premises,
+is said to entail another, a conclusion, if in every interpretation
+where all of the premises are true the conclusion is also true. See
+the file, consequence.dfy, for a consequence checker that works by
+exhaustive checking of all interpretations. \textless{}More to come\textgreater{}.
+
+
 \chapter{Natural Deduction}
-\label{\detokenize{09-natural-deduction::doc}}\label{\detokenize{09-natural-deduction:natural-deduction}}
+\label{\detokenize{09-natural-deduction:natural-deduction}}\label{\detokenize{09-natural-deduction::doc}}
 One way
 to defineand (3) a set of \sphinxstyleemphasis{inference} rules that define ways that one
 can transform one set of expressions (premises) into another (a
