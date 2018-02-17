@@ -1,175 +1,61 @@
 module syntax
 {
     /*
-        Now we define the *syntax* of a little language 
-        of Propositional Logic.
-    */
-
-
-    /*
-    We define an infinite set of "propositional
-    variables" as terms of the form mkVar(s), and 
-    of type, pVar.
+    This module implements the syntax of 
+    propositional logic, with the data type,
+    pVar, representing propositional variables,
+    and pExp, propositional expressions: i.e.,
+    "propositions".
+    
+    We start by defining an infinite set of 
+    "propositional variables" as terms of the 
+    form mkVar(s), and of type, pVar. When a 
+    pVar is created, the string, prop, be used 
+    to express a real-world truth claim, such 
+    as  "Joe is from Montana", or it can be an 
+    abstract name, such as "P". 
     */
 
     datatype pVar = mkPVar(name: string) 
 
-    /*
-    Note to instructor-self: This method not used.
-    */
-    function method pVar_name(b: pVar): string 
-    {
-        match b
-        {
-            case mkPVar(s: string) => s
-        }
-    }
-
-    
    /*
-   The syntax of our language of propositions.
+   A value of this pExp type represents a sentence, 
+   or expression, in propositional logic. Such an
+   expression is a constant (pTrue or pFalse); a 
+   propositional variable (here, represented by a
+   value of type pVar); or an expression created by 
+   applying one of the logical connectives to one 
+   or more smaller propositions. A value of this
+   type is structured as what we call an "abstract
+   syntax tree."
    */
     datatype pExp = 
-        // constants
-        pTrue |
+        pTrue | 
         pFalse |
-
-        // variable expressions
-        pVarExp (v: pVar) | 
-
-        // operator application expression
+        pVarExp (v: pVar) |
         pNot (e: pExp) |
         pAnd (e1: pExp, e2: pExp) |
         pOr (e1: pExp, e2: pExp) |
         pImpl (e1: pExp, e2: pExp)
 
 
-    
     /*
-    The rest of this module implements two methods,
-    one of which returns the *set* of variables in a
-    given expression, and the other of which converts
-    that set into a sequence and returns it. It is 
-    much easier to work with sets than with sequences
-    when collecting the variables in an expression.
-    We don't want to include a variable more than once
-    when the same variable occurs in two sub-expressions.
-    But some of the code that uses this module will need 
-    an ordered collection, i.e., a sequence, of all the
-    variables, so we provide a function that converts a
-    set into a sequence.
+    showPExp takes a propositional expression in
+    the form of a pExp value (an abstract syntax
+    tree) and serializes it into a string using
+    prefix notation for the operator/connectives.
+    The propositional constants are translated to
+    the strings, "pTrue" and "pFalse" to avoid 
+    any confusion with the Boolean values true
+    and false, which Dafny prints as the strings,
+    "True" and "False".
     */
-
-    /*
-    First, given a pExp, return a *set() containing all 
-    and only the variables that appear in the expression. 
-    A set contains a given element at most one time, so 
-    even if a variable appears multiple times in a given
-    expression, it'll be in the resulting set only once.
-    */
-    function method setVarsIn(e: pExp): set<pVar>
-    {
-      /*
-      Do the work by calling a helper function with an
-      empty sequence as the starting value. This "design 
-      pattern" is typical: one implements a call to a
-      a non-recursive function (this one) that then calls 
-      a recursive function with some extra arguments to
-      actually do the work.
-      */
-      setVarsInHelper(e, {})
-    }
-
-    /*
-    This recursive function adds the set of variables in a 
-    given expression to the set, r, given as an argument. So, 
-    to get a set of the variables in a given expression, call 
-    this function with the expression and with an empty set. 
-    This is just what the "top-level" function above does.
-
-    This code exhibits a second fundamental algorithm design
-    pattern: mutual recursion. It doesn't call itself recursively,
-    but, in cases where there's more work to do, calls the top-level 
-    method (that called it). This recursive call to the top level
-    computes the set of variables for the *subexpression* being
-    processed by calling this method again. This method then 
-    combines that result, passed in as *r*, with the results 
-    obtained so far (represented in r) to compute the final 
-    answer. 
-    */
-    function method setVarsInHelper(e: pExp, r: set<pVar>): set<pVar>
-    {
-        match e
-        {
-            // Constant expressions add no variables
-            case pFalse => r
-            case pTrue => r
-            
-            // var expression adds variable if it's not yet there
-            case pVarExp (v: pVar) => r + { v }
-  
-            // add, or , and not expression add variables below them 
-            case pNot (e: pExp) => r + setVarsIn(e)
-            case pAnd (e1: pExp, e2: pExp) =>
-                r + setVarsIn(e1) + setVarsIn(e2)
-            case pOr (e1: pExp, e2: pExp) =>
-                r + setVarsIn(e1) + setVarsIn(e2)
-            case pImpl (e1: pExp, e2: pExp) =>
-                r + setVarsIn(e1) + setVarsIn(e2)
-        }
-    }
-
-    /*
-    This method gets the *set* of variables in a given
-    expression and returns it as an ordered sequence. The
-    order in which the elements will appear is undefined.
-    That is, they will be in some order, but one must not
-    count on there being any particular order. 
-    */
-    method seqVarsIn(e: pExp) returns (result: seq<pVar>)
-    {
-        /* Compute the set of variables the convert to sequence
-           Dafny does not allow expressions in return statements
-           so we compute and store the results of the expression
-           first, and then return
-        */
-
-        result := setVarsToSeq(setVarsIn(e));
-        return /* result */;
-    }
-
-    /*
-    Given a set of propositional variables, convert it into a 
-    sequence in some arbitrary order by calling a recursive 
-    helper function with an initially empty sequence. This is 
-    a second example of the design pattern seen above.
-
-    Note that Dafny requires the *decreases* statement in the
-    loop specification, to help it know how to prove that the
-    loop terminates. The statement tells Dafny that it is the
-    set, s', that "gets smaller until ulimately bottoming out"
-    at the empty set. 
-    */
-    method setVarsToSeq(s: set<pVar>) returns (result: seq<pVar>)
-    {
-        var l: seq<pVar> := [];
-        var s' := s;
-        while (s' != {}) 
-            decreases s';
-        {
-            var v :| v in s';
-            l := [ v ] + l;
-            s' := s' - { v };
-        }
-        return l;
-    }
-
     method showPExp(e: pExp) returns (f: string) 
         decreases e
     {
         match e {
-            case pTrue => return "true";
-            case pFalse => return "false";
+            case pTrue => return "pTrue";
+            case pFalse => return "pFalse";
             case pVarExp(s) => return s.name;
             case pNot(e') =>
             {

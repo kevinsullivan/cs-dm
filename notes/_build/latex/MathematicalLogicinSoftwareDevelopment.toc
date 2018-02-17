@@ -87,10 +87,10 @@
 \contentsline {chapter}{\numberline {8}8. Propositional Logic}{51}{chapter.8}
 \contentsline {section}{\numberline {8.1}Introduction}{51}{section.8.1}
 \contentsline {section}{\numberline {8.2}Syntax}{53}{section.8.2}
-\contentsline {section}{\numberline {8.3}Semantics}{53}{section.8.3}
-\contentsline {subsection}{\numberline {8.3.1}Interpretations}{53}{subsection.8.3.1}
-\contentsline {subsection}{\numberline {8.3.2}Evaluation}{53}{subsection.8.3.2}
-\contentsline {section}{\numberline {8.4}Decision Problems}{54}{section.8.4}
-\contentsline {section}{\numberline {8.5}Logical Consequence}{54}{section.8.5}
-\contentsline {chapter}{\numberline {9}Natural Deduction}{55}{chapter.9}
-\contentsline {chapter}{\numberline {10}Indices and tables}{57}{chapter.10}
+\contentsline {section}{\numberline {8.3}Interpretations}{53}{section.8.3}
+\contentsline {section}{\numberline {8.4}Evaluation}{53}{section.8.4}
+\contentsline {section}{\numberline {8.5}Models}{54}{section.8.5}
+\contentsline {section}{\numberline {8.6}Satisfiability, Validity}{54}{section.8.6}
+\contentsline {section}{\numberline {8.7}Logical Consequence}{55}{section.8.7}
+\contentsline {chapter}{\numberline {9}09. Natural Deduction}{57}{chapter.9}
+\contentsline {chapter}{\numberline {10}Indices and tables}{59}{chapter.10}

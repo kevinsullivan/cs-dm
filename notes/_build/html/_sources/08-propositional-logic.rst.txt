@@ -206,11 +206,8 @@ with paramaters. The parameters are the variables. Depending on how we
 assign them *true* and *false* values, the overall proposition might be
 rendered true or false.
 
-Semantics
-=========
-
 Interpretations
----------------
+===============
 
 
 Evaluate a Boolean expression in a given environment.  The recursive
@@ -223,7 +220,7 @@ expressions we've defined.
 
 
 Evaluation
-----------
+==========
 
 .. code-block:: dafny
 
@@ -267,8 +264,12 @@ one to be well formed, and how to evaluate any such well formed
 expressions by transforming it repeatedly into simpler forms but in
 ways that preserve its meaning until we reach a single Boolean value.
 
-Decision Problems
-=================
+Models
+======
+
+
+Satisfiability, Validity
+========================
 
 We can now characterize the most important *open question* (unsolved
 mathematical problem) in computer science.  Is there an *efficient*

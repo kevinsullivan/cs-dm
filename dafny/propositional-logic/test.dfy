@@ -1,12 +1,12 @@
 include "decision.dfy"
-include "semantics.dfy"
+include "evaluation.dfy"
 include "truth_table.dfy"
 include "consequence.dfy"
 
 module satisfiability_test
 {
     import opened syntax
-    import opened semantics
+    import opened evaluation
     import opened interpretation
     import opened truth_table
     import opened model

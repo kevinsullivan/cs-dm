@@ -77,7 +77,7 @@
 
 
 \chapter{1. Requirement, Specifications, and Implementations}
-\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}\label{\detokenize{01-reqs-specs-impls::doc}}\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}
+\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}\label{\detokenize{01-reqs-specs-impls::doc}}\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}
 Software is an increasingly critical component of major societal
 systems, from rockets to power grids to healthcare, etc. Failures are
 not always bugs in implementation code. The most critical problems
@@ -844,7 +844,7 @@ are expressed and verified.
 
 
 \chapter{5. Formal Verification of Imperative Programs}
-\label{\detokenize{05-putting-it-together::doc}}\label{\detokenize{05-putting-it-together:formal-verification-of-imperative-programs}}
+\label{\detokenize{05-putting-it-together:formal-verification-of-imperative-programs}}\label{\detokenize{05-putting-it-together::doc}}
 In this chapter, we first elaborate on the idea that pure functional
 programming make for mathematically clear but potentially inefficient
 specifications, while imperative code makes for efficient code but is
@@ -1748,7 +1748,7 @@ task of learning how to program.
 
 
 \chapter{6. Dafny Language: Types, Statements, Expressions}
-\label{\detokenize{06-dafny-language::doc}}\label{\detokenize{06-dafny-language:dafny-language-types-statements-expressions}}
+\label{\detokenize{06-dafny-language:dafny-language-types-statements-expressions}}\label{\detokenize{06-dafny-language::doc}}
 
 \section{Built-In Types}
 \label{\detokenize{06-dafny-language:built-in-types}}
@@ -3585,7 +3585,7 @@ that satisfies the program preconditions into a post-execution state.
 
 
 \chapter{8. Propositional Logic}
-\label{\detokenize{08-propositional-logic:propositional-logic}}\label{\detokenize{08-propositional-logic::doc}}
+\label{\detokenize{08-propositional-logic::doc}}\label{\detokenize{08-propositional-logic:propositional-logic}}
 A mathematical logic is defined by (1) a \sphinxstyleemphasis{syntax} that specifies the
 set (usually infinite) of \sphinxstyleemphasis{well formed expressions} in the language
 (also called \sphinxstyleemphasis{well formed formulae}, or \sphinxstyleemphasis{wffs}), and (2) a \sphinxstyleemphasis{semantics}
@@ -3788,10 +3788,7 @@ assign them \sphinxstyleemphasis{true} and \sphinxstyleemphasis{false} values, t
 rendered true or false.
 
 
-\section{Semantics}
-\label{\detokenize{08-propositional-logic:semantics}}
-
-\subsection{Interpretations}
+\section{Interpretations}
 \label{\detokenize{08-propositional-logic:interpretations}}
 Evaluate a Boolean expression in a given environment.  The recursive
 structure of this algorithm reflects the inductive structure of the
@@ -3802,7 +3799,7 @@ type interp = map\PYGZlt{}Bvar, bool\PYGZgt{}
 \end{sphinxVerbatim}
 
 
-\subsection{Evaluation}
+\section{Evaluation}
 \label{\detokenize{08-propositional-logic:evaluation}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 function method Beval(e: Bexp, i: interp): (r: bool)
@@ -3847,8 +3844,11 @@ expressions by transforming it repeatedly into simpler forms but in
 ways that preserve its meaning until we reach a single Boolean value.
 
 
-\section{Decision Problems}
-\label{\detokenize{08-propositional-logic:decision-problems}}
+\section{Models}
+\label{\detokenize{08-propositional-logic:models}}
+
+\section{Satisfiability, Validity}
+\label{\detokenize{08-propositional-logic:satisfiability-validity}}
 We can now characterize the most important \sphinxstyleemphasis{open question} (unsolved
 mathematical problem) in computer science.  Is there an \sphinxstyleemphasis{efficient}
 algorithm for determining whether any given Boolean formula is
@@ -3900,8 +3900,8 @@ the file, consequence.dfy, for a consequence checker that works by
 exhaustive checking of all interpretations. \textless{}More to come\textgreater{}.
 
 
-\chapter{Natural Deduction}
-\label{\detokenize{09-natural-deduction:natural-deduction}}\label{\detokenize{09-natural-deduction::doc}}
+\chapter{09. Natural Deduction}
+\label{\detokenize{09-natural-deduction::doc}}\label{\detokenize{09-natural-deduction:natural-deduction}}
 One way
 to defineand (3) a set of \sphinxstyleemphasis{inference} rules that define ways that one
 can transform one set of expressions (premises) into another (a

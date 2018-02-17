@@ -1,4 +1,4 @@
-include "semantics.dfy"
+include "evaluation.dfy"
 include "truth_table.dfy"
 
 module model
@@ -6,19 +6,19 @@ module model
     import opened syntax
     import opened interpretation
     import opened truth_table
-    import opened semantics
+    import opened evaluation
 
 
     method get_models(e: pExp) returns 
         (r: seq<pInterpretation>)
     {
-        var tt_inputs := all_interps(e);
+        var tt_inputs := truth_table_inputs(e);
         r := get_models_helper (tt_inputs, e, []);
         return r;
         
     }
 
-   method get_models_helper(tt_inputs: truthTableInputs, e: pExp, acc: seq<pInterpretation>) 
+   method get_models_helper(tt_inputs: seq<pInterpretation>, e: pExp, acc: seq<pInterpretation>) 
         returns (r: seq<pInterpretation>)
     {
         var idx := 0;

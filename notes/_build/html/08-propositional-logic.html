@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/sidebar.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Natural Deduction" href="09-natural-deduction.html" />
+    <link rel="next" title="09. Natural Deduction" href="09-natural-deduction.html" />
     <link rel="prev" title="7. Boolean Algebra" href="07-boolean-algebra.html" /> 
   </head>
   <body>
@@ -35,7 +35,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="09-natural-deduction.html" title="Natural Deduction"
+          <a href="09-natural-deduction.html" title="09. Natural Deduction"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="07-boolean-algebra.html" title="7. Boolean Algebra"
@@ -226,10 +226,8 @@ with paramaters. The parameters are the variables. Depending on how we
 assign them <em>true</em> and <em>false</em> values, the overall proposition might be
 rendered true or false.</p>
 </div>
-<div class="section" id="semantics">
-<h2>Semantics<a class="headerlink" href="#semantics" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="interpretations">
-<h3>Interpretations<a class="headerlink" href="#interpretations" title="Permalink to this headline">¶</a></h3>
+<h2>Interpretations<a class="headerlink" href="#interpretations" title="Permalink to this headline">¶</a></h2>
 <p>Evaluate a Boolean expression in a given environment.  The recursive
 structure of this algorithm reflects the inductive structure of the
 expressions we’ve defined.</p>
@@ -238,7 +236,7 @@ expressions we’ve defined.</p>
 </div>
 </div>
 <div class="section" id="evaluation">
-<h3>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this headline">¶</a></h3>
+<h2>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>function method Beval(e: Bexp, i: interp): (r: bool)
 {
     match e
@@ -276,9 +274,11 @@ one to be well formed, and how to evaluate any such well formed
 expressions by transforming it repeatedly into simpler forms but in
 ways that preserve its meaning until we reach a single Boolean value.</p>
 </div>
+<div class="section" id="models">
+<h2>Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="decision-problems">
-<h2>Decision Problems<a class="headerlink" href="#decision-problems" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="satisfiability-validity">
+<h2>Satisfiability, Validity<a class="headerlink" href="#satisfiability-validity" title="Permalink to this headline">¶</a></h2>
 <p>We can now characterize the most important <em>open question</em> (unsolved
 mathematical problem) in computer science.  Is there an <em>efficient</em>
 algorithm for determining whether any given Boolean formula is
@@ -336,7 +336,7 @@ exhaustive checking of all interpretations. &lt;More to come&gt;.</p>
                         title="previous chapter">7. Boolean Algebra</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="09-natural-deduction.html"
-                        title="next chapter">Natural Deduction</a></p>
+                        title="next chapter">09. Natural Deduction</a></p>
         </div>
       </div>
       <div class="clearer"></div>
@@ -348,7 +348,7 @@ exhaustive checking of all interpretations. &lt;More to come&gt;.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="09-natural-deduction.html" title="Natural Deduction"
+          <a href="09-natural-deduction.html" title="09. Natural Deduction"
              >next</a> |</li>
         <li class="right" >
           <a href="07-boolean-algebra.html" title="7. Boolean Algebra"
