@@ -18,9 +18,9 @@ module consequence
     type the name/synonmy pContext. 
     */
 
-    type pContext = seq<pExp>
+    type pContext = seq<prop>
 
-    method isConsequence(context: pContext, conclusion: pExp) returns (r: bool)
+    method isConsequence(context: pContext, conclusion: prop) returns (r: bool)
     {
         var premise := conjoinPremises(context);
         var implication := pImpl(premise,conclusion);
@@ -40,7 +40,7 @@ module consequence
     would just say, "In any case at all, not conditioned on any other
     propositions being true, the conclusion is true." 
     */
-    function method conjoinPremises(premises: seq<pExp>): pExp
+    function method conjoinPremises(premises: seq<prop>): prop
     {
         if |premises|==0 then pTrue
         else pAnd(premises[0], conjoinPremises(premises[1..]))
@@ -52,7 +52,7 @@ module consequence
         var s: string := "[";
         while (i < |cx|)
         {
-            var s' := showPExp(cx[i]);
+            var s' := showProp(cx[i]);
             s := s + s';
             if (i < | cx | - 1 ) { s := s + ", "; }
             i := i + 1;

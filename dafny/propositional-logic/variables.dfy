@@ -4,7 +4,7 @@ module variables
 {
     import opened syntax
 
-        method seqVarsIn(e: pExp) returns (result: seq<pVar>)
+    method seqVarsInProp(e: prop) returns (result: seq<propVar>)
     {
         /* Compute the set of variables the convert to sequence
            Dafny does not allow expressions in return statements
@@ -12,8 +12,8 @@ module variables
            first, and then return
         */
 
-        result := setVarsToSeq(getVars(e));
-        return /* result */;
+        result := varSetToSeq(getVarsInProp(e));
+        return;
     }
 
     /*
@@ -28,9 +28,9 @@ module variables
     set, s', that "gets smaller until ulimately bottoming out"
     at the empty set. 
     */
-    method setVarsToSeq(s: set<pVar>) returns (result: seq<pVar>)
+    method varSetToSeq(s: set<propVar>) returns (result: seq<propVar>)
     {
-        var l: seq<pVar> := [];
+        var l: seq<propVar> := [];
         var s' := s;
         while (s' != {}) 
             decreases s';
@@ -43,13 +43,13 @@ module variables
     }
 
 /*
-    Given a pExp, we will often need to extract from it
+    Given a prop, we will often need to extract from it
     the set of variables it uses. This method does that.
     Note that even if a variable appears multiple times 
     in an expression it will of course only appear in the
     set once.
     */
-    function method getVars(e: pExp): set<pVar>
+    function method getVarsInProp(e: prop): set<propVar>
     {
       /*
       Do the work by calling a recursive helper 
@@ -72,22 +72,62 @@ module variables
     then combines the results of these subcalls to complete
     the work it was asked to do.  
     */
-    function method getVarsHelper(e: pExp, r: set<pVar>): set<pVar>
+    function method getVarsHelper(e: prop, r: set<propVar>): set<propVar>
     {
         match e
         {
             case pFalse => r
             case pTrue => r
-            case pVarExp (v: pVar) => r + { v }
-            case pNot (e: pExp) => r + getVars(e)
-            case pAnd (e1: pExp, e2: pExp) =>
-                r + getVars(e1) + getVars(e2)
-            case pOr (e1: pExp, e2: pExp) =>
-                r + getVars(e1) + getVars(e2)
-            case pImpl (e1: pExp, e2: pExp) =>
-                r + getVars(e1) + getVars(e2)
+            case pVar (v: propVar) => r + { v }
+            case pNot (e: prop) => r + getVarsInProp(e)
+            case pAnd (e1: prop, e2: prop) =>
+                r + getVarsInProp(e1) + getVarsInProp(e2)
+            case pOr (e1: prop, e2: prop) =>
+                r + getVarsInProp(e1) + getVarsInProp(e2)
+            case pImpl (e1: prop, e2: prop) =>
+                r + getVarsInProp(e1) + getVarsInProp(e2)
         }
     }
 
- 
+    /*
+    Returns set of variables in a sequence of propositions.
+    Useful in computing truth table for a set of propositions,
+    as occur in contexts in relation to logical consequence.
+    */
+    method getVarsInProps(ps: seq<prop>) returns (result: set<propVar>)
+    {
+        var i := |ps| - 1;
+        var varSet: set<propVar> := {};
+        while (i > 0)
+        {
+            varSet := varSet + getVarsInProp(ps[i]);
+            i := i - 1;
+        }
+        return varSet;
+    }
+
+    method seqVarsInProps(ps: seq<prop>) returns (result: seq<propVar>)
+    {
+        var varSet := getVarsInProps(ps);
+        var varSeq := varSetToSeq(varSet);
+        return varSeq;
+    }
+
+    method showVar(v: propVar) returns (r: string)
+    {
+        return v.name;
+    }
+
+    method showVars(vs: seq<propVar>, sep: string) returns (r: string)
+    {
+        var i := 0;
+        var res := "";
+        while (i < |vs|)
+        {
+            var showv := showVar(vs[i]);
+            res := res + showv + sep;
+            i := i + 1;
+        }
+        return res;
+    }
 }

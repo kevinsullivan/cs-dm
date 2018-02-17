@@ -2,16 +2,16 @@ include "model.dfy"
 
 module decision
 {  
-    import opened syntax;
-    import opened interpretation;
-    import opened model;  
+    import opened syntax
+    import opened interpretation
+    import opened model
     /*
     Return true (and an empty interpretation) if the given
     Boolean expression is valid, otherwise return false with
     a counter-example, i.e., an interpretation for which the
     given expression is false
     */
-    method satisfiable(e: pExp) returns (result: bool, 
+    method satisfiable(e: prop) returns (result: bool, 
                                          models: seq<pInterpretation>)
     {
         models := get_models(e);
@@ -19,7 +19,7 @@ module decision
         return false, [];
     }
 
-    method valid(e: pExp) returns (result: bool, 
+    method valid(e: prop) returns (result: bool, 
                                    counters: seq<pInterpretation>)
     {
         var negIsSat: bool; 
@@ -32,7 +32,7 @@ module decision
     otherwise return false and a counterexample, i.e., a model, i.e.,
     an interpretation, that makes the expression true.
     */
-    method unsatisfiable(e: pExp) 
+    method unsatisfiable(e: prop) 
         returns (result: bool, 
                  counters: seq<pInterpretation>)
     {

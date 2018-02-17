@@ -4,7 +4,7 @@ module syntax
     This module implements the syntax of 
     propositional logic, with the data type,
     pVar, representing propositional variables,
-    and pExp, propositional expressions: i.e.,
+    and prop, propositional expressions: i.e.,
     "propositions".
     
     We start by defining an infinite set of 
@@ -16,10 +16,10 @@ module syntax
     abstract name, such as "P". 
     */
 
-    datatype pVar = mkPVar(name: string) 
+    datatype propVar = mkPropVar(name: string) 
 
    /*
-   A value of this pExp type represents a sentence, 
+   A value of this prop type represents a sentence, 
    or expression, in propositional logic. Such an
    expression is a constant (pTrue or pFalse); a 
    propositional variable (here, represented by a
@@ -29,19 +29,19 @@ module syntax
    type is structured as what we call an "abstract
    syntax tree."
    */
-    datatype pExp = 
+    datatype prop = 
         pTrue | 
         pFalse |
-        pVarExp (v: pVar) |
-        pNot (e: pExp) |
-        pAnd (e1: pExp, e2: pExp) |
-        pOr (e1: pExp, e2: pExp) |
-        pImpl (e1: pExp, e2: pExp)
+        pVar (v: propVar) |
+        pNot (e: prop) |
+        pAnd (e1: prop, e2: prop) |
+        pOr (e1: prop, e2: prop) |
+        pImpl (e1: prop, e2: prop)
 
 
     /*
-    showPExp takes a propositional expression in
-    the form of a pExp value (an abstract syntax
+    showprop takes a propositional expression in
+    the form of a prop value (an abstract syntax
     tree) and serializes it into a string using
     prefix notation for the operator/connectives.
     The propositional constants are translated to
@@ -50,34 +50,34 @@ module syntax
     and false, which Dafny prints as the strings,
     "True" and "False".
     */
-    method showPExp(e: pExp) returns (f: string) 
+    method showProp(e: prop) returns (f: string) 
         decreases e
     {
         match e {
             case pTrue => return "pTrue";
             case pFalse => return "pFalse";
-            case pVarExp(s) => return s.name;
+            case pVar(s) => return s.name;
             case pNot(e') =>
             {
-                var s:= showPExp(e');
+                var s:= showProp(e');
                 return "Not(" +  s + ")"; 
             }
             case pAnd(e1,e2) => 
             {
-                var s1:= showPExp(e1);
-                var s2:= showPExp(e2);
+                var s1:= showProp(e1);
+                var s2:= showProp(e2);
                 return "And(" + s1 + ", " + s2 + ")";
             }
             case pOr(e1,e2) => 
             {
-                var s1:= showPExp(e1);
-                var s2:= showPExp(e2);
+                var s1:= showProp(e1);
+                var s2:= showProp(e2);
                 return "Or(" + s1 + ", " + s2 + ")";
             }
             case pImpl(e1,e2) => 
             {
-                var s1:= showPExp(e1);
-                var s2:= showPExp(e2);
+                var s1:= showProp(e1);
+                var s2:= showProp(e2);
                 return "Implies(" + s1 + ", " + s2 + ")";
             }
         }

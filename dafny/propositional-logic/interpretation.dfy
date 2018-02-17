@@ -22,7 +22,7 @@
     complex details behind a simpler, meaningful name.
     */
 
-    type pInterpretation = map<pVar, bool>
+    type pInterpretation = map<propVar, bool>
 
  
     /*
@@ -32,11 +32,10 @@
     design of this code would be improved by the
     addition of a precondition that requires v in i.
     */
-    function method pVarValue(v: pVar, i: pInterpretation): bool
+    function method pVarValue(v: propVar, i: pInterpretation): bool
     {
         if (v in i) then i[v] else false
     }
-
 
     /*
     This method serializes an interpretation to a string,
@@ -44,7 +43,7 @@
     The design would be improved by a pre-condition that
     requires forall v :: v in vs ==> v in interp.
     */
-    method show_pInterp(interp: pInterpretation, vs: seq<pVar>)
+    method show_interpretation (interp: pInterpretation, vs: seq<propVar>,labels: bool)
     {
         var n := | vs |;
         var i := 0;
@@ -52,7 +51,9 @@
         while (i < n) {
             if vs[i] in interp 
             {
-                print vs[i].name, " := ", interp[vs[i]], ", ";
+                if labels { print vs[i].name, " := "; }
+                print interp[vs[i]];
+                if (i < n - 1) { print "\t"; }
             }
             i := i + 1;
         }
@@ -65,13 +66,13 @@
  is mainly used to output, for example, lists of models 
  or counterexamples of given propositions.
  */
- method show_pInterps(interps: seq<pInterpretation>, vs: seq<pVar>)
+ method show_interpretations(interps: seq<pInterpretation>, vs: seq<propVar>, labels: bool)
     {
         var i := 0;
         print "{\n";
         while (i < |interps|)
         {
-            show_pInterp(interps[i], vs);
+            show_interpretation(interps[i], vs, labels);
             if i < |interps| - 1 { print ",\n"; }
             i := i + 1;
         }
