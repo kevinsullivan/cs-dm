@@ -15,12 +15,29 @@ module consequence
     The goal is generally to show that "in the context of a set of zero
     or more assumptions (the "context") some conclusion must be true."
     We represent a context as a sequence of propositions, and give this
-    type the name/synonmy pContext. 
+    type the name/synonmy context. 
     */
 
     type context = seq<prop>
-    type sequent = (seq<prop>, prop)
 
+    /*
+    A sequent is a context/conclusion pair. We represent a
+    sequent as a Dafny pair, the first element of which is a
+    context, and the second, a proposition representing a
+    putative conclusion. 
+    
+    When valid, a sequent formulates a rule for logically 
+    sound reasoning. 
+    */
+    type sequent = (context, prop)
+
+    /*
+    Determine if sequent is semantically valid and print/show 
+    it with either either a |= or !|= symbol accordingly, using
+    lower-level routines to print constituent propositions.
+
+    FIX: Rather than printing, should return string to be printed.
+    */
     method checkAndShowSequent(sq: sequent, name: string, lbl: bool)
     {
         var valid := checkSequent(sq);
@@ -29,6 +46,12 @@ module consequence
         if lbl { print "      " + name; }
 
     }
+
+    /*
+    Return bool if sequent is semantically valid.
+    Code exhibits use of .0 and .1 functions for
+    extracting first and second elements of pairs.
+    */
     method checkSequent(sq: sequent) returns (valid: bool)
     {
         var cx := sq.0;
@@ -37,6 +60,11 @@ module consequence
         return;
     }
 
+/*
+Return a string serializing a sequent, using the flag
+indicating whether sequent is valid or not to adjust
+a spacing detail.
+*/
     method showSequent(sq: sequent, valid: bool) returns (r: string)
     {
         var cxstr := showPContext(sq.0);
@@ -46,6 +74,15 @@ module consequence
             + (if valid then "|= " else "!|= ") + cnstr;
     }
 
+
+    /*
+    This method returns a Boolean value indicating wether
+    a given sequent is valid or not. It does this by first
+    conjoining all the premises, then forming a proposition
+    that the conjoined premise implies the conclusion. It 
+    then checks the validity of this implication, returning
+    the result.
+    */
     method isConsequence(cx: context, conclusion: prop) returns (r: bool)
     {
         var premise := conjoinPremises(cx);
@@ -73,7 +110,12 @@ module consequence
     }
 
     /*
-    Returns printable string deserializing cx for humans
+    Returns printable string rendering of a context
+    for human reading. Format is a comma-separated 
+    textual list of propositions, each serilized by
+    the showProp method.
+
+    Fix: Simplify name to showContext.
     */
     method showPContext(cx: context) returns (f: string)
     {
