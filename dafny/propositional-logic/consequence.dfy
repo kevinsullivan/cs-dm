@@ -18,11 +18,37 @@ module consequence
     type the name/synonmy pContext. 
     */
 
-    type pContext = seq<prop>
+    type context = seq<prop>
+    type sequent = (seq<prop>, prop)
 
-    method isConsequence(context: pContext, conclusion: prop) returns (r: bool)
+    method checkAndShowSequent(sq: sequent, name: string, lbl: bool)
     {
-        var premise := conjoinPremises(context);
+        var valid := checkSequent(sq);
+        var msg := showSequent(sq, valid);
+        print msg;
+        if lbl { print "      " + name; }
+
+    }
+    method checkSequent(sq: sequent) returns (valid: bool)
+    {
+        var cx := sq.0;
+        var conc := sq.1;
+        valid := isConsequence(cx, conc);
+        return;
+    }
+
+    method showSequent(sq: sequent, valid: bool) returns (r: string)
+    {
+        var cxstr := showPContext(sq.0);
+        var cnstr := showProp(sq.1);
+        r := cxstr // no space after empty sequent
+            + (if |sq.0| > 0 then " " else "") 
+            + (if valid then "|= " else "!|= ") + cnstr;
+    }
+
+    method isConsequence(cx: context, conclusion: prop) returns (r: bool)
+    {
+        var premise := conjoinPremises(cx);
         var implication := pImpl(premise,conclusion);
         var validity, counters := valid(implication);
         return validity;
@@ -46,10 +72,14 @@ module consequence
         else pAnd(premises[0], conjoinPremises(premises[1..]))
     }
 
-    method showPContext(cx: pContext) returns (f: string)
+    /*
+    Returns printable string deserializing cx for humans
+    */
+    method showPContext(cx: context) returns (f: string)
     {
         var i := 0;
-        var s: string := "[";
+        var s: string := "";
+//        s := "[";
         while (i < |cx|)
         {
             var s' := showProp(cx[i]);
@@ -57,6 +87,6 @@ module consequence
             if (i < | cx | - 1 ) { s := s + ", "; }
             i := i + 1;
         }
-        return s + "]";
+        return s; // + "]";
     }
 }
