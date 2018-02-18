@@ -32,6 +32,22 @@ module consequence
     type sequent = (context, prop)
 
     /*
+    This method returns a Boolean value indicating wether
+    a given sequent is valid or not. It does this by first
+    conjoining all the premises, then forming a proposition
+    that the conjoined premise implies the conclusion. It 
+    then checks the validity of this implication, returning
+    the result.
+    */
+    method isConsequence(cx: context, conclusion: prop) returns (r: bool)
+    {
+        var premise := conjoinPremises(cx);
+        var implication := pImpl(premise,conclusion);
+        var validity, counters := valid(implication);
+        return validity;
+    }
+
+    /*
     Determine if sequent is semantically valid and print/show 
     it with either either a |= or !|= symbol accordingly, using
     lower-level routines to print constituent propositions.
@@ -74,22 +90,6 @@ a spacing detail.
             + (if valid then "|= " else "!|= ") + cnstr;
     }
 
-
-    /*
-    This method returns a Boolean value indicating wether
-    a given sequent is valid or not. It does this by first
-    conjoining all the premises, then forming a proposition
-    that the conjoined premise implies the conclusion. It 
-    then checks the validity of this implication, returning
-    the result.
-    */
-    method isConsequence(cx: context, conclusion: prop) returns (r: bool)
-    {
-        var premise := conjoinPremises(cx);
-        var implication := pImpl(premise,conclusion);
-        var validity, counters := valid(implication);
-        return validity;
-    }
 
     /*
     Given a list of propositions, return their conjunction. E.g.,
