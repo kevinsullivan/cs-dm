@@ -2,24 +2,136 @@
 8. Propositional Logic
 **********************
 
-A mathematical logic is defined by (1) a *syntax* that specifies the
-set (usually infinite) of *well formed expressions* in the language
-(also called *well formed formulae*, or *wffs*), and (2) a *semantics*
-by which one can evaluate *truth value* of any such expression.
+A logic is a system for writing, evaluating, and reasoning about truth
+statements, or *propositions*. A proposition asserts that some state
+of affairs holds in some domain. Truth statements can be particular:
+e.g., Tom's mom is Mary; or general: e.g., Every person has a mother.
 
-Each sentence in a logical language is intended to represent a *truth
-claim*: an assertion, about the prevailing *state of affairs* in some
-*domain of discourse* that is either true or false. Dafny *assertions*
-are logical expressions in this sense: they assert that the state of a
-program at a specific point in its execution has certain properties
-(e.g., that the value of a loop index is greater than zero) , or that
-a specific relationship always holds between the state of the program
-before and after some code is run (e.g., pre- and post-conditions and
-loop invariants).
+In Dafny, a logical language is used to express states of affairs in a
+program that are either required or asserted to hold. An example is
+aproposition that some variable has a value that is greater than *0*.
+When used for program specification and verification, propositions are
+taken as descriptions of states of affairs that are required to hold.
+
+It is then the responsibility of the programmer or programming system
+to ensure that such states of affairs do hold. The failure to prove
+the truth of given propositions in this context leaves possibilities
+open that programs fail to satisfy their specifications.
+
+Dafny is a programming system with a reasonably expressive logic based
+on what is called *first-order set theory*, with automated and often
+reasonably efficient tools for enforcing the truth of propositions
+aboutprograms. Ideally programmers change their programs until they
+satisfy propositions used to specify pre-conditions, post-conditions,
+assertions, and invariants. 
+
+In practice, programmers sometimes compromise their work in favor of
+pragmatism by weaking specifications until satisfaction can be proved.
+But this approach casts the validity of the specifications themselves
+into question. A program might satisfy a weakened specification, but
+that might no longer guarantee that it will satisfy the requirements
+for the system.
+
+Of course logic has far broader applications in computer science than
+just in program specification and verification. It is also central to
+many artificial intelligence (AI) systems, optimization systems (e.g.,
+for finding good travel routes), in the development and analysis of
+algorithms, in verification of the functionality of hardware circuits
+in digital logic design, and in many other fields.
+
+Up until now in this course, you have seen one compelling application
+of formal, mechanized logic in programming, namely for specification
+and verification. Having shown one compelling *use case* for logic in
+practical computing, we now start a *deeper dive* to understand logic
+and formal reasoning more generally.
+
+In this chapter and the next, we explore a simple, useful logic called
+*propositional logic*. This is a logic in which the basic elements are
+*atomic propositions*--that can be broken down no further-- that can
+be taken to be either true or false, and in which propositions can be
+composed into larger propositions using logical *connectives*, such as
+*and, or, not,* and *implies*.
+
+For example, atomic propositions might be (1) *it is raining*, (2)
+*the streets are wet*. If one considers all possible worlds, then in
+some of them, each proposition is sometimes true and sometimes false.
+A larger proposition, a *formula*, can be formed by combining these
+(basic) propositions into a larger one: *it is raining* **implies**
+*the streets are wet*. Another way to say this in English would be,
+*whever it is raining, the streets are wet.* This larger proposition
+is true in some but not all possible worlds. If it's not raining, the
+proposition correctly describes the world whether the streets are wet
+or not, and so is judged to be true. If it is raining and the streets
+are wet, it also correctly describes the world, and so is judged to be
+world is consistent with the proposition whether the streets are wet
+or not. Only in a world in which it is raining and the streets are dry
+does the proposition fail to correctly describe the state of affairs,
+and so in this world, it's judged to be false. 
+
+The Elements of a Logic
+=======================
+
+There are many forms of logic, but they all share three basic
+elements.  First, a logic provides a *formal language* in which
+propositions (truth statements) about states of affairs can be
+expressed with mathematical precision. The set of valid expressions in
+such a language is defined by a *grammar* that expresses the *syntax*
+of the language.
+
+Second, a logic defines a of what is required for a proposition to be
+judged true. This definition constitutes what we call the *semantics*
+of the language. The semantics of a logic given *meaning* to what are
+otherwise abstract mathematical expressions; and do so in particular
+by explaining when a given proposition is true or not true.
+
+Finally, a logic provides a set of *inference rules* for deriving new
+propositions (conclusions) from given propositions (premises) in ways
+that guarantee that if the premises are true, the conclusions will be,
+too. The crucial characteristic of inference rules is that although
+they are guarantee to *preserve meaning* (in the form of truthfulness
+of propositions), they work entirely at the level of syntax.
+
+Each such rule basically says, "if you have a set of premises with
+certain syntactic structures, then you can combine them in ways to
+derive new propositions with absolute certainty that, if the premises
+are true, the conclusion will be, too.  Inference rules are thus rules
+for transforming *syntax* in ways that are *semantically sound*. They
+allow one to derive *meaningful* new conclusions without ever having
+to think about meaning at all.
+
+These ideas bring us to the concept of *proofs* in deductive logic. If
+one is given a proposition that is not yet known to be true or not,
+and a set of premises known or assumed to be true, a proof is simply a
+set of applications of availabile inference rules in a way that, step
+by step, connects the premises *syntactically* to the conclusion.
+
+A key property of such a proof is that it can be checked mechanically,
+without any consideration of *semantics* (meaning) to determine if it
+is a valid proof or not. It is a simple matter at each step to check
+whether a given inference rule was applied correctly to convert one
+collection of propositions into another, and thus to check whether
+*chains* of inference rules properly connect premises to conclusions.
+
+For example, a simple inference rule called *modus ponens* states that
+if *P* and *Q* are propositions and if one has as premises that (1)
+*P* is true*, and (2) *if P is true then Q is true*, then one can
+deduce that *Q is true*. This rule is applicable *no matter what* the
+propositions *P* and *Q* are. It thus encodes a general rule of sound
+reasoning.
+
+A logic enables *semantically sound* "reasoning" by way of syntactic
+transformations alone. And a wonderful thing about syntax is that it
+is relatively easy to mechanize with software. What this means is that
+we can implement systems that can reasoning *meaningfully* based on
+syntactic transformation rules alone.
+
+
+Using Logic in Practice
+=======================
 
 To use a logic for practical purposes, one must (1) understand how to
 represent states of affairs in the domain of discourse of interest as
-expressions in the logical language of the logic, and (2) hae some
+expressions in the logical language of the logic, and (2) havee some
 means of evaluating the truth values of the resulting expressions. In
 Dafny, one must understand the logical language in which assertions
 and related constructs (such as pre- and post-conditions) are written.
@@ -55,8 +167,8 @@ finally, are there *efficient* algorithms for *deciding* whether or
 not the answer to any such question is yes or no.
 
 
-Introduction
-============
+Propositional Logic
+===================
 
 The rest of this chapter illustrates and further develops these ideas
 using Boolean algebra, and a language of Boolean expressions, as a

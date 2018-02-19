@@ -27,9 +27,15 @@ module consequence
     putative conclusion. 
     
     When valid, a sequent formulates a rule for logically 
-    sound reasoning. 
+    sound reasoning. We represent a sequent as a triple,
+    the first two elements of which are a context and a
+    proposed conclusion (context and prop, respectively),
+    and the last element of which is a string that names
+    the sequent. Names should be assigned uniquely, but
+    our design does not enforce this constraint.
     */
     type sequent = (context, prop)
+    type named_sequent = (sequent,string)
 
     /*
     This method returns a Boolean value indicating wether
@@ -54,13 +60,13 @@ module consequence
 
     FIX: Rather than printing, should return string to be printed.
     */
-    method checkAndShowSequent(sq: sequent, name: string, lbl: bool)
+    method checkAndShowSequent(nsq: named_sequent)
     {
-        var valid := checkSequent(sq);
+        var sq := nsq.0;
+        var nm := nsq.1;
+        var valid := validSequent(sq);
         var msg := showSequent(sq, valid);
-        print msg;
-        if lbl { print "      " + name; }
-
+        print msg + "\t" + nm;
     }
 
     /*
@@ -68,7 +74,7 @@ module consequence
     Code exhibits use of .0 and .1 functions for
     extracting first and second elements of pairs.
     */
-    method checkSequent(sq: sequent) returns (valid: bool)
+    method validSequent(sq: sequent) returns (valid: bool)
     {
         var cx := sq.0;
         var conc := sq.1;
@@ -87,7 +93,8 @@ a spacing detail.
         var cnstr := showProp(sq.1);
         r := cxstr // no space after empty sequent
             + (if |sq.0| > 0 then " " else "") 
-            + (if valid then "|= " else "!|= ") + cnstr;
+            + (if valid then "|= " else "!|= ") 
+            + cnstr;
     }
 
 
