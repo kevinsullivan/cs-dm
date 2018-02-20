@@ -42,29 +42,6 @@ method CharFun()
     var c4 := '\u265B'; // unicode, hex, "chess king" character
 }
 
-// To return a value from a method, assign to the return parameter
-// Note: functions have colon then return type, whereas methods 
-// use the "returns" keyword with a return parameter list
-method ReturnExample() returns (retval: int)
-{
-    retval := 10;
-}
-
-// Methods can return multiple values
-method ReturnExample2() returns (x: int, y:int)
-{
-    x := 10; 
-    y := 20;
-}
-
-// The return keyword can be used to return immediatey
-method ReturnExample3() returns (x: int)
-{
-    x := 5;     // don't "var" decare return variable
-    return;     // return immediately
-    x := 6;     // never gets executed
-}
-
 // Polymorphic finite and infinite set types.
 // set<T> and iset<T>. T must support equality.
 method SetPlay()
