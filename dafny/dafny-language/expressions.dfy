@@ -33,17 +33,17 @@ method Main()
     prevents the evaluation of an undefined expressions after &&.
     */
 
-    var a: array<int> := null;  
+    var a: array<int> := new int[0];  
     /* 
     Short circuit evaluation protects against evaluation of
-    a[0] when a is null. That is, the right hand expressions
-    is evaluated "lazily", only of the right hand expression
+    a[0] when the length of a is 0. The right hand expression
+    is evaluated "lazily", only if the left hand expression
     doesn't already indicate what the result should be. In this
     case, because the left hand expression is false, the whole
     expression must be false, so the right side won't ever be
     evaluated.
     */
-    var b1: bool := (a != null) && (a[0]==1);
+    var b1: bool := (a.Length != 0) && (a[0]==1);
 
 
     /* SEQUENCE, SET, MULTISET, MAP
