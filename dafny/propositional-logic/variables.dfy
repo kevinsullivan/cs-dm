@@ -1,5 +1,30 @@
 include "syntax.dfy"
 
+/*
+    This module is a helper module for our
+    propositional logic syntax module. This
+    module provides functions for dealing
+    with variable objects and variable terms
+    in our logic.
+    
+    In the usual definition of propositional
+    logic, an "interpretation" is a mapping
+    from a subset of terms, namey variable
+    terms, to corresponding Boolean values.
+    
+    It's easier to define and manage this
+    mapping when "variables" are of their
+    own type, as is the case here, rather
+    than being a subset of terms of another
+    type (namely prop, i.e., logical terms).
+    
+    Thus in our design we have a separate 
+    propVar type, and instance of which is
+    required to create a variable *term* in
+    our logic. 
+    */
+
+    
 module variables
 {
     import opened syntax

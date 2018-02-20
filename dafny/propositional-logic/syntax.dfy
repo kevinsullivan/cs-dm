@@ -1,21 +1,7 @@
+include "syntax.dfy"
+
 module syntax
 {
-    /*
-    This module implements the syntax of 
-    propositional logic, with the data type,
-    pVar, representing propositional variables,
-    and prop, propositional expressions: i.e.,
-    "propositions".
-    
-    We start by defining an infinite set of 
-    "propositional variables" as terms of the 
-    form mkVar(s), and of type, pVar. When a 
-    pVar is created, the string, prop, be used 
-    to express a real-world truth claim, such 
-    as  "Joe is from Montana", or it can be an 
-    abstract name, such as "P". 
-    */
-
     datatype propVar = mkPropVar(name: string) 
 
    /*
