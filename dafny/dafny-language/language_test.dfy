@@ -15,6 +15,28 @@ A little homework exercise for you.
     **** SETS -- unordered collections without duplicates
     ***/
 
+ 
+     method set_product<T1,T2>(s1: set<T1>, s2: set<T2>) 
+        returns (r: set<(T1,T2)>)
+    {
+        var first := s1;
+        var acc : set<(T1,T2)> := {};
+        while (first != {})
+            decreases first;
+        {
+            var x :| x in first;
+            var second := s2;
+            while (second != {}) 
+                decreases second;
+            {
+                var y :| y in second;
+                acc := acc + { (x,y) };
+                second := second - { y };
+            }
+            first := first - { x };
+        }
+        return acc;
+    }
     method set_tests()
     {
     /*
@@ -25,43 +47,55 @@ A little homework exercise for you.
         Once you've confirmed that this code compiles and runs, then go through the rest of the code and add the code and answer the questions as indicated. 
         */
 
-        var s1: set<int>;
-        var s2: set<int>;
-        var s3: set<int>;
-        var s4: set<int>;
-        var s5: set<int>;
-        var s6: set<int>;
-        var s7: set<int>;
+        var s1: set<int>;       // set is a *polymorphic* type
+        var s1': set<set<int>>;
+        var s2: set<int>;       // not a type per se, but rather
+        var s3: set<int>;       // a sort of functiont that takes
+        var s4: set<int>;       // another type as an argument
+        var s5: set<int>;       // (here int) and gives you a
+        var s6: set<int>;       // complete type in return
+    
+        var s7: set<(int,int)>; // A SET OF int-int TUPLES!!!
+    
         var s8: set<int>;
         var s9: set<string>;
 
         // define s1 to be the set {-1, 0, 1, 2, 3}
 
+        s1 := {-1, 0, 1, 2, 3, -1};
+//        print s1;
+
 
         // define s2 to be the set { 0, 2, 4 }
-
+        s2 := { 0, 2, 4 };
 
         // define s3 to be the intersection of s1 and s2
-
+        s3 := s1 * s2; 
 
         // define s4 to to be the union of s1 and s2
-
+        s4 := s1 + s2; 
 
         // define s5 to be the difference, s1 - s2
+        s5 := s1 - s2;
 
 
         // define s6 to be the difference, s2 - s1
+        s6 := s2 - s1;
 
         /*
         For arbitrary sets, s1 and s2, is s1 - s2 == s2 - s1?
         If they're different, in what way are they different?
-        Answer here:
+        Answer here: They're different.
         */
+        assert s1 - s2 != s2 - s1;
 
 
         // define s7 to be the product set, s1 * s2
+        // s7 := s1 X s2;
 
-
+        s7 := set_product(s1,s2);
+        print "The product of ", s1, "and ", s2, " is ", s7, "\n";
+    
         /*
         What kind of things are the elements of this product set?
         Answer here:
@@ -121,6 +155,9 @@ A little homework exercise for you.
 
         var s1 := [1,2,3,4,5];
         var s2 := [1,2,3];
+        var s3 := [2,3,4,5,6];
+
+//        print s3[2];
 
         /*
         Write an assertion, assert s1[?1] == s2[?2] == s3[?3],
@@ -129,7 +166,8 @@ A little homework exercise for you.
         answer right below this comment block. Using "chaining"
         notation.
         */
-               // <--- Right there.
+         
+        assert s1[2] == s2[2] == s3[1];       // <--- Right there.
 
         // Here's another sequence of int variable, uninitialized
         var s4: seq<int>;
@@ -140,8 +178,9 @@ A little homework exercise for you.
         understand how indexing works in sub-sequence expressions. 
         Note: assertion should show red until you get the answer.
         */
-                                // <----Your code here
-        //assert s4 == s2;      // Uncomment this assertion
+        
+        s4 :=  s1[0..3];                      // <----Your code here
+        assert s4 == s2;      // Uncomment this assertion
 
 
 
@@ -174,7 +213,6 @@ A little homework exercise for you.
         that checks that you got the right answer. You must compute
         the right answer mentally to write the required assertion.
         */
-        var s3: seq<int>;
                            // update/assignment operation
                            // assertion to check that it worked
 
@@ -210,6 +248,7 @@ A little homework exercise for you.
 
         var ages: map<string,nat>;
         ages := map["Jane" := 9, "Lin" := 11, "Anh" := 10];
+        print ages["Jane"];
 
         /*
         Write separate assertions to check the following claims.
@@ -235,6 +274,6 @@ A little homework exercise for you.
        the current map to increase Jane's age to 10 (she must have just had a birthday), and by adding a student to the group, "Tim," aged 11. You can do this in two steps if you wish.
        */
 
-       
+
     }
 }
