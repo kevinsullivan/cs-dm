@@ -36,7 +36,10 @@ module bexptest
         */
 
         // Here we print the term. Warning: messy output.
-        print "\n\n(P or Q) and (not R) is ", PorQandNotR, "\n";
+        var out_prefix := show_bExp(PorQandNotR);
+        var out_infix := show_bExp_infix(PorQandNotR);
+        print "The expression (prefix notation) is ", out_prefix, "\n";
+        print "In infix notation, it's: ",  out_infix, "\n";
 
         // Evaluating the expression yields its Boolean value!
         var v := bEval(PorQandNotR);

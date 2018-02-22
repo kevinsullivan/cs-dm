@@ -26,4 +26,47 @@ module expression
         bNot (e: bExp) |
         bAnd (e1: bExp, e2: bExp) |
         bOr (e1: bExp, e2: bExp)
+
+
+    /*
+    A method to convert a bExp to a string. This method uses 
+    the  fundamental concept of "destructuring" a value of an
+    inductively defined type by matching the value against the
+    constructor used to create it, extracting the arguments 
+    that were passed to the constructor, and then recursively 
+    printing subparts until the base cases are reached.
+    */
+
+    function method show_bExp(e: bExp): string
+    {
+        match e 
+        {
+            case bTrue => "True"
+            case bFalse => "False"
+            case bNot (e: bExp) => 
+                "NOT (" + show_bExp(e) + ")"
+            case bAnd (e1: bExp, e2: bExp) => 
+                "AND (" + show_bExp(e1) + ", " + show_bExp(e2) + ")"
+            case bOr (e1: bExp, e2: bExp) =>  
+                "OR (" + show_bExp(e1) + ", " + show_bExp(e2) + ")"
+            
+        }
+    }
+
+       function method show_bExp_infix(e: bExp): string
+    {
+        match e 
+        {
+            case bTrue => "True"
+            case bFalse => "False"
+            case bNot (e: bExp) => 
+                "(Not " + show_bExp_infix(e) + ")"
+            case bAnd (e1: bExp, e2: bExp) => 
+                "(" + show_bExp_infix(e1) + " AND " + show_bExp_infix(e2) + ")"
+            case bOr (e1: bExp, e2: bExp) =>  
+                "(" + show_bExp_infix(e1) + " OR " + show_bExp_infix(e2) + ")"
+            
+        }
+    }
+
 }
