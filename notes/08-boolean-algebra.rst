@@ -1,5 +1,5 @@
 ******************
-7. Boolean Algebra
+8. Boolean Algebra
 ******************
 
 As a first stepping stone toward a deeper exploration of deductive

@@ -1,5 +1,5 @@
 **********************
-8. Propositional Logic
+9. Propositional Logic
 **********************
 
 A logic is a system for writing, evaluating, and reasoning about truth

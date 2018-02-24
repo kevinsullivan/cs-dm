@@ -1,5 +1,5 @@
 =====================
-09. Natural Deduction
+10. Natural Deduction
 =====================
 
 

@@ -175,7 +175,7 @@ is not true. More on relations later!
 
 
 \chapter{2. Logical Specifications, Imperative Implementations}
-\label{\detokenize{02-logic-and-code:logical-specifications-imperative-implementations}}\label{\detokenize{02-logic-and-code::doc}}
+\label{\detokenize{02-logic-and-code::doc}}\label{\detokenize{02-logic-and-code:logical-specifications-imperative-implementations}}
 We’ve discussed requirements, specifications, and implementations as
 distinct artifacts that serve distinct purposes. For good reasons,
 these artifacts are usually written in different languages. Software
@@ -1747,54 +1747,59 @@ like little more than abstract nonsense and a distraction from the
 task of learning how to program.
 
 
-\chapter{7. Boolean Algebra}
-\label{\detokenize{06-boolean-algebra::doc}}\label{\detokenize{06-boolean-algebra:boolean-algebra}}
-As a first stepping stone toward a deeper exploration of deductive
-logic, we explore the related notion of Boolean \sphinxstyleemphasis{algebra}. Boolean
-algebra is a mathematical framework for representing and reasoning
-about truth.
+\chapter{6. Dafny Language: Types, Statements, Expressions}
+\label{\detokenize{06-dafny-language:dafny-language-types-statements-expressions}}\label{\detokenize{06-dafny-language::doc}}
 
-This algebra is akin to ordinary high school algebra, and as such,
-deals with values, operators, and the syntax and the evaluation of
-expressions involving values and operators.  However, the values in
-Boolean algebra are limited to the two values in the set, \(bool
-= \{ 0, 1\}\). They are often written instead as \sphinxstyleemphasis{false} and \sphinxstyleemphasis{true},
-respectively. And rather than arithmetic operators such as numeric
-negation, addition, and subtraction, Boolean algebra defines a set of
-\sphinxstyleemphasis{Boolean operators}. They are typically given names such as \sphinxstyleemphasis{and},
-\sphinxstyleemphasis{or}, and \sphinxstyleemphasis{not}, and they both operate on and yield Boolean values.
+\section{Built-In Types}
+\label{\detokenize{06-dafny-language:built-in-types}}
+Dafny natively supports a range of abstract data types akin to those
+found in widely used, industrial imperative programming languages and
+systems, such as Python and Java. In this chapter, we introduce and
+briefly illustrate the use of these types. The types we discuss are
+as follow:
+\begin{itemize}
+\item {} 
+bool, supporting Boolean algebra
 
-In this chapter, we first discuss Boolean algebra in programming, a
-setting with which the reader is already familar, baesd on a first
-course in programming. We then take a deeper look at the syntax and
-semantics of \sphinxstyleemphasis{expressions} in Boolean algebra. We do this by seeing
-how to use \sphinxstyleemphasis{inductive definitions} and \sphinxstyleemphasis{recursive functions} in the
-Dafny language to implement an \sphinxstyleemphasis{inductive data type} for representing
-Boolean expressions and a recursive \sphinxstyleemphasis{evaluation} function that when
-given any Boolean expression tells whether it is \sphinxstyleemphasis{true} or \sphinxstyleemphasis{false}.
+\item {} 
+int, nat, and real types, supporting \sphinxstyleemphasis{exact} arithmetic (unlike
+the numerical types found in most industrial languages
+
+\item {} 
+char, supporting character types
+
+\item {} 
+set\textless{}T\textgreater{} and iset\textless{}T\textgreater{}, polymorphic set theory for finite and infinite sets
+
+\item {} 
+seq\textless{}T\textgreater{} and iseq\textless{}T\textgreater{}, polymorphic finite and infinite sequences
+
+\item {} 
+string, supporting character sequences (with addtional helpful functions)
+
+\item {} 
+map\textless{}K,V\textgreater{} and imap\textless{}K,V\textgreater{}, polymorphic finite and infinite partial functions
+
+\item {} 
+array\textless{}T\textgreater{}, polymorphic 1- and multi-dimensional arrays
+
+\end{itemize}
 
 
-\section{Boolean Algebra in Dafny}
-\label{\detokenize{06-boolean-algebra:boolean-algebra-in-dafny}}
-All general-purpose programming languages support Boolean
-algebra. Dafny does so through its \sphinxstyleemphasis{bool} data type and the
-\sphinxstyleemphasis{operators} associated with it. Having taking a programming course,
-you will already have been exposed to all of the important ideas.
-In Dafny, as in many languages, the Boolean values are called
-\sphinxstyleemphasis{true} and \sphinxstyleemphasis{false} (rather than \sphinxstyleemphasis{1} and \sphinxstyleemphasis{0}).
+\subsection{Booleans}
+\label{\detokenize{06-dafny-language:booleans}}
+The bool abstract data type (ADT) in Dafny provides a bool data type
+with values, \sphinxstyleemphasis{true} and \sphinxstyleemphasis{false}, along with the Boolean operators that
+are supported by most programming langauges, along with a few that are
+not commonly supported.
 
-The Boolean operators are also denoted not by words, such as \sphinxstyleemphasis{or} and
-\sphinxstyleemphasis{not} but by math-like operators. For example, \sphinxstyleemphasis{!} is the not operator
-and \sphinxstyleemphasis{\textbar{}\textbar{}} is the \sphinxstyleemphasis{or} operator.
-
-Here’s a (useless) Dafny method that illustrates how Boolean values
-and operators can be used in Dafny. It presents a method, \$BoolOps\$,
-that takes a Boolean value and returns one. The commands within the
-method body illustrate the use of Boolean constant (literal) values
-and the unary and binary operators provided by the Dafny language.
+Here’s a method that computes nothing useful and returns no values,
+but that illustrates the range of Boolean operators in Dafny. We also
+use the examples in this chapter to discuss a few other aspects of the
+Dafny language.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-method BoolOps(a: bool) returns (r: bool)
+method BoolOps(a: bool) returns (r: bool)  // bool \PYGZhy{}\PYGZgt{} bool
 \PYGZob{}
     var t: bool := true;    // explicit type declaration
     var f := false;         // type inferred automatically
@@ -1808,1082 +1813,644 @@ method BoolOps(a: bool) returns (r: bool)
  \PYGZcb{}
 \end{sphinxVerbatim}
 
-The first line assigns the Boolean constant, \sphinxstyleemphasis{true}, to a Boolean
-variable, \sphinxstyleemphasis{t}, that is explicitly declared to be of type,, \sphinxstyleemphasis{bool}.
-The second line assigns the Boolean constant, \sphinxstyleemphasis{false}, to \sphinxstyleemphasis{f}, and
-allows Dafny to infer that the type of \sphinxstyleemphasis{f} must be \sphinxstyleemphasis{bool}, based on
-the type of value being assigned to it. The third line illustrates the
-use of the \sphinxstyleemphasis{negation} operator, denoted as \sphinxstyleemphasis{!} in Dafny. Here the
-negation of \sphinxstyleemphasis{t} is assigned to the new Boolean variable, \sphinxstyleemphasis{not}. The
-next line illustrates the use of the Boolean \sphinxstyleemphasis{and}, or \sphinxstyleemphasis{conjunction}
-operator (\sphinxstyleemphasis{\&\&}). Next is the Boolean \sphinxstyleemphasis{or}, or \sphinxstyleemphasis{disjunction}, operator,
-(\sphinxstyleemphasis{\textbar{}\textbar{}}). These should all be familiar.
-
-Implication (\sphinxstyleemphasis{==\textgreater{}}) is a binary operator (taking two Boolean values)
-that is read as \sphinxstyleemphasis{implies} and that evaluates to false only when the
-first argument is true and the second one is false, and that evaluates
-to true otherwise. The \sphinxstyleemphasis{follows} operator (\sphinxstyleemphasis{\textless{}==}) swaps the order of
-the arguments, and evaluates to false if the first argument is false
-and the second is true, and evaluates to true otherwise. Finally, the
-\sphinxstyleemphasis{equivalence} operator evaluates to true if both arguments have the
-same Boolean value, and evaluates to false otherwise. These operators
-are especially useful in writing assertions in Dafny.
-
-The last line returns the Boolean value true as the result of running
-this method. Other operations built into Dafny also return Boolean
-values.  Arithmetic comparison operators, such as \sphinxstyleemphasis{\textless{}}, are examples.
-The less than operator, for example, takes two numerical arguments and
-returns true if the first is strictly less than the second, otherwise
-it returns false.
-
-
-\section{Boolean Values}
-\label{\detokenize{06-boolean-algebra:boolean-values}}
-Boolean algebra is an algebra, which is a set of values and of
-operations that take and return these values. The set of values in
-Boolean algebra, is just the set containing \sphinxstyleemphasis{0} and \sphinxstyleemphasis{1}.
-\begin{equation*}
-\begin{split}bool = \{ 0, 1 \}.\end{split}
-\end{equation*}
-In English that expression just gave a name that we can use, \sphinxstyleemphasis{bool},
-to the set containing the values, \sphinxstyleemphasis{0} and \sphinxstyleemphasis{1}. Although these values
-are written as if they were small natural numbers, you must think of
-them as elements of a different type. They aren’t natural numbers but
-simply the two values in this other, Boolean, algebra. We could use
-different symbols to represent these values. In fact, they are often
-written instead as \sphinxstyleemphasis{false} (for \sphinxstyleemphasis{0}) and \sphinxstyleemphasis{true} (for \sphinxstyleemphasis{1}).The exact
-symbols we use to represent these values don’t really matter. What
-really makes Boolean algebra what it is are the \sphinxstyleemphasis{operators} defined
-by Boolean algebra and how they behave.
-
-
-\section{Boolean Operators}
-\label{\detokenize{06-boolean-algebra:boolean-operators}}
-An algebra, again, is a set of values of a particular kind and a set
-of operators involving that kind of value. Having introduced the set
-of two values of the Boolean type, let’s turn to the \sphinxstyleemphasis{operations} of
-Boolean algebra.
-
-
-\subsection{Nullary, Unary, Binary, and n-Ary Operators}
-\label{\detokenize{06-boolean-algebra:nullary-unary-binary-and-n-ary-operators}}
-The operations of an algebra take zero or more values and return (or
-reduce to) values of the same kind. Boolean operators, for example,
-take zero or more Boolean values and reduce to Boolean values. An
-operator that takes no values (and nevertheless returns a value, as
-all operators do) is called a \sphinxstyleemphasis{constant}. Each value in the value set
-of an algebra can be though of as an operator that takes no values.
-
-Such an operator is also called \sphinxstyleemphasis{nullary}. An operator that takes one
-value is called \sphinxstyleemphasis{unary}; one that takes two, \sphinxstyleemphasis{binary}, and in general,
-one that takes \sphinxstyleemphasis{n} arguments is called \sphinxstyleemphasis{n-ary} (pronounced “EN-airy”).
-
-Having already introduced the constant (\sphinxstyleemphasis{nullary}) values of Boolean
-algebra, each of the type we have called \sphinxstyleemphasis{bool}, we now introduce the
-types and behaviors the unary and binary Boolean operators, including
-each of those supported in Dafny.
-
-
-\subsection{The Unary Operators of Boolean Algebra}
-\label{\detokenize{06-boolean-algebra:the-unary-operators-of-boolean-algebra}}
-While there are two constants in Boolean algebra, each of type \sphinxstyleemphasis{bool},
-there are four unary operators, each of type \(bool \rightarrow
-bool\). This type, which contains an arrow, is a \sphinxstyleemphasis{function} type. It is
-the type of any function that first takes an argument of type \sphinxstyleemphasis{bool}
-then reduces to a value of type \sphinxstyleemphasis{bool}. It’s easier to read, write,
-and say in math than in English. In math, the type would be prounced
-as “bool to bool.”
-
-There is more than one value of this function type. For example one
-such function takes any \sphinxstyleemphasis{bool} argument and always returns the other
-one. This function is of type “bool to bool”, but it is not the same
-as the function that takes any bool argument and always returns the
-same value that it got. The type of each function is \(bool
-\rightarrow bool\), but the function \sphinxstyleemphasis{values} are different.
-
-In the programming field, the type of a function is given when it
-name, its arguments, and return values are declared. This part of a
-function definition is sometimes called the function \sphinxstyleemphasis{signature}, but
-it’s just as well to think of it as decaring the function \sphinxstyleemphasis{type}.  The
-\sphinxstyleemphasis{body} of the function, usually a sequence of commands enclosed in
-curly braces, describes its actual behavior, the particular function
-value associated with the given function name and type.
-
-We know that there is more than one unary Boolean function. So how
-many are there? To specify the behavior of an operator completely, we
-have to define what result it returns for each possible combination of
-its argument values. A unary operator takes only one argument (of the
-given type). In Boolean algebra, a unary function can thus take one of
-only two possible values; and it can return only one of two possible
-result values. The answer to the question is just the number of ways
-that a function can \sphinxstyleemphasis{map} two argument values to two result values.
-
-And the answer to this question is \sphinxstyleemphasis{four}. A function can map both \sphinxstyleemphasis{0}
-and \sphinxstyleemphasis{1} to \sphinxstyleemphasis{0}; both \sphinxstyleemphasis{0} and \sphinxstyleemphasis{1} to \sphinxstyleemphasis{1}; \sphinxstyleemphasis{0} to \sphinxstyleemphasis{0} and \sphinxstyleemphasis{1} to \sphinxstyleemphasis{1};
-and \sphinxstyleemphasis{0} to \sphinxstyleemphasis{1} and \sphinxstyleemphasis{1} to \sphinxstyleemphasis{0}. There are no other possibilities. An
-easy-to-understand way to graphically represent the behavior of each
-of these operations is with a \sphinxstyleemphasis{truth table}.
-
-The rows of a truth table depict all possible combinations of argument
-values in the columns to the left, and in the last column on the right
-a truth tables presents the corresponding resulting value.  The column
-headers give names to the argument values and results column headers
-present expressions using mathematical logic notations that represent
-how the resulting values are computed.
-
-
-\subsubsection{Constant False}
-\label{\detokenize{06-boolean-algebra:constant-false}}
-Here then is a truth table for what we will call the \sphinxstyleemphasis{constant\_false}
-operator, which takes a Boolean argument, either \sphinxstyleemphasis{true} or \sphinxstyleemphasis{false},
-and always returns \sphinxstyleemphasis{false.} In our truth tables, we use the symbols,
-\sphinxstyleemphasis{true} and \sphinxstyleemphasis{false}, instead of \sphinxstyleemphasis{1} and \sphinxstyleemphasis{0}, for consistency with the
-symbols that most programming languages, including Dafny, use for the
-Boolean constants.
-
-
-\begin{savenotes}\sphinxattablestart
-\centering
-\begin{tabular}[t]{|\X{6}{12}|\X{6}{12}|}
-\hline
-
-\(P\)
-&
-\(false\)
-\\
-\hline
-true
-&
-false
-\\
-\hline
-false
-&
-false
-\\
-\hline
-\end{tabular}
-\par
-\sphinxattableend\end{savenotes}
-
-
-\subsubsection{Constant True}
-\label{\detokenize{06-boolean-algebra:constant-true}}
-The \sphinxstyleemphasis{constant\_true} operator always returns \sphinxstyleemphasis{true}.
-
-
-\begin{savenotes}\sphinxattablestart
-\centering
-\begin{tabular}[t]{|\X{6}{12}|\X{6}{12}|}
-\hline
-
-\(P\)
-&
-\(true\)
-\\
-\hline
-true
-&
-true
-\\
-\hline
-false
-&
-true
-\\
-\hline
-\end{tabular}
-\par
-\sphinxattableend\end{savenotes}
-
-
-\subsubsection{Identity Function(s)}
-\label{\detokenize{06-boolean-algebra:identity-function-s}}
-The Boolean \sphinxstyleemphasis{identity} function takes one Boolean value as an argument
-and returns that value, whichever it was.
-
-
-\begin{savenotes}\sphinxattablestart
-\centering
-\begin{tabular}[t]{|\X{6}{12}|\X{6}{12}|}
-\hline
-
-\(P\)
-&
-\(P\)
-\\
-\hline
-true
-&
-true
-\\
-\hline
-false
-&
-false
-\\
-\hline
-\end{tabular}
-\par
-\sphinxattableend\end{savenotes}
-
-As an aside we will note that \sphinxstyleemphasis{identity functions} taking any type of
-value are functions that always return exactly the value they took as
-an argument. What we want to say is that “for any type, \sphinxstyleemphasis{T}, and any
-value, \sphinxstyleemphasis{t} of that type, the identity function for type \sphinxstyleemphasis{T} applied to
-\sphinxstyleemphasis{t} always returns \sphinxstyleemphasis{t} itself. In mathematical logical notation,
-\(\forall T: Type, \forall t: T, id_T(t) = t.\) It’s clearer in
-mathematical language than in English! Make sure that both make sense
-to you now. That is the end of our aside. Now back to Boolean algebra.
-
-
-\subsubsection{Negation}
-\label{\detokenize{06-boolean-algebra:negation}}
-The Boolean negation, or \sphinxstyleemphasis{not}, operator, is the last of the four
-unary operators on Boolean values. It returns the value that it was
-\sphinxstyleemphasis{not} given as an argument. If given \sphinxstyleemphasis{true}, it evaluates to \sphinxstyleemphasis{false},
-and if given \sphinxstyleemphasis{false}, to \sphinxstyleemphasis{true.}
-
-The truth table makes this behavior clear.  It also introduces the
-standard notation in mathematical logic for the negation operator,
-\(\neg P\). This expression is pronounced, \sphinxstyleemphasis{not P}. It evaluates
-to \sphinxstyleemphasis{true} if \sphinxstyleemphasis{P} is false, and to \sphinxstyleemphasis{false} if \sphinxstyleemphasis{P} is \sphinxstyleemphasis{true}.
-
-
-\begin{savenotes}\sphinxattablestart
-\centering
-\begin{tabular}[t]{|\X{6}{12}|\X{6}{12}|}
-\hline
-
-\(P\)
-&
-\(\neg P\)
-\\
-\hline
-true
-&
-false
-\\
-\hline
-false
-&
-true
-\\
-\hline&\\
-\hline
-\end{tabular}
-\par
-\sphinxattableend\end{savenotes}
-
-
-\subsection{Binary Boolean Operators}
-\label{\detokenize{06-boolean-algebra:binary-boolean-operators}}
-Now let’s consider the binary operators of Boolean algebra. Each takes
-two Boolean arguments and returns a Boolean value as a result. The
-type of each such function is written \(bool \rightarrow bool
-\rightarrow bool\), pronounced “bool to bool to bool.” A truth table
-for a binary Boolean operator will have two columns for arguments, and
-one on the right for the result of applying the operator being defined
-to the argument values in the left two columns.
-
-Because binary Boolean operators take two arguments, each with two
-possible values, there is a total of four possible combinations of
-argument values: \sphinxstyleemphasis{true} and \sphinxstyleemphasis{true}, \sphinxstyleemphasis{true} and \sphinxstyleemphasis{false}, \sphinxstyleemphasis{false} and
-\sphinxstyleemphasis{true}, and \sphinxstyleemphasis{false} and \sphinxstyleemphasis{false}. A truth table for a binary operator
-will thus have four rows.
-
-The rightmost column of a truth table for an operator is really where
-the action is. It defines what result is returned for each combination
-of argument values. In a table with four rows, there will be four
-cells to fill in the final column. In a Boolean algebra there are two
-ways to fill each cell. And there are exactly \sphinxstyleemphasis{12\textasciicircum{}4 = 6} ways to do
-that. We can write them as \sphinxstyleemphasis{0000, 0001, 0010, 0011, 0100, 0101, 0110,
-0111, 1000, 1001, 1010, 1011, 1100, 1101, 1110, 1111}. There are thus
-exactly \sphinxstyleemphasis{16} total binary operators in Boolean algebra.
-
-Mathematicians have given names to all \sphinxstyleemphasis{16}, but in practice we tend
-to use just a few of them. They are called \sphinxstyleemphasis{and}, \sphinxstyleemphasis{or}, and \sphinxstyleemphasis{not}. The
-rest can be expressed as combinations these operators.  It is common
-in computer science also to use binary operations called \sphinxstyleemphasis{nand} (for
-\sphinxstyleemphasis{not and}), \sphinxstyleemphasis{xor} (for \sphinxstyleemphasis{exclusive or}) and \sphinxstyleemphasis{implies}.  Here we present
-truth tables for each of the binary Boolean operators in Dafny.
-
-
-\subsubsection{And (conjunction)}
-\label{\detokenize{06-boolean-algebra:and-conjunction}}
-The \sphinxstyleemphasis{and} operator in Boolean algebra takes two Boolean arguments and
-returns \sphinxstyleemphasis{true} when both arguments are \sphinxstyleemphasis{true}, and otherwise, \sphinxstyleemphasis{false}.
-
-
-\begin{savenotes}\sphinxattablestart
-\centering
-\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
-\hline
-
-\(P\)
-&
-\(Q\)
-&
-\(P \land Q\)
-\\
-\hline
-true
-&
-true
-&
-true
-\\
-\hline
-true
-&
-false
-&
-false
-\\
-\hline
-false
-&
-true
-&
-false
-\\
-\hline
-false
-&
-false
-&
-false
-\\
-\hline
-\end{tabular}
-\par
-\sphinxattableend\end{savenotes}
-
-
-\subsubsection{Nand (not and)}
-\label{\detokenize{06-boolean-algebra:nand-not-and}}
-The \sphinxstyleemphasis{nand} operator, short for \sphinxstyleemphasis{not and}, returns the opposite value
-from the \sphinxstyleemphasis{and} operator: \sphinxstyleemphasis{false} if both arguments are \sphinxstyleemphasis{true} and
-\sphinxstyleemphasis{true} otherwise.
-
-
-\begin{savenotes}\sphinxattablestart
-\centering
-\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
-\hline
-
-\(P\)
-&
-\(Q\)
-&
-\(P \uparrow Q\)
-\\
-\hline
-true
-&
-true
-&
-false
-\\
-\hline
-true
-&
-false
-&
-true
-\\
-\hline
-false
-&
-true
-&
-true
-\\
-\hline
-false
-&
-false
-&
-true
-\\
-\hline
-\end{tabular}
-\par
-\sphinxattableend\end{savenotes}
-
-As an aside, the \sphinxstyleemphasis{nand} operator is especially important for designers
-of digital logic circuits. The reason is that \sphinxstyleemphasis{every} binary Boolean
-operator can be simulated by composing \sphinxstyleemphasis{nand} operations in certain
-patterns. So if we have a billion tiny \sphinxstyleemphasis{nand} circuits (each with two
-electrical inputs and an output that is off only when both inputs are
-on), then all we have to do is connect all these little ciruits up in
-the right patterns to implement very complex Boolean functions. The
-capability to etch billions of tiny \sphinxstyleemphasis{nand} circuits in silicon and to
-connect them in complex ways is the heart of the computer revolution.
-Now back to Boolean algebra.
-
-
-\subsubsection{Or (disjunction)}
-\label{\detokenize{06-boolean-algebra:or-disjunction}}
-The \sphinxstyleemphasis{or}, or \sphinxstyleemphasis{disjunction}, operator evaluates to \sphinxstyleemphasis{false} only if both
-arguments are \sphinxstyleemphasis{false}, and otherwise to \sphinxstyleemphasis{true}.
-
-It’s important to note that it evaluates to \sphinxstyleemphasis{true} if either one or
-both of its arguments are true. When a dad says to his child, “You can
-have a candy bar \sphinxstyleemphasis{or} a donut, \sphinxstyleemphasis{he likely doesn’t mean *or} in the
-sense of \sphinxstyleemphasis{disjunction}.  Otherwise the child well educated in logic
-would surely say, “Thank you, Dad, I’ll greatly enjoy having both.”
-
-
-\begin{savenotes}\sphinxattablestart
-\centering
-\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
-\hline
-
-\(P\)
-&
-\(Q\)
-&
-\(P \lor Q\)
-\\
-\hline
-true
-&
-true
-&
-true
-\\
-\hline
-true
-&
-false
-&
-true
-\\
-\hline
-false
-&
-true
-&
-true
-\\
-\hline
-false
-&
-false
-&
-false
-\\
-\hline
-\end{tabular}
-\par
-\sphinxattableend\end{savenotes}
-
-
-\subsubsection{Xor (exclusive or)}
-\label{\detokenize{06-boolean-algebra:xor-exclusive-or}}
-What the dad most likely meant by \sphinxstyleemphasis{or} is what in Boolean algebra we
-call \sphinxstyleemphasis{exclusive or}, written as \sphinxstyleemphasis{xor}.  It evalutes to true if either
-one, but \sphinxstyleemphasis{not both}, of its arguments is true, and to false otherwise.
-
-
-\begin{savenotes}\sphinxattablestart
-\centering
-\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
-\hline
-
-\(P\)
-&
-\(Q\)
-&
-\(P \oplus Q\)
-\\
-\hline
-true
-&
-true
-&
-false
-\\
-\hline
-true
-&
-false
-&
-true
-\\
-\hline
-false
-&
-true
-&
-true
-\\
-\hline
-false
-&
-false
-&
-false
-\\
-\hline
-\end{tabular}
-\par
-\sphinxattableend\end{savenotes}
-
-
-\subsubsection{Nor (not or)}
-\label{\detokenize{06-boolean-algebra:nor-not-or}}
-The \sphinxstyleemphasis{nor} operator returns the negation of what the \sphinxstyleemphasis{or} operator
-applied to the same arguments returns: \sphinxstyleemphasis{xor(b1,b2) = not(or(b1, b2))}.
-As an aside, like \sphinxstyleemphasis{nand}, the \sphinxstyleemphasis{nor} operator is \sphinxstyleemphasis{universal}, in the
-sense that it can be composed to with itself in different patterns to
-simulate the effects of any other binary Boolean operator.
-
-
-\begin{savenotes}\sphinxattablestart
-\centering
-\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
-\hline
-
-\(P\)
-&
-\(Q\)
-&
-\(P \downarrow Q\)
-\\
-\hline
-true
-&
-true
-&
-false
-\\
-\hline
-true
-&
-false
-&
-false
-\\
-\hline
-false
-&
-true
-&
-false
-\\
-\hline
-false
-&
-false
-&
-true
-\\
-\hline
-\end{tabular}
-\par
-\sphinxattableend\end{savenotes}
-
-
-\subsubsection{Implies}
-\label{\detokenize{06-boolean-algebra:implies}}
-The \sphinxstyleemphasis{implies} operator is used to express the idea that if one
-condition, a premise, is true, another one, the conclusion, must be.
-So this operator returns true when both arguments are true. If the
-first argument is false, this operator returns true. It returns false
-only in the case where the first argument is true and the second is
-not, because that violates the idea that if the first is true then the
-second must be.
-
-
-\begin{savenotes}\sphinxattablestart
-\centering
-\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
-\hline
-
-\(P\)
-&
-\(Q\)
-&
-\(P \rightarrow Q\)
-\\
-\hline
-true
-&
-true
-&
-true
-\\
-\hline
-true
-&
-false
-&
-false
-\\
-\hline
-false
-&
-true
-&
-true
-\\
-\hline
-false
-&
-false
-&
-true
-\\
-\hline
-\end{tabular}
-\par
-\sphinxattableend\end{savenotes}
-
-
-\subsubsection{Follows}
-\label{\detokenize{06-boolean-algebra:follows}}
-The \sphinxstyleemphasis{follows} operator reverses the sense of an implication. Rather
-than being understood to say that truth of the first argument should
-\sphinxstyleemphasis{lead to} the truth of the second, it says that the truth of the first
-should \sphinxstyleemphasis{follow from} the truth of the second.
-
-
-\begin{savenotes}\sphinxattablestart
-\centering
-\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
-\hline
-
-\(P\)
-&
-\(Q\)
-&
-\(P \leftarrow Q\)
-\\
-\hline
-true
-&
-true
-&
-true
-\\
-\hline
-true
-&
-false
-&
-true
-\\
-\hline
-false
-&
-true
-&
-false
-\\
-\hline
-false
-&
-false
-&
-true
-\\
-\hline
-\end{tabular}
-\par
-\sphinxattableend\end{savenotes}
-
-There are other binary Boolean operators. They even have names, though
-one rarely sees these names used in practice.
-
-
-\subsection{A Ternary Binary Operator}
-\label{\detokenize{06-boolean-algebra:a-ternary-binary-operator}}
-We can of course define Boolean operators of any arity. As just one
-example, we introduce a \sphinxstyleemphasis{ternary} (3-ary) Boolean operator. It takes
-three Boolean values as arguments and returns a Boolean result. It’s
-type is thus ::\sphinxtitleref{bool rightarrow bool rightarrow bool rightarrow
-bool}. We will call it \sphinxstyleemphasis{ifThenElse\_\{bool\}}.
-
-The way this operator works is that the value of the first argument
-determines which of the next two arguments values the function will
-return. If the first argument is \sphinxstyleemphasis{true} then the value of the whole
-expression is the value of the second argument, otherwise it is the
-value of the third. So, for example, \sphinxstyleemphasis{ifThenElse\_\{bool\}(true, true,
-false)} evaluates to true, while \sphinxstyleemphasis{ifThenElse\_\{bool\}(false, true,
-false)} is false.
-
-It is sometimes helpful to write Boolean expressions involving \sphinxstyleemphasis{n-ary}
-operators for \sphinxstyleemphasis{n\textgreater{}1} using something other than function application
-(prefix) notation. So, rather than \sphinxstyleemphasis{and(true,false)}, with the
-operator in front of the arguments (\sphinxstyleemphasis{prefix} notation), we would
-typically write \sphinxstyleemphasis{true \&\& false} to mean the same thing. We have first
-sed a symbol, \sphinxstyleemphasis{\&\&}, instead of the English word, \sphinxstyleemphasis{and} to name the
-operator of interest. We have also put the function name (now \sphinxstyleemphasis{\&\&})
-\sphinxstyleemphasis{between} the arguments rather than in front of them. This is called
-\sphinxstyleemphasis{infix} notation.
-
-With ternary and other operators, it can even make sense to break up
-the name of the operator and spread its parts across the whole
-expression. For example, instead of writing, \sphinxstyleemphasis{ifThenElse\_\{bool\}(true,
-true, false)}, we could write it as \sphinxstyleemphasis{IF true THEN true ELSE false.}
-Here, the capitalized words all together represent the name of the
-function applied to the three Boolean arguments in the expression.
-
-As an aside, when we use infix notation, we have to do some extra
-work, namely to specify the \sphinxstyleemphasis{order of operations}, so that when we
-write expressions, the meaning is unambiguous. We have to say which
-operators have higher and lower \sphinxstyleemphasis{precedence}, and whether operators
-are \sphinxstyleemphasis{left}, \sphinxstyleemphasis{right}, or not associative. In everyday arithmetic, for
-example, multiplication has higher precedence than addition, so the
-expression \sphinxstyleemphasis{3 + 4 * 5} is read as \sphinxstyleemphasis{3 + (4 * 5)} even though the \sphinxstyleemphasis{+}
-operator comes first in the expression.
-
-Exercise: How many ternary Boolean operations are there? Hint: for an
-operator with \sphinxstyleemphasis{n} Boolean arguments there are \(2^n\) combinations
-of input values. This means that there will be \(2^n\) rows in its
-truth table, and so \(2^n\) blanks to fill in with Boolean values
-in the right column. How many ways are there to fill in \(2^n\)
-Boolean values? Express your answer in terms of \sphinxstyleemphasis{n}.
-
-Exercise: Write down the truth table for our Boolean if-then-else
+
+\subsection{Numbers}
+\label{\detokenize{06-dafny-language:numbers}}
+Methods aren’t required to return results. Such methods do their jobs
+by having side effects, e.g., doing output or writing data into global
+variables (usually a bad idea).  Here’s a method that doesn’t return a
+value. It illustrates numerical types, syntax, and operations.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method NumOps()
+\PYGZob{}
+    var r1: real := 1000000.0;
+    var i1: int := 1000000;
+    var i2: int := 1\PYGZus{}000\PYGZus{}000;   // underscores for readiability
+    var i3 := 1\PYGZus{}000;            // Dafny can often infer types
+    var b1 := (10 \PYGZlt{} 20) \PYGZam{}\PYGZam{} (20 \PYGZlt{}= 30); // a boolean expression
+    var b2 := 10 \PYGZlt{} 20 \PYGZlt{}= 30;    // equivalent, with \PYGZdq{}chaining\PYGZdq{}
+    var i4: int := (5.5).Floor; // 5
+    var i5 := (\PYGZhy{}2.5).Floor;     // \PYGZhy{}3
+    var i6 := \PYGZhy{}2.5.Floor;        // \PYGZhy{}2 = \PYGZhy{}(2.5.Floor); binding!
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\subsection{Characters}
+\label{\detokenize{06-dafny-language:characters}}
+Characters (char) are handled sort of as they are in C, etc.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method CharFun()
+\PYGZob{}
+    var c1: char := \PYGZsq{}a\PYGZsq{};
+    var c2 := \PYGZsq{}b\PYGZsq{};
+    // var i1 := c2 \PYGZhy{} c1;
+    var i1 := (c2 as int) \PYGZhy{} (c1 as int);    // type conversion
+    var b1 := c1 \PYGZlt{} c2;  // ordering operators defined for char
+    var c3 := \PYGZsq{}\PYGZbs{}n\PYGZsq{};     // c\PYGZhy{}style escape for non\PYGZhy{}printing chars
+    var c4 := \PYGZsq{}\PYGZbs{}u265B\PYGZsq{}; // unicode, hex, \PYGZdq{}chess king\PYGZdq{} character
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\subsection{Sets}
+\label{\detokenize{06-dafny-language:sets}}
+Polymorphic finite and infinite set types:
+set\textless{}T\textgreater{} and iset\textless{}T\textgreater{}. T must support equality.
+Values of these types are immutable.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method SetPlay()
+\PYGZob{}
+    var empty: set\PYGZlt{}int\PYGZgt{} := \PYGZob{}\PYGZcb{};
+    var primes := \PYGZob{}2, 3, 5, 7, 11\PYGZcb{};
+    var squares := \PYGZob{}1, 4, 9, 16, 25\PYGZcb{};
+    var b1 := empty \PYGZlt{} primes;    // strict subset
+    var b2 := primes \PYGZlt{}= primes;   // subset
+    var b3: bool := primes !! squares; // disjoint
+    var union := primes + squares;
+    var intersection := primes * squares;
+    var difference := primes \PYGZhy{} \PYGZob{}3, 5\PYGZcb{};
+    var b4 := primes == squares;    // false
+    var i1 := \textbar{} primes \textbar{};   // cardinality (5)
+    var b5 := 4 in primes;  // membership (false)
+    var b6 := 4 !in primes; // non\PYGZhy{}membership
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\subsection{Sequences}
+\label{\detokenize{06-dafny-language:sequences}}
+Polymorphic sequences (often called “lists”): seq\textless{}T\textgreater{}. These can be
+understood as functions from indices to values. Some of the operations
+require that T support equality. Values of this type are immutable.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method SequencePlay()
+\PYGZob{}
+    var empty\PYGZus{}seq: seq\PYGZlt{}char\PYGZgt{} := [];
+    var hi\PYGZus{}seq: seq\PYGZlt{}char\PYGZgt{} := [\PYGZsq{}h\PYGZsq{}, \PYGZsq{}i\PYGZsq{}];
+    var b1 := hi\PYGZus{}seq == empty\PYGZus{}seq; // equality; !=
+    var hchar := hi\PYGZus{}seq[0];        // indexing
+    var b2 := [\PYGZsq{}h\PYGZsq{}] \PYGZlt{} hi\PYGZus{}seq;   // proper prefix
+    var b3 := hi\PYGZus{}seq \PYGZlt{} hi\PYGZus{}seq;  // this is false
+    var b4 := hi\PYGZus{}seq \PYGZlt{}= hi\PYGZus{}seq; // prefix, true
+    var sum := hi\PYGZus{}seq + hi\PYGZus{}seq; // concatenation
+    var len := \textbar{} hi\PYGZus{}seq \textbar{};
+    var Hi\PYGZus{}seq := hi\PYGZus{}seq[0 := \PYGZsq{}H\PYGZsq{}]; // update
+    var b5 := \PYGZsq{}h\PYGZsq{} in hi\PYGZus{}seq; // member, true, !in
+    var s := [0,1,2,3,4,5];
+    var s1 := s[0..2];  // subseqence
+    var s2 := s[1..];   // \PYGZdq{}drop\PYGZdq{} prefix of len 1
+    var s3 := s[..2];   // \PYGZdq{}take\PYGZdq{} prefix of len 2
+    // there\PYGZsq{}s a slice operator, too; later
+ \PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\subsection{Strings}
+\label{\detokenize{06-dafny-language:strings}}
+Dafny has strings. Strings are literally just sequences of characters
+(of type seq\textless{}char\textgreater{}), so you can use all the sequence operations on
+strings.  Dafny provides additional helpful syntax for strings.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method StringPlay()
+ \PYGZob{}
+     var s1: string := \PYGZdq{}Hello CS2102!\PYGZdq{};
+     var s2 := \PYGZdq{}Hello CS2102!\PYGZbs{}n\PYGZdq{};   // return
+     var s3 := \PYGZdq{}\PYGZbs{}\PYGZdq{}Hello CS2102!\PYGZbs{}\PYGZdq{}\PYGZdq{}; // quotes
+ \PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\subsection{Maps (Partial Functions)}
+\label{\detokenize{06-dafny-language:maps-partial-functions}}
+Dafny also supports polymorphic maps, both finite (map\textless{}K,V\textgreater{}) and
+infinite (imap\textless{}K,V\textgreater{}).  The key type, K, must support equality (==).
+In mathematical terms, a map really represents a binary relation,
+i.e., a set of \textless{}K,V\textgreater{} pairs, which is to say a subset of the product
+set, K * V, where we view the types K and V as defining sets of
+values.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method MapPlay()
+\PYGZob{}
+    // A map literal is keyword map + a list of maplets.
+    // A maplet is just a single \PYGZlt{}K,V\PYGZgt{} pair (or \PYGZdq{}tuple\PYGZdq{}).
+    // Here\PYGZsq{}s an empty map from strings to ints
+    var emptyMap: map\PYGZlt{}string,int\PYGZgt{} := map[];
+
+    // Here\PYGZsq{}s non empty map from strings to ints
+    // A maplet is \PYGZdq{}k := v,\PYGZdq{} k and v being of types K and V
+    var aMap: map\PYGZlt{}string,int\PYGZgt{}  := map[\PYGZdq{}Hi\PYGZdq{} := 1, \PYGZdq{}There\PYGZdq{} := 2];
+
+    // Map domain (key) membership
+    var isIn: bool := \PYGZdq{}There\PYGZdq{} in aMap; // true
+    var isntIn := \PYGZdq{}Their\PYGZdq{} !in aMap;    // true
+
+    // Finite map cardinality (number of maplets in a map)
+    var card := \textbar{}aMap\textbar{};
+
+    //Map lookup
+    var image1 := aMap[\PYGZdq{}There\PYGZdq{}];
+    // var image2 := aMap[\PYGZdq{}Their\PYGZdq{}]; // error! some kind of magic
+    var image2: int;
+    if (\PYGZdq{}Their\PYGZdq{} in aMap) \PYGZob{} image2 := aMap[\PYGZdq{}Their\PYGZdq{}]; \PYGZcb{}
+
+    // map update, maplet override and maplet addition
+    aMap := aMap[\PYGZdq{}There\PYGZdq{} := 3];
+    aMap := aMap[\PYGZdq{}Their\PYGZdq{} := 10];
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\subsection{Arrays}
+\label{\detokenize{06-dafny-language:arrays}}
+Dafny supports arrays. Here’s we’ll see simple 1-d arrays.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method ArrayPlay()
+\PYGZob{}
+    var a := new int[10]; // in general: a: array\PYGZlt{}T\PYGZgt{} := new T[n];
+    var a\PYGZsq{} := new int[10];   // type inference naturally works here
+    var i1 := a.Length;      // Immutable \PYGZdq{}Length\PYGZdq{} member holds length of array
+    a[3] := 3;           // array update
+    var i2 := a[3];          // array access
+    var seq1 := a[3..8];    // take first 8, drop first 3, return as sequence
+    var b := 3 in seq1;     // true! (see sequence operations)
+    var seq2 := a[..8];     // take first 8, return rest as sequence
+    var seq3 := a[3..];     // drop first 3, return rest as sequence
+    var seq4 := a[..];      // return entire array as a sequence
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+Arrays, objects (class instances), and traits (to be discussed) are of
+“reference” types, which is to say, values of these types are stored
+on the heap. Values of other types, including sets and sequences, are
+of “value types,” which is to say values of these types are stored on
+the stack; and they’re thus always treated as “local” variables. They
+are passed by value, not reference, when passed as arguments to
+functions and methods. Value types include the basic scalar types
+(bool, char, nat, int, real), built-in collection types (set,
+multiset, seq, string, map, imap), tuple, inductive, and co-inductive
+types (to be discussed).  Reference type values are allocated
+dynamically on the heap, are passed by reference, and therefore can be
+“side effected” (mofified) by methods to which they are passed.
+
+
+\section{Statements}
+\label{\detokenize{06-dafny-language:statements}}
+
+\subsection{Block}
+\label{\detokenize{06-dafny-language:block}}
+In Dafny, you can make one bigger command from a sequence of smaller
+ones by enclosing the sequence in braces. You typically use this only
+for the bodies of loops and the parts of conditionals.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYGZob{}
+    print \PYGZdq{}Block: Command1\PYGZbs{}n\PYGZdq{};
+    print \PYGZdq{}Block: Command2\PYGZbs{}n\PYGZdq{};
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\subsection{Break}
+\label{\detokenize{06-dafny-language:break}}
+The break command is for prematurely breaking out of loops.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+var i := 5;
+while (i \PYGZgt{} 0)
+\PYGZob{}
+    if (i == 3)
+    \PYGZob{}
+        break;
+    \PYGZcb{}
+    i := i \PYGZhy{} 1;
+\PYGZcb{}
+print \PYGZdq{}Break: Broke when i was \PYGZdq{}, i, \PYGZdq{}\PYGZbs{}n\PYGZdq{};
+\end{sphinxVerbatim}
+
+
+\subsection{Update (Assignment)}
+\label{\detokenize{06-dafny-language:update-assignment}}
+There are several forms of the update command. The first is the usual
+assignment that you see in many languages. The second is “multiple
+assignment”, where you can assign several values to several variables
+at once. The final version is not so familar. It \sphinxstyleemphasis{chooses} a value
+that satisfies some property and assigns it to a variable.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+var x := 3;         // typical assignment
+var y := 4;         // typical assignment
+print \PYGZdq{}Update: before swap, x and y are \PYGZdq{}, x, \PYGZdq{}, \PYGZdq{}, y, \PYGZdq{}\PYGZbs{}n\PYGZdq{};
+x, y := y, x;       // one\PYGZhy{}line swap using multiple assignment
+print \PYGZdq{}Update: after swap, x and y are \PYGZdq{}, x, \PYGZdq{}, \PYGZdq{}, y, \PYGZdq{}\PYGZbs{}n\PYGZdq{};
+var s: set\PYGZlt{}int\PYGZgt{} := \PYGZob{} 1, 2, 3 \PYGZcb{}; // typical: assign set value to s
+var c :\textbar{} c in s;    // update c to a value such that c is in s
+print \PYGZdq{}Update: Dafny chose this value from the set: \PYGZdq{}, c, \PYGZdq{}\PYGZbs{}n\PYGZdq{};
+\end{sphinxVerbatim}
+
+
+\subsection{Var (variable declaration)}
+\label{\detokenize{06-dafny-language:var-variable-declaration}}
+A variable declaration stsatement is used to declare one or more local
+variables in a method or function. The type of each local variable
+must be given unless the variable is given an initial value in which
+case the type will be inferred. If initial values are given, the
+number of values must match the number of variables declared. Note
+that the type of each variable must be given individually. This “var
+x, y : int;” does not declare both x and y to be of type int. Rather
+it will give an error explaining that the type of x is underspecified.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+var l: seq\PYGZlt{}int\PYGZgt{} := [1, 2, 3]; // explicit type (sequence of its)
+var l\PYGZsq{}          := [1, 2, 3]; // Dafny infers type from [1, 2, 3]
+\end{sphinxVerbatim}
+
+
+\subsection{If (conditional)}
+\label{\detokenize{06-dafny-language:if-conditional}}
+There are several forms of the if statement in Dafny.  The first is
+“if (Boolean) block-statement.” The second is “if (Boolean)
+block-statement else block-statement” A block is a sequence of
+commands enclosed by braces (see above).
+
+In addition, there is a multi-way if statement similar to a case
+statement in C or C++. The conditions for the cases are evaluated in
+an unspecified order. The first to match results in evaluation of the
+corresponding command. If no case matches the overall if command does
+nothing.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+if (0==0) \PYGZob{} print \PYGZdq{}If: zero is zero\PYGZbs{}n\PYGZdq{}; \PYGZcb{}   // if (bool) \PYGZob{}block\PYGZcb{}
+if (0==1)
+    \PYGZob{} print \PYGZdq{}If: oops!\PYGZbs{}n\PYGZdq{}; \PYGZcb{}
+else
+    \PYGZob{} print \PYGZdq{}If: oh good, 0 != 1\PYGZbs{}n\PYGZdq{}; \PYGZcb{}
+
+var q := 1;
+if \PYGZob{}
+    case q == 0 =\PYGZgt{} print \PYGZdq{}Case: q is 0\PYGZbs{}n\PYGZdq{};
+    case q == 1 =\PYGZgt{} print \PYGZdq{}Case: q is 1\PYGZbs{}n\PYGZdq{};
+    case q == 2 =\PYGZgt{} print \PYGZdq{}Case: q is 2\PYGZbs{}n\PYGZdq{};
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\subsection{While (iteration)}
+\label{\detokenize{06-dafny-language:while-iteration}}
+While statements come in two forms. The first is a typical Python-like
+statement “while (Boolean) block-command”. The second involves the use
+of a case-like construct instead of a single Boolean expression to
+control the loop. This form is typically used when a loop has to
+either run up or down depending on the initial value of the index. An
+example of the first form is given above, for the BREAK
+statement. Here is an example of the second form.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+var r: int;
+while
+    decreases if 0 \PYGZlt{}= r then r else \PYGZhy{}r;
+\PYGZob{}
+    case r \PYGZlt{} 0 =\PYGZgt{} \PYGZob{} r := r + 1; \PYGZcb{}
+    case 0 \PYGZlt{} r =\PYGZgt{} \PYGZob{} r := r \PYGZhy{} 1; \PYGZcb{}
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+Dafny insists on proving that all while loops and all recursive
+functions actually terminate \textendash{} do not loop forever. Proving such
+properties is (infinitely) hard in general. Dafny often makes good
+guesses as to how to do it, in which case one need do nothing more. In
+many other cases, however, Dafny needs some help. For this, one writes
+“loop specifications.” These include clauses called “decreases”,
+“invariant”, and “modifies”, which are written after the while and
+before the left brace of the loop body. We discuss these separately,
+but in the meantime, here are a few examples.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+// a loop that counts down from 5, terminating when i==0.
+i := 5;                 // already declared as int above
+while 0 \PYGZlt{} i
+    invariant 0 \PYGZlt{}= i    // i always \PYGZgt{}= 0 before and after loop
+    decreases i         // decreasing value of i bounds the loop
+\PYGZob{}
+    i := i \PYGZhy{} 1;
+\PYGZcb{}
+
+// this loop counts *up* from i=0 ending with i==5
+// notice that what decreases is difference between i and n
+var n := 5;
+i := 0;
+while i \PYGZlt{} n
+    invariant 0 \PYGZlt{}= i \PYGZlt{}= n
+    decreases n \PYGZhy{} i
+\PYGZob{}
+    i := i + 1;
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\subsection{Assert (assert a proposition about the state of the program)}
+\label{\detokenize{06-dafny-language:assert-assert-a-proposition-about-the-state-of-the-program}}
+Assert statements are used to express logical proposition that are
+expected to be true. Dafny will attempt to prove that the assertion is
+true and give an error if not. Once it has proved the assertion it can
+then use its truth to aid in following deductions. Thus if Dafny is
+having a difficult time verifying a method the user may help by
+inserting assertions that Dafny can prove, and whose true may aid in
+the larger verification effort.  (From reference manual.)
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+assert i == 5;      // true because of preceding loop
+assert !(i == 4);   // similarly true
+// assert i == 4;   // uncomment to see static assertion failure
+\end{sphinxVerbatim}
+
+
+\subsection{Print (produce output on console)}
+\label{\detokenize{06-dafny-language:print-produce-output-on-console}}
+From reference manual: The print statement is used to print the values
+of a comma-separated list of expressions to the console.  The
+generated C\# code uses the System.Object.ToString() method to convert
+the values to printable strings. The expressions may of course include
+strings that are used for captions. There is no implicit new line
+added, so to get a new line you should include “n” as part of one of
+the expressions. Dafny automatically creates overrides for the
+ToString() method for Dafny data types.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+print \PYGZdq{}Print: The set is \PYGZdq{}, \PYGZob{} 1, 2, 3\PYGZcb{}, \PYGZdq{}\PYGZbs{}n\PYGZdq{}; // print the set
+\end{sphinxVerbatim}
+
+
+\subsection{Return}
+\label{\detokenize{06-dafny-language:return}}
+From the reference manual: A return statement can only be used in a
+method. It terminates the execution of the method. To return a value
+from a method, the value is assigned to one of the named return values
+before a return statement. The return values act very much like local
+variables, and can be assigned to more than once. Return statements
+are used when one wants to return before reaching the end of the body
+block of the method.  Return statements can be just the return keyword
+(where the current value of the out parameters are used), or they can
+take a list of values to return. If a list is given the number of
+values given must be the same as the number of named return values.
+
+To return a value from a method, assign to the return parameter
+and then either use an explicit return statement or just let the
+method complete.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method ReturnExample() returns (retval: int)
+\PYGZob{}
+    retval := 10;
+    // implicit return here
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+Methods can return multiple values.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method ReturnExample2() returns (x: int, y:int)
+\PYGZob{}
+    x := 10;
+    y := 20;
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+The return keyword can be used to return immediatey
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method ReturnExample3() returns (x: int)
+\PYGZob{}
+    x := 5;     // don\PYGZsq{}t \PYGZdq{}var\PYGZdq{} decare return variable
+    return;     // return immediately
+    x := 6;     // never gets executed
+    assert 0 == 1; // can\PYGZsq{}t be reached to never gets checked!
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\section{Expressions}
+\label{\detokenize{06-dafny-language:expressions}}
+
+\subsection{Literals Expressions}
+\label{\detokenize{06-dafny-language:literals-expressions}}
+A literal expression is a boolean literal (true or false), a null
+object reference (null), an unsigned integer (e.g., 3) or real (e.g.,
+3.0) literal, a character (e.g., ‘a’) or string literal (e.g., “abc”),
+or “this” which denote the current object in the context of an
+instance method or function. We have not yet seen objects or talked
+about instance methods or functions.
+
+
+\subsection{If (Conditional) Expressions}
+\label{\detokenize{06-dafny-language:if-conditional-expressions}}
+If expressions first evaluate a Boolean expression and then evaluate
+one of the two following expressions, the first if the Boolean
+expression was true, otherwise the second one.  Notice in this example
+that an IF \sphinxstyleemphasis{expression} is used on the right side of an
+update/assignment statement. There is also an if \sphinxstyleemphasis{statement}.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+var x := 11;
+var h := if x != 0 then (10 / x) else 1;    // if expression
+assert h == 0;
+if (h == 0) \PYGZob{}x := 3; \PYGZcb{} else \PYGZob{} x := 0; \PYGZcb{}     // if statement
+assert x == 3;
+\end{sphinxVerbatim}
+
+
+\subsection{Conjunction and Disjunction Expressions}
+\label{\detokenize{06-dafny-language:conjunction-and-disjunction-expressions}}
+Conjunction and disjuction are associative. This means that no matter
+what b1, b2, and b3 are, (b1 \&\& b2) \&\& b3 is equal to (b1 \&\& (b2 \&\&
+b3)), The same property holds for \textbar{}\textbar{}.
+
+These operators are also \sphinxstyleemphasis{short circuiting}. What this means is that
+their second argument is evaluated only if evaluating the first does
+not by itself determine the value of the expression.
+
+Here’s an example where short circuit evaluation matters. It is what
+prevents the evaluation of an undefined expressions after the \&\&
 operator.
 
-
-\section{Formal Languages: Syntax and Semantics}
-\label{\detokenize{06-boolean-algebra:formal-languages-syntax-and-semantics}}
-Any introduction to programming will have made it clear that there is
-an infinite set of Boolean expressions. For example, in Dafny, \sphinxstyleemphasis{true}
-is a Boolean expression; so are \sphinxstyleemphasis{false}, \sphinxstyleemphasis{true \textbar{}\textbar{} false}, \sphinxstyleemphasis{(true \textbar{}\textbar{}
-false) \&\& (!false)}, and one could keep going on forever.
-
-Boolean \sphinxstyleemphasis{expressions}, as we see here, are a different kind of thing
-than Boolean \sphinxstyleemphasis{values}. There are only two Boolean values, but there is
-an infinity of Boolean expressions. The connection is that each such
-expression has a corresponding Boolean truth value. For example, the
-expression, \sphinxstyleemphasis{(true \textbar{}\textbar{} false) \&\& (!false)} has the value, \sphinxstyleemphasis{true}.
-
-The set of valid Boolean expressions is defined by the \sphinxstyleemphasis{syntax} of the
-Boolean expression language. The sequence of symbols, \sphinxstyleemphasis{(true \textbar{}\textbar{} false)
-\&\& (!false)}, is a valid expression in the language, for example, but
-\sphinxstyleemphasis{)( true false()\textbar{}\textbar{}) false !\&\&} is not, just as the sequence of words,
-“Mary works long hours” is a valid sentence in the English language,
-but “long works hours Mary” isn’t.
-
-The syntax of a language defines the set of valid sentences in the
-language. The semantics of a language gives a meaning to each valid
-sentence in the language. In the case of Boolean expressions, the
-meaning given to each valid “sentence” (expression) is simply the
-Boolean value that that expression \sphinxstyleemphasis{reduces to}.
-
-In the rest of this chapter, we use the case of Boolean expressions to
-introduce the concepts of the \sphinxstyleemphasis{syntax} and the \sphinxstyleemphasis{semantics} of \sphinxstyleemphasis{formal
-languages}. The syntax of a formal language precisely defines a set of
-\sphinxstyleemphasis{expressions} (sometimes called sentences or formulae). A \sphinxstyleemphasis{semantics}
-associates a \sphinxstyleemphasis{meaning}, in the form of a \sphinxstyleemphasis{value}, with each expression
-in the language.
-
-
-\section{The Syntax of Boolean Expressions: Inductive Definitions}
-\label{\detokenize{06-boolean-algebra:the-syntax-of-boolean-expressions-inductive-definitions}}
-As an example of syntax, the \sphinxstyleemphasis{true}, in the statement, \sphinxstyleemphasis{var b :=
-true;} is a valid expression in the language of Boolean expressions,
-as defined by the \sphinxstyleemphasis{syntaxt} of this language. The semantics of the
-language associates the Boolean \sphinxstyleemphasis{value}, \sphinxstyleemphasis{true}, with this expression.
-
-You probably just noticed that we used the same symbol, \sphinxstyleemphasis{true}, for
-both an expression and a value, blurring the distinction between
-expressions and values. Expressions that directly represent values are
-called \sphinxstyleemphasis{literal expressions}. Many languages use the usual name for a
-value as a literal expression, and the semantics of the language then
-associate each such expression with its corresponding value.
-
-In the semantics of practical formal languages, literal expressions
-are assigned the values that they name. So the \sphinxstyleemphasis{expression}, \sphinxstyleemphasis{true},
-means the \sphinxstyleemphasis{value}, \sphinxstyleemphasis{true}, for example. Similarly, when \sphinxstyleemphasis{3} appears on
-the right side of an assignment/update statement, such as in \sphinxstyleemphasis{x := 3},
-it is an \sphinxstyleemphasis{expression}, a literal expression, that when \sphinxstyleemphasis{evaluated} is
-taken to \sphinxstyleemphasis{mean} the natural number (that we usually represent as) \sphinxstyleemphasis{3}.
-
-As computer scientists interested in languages and meaning, we can
-make these concepts of syntax and semantics not only precisely clear
-but also \sphinxstyleemphasis{runnable}. So let’s get started.
-
-
-\subsection{The Syntax and Semantics of \sphinxstyleemphasis{Simplified} Boolean Expression Language}
-\label{\detokenize{06-boolean-algebra:the-syntax-and-semantics-of-simplified-boolean-expression-language}}
-We start by considering a simplified language of Boolean expressions:
-one with only two literal expressions.  To make it clear that they are
-not Boolean values but expressions, we will call them not \sphinxstyleemphasis{true} and
-\sphinxstyleemphasis{false} but \sphinxstyleemphasis{bTrue} and \sphinxstyleemphasis{bFalse}.
-
-
-\subsubsection{Syntax}
-\label{\detokenize{06-boolean-algebra:syntax}}
-We can represent the syntax of this language in Dafny using what we
-call an \sphinxstyleemphasis{inductive data type definition.} A data type defines a set of
-values. So what we need to define is a data type whose values are all
-and only the valid expressions in the language. The data type defines
-the \sphinxstyleemphasis{syntax} of the language.
-
-In the current case, we need a type with only two values, each one of
-them representing a valid expression in our language. Here’s how we’d
-write it in Dafny.
-
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-datatype Bexp =
-     bTrue \textbar{}
-     bFalse
+var a: array\PYGZlt{}int\PYGZgt{} := null;
+var b1: bool := (a != null) \PYGZam{}\PYGZam{} (a[0]==1);
 \end{sphinxVerbatim}
 
-The definition starts with the \sphinxstyleemphasis{datatype} keyword, followed by the
-name of the type being defined (\sphinxstyleemphasis{Bexp}, short for Boolean expression)
-then an equals sign, and finally a list of \sphinxstyleemphasis{constructors} separated by
-vertical bar characters. The constructors define the ways in which the
-values of the type (or \sphinxstyleemphasis{terms}) can be created. Each constructor has a
-and can take optional parameters. Here the names are \sphinxstyleemphasis{bTrue} and
-\sphinxstyleemphasis{bFalse} and neither takes any parameters.
-
-The only values of an inductive type are those that can be built using
-the provided constructors. So the language that we have specified thus
-far has only two values, which we take to be the valid expressions in
-the language we are specifying, namely \sphinxstyleemphasis{bTrue} and \sphinxstyleemphasis{bFalse}.  That is
-all there is to specifying the \sphinxstyleemphasis{syntax} of our simplified language of
-Boolean expressions.
+Here short circuit evaluation protects against evaluation of a{[}0{]} when
+a is null. Rather than evaluating both expressions, reducing them both
+to Boolean values, and then applying a Boolean \sphinxstyleemphasis{and} function, instead
+the right hand expressions is evaluated “lazily”, i.e., only of the
+one on the left doesn’t by itself determine what the result should
+be. In this case, because the left hand expression is false, the whole
+expression must be false, so the right side not only doesn’t have to
+be evaluated; it also \sphinxstyleemphasis{won’t} be evaluated.
 
 
-\subsubsection{Semantics}
-\label{\detokenize{06-boolean-algebra:semantics}}
-To give a preview of what is coming, we now specify a semantics for
-this language. Speaking informally, we want to associate, to each of
-the expressions, a correponding meaning in the form of a Boolean
-value.  We do this by defining a \sphinxstyleemphasis{function} that takes an expression
-(a value of type \sphinxstyleemphasis{bExp}) as an argument and that returns the Boolean
-\sphinxstyleemphasis{value} that the semantics defines as the meaning of that expression.
-Here, we want a function that returns Dafny’s Boolean value \sphinxstyleemphasis{true} for
-the expression, \sphinxstyleemphasis{bTrue}, and the Boolean value \sphinxstyleemphasis{false} for \sphinxstyleemphasis{bFalse}.
-
-Here’s how we can write this function in Dafny.
+\subsection{Sequence, Set, Multiset, and Map Expressions}
+\label{\detokenize{06-dafny-language:sequence-set-multiset-and-map-expressions}}
+Values of these types can be written using so-called \sphinxstyleemphasis{display}
+expressions. Sequences are written as lists of values within square
+brackets; sets, within braces; and multisets using “multiset” followed
+by a list of values within braces.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-function method bEval(e: bExp): bool
+var aSeq: seq\PYGZlt{}int\PYGZgt{} := [1, 2, 3];
+var aVal := aSeq[1];    // get the value at index 1
+assert aVal == 2;       // don\PYGZsq{}t forget about zero base indexing
+
+var aSet: set\PYGZlt{}int\PYGZgt{} := \PYGZob{} 1, 2, 3\PYGZcb{};   // sets are unordered
+assert \PYGZob{} 1, 2, 3 \PYGZcb{} == \PYGZob{} 3, 1, 2\PYGZcb{};   // set equality ignores order
+assert [ 1, 2, 3 ] != [ 3, 1, 2];   // sequence equality doesn\PYGZsq{}t
+
+var mSet := multiset\PYGZob{}1, 2, 2, 3, 3, 3\PYGZcb{};
+assert (3 in mSet) == true;         // in\PYGZhy{}membership is Boolean
+assert mSet[3] == 3;                // [] counts occurrences
+assert mSet[4] == 0;
+
+var sqr := map [0 := 0, 1 := 1, 2 := 4, 3 := 9, 4 := 16];
+assert \textbar{}sqr\textbar{} == 5;
+assert sqr[2] == 4;
+\end{sphinxVerbatim}
+
+
+\subsection{Relational Expressions}
+\label{\detokenize{06-dafny-language:relational-expressions}}
+Relation expressions, such as less than, have a relational operator
+that compares two or more terms and returns a Boolean result. The ==,
+!=, \textless{}, \textgreater{}, \textless{}=, and \textgreater{}= operators are examples. These operators are also
+“chaining”. That means one can write expressions such as 0 \textless{}= x \textless{} n,
+and what this means is 0 \textless{}= x \&\& x \textless{} n.
+
+The in and !in relational operators apply to collection types. They
+compute membership or non-membership respectively.
+
+The !! operator computes disjointness of sets and multisets. Two such
+collections are said to be disjoint if they have no elements in
+common. Here are a few examples of relational expressions involving
+collections (all given within assert statements).
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+assert 3 in \PYGZob{} 1, 2, 3 \PYGZcb{};                            // set member
+assert 4 !in \PYGZob{} 1, 2, 3 \PYGZcb{};                           // non\PYGZhy{}member
+assert \PYGZdq{}foo\PYGZdq{} in [\PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{}, \PYGZdq{}bar\PYGZdq{}];              // seq member
+assert \PYGZdq{}foo\PYGZdq{} in \PYGZob{} \PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{}\PYGZcb{};                    // set member
+assert \PYGZob{} \PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{} \PYGZcb{} !! \PYGZob{} \PYGZdq{}baz\PYGZdq{}, \PYGZdq{}bif\PYGZdq{}\PYGZcb{};         // disjoint
+assert \PYGZob{} \PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{} \PYGZcb{} \PYGZlt{} \PYGZob{} \PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{}, \PYGZdq{}baz\PYGZdq{} \PYGZcb{};  // subset
+assert \PYGZob{} \PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{} \PYGZcb{} == \PYGZob{} \PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{} \PYGZcb{};        // set equals
+\end{sphinxVerbatim}
+
+
+\subsection{Array Allocation Expressions}
+\label{\detokenize{06-dafny-language:array-allocation-expressions}}
+Arrays in Dafny are \sphinxstyleemphasis{reference values}. That is, the value
+of an array variable is a \sphinxstyleemphasis{reference} to an address in the
+\sphinxstyleemphasis{heap} part of memory, or it is \sphinxstyleemphasis{null}. To get at the data
+in an array, one \sphinxstyleemphasis{dereferences} the array variable, using
+the \sphinxstyleemphasis{subscripting} operator. The array variable must not be
+null in this case. It must reference a chunk of memory that
+has been allocated for the array values, in the \sphinxstyleemphasis{heap} part
+of memory.
+
+To allocate memory for a new array for n elements of type T one
+uses an expression like this: a: array\textless{}T\textgreater{} := new T{[}n{]}. The type
+of \sphinxstyleemphasis{a} here is “an array of elements of type \sphinxstyleemphasis{T},” and the size
+of the allocated memory chunk is big enough to hold \sphinxstyleemphasis{n} values
+of this type.
+
+Multi-dimensional arrays (matrices) are also supported. The types of
+these arrays are “arrayn\textless{}T\textgreater{}, where “n” is the number of dimensions and
+T is the type of the elements. All elements of an array or matrix must
+be of the same type.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+a := new int[10];       // type of a already declared above
+var m: array2\PYGZlt{}int\PYGZgt{} := new int[10, 10];
+a[0] := 1;              // indexing into 1\PYGZhy{}d array
+m[0,0] := 1;            // indexing into multi\PYGZhy{}dimensional array
+\end{sphinxVerbatim}
+
+
+\subsection{Old Expressions}
+\label{\detokenize{06-dafny-language:old-expressions}}
+An old expression is used in postconditions. old(e) evaluates to the
+value expression e had on entry to the current method.  Here’s an
+example showing the use of the old expression.  This method increments
+(adds one {\color{red}\bfseries{}to\_} the first element of an array.  The specification part
+of the method \sphinxstyleemphasis{ensures} that the method body has this effect by
+explaining that the new value of a{[}0{]} must be the original (the “old”)
+value plus one. The \sphinxstyleemphasis{requires} (preconditions) statements are needed
+to ensure that the array is not null and not zero length. The modifies
+command explains that the method body is allowed to change the value
+of a.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method incr(a: array\PYGZlt{}nat\PYGZgt{}) returns (r: array\PYGZlt{}nat\PYGZgt{})
+requires a != null;
+requires a.Length \PYGZgt{} 0;
+modifies a;
+ensures a[0] == old(a[0]) + 1;
 \PYGZob{}
-  match e
-  \PYGZob{}
-      case bTrue =\PYGZgt{} true
-      case bFalse =\PYGZgt{} false
-  \PYGZcb{}
+    a[0] := a[0] + 1;
+    return a;
 \PYGZcb{}
 \end{sphinxVerbatim}
 
-As a shorhand for \sphinxstyleemphasis{Boolean semantic evaluator} we call it \sphinxstyleemphasis{bEval}. It
-takes an expression (a value of type, \sphinxstyleemphasis{bExp}) and returns a Boolean
-value.  The function implementation uses an important construct that
-is probably new to most readers: a \sphinxstyleemphasis{match} expression. What a match
-expression does is to: first determine how a value of an inductive
-type was buit, namely what constructor was used and what arguments
-were provided (if any) and then to compute a result for the case at
-hand.
 
-The match expression starts with the match keyword followed by the
-variable naming the value being matched. Then within curly braces
-there is a \sphinxstyleemphasis{case} for each constructor for the type of that value.
-There are two constructors for the type, \sphinxstyleemphasis{bExp}, so there are two
-cases. Each case starts with the \sphinxstyleemphasis{case} keyword, then the name of a
-constructor followed by an argument list if the construtor took
-parameters. Neither constructor took any parameters, so there is no
-need to deal with parameters here. The left side thus determines how
-the value was constructed. Each case has an arrow, \sphinxstyleemphasis{=\textgreater{}}, that is
-followed by an expression that when evaluated yields the result \sphinxstyleemphasis{for
-that case}.
-
-The code here can thus be read as saying, first look at the given
-expression, then determine if it was \sphinxstyleemphasis{bTrue} or \sphinxstyleemphasis{bFalse}. In the first
-case, return \sphinxstyleemphasis{true}. In the second case, return \sphinxstyleemphasis{false}. That is all
-there is to defining a semantics for this simple language.
-
-
-\subsection{The Syntax of a Complete Boolean Expression Language}
-\label{\detokenize{06-boolean-algebra:the-syntax-of-a-complete-boolean-expression-language}}
-The real language of Boolean expressions has many more than two valid
-expressions, of course. In Dafny’s Boolean expression sub-language,
-for example, one can write not only the literal expressions, \sphinxstyleemphasis{true}
-and \sphinxstyleemphasis{false}, but also expressions such as \sphinxstyleemphasis{(true \textbar{}\textbar{} false) \&\& (not
-false)}.
-
-There is an infinity of such expressions, because given any one or two
-valid expressions (starting with \sphinxstyleemphasis{true} and \sphinxstyleemphasis{false}) we can always
-build a bigger expression by combing the two given ones with a Boolean
-operator. No matter how complex expressions \sphinxstyleemphasis{P} and \sphinxstyleemphasis{Q} are, we can,
-for example, always form the even more complex expressions, \sphinxstyleemphasis{!P}, \sphinxstyleemphasis{P
-\&\& Q}, and \sphinxstyleemphasis{P \textbar{}\textbar{} Q}, among others.
-
-How can we extend the syntax of our simplified language so that it
-specifies the infinity set of well formed expressions in the language
-of Boolean expressions? The answer is that we need to add some more
-cosntructors. In particular, for each Boolean operator (including
-\sphinxstyleemphasis{and, or}, and \sphinxstyleemphasis{not}), we need a a constructor that takes the right
-number of smaller expressions as arguments and the builds the right
-larger expression.
-
-For example, if \sphinxstyleemphasis{P} and \sphinxstyleemphasis{Q} are arbitrary “smaller” expressions, we
-need a consructor to build the expression \sphinxstyleemphasis{P and Q}, a constructor to
-build the expression, \sphinxstyleemphasis{P or Q}, and one that can build the expressions
-\sphinxstyleemphasis{not P} and \sphinxstyleemphasis{not Q}. Here then is the induction: some constructors of
-the \sphinxstyleemphasis{bExp} type will take values of the very type we’re defining as
-parameters. And because we’ve defined some values as constants, we
-have some expressions to get started with. Here’s how we’d write the
-code in Dafny.
+\subsection{Cardinality Expressions}
+\label{\detokenize{06-dafny-language:cardinality-expressions}}
+For a collection expression c, {\color{red}\bfseries{}\textbar{}c\textbar{}} is the cardinality of c. For a set
+or sequence the cardinality is the number of elements. For a multiset
+the cardinality is the sum of the multiplicities of the elements. For
+a map the cardinality is the cardinality of the domain of the
+map. Cardinality is not defined for infinite maps.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-datatype bExp =
-     bTrue \textbar{}
-     bFalse \textbar{}
-     bNot (e: bExp) \textbar{}
-     bAnd (e1: bExp, e2: bExp) \textbar{}
-     bOr (e1: bExp, e2: bExp)
-\end{sphinxVerbatim}
-
-We’ve added three new constructors: one corresponding to each of the
-\sphinxstyleemphasis{operator} in Boolean algebra (to keep things simple, we’re dealing
-with only three of them here). We have named each constructor in a way
-that makes the connection to the corresponding operator clear.
-
-We also see that these new constructors take parameters. The \sphinxstyleemphasis{bNot}
-constructor takes a “smaller” expression, \sphinxstyleemphasis{e}, and builds/returns the
-expression, \sphinxstyleemphasis{bNot e}, which we will interpret as \sphinxstyleemphasis{not e}, or, as we’d
-write it in Dafny, \sphinxstyleemphasis{!e}. Similarly, given expressions, \sphinxstyleemphasis{e1} and \sphinxstyleemphasis{e2},
-the \sphinxstyleemphasis{bAnd} and \sphinxstyleemphasis{bOr} operators construct the expressions \sphinxstyleemphasis{bAnd(e1,e2)}
-and \sphinxstyleemphasis{bOr(e1,e2)}, respectively, representing \sphinxstyleemphasis{e1 and e2} and \sphinxstyleemphasis{e1 or
-e2}, respectively, or, in Dafny syntax, \sphinxstyleemphasis{e1 \&\& e2} and \sphinxstyleemphasis{e1 \textbar{}\textbar{} e2}.
-
-An expression in our \sphinxstyleemphasis{bExp} language for the Dafny expression \sphinxstyleemphasis{(true
-\textbar{}\textbar{} false) and (not false))} would be written as \sphinxstyleemphasis{bAnd( (bOr (bTrue,
-bFalse)), (bNot bFalse))}. Writing complex expressions like this in
-a single line of code can get awkward, to we could also structure the
-code like this:
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-var T: bExp := bTrue;
-var F:      := bFalse;
-var P:      := bOr ( T,  F );
-var Q       := bNot ( F );
-var R       := bAnd ( P, Q );
+var c1 := \textbar{} [1, 2, 3] \textbar{};            // cardinality of sequence
+assert c1 == 3;
+var c2 := \textbar{} \PYGZob{} 1, 2, 3 \PYGZcb{} \textbar{};          // cardinality of a set
+assert c2 == 3;
+var c3 := \textbar{} map[ 0 := 0, 1 := 1, 2 := 4, 3 := 9] \textbar{}; // of a map
+assert c3 == 4;
+assert \textbar{} multiset\PYGZob{} 1, 2, 2, 3, 3, 3, 4, 4, 4, 4 \PYGZcb{} \textbar{} == 10; // multiset
 \end{sphinxVerbatim}
 
 
-\section{The Semantics of Boolean Expressions: Recursive Evaluation}
-\label{\detokenize{06-boolean-algebra:the-semantics-of-boolean-expressions-recursive-evaluation}}
-The remaining question, then, is how to give meanings to each of the
-expressions in the infinite set of expressions that can be built by
-finite numbers of applications of the constructor of our extended
-\sphinxstyleemphasis{bExp} type? When we had only two values in the type, it was easy to
-write a function that returned the right meaning-value for each of the
-two cases. We can’t possibly write a separate case, though, for each
-of an infinite number of expressions. The solution lies again in the
-realm of recursive functions.
+\subsection{Let Expressions}
+\label{\detokenize{06-dafny-language:let-expressions}}
+A let expression allows binding of intermediate values to identifiers
+for use in an expression. The start of the let expression is signaled
+by the var keyword. They look like local variable declarations except
+the scope of the variable only extends to following
+expression. (Adapted from RefMan.)
 
-Such a function will simply do mechanically what you the reader would
-do if presented with a complex Boolean expression to evaluate.  You
-first figure out what operator was applied to what smaller expression
-or expressions. You then evaluate those expressions to get values for
-them. And finally you apply the Boolean operator to those values to
-get a result.
+Here’s an example (see the following code).
 
-Take the expression, \sphinxstyleemphasis{(true \textbar{}\textbar{} false) and (not false))}, which in our
-language is expressed by the term, \sphinxstyleemphasis{bAnd( (bOr (bTrue, bFalse)), (bNot
-bFalse))}. First we identify the \sphinxstyleemphasis{constructor} that was used to build
-the expression In this case it’s the constructor corresponding to the
-\sphinxstyleemphasis{and} operator: \sphinxstyleemphasis{\&\&} in the Dafny expression and the \sphinxstyleemphasis{bAnd} in our own
-expression language. What we then do depends on what case has occured.
-
-In the case at hand, we are looking at the constructor for the \sphinxstyleemphasis{and}
-operator. It took two smaller expressions as arguments. To enable the
-precise expression of the return result, ew given temporary names to
-the argument values that were passed to the constructor. We can call
-them \sphinxstyleemphasis{e1} and \sphinxstyleemphasis{e2}, for example.
-sub-expressions that the operator was applied to.
-
-In this case, \sphinxstyleemphasis{e1} would be \sphinxstyleemphasis{(true \textbar{}\textbar{} false)} and \sphinxstyleemphasis{e2} would be \sphinxstyleemphasis{(not
-false)}. To compute the value of the whole expression, we then obtain
-Boolean values for each of \sphinxstyleemphasis{e1} and \sphinxstyleemphasis{e2} and then combine them using
-the Boolean \sphinxstyleemphasis{and} operator.
-
-The secret is that we get the values for \sphinxstyleemphasis{e1} and \sphinxstyleemphasis{e2} by the very
-same means: recursively! Within the evaluation of the overall Boolean
-expression, we thus recursively evaluate the subexpressions. Let’s
-work through the recursive evaluation of \sphinxstyleemphasis{e1}. It was built using the
-\sphinxstyleemphasis{bOr} constructor. That constructor took two arguments, and they were,
-in this instance, the literal expressions, \sphinxstyleemphasis{bTrue} and \sphinxstyleemphasis{bFalse}. To
-obtain an overall result, we recursively evaluate each of these
-expressions and then combine the result using the Boolean \sphinxstyleemphasis{or}
-operator. Let’s look at the recursive evaluation of the \sphinxstyleemphasis{bTrue}
-expression. It just evaluates to the Boolean value, \sphinxstyleemphasis{true} with no
-further recursion, so we’re done with that. The \sphinxstyleemphasis{bFalse} evaluates to
-\sphinxstyleemphasis{false}. These two values are then combined using \sphinxstyleemphasis{or} resulting in
-a value of \sphinxstyleemphasis{true} for \sphinxstyleemphasis{eq}. A similarly recursive process produces
-the value, \sphinxstyleemphasis{true}, for \sphinxstyleemphasis{e2}. (Reason through the details yourself!)
-And finally the two Boolean values, \sphinxstyleemphasis{true} and \sphinxstyleemphasis{true} are combined
-using Boolean \sphinxstyleemphasis{and}, and a value for the overall expression is thus
-computed and returned.
-
-Here’s the Dafny code.
+First x+x is computed and bound to sum, the result of the overall
+expression on the right hand side of the update/assignment statement
+is then the value of “sum * sum” given this binding. The binding does
+not persist past the evaluation of the “let” expression.  The
+expression is called a “let” expression because in many other
+languages, you’d use a let keyword to write this: let sum = x + x in
+sum * sum. Dafny just uses a slightly different syntax.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-function method bEval(e: bExp): (r: bool)
-\PYGZob{}
-    match e
-    \PYGZob{}
-        case bTrue =\PYGZgt{} true
-        case bFase =\PYGZgt{} false
-        case bNot(e: bExp) =\PYGZgt{} !bEval(e)
-        case bAnd(e1, e2) =\PYGZgt{} bEval(e1) \PYGZam{}\PYGZam{} bEval(e2)
-        case bOrEe1, e2) =\PYGZgt{}  bEval(e1) \textbar{}\textbar{} bEval(e2)
-    \PYGZcb{}
-\PYGZcb{}
+assert x == 3;               // from code above
+var sumsquared := (var sum := x + x; sum * sum);  // let example
+assert sumsquared == 36;     // because of the let expression
 \end{sphinxVerbatim}
 
-This code extends our simpler example by adding three cases, one for
-each of the new constructor. These constructors took smaller
-expression values as arguments, so the corresponding cases have used
-parameter lists to temporarily give names (\sphinxstyleemphasis{e1}, \sphinxstyleemphasis{e2}, etc.) to the
-arguments that were given when the constructor was orginally used.
-These names are then used to write the expressions on the right sides
-of the arrows, to compute the final results.
 
-These result-computing expressions use recursive evalation of the
-constitute subexpressions to obtain their meanings (actual Boolean
-values in Dafny) which they then combine using actual Dafny Boolean
-operators to produce final results.
-
-The meaning (Boolean value) of any of the infinite number of Boolean
-expressions in the Boolean expression language defined by our syntax
-(or \sphinxstyleemphasis{grammar}) can be found by a simple application of our \sphinxstyleemphasis{bEval}
-function. To compute the value of \$R\$, above, for example, we just run
-\sphinxstyleemphasis{bEval(R)}. For this \sphinxstyleemphasis{R}, this function will without any doubt return
-the intended result, \sphinxstyleemphasis{true}.
-
-
-\section{The Syntax and Semantics of Programming Languages}
-\label{\detokenize{06-boolean-algebra:the-syntax-and-semantics-of-programming-languages}}
-Syntax defines legal expressions. Semantics give each legal expression
-an associated meaning. The meanings of Boolean expressions are Boolean
-values. Using exactly the same ideas used here for Boolean expressions
-we could not only specify but compute with the syntax semantics of a
-language of arithmetic expressions.
-
-Indeed, the same ideas apply to programming language. A programming
-language has a syntax. It defines the set of valid “programs” in that
-language. A programming language also has a semantics, It specifies
-what each such program means. However, th meaning of a program is not
-captured in a single value. Rather, it is expressed ina relation that
-explains how running the programs transforms any pre-execution state
-that satisfies the program preconditions into a post-execution state.
-
-
-\chapter{Set Theory}
-\label{\detokenize{07-set-theory::doc}}\label{\detokenize{07-set-theory:set-theory}}
+\chapter{7. Set Theory}
+\label{\detokenize{07-set-theory:set-theory}}\label{\detokenize{07-set-theory::doc}}
 Modern mathematics is largely founded on set theory: in particular, on
 what is called \sphinxstyleemphasis{Zermelo-Fraenkel set theory with the axiom of Choice},
 or \sphinxstyleemphasis{ZFC}. Every concept you have ever learnedseen in mathematics can
@@ -3020,8 +2587,8 @@ theory, a first-order logic with sets and set-related operations as
 built-in concepts.
 
 
-\section{Notation}
-\label{\detokenize{07-set-theory:notation}}
+\section{Set Theory Notations}
+\label{\detokenize{07-set-theory:set-theory-notations}}
 
 \subsection{Display notation}
 \label{\detokenize{07-set-theory:display-notation}}
@@ -3159,9 +2726,16 @@ forming the elements of the new set as tuples, \sphinxstyleemphasis{(s, t)}. Thi
 easier way to write code for a product set than by explicit iteration
 over the sets \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T}!
 
+In Dafny, the way to extract an element of a tuple, \sphinxstyleemphasis{t}, of arity,
+\sphinxstyleemphasis{n}, is by writing \sphinxstyleemphasis{t.n}, where \sphinxstyleemphasis{n} is a natural number in the range
+\sphinxstyleemphasis{0} up to \sphinxstyleemphasis{n - 1}. So, for example, \sphinxstyleemphasis{(3, 4).1} evaluates to \sphinxstyleemphasis{4}. It’s
+not a notation that is common to many programming languages. One can
+think of it as a kind of subscripting, but using a different notation
+than the usual square bracket subscripting used with sequences.
 
-\section{Operations}
-\label{\detokenize{07-set-theory:operations}}
+
+\section{Set Operations}
+\label{\detokenize{07-set-theory:set-operations}}
 
 \subsection{Cardinality}
 \label{\detokenize{07-set-theory:cardinality}}
@@ -3324,6 +2898,25 @@ hold for sets of every (finite) size. So what we have is an informal
 \sphinxstyleemphasis{proof by induction} of a theorem: \(\forall S, |{\mathbb P}(S)|
 = 2^{|S|}\).
 
+In Dafny, there is no explicit powerset operator, one taking a set and
+returning its powerset, but the concept can be expressed in an
+extremely elegant form using a set comprehension notation (in both
+pure mathematics and in Dafny). The solution is to say simple the set
+of all sets that are subsets of a given set, \sphinxstyleemphasis{S}. The follwing three
+line program prints out the powerset of \sphinxstyleemphasis{S = \{ 1, 2, 3 \}}.  The key
+expression is to the right of the assignment operator on the second
+line.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+var S := \PYGZob{} 1, 2, 3 \PYGZcb{};
+var P := set R \textbar{} R \PYGZlt{}= S;
+print P;
+\end{sphinxVerbatim}
+
+Simple exercise: Write a pure function that when given a value of type
+set\textless{}T\textgreater{} returns its powerset. The function will have to be polymorphic.
+Call it powerset\textless{}T\textgreater{}.
+
 
 \section{Tuples}
 \label{\detokenize{07-set-theory:tuples}}
@@ -3415,8 +3008,8 @@ test case: the number of relations over sets of cardinalities \sphinxstyleemphas
 \sphinxstyleemphasis{5} is about a million.
 
 
-\section{Binary Relations}
-\label{\detokenize{07-set-theory:binary-relations}}
+\section{Binary Relations and Functions}
+\label{\detokenize{07-set-theory:binary-relations-and-functions}}
 Binary relations are relations over products of \sphinxstyleemphasis{2} sets. The first
 set is called the \sphinxstyleemphasis{domain} of the relation. The second set is called
 the co-domain of the relation. That is, a binary relation is a subset
@@ -3437,8 +3030,8 @@ as a relation. The tuples are again pairs of real numbers, but now the
 elements include tuples, \sphinxstyleemphasis{(4, 2)} and \sphinxstyleemphasis{(4, -2)}.
 
 
-\subsection{Single-Valued}
-\label{\detokenize{07-set-theory:single-valued}}
+\subsection{Functions are Single-Value Binary Relations}
+\label{\detokenize{07-set-theory:functions-are-single-value-binary-relations}}
 A binary-relation is said to be \sphinxstyleemphasis{single-valued} if it does not have
 two tuples with the same first element and different second elements.
 A different way to say this is that if \sphinxstyleemphasis{(x, y)} and \sphinxstyleemphasis{(x, z)} are two
@@ -3457,6 +3050,36 @@ single-valued in exactly this sense. By contrast, the square root
 relation is not a function, because for any given non-negative real
 number, there are two associated square roots. The relation is not
 single-valued.
+
+There are several ways to represent functions in Dafny, or in most any
+other modern programming language. In Dafny one can represent a
+function as a pure functional program, one can use a method, but for
+our purposes here, it is the representation of a function from values
+of type \sphinxstyleemphasis{S} to values of type \sphinxstyleemphasis{T} as a \sphinxstyleemphasis{map\textless{}S,T\textgreater{}} that is pertinent.
+A map is nothing other than an explicit representation of a function
+as a set of pairs.
+
+Exercise: Write a method (or a function) that when given a map\textless{}S,T\textgreater{} as
+an argument returns a set\textless{}(T,S)\textgreater{} as a result where the return result
+represents the \sphinxstyleemphasis{inverse} of the map. The inverse of a function is not
+necessarily a function so the inverse of a map cannot be represented
+as a map, in general. Rather, we represent the inverse just as a set
+of \sphinxstyleemphasis{(S,T)} tuples.
+
+Exercise: Write a pure function that when given a set of ordered pairs
+returns true if, viewed as a relation, the set is also a function, and
+that returns false, otherwise.
+
+Exercise: Write a function or method that takes a set of ordered pairs
+with a pre-condition requiring that the set satisfy the predicate from
+the preceding exercise and that then returns a \sphinxstyleemphasis{map} that contains the
+same set of pairs as the given set.
+
+Exercise: Write a function that takes a map as an argument and that
+returns true if the function that it represents is invertible and that
+otherwise returns false. Then write a function that takes a map
+satisfying the precondition that it be invertible and that in this
+case returns its inverse, also as a map.
 
 
 \subsection{Total vs Partial}
@@ -3523,7 +3146,7 @@ rigorous argument.)
 
 \subsection{Injective}
 \label{\detokenize{07-set-theory:injective}}
-A relation (and in particular, a function)is said to be injective if
+A relation (and in particular, a function) is said to be injective if
 no two elements of the domain are associated with the same element in
 the co-domain.
 
@@ -3670,47 +3293,1179 @@ birthday as Mary, then Mary has the same birthday as Joe; and if Tom
 has the same birthday as mary then Joe necessarily also has the same
 birthday as Tom. This relation thus divides the human population into
 366 equivalence classes. Mathematicians usually use the notation \sphinxstyleemphasis{a \textasciitilde{}
-b} to denote the concept that \sphinxstyleemphasis{a} is equivalent to \sphinxstyleemphasis{b} (under some
-equivalence relation being considered).
-
-
-\section{Quantification}
-\label{\detokenize{07-set-theory:quantification}}
-Similarly functions can be represented as sets of ordered pair of
-values (and, as you might guess, ordered pairs can be represented as
-sets).  For example, consider the function, \(f(x) = x^2\). It can
-be represented as an infinite set of pairs, including, for example,
-the pairs \sphinxstyleemphasis{(2,4), (3,9),} and \sphinxstyleemphasis{4,16.}
+b} to denote the concept that \sphinxstyleemphasis{a} is equivalent to \sphinxstyleemphasis{b} (under whatever
+equivalence relation is being considered).
 
 
 \section{Sequences}
 \label{\detokenize{07-set-theory:sequences}}
-Polymorphic finite and infinite set types:
-set\textless{}T\textgreater{} and iset\textless{}T\textgreater{}. T must support equality.
-Values of these types are immutable.
+A sequence of elements is an ordered collection in which elements can
+appear zero or more times. In both mathematical writing and in Dafny,
+sequences are often denoted as lists of elements enclosed in square
+brackets.  The same kinds of elisions (using elipses) can be used as
+shorthands in quasi-formal mathematical writing as with set notation.
+For example, in Dafny, a sequence \sphinxstyleemphasis{s := {[}1, 2, 3, 1{]}} is a sequence of
+integers, of length four, the elements of which can be referred to by
+subscripting. So \sphinxstyleemphasis{s{[}0{]}} is \sphinxstyleemphasis{1}, for example, as is \sphinxstyleemphasis{s{[}3{]}}.
+
+While at first a sequence might seem like an entirely different kind
+of thing than a set, in reality a sequence of length, \sphinxstyleemphasis{n}, is best
+understood, and is formalized, as a binary relation. The domain of the
+relation is the sequence of natural numbers from \sphinxstyleemphasis{0} to \sphinxstyleemphasis{n-1}.  These
+are the index values. The relation then associates each such index
+value with the value in that position in the sequence. So in reality,
+a sequence is a special case of a binary relation, and a binary
+relation is, as we’ve seen, just a special case of a set.  So here we
+are, at the end of this chapter, closing the loop with where we
+started. We have seen that the concept of sets really is a fundamental
+concept, and a great deal of other machinery is then built as using
+special cases, including relations, maps, and sequences.
+
+Tuples, too, are basically maps from indices to values. Whereas all
+the values in a sequence are necessarily of the same type, elements in
+a tuple can be of different types. Tuples also use the \sphinxstyleemphasis{.n} notation
+to apply projection functions to tuples. So, again, the value of, say,
+\sphinxstyleemphasis{(“hello”, 7).1} is \sphinxstyleemphasis{7} (of type \sphinxstyleemphasis{int}), while the value of
+\sphinxstyleemphasis{(“hello”, 7).0} is the string, “hello.”
+
+
+\chapter{8. Boolean Algebra}
+\label{\detokenize{08-boolean-algebra::doc}}\label{\detokenize{08-boolean-algebra:boolean-algebra}}
+As a first stepping stone toward a deeper exploration of deductive
+logic, we explore the related notion of Boolean \sphinxstyleemphasis{algebra}. Boolean
+algebra is a mathematical framework for representing and reasoning
+about truth.
+
+This algebra is akin to ordinary high school algebra, and as such,
+deals with values, operators, and the syntax and the evaluation of
+expressions involving values and operators.  However, the values in
+Boolean algebra are limited to the two values in the set, \(bool
+= \{ 0, 1\}\). They are often written instead as \sphinxstyleemphasis{false} and \sphinxstyleemphasis{true},
+respectively. And rather than arithmetic operators such as numeric
+negation, addition, and subtraction, Boolean algebra defines a set of
+\sphinxstyleemphasis{Boolean operators}. They are typically given names such as \sphinxstyleemphasis{and},
+\sphinxstyleemphasis{or}, and \sphinxstyleemphasis{not}, and they both operate on and yield Boolean values.
+
+In this chapter, we first discuss Boolean algebra in programming, a
+setting with which the reader is already familar, baesd on a first
+course in programming. We then take a deeper look at the syntax and
+semantics of \sphinxstyleemphasis{expressions} in Boolean algebra. We do this by seeing
+how to use \sphinxstyleemphasis{inductive definitions} and \sphinxstyleemphasis{recursive functions} in the
+Dafny language to implement an \sphinxstyleemphasis{inductive data type} for representing
+Boolean expressions and a recursive \sphinxstyleemphasis{evaluation} function that when
+given any Boolean expression tells whether it is \sphinxstyleemphasis{true} or \sphinxstyleemphasis{false}.
+
+
+\section{Boolean Algebra in Dafny}
+\label{\detokenize{08-boolean-algebra:boolean-algebra-in-dafny}}
+All general-purpose programming languages support Boolean
+algebra. Dafny does so through its \sphinxstyleemphasis{bool} data type and the
+\sphinxstyleemphasis{operators} associated with it. Having taking a programming course,
+you will already have been exposed to all of the important ideas.
+In Dafny, as in many languages, the Boolean values are called
+\sphinxstyleemphasis{true} and \sphinxstyleemphasis{false} (rather than \sphinxstyleemphasis{1} and \sphinxstyleemphasis{0}).
+
+The Boolean operators are also denoted not by words, such as \sphinxstyleemphasis{or} and
+\sphinxstyleemphasis{not} but by math-like operators. For example, \sphinxstyleemphasis{!} is the not operator
+and \sphinxstyleemphasis{\textbar{}\textbar{}} is the \sphinxstyleemphasis{or} operator.
+
+Here’s a (useless) Dafny method that illustrates how Boolean values
+and operators can be used in Dafny. It presents a method, \$BoolOps\$,
+that takes a Boolean value and returns one. The commands within the
+method body illustrate the use of Boolean constant (literal) values
+and the unary and binary operators provided by the Dafny language.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-method SetPlay()
+method BoolOps(a: bool) returns (r: bool)
 \PYGZob{}
-    var empty: set\PYGZlt{}int\PYGZgt{} := \PYGZob{}\PYGZcb{};
-    var primes := \PYGZob{}2, 3, 5, 7, 11\PYGZcb{};
-    var squares := \PYGZob{}1, 4, 9, 16, 25\PYGZcb{};
-    var b1 := empty \PYGZlt{} primes;    // strict subset
-    var b2 := primes \PYGZlt{}= primes;   // subset
-    var b3: bool := primes !! squares; // disjoint
-    var union := primes + squares;
-    var intersection := primes * squares;
-    var difference := primes \PYGZhy{} \PYGZob{}3, 5\PYGZcb{};
-    var b4 := primes == squares;    // false
-    var i1 := \textbar{} primes \textbar{};   // cardinality (5)
-    var b5 := 4 in primes;  // membership (false)
-    var b6 := 4 !in primes; // non\PYGZhy{}membership
+    var t: bool := true;    // explicit type declaration
+    var f := false;         // type inferred automatically
+    var not := !t;          // negation
+    var conj := t \PYGZam{}\PYGZam{} f;     // conjunction, short\PYGZhy{}circuit evaluation
+    var disj := t \textbar{}\textbar{} f;     // disjunction, short\PYGZhy{}circuit (sc) evaluation
+    var impl := t ==\PYGZgt{} f;    // implication, right associative, sc from left
+    var foll := t \PYGZlt{}== f;    // follows, left associative, sc from right
+    var equv := t \PYGZlt{}==\PYGZgt{} t;   // iff, bi\PYGZhy{}implication
+    return true;            // returning a Boolean value
+ \PYGZcb{}
+\end{sphinxVerbatim}
+
+The first line assigns the Boolean constant, \sphinxstyleemphasis{true}, to a Boolean
+variable, \sphinxstyleemphasis{t}, that is explicitly declared to be of type,, \sphinxstyleemphasis{bool}.
+The second line assigns the Boolean constant, \sphinxstyleemphasis{false}, to \sphinxstyleemphasis{f}, and
+allows Dafny to infer that the type of \sphinxstyleemphasis{f} must be \sphinxstyleemphasis{bool}, based on
+the type of value being assigned to it. The third line illustrates the
+use of the \sphinxstyleemphasis{negation} operator, denoted as \sphinxstyleemphasis{!} in Dafny. Here the
+negation of \sphinxstyleemphasis{t} is assigned to the new Boolean variable, \sphinxstyleemphasis{not}. The
+next line illustrates the use of the Boolean \sphinxstyleemphasis{and}, or \sphinxstyleemphasis{conjunction}
+operator (\sphinxstyleemphasis{\&\&}). Next is the Boolean \sphinxstyleemphasis{or}, or \sphinxstyleemphasis{disjunction}, operator,
+(\sphinxstyleemphasis{\textbar{}\textbar{}}). These should all be familiar.
+
+Implication (\sphinxstyleemphasis{==\textgreater{}}) is a binary operator (taking two Boolean values)
+that is read as \sphinxstyleemphasis{implies} and that evaluates to false only when the
+first argument is true and the second one is false, and that evaluates
+to true otherwise. The \sphinxstyleemphasis{follows} operator (\sphinxstyleemphasis{\textless{}==}) swaps the order of
+the arguments, and evaluates to false if the first argument is false
+and the second is true, and evaluates to true otherwise. Finally, the
+\sphinxstyleemphasis{equivalence} operator evaluates to true if both arguments have the
+same Boolean value, and evaluates to false otherwise. These operators
+are especially useful in writing assertions in Dafny.
+
+The last line returns the Boolean value true as the result of running
+this method. Other operations built into Dafny also return Boolean
+values.  Arithmetic comparison operators, such as \sphinxstyleemphasis{\textless{}}, are examples.
+The less than operator, for example, takes two numerical arguments and
+returns true if the first is strictly less than the second, otherwise
+it returns false.
+
+
+\section{Boolean Values}
+\label{\detokenize{08-boolean-algebra:boolean-values}}
+Boolean algebra is an algebra, which is a set of values and of
+operations that take and return these values. The set of values in
+Boolean algebra, is just the set containing \sphinxstyleemphasis{0} and \sphinxstyleemphasis{1}.
+\begin{equation*}
+\begin{split}bool = \{ 0, 1 \}.\end{split}
+\end{equation*}
+In English that expression just gave a name that we can use, \sphinxstyleemphasis{bool},
+to the set containing the values, \sphinxstyleemphasis{0} and \sphinxstyleemphasis{1}. Although these values
+are written as if they were small natural numbers, you must think of
+them as elements of a different type. They aren’t natural numbers but
+simply the two values in this other, Boolean, algebra. We could use
+different symbols to represent these values. In fact, they are often
+written instead as \sphinxstyleemphasis{false} (for \sphinxstyleemphasis{0}) and \sphinxstyleemphasis{true} (for \sphinxstyleemphasis{1}).The exact
+symbols we use to represent these values don’t really matter. What
+really makes Boolean algebra what it is are the \sphinxstyleemphasis{operators} defined
+by Boolean algebra and how they behave.
+
+
+\section{Boolean Operators}
+\label{\detokenize{08-boolean-algebra:boolean-operators}}
+An algebra, again, is a set of values of a particular kind and a set
+of operators involving that kind of value. Having introduced the set
+of two values of the Boolean type, let’s turn to the \sphinxstyleemphasis{operations} of
+Boolean algebra.
+
+
+\subsection{Nullary, Unary, Binary, and n-Ary Operators}
+\label{\detokenize{08-boolean-algebra:nullary-unary-binary-and-n-ary-operators}}
+The operations of an algebra take zero or more values and return (or
+reduce to) values of the same kind. Boolean operators, for example,
+take zero or more Boolean values and reduce to Boolean values. An
+operator that takes no values (and nevertheless returns a value, as
+all operators do) is called a \sphinxstyleemphasis{constant}. Each value in the value set
+of an algebra can be though of as an operator that takes no values.
+
+Such an operator is also called \sphinxstyleemphasis{nullary}. An operator that takes one
+value is called \sphinxstyleemphasis{unary}; one that takes two, \sphinxstyleemphasis{binary}, and in general,
+one that takes \sphinxstyleemphasis{n} arguments is called \sphinxstyleemphasis{n-ary} (pronounced “EN-airy”).
+
+Having already introduced the constant (\sphinxstyleemphasis{nullary}) values of Boolean
+algebra, each of the type we have called \sphinxstyleemphasis{bool}, we now introduce the
+types and behaviors the unary and binary Boolean operators, including
+each of those supported in Dafny.
+
+
+\subsection{The Unary Operators of Boolean Algebra}
+\label{\detokenize{08-boolean-algebra:the-unary-operators-of-boolean-algebra}}
+While there are two constants in Boolean algebra, each of type \sphinxstyleemphasis{bool},
+there are four unary operators, each of type \(bool \rightarrow
+bool\). This type, which contains an arrow, is a \sphinxstyleemphasis{function} type. It is
+the type of any function that first takes an argument of type \sphinxstyleemphasis{bool}
+then reduces to a value of type \sphinxstyleemphasis{bool}. It’s easier to read, write,
+and say in math than in English. In math, the type would be prounced
+as “bool to bool.”
+
+There is more than one value of this function type. For example one
+such function takes any \sphinxstyleemphasis{bool} argument and always returns the other
+one. This function is of type “bool to bool”, but it is not the same
+as the function that takes any bool argument and always returns the
+same value that it got. The type of each function is \(bool
+\rightarrow bool\), but the function \sphinxstyleemphasis{values} are different.
+
+In the programming field, the type of a function is given when it
+name, its arguments, and return values are declared. This part of a
+function definition is sometimes called the function \sphinxstyleemphasis{signature}, but
+it’s just as well to think of it as decaring the function \sphinxstyleemphasis{type}.  The
+\sphinxstyleemphasis{body} of the function, usually a sequence of commands enclosed in
+curly braces, describes its actual behavior, the particular function
+value associated with the given function name and type.
+
+We know that there is more than one unary Boolean function. So how
+many are there? To specify the behavior of an operator completely, we
+have to define what result it returns for each possible combination of
+its argument values. A unary operator takes only one argument (of the
+given type). In Boolean algebra, a unary function can thus take one of
+only two possible values; and it can return only one of two possible
+result values. The answer to the question is just the number of ways
+that a function can \sphinxstyleemphasis{map} two argument values to two result values.
+
+And the answer to this question is \sphinxstyleemphasis{four}. A function can map both \sphinxstyleemphasis{0}
+and \sphinxstyleemphasis{1} to \sphinxstyleemphasis{0}; both \sphinxstyleemphasis{0} and \sphinxstyleemphasis{1} to \sphinxstyleemphasis{1}; \sphinxstyleemphasis{0} to \sphinxstyleemphasis{0} and \sphinxstyleemphasis{1} to \sphinxstyleemphasis{1};
+and \sphinxstyleemphasis{0} to \sphinxstyleemphasis{1} and \sphinxstyleemphasis{1} to \sphinxstyleemphasis{0}. There are no other possibilities. An
+easy-to-understand way to graphically represent the behavior of each
+of these operations is with a \sphinxstyleemphasis{truth table}.
+
+The rows of a truth table depict all possible combinations of argument
+values in the columns to the left, and in the last column on the right
+a truth tables presents the corresponding resulting value.  The column
+headers give names to the argument values and results column headers
+present expressions using mathematical logic notations that represent
+how the resulting values are computed.
+
+
+\subsubsection{Constant False}
+\label{\detokenize{08-boolean-algebra:constant-false}}
+Here then is a truth table for what we will call the \sphinxstyleemphasis{constant\_false}
+operator, which takes a Boolean argument, either \sphinxstyleemphasis{true} or \sphinxstyleemphasis{false},
+and always returns \sphinxstyleemphasis{false.} In our truth tables, we use the symbols,
+\sphinxstyleemphasis{true} and \sphinxstyleemphasis{false}, instead of \sphinxstyleemphasis{1} and \sphinxstyleemphasis{0}, for consistency with the
+symbols that most programming languages, including Dafny, use for the
+Boolean constants.
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{12}|\X{6}{12}|}
+\hline
+
+\(P\)
+&
+\(false\)
+\\
+\hline
+true
+&
+false
+\\
+\hline
+false
+&
+false
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+
+\subsubsection{Constant True}
+\label{\detokenize{08-boolean-algebra:constant-true}}
+The \sphinxstyleemphasis{constant\_true} operator always returns \sphinxstyleemphasis{true}.
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{12}|\X{6}{12}|}
+\hline
+
+\(P\)
+&
+\(true\)
+\\
+\hline
+true
+&
+true
+\\
+\hline
+false
+&
+true
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+
+\subsubsection{Identity Function(s)}
+\label{\detokenize{08-boolean-algebra:identity-function-s}}
+The Boolean \sphinxstyleemphasis{identity} function takes one Boolean value as an argument
+and returns that value, whichever it was.
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{12}|\X{6}{12}|}
+\hline
+
+\(P\)
+&
+\(P\)
+\\
+\hline
+true
+&
+true
+\\
+\hline
+false
+&
+false
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+As an aside we will note that \sphinxstyleemphasis{identity functions} taking any type of
+value are functions that always return exactly the value they took as
+an argument. What we want to say is that “for any type, \sphinxstyleemphasis{T}, and any
+value, \sphinxstyleemphasis{t} of that type, the identity function for type \sphinxstyleemphasis{T} applied to
+\sphinxstyleemphasis{t} always returns \sphinxstyleemphasis{t} itself. In mathematical logical notation,
+\(\forall T: Type, \forall t: T, id_T(t) = t.\) It’s clearer in
+mathematical language than in English! Make sure that both make sense
+to you now. That is the end of our aside. Now back to Boolean algebra.
+
+
+\subsubsection{Negation}
+\label{\detokenize{08-boolean-algebra:negation}}
+The Boolean negation, or \sphinxstyleemphasis{not}, operator, is the last of the four
+unary operators on Boolean values. It returns the value that it was
+\sphinxstyleemphasis{not} given as an argument. If given \sphinxstyleemphasis{true}, it evaluates to \sphinxstyleemphasis{false},
+and if given \sphinxstyleemphasis{false}, to \sphinxstyleemphasis{true.}
+
+The truth table makes this behavior clear.  It also introduces the
+standard notation in mathematical logic for the negation operator,
+\(\neg P\). This expression is pronounced, \sphinxstyleemphasis{not P}. It evaluates
+to \sphinxstyleemphasis{true} if \sphinxstyleemphasis{P} is false, and to \sphinxstyleemphasis{false} if \sphinxstyleemphasis{P} is \sphinxstyleemphasis{true}.
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{12}|\X{6}{12}|}
+\hline
+
+\(P\)
+&
+\(\neg P\)
+\\
+\hline
+true
+&
+false
+\\
+\hline
+false
+&
+true
+\\
+\hline&\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+
+\subsection{Binary Boolean Operators}
+\label{\detokenize{08-boolean-algebra:binary-boolean-operators}}
+Now let’s consider the binary operators of Boolean algebra. Each takes
+two Boolean arguments and returns a Boolean value as a result. The
+type of each such function is written \(bool \rightarrow bool
+\rightarrow bool\), pronounced “bool to bool to bool.” A truth table
+for a binary Boolean operator will have two columns for arguments, and
+one on the right for the result of applying the operator being defined
+to the argument values in the left two columns.
+
+Because binary Boolean operators take two arguments, each with two
+possible values, there is a total of four possible combinations of
+argument values: \sphinxstyleemphasis{true} and \sphinxstyleemphasis{true}, \sphinxstyleemphasis{true} and \sphinxstyleemphasis{false}, \sphinxstyleemphasis{false} and
+\sphinxstyleemphasis{true}, and \sphinxstyleemphasis{false} and \sphinxstyleemphasis{false}. A truth table for a binary operator
+will thus have four rows.
+
+The rightmost column of a truth table for an operator is really where
+the action is. It defines what result is returned for each combination
+of argument values. In a table with four rows, there will be four
+cells to fill in the final column. In a Boolean algebra there are two
+ways to fill each cell. And there are exactly \sphinxstyleemphasis{12\textasciicircum{}4 = 6} ways to do
+that. We can write them as \sphinxstyleemphasis{0000, 0001, 0010, 0011, 0100, 0101, 0110,
+0111, 1000, 1001, 1010, 1011, 1100, 1101, 1110, 1111}. There are thus
+exactly \sphinxstyleemphasis{16} total binary operators in Boolean algebra.
+
+Mathematicians have given names to all \sphinxstyleemphasis{16}, but in practice we tend
+to use just a few of them. They are called \sphinxstyleemphasis{and}, \sphinxstyleemphasis{or}, and \sphinxstyleemphasis{not}. The
+rest can be expressed as combinations these operators.  It is common
+in computer science also to use binary operations called \sphinxstyleemphasis{nand} (for
+\sphinxstyleemphasis{not and}), \sphinxstyleemphasis{xor} (for \sphinxstyleemphasis{exclusive or}) and \sphinxstyleemphasis{implies}.  Here we present
+truth tables for each of the binary Boolean operators in Dafny.
+
+
+\subsubsection{And (conjunction)}
+\label{\detokenize{08-boolean-algebra:and-conjunction}}
+The \sphinxstyleemphasis{and} operator in Boolean algebra takes two Boolean arguments and
+returns \sphinxstyleemphasis{true} when both arguments are \sphinxstyleemphasis{true}, and otherwise, \sphinxstyleemphasis{false}.
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
+\hline
+
+\(P\)
+&
+\(Q\)
+&
+\(P \land Q\)
+\\
+\hline
+true
+&
+true
+&
+true
+\\
+\hline
+true
+&
+false
+&
+false
+\\
+\hline
+false
+&
+true
+&
+false
+\\
+\hline
+false
+&
+false
+&
+false
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+
+\subsubsection{Nand (not and)}
+\label{\detokenize{08-boolean-algebra:nand-not-and}}
+The \sphinxstyleemphasis{nand} operator, short for \sphinxstyleemphasis{not and}, returns the opposite value
+from the \sphinxstyleemphasis{and} operator: \sphinxstyleemphasis{false} if both arguments are \sphinxstyleemphasis{true} and
+\sphinxstyleemphasis{true} otherwise.
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
+\hline
+
+\(P\)
+&
+\(Q\)
+&
+\(P \uparrow Q\)
+\\
+\hline
+true
+&
+true
+&
+false
+\\
+\hline
+true
+&
+false
+&
+true
+\\
+\hline
+false
+&
+true
+&
+true
+\\
+\hline
+false
+&
+false
+&
+true
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+As an aside, the \sphinxstyleemphasis{nand} operator is especially important for designers
+of digital logic circuits. The reason is that \sphinxstyleemphasis{every} binary Boolean
+operator can be simulated by composing \sphinxstyleemphasis{nand} operations in certain
+patterns. So if we have a billion tiny \sphinxstyleemphasis{nand} circuits (each with two
+electrical inputs and an output that is off only when both inputs are
+on), then all we have to do is connect all these little ciruits up in
+the right patterns to implement very complex Boolean functions. The
+capability to etch billions of tiny \sphinxstyleemphasis{nand} circuits in silicon and to
+connect them in complex ways is the heart of the computer revolution.
+Now back to Boolean algebra.
+
+
+\subsubsection{Or (disjunction)}
+\label{\detokenize{08-boolean-algebra:or-disjunction}}
+The \sphinxstyleemphasis{or}, or \sphinxstyleemphasis{disjunction}, operator evaluates to \sphinxstyleemphasis{false} only if both
+arguments are \sphinxstyleemphasis{false}, and otherwise to \sphinxstyleemphasis{true}.
+
+It’s important to note that it evaluates to \sphinxstyleemphasis{true} if either one or
+both of its arguments are true. When a dad says to his child, “You can
+have a candy bar \sphinxstyleemphasis{or} a donut, \sphinxstyleemphasis{he likely doesn’t mean *or} in the
+sense of \sphinxstyleemphasis{disjunction}.  Otherwise the child well educated in logic
+would surely say, “Thank you, Dad, I’ll greatly enjoy having both.”
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
+\hline
+
+\(P\)
+&
+\(Q\)
+&
+\(P \lor Q\)
+\\
+\hline
+true
+&
+true
+&
+true
+\\
+\hline
+true
+&
+false
+&
+true
+\\
+\hline
+false
+&
+true
+&
+true
+\\
+\hline
+false
+&
+false
+&
+false
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+
+\subsubsection{Xor (exclusive or)}
+\label{\detokenize{08-boolean-algebra:xor-exclusive-or}}
+What the dad most likely meant by \sphinxstyleemphasis{or} is what in Boolean algebra we
+call \sphinxstyleemphasis{exclusive or}, written as \sphinxstyleemphasis{xor}.  It evalutes to true if either
+one, but \sphinxstyleemphasis{not both}, of its arguments is true, and to false otherwise.
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
+\hline
+
+\(P\)
+&
+\(Q\)
+&
+\(P \oplus Q\)
+\\
+\hline
+true
+&
+true
+&
+false
+\\
+\hline
+true
+&
+false
+&
+true
+\\
+\hline
+false
+&
+true
+&
+true
+\\
+\hline
+false
+&
+false
+&
+false
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+
+\subsubsection{Nor (not or)}
+\label{\detokenize{08-boolean-algebra:nor-not-or}}
+The \sphinxstyleemphasis{nor} operator returns the negation of what the \sphinxstyleemphasis{or} operator
+applied to the same arguments returns: \sphinxstyleemphasis{xor(b1,b2) = not(or(b1, b2))}.
+As an aside, like \sphinxstyleemphasis{nand}, the \sphinxstyleemphasis{nor} operator is \sphinxstyleemphasis{universal}, in the
+sense that it can be composed to with itself in different patterns to
+simulate the effects of any other binary Boolean operator.
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
+\hline
+
+\(P\)
+&
+\(Q\)
+&
+\(P \downarrow Q\)
+\\
+\hline
+true
+&
+true
+&
+false
+\\
+\hline
+true
+&
+false
+&
+false
+\\
+\hline
+false
+&
+true
+&
+false
+\\
+\hline
+false
+&
+false
+&
+true
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+
+\subsubsection{Implies}
+\label{\detokenize{08-boolean-algebra:implies}}
+The \sphinxstyleemphasis{implies} operator is used to express the idea that if one
+condition, a premise, is true, another one, the conclusion, must be.
+So this operator returns true when both arguments are true. If the
+first argument is false, this operator returns true. It returns false
+only in the case where the first argument is true and the second is
+not, because that violates the idea that if the first is true then the
+second must be.
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
+\hline
+
+\(P\)
+&
+\(Q\)
+&
+\(P \rightarrow Q\)
+\\
+\hline
+true
+&
+true
+&
+true
+\\
+\hline
+true
+&
+false
+&
+false
+\\
+\hline
+false
+&
+true
+&
+true
+\\
+\hline
+false
+&
+false
+&
+true
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+
+\subsubsection{Follows}
+\label{\detokenize{08-boolean-algebra:follows}}
+The \sphinxstyleemphasis{follows} operator reverses the sense of an implication. Rather
+than being understood to say that truth of the first argument should
+\sphinxstyleemphasis{lead to} the truth of the second, it says that the truth of the first
+should \sphinxstyleemphasis{follow from} the truth of the second.
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{6}{18}|\X{6}{18}|\X{6}{18}|}
+\hline
+
+\(P\)
+&
+\(Q\)
+&
+\(P \leftarrow Q\)
+\\
+\hline
+true
+&
+true
+&
+true
+\\
+\hline
+true
+&
+false
+&
+true
+\\
+\hline
+false
+&
+true
+&
+false
+\\
+\hline
+false
+&
+false
+&
+true
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+There are other binary Boolean operators. They even have names, though
+one rarely sees these names used in practice.
+
+
+\subsection{A Ternary Binary Operator}
+\label{\detokenize{08-boolean-algebra:a-ternary-binary-operator}}
+We can of course define Boolean operators of any arity. As just one
+example, we introduce a \sphinxstyleemphasis{ternary} (3-ary) Boolean operator. It takes
+three Boolean values as arguments and returns a Boolean result. It’s
+type is thus ::\sphinxtitleref{bool rightarrow bool rightarrow bool rightarrow
+bool}. We will call it \sphinxstyleemphasis{ifThenElse\_\{bool\}}.
+
+The way this operator works is that the value of the first argument
+determines which of the next two arguments values the function will
+return. If the first argument is \sphinxstyleemphasis{true} then the value of the whole
+expression is the value of the second argument, otherwise it is the
+value of the third. So, for example, \sphinxstyleemphasis{ifThenElse\_\{bool\}(true, true,
+false)} evaluates to true, while \sphinxstyleemphasis{ifThenElse\_\{bool\}(false, true,
+false)} is false.
+
+It is sometimes helpful to write Boolean expressions involving \sphinxstyleemphasis{n-ary}
+operators for \sphinxstyleemphasis{n\textgreater{}1} using something other than function application
+(prefix) notation. So, rather than \sphinxstyleemphasis{and(true,false)}, with the
+operator in front of the arguments (\sphinxstyleemphasis{prefix} notation), we would
+typically write \sphinxstyleemphasis{true \&\& false} to mean the same thing. We have first
+sed a symbol, \sphinxstyleemphasis{\&\&}, instead of the English word, \sphinxstyleemphasis{and} to name the
+operator of interest. We have also put the function name (now \sphinxstyleemphasis{\&\&})
+\sphinxstyleemphasis{between} the arguments rather than in front of them. This is called
+\sphinxstyleemphasis{infix} notation.
+
+With ternary and other operators, it can even make sense to break up
+the name of the operator and spread its parts across the whole
+expression. For example, instead of writing, \sphinxstyleemphasis{ifThenElse\_\{bool\}(true,
+true, false)}, we could write it as \sphinxstyleemphasis{IF true THEN true ELSE false.}
+Here, the capitalized words all together represent the name of the
+function applied to the three Boolean arguments in the expression.
+
+As an aside, when we use infix notation, we have to do some extra
+work, namely to specify the \sphinxstyleemphasis{order of operations}, so that when we
+write expressions, the meaning is unambiguous. We have to say which
+operators have higher and lower \sphinxstyleemphasis{precedence}, and whether operators
+are \sphinxstyleemphasis{left}, \sphinxstyleemphasis{right}, or not associative. In everyday arithmetic, for
+example, multiplication has higher precedence than addition, so the
+expression \sphinxstyleemphasis{3 + 4 * 5} is read as \sphinxstyleemphasis{3 + (4 * 5)} even though the \sphinxstyleemphasis{+}
+operator comes first in the expression.
+
+Exercise: How many ternary Boolean operations are there? Hint: for an
+operator with \sphinxstyleemphasis{n} Boolean arguments there are \(2^n\) combinations
+of input values. This means that there will be \(2^n\) rows in its
+truth table, and so \(2^n\) blanks to fill in with Boolean values
+in the right column. How many ways are there to fill in \(2^n\)
+Boolean values? Express your answer in terms of \sphinxstyleemphasis{n}.
+
+Exercise: Write down the truth table for our Boolean if-then-else
+operator.
+
+
+\section{Formal Languages: Syntax and Semantics}
+\label{\detokenize{08-boolean-algebra:formal-languages-syntax-and-semantics}}
+Any introduction to programming will have made it clear that there is
+an infinite set of Boolean expressions. For example, in Dafny, \sphinxstyleemphasis{true}
+is a Boolean expression; so are \sphinxstyleemphasis{false}, \sphinxstyleemphasis{true \textbar{}\textbar{} false}, \sphinxstyleemphasis{(true \textbar{}\textbar{}
+false) \&\& (!false)}, and one could keep going on forever.
+
+Boolean \sphinxstyleemphasis{expressions}, as we see here, are a different kind of thing
+than Boolean \sphinxstyleemphasis{values}. There are only two Boolean values, but there is
+an infinity of Boolean expressions. The connection is that each such
+expression has a corresponding Boolean truth value. For example, the
+expression, \sphinxstyleemphasis{(true \textbar{}\textbar{} false) \&\& (!false)} has the value, \sphinxstyleemphasis{true}.
+
+The set of valid Boolean expressions is defined by the \sphinxstyleemphasis{syntax} of the
+Boolean expression language. The sequence of symbols, \sphinxstyleemphasis{(true \textbar{}\textbar{} false)
+\&\& (!false)}, is a valid expression in the language, for example, but
+\sphinxstyleemphasis{)( true false()\textbar{}\textbar{}) false !\&\&} is not, just as the sequence of words,
+“Mary works long hours” is a valid sentence in the English language,
+but “long works hours Mary” isn’t.
+
+The syntax of a language defines the set of valid sentences in the
+language. The semantics of a language gives a meaning to each valid
+sentence in the language. In the case of Boolean expressions, the
+meaning given to each valid “sentence” (expression) is simply the
+Boolean value that that expression \sphinxstyleemphasis{reduces to}.
+
+In the rest of this chapter, we use the case of Boolean expressions to
+introduce the concepts of the \sphinxstyleemphasis{syntax} and the \sphinxstyleemphasis{semantics} of \sphinxstyleemphasis{formal
+languages}. The syntax of a formal language precisely defines a set of
+\sphinxstyleemphasis{expressions} (sometimes called sentences or formulae). A \sphinxstyleemphasis{semantics}
+associates a \sphinxstyleemphasis{meaning}, in the form of a \sphinxstyleemphasis{value}, with each expression
+in the language.
+
+
+\section{The Syntax of Boolean Expressions: Inductive Definitions}
+\label{\detokenize{08-boolean-algebra:the-syntax-of-boolean-expressions-inductive-definitions}}
+As an example of syntax, the \sphinxstyleemphasis{true}, in the statement, \sphinxstyleemphasis{var b :=
+true;} is a valid expression in the language of Boolean expressions,
+as defined by the \sphinxstyleemphasis{syntaxt} of this language. The semantics of the
+language associates the Boolean \sphinxstyleemphasis{value}, \sphinxstyleemphasis{true}, with this expression.
+
+You probably just noticed that we used the same symbol, \sphinxstyleemphasis{true}, for
+both an expression and a value, blurring the distinction between
+expressions and values. Expressions that directly represent values are
+called \sphinxstyleemphasis{literal expressions}. Many languages use the usual name for a
+value as a literal expression, and the semantics of the language then
+associate each such expression with its corresponding value.
+
+In the semantics of practical formal languages, literal expressions
+are assigned the values that they name. So the \sphinxstyleemphasis{expression}, \sphinxstyleemphasis{true},
+means the \sphinxstyleemphasis{value}, \sphinxstyleemphasis{true}, for example. Similarly, when \sphinxstyleemphasis{3} appears on
+the right side of an assignment/update statement, such as in \sphinxstyleemphasis{x := 3},
+it is an \sphinxstyleemphasis{expression}, a literal expression, that when \sphinxstyleemphasis{evaluated} is
+taken to \sphinxstyleemphasis{mean} the natural number (that we usually represent as) \sphinxstyleemphasis{3}.
+
+As computer scientists interested in languages and meaning, we can
+make these concepts of syntax and semantics not only precisely clear
+but also \sphinxstyleemphasis{runnable}. So let’s get started.
+
+
+\subsection{The Syntax and Semantics of \sphinxstyleemphasis{Simplified} Boolean Expression Language}
+\label{\detokenize{08-boolean-algebra:the-syntax-and-semantics-of-simplified-boolean-expression-language}}
+We start by considering a simplified language of Boolean expressions:
+one with only two literal expressions.  To make it clear that they are
+not Boolean values but expressions, we will call them not \sphinxstyleemphasis{true} and
+\sphinxstyleemphasis{false} but \sphinxstyleemphasis{bTrue} and \sphinxstyleemphasis{bFalse}.
+
+
+\subsubsection{Syntax}
+\label{\detokenize{08-boolean-algebra:syntax}}
+We can represent the syntax of this language in Dafny using what we
+call an \sphinxstyleemphasis{inductive data type definition.} A data type defines a set of
+values. So what we need to define is a data type whose values are all
+and only the valid expressions in the language. The data type defines
+the \sphinxstyleemphasis{syntax} of the language.
+
+In the current case, we need a type with only two values, each one of
+them representing a valid expression in our language. Here’s how we’d
+write it in Dafny.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+datatype Bexp =
+     bTrue \textbar{}
+     bFalse
+\end{sphinxVerbatim}
+
+The definition starts with the \sphinxstyleemphasis{datatype} keyword, followed by the
+name of the type being defined (\sphinxstyleemphasis{Bexp}, short for Boolean expression)
+then an equals sign, and finally a list of \sphinxstyleemphasis{constructors} separated by
+vertical bar characters. The constructors define the ways in which the
+values of the type (or \sphinxstyleemphasis{terms}) can be created. Each constructor has a
+and can take optional parameters. Here the names are \sphinxstyleemphasis{bTrue} and
+\sphinxstyleemphasis{bFalse} and neither takes any parameters.
+
+The only values of an inductive type are those that can be built using
+the provided constructors. So the language that we have specified thus
+far has only two values, which we take to be the valid expressions in
+the language we are specifying, namely \sphinxstyleemphasis{bTrue} and \sphinxstyleemphasis{bFalse}.  That is
+all there is to specifying the \sphinxstyleemphasis{syntax} of our simplified language of
+Boolean expressions.
+
+
+\subsubsection{Semantics}
+\label{\detokenize{08-boolean-algebra:semantics}}
+To give a preview of what is coming, we now specify a semantics for
+this language. Speaking informally, we want to associate, to each of
+the expressions, a correponding meaning in the form of a Boolean
+value.  We do this by defining a \sphinxstyleemphasis{function} that takes an expression
+(a value of type \sphinxstyleemphasis{bExp}) as an argument and that returns the Boolean
+\sphinxstyleemphasis{value} that the semantics defines as the meaning of that expression.
+Here, we want a function that returns Dafny’s Boolean value \sphinxstyleemphasis{true} for
+the expression, \sphinxstyleemphasis{bTrue}, and the Boolean value \sphinxstyleemphasis{false} for \sphinxstyleemphasis{bFalse}.
+
+Here’s how we can write this function in Dafny.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+function method bEval(e: bExp): bool
+\PYGZob{}
+  match e
+  \PYGZob{}
+      case bTrue =\PYGZgt{} true
+      case bFalse =\PYGZgt{} false
+  \PYGZcb{}
 \PYGZcb{}
 \end{sphinxVerbatim}
 
+As a shorhand for \sphinxstyleemphasis{Boolean semantic evaluator} we call it \sphinxstyleemphasis{bEval}. It
+takes an expression (a value of type, \sphinxstyleemphasis{bExp}) and returns a Boolean
+value.  The function implementation uses an important construct that
+is probably new to most readers: a \sphinxstyleemphasis{match} expression. What a match
+expression does is to: first determine how a value of an inductive
+type was buit, namely what constructor was used and what arguments
+were provided (if any) and then to compute a result for the case at
+hand.
 
-\chapter{8. Propositional Logic}
-\label{\detokenize{08-propositional-logic::doc}}\label{\detokenize{08-propositional-logic:propositional-logic}}
+The match expression starts with the match keyword followed by the
+variable naming the value being matched. Then within curly braces
+there is a \sphinxstyleemphasis{case} for each constructor for the type of that value.
+There are two constructors for the type, \sphinxstyleemphasis{bExp}, so there are two
+cases. Each case starts with the \sphinxstyleemphasis{case} keyword, then the name of a
+constructor followed by an argument list if the construtor took
+parameters. Neither constructor took any parameters, so there is no
+need to deal with parameters here. The left side thus determines how
+the value was constructed. Each case has an arrow, \sphinxstyleemphasis{=\textgreater{}}, that is
+followed by an expression that when evaluated yields the result \sphinxstyleemphasis{for
+that case}.
+
+The code here can thus be read as saying, first look at the given
+expression, then determine if it was \sphinxstyleemphasis{bTrue} or \sphinxstyleemphasis{bFalse}. In the first
+case, return \sphinxstyleemphasis{true}. In the second case, return \sphinxstyleemphasis{false}. That is all
+there is to defining a semantics for this simple language.
+
+
+\subsection{The Syntax of a Complete Boolean Expression Language}
+\label{\detokenize{08-boolean-algebra:the-syntax-of-a-complete-boolean-expression-language}}
+The real language of Boolean expressions has many more than two valid
+expressions, of course. In Dafny’s Boolean expression sub-language,
+for example, one can write not only the literal expressions, \sphinxstyleemphasis{true}
+and \sphinxstyleemphasis{false}, but also expressions such as \sphinxstyleemphasis{(true \textbar{}\textbar{} false) \&\& (not
+false)}.
+
+There is an infinity of such expressions, because given any one or two
+valid expressions (starting with \sphinxstyleemphasis{true} and \sphinxstyleemphasis{false}) we can always
+build a bigger expression by combing the two given ones with a Boolean
+operator. No matter how complex expressions \sphinxstyleemphasis{P} and \sphinxstyleemphasis{Q} are, we can,
+for example, always form the even more complex expressions, \sphinxstyleemphasis{!P}, \sphinxstyleemphasis{P
+\&\& Q}, and \sphinxstyleemphasis{P \textbar{}\textbar{} Q}, among others.
+
+How can we extend the syntax of our simplified language so that it
+specifies the infinity set of well formed expressions in the language
+of Boolean expressions? The answer is that we need to add some more
+cosntructors. In particular, for each Boolean operator (including
+\sphinxstyleemphasis{and, or}, and \sphinxstyleemphasis{not}), we need a a constructor that takes the right
+number of smaller expressions as arguments and the builds the right
+larger expression.
+
+For example, if \sphinxstyleemphasis{P} and \sphinxstyleemphasis{Q} are arbitrary “smaller” expressions, we
+need a consructor to build the expression \sphinxstyleemphasis{P and Q}, a constructor to
+build the expression, \sphinxstyleemphasis{P or Q}, and one that can build the expressions
+\sphinxstyleemphasis{not P} and \sphinxstyleemphasis{not Q}. Here then is the induction: some constructors of
+the \sphinxstyleemphasis{bExp} type will take values of the very type we’re defining as
+parameters. And because we’ve defined some values as constants, we
+have some expressions to get started with. Here’s how we’d write the
+code in Dafny.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+datatype bExp =
+     bTrue \textbar{}
+     bFalse \textbar{}
+     bNot (e: bExp) \textbar{}
+     bAnd (e1: bExp, e2: bExp) \textbar{}
+     bOr (e1: bExp, e2: bExp)
+\end{sphinxVerbatim}
+
+We’ve added three new constructors: one corresponding to each of the
+\sphinxstyleemphasis{operator} in Boolean algebra (to keep things simple, we’re dealing
+with only three of them here). We have named each constructor in a way
+that makes the connection to the corresponding operator clear.
+
+We also see that these new constructors take parameters. The \sphinxstyleemphasis{bNot}
+constructor takes a “smaller” expression, \sphinxstyleemphasis{e}, and builds/returns the
+expression, \sphinxstyleemphasis{bNot e}, which we will interpret as \sphinxstyleemphasis{not e}, or, as we’d
+write it in Dafny, \sphinxstyleemphasis{!e}. Similarly, given expressions, \sphinxstyleemphasis{e1} and \sphinxstyleemphasis{e2},
+the \sphinxstyleemphasis{bAnd} and \sphinxstyleemphasis{bOr} operators construct the expressions \sphinxstyleemphasis{bAnd(e1,e2)}
+and \sphinxstyleemphasis{bOr(e1,e2)}, respectively, representing \sphinxstyleemphasis{e1 and e2} and \sphinxstyleemphasis{e1 or
+e2}, respectively, or, in Dafny syntax, \sphinxstyleemphasis{e1 \&\& e2} and \sphinxstyleemphasis{e1 \textbar{}\textbar{} e2}.
+
+An expression in our \sphinxstyleemphasis{bExp} language for the Dafny expression \sphinxstyleemphasis{(true
+\textbar{}\textbar{} false) and (not false))} would be written as \sphinxstyleemphasis{bAnd( (bOr (bTrue,
+bFalse)), (bNot bFalse))}. Writing complex expressions like this in
+a single line of code can get awkward, to we could also structure the
+code like this:
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+var T: bExp := bTrue;
+var F:      := bFalse;
+var P:      := bOr ( T,  F );
+var Q       := bNot ( F );
+var R       := bAnd ( P, Q );
+\end{sphinxVerbatim}
+
+
+\section{The Semantics of Boolean Expressions: Recursive Evaluation}
+\label{\detokenize{08-boolean-algebra:the-semantics-of-boolean-expressions-recursive-evaluation}}
+The remaining question, then, is how to give meanings to each of the
+expressions in the infinite set of expressions that can be built by
+finite numbers of applications of the constructor of our extended
+\sphinxstyleemphasis{bExp} type? When we had only two values in the type, it was easy to
+write a function that returned the right meaning-value for each of the
+two cases. We can’t possibly write a separate case, though, for each
+of an infinite number of expressions. The solution lies again in the
+realm of recursive functions.
+
+Such a function will simply do mechanically what you the reader would
+do if presented with a complex Boolean expression to evaluate.  You
+first figure out what operator was applied to what smaller expression
+or expressions. You then evaluate those expressions to get values for
+them. And finally you apply the Boolean operator to those values to
+get a result.
+
+Take the expression, \sphinxstyleemphasis{(true \textbar{}\textbar{} false) and (not false))}, which in our
+language is expressed by the term, \sphinxstyleemphasis{bAnd( (bOr (bTrue, bFalse)), (bNot
+bFalse))}. First we identify the \sphinxstyleemphasis{constructor} that was used to build
+the expression In this case it’s the constructor corresponding to the
+\sphinxstyleemphasis{and} operator: \sphinxstyleemphasis{\&\&} in the Dafny expression and the \sphinxstyleemphasis{bAnd} in our own
+expression language. What we then do depends on what case has occured.
+
+In the case at hand, we are looking at the constructor for the \sphinxstyleemphasis{and}
+operator. It took two smaller expressions as arguments. To enable the
+precise expression of the return result, ew given temporary names to
+the argument values that were passed to the constructor. We can call
+them \sphinxstyleemphasis{e1} and \sphinxstyleemphasis{e2}, for example.
+sub-expressions that the operator was applied to.
+
+In this case, \sphinxstyleemphasis{e1} would be \sphinxstyleemphasis{(true \textbar{}\textbar{} false)} and \sphinxstyleemphasis{e2} would be \sphinxstyleemphasis{(not
+false)}. To compute the value of the whole expression, we then obtain
+Boolean values for each of \sphinxstyleemphasis{e1} and \sphinxstyleemphasis{e2} and then combine them using
+the Boolean \sphinxstyleemphasis{and} operator.
+
+The secret is that we get the values for \sphinxstyleemphasis{e1} and \sphinxstyleemphasis{e2} by the very
+same means: recursively! Within the evaluation of the overall Boolean
+expression, we thus recursively evaluate the subexpressions. Let’s
+work through the recursive evaluation of \sphinxstyleemphasis{e1}. It was built using the
+\sphinxstyleemphasis{bOr} constructor. That constructor took two arguments, and they were,
+in this instance, the literal expressions, \sphinxstyleemphasis{bTrue} and \sphinxstyleemphasis{bFalse}. To
+obtain an overall result, we recursively evaluate each of these
+expressions and then combine the result using the Boolean \sphinxstyleemphasis{or}
+operator. Let’s look at the recursive evaluation of the \sphinxstyleemphasis{bTrue}
+expression. It just evaluates to the Boolean value, \sphinxstyleemphasis{true} with no
+further recursion, so we’re done with that. The \sphinxstyleemphasis{bFalse} evaluates to
+\sphinxstyleemphasis{false}. These two values are then combined using \sphinxstyleemphasis{or} resulting in
+a value of \sphinxstyleemphasis{true} for \sphinxstyleemphasis{eq}. A similarly recursive process produces
+the value, \sphinxstyleemphasis{true}, for \sphinxstyleemphasis{e2}. (Reason through the details yourself!)
+And finally the two Boolean values, \sphinxstyleemphasis{true} and \sphinxstyleemphasis{true} are combined
+using Boolean \sphinxstyleemphasis{and}, and a value for the overall expression is thus
+computed and returned.
+
+Here’s the Dafny code.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+function method bEval(e: bExp): (r: bool)
+\PYGZob{}
+    match e
+    \PYGZob{}
+        case bTrue =\PYGZgt{} true
+        case bFase =\PYGZgt{} false
+        case bNot(e: bExp) =\PYGZgt{} !bEval(e)
+        case bAnd(e1, e2) =\PYGZgt{} bEval(e1) \PYGZam{}\PYGZam{} bEval(e2)
+        case bOrEe1, e2) =\PYGZgt{}  bEval(e1) \textbar{}\textbar{} bEval(e2)
+    \PYGZcb{}
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+This code extends our simpler example by adding three cases, one for
+each of the new constructor. These constructors took smaller
+expression values as arguments, so the corresponding cases have used
+parameter lists to temporarily give names (\sphinxstyleemphasis{e1}, \sphinxstyleemphasis{e2}, etc.) to the
+arguments that were given when the constructor was orginally used.
+These names are then used to write the expressions on the right sides
+of the arrows, to compute the final results.
+
+These result-computing expressions use recursive evalation of the
+constitute subexpressions to obtain their meanings (actual Boolean
+values in Dafny) which they then combine using actual Dafny Boolean
+operators to produce final results.
+
+The meaning (Boolean value) of any of the infinite number of Boolean
+expressions in the Boolean expression language defined by our syntax
+(or \sphinxstyleemphasis{grammar}) can be found by a simple application of our \sphinxstyleemphasis{bEval}
+function. To compute the value of \$R\$, above, for example, we just run
+\sphinxstyleemphasis{bEval(R)}. For this \sphinxstyleemphasis{R}, this function will without any doubt return
+the intended result, \sphinxstyleemphasis{true}.
+
+
+\section{The Syntax and Semantics of Programming Languages}
+\label{\detokenize{08-boolean-algebra:the-syntax-and-semantics-of-programming-languages}}
+Syntax defines legal expressions. Semantics give each legal expression
+an associated meaning. The meanings of Boolean expressions are Boolean
+values. Using exactly the same ideas used here for Boolean expressions
+we could not only specify but compute with the syntax semantics of a
+language of arithmetic expressions.
+
+Indeed, the same ideas apply to programming language. A programming
+language has a syntax. It defines the set of valid “programs” in that
+language. A programming language also has a semantics, It specifies
+what each such program means. However, th meaning of a program is not
+captured in a single value. Rather, it is expressed ina relation that
+explains how running the programs transforms any pre-execution state
+that satisfies the program preconditions into a post-execution state.
+
+
+\chapter{9. Propositional Logic}
+\label{\detokenize{09-propositional-logic::doc}}\label{\detokenize{09-propositional-logic:propositional-logic}}
 A logic is a system for writing, evaluating, and reasoning about truth
 statements, or \sphinxstyleemphasis{propositions}. A proposition asserts that some state
 of affairs holds in some domain. Truth statements can be particular:
@@ -3779,7 +4534,7 @@ and so in this world, it’s judged to be false.
 
 
 \section{The Elements of a Logic}
-\label{\detokenize{08-propositional-logic:the-elements-of-a-logic}}
+\label{\detokenize{09-propositional-logic:the-elements-of-a-logic}}
 There are many forms of logic, but they all share three basic
 elements.  First, a logic provides a \sphinxstyleemphasis{formal language} in which
 propositions (truth statements) about states of affairs can be
@@ -3841,7 +4596,7 @@ turn, to establish completely formal foundations for mathematics.
 
 
 \section{Using Logic in Practice}
-\label{\detokenize{08-propositional-logic:using-logic-in-practice}}
+\label{\detokenize{09-propositional-logic:using-logic-in-practice}}
 To use a logic for practical purposes, one must (1) understand how to
 represent states of affairs in the domain of discourse of interest as
 expressions in the logical language of the logic, and (2) havee some
@@ -3881,7 +4636,7 @@ not the answer to any such question is yes or no.
 
 
 \section{Propositional Logic}
-\label{\detokenize{08-propositional-logic:id1}}
+\label{\detokenize{09-propositional-logic:id1}}
 The rest of this chapter illustrates and further develops these ideas
 using Boolean algebra, and a language of Boolean expressions, as a
 case study in precise definition of the syntax (expression structure)
@@ -3986,7 +4741,7 @@ and maps. So let’s get going.
 
 
 \section{Syntax}
-\label{\detokenize{08-propositional-logic:syntax}}
+\label{\detokenize{09-propositional-logic:syntax}}
 Any basic introduction to programming will have made it clear that
 there is an infinite set of Boolean expressions. First, we can take
 the Boolean values, \sphinxstyleemphasis{true} and \sphinxstyleemphasis{false}, as \sphinxstyleemphasis{literal} expressions.
@@ -4030,7 +4785,7 @@ rendered true or false.
 
 
 \section{Interpretations}
-\label{\detokenize{08-propositional-logic:interpretations}}
+\label{\detokenize{09-propositional-logic:interpretations}}
 Evaluate a Boolean expression in a given environment.  The recursive
 structure of this algorithm reflects the inductive structure of the
 expressions we’ve defined.
@@ -4041,7 +4796,7 @@ type interp = map\PYGZlt{}Bvar, bool\PYGZgt{}
 
 
 \section{Evaluation}
-\label{\detokenize{08-propositional-logic:evaluation}}
+\label{\detokenize{09-propositional-logic:evaluation}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 function method Beval(e: Bexp, i: interp): (r: bool)
 \PYGZob{}
@@ -4086,10 +4841,10 @@ ways that preserve its meaning until we reach a single Boolean value.
 
 
 \section{Models}
-\label{\detokenize{08-propositional-logic:models}}
+\label{\detokenize{09-propositional-logic:models}}
 
 \section{Satisfiability, Validity}
-\label{\detokenize{08-propositional-logic:satisfiability-validity}}
+\label{\detokenize{09-propositional-logic:satisfiability-validity}}
 We can now characterize the most important \sphinxstyleemphasis{open question} (unsolved
 mathematical problem) in computer science.  Is there an \sphinxstyleemphasis{efficient}
 algorithm for determining whether any given Boolean formula is
@@ -4133,7 +4888,7 @@ are any “solutions”, if so, what one solution is.
 
 
 \section{Logical Consequence}
-\label{\detokenize{08-propositional-logic:logical-consequence}}
+\label{\detokenize{09-propositional-logic:logical-consequence}}
 Finally, logic consequence. A set of logical propositions, premises,
 is said to entail another, a conclusion, if in every interpretation
 where all of the premises are true the conclusion is also true. See
@@ -4141,8 +4896,8 @@ the file, consequence.dfy, for a consequence checker that works by
 exhaustive checking of all interpretations. \textless{}More to come\textgreater{}.
 
 
-\chapter{09. Natural Deduction}
-\label{\detokenize{09-natural-deduction:natural-deduction}}\label{\detokenize{09-natural-deduction::doc}}
+\chapter{10. Natural Deduction}
+\label{\detokenize{10-natural-deduction::doc}}\label{\detokenize{10-natural-deduction:natural-deduction}}
 One way
 to defineand (3) a set of \sphinxstyleemphasis{inference} rules that define ways that one
 can transform one set of expressions (premises) into another (a
@@ -4166,708 +4921,6 @@ rules for taking a set of expressions as premises and deriving another
 one as a consequence. Mathematical logic allows us to replace human
 mental reasoning with the mechanical \sphinxstyleemphasis{transformation of symbolic
 expressions}.
-
-
-\chapter{6. Dafny Language: Types, Statements, Expressions}
-\label{\detokenize{App2-Lang::doc}}\label{\detokenize{App2-Lang:dafny-language-types-statements-expressions}}
-
-\section{Built-In Types}
-\label{\detokenize{App2-Lang:built-in-types}}
-Dafny natively supports a range of abstract data types akin to those
-found in widely used, industrial imperative programming languages and
-systems, such as Python and Java. In this chapter, we introduce and
-briefly illustrate the use of these types. The types we discuss are
-as follow:
-\begin{itemize}
-\item {} 
-bool, supporting Boolean algebra
-
-\item {} 
-int, nat, and real types, supporting \sphinxstyleemphasis{exact} arithmetic (unlike
-the numerical types found in most industrial languages
-
-\item {} 
-char, supporting character types
-
-\item {} 
-set\textless{}T\textgreater{} and iset\textless{}T\textgreater{}, polymorphic set theory for finite and infinite sets
-
-\item {} 
-seq\textless{}T\textgreater{} and iseq\textless{}T\textgreater{}, polymorphic finite and infinite sequences
-
-\item {} 
-string, supporting character sequences (with addtional helpful functions)
-
-\item {} 
-map\textless{}K,V\textgreater{} and imap\textless{}K,V\textgreater{}, polymorphic finite and infinite partial functions
-
-\item {} 
-array\textless{}T\textgreater{}, polymorphic 1- and multi-dimensional arrays
-
-\end{itemize}
-
-
-\subsection{Booleans}
-\label{\detokenize{App2-Lang:booleans}}
-The bool abstract data type (ADT) in Dafny provides a bool data type
-with values, \sphinxstyleemphasis{true} and \sphinxstyleemphasis{false}, along with the Boolean operators that
-are supported by most programming langauges, along with a few that are
-not commonly supported.
-
-Here’s a method that computes nothing useful and returns no values,
-but that illustrates the range of Boolean operators in Dafny. We also
-use the examples in this chapter to discuss a few other aspects of the
-Dafny language.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-method BoolOps(a: bool) returns (r: bool)  // bool \PYGZhy{}\PYGZgt{} bool
-\PYGZob{}
-    var t: bool := true;    // explicit type declaration
-    var f := false;         // type inferred automatically
-    var not := !t;          // negation
-    var conj := t \PYGZam{}\PYGZam{} f;     // conjunction, short\PYGZhy{}circuit evaluation
-    var disj := t \textbar{}\textbar{} f;     // disjunction, short\PYGZhy{}circuit (sc) evaluation
-    var impl := t ==\PYGZgt{} f;    // implication, right associative, sc from left
-    var foll := t \PYGZlt{}== f;    // follows, left associative, sc from right
-    var equv := t \PYGZlt{}==\PYGZgt{} t;   // iff, bi\PYGZhy{}implication
-    return true;            // returning a Boolean value
- \PYGZcb{}
-\end{sphinxVerbatim}
-
-
-\subsection{Numbers}
-\label{\detokenize{App2-Lang:numbers}}
-Methods aren’t required to return results. Such methods do their jobs
-by having side effects, e.g., doing output or writing data into global
-variables (usually a bad idea).  Here’s a method that doesn’t return a
-value. It illustrates numerical types, syntax, and operations.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-method NumOps()
-\PYGZob{}
-    var r1: real := 1000000.0;
-    var i1: int := 1000000;
-    var i2: int := 1\PYGZus{}000\PYGZus{}000;   // underscores for readiability
-    var i3 := 1\PYGZus{}000;            // Dafny can often infer types
-    var b1 := (10 \PYGZlt{} 20) \PYGZam{}\PYGZam{} (20 \PYGZlt{}= 30); // a boolean expression
-    var b2 := 10 \PYGZlt{} 20 \PYGZlt{}= 30;    // equivalent, with \PYGZdq{}chaining\PYGZdq{}
-    var i4: int := (5.5).Floor; // 5
-    var i5 := (\PYGZhy{}2.5).Floor;     // \PYGZhy{}3
-    var i6 := \PYGZhy{}2.5.Floor;        // \PYGZhy{}2 = \PYGZhy{}(2.5.Floor); binding!
-\PYGZcb{}
-\end{sphinxVerbatim}
-
-
-\subsection{Characters}
-\label{\detokenize{App2-Lang:characters}}
-Characters (char) are handled sort of as they are in C, etc.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-method CharFun()
-\PYGZob{}
-    var c1: char := \PYGZsq{}a\PYGZsq{};
-    var c2 := \PYGZsq{}b\PYGZsq{};
-    // var i1 := c2 \PYGZhy{} c1;
-    var i1 := (c2 as int) \PYGZhy{} (c1 as int);    // type conversion
-    var b1 := c1 \PYGZlt{} c2;  // ordering operators defined for char
-    var c3 := \PYGZsq{}\PYGZbs{}n\PYGZsq{};     // c\PYGZhy{}style escape for non\PYGZhy{}printing chars
-    var c4 := \PYGZsq{}\PYGZbs{}u265B\PYGZsq{}; // unicode, hex, \PYGZdq{}chess king\PYGZdq{} character
-\PYGZcb{}
-\end{sphinxVerbatim}
-
-
-\subsection{Sets}
-\label{\detokenize{App2-Lang:sets}}
-Polymorphic finite and infinite set types:
-set\textless{}T\textgreater{} and iset\textless{}T\textgreater{}. T must support equality.
-Values of these types are immutable.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-method SetPlay()
-\PYGZob{}
-    var empty: set\PYGZlt{}int\PYGZgt{} := \PYGZob{}\PYGZcb{};
-    var primes := \PYGZob{}2, 3, 5, 7, 11\PYGZcb{};
-    var squares := \PYGZob{}1, 4, 9, 16, 25\PYGZcb{};
-    var b1 := empty \PYGZlt{} primes;    // strict subset
-    var b2 := primes \PYGZlt{}= primes;   // subset
-    var b3: bool := primes !! squares; // disjoint
-    var union := primes + squares;
-    var intersection := primes * squares;
-    var difference := primes \PYGZhy{} \PYGZob{}3, 5\PYGZcb{};
-    var b4 := primes == squares;    // false
-    var i1 := \textbar{} primes \textbar{};   // cardinality (5)
-    var b5 := 4 in primes;  // membership (false)
-    var b6 := 4 !in primes; // non\PYGZhy{}membership
-\PYGZcb{}
-\end{sphinxVerbatim}
-
-
-\subsection{Sequences}
-\label{\detokenize{App2-Lang:sequences}}
-Polymorphic sequences (often called “lists”): seq\textless{}T\textgreater{}. These can be
-understood as functions from indices to values. Some of the operations
-require that T support equality. Values of this type are immutable.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-method SequencePlay()
-\PYGZob{}
-    var empty\PYGZus{}seq: seq\PYGZlt{}char\PYGZgt{} := [];
-    var hi\PYGZus{}seq: seq\PYGZlt{}char\PYGZgt{} := [\PYGZsq{}h\PYGZsq{}, \PYGZsq{}i\PYGZsq{}];
-    var b1 := hi\PYGZus{}seq == empty\PYGZus{}seq; // equality; !=
-    var hchar := hi\PYGZus{}seq[0];        // indexing
-    var b2 := [\PYGZsq{}h\PYGZsq{}] \PYGZlt{} hi\PYGZus{}seq;   // proper prefix
-    var b3 := hi\PYGZus{}seq \PYGZlt{} hi\PYGZus{}seq;  // this is false
-    var b4 := hi\PYGZus{}seq \PYGZlt{}= hi\PYGZus{}seq; // prefix, true
-    var sum := hi\PYGZus{}seq + hi\PYGZus{}seq; // concatenation
-    var len := \textbar{} hi\PYGZus{}seq \textbar{};
-    var Hi\PYGZus{}seq := hi\PYGZus{}seq[0 := \PYGZsq{}H\PYGZsq{}]; // update
-    var b5 := \PYGZsq{}h\PYGZsq{} in hi\PYGZus{}seq; // member, true, !in
-    var s := [0,1,2,3,4,5];
-    var s1 := s[0..2];  // subseqence
-    var s2 := s[1..];   // \PYGZdq{}drop\PYGZdq{} prefix of len 1
-    var s3 := s[..2];   // \PYGZdq{}take\PYGZdq{} prefix of len 2
-    // there\PYGZsq{}s a slice operator, too; later
- \PYGZcb{}
-\end{sphinxVerbatim}
-
-
-\subsection{Strings}
-\label{\detokenize{App2-Lang:strings}}
-Dafny has strings. Strings are literally just sequences of characters
-(of type seq\textless{}char\textgreater{}), so you can use all the sequence operations on
-strings.  Dafny provides additional helpful syntax for strings.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-method StringPlay()
- \PYGZob{}
-     var s1: string := \PYGZdq{}Hello CS2102!\PYGZdq{};
-     var s2 := \PYGZdq{}Hello CS2102!\PYGZbs{}n\PYGZdq{};   // return
-     var s3 := \PYGZdq{}\PYGZbs{}\PYGZdq{}Hello CS2102!\PYGZbs{}\PYGZdq{}\PYGZdq{}; // quotes
- \PYGZcb{}
-\end{sphinxVerbatim}
-
-
-\subsection{Maps (Partial Functions)}
-\label{\detokenize{App2-Lang:maps-partial-functions}}
-Dafny also supports polymorphic maps, both finite (map\textless{}K,V\textgreater{}) and
-infinite (imap\textless{}K,V\textgreater{}).  The key type, K, must support equality (==).
-In mathematical terms, a map really represents a binary relation,
-i.e., a set of \textless{}K,V\textgreater{} pairs, which is to say a subset of the product
-set, K * V, where we view the types K and V as defining sets of
-values.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-method MapPlay()
-\PYGZob{}
-    // A map literal is keyword map + a list of maplets.
-    // A maplet is just a single \PYGZlt{}K,V\PYGZgt{} pair (or \PYGZdq{}tuple\PYGZdq{}).
-    // Here\PYGZsq{}s an empty map from strings to ints
-    var emptyMap: map\PYGZlt{}string,int\PYGZgt{} := map[];
-
-    // Here\PYGZsq{}s non empty map from strings to ints
-    // A maplet is \PYGZdq{}k := v,\PYGZdq{} k and v being of types K and V
-    var aMap: map\PYGZlt{}string,int\PYGZgt{}  := map[\PYGZdq{}Hi\PYGZdq{} := 1, \PYGZdq{}There\PYGZdq{} := 2];
-
-    // Map domain (key) membership
-    var isIn: bool := \PYGZdq{}There\PYGZdq{} in aMap; // true
-    var isntIn := \PYGZdq{}Their\PYGZdq{} !in aMap;    // true
-
-    // Finite map cardinality (number of maplets in a map)
-    var card := \textbar{}aMap\textbar{};
-
-    //Map lookup
-    var image1 := aMap[\PYGZdq{}There\PYGZdq{}];
-    // var image2 := aMap[\PYGZdq{}Their\PYGZdq{}]; // error! some kind of magic
-    var image2: int;
-    if (\PYGZdq{}Their\PYGZdq{} in aMap) \PYGZob{} image2 := aMap[\PYGZdq{}Their\PYGZdq{}]; \PYGZcb{}
-
-    // map update, maplet override and maplet addition
-    aMap := aMap[\PYGZdq{}There\PYGZdq{} := 3];
-    aMap := aMap[\PYGZdq{}Their\PYGZdq{} := 10];
-\PYGZcb{}
-\end{sphinxVerbatim}
-
-
-\subsection{Arrays}
-\label{\detokenize{App2-Lang:arrays}}
-Dafny supports arrays. Here’s we’ll see simple 1-d arrays.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-method ArrayPlay()
-\PYGZob{}
-    var a := new int[10]; // in general: a: array\PYGZlt{}T\PYGZgt{} := new T[n];
-    var a\PYGZsq{} := new int[10];   // type inference naturally works here
-    var i1 := a.Length;      // Immutable \PYGZdq{}Length\PYGZdq{} member holds length of array
-    a[3] := 3;           // array update
-    var i2 := a[3];          // array access
-    var seq1 := a[3..8];    // take first 8, drop first 3, return as sequence
-    var b := 3 in seq1;     // true! (see sequence operations)
-    var seq2 := a[..8];     // take first 8, return rest as sequence
-    var seq3 := a[3..];     // drop first 3, return rest as sequence
-    var seq4 := a[..];      // return entire array as a sequence
-\PYGZcb{}
-\end{sphinxVerbatim}
-
-Arrays, objects (class instances), and traits (to be discussed) are of
-“reference” types, which is to say, values of these types are stored
-on the heap. Values of other types, including sets and sequences, are
-of “value types,” which is to say values of these types are stored on
-the stack; and they’re thus always treated as “local” variables. They
-are passed by value, not reference, when passed as arguments to
-functions and methods. Value types include the basic scalar types
-(bool, char, nat, int, real), built-in collection types (set,
-multiset, seq, string, map, imap), tuple, inductive, and co-inductive
-types (to be discussed).  Reference type values are allocated
-dynamically on the heap, are passed by reference, and therefore can be
-“side effected” (mofified) by methods to which they are passed.
-
-
-\section{Statements}
-\label{\detokenize{App2-Lang:statements}}
-
-\subsection{Block}
-\label{\detokenize{App2-Lang:block}}
-In Dafny, you can make one bigger command from a sequence of smaller
-ones by enclosing the sequence in braces. You typically use this only
-for the bodies of loops and the parts of conditionals.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYGZob{}
-    print \PYGZdq{}Block: Command1\PYGZbs{}n\PYGZdq{};
-    print \PYGZdq{}Block: Command2\PYGZbs{}n\PYGZdq{};
-\PYGZcb{}
-\end{sphinxVerbatim}
-
-
-\subsection{Break}
-\label{\detokenize{App2-Lang:break}}
-The break command is for prematurely breaking out of loops.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-var i := 5;
-while (i \PYGZgt{} 0)
-\PYGZob{}
-    if (i == 3)
-    \PYGZob{}
-        break;
-    \PYGZcb{}
-    i := i \PYGZhy{} 1;
-\PYGZcb{}
-print \PYGZdq{}Break: Broke when i was \PYGZdq{}, i, \PYGZdq{}\PYGZbs{}n\PYGZdq{};
-\end{sphinxVerbatim}
-
-
-\subsection{Update (Assignment)}
-\label{\detokenize{App2-Lang:update-assignment}}
-There are several forms of the update command. The first is the usual
-assignment that you see in many languages. The second is “multiple
-assignment”, where you can assign several values to several variables
-at once. The final version is not so familar. It \sphinxstyleemphasis{chooses} a value
-that satisfies some property and assigns it to a variable.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-var x := 3;         // typical assignment
-var y := 4;         // typical assignment
-print \PYGZdq{}Update: before swap, x and y are \PYGZdq{}, x, \PYGZdq{}, \PYGZdq{}, y, \PYGZdq{}\PYGZbs{}n\PYGZdq{};
-x, y := y, x;       // one\PYGZhy{}line swap using multiple assignment
-print \PYGZdq{}Update: after swap, x and y are \PYGZdq{}, x, \PYGZdq{}, \PYGZdq{}, y, \PYGZdq{}\PYGZbs{}n\PYGZdq{};
-var s: set\PYGZlt{}int\PYGZgt{} := \PYGZob{} 1, 2, 3 \PYGZcb{}; // typical: assign set value to s
-var c :\textbar{} c in s;    // update c to a value such that c is in s
-print \PYGZdq{}Update: Dafny chose this value from the set: \PYGZdq{}, c, \PYGZdq{}\PYGZbs{}n\PYGZdq{};
-\end{sphinxVerbatim}
-
-
-\subsection{Var (variable declaration)}
-\label{\detokenize{App2-Lang:var-variable-declaration}}
-A variable declaration stsatement is used to declare one or more local
-variables in a method or function. The type of each local variable
-must be given unless the variable is given an initial value in which
-case the type will be inferred. If initial values are given, the
-number of values must match the number of variables declared. Note
-that the type of each variable must be given individually. This “var
-x, y : int;” does not declare both x and y to be of type int. Rather
-it will give an error explaining that the type of x is underspecified.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-var l: seq\PYGZlt{}int\PYGZgt{} := [1, 2, 3]; // explicit type (sequence of its)
-var l\PYGZsq{}          := [1, 2, 3]; // Dafny infers type from [1, 2, 3]
-\end{sphinxVerbatim}
-
-
-\subsection{If (conditional)}
-\label{\detokenize{App2-Lang:if-conditional}}
-There are several forms of the if statement in Dafny.  The first is
-“if (Boolean) block-statement.” The second is “if (Boolean)
-block-statement else block-statement” A block is a sequence of
-commands enclosed by braces (see above).
-
-In addition, there is a multi-way if statement similar to a case
-statement in C or C++. The conditions for the cases are evaluated in
-an unspecified order. The first to match results in evaluation of the
-corresponding command. If no case matches the overall if command does
-nothing.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-if (0==0) \PYGZob{} print \PYGZdq{}If: zero is zero\PYGZbs{}n\PYGZdq{}; \PYGZcb{}   // if (bool) \PYGZob{}block\PYGZcb{}
-if (0==1)
-    \PYGZob{} print \PYGZdq{}If: oops!\PYGZbs{}n\PYGZdq{}; \PYGZcb{}
-else
-    \PYGZob{} print \PYGZdq{}If: oh good, 0 != 1\PYGZbs{}n\PYGZdq{}; \PYGZcb{}
-
-var q := 1;
-if \PYGZob{}
-    case q == 0 =\PYGZgt{} print \PYGZdq{}Case: q is 0\PYGZbs{}n\PYGZdq{};
-    case q == 1 =\PYGZgt{} print \PYGZdq{}Case: q is 1\PYGZbs{}n\PYGZdq{};
-    case q == 2 =\PYGZgt{} print \PYGZdq{}Case: q is 2\PYGZbs{}n\PYGZdq{};
-\PYGZcb{}
-\end{sphinxVerbatim}
-
-
-\subsection{While (iteration)}
-\label{\detokenize{App2-Lang:while-iteration}}
-While statements come in two forms. The first is a typical Python-like
-statement “while (Boolean) block-command”. The second involves the use
-of a case-like construct instead of a single Boolean expression to
-control the loop. This form is typically used when a loop has to
-either run up or down depending on the initial value of the index. An
-example of the first form is given above, for the BREAK
-statement. Here is an example of the second form.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-var r: int;
-while
-    decreases if 0 \PYGZlt{}= r then r else \PYGZhy{}r;
-\PYGZob{}
-    case r \PYGZlt{} 0 =\PYGZgt{} \PYGZob{} r := r + 1; \PYGZcb{}
-    case 0 \PYGZlt{} r =\PYGZgt{} \PYGZob{} r := r \PYGZhy{} 1; \PYGZcb{}
-\PYGZcb{}
-\end{sphinxVerbatim}
-
-Dafny insists on proving that all while loops and all recursive
-functions actually terminate \textendash{} do not loop forever. Proving such
-properties is (infinitely) hard in general. Dafny often makes good
-guesses as to how to do it, in which case one need do nothing more. In
-many other cases, however, Dafny needs some help. For this, one writes
-“loop specifications.” These include clauses called “decreases”,
-“invariant”, and “modifies”, which are written after the while and
-before the left brace of the loop body. We discuss these separately,
-but in the meantime, here are a few examples.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-// a loop that counts down from 5, terminating when i==0.
-i := 5;                 // already declared as int above
-while 0 \PYGZlt{} i
-    invariant 0 \PYGZlt{}= i    // i always \PYGZgt{}= 0 before and after loop
-    decreases i         // decreasing value of i bounds the loop
-\PYGZob{}
-    i := i \PYGZhy{} 1;
-\PYGZcb{}
-
-// this loop counts *up* from i=0 ending with i==5
-// notice that what decreases is difference between i and n
-var n := 5;
-i := 0;
-while i \PYGZlt{} n
-    invariant 0 \PYGZlt{}= i \PYGZlt{}= n
-    decreases n \PYGZhy{} i
-\PYGZob{}
-    i := i + 1;
-\PYGZcb{}
-\end{sphinxVerbatim}
-
-
-\subsection{Assert (assert a proposition about the state of the program)}
-\label{\detokenize{App2-Lang:assert-assert-a-proposition-about-the-state-of-the-program}}
-Assert statements are used to express logical proposition that are
-expected to be true. Dafny will attempt to prove that the assertion is
-true and give an error if not. Once it has proved the assertion it can
-then use its truth to aid in following deductions. Thus if Dafny is
-having a difficult time verifying a method the user may help by
-inserting assertions that Dafny can prove, and whose true may aid in
-the larger verification effort.  (From reference manual.)
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-assert i == 5;      // true because of preceding loop
-assert !(i == 4);   // similarly true
-// assert i == 4;   // uncomment to see static assertion failure
-\end{sphinxVerbatim}
-
-
-\subsection{Print (produce output on console)}
-\label{\detokenize{App2-Lang:print-produce-output-on-console}}
-From reference manual: The print statement is used to print the values
-of a comma-separated list of expressions to the console.  The
-generated C\# code uses the System.Object.ToString() method to convert
-the values to printable strings. The expressions may of course include
-strings that are used for captions. There is no implicit new line
-added, so to get a new line you should include “n” as part of one of
-the expressions. Dafny automatically creates overrides for the
-ToString() method for Dafny data types.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-print \PYGZdq{}Print: The set is \PYGZdq{}, \PYGZob{} 1, 2, 3\PYGZcb{}, \PYGZdq{}\PYGZbs{}n\PYGZdq{}; // print the set
-\end{sphinxVerbatim}
-
-
-\subsection{Return}
-\label{\detokenize{App2-Lang:return}}
-From the reference manual: A return statement can only be used in a
-method. It terminates the execution of the method. To return a value
-from a method, the value is assigned to one of the named return values
-before a return statement. The return values act very much like local
-variables, and can be assigned to more than once. Return statements
-are used when one wants to return before reaching the end of the body
-block of the method.  Return statements can be just the return keyword
-(where the current value of the out parameters are used), or they can
-take a list of values to return. If a list is given the number of
-values given must be the same as the number of named return values.
-
-To return a value from a method, assign to the return parameter
-and then either use an explicit return statement or just let the
-method complete.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-method ReturnExample() returns (retval: int)
-\PYGZob{}
-    retval := 10;
-    // implicit return here
-\PYGZcb{}
-\end{sphinxVerbatim}
-
-Methods can return multiple values.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-method ReturnExample2() returns (x: int, y:int)
-\PYGZob{}
-    x := 10;
-    y := 20;
-\PYGZcb{}
-\end{sphinxVerbatim}
-
-The return keyword can be used to return immediatey
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-method ReturnExample3() returns (x: int)
-\PYGZob{}
-    x := 5;     // don\PYGZsq{}t \PYGZdq{}var\PYGZdq{} decare return variable
-    return;     // return immediately
-    x := 6;     // never gets executed
-    assert 0 == 1; // can\PYGZsq{}t be reached to never gets checked!
-\PYGZcb{}
-\end{sphinxVerbatim}
-
-
-\section{Expressions}
-\label{\detokenize{App2-Lang:expressions}}
-
-\subsection{Literals Expressions}
-\label{\detokenize{App2-Lang:literals-expressions}}
-A literal expression is a boolean literal (true or false), a null
-object reference (null), an unsigned integer (e.g., 3) or real (e.g.,
-3.0) literal, a character (e.g., ‘a’) or string literal (e.g., “abc”),
-or “this” which denote the current object in the context of an
-instance method or function. We have not yet seen objects or talked
-about instance methods or functions.
-
-
-\subsection{If (Conditional) Expressions}
-\label{\detokenize{App2-Lang:if-conditional-expressions}}
-If expressions first evaluate a Boolean expression and then evaluate
-one of the two following expressions, the first if the Boolean
-expression was true, otherwise the second one.  Notice in this example
-that an IF \sphinxstyleemphasis{expression} is used on the right side of an
-update/assignment statement. There is also an if \sphinxstyleemphasis{statement}.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-var x := 11;
-var h := if x != 0 then (10 / x) else 1;    // if expression
-assert h == 0;
-if (h == 0) \PYGZob{}x := 3; \PYGZcb{} else \PYGZob{} x := 0; \PYGZcb{}     // if statement
-assert x == 3;
-\end{sphinxVerbatim}
-
-
-\subsection{Conjunction and Disjunction Expressions}
-\label{\detokenize{App2-Lang:conjunction-and-disjunction-expressions}}
-Conjunction and disjuction are associative. This means that no matter
-what b1, b2, and b3 are, (b1 \&\& b2) \&\& b3 is equal to (b1 \&\& (b2 \&\&
-b3)), The same property holds for \textbar{}\textbar{}.
-
-These operators are also \sphinxstyleemphasis{short circuiting}. What this means is that
-their second argument is evaluated only if evaluating the first does
-not by itself determine the value of the expression.
-
-Here’s an example where short circuit evaluation matters. It is what
-prevents the evaluation of an undefined expressions after the \&\&
-operator.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-var a: array\PYGZlt{}int\PYGZgt{} := null;
-var b1: bool := (a != null) \PYGZam{}\PYGZam{} (a[0]==1);
-\end{sphinxVerbatim}
-
-Here short circuit evaluation protects against evaluation of a{[}0{]} when
-a is null. Rather than evaluating both expressions, reducing them both
-to Boolean values, and then applying a Boolean \sphinxstyleemphasis{and} function, instead
-the right hand expressions is evaluated “lazily”, i.e., only of the
-one on the left doesn’t by itself determine what the result should
-be. In this case, because the left hand expression is false, the whole
-expression must be false, so the right side not only doesn’t have to
-be evaluated; it also \sphinxstyleemphasis{won’t} be evaluated.
-
-
-\subsection{Sequence, Set, Multiset, and Map Expressions}
-\label{\detokenize{App2-Lang:sequence-set-multiset-and-map-expressions}}
-Values of these types can be written using so-called \sphinxstyleemphasis{display}
-expressions. Sequences are written as lists of values within square
-brackets; sets, within braces; and multisets using “multiset” followed
-by a list of values within braces.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-var aSeq: seq\PYGZlt{}int\PYGZgt{} := [1, 2, 3];
-var aVal := aSeq[1];    // get the value at index 1
-assert aVal == 2;       // don\PYGZsq{}t forget about zero base indexing
-
-var aSet: set\PYGZlt{}int\PYGZgt{} := \PYGZob{} 1, 2, 3\PYGZcb{};   // sets are unordered
-assert \PYGZob{} 1, 2, 3 \PYGZcb{} == \PYGZob{} 3, 1, 2\PYGZcb{};   // set equality ignores order
-assert [ 1, 2, 3 ] != [ 3, 1, 2];   // sequence equality doesn\PYGZsq{}t
-
-var mSet := multiset\PYGZob{}1, 2, 2, 3, 3, 3\PYGZcb{};
-assert (3 in mSet) == true;         // in\PYGZhy{}membership is Boolean
-assert mSet[3] == 3;                // [] counts occurrences
-assert mSet[4] == 0;
-
-var sqr := map [0 := 0, 1 := 1, 2 := 4, 3 := 9, 4 := 16];
-assert \textbar{}sqr\textbar{} == 5;
-assert sqr[2] == 4;
-\end{sphinxVerbatim}
-
-
-\subsection{Relational Expressions}
-\label{\detokenize{App2-Lang:relational-expressions}}
-Relation expressions, such as less than, have a relational operator
-that compares two or more terms and returns a Boolean result. The ==,
-!=, \textless{}, \textgreater{}, \textless{}=, and \textgreater{}= operators are examples. These operators are also
-“chaining”. That means one can write expressions such as 0 \textless{}= x \textless{} n,
-and what this means is 0 \textless{}= x \&\& x \textless{} n.
-
-The in and !in relational operators apply to collection types. They
-compute membership or non-membership respectively.
-
-The !! operator computes disjointness of sets and multisets. Two such
-collections are said to be disjoint if they have no elements in
-common. Here are a few examples of relational expressions involving
-collections (all given within assert statements).
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-assert 3 in \PYGZob{} 1, 2, 3 \PYGZcb{};                            // set member
-assert 4 !in \PYGZob{} 1, 2, 3 \PYGZcb{};                           // non\PYGZhy{}member
-assert \PYGZdq{}foo\PYGZdq{} in [\PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{}, \PYGZdq{}bar\PYGZdq{}];              // seq member
-assert \PYGZdq{}foo\PYGZdq{} in \PYGZob{} \PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{}\PYGZcb{};                    // set member
-assert \PYGZob{} \PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{} \PYGZcb{} !! \PYGZob{} \PYGZdq{}baz\PYGZdq{}, \PYGZdq{}bif\PYGZdq{}\PYGZcb{};         // disjoint
-assert \PYGZob{} \PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{} \PYGZcb{} \PYGZlt{} \PYGZob{} \PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{}, \PYGZdq{}baz\PYGZdq{} \PYGZcb{};  // subset
-assert \PYGZob{} \PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{} \PYGZcb{} == \PYGZob{} \PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{} \PYGZcb{};        // set equals
-\end{sphinxVerbatim}
-
-
-\subsection{Array Allocation Expressions}
-\label{\detokenize{App2-Lang:array-allocation-expressions}}
-Arrays in Dafny are \sphinxstyleemphasis{reference values}. That is, the value
-of an array variable is a \sphinxstyleemphasis{reference} to an address in the
-\sphinxstyleemphasis{heap} part of memory, or it is \sphinxstyleemphasis{null}. To get at the data
-in an array, one \sphinxstyleemphasis{dereferences} the array variable, using
-the \sphinxstyleemphasis{subscripting} operator. The array variable must not be
-null in this case. It must reference a chunk of memory that
-has been allocated for the array values, in the \sphinxstyleemphasis{heap} part
-of memory.
-
-To allocate memory for a new array for n elements of type T one
-uses an expression like this: a: array\textless{}T\textgreater{} := new T{[}n{]}. The type
-of \sphinxstyleemphasis{a} here is “an array of elements of type \sphinxstyleemphasis{T},” and the size
-of the allocated memory chunk is big enough to hold \sphinxstyleemphasis{n} values
-of this type.
-
-Multi-dimensional arrays (matrices) are also supported. The types of
-these arrays are “arrayn\textless{}T\textgreater{}, where “n” is the number of dimensions and
-T is the type of the elements. All elements of an array or matrix must
-be of the same type.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-a := new int[10];       // type of a already declared above
-var m: array2\PYGZlt{}int\PYGZgt{} := new int[10, 10];
-a[0] := 1;              // indexing into 1\PYGZhy{}d array
-m[0,0] := 1;            // indexing into multi\PYGZhy{}dimensional array
-\end{sphinxVerbatim}
-
-
-\subsection{Old Expressions}
-\label{\detokenize{App2-Lang:old-expressions}}
-An old expression is used in postconditions. old(e) evaluates to the
-value expression e had on entry to the current method.  Here’s an
-example showing the use of the old expression.  This method increments
-(adds one {\color{red}\bfseries{}to\_} the first element of an array.  The specification part
-of the method \sphinxstyleemphasis{ensures} that the method body has this effect by
-explaining that the new value of a{[}0{]} must be the original (the “old”)
-value plus one. The \sphinxstyleemphasis{requires} (preconditions) statements are needed
-to ensure that the array is not null and not zero length. The modifies
-command explains that the method body is allowed to change the value
-of a.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-method incr(a: array\PYGZlt{}nat\PYGZgt{}) returns (r: array\PYGZlt{}nat\PYGZgt{})
-requires a != null;
-requires a.Length \PYGZgt{} 0;
-modifies a;
-ensures a[0] == old(a[0]) + 1;
-\PYGZob{}
-    a[0] := a[0] + 1;
-    return a;
-\PYGZcb{}
-\end{sphinxVerbatim}
-
-
-\subsection{Cardinality Expressions}
-\label{\detokenize{App2-Lang:cardinality-expressions}}
-For a collection expression c, {\color{red}\bfseries{}\textbar{}c\textbar{}} is the cardinality of c. For a set
-or sequence the cardinality is the number of elements. For a multiset
-the cardinality is the sum of the multiplicities of the elements. For
-a map the cardinality is the cardinality of the domain of the
-map. Cardinality is not defined for infinite maps.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-var c1 := \textbar{} [1, 2, 3] \textbar{};            // cardinality of sequence
-assert c1 == 3;
-var c2 := \textbar{} \PYGZob{} 1, 2, 3 \PYGZcb{} \textbar{};          // cardinality of a set
-assert c2 == 3;
-var c3 := \textbar{} map[ 0 := 0, 1 := 1, 2 := 4, 3 := 9] \textbar{}; // of a map
-assert c3 == 4;
-assert \textbar{} multiset\PYGZob{} 1, 2, 2, 3, 3, 3, 4, 4, 4, 4 \PYGZcb{} \textbar{} == 10; // multiset
-\end{sphinxVerbatim}
-
-
-\subsection{Let Expressions}
-\label{\detokenize{App2-Lang:let-expressions}}
-A let expression allows binding of intermediate values to identifiers
-for use in an expression. The start of the let expression is signaled
-by the var keyword. They look like local variable declarations except
-the scope of the variable only extends to following
-expression. (Adapted from RefMan.)
-
-Here’s an example (see the following code).
-
-First x+x is computed and bound to sum, the result of the overall
-expression on the right hand side of the update/assignment statement
-is then the value of “sum * sum” given this binding. The binding does
-not persist past the evaluation of the “let” expression.  The
-expression is called a “let” expression because in many other
-languages, you’d use a let keyword to write this: let sum = x + x in
-sum * sum. Dafny just uses a slightly different syntax.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-assert x == 3;               // from code above
-var sumsquared := (var sum := x + x; sum * sum);  // let example
-assert sumsquared == 36;     // because of the let expression
-\end{sphinxVerbatim}
 
 
 \chapter{Indices and tables}

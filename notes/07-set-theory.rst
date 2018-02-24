@@ -1,6 +1,6 @@
-**********
-Set Theory
-**********
+*************
+7. Set Theory
+*************
 
 Modern mathematics is largely founded on set theory: in particular, on
 what is called *Zermelo-Fraenkel set theory with the axiom of Choice*,
@@ -141,8 +141,8 @@ theory, a first-order logic with sets and set-related operations as
 built-in concepts.
 
 
-Notation
-========
+Set Theory Notations
+====================
 
 Display notation
 ----------------
@@ -283,11 +283,16 @@ forming the elements of the new set as tuples, *(s, t)*. This is a far
 easier way to write code for a product set than by explicit iteration
 over the sets *S* and *T*!
 
+In Dafny, the way to extract an element of a tuple, *t*, of arity,
+*n*, is by writing *t.n*, where *n* is a natural number in the range
+*0* up to *n - 1*. So, for example, *(3, 4).1* evaluates to *4*. It's
+not a notation that is common to many programming languages. One can
+think of it as a kind of subscripting, but using a different notation
+than the usual square bracket subscripting used with sequences.
 
 
-
-Operations
-==========
+Set Operations
+==============
 
 Cardinality
 -----------
@@ -452,6 +457,27 @@ hold for sets of every (finite) size. So what we have is an informal
 *proof by induction* of a theorem: :math:`\forall S, |{\mathbb P}(S)|
 = 2^{|S|}`.
 
+In Dafny, there is no explicit powerset operator, one taking a set and
+returning its powerset, but the concept can be expressed in an
+extremely elegant form using a set comprehension notation (in both
+pure mathematics and in Dafny). The solution is to say simple the set
+of all sets that are subsets of a given set, *S*. The follwing three
+line program prints out the powerset of *S = { 1, 2, 3 }*.  The key
+expression is to the right of the assignment operator on the second
+line.
+
+.. code-block:: dafny
+
+   var S := { 1, 2, 3 };
+   var P := set R | R <= S;
+   print P;
+
+Simple exercise: Write a pure function that when given a value of type
+set<T> returns its powerset. The function will have to be polymorphic.
+Call it powerset<T>.
+
+		
+
 Tuples
 ======
 
@@ -543,8 +569,8 @@ now write one yourself (in fact, you've already done this). Here's a
 test case: the number of relations over sets of cardinalities *4* and
 *5* is about a million.
 
-Binary Relations
-================
+Binary Relations and Functions
+==============================
 
 Binary relations are relations over products of *2* sets. The first
 set is called the *domain* of the relation. The second set is called
@@ -565,8 +591,8 @@ The concept of *square roots* of real numbers is also best understood
 as a relation. The tuples are again pairs of real numbers, but now the
 elements include tuples, *(4, 2)* and *(4, -2)*.
 
-Single-Valued
--------------
+Functions are Single-Value Binary Relations
+-------------------------------------------
 
 A binary-relation is said to be *single-valued* if it does not have
 two tuples with the same first element and different second elements.
@@ -586,6 +612,36 @@ single-valued in exactly this sense. By contrast, the square root
 relation is not a function, because for any given non-negative real
 number, there are two associated square roots. The relation is not
 single-valued.
+
+There are several ways to represent functions in Dafny, or in most any
+other modern programming language. In Dafny one can represent a
+function as a pure functional program, one can use a method, but for
+our purposes here, it is the representation of a function from values
+of type *S* to values of type *T* as a *map<S,T>* that is pertinent.
+A map is nothing other than an explicit representation of a function
+as a set of pairs.
+
+Exercise: Write a method (or a function) that when given a map<S,T> as
+an argument returns a set<(T,S)> as a result where the return result
+represents the *inverse* of the map. The inverse of a function is not
+necessarily a function so the inverse of a map cannot be represented
+as a map, in general. Rather, we represent the inverse just as a set
+of *(S,T)* tuples.
+
+Exercise: Write a pure function that when given a set of ordered pairs
+returns true if, viewed as a relation, the set is also a function, and
+that returns false, otherwise.
+
+Exercise: Write a function or method that takes a set of ordered pairs
+with a pre-condition requiring that the set satisfy the predicate from
+the preceding exercise and that then returns a *map* that contains the
+same set of pairs as the given set.
+
+Exercise: Write a function that takes a map as an argument and that
+returns true if the function that it represents is invertible and that
+otherwise returns false. Then write a function that takes a map
+satisfying the precondition that it be invertible and that in this
+case returns its inverse, also as a map.
 
 Total vs Partial
 ----------------
@@ -652,7 +708,7 @@ rigorous argument.)
 Injective
 ---------
 
-A relation (and in particular, a function)is said to be injective if
+A relation (and in particular, a function) is said to be injective if
 no two elements of the domain are associated with the same element in
 the co-domain.
 
@@ -802,43 +858,37 @@ birthday as Mary, then Mary has the same birthday as Joe; and if Tom
 has the same birthday as mary then Joe necessarily also has the same
 birthday as Tom. This relation thus divides the human population into
 366 equivalence classes. Mathematicians usually use the notation *a ~
-b* to denote the concept that *a* is equivalent to *b* (under some
-equivalence relation being considered).
-
-Quantification
-==============
-
-Similarly functions can be represented as sets of ordered pair of
-values (and, as you might guess, ordered pairs can be represented as
-sets).  For example, consider the function, :math:`f(x) = x^2`. It can
-be represented as an infinite set of pairs, including, for example,
-the pairs *(2,4), (3,9),* and *4,16.* 
-
+b* to denote the concept that *a* is equivalent to *b* (under whatever
+equivalence relation is being considered).
 
 Sequences
 =========
 
-Polymorphic finite and infinite set types:
-set<T> and iset<T>. T must support equality.
-Values of these types are immutable.
+A sequence of elements is an ordered collection in which elements can
+appear zero or more times. In both mathematical writing and in Dafny,
+sequences are often denoted as lists of elements enclosed in square
+brackets.  The same kinds of elisions (using elipses) can be used as
+shorthands in quasi-formal mathematical writing as with set notation.
+For example, in Dafny, a sequence *s := [1, 2, 3, 1]* is a sequence of
+integers, of length four, the elements of which can be referred to by
+subscripting. So *s[0]* is *1*, for example, as is *s[3]*.
 
-.. code-block:: dafny
+While at first a sequence might seem like an entirely different kind
+of thing than a set, in reality a sequence of length, *n*, is best
+understood, and is formalized, as a binary relation. The domain of the
+relation is the sequence of natural numbers from *0* to *n-1*.  These
+are the index values. The relation then associates each such index
+value with the value in that position in the sequence. So in reality,
+a sequence is a special case of a binary relation, and a binary
+relation is, as we've seen, just a special case of a set.  So here we
+are, at the end of this chapter, closing the loop with where we
+started. We have seen that the concept of sets really is a fundamental
+concept, and a great deal of other machinery is then built as using
+special cases, including relations, maps, and sequences.
 
-   method SetPlay()
-   {
-       var empty: set<int> := {};
-       var primes := {2, 3, 5, 7, 11};
-       var squares := {1, 4, 9, 16, 25};
-       var b1 := empty < primes;    // strict subset
-       var b2 := primes <= primes;   // subset
-       var b3: bool := primes !! squares; // disjoint
-       var union := primes + squares;
-       var intersection := primes * squares;
-       var difference := primes - {3, 5};
-       var b4 := primes == squares;    // false
-       var i1 := | primes |;   // cardinality (5)
-       var b5 := 4 in primes;  // membership (false)
-       var b6 := 4 !in primes; // non-membership
-   }
-
-
+Tuples, too, are basically maps from indices to values. Whereas all
+the values in a sequence are necessarily of the same type, elements in
+a tuple can be of different types. Tuples also use the *.n* notation
+to apply projection functions to tuples. So, again, the value of, say,
+*("hello", 7).1* is *7* (of type *int*), while the value of
+*("hello", 7).0* is the string, "hello." 
