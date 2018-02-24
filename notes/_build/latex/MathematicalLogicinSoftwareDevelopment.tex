@@ -61,7 +61,7 @@
     
 
 \title{Mathematical Logic in Software Development Documentation}
-\date{Feb 23, 2018}
+\date{Feb 24, 2018}
 \release{1}
 \author{Kevin Sullivan}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -470,7 +470,7 @@ requires that a program work correctly for all (\(\forall\)) inputs?
 
 
 \chapter{3. Problems with Imperative Code}
-\label{\detokenize{03-problems-with-imperative-code::doc}}\label{\detokenize{03-problems-with-imperative-code:problems-with-imperative-code}}
+\label{\detokenize{03-problems-with-imperative-code:problems-with-imperative-code}}\label{\detokenize{03-problems-with-imperative-code::doc}}
 There’s no free lunch: One can have the expressiveness of mathematical
 logic, useful for specification, or one can have the ability to run
 code efficiently, along with indispensable ability to interact with an
@@ -523,7 +523,7 @@ steer a commercial aircraft, etc.
 
 
 \chapter{4. Pure Functional Programming as Runnable Mathematics}
-\label{\detokenize{04-runnable-math:pure-functional-programming-as-runnable-mathematics}}\label{\detokenize{04-runnable-math::doc}}
+\label{\detokenize{04-runnable-math::doc}}\label{\detokenize{04-runnable-math:pure-functional-programming-as-runnable-mathematics}}
 What we’d really like would be a language that gives us everything:
 the expressiveness and the \sphinxstyleemphasis{safety} of mathematical logic (there’s no
 concept of a memory in logic, and thus no possibility for unexpected
@@ -1748,7 +1748,7 @@ task of learning how to program.
 
 
 \chapter{6. Dafny Language: Types, Statements, Expressions}
-\label{\detokenize{06-dafny-language:dafny-language-types-statements-expressions}}\label{\detokenize{06-dafny-language::doc}}
+\label{\detokenize{06-dafny-language::doc}}\label{\detokenize{06-dafny-language:dafny-language-types-statements-expressions}}
 
 \section{Built-In Types}
 \label{\detokenize{06-dafny-language:built-in-types}}
@@ -3059,11 +3059,17 @@ of type \sphinxstyleemphasis{S} to values of type \sphinxstyleemphasis{T} as a \
 A map is nothing other than an explicit representation of a function
 as a set of pairs.
 
+Given a Dafny map object, \sphinxstyleemphasis{m}, of type \sphinxstyleemphasis{map\textless{}S,T\textgreater{}}, one can obtain the
+set of values of type \sphinxstyleemphasis{S} for which the map is defined as \sphinxstyleemphasis{m.Keys().}
+One can obtain the range, i.e., the set of values of type \sphinxstyleemphasis{T} that the
+map maps \sphinxstyleemphasis{to}, as \sphinxstyleemphasis{m.Values().} One can determine whether a given key,
+\sphinxstyleemphasis{s} of type \sphinxstyleemphasis{S} is defined in a map with the expression \sphinxstyleemphasis{s in m}.
+
 Exercise: Write a method (or a function) that when given a map\textless{}S,T\textgreater{} as
 an argument returns a set\textless{}(T,S)\textgreater{} as a result where the return result
 represents the \sphinxstyleemphasis{inverse} of the map. The inverse of a function is not
 necessarily a function so the inverse of a map cannot be represented
-as a map, in general. Rather, we represent the inverse just as a set
+as a map, in general. Rather, we represent the inverse just as a \sphinxstyleemphasis{set}
 of \sphinxstyleemphasis{(S,T)} tuples.
 
 Exercise: Write a pure function that when given a set of ordered pairs
@@ -3330,7 +3336,7 @@ to apply projection functions to tuples. So, again, the value of, say,
 
 
 \chapter{8. Boolean Algebra}
-\label{\detokenize{08-boolean-algebra::doc}}\label{\detokenize{08-boolean-algebra:boolean-algebra}}
+\label{\detokenize{08-boolean-algebra:boolean-algebra}}\label{\detokenize{08-boolean-algebra::doc}}
 As a first stepping stone toward a deeper exploration of deductive
 logic, we explore the related notion of Boolean \sphinxstyleemphasis{algebra}. Boolean
 algebra is a mathematical framework for representing and reasoning
@@ -4465,7 +4471,7 @@ that satisfies the program preconditions into a post-execution state.
 
 
 \chapter{9. Propositional Logic}
-\label{\detokenize{09-propositional-logic::doc}}\label{\detokenize{09-propositional-logic:propositional-logic}}
+\label{\detokenize{09-propositional-logic:propositional-logic}}\label{\detokenize{09-propositional-logic::doc}}
 A logic is a system for writing, evaluating, and reasoning about truth
 statements, or \sphinxstyleemphasis{propositions}. A proposition asserts that some state
 of affairs holds in some domain. Truth statements can be particular:
@@ -4924,7 +4930,7 @@ expressions}.
 
 
 \chapter{Indices and tables}
-\label{\detokenize{index:indices-and-tables}}\begin{itemize}
+\label{\detokenize{index::doc}}\label{\detokenize{index:indices-and-tables}}\begin{itemize}
 \item {} 
 \DUrole{xref,std,std-ref}{genindex}
 

@@ -573,11 +573,16 @@ our purposes here, it is the representation of a function from values
 of type <em>S</em> to values of type <em>T</em> as a <em>map&lt;S,T&gt;</em> that is pertinent.
 A map is nothing other than an explicit representation of a function
 as a set of pairs.</p>
+<p>Given a Dafny map object, <em>m</em>, of type <em>map&lt;S,T&gt;</em>, one can obtain the
+set of values of type <em>S</em> for which the map is defined as <em>m.Keys().</em>
+One can obtain the range, i.e., the set of values of type <em>T</em> that the
+map maps <em>to</em>, as <em>m.Values().</em> One can determine whether a given key,
+<em>s</em> of type <em>S</em> is defined in a map with the expression <em>s in m</em>.</p>
 <p>Exercise: Write a method (or a function) that when given a map&lt;S,T&gt; as
 an argument returns a set&lt;(T,S)&gt; as a result where the return result
 represents the <em>inverse</em> of the map. The inverse of a function is not
 necessarily a function so the inverse of a map cannot be represented
-as a map, in general. Rather, we represent the inverse just as a set
+as a map, in general. Rather, we represent the inverse just as a <em>set</em>
 of <em>(S,T)</em> tuples.</p>
 <p>Exercise: Write a pure function that when given a set of ordered pairs
 returns true if, viewed as a relation, the set is also a function, and

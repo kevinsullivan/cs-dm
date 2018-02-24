@@ -621,11 +621,17 @@ of type *S* to values of type *T* as a *map<S,T>* that is pertinent.
 A map is nothing other than an explicit representation of a function
 as a set of pairs.
 
+Given a Dafny map object, *m*, of type *map<S,T>*, one can obtain the
+set of values of type *S* for which the map is defined as *m.Keys().*
+One can obtain the range, i.e., the set of values of type *T* that the
+map maps *to*, as *m.Values().* One can determine whether a given key,
+*s* of type *S* is defined in a map with the expression *s in m*.
+
 Exercise: Write a method (or a function) that when given a map<S,T> as
 an argument returns a set<(T,S)> as a result where the return result
 represents the *inverse* of the map. The inverse of a function is not
 necessarily a function so the inverse of a map cannot be represented
-as a map, in general. Rather, we represent the inverse just as a set
+as a map, in general. Rather, we represent the inverse just as a *set*
 of *(S,T)* tuples.
 
 Exercise: Write a pure function that when given a set of ordered pairs
