@@ -125,6 +125,11 @@ is relatively easy to mechanize with software. What this means is that
 we can implement systems that can reasoning *meaningfully* based on
 syntactic transformation rules alone.
 
+Note: Modern logic initially developed by Frege as a " formula
+language for pure though,t modeled on that of arithmetic," and later
+elaborated by Russel, Peano, and others as a language in which, in
+turn, to establish completely formal foundations for mathematics.
+
 
 Using Logic in Practice
 =======================

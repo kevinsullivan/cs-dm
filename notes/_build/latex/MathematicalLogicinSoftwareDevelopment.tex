@@ -61,7 +61,7 @@
     
 
 \title{Mathematical Logic in Software Development Documentation}
-\date{Feb 17, 2018}
+\date{Feb 23, 2018}
 \release{1}
 \author{Kevin Sullivan}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -77,7 +77,7 @@
 
 
 \chapter{1. Requirement, Specifications, and Implementations}
-\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}\label{\detokenize{01-reqs-specs-impls::doc}}
+\label{\detokenize{01-reqs-specs-impls::doc}}\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}
 Software is an increasingly critical component of major societal
 systems, from rockets to power grids to healthcare, etc. Failures are
 not always bugs in implementation code. The most critical problems
@@ -523,7 +523,7 @@ steer a commercial aircraft, etc.
 
 
 \chapter{4. Pure Functional Programming as Runnable Mathematics}
-\label{\detokenize{04-runnable-math::doc}}\label{\detokenize{04-runnable-math:pure-functional-programming-as-runnable-mathematics}}
+\label{\detokenize{04-runnable-math:pure-functional-programming-as-runnable-mathematics}}\label{\detokenize{04-runnable-math::doc}}
 What we’d really like would be a language that gives us everything:
 the expressiveness and the \sphinxstyleemphasis{safety} of mathematical logic (there’s no
 concept of a memory in logic, and thus no possibility for unexpected
@@ -844,7 +844,7 @@ are expressed and verified.
 
 
 \chapter{5. Formal Verification of Imperative Programs}
-\label{\detokenize{05-putting-it-together::doc}}\label{\detokenize{05-putting-it-together:formal-verification-of-imperative-programs}}
+\label{\detokenize{05-verifying-logical-specifications::doc}}\label{\detokenize{05-verifying-logical-specifications:formal-verification-of-imperative-programs}}
 In this chapter, we first elaborate on the idea that pure functional
 programming make for mathematically clear but potentially inefficient
 specifications, while imperative code makes for efficient code but is
@@ -856,7 +856,7 @@ speification requires.
 
 
 \section{Performance vs. Undertandability}
-\label{\detokenize{05-putting-it-together:performance-vs-undertandability}}
+\label{\detokenize{05-verifying-logical-specifications:performance-vs-undertandability}}
 To get a clearer sense of the potential differences in performance
 between a pure functional program and an imperative program that
 compute the same function, and tradeoffs one makes between clarity of
@@ -996,7 +996,7 @@ elegant mathematical definition?
 
 
 \section{Specification, Implementation, and Verification}
-\label{\detokenize{05-putting-it-together:specification-implementation-and-verification}}
+\label{\detokenize{05-verifying-logical-specifications:specification-implementation-and-verification}}
 We address such problems by combining a few ideas. First, we use
 logic, including mathematical specifications written in part using
 functional programming, to express \sphinxstyleemphasis{declarative} specifications.  Such
@@ -1042,7 +1042,7 @@ them for us.
 
 
 \section{Declarative Input-Output Specifications}
-\label{\detokenize{05-putting-it-together:declarative-input-output-specifications}}
+\label{\detokenize{05-verifying-logical-specifications:declarative-input-output-specifications}}
 First, we use mathematical logic to \sphinxstyleemphasis{declaratively specify} properties
 of the behaviors that we require of programs written in \sphinxstyleemphasis{imperative}
 languages. For example, we might require that, when given \sphinxstyleemphasis{any}
@@ -1068,7 +1068,7 @@ argument value (a \sphinxstyleemphasis{postcondition}).
 
 
 \subsection{Input-Output Relations}
-\label{\detokenize{05-putting-it-together:input-output-relations}}
+\label{\detokenize{05-verifying-logical-specifications:input-output-relations}}
 In purely mathematical terms, a specification of this kind defines a
 \sphinxstyleemphasis{binary relation} between argument (input) and return (output) values,
 and imposes on the program a requirement that whenever it is given the
@@ -1078,7 +1078,7 @@ specified relation.
 
 
 \subsection{Relations and Functions}
-\label{\detokenize{05-putting-it-together:relations-and-functions}}
+\label{\detokenize{05-verifying-logical-specifications:relations-and-functions}}
 A binary relation in ordinary mathematics is just a set of pairs of
 values. A function is a binary relation with at most one pair with a
 given first value. A function is a \sphinxstyleemphasis{single-valued} relation. What we
@@ -1101,7 +1101,7 @@ have same first element, are in the relation. That is so because both
 
 
 \subsection{Total and Partial Functions}
-\label{\detokenize{05-putting-it-together:total-and-partial-functions}}
+\label{\detokenize{05-verifying-logical-specifications:total-and-partial-functions}}
 We also note that the square root relation \sphinxstyleemphasis{on the real numbers} is
 what we call \sphinxstyleemphasis{partial} rather than total: in that it is not defined
 for some real numbers. In particular, it is not defined for (i.e., it
@@ -1110,7 +1110,7 @@ number.
 
 
 \subsection{Turning Partial Functions into Total Functions}
-\label{\detokenize{05-putting-it-together:turning-partial-functions-into-total-functions}}
+\label{\detokenize{05-verifying-logical-specifications:turning-partial-functions-into-total-functions}}
 Partial functions and non-function relations both present problems for
 programmers. Let’s first consider relations that sometimes have \sphinxstyleemphasis{more}
 than one value of a given type for a given argument. What value should
@@ -1172,7 +1172,7 @@ course.
 
 
 \section{Imperative Implementation}
-\label{\detokenize{05-putting-it-together:imperative-implementation}}
+\label{\detokenize{05-verifying-logical-specifications:imperative-implementation}}
 Having written a formal specification of the required \sphinxstyleemphasis{input-output}
 behavior of a program, we next write imperative code in a manner, and
 in a language, that supports the use of formal logic to \sphinxstyleemphasis{reason} about
@@ -1194,7 +1194,7 @@ of writing specification elements for a program.
 
 
 \section{Formal Verification}
-\label{\detokenize{05-putting-it-together:formal-verification}}
+\label{\detokenize{05-verifying-logical-specifications:formal-verification}}
 The aim of formal verification is to deduce (to use deductive logic to
 \sphinxstyleemphasis{prove}) that, as written, a program satisfies its specification.  In
 more detail, if we’re given a program, \sphinxstyleemphasis{C} with a precondition, \sphinxstyleemphasis{P},
@@ -1235,13 +1235,13 @@ our main concern at the moment.
 
 
 \section{Case Study: The Factorial Function}
-\label{\detokenize{05-putting-it-together:case-study-the-factorial-function}}
+\label{\detokenize{05-verifying-logical-specifications:case-study-the-factorial-function}}
 So far the material in this chapter has been pretty abstract. Now
 we’ll see what it means in practice.
 
 
 \subsection{A Buggy Implementation}
-\label{\detokenize{05-putting-it-together:a-buggy-implementation}}
+\label{\detokenize{05-verifying-logical-specifications:a-buggy-implementation}}
 To start, let’s consider an ordinary imperative program, as you might
 have written in Python or Java, for computing values of the factorial
 function. The name of the function is the only indication here of the
@@ -1279,7 +1279,7 @@ logical error have been detected automatically?
 
 
 \subsection{Specifications Establish Correctness Criteria}
-\label{\detokenize{05-putting-it-together:specifications-establish-correctness-criteria}}
+\label{\detokenize{05-verifying-logical-specifications:specifications-establish-correctness-criteria}}
 A key problem is that the program lacks a precise specification. The
 program does \sphinxstyleemphasis{something}, taking a nat and possibly returning a \sphinxstyleemphasis{nat}
 (unless it goes into an infinite loop) but there’s no way to analyze
@@ -1346,7 +1346,7 @@ of the difficulty lies.
 
 
 \subsection{A Verified Implementation of the Factorial Function}
-\label{\detokenize{05-putting-it-together:a-verified-implementation-of-the-factorial-function}}
+\label{\detokenize{05-verifying-logical-specifications:a-verified-implementation-of-the-factorial-function}}
 Here, then, is a verified imperative program for computing
 factorial. We start by documenting the overall program specification.
 The key element here is the ensures clause. This clause links our
@@ -1547,7 +1547,7 @@ semi-automated reasoning about and verification of real programs.
 
 
 \section{Case Study: The Fibonacci Function}
-\label{\detokenize{05-putting-it-together:case-study-the-fibonacci-function}}
+\label{\detokenize{05-verifying-logical-specifications:case-study-the-fibonacci-function}}
 Similarly, here is a verified imperative implementation of the
 Fibonacci function. We start by adding a specification in the
 form of an ensures clause, appealing to our functional program,
@@ -1710,7 +1710,7 @@ return fib1;
 
 
 \section{What is Dafny, Again?}
-\label{\detokenize{05-putting-it-together:what-is-dafny-again}}
+\label{\detokenize{05-verifying-logical-specifications:what-is-dafny-again}}
 Dafny is a cutting-edge software language and tooset for verification
 of imperative code. It was developed at Microsoft Research—one of
 the top computer science research labs in the world. We are exploring
@@ -1747,710 +1747,8 @@ like little more than abstract nonsense and a distraction from the
 task of learning how to program.
 
 
-\chapter{6. Dafny Language: Types, Statements, Expressions}
-\label{\detokenize{06-dafny-language::doc}}\label{\detokenize{06-dafny-language:dafny-language-types-statements-expressions}}
-
-\section{Built-In Types}
-\label{\detokenize{06-dafny-language:built-in-types}}
-Dafny natively supports a range of abstract data types akin to those
-found in widely used, industrial imperative programming languages and
-systems, such as Python and Java. In this chapter, we introduce and
-briefly illustrate the use of these types. The types we discuss are
-as follow:
-\begin{itemize}
-\item {} 
-bool, supporting Boolean algebra
-
-\item {} 
-int, nat, and real types, supporting \sphinxstyleemphasis{exact} arithmetic (unlike
-the numerical types found in most industrial languages
-
-\item {} 
-char, supporting character types
-
-\item {} 
-set\textless{}T\textgreater{} and iset\textless{}T\textgreater{}, polymorphic set theory for finite and infinite sets
-
-\item {} 
-seq\textless{}T\textgreater{} and iseq\textless{}T\textgreater{}, polymorphic finite and infinite sequences
-
-\item {} 
-string, supporting character sequences (with addtional helpful functions)
-
-\item {} 
-map\textless{}K,V\textgreater{} and imap\textless{}K,V\textgreater{}, polymorphic finite and infinite partial functions
-
-\item {} 
-array\textless{}T\textgreater{}, polymorphic 1- and multi-dimensional arrays
-
-\end{itemize}
-
-
-\subsection{Booleans}
-\label{\detokenize{06-dafny-language:booleans}}
-The bool abstract data type (ADT) in Dafny provides a bool data type
-with values, \sphinxstyleemphasis{true} and \sphinxstyleemphasis{false}, along with the Boolean operators that
-are supported by most programming langauges, along with a few that are
-not commonly supported.
-
-Here’s a method that computes nothing useful and returns no values,
-but that illustrates the range of Boolean operators in Dafny. We also
-use the examples in this chapter to discuss a few other aspects of the
-Dafny language.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-method BoolOps(a: bool) returns (r: bool)  // bool \PYGZhy{}\PYGZgt{} bool
-\PYGZob{}
-    var t: bool := true;    // explicit type declaration
-    var f := false;         // type inferred automatically
-    var not := !t;          // negation
-    var conj := t \PYGZam{}\PYGZam{} f;     // conjunction, short\PYGZhy{}circuit evaluation
-    var disj := t \textbar{}\textbar{} f;     // disjunction, short\PYGZhy{}circuit (sc) evaluation
-    var impl := t ==\PYGZgt{} f;    // implication, right associative, sc from left
-    var foll := t \PYGZlt{}== f;    // follows, left associative, sc from right
-    var equv := t \PYGZlt{}==\PYGZgt{} t;   // iff, bi\PYGZhy{}implication
-    return true;            // returning a Boolean value
- \PYGZcb{}
-\end{sphinxVerbatim}
-
-
-\subsection{Numbers}
-\label{\detokenize{06-dafny-language:numbers}}
-Methods aren’t required to return results. Such methods do their jobs
-by having side effects, e.g., doing output or writing data into global
-variables (usually a bad idea).  Here’s a method that doesn’t return a
-value. It illustrates numerical types, syntax, and operations.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-method NumOps()
-\PYGZob{}
-    var r1: real := 1000000.0;
-    var i1: int := 1000000;
-    var i2: int := 1\PYGZus{}000\PYGZus{}000;   // underscores for readiability
-    var i3 := 1\PYGZus{}000;            // Dafny can often infer types
-    var b1 := (10 \PYGZlt{} 20) \PYGZam{}\PYGZam{} (20 \PYGZlt{}= 30); // a boolean expression
-    var b2 := 10 \PYGZlt{} 20 \PYGZlt{}= 30;    // equivalent, with \PYGZdq{}chaining\PYGZdq{}
-    var i4: int := (5.5).Floor; // 5
-    var i5 := (\PYGZhy{}2.5).Floor;     // \PYGZhy{}3
-    var i6 := \PYGZhy{}2.5.Floor;        // \PYGZhy{}2 = \PYGZhy{}(2.5.Floor); binding!
-\PYGZcb{}
-\end{sphinxVerbatim}
-
-
-\subsection{Characters}
-\label{\detokenize{06-dafny-language:characters}}
-Characters (char) are handled sort of as they are in C, etc.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-method CharFun()
-\PYGZob{}
-    var c1: char := \PYGZsq{}a\PYGZsq{};
-    var c2 := \PYGZsq{}b\PYGZsq{};
-    // var i1 := c2 \PYGZhy{} c1;
-    var i1 := (c2 as int) \PYGZhy{} (c1 as int);    // type conversion
-    var b1 := c1 \PYGZlt{} c2;  // ordering operators defined for char
-    var c3 := \PYGZsq{}\PYGZbs{}n\PYGZsq{};     // c\PYGZhy{}style escape for non\PYGZhy{}printing chars
-    var c4 := \PYGZsq{}\PYGZbs{}u265B\PYGZsq{}; // unicode, hex, \PYGZdq{}chess king\PYGZdq{} character
-\PYGZcb{}
-\end{sphinxVerbatim}
-
-
-\subsection{Sets}
-\label{\detokenize{06-dafny-language:sets}}
-Polymorphic finite and infinite set types:
-set\textless{}T\textgreater{} and iset\textless{}T\textgreater{}. T must support equality.
-Values of these types are immutable.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-method SetPlay()
-\PYGZob{}
-    var empty: set\PYGZlt{}int\PYGZgt{} := \PYGZob{}\PYGZcb{};
-    var primes := \PYGZob{}2, 3, 5, 7, 11\PYGZcb{};
-    var squares := \PYGZob{}1, 4, 9, 16, 25\PYGZcb{};
-    var b1 := empty \PYGZlt{} primes;    // strict subset
-    var b2 := primes \PYGZlt{}= primes;   // subset
-    var b3: bool := primes !! squares; // disjoint
-    var union := primes + squares;
-    var intersection := primes * squares;
-    var difference := primes \PYGZhy{} \PYGZob{}3, 5\PYGZcb{};
-    var b4 := primes == squares;    // false
-    var i1 := \textbar{} primes \textbar{};   // cardinality (5)
-    var b5 := 4 in primes;  // membership (false)
-    var b6 := 4 !in primes; // non\PYGZhy{}membership
-\PYGZcb{}
-\end{sphinxVerbatim}
-
-
-\subsection{Sequences}
-\label{\detokenize{06-dafny-language:sequences}}
-Polymorphic sequences (often called “lists”): seq\textless{}T\textgreater{}. These can be
-understood as functions from indices to values. Some of the operations
-require that T support equality. Values of this type are immutable.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-method SequencePlay()
-\PYGZob{}
-    var empty\PYGZus{}seq: seq\PYGZlt{}char\PYGZgt{} := [];
-    var hi\PYGZus{}seq: seq\PYGZlt{}char\PYGZgt{} := [\PYGZsq{}h\PYGZsq{}, \PYGZsq{}i\PYGZsq{}];
-    var b1 := hi\PYGZus{}seq == empty\PYGZus{}seq; // equality; !=
-    var hchar := hi\PYGZus{}seq[0];        // indexing
-    var b2 := [\PYGZsq{}h\PYGZsq{}] \PYGZlt{} hi\PYGZus{}seq;   // proper prefix
-    var b3 := hi\PYGZus{}seq \PYGZlt{} hi\PYGZus{}seq;  // this is false
-    var b4 := hi\PYGZus{}seq \PYGZlt{}= hi\PYGZus{}seq; // prefix, true
-    var sum := hi\PYGZus{}seq + hi\PYGZus{}seq; // concatenation
-    var len := \textbar{} hi\PYGZus{}seq \textbar{};
-    var Hi\PYGZus{}seq := hi\PYGZus{}seq[0 := \PYGZsq{}H\PYGZsq{}]; // update
-    var b5 := \PYGZsq{}h\PYGZsq{} in hi\PYGZus{}seq; // member, true, !in
-    var s := [0,1,2,3,4,5];
-    var s1 := s[0..2];  // subseqence
-    var s2 := s[1..];   // \PYGZdq{}drop\PYGZdq{} prefix of len 1
-    var s3 := s[..2];   // \PYGZdq{}take\PYGZdq{} prefix of len 2
-    // there\PYGZsq{}s a slice operator, too; later
- \PYGZcb{}
-\end{sphinxVerbatim}
-
-
-\subsection{Strings}
-\label{\detokenize{06-dafny-language:strings}}
-Dafny has strings. Strings are literally just sequences of characters
-(of type seq\textless{}char\textgreater{}), so you can use all the sequence operations on
-strings.  Dafny provides additional helpful syntax for strings.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-method StringPlay()
- \PYGZob{}
-     var s1: string := \PYGZdq{}Hello CS2102!\PYGZdq{};
-     var s2 := \PYGZdq{}Hello CS2102!\PYGZbs{}n\PYGZdq{};   // return
-     var s3 := \PYGZdq{}\PYGZbs{}\PYGZdq{}Hello CS2102!\PYGZbs{}\PYGZdq{}\PYGZdq{}; // quotes
- \PYGZcb{}
-\end{sphinxVerbatim}
-
-
-\subsection{Maps (Partial Functions)}
-\label{\detokenize{06-dafny-language:maps-partial-functions}}
-Dafny also supports polymorphic maps, both finite (map\textless{}K,V\textgreater{}) and
-infinite (imap\textless{}K,V\textgreater{}).  The key type, K, must support equality (==).
-In mathematical terms, a map really represents a binary relation,
-i.e., a set of \textless{}K,V\textgreater{} pairs, which is to say a subset of the product
-set, K * V, where we view the types K and V as defining sets of
-values.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-method MapPlay()
-\PYGZob{}
-    // A map literal is keyword map + a list of maplets.
-    // A maplet is just a single \PYGZlt{}K,V\PYGZgt{} pair (or \PYGZdq{}tuple\PYGZdq{}).
-    // Here\PYGZsq{}s an empty map from strings to ints
-    var emptyMap: map\PYGZlt{}string,int\PYGZgt{} := map[];
-
-    // Here\PYGZsq{}s non empty map from strings to ints
-    // A maplet is \PYGZdq{}k := v,\PYGZdq{} k and v being of types K and V
-    var aMap: map\PYGZlt{}string,int\PYGZgt{}  := map[\PYGZdq{}Hi\PYGZdq{} := 1, \PYGZdq{}There\PYGZdq{} := 2];
-
-    // Map domain (key) membership
-    var isIn: bool := \PYGZdq{}There\PYGZdq{} in aMap; // true
-    var isntIn := \PYGZdq{}Their\PYGZdq{} !in aMap;    // true
-
-    // Finite map cardinality (number of maplets in a map)
-    var card := \textbar{}aMap\textbar{};
-
-    //Map lookup
-    var image1 := aMap[\PYGZdq{}There\PYGZdq{}];
-    // var image2 := aMap[\PYGZdq{}Their\PYGZdq{}]; // error! some kind of magic
-    var image2: int;
-    if (\PYGZdq{}Their\PYGZdq{} in aMap) \PYGZob{} image2 := aMap[\PYGZdq{}Their\PYGZdq{}]; \PYGZcb{}
-
-    // map update, maplet override and maplet addition
-    aMap := aMap[\PYGZdq{}There\PYGZdq{} := 3];
-    aMap := aMap[\PYGZdq{}Their\PYGZdq{} := 10];
-\PYGZcb{}
-\end{sphinxVerbatim}
-
-
-\subsection{Arrays}
-\label{\detokenize{06-dafny-language:arrays}}
-Dafny supports arrays. Here’s we’ll see simple 1-d arrays.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-method ArrayPlay()
-\PYGZob{}
-    var a := new int[10]; // in general: a: array\PYGZlt{}T\PYGZgt{} := new T[n];
-    var a\PYGZsq{} := new int[10];   // type inference naturally works here
-    var i1 := a.Length;      // Immutable \PYGZdq{}Length\PYGZdq{} member holds length of array
-    a[3] := 3;           // array update
-    var i2 := a[3];          // array access
-    var seq1 := a[3..8];    // take first 8, drop first 3, return as sequence
-    var b := 3 in seq1;     // true! (see sequence operations)
-    var seq2 := a[..8];     // take first 8, return rest as sequence
-    var seq3 := a[3..];     // drop first 3, return rest as sequence
-    var seq4 := a[..];      // return entire array as a sequence
-\PYGZcb{}
-\end{sphinxVerbatim}
-
-Arrays, objects (class instances), and traits (to be discussed) are of
-“reference” types, which is to say, values of these types are stored
-on the heap. Values of other types, including sets and sequences, are
-of “value types,” which is to say values of these types are stored on
-the stack; and they’re thus always treated as “local” variables. They
-are passed by value, not reference, when passed as arguments to
-functions and methods. Value types include the basic scalar types
-(bool, char, nat, int, real), built-in collection types (set,
-multiset, seq, string, map, imap), tuple, inductive, and co-inductive
-types (to be discussed).  Reference type values are allocated
-dynamically on the heap, are passed by reference, and therefore can be
-“side effected” (mofified) by methods to which they are passed.
-
-
-\section{Statements}
-\label{\detokenize{06-dafny-language:statements}}
-
-\subsection{Block}
-\label{\detokenize{06-dafny-language:block}}
-In Dafny, you can make one bigger command from a sequence of smaller
-ones by enclosing the sequence in braces. You typically use this only
-for the bodies of loops and the parts of conditionals.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYGZob{}
-    print \PYGZdq{}Block: Command1\PYGZbs{}n\PYGZdq{};
-    print \PYGZdq{}Block: Command2\PYGZbs{}n\PYGZdq{};
-\PYGZcb{}
-\end{sphinxVerbatim}
-
-
-\subsection{Break}
-\label{\detokenize{06-dafny-language:break}}
-The break command is for prematurely breaking out of loops.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-var i := 5;
-while (i \PYGZgt{} 0)
-\PYGZob{}
-    if (i == 3)
-    \PYGZob{}
-        break;
-    \PYGZcb{}
-    i := i \PYGZhy{} 1;
-\PYGZcb{}
-print \PYGZdq{}Break: Broke when i was \PYGZdq{}, i, \PYGZdq{}\PYGZbs{}n\PYGZdq{};
-\end{sphinxVerbatim}
-
-
-\subsection{Update (Assignment)}
-\label{\detokenize{06-dafny-language:update-assignment}}
-There are several forms of the update command. The first is the usual
-assignment that you see in many languages. The second is “multiple
-assignment”, where you can assign several values to several variables
-at once. The final version is not so familar. It \sphinxstyleemphasis{chooses} a value
-that satisfies some property and assigns it to a variable.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-var x := 3;         // typical assignment
-var y := 4;         // typical assignment
-print \PYGZdq{}Update: before swap, x and y are \PYGZdq{}, x, \PYGZdq{}, \PYGZdq{}, y, \PYGZdq{}\PYGZbs{}n\PYGZdq{};
-x, y := y, x;       // one\PYGZhy{}line swap using multiple assignment
-print \PYGZdq{}Update: after swap, x and y are \PYGZdq{}, x, \PYGZdq{}, \PYGZdq{}, y, \PYGZdq{}\PYGZbs{}n\PYGZdq{};
-var s: set\PYGZlt{}int\PYGZgt{} := \PYGZob{} 1, 2, 3 \PYGZcb{}; // typical: assign set value to s
-var c :\textbar{} c in s;    // update c to a value such that c is in s
-print \PYGZdq{}Update: Dafny chose this value from the set: \PYGZdq{}, c, \PYGZdq{}\PYGZbs{}n\PYGZdq{};
-\end{sphinxVerbatim}
-
-
-\subsection{Var (variable declaration)}
-\label{\detokenize{06-dafny-language:var-variable-declaration}}
-A variable declaration stsatement is used to declare one or more local
-variables in a method or function. The type of each local variable
-must be given unless the variable is given an initial value in which
-case the type will be inferred. If initial values are given, the
-number of values must match the number of variables declared. Note
-that the type of each variable must be given individually. This “var
-x, y : int;” does not declare both x and y to be of type int. Rather
-it will give an error explaining that the type of x is underspecified.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-var l: seq\PYGZlt{}int\PYGZgt{} := [1, 2, 3]; // explicit type (sequence of its)
-var l\PYGZsq{}          := [1, 2, 3]; // Dafny infers type from [1, 2, 3]
-\end{sphinxVerbatim}
-
-
-\subsection{If (conditional)}
-\label{\detokenize{06-dafny-language:if-conditional}}
-There are several forms of the if statement in Dafny.  The first is
-“if (Boolean) block-statement.” The second is “if (Boolean)
-block-statement else block-statement” A block is a sequence of
-commands enclosed by braces (see above).
-
-In addition, there is a multi-way if statement similar to a case
-statement in C or C++. The conditions for the cases are evaluated in
-an unspecified order. The first to match results in evaluation of the
-corresponding command. If no case matches the overall if command does
-nothing.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-if (0==0) \PYGZob{} print \PYGZdq{}If: zero is zero\PYGZbs{}n\PYGZdq{}; \PYGZcb{}   // if (bool) \PYGZob{}block\PYGZcb{}
-if (0==1)
-    \PYGZob{} print \PYGZdq{}If: oops!\PYGZbs{}n\PYGZdq{}; \PYGZcb{}
-else
-    \PYGZob{} print \PYGZdq{}If: oh good, 0 != 1\PYGZbs{}n\PYGZdq{}; \PYGZcb{}
-
-var q := 1;
-if \PYGZob{}
-    case q == 0 =\PYGZgt{} print \PYGZdq{}Case: q is 0\PYGZbs{}n\PYGZdq{};
-    case q == 1 =\PYGZgt{} print \PYGZdq{}Case: q is 1\PYGZbs{}n\PYGZdq{};
-    case q == 2 =\PYGZgt{} print \PYGZdq{}Case: q is 2\PYGZbs{}n\PYGZdq{};
-\PYGZcb{}
-\end{sphinxVerbatim}
-
-
-\subsection{While (iteration)}
-\label{\detokenize{06-dafny-language:while-iteration}}
-While statements come in two forms. The first is a typical Python-like
-statement “while (Boolean) block-command”. The second involves the use
-of a case-like construct instead of a single Boolean expression to
-control the loop. This form is typically used when a loop has to
-either run up or down depending on the initial value of the index. An
-example of the first form is given above, for the BREAK
-statement. Here is an example of the second form.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-var r: int;
-while
-    decreases if 0 \PYGZlt{}= r then r else \PYGZhy{}r;
-\PYGZob{}
-    case r \PYGZlt{} 0 =\PYGZgt{} \PYGZob{} r := r + 1; \PYGZcb{}
-    case 0 \PYGZlt{} r =\PYGZgt{} \PYGZob{} r := r \PYGZhy{} 1; \PYGZcb{}
-\PYGZcb{}
-\end{sphinxVerbatim}
-
-Dafny insists on proving that all while loops and all recursive
-functions actually terminate \textendash{} do not loop forever. Proving such
-properties is (infinitely) hard in general. Dafny often makes good
-guesses as to how to do it, in which case one need do nothing more. In
-many other cases, however, Dafny needs some help. For this, one writes
-“loop specifications.” These include clauses called “decreases”,
-“invariant”, and “modifies”, which are written after the while and
-before the left brace of the loop body. We discuss these separately,
-but in the meantime, here are a few examples.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-// a loop that counts down from 5, terminating when i==0.
-i := 5;                 // already declared as int above
-while 0 \PYGZlt{} i
-    invariant 0 \PYGZlt{}= i    // i always \PYGZgt{}= 0 before and after loop
-    decreases i         // decreasing value of i bounds the loop
-\PYGZob{}
-    i := i \PYGZhy{} 1;
-\PYGZcb{}
-
-// this loop counts *up* from i=0 ending with i==5
-// notice that what decreases is difference between i and n
-var n := 5;
-i := 0;
-while i \PYGZlt{} n
-    invariant 0 \PYGZlt{}= i \PYGZlt{}= n
-    decreases n \PYGZhy{} i
-\PYGZob{}
-    i := i + 1;
-\PYGZcb{}
-\end{sphinxVerbatim}
-
-
-\subsection{Assert (assert a proposition about the state of the program)}
-\label{\detokenize{06-dafny-language:assert-assert-a-proposition-about-the-state-of-the-program}}
-Assert statements are used to express logical proposition that are
-expected to be true. Dafny will attempt to prove that the assertion is
-true and give an error if not. Once it has proved the assertion it can
-then use its truth to aid in following deductions. Thus if Dafny is
-having a difficult time verifying a method the user may help by
-inserting assertions that Dafny can prove, and whose true may aid in
-the larger verification effort.  (From reference manual.)
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-assert i == 5;      // true because of preceding loop
-assert !(i == 4);   // similarly true
-// assert i == 4;   // uncomment to see static assertion failure
-\end{sphinxVerbatim}
-
-
-\subsection{Print (produce output on console)}
-\label{\detokenize{06-dafny-language:print-produce-output-on-console}}
-From reference manual: The print statement is used to print the values
-of a comma-separated list of expressions to the console.  The
-generated C\# code uses the System.Object.ToString() method to convert
-the values to printable strings. The expressions may of course include
-strings that are used for captions. There is no implicit new line
-added, so to get a new line you should include “n” as part of one of
-the expressions. Dafny automatically creates overrides for the
-ToString() method for Dafny data types.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-print \PYGZdq{}Print: The set is \PYGZdq{}, \PYGZob{} 1, 2, 3\PYGZcb{}, \PYGZdq{}\PYGZbs{}n\PYGZdq{}; // print the set
-\end{sphinxVerbatim}
-
-
-\subsection{Return}
-\label{\detokenize{06-dafny-language:return}}
-From the reference manual: A return statement can only be used in a
-method. It terminates the execution of the method. To return a value
-from a method, the value is assigned to one of the named return values
-before a return statement. The return values act very much like local
-variables, and can be assigned to more than once. Return statements
-are used when one wants to return before reaching the end of the body
-block of the method.  Return statements can be just the return keyword
-(where the current value of the out parameters are used), or they can
-take a list of values to return. If a list is given the number of
-values given must be the same as the number of named return values.
-
-To return a value from a method, assign to the return parameter
-and then either use an explicit return statement or just let the
-method complete.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-method ReturnExample() returns (retval: int)
-\PYGZob{}
-    retval := 10;
-    // implicit return here
-\PYGZcb{}
-\end{sphinxVerbatim}
-
-Methods can return multiple values.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-method ReturnExample2() returns (x: int, y:int)
-\PYGZob{}
-    x := 10;
-    y := 20;
-\PYGZcb{}
-\end{sphinxVerbatim}
-
-The return keyword can be used to return immediatey
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-method ReturnExample3() returns (x: int)
-\PYGZob{}
-    x := 5;     // don\PYGZsq{}t \PYGZdq{}var\PYGZdq{} decare return variable
-    return;     // return immediately
-    x := 6;     // never gets executed
-    assert 0 == 1; // can\PYGZsq{}t be reached to never gets checked!
-\PYGZcb{}
-\end{sphinxVerbatim}
-
-
-\section{Expressions}
-\label{\detokenize{06-dafny-language:expressions}}
-
-\subsection{Literals Expressions}
-\label{\detokenize{06-dafny-language:literals-expressions}}
-A literal expression is a boolean literal (true or false), a null
-object reference (null), an unsigned integer (e.g., 3) or real (e.g.,
-3.0) literal, a character (e.g., ‘a’) or string literal (e.g., “abc”),
-or “this” which denote the current object in the context of an
-instance method or function. We have not yet seen objects or talked
-about instance methods or functions.
-
-
-\subsection{If (Conditional) Expressions}
-\label{\detokenize{06-dafny-language:if-conditional-expressions}}
-If expressions first evaluate a Boolean expression and then evaluate
-one of the two following expressions, the first if the Boolean
-expression was true, otherwise the second one.  Notice in this example
-that an IF \sphinxstyleemphasis{expression} is used on the right side of an
-update/assignment statement. There is also an if \sphinxstyleemphasis{statement}.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-var x := 11;
-var h := if x != 0 then (10 / x) else 1;    // if expression
-assert h == 0;
-if (h == 0) \PYGZob{}x := 3; \PYGZcb{} else \PYGZob{} x := 0; \PYGZcb{}     // if statement
-assert x == 3;
-\end{sphinxVerbatim}
-
-
-\subsection{Conjunction and Disjunction Expressions}
-\label{\detokenize{06-dafny-language:conjunction-and-disjunction-expressions}}
-Conjunction and disjuction are associative. This means that no matter
-what b1, b2, and b3 are, (b1 \&\& b2) \&\& b3 is equal to (b1 \&\& (b2 \&\&
-b3)), The same property holds for \textbar{}\textbar{}.
-
-These operators are also \sphinxstyleemphasis{short circuiting}. What this means is that
-their second argument is evaluated only if evaluating the first does
-not by itself determine the value of the expression.
-
-Here’s an example where short circuit evaluation matters. It is what
-prevents the evaluation of an undefined expressions after the \&\&
-operator.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-var a: array\PYGZlt{}int\PYGZgt{} := null;
-var b1: bool := (a != null) \PYGZam{}\PYGZam{} (a[0]==1);
-\end{sphinxVerbatim}
-
-Here short circuit evaluation protects against evaluation of a{[}0{]} when
-a is null. Rather than evaluating both expressions, reducing them both
-to Boolean values, and then applying a Boolean \sphinxstyleemphasis{and} function, instead
-the right hand expressions is evaluated “lazily”, i.e., only of the
-one on the left doesn’t by itself determine what the result should
-be. In this case, because the left hand expression is false, the whole
-expression must be false, so the right side not only doesn’t have to
-be evaluated; it also \sphinxstyleemphasis{won’t} be evaluated.
-
-
-\subsection{Sequence, Set, Multiset, and Map Expressions}
-\label{\detokenize{06-dafny-language:sequence-set-multiset-and-map-expressions}}
-Values of these types can be written using so-called \sphinxstyleemphasis{display}
-expressions. Sequences are written as lists of values within square
-brackets; sets, within braces; and multisets using “multiset” followed
-by a list of values within braces.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-var aSeq: seq\PYGZlt{}int\PYGZgt{} := [1, 2, 3];
-var aVal := aSeq[1];    // get the value at index 1
-assert aVal == 2;       // don\PYGZsq{}t forget about zero base indexing
-
-var aSet: set\PYGZlt{}int\PYGZgt{} := \PYGZob{} 1, 2, 3\PYGZcb{};   // sets are unordered
-assert \PYGZob{} 1, 2, 3 \PYGZcb{} == \PYGZob{} 3, 1, 2\PYGZcb{};   // set equality ignores order
-assert [ 1, 2, 3 ] != [ 3, 1, 2];   // sequence equality doesn\PYGZsq{}t
-
-var mSet := multiset\PYGZob{}1, 2, 2, 3, 3, 3\PYGZcb{};
-assert (3 in mSet) == true;         // in\PYGZhy{}membership is Boolean
-assert mSet[3] == 3;                // [] counts occurrences
-assert mSet[4] == 0;
-
-var sqr := map [0 := 0, 1 := 1, 2 := 4, 3 := 9, 4 := 16];
-assert \textbar{}sqr\textbar{} == 5;
-assert sqr[2] == 4;
-\end{sphinxVerbatim}
-
-
-\subsection{Relational Expressions}
-\label{\detokenize{06-dafny-language:relational-expressions}}
-Relation expressions, such as less than, have a relational operator
-that compares two or more terms and returns a Boolean result. The ==,
-!=, \textless{}, \textgreater{}, \textless{}=, and \textgreater{}= operators are examples. These operators are also
-“chaining”. That means one can write expressions such as 0 \textless{}= x \textless{} n,
-and what this means is 0 \textless{}= x \&\& x \textless{} n.
-
-The in and !in relational operators apply to collection types. They
-compute membership or non-membership respectively.
-
-The !! operator computes disjointness of sets and multisets. Two such
-collections are said to be disjoint if they have no elements in
-common. Here are a few examples of relational expressions involving
-collections (all given within assert statements).
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-assert 3 in \PYGZob{} 1, 2, 3 \PYGZcb{};                            // set member
-assert 4 !in \PYGZob{} 1, 2, 3 \PYGZcb{};                           // non\PYGZhy{}member
-assert \PYGZdq{}foo\PYGZdq{} in [\PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{}, \PYGZdq{}bar\PYGZdq{}];              // seq member
-assert \PYGZdq{}foo\PYGZdq{} in \PYGZob{} \PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{}\PYGZcb{};                    // set member
-assert \PYGZob{} \PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{} \PYGZcb{} !! \PYGZob{} \PYGZdq{}baz\PYGZdq{}, \PYGZdq{}bif\PYGZdq{}\PYGZcb{};         // disjoint
-assert \PYGZob{} \PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{} \PYGZcb{} \PYGZlt{} \PYGZob{} \PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{}, \PYGZdq{}baz\PYGZdq{} \PYGZcb{};  // subset
-assert \PYGZob{} \PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{} \PYGZcb{} == \PYGZob{} \PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{} \PYGZcb{};        // set equals
-\end{sphinxVerbatim}
-
-
-\subsection{Array Allocation Expressions}
-\label{\detokenize{06-dafny-language:array-allocation-expressions}}
-Arrays in Dafny are \sphinxstyleemphasis{reference values}. That is, the value
-of an array variable is a \sphinxstyleemphasis{reference} to an address in the
-\sphinxstyleemphasis{heap} part of memory, or it is \sphinxstyleemphasis{null}. To get at the data
-in an array, one \sphinxstyleemphasis{dereferences} the array variable, using
-the \sphinxstyleemphasis{subscripting} operator. The array variable must not be
-null in this case. It must reference a chunk of memory that
-has been allocated for the array values, in the \sphinxstyleemphasis{heap} part
-of memory.
-
-To allocate memory for a new array for n elements of type T one
-uses an expression like this: a: array\textless{}T\textgreater{} := new T{[}n{]}. The type
-of \sphinxstyleemphasis{a} here is “an array of elements of type \sphinxstyleemphasis{T},” and the size
-of the allocated memory chunk is big enough to hold \sphinxstyleemphasis{n} values
-of this type.
-
-Multi-dimensional arrays (matrices) are also supported. The types of
-these arrays are “arrayn\textless{}T\textgreater{}, where “n” is the number of dimensions and
-T is the type of the elements. All elements of an array or matrix must
-be of the same type.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-a := new int[10];       // type of a already declared above
-var m: array2\PYGZlt{}int\PYGZgt{} := new int[10, 10];
-a[0] := 1;              // indexing into 1\PYGZhy{}d array
-m[0,0] := 1;            // indexing into multi\PYGZhy{}dimensional array
-\end{sphinxVerbatim}
-
-
-\subsection{Old Expressions}
-\label{\detokenize{06-dafny-language:old-expressions}}
-An old expression is used in postconditions. old(e) evaluates to the
-value expression e had on entry to the current method.  Here’s an
-example showing the use of the old expression.  This method increments
-(adds one {\color{red}\bfseries{}to\_} the first element of an array.  The specification part
-of the method \sphinxstyleemphasis{ensures} that the method body has this effect by
-explaining that the new value of a{[}0{]} must be the original (the “old”)
-value plus one. The \sphinxstyleemphasis{requires} (preconditions) statements are needed
-to ensure that the array is not null and not zero length. The modifies
-command explains that the method body is allowed to change the value
-of a.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-method incr(a: array\PYGZlt{}nat\PYGZgt{}) returns (r: array\PYGZlt{}nat\PYGZgt{})
-requires a != null;
-requires a.Length \PYGZgt{} 0;
-modifies a;
-ensures a[0] == old(a[0]) + 1;
-\PYGZob{}
-    a[0] := a[0] + 1;
-    return a;
-\PYGZcb{}
-\end{sphinxVerbatim}
-
-
-\subsection{Cardinality Expressions}
-\label{\detokenize{06-dafny-language:cardinality-expressions}}
-For a collection expression c, {\color{red}\bfseries{}\textbar{}c\textbar{}} is the cardinality of c. For a set
-or sequence the cardinality is the number of elements. For a multiset
-the cardinality is the sum of the multiplicities of the elements. For
-a map the cardinality is the cardinality of the domain of the
-map. Cardinality is not defined for infinite maps.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-var c1 := \textbar{} [1, 2, 3] \textbar{};            // cardinality of sequence
-assert c1 == 3;
-var c2 := \textbar{} \PYGZob{} 1, 2, 3 \PYGZcb{} \textbar{};          // cardinality of a set
-assert c2 == 3;
-var c3 := \textbar{} map[ 0 := 0, 1 := 1, 2 := 4, 3 := 9] \textbar{}; // of a map
-assert c3 == 4;
-assert \textbar{} multiset\PYGZob{} 1, 2, 2, 3, 3, 3, 4, 4, 4, 4 \PYGZcb{} \textbar{} == 10; // multiset
-\end{sphinxVerbatim}
-
-
-\subsection{Let Expressions}
-\label{\detokenize{06-dafny-language:let-expressions}}
-A let expression allows binding of intermediate values to identifiers
-for use in an expression. The start of the let expression is signaled
-by the var keyword. They look like local variable declarations except
-the scope of the variable only extends to following
-expression. (Adapted from RefMan.)
-
-Here’s an example (see the following code).
-
-First x+x is computed and bound to sum, the result of the overall
-expression on the right hand side of the update/assignment statement
-is then the value of “sum * sum” given this binding. The binding does
-not persist past the evaluation of the “let” expression.  The
-expression is called a “let” expression because in many other
-languages, you’d use a let keyword to write this: let sum = x + x in
-sum * sum. Dafny just uses a slightly different syntax.
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-assert x == 3;               // from code above
-var sumsquared := (var sum := x + x; sum * sum);  // let example
-assert sumsquared == 36;     // because of the let expression
-\end{sphinxVerbatim}
-
-
 \chapter{7. Boolean Algebra}
-\label{\detokenize{07-boolean-algebra::doc}}\label{\detokenize{07-boolean-algebra:boolean-algebra}}
+\label{\detokenize{06-boolean-algebra::doc}}\label{\detokenize{06-boolean-algebra:boolean-algebra}}
 As a first stepping stone toward a deeper exploration of deductive
 logic, we explore the related notion of Boolean \sphinxstyleemphasis{algebra}. Boolean
 algebra is a mathematical framework for representing and reasoning
@@ -2477,7 +1775,7 @@ given any Boolean expression tells whether it is \sphinxstyleemphasis{true} or \
 
 
 \section{Boolean Algebra in Dafny}
-\label{\detokenize{07-boolean-algebra:boolean-algebra-in-dafny}}
+\label{\detokenize{06-boolean-algebra:boolean-algebra-in-dafny}}
 All general-purpose programming languages support Boolean
 algebra. Dafny does so through its \sphinxstyleemphasis{bool} data type and the
 \sphinxstyleemphasis{operators} associated with it. Having taking a programming course,
@@ -2540,7 +1838,7 @@ it returns false.
 
 
 \section{Boolean Values}
-\label{\detokenize{07-boolean-algebra:boolean-values}}
+\label{\detokenize{06-boolean-algebra:boolean-values}}
 Boolean algebra is an algebra, which is a set of values and of
 operations that take and return these values. The set of values in
 Boolean algebra, is just the set containing \sphinxstyleemphasis{0} and \sphinxstyleemphasis{1}.
@@ -2560,7 +1858,7 @@ by Boolean algebra and how they behave.
 
 
 \section{Boolean Operators}
-\label{\detokenize{07-boolean-algebra:boolean-operators}}
+\label{\detokenize{06-boolean-algebra:boolean-operators}}
 An algebra, again, is a set of values of a particular kind and a set
 of operators involving that kind of value. Having introduced the set
 of two values of the Boolean type, let’s turn to the \sphinxstyleemphasis{operations} of
@@ -2568,7 +1866,7 @@ Boolean algebra.
 
 
 \subsection{Nullary, Unary, Binary, and n-Ary Operators}
-\label{\detokenize{07-boolean-algebra:nullary-unary-binary-and-n-ary-operators}}
+\label{\detokenize{06-boolean-algebra:nullary-unary-binary-and-n-ary-operators}}
 The operations of an algebra take zero or more values and return (or
 reduce to) values of the same kind. Boolean operators, for example,
 take zero or more Boolean values and reduce to Boolean values. An
@@ -2587,7 +1885,7 @@ each of those supported in Dafny.
 
 
 \subsection{The Unary Operators of Boolean Algebra}
-\label{\detokenize{07-boolean-algebra:the-unary-operators-of-boolean-algebra}}
+\label{\detokenize{06-boolean-algebra:the-unary-operators-of-boolean-algebra}}
 While there are two constants in Boolean algebra, each of type \sphinxstyleemphasis{bool},
 there are four unary operators, each of type \(bool \rightarrow
 bool\). This type, which contains an arrow, is a \sphinxstyleemphasis{function} type. It is
@@ -2635,7 +1933,7 @@ how the resulting values are computed.
 
 
 \subsubsection{Constant False}
-\label{\detokenize{07-boolean-algebra:constant-false}}
+\label{\detokenize{06-boolean-algebra:constant-false}}
 Here then is a truth table for what we will call the \sphinxstyleemphasis{constant\_false}
 operator, which takes a Boolean argument, either \sphinxstyleemphasis{true} or \sphinxstyleemphasis{false},
 and always returns \sphinxstyleemphasis{false.} In our truth tables, we use the symbols,
@@ -2670,7 +1968,7 @@ false
 
 
 \subsubsection{Constant True}
-\label{\detokenize{07-boolean-algebra:constant-true}}
+\label{\detokenize{06-boolean-algebra:constant-true}}
 The \sphinxstyleemphasis{constant\_true} operator always returns \sphinxstyleemphasis{true}.
 
 
@@ -2700,7 +1998,7 @@ true
 
 
 \subsubsection{Identity Function(s)}
-\label{\detokenize{07-boolean-algebra:identity-function-s}}
+\label{\detokenize{06-boolean-algebra:identity-function-s}}
 The Boolean \sphinxstyleemphasis{identity} function takes one Boolean value as an argument
 and returns that value, whichever it was.
 
@@ -2740,7 +2038,7 @@ to you now. That is the end of our aside. Now back to Boolean algebra.
 
 
 \subsubsection{Negation}
-\label{\detokenize{07-boolean-algebra:negation}}
+\label{\detokenize{06-boolean-algebra:negation}}
 The Boolean negation, or \sphinxstyleemphasis{not}, operator, is the last of the four
 unary operators on Boolean values. It returns the value that it was
 \sphinxstyleemphasis{not} given as an argument. If given \sphinxstyleemphasis{true}, it evaluates to \sphinxstyleemphasis{false},
@@ -2779,7 +2077,7 @@ true
 
 
 \subsection{Binary Boolean Operators}
-\label{\detokenize{07-boolean-algebra:binary-boolean-operators}}
+\label{\detokenize{06-boolean-algebra:binary-boolean-operators}}
 Now let’s consider the binary operators of Boolean algebra. Each takes
 two Boolean arguments and returns a Boolean value as a result. The
 type of each such function is written \(bool \rightarrow bool
@@ -2812,7 +2110,7 @@ truth tables for each of the binary Boolean operators in Dafny.
 
 
 \subsubsection{And (conjunction)}
-\label{\detokenize{07-boolean-algebra:and-conjunction}}
+\label{\detokenize{06-boolean-algebra:and-conjunction}}
 The \sphinxstyleemphasis{and} operator in Boolean algebra takes two Boolean arguments and
 returns \sphinxstyleemphasis{true} when both arguments are \sphinxstyleemphasis{true}, and otherwise, \sphinxstyleemphasis{false}.
 
@@ -2863,7 +2161,7 @@ false
 
 
 \subsubsection{Nand (not and)}
-\label{\detokenize{07-boolean-algebra:nand-not-and}}
+\label{\detokenize{06-boolean-algebra:nand-not-and}}
 The \sphinxstyleemphasis{nand} operator, short for \sphinxstyleemphasis{not and}, returns the opposite value
 from the \sphinxstyleemphasis{and} operator: \sphinxstyleemphasis{false} if both arguments are \sphinxstyleemphasis{true} and
 \sphinxstyleemphasis{true} otherwise.
@@ -2926,7 +2224,7 @@ Now back to Boolean algebra.
 
 
 \subsubsection{Or (disjunction)}
-\label{\detokenize{07-boolean-algebra:or-disjunction}}
+\label{\detokenize{06-boolean-algebra:or-disjunction}}
 The \sphinxstyleemphasis{or}, or \sphinxstyleemphasis{disjunction}, operator evaluates to \sphinxstyleemphasis{false} only if both
 arguments are \sphinxstyleemphasis{false}, and otherwise to \sphinxstyleemphasis{true}.
 
@@ -2983,7 +2281,7 @@ false
 
 
 \subsubsection{Xor (exclusive or)}
-\label{\detokenize{07-boolean-algebra:xor-exclusive-or}}
+\label{\detokenize{06-boolean-algebra:xor-exclusive-or}}
 What the dad most likely meant by \sphinxstyleemphasis{or} is what in Boolean algebra we
 call \sphinxstyleemphasis{exclusive or}, written as \sphinxstyleemphasis{xor}.  It evalutes to true if either
 one, but \sphinxstyleemphasis{not both}, of its arguments is true, and to false otherwise.
@@ -3035,7 +2333,7 @@ false
 
 
 \subsubsection{Nor (not or)}
-\label{\detokenize{07-boolean-algebra:nor-not-or}}
+\label{\detokenize{06-boolean-algebra:nor-not-or}}
 The \sphinxstyleemphasis{nor} operator returns the negation of what the \sphinxstyleemphasis{or} operator
 applied to the same arguments returns: \sphinxstyleemphasis{xor(b1,b2) = not(or(b1, b2))}.
 As an aside, like \sphinxstyleemphasis{nand}, the \sphinxstyleemphasis{nor} operator is \sphinxstyleemphasis{universal}, in the
@@ -3089,7 +2387,7 @@ true
 
 
 \subsubsection{Implies}
-\label{\detokenize{07-boolean-algebra:implies}}
+\label{\detokenize{06-boolean-algebra:implies}}
 The \sphinxstyleemphasis{implies} operator is used to express the idea that if one
 condition, a premise, is true, another one, the conclusion, must be.
 So this operator returns true when both arguments are true. If the
@@ -3145,7 +2443,7 @@ true
 
 
 \subsubsection{Follows}
-\label{\detokenize{07-boolean-algebra:follows}}
+\label{\detokenize{06-boolean-algebra:follows}}
 The \sphinxstyleemphasis{follows} operator reverses the sense of an implication. Rather
 than being understood to say that truth of the first argument should
 \sphinxstyleemphasis{lead to} the truth of the second, it says that the truth of the first
@@ -3201,7 +2499,7 @@ one rarely sees these names used in practice.
 
 
 \subsection{A Ternary Binary Operator}
-\label{\detokenize{07-boolean-algebra:a-ternary-binary-operator}}
+\label{\detokenize{06-boolean-algebra:a-ternary-binary-operator}}
 We can of course define Boolean operators of any arity. As just one
 example, we introduce a \sphinxstyleemphasis{ternary} (3-ary) Boolean operator. It takes
 three Boolean values as arguments and returns a Boolean result. It’s
@@ -3254,7 +2552,7 @@ operator.
 
 
 \section{Formal Languages: Syntax and Semantics}
-\label{\detokenize{07-boolean-algebra:formal-languages-syntax-and-semantics}}
+\label{\detokenize{06-boolean-algebra:formal-languages-syntax-and-semantics}}
 Any introduction to programming will have made it clear that there is
 an infinite set of Boolean expressions. For example, in Dafny, \sphinxstyleemphasis{true}
 is a Boolean expression; so are \sphinxstyleemphasis{false}, \sphinxstyleemphasis{true \textbar{}\textbar{} false}, \sphinxstyleemphasis{(true \textbar{}\textbar{}
@@ -3288,7 +2586,7 @@ in the language.
 
 
 \section{The Syntax of Boolean Expressions: Inductive Definitions}
-\label{\detokenize{07-boolean-algebra:the-syntax-of-boolean-expressions-inductive-definitions}}
+\label{\detokenize{06-boolean-algebra:the-syntax-of-boolean-expressions-inductive-definitions}}
 As an example of syntax, the \sphinxstyleemphasis{true}, in the statement, \sphinxstyleemphasis{var b :=
 true;} is a valid expression in the language of Boolean expressions,
 as defined by the \sphinxstyleemphasis{syntaxt} of this language. The semantics of the
@@ -3314,7 +2612,7 @@ but also \sphinxstyleemphasis{runnable}. So let’s get started.
 
 
 \subsection{The Syntax and Semantics of \sphinxstyleemphasis{Simplified} Boolean Expression Language}
-\label{\detokenize{07-boolean-algebra:the-syntax-and-semantics-of-simplified-boolean-expression-language}}
+\label{\detokenize{06-boolean-algebra:the-syntax-and-semantics-of-simplified-boolean-expression-language}}
 We start by considering a simplified language of Boolean expressions:
 one with only two literal expressions.  To make it clear that they are
 not Boolean values but expressions, we will call them not \sphinxstyleemphasis{true} and
@@ -3322,7 +2620,7 @@ not Boolean values but expressions, we will call them not \sphinxstyleemphasis{t
 
 
 \subsubsection{Syntax}
-\label{\detokenize{07-boolean-algebra:syntax}}
+\label{\detokenize{06-boolean-algebra:syntax}}
 We can represent the syntax of this language in Dafny using what we
 call an \sphinxstyleemphasis{inductive data type definition.} A data type defines a set of
 values. So what we need to define is a data type whose values are all
@@ -3356,7 +2654,7 @@ Boolean expressions.
 
 
 \subsubsection{Semantics}
-\label{\detokenize{07-boolean-algebra:semantics}}
+\label{\detokenize{06-boolean-algebra:semantics}}
 To give a preview of what is coming, we now specify a semantics for
 this language. Speaking informally, we want to associate, to each of
 the expressions, a correponding meaning in the form of a Boolean
@@ -3407,7 +2705,7 @@ there is to defining a semantics for this simple language.
 
 
 \subsection{The Syntax of a Complete Boolean Expression Language}
-\label{\detokenize{07-boolean-algebra:the-syntax-of-a-complete-boolean-expression-language}}
+\label{\detokenize{06-boolean-algebra:the-syntax-of-a-complete-boolean-expression-language}}
 The real language of Boolean expressions has many more than two valid
 expressions, of course. In Dafny’s Boolean expression sub-language,
 for example, one can write not only the literal expressions, \sphinxstyleemphasis{true}
@@ -3476,7 +2774,7 @@ var R       := bAnd ( P, Q );
 
 
 \section{The Semantics of Boolean Expressions: Recursive Evaluation}
-\label{\detokenize{07-boolean-algebra:the-semantics-of-boolean-expressions-recursive-evaluation}}
+\label{\detokenize{06-boolean-algebra:the-semantics-of-boolean-expressions-recursive-evaluation}}
 The remaining question, then, is how to give meanings to each of the
 expressions in the infinite set of expressions that can be built by
 finite numbers of applications of the constructor of our extended
@@ -3568,7 +2866,7 @@ the intended result, \sphinxstyleemphasis{true}.
 
 
 \section{The Syntax and Semantics of Programming Languages}
-\label{\detokenize{07-boolean-algebra:the-syntax-and-semantics-of-programming-languages}}
+\label{\detokenize{06-boolean-algebra:the-syntax-and-semantics-of-programming-languages}}
 Syntax defines legal expressions. Semantics give each legal expression
 an associated meaning. The meanings of Boolean expressions are Boolean
 values. Using exactly the same ideas used here for Boolean expressions
@@ -3584,26 +2882,969 @@ explains how running the programs transforms any pre-execution state
 that satisfies the program preconditions into a post-execution state.
 
 
+\chapter{Set Theory}
+\label{\detokenize{07-set-theory::doc}}\label{\detokenize{07-set-theory:set-theory}}
+Modern mathematics is largely founded on set theory: in particular, on
+what is called \sphinxstyleemphasis{Zermelo-Fraenkel set theory with the axiom of Choice},
+or \sphinxstyleemphasis{ZFC}. Every concept you have ever learnedseen in mathematics can
+be reduced to expresions involving sets.  For example, every natural
+number can be represented as a set: zero as the \sphinxstyleemphasis{empty set} (\sphinxstyleemphasis{\{\}});
+one as the set containing the empty set (\sphinxstyleemphasis{\{\{\}\}}); two as the set that
+contains that set (\sphinxstyleemphasis{\{\{\{\}\}\}}); ad infinitum.
+
+Set theory includes the treatment of sets and of special cases
+involving relations (sets of tuples), functions (sets of tuples that
+satisfying the constraint of being \sphinxstyleemphasis{single0valued}, sequences (sets
+with an ordering imposed on the elements, which can in turn be viewed
+as a function from natural number indices to set elements) and other
+related concepts.  ZFC is a widely accepted \sphinxstyleemphasis{formal foundation} for
+modern mathematics: a set of axioms that describe properties of sets,
+from which all the rest of mathematics can be deduced.
+
+
+\section{Naive Set Theory}
+\label{\detokenize{07-set-theory:naive-set-theory}}
+So what is a set? A \sphinxstyleemphasis{naive} definition (which will actually be good
+enough for our purposes and for most of practical computer science) is
+that a set is just an unordered collection of elements. In principle,
+these elements are themselves sets, all the way down to empty sets,
+but we don’t need to think in such reductionist terms. We can think
+about a set of natural number elements, for example, without having to
+think of each natural number as itself being some weird kind of set!
+
+In practice, we just think sets as unordered collections of elements
+off some kind, where any given element is either \sphinxstyleemphasis{in} or \sphinxstyleemphasis{not in} any
+given set. Membership is binary.  So, for example, when we combine two
+sets, each containing some common element, the resulting combined set
+will have that element as a member, but it won’t have it twice.
+
+This chapter introduces \sphinxstyleemphasis{naive}, which is to say \sphinxstyleemphasis{intuitive and
+practical}, set theory. It does not cover \sphinxstyleemphasis{axiomatic} set theory, in
+which every concept is ultimately reduced to a set of logical axioms
+that define what precisely it means to be a set and how sets behave.
+
+
+\section{Overly Naive Set Theory}
+\label{\detokenize{07-set-theory:overly-naive-set-theory}}
+Before we go on, however, we review a bit of history to understand
+that an overly naive view of sets can lead to logical contradictions
+that make naive set theory completely useless as a logically sound
+foundation for mathematics.
+
+One of the founders of modern logic, Gotlob Frege, had as his central
+mission to establish foundations of mathematics in symbolic logic.
+The concept of a set was central to his effort. His logic therefore
+allowed one to define sets as collections of elements that satisfy
+given propositions, and to talk about whether a given element is in a
+given set of not. Frege’s notion of sets, in turn, traced back to the
+seminal work of Georg Cantor.
+
+Boom. In 1903, the British analytical philosopher, Bertrand Russell,
+published a paper presenting a paradox in what we now call \sphinxstyleemphasis{naive set
+theory.} Russell showed that a logic based on naive set theory would
+be \sphinxstyleemphasis{inconsistent} (self-contradicting) and thus useless as a logic.
+
+To see the problem, one need only consider the set of all sets that do
+not contain themselves. In mathematical \sphinxstyleemphasis{set comprehension} notation,
+we would write this set, let’s call it \sphinxstyleemphasis{S}, as \(S = \{ a: set |
+a \notin a \}.\) That is, \sphinxstyleemphasis{S} is the set of elements, \sphinxstyleemphasis{a}, each itself
+a set, such that \sphinxstyleemphasis{a} is not in (a member of) itself.
+
+Now ask the decisive question: Does \sphinxstyleemphasis{S} contain itself? Let’s make a
+notation, \sphinxstyleemphasis{C(S)}, to represent the idea that \sphinxstyleemphasis{S} contains itself. Now
+suppose that \sphinxstyleemphasis{C(S)} is true, i.e., that \sphinxstyleemphasis{S} does contain itself. In
+this case, \sphinxstyleemphasis{S}, being a set that contains itself, cannot be a member
+of \sphinxstyleemphasis{S}, because we just defined \sphinxstyleemphasis{S} to be the set of sets that do
+\sphinxstyleemphasis{not} contain themselves. The assumption that \sphinxstyleemphasis{S} containss itself
+leads to the conclusion that \sphinxstyleemphasis{S} does not contain itself. In logical
+terms, \(C(S) \rightarrow \neg C(S).\) This is a contradiction and
+thus a logical impossibility.
+
+Now suppose \sphinxstyleemphasis{S} does not contain itself: \(\neg C(S).\). Being
+such a set, and given that \sphinxstyleemphasis{S} is the set of sets that do not contain
+themselves, it must now be in \sphinxstyleemphasis{S}. So \(\neg C(S) \rightarrow
+C(S).\) The assumption that it does \sphinxstyleemphasis{not} contain itself leads right
+back to the conclusion that it \sphinxstyleemphasis{does} contain itself. Either the set
+does or does not contain itself, but assuming either case leads to a
+contradictory conclusion. All is lost!
+
+That such an internal self-contradiction can arise in such a simple
+way (or at all) is a complete disaster for any logic. The whole point
+of a logic is that it gives one a way to reason that is sound, which
+means that from true premises one can never reach a contradictory
+conclusion. If something that is impossible can be proved to be true
+in a given theory, then anything at all can be proved to be true, and
+the whole notion of truth just collapses into meaninglessness. As soon
+as Frege saw Russell’s Paradox, he knew that that was \sphinxstyleemphasis{game over} for
+his profound attempt to base mathematics on a logic grounded in his
+(Cantor’s) naive notion of sets.
+
+Two solutions were eventually devised. Russell introduced a notion of
+\sphinxstyleemphasis{types}, as opposed to sets, per se, as a foundation for mathematics.
+The basic idea is that one can have elements of a certain \sphinxstyleemphasis{type}; then
+sets of elements of that type, forming a new type; then sets of sets
+elements of that type, forming yet another type; but one cannot even
+talk about a set containing (or not containing) itself, because sets
+can only contain elements of types lower in the type hierarchy.
+
+The concept of types developed by Russell lead indirectly to modern
+type theory, which remains an area of very active exploration in both
+computer science and pure mathematics. Type theory is being explored
+as an alternative foundation for mathematics, and is at the very heart
+of a great deal of work going on in the areas of programming language
+design and formal software specification and verification.
+
+On the other hand, Zermelo repaired the paradox by adjusting some of
+the axioms of set theory, to arrive at the starting point of what has
+become ZFC. When we work in set theory today, whether with a \sphinxstyleemphasis{naive}
+perspective or not, we are usually working in a set theory the logical
+basic of which is ZFC.
+
+
+\section{Sets}
+\label{\detokenize{07-set-theory:sets}}
+For our purposes, the \sphinxstyleemphasis{naive} notion of sets will be good enough. We
+will take a \sphinxstyleemphasis{set} to be an unordered finite or infinite collection of
+\sphinxstyleemphasis{elements}. An element is either \sphinxstyleemphasis{in} or \sphinxstyleemphasis{not in} a set, and can be in
+a set at most once.  In this chapter, we will not encounter any of the
+bizarre issues that Russell and others had to consider at the start of
+the 20th century.
+
+What we will find is that set-theoretical thinking is an incredibly
+powerful intellectual tool. It’s at the heart of program specification
+and verification, algorithm design and analysis, and theory of
+computing, among many other areas in computer science. Moreover, Dafny
+makes set theory not only fun but executable. The logic of Dafny, for
+writing assertions, pre- and post-conditions, and invariants \sphinxstyleemphasis{is} set
+theory, a first-order logic with sets and set-related operations as
+built-in concepts.
+
+
+\section{Notation}
+\label{\detokenize{07-set-theory:notation}}
+
+\subsection{Display notation}
+\label{\detokenize{07-set-theory:display-notation}}
+In everyday mathematical writing, andin Dafny, we denote small sets by
+listing the elements of the set within curly brace. If \sphinxstyleemphasis{S} is the set
+containing the numbers, one, two, and three, for example, we can write
+\sphinxstyleemphasis{S} as \(\{ 1, 2, 3 \}.\)
+
+In Dafny, we would write almost the same thing.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+var S:set\PYGZlt{}int\PYGZgt{} := \PYGZob{} 1, 2, 3 \PYGZcb{}.
+\end{sphinxVerbatim}
+
+This code introduces the variable, \sphinxstyleemphasis{S}, declares that its type is
+\sphinxstyleemphasis{finite set of integer} (\sphinxstyleemphasis{iset\textless{}T\textgreater{}} being the type of \sphinxstyleemphasis{infinite} sets
+of elements of tyep \sphinxstyleemphasis{T}), and assigns to \sphinxstyleemphasis{S} the set value, \(\{
+1, 2, 3 \}.\) Because the value on the right side of the assignment
+operator, is evidently a set of integers, Dafny will infer the type of
+\sphinxstyleemphasis{S}, and the explicit type declaration can therefore be omitted.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+var S := \PYGZob{} 1, 2, 3 \PYGZcb{}.
+\end{sphinxVerbatim}
+
+When a set is finite but too large to write down easily as a list of
+elements, but when it has a regular structure, mathematicians often
+denote such a set using an elipsis. For example, a set, \sphinxstyleemphasis{S}, of even
+natural numbers from zero to one hundred could be written like this:
+\(S = \{ 0, 2, 4, \ldots, 100 \}.\) This expression is a kind of
+quasi-formal mathematics. It’s mostly formal but leaves details that
+an educated person should be able to infer to the human reader.
+
+It is not (currently) possible to write such expressions in Dafny.
+Dafny does not try to fill in missing details in specifications. A
+system that does do such a thing might make a good research project.
+On the other hand, ordinary mathematical writing as well as Dafny do
+have ways to precisely specify sets, including even infinite sets, in
+very concise ways, using what is called \sphinxstyleemphasis{set comprehension} or \sphinxstyleemphasis{set
+builder} notation.
+
+
+\subsection{Set comprehension notation}
+\label{\detokenize{07-set-theory:set-comprehension-notation}}
+Take the example of the set, \sphinxstyleemphasis{S}, of even numbers from zero to one
+hundred, inclusive. We can denote this set precisely in mathematical
+writing as \(S = \{ n: {\mathbb Z} | 0 <= n <= 100 \land n mod 2
+== 0 \}.\) Let’s pull this expression apart.
+
+The expression on the right of the equals sign can be read in three
+parts. The vertical bar is read \sphinxstyleemphasis{such that}. To the left of the bar is
+an expression identifying the set from which the elements of \sphinxstyleemphasis{this}
+set are drawn, and a name is given to an arbitrary element of this
+source set. So here we can say that \sphinxstyleemphasis{S} is a set each element \sphinxstyleemphasis{n} of
+which is a natural number.  A name, here \sphinxstyleemphasis{n}, for an arbitrary element
+is given for two purposes. First it desribes the form of elements in
+the set being built: here just \sphinxstyleemphasis{integers}. Second, the name can then
+be used in writing a condition that must be true of each such element.
+That expression is written to the right of the vertical bar.
+
+Here the condition is that each such element, \sphinxstyleemphasis{n} must be greater than
+or equal to zero, less than or equal to one hundred, and even, in that
+the remainder must be zero when \sphinxstyleemphasis{n} is divided by \sphinxstyleemphasis{2}. The overall set
+comprehension expression is thus read literally as, \sphinxstyleemphasis{S} is the set of
+integers, \sphinxstyleemphasis{n}, such that \sphinxstyleemphasis{n} is greater than or equal to zero, \sphinxstyleemphasis{n} is
+less than or equal to 100, and \sphinxstyleemphasis{n} evenly divisible by \sphinxstyleemphasis{2}. A more
+fluent reading would simply be \sphinxstyleemphasis{S} is the set of even integers between
+zero and one hundred inclusive.
+
+Dafny supports set comprehension notations. This same set would be
+written as follows (we assume that the type of S has already been
+declared to be \sphinxstyleemphasis{set\textless{}int\textgreater{})}:
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+S := set s: int \textbar{} 0 \PYGZlt{}= s \PYGZlt{}= 100;
+\end{sphinxVerbatim}
+
+Another way to define the same set in ordinary mathematical writing
+would use a slightly richer form of set comprehension notation. In
+particular, we can define the same set as the set of values of the
+expression \sphinxstyleemphasis{2*n} for \sphinxstyleemphasis{n} is in the range zero to fifty, inclusive.
+Where it’s readily inferred, mathematicians will usually also leave
+out explicit type information. {\color{red}\bfseries{}{}`}S = \{ 2 * n \textbar{} 0 \textless{}= n \textless{}= 50 \}. In
+this expression it’s inferred that \sphinxstyleemphasis{n} ranges over all the natural
+numbers, these values are \sphinxstyleemphasis{filtered} by the expression on the right,
+and these filtered values are then fed through the expression on the
+left of the bar to produce the elements of the intended set.
+
+Dafny also supports set comprehension notation in this style. To
+define this very same set in Dafny we could also write this:
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+S := set s: int \textbar{} 0 \PYGZlt{}= s \PYGZlt{}= 50 :: 2 * s;
+\end{sphinxVerbatim}
+
+This command assigns to S a set of values, \sphinxstyleemphasis{2 * s},, where \sphinxstyleemphasis{s}
+ranges over the integers and satisfies the predicate (or filter)
+\sphinxstyleemphasis{0 \textless{}= s \textless{}= 50}.
+
+The collection of values from which element are drawn to be
+build into a new set need not just be a built-in type but can
+be another programmer-defined set. Given that \sphinxstyleemphasis{S} is the set
+of even numbers from zero to one hundred, we can define the
+subset of \sphinxstyleemphasis{S} of elements that are less than \sphinxstyleemphasis{25} by writing
+a richer set comprehension. In pure mathematical writing, we
+could write \(T = \{ t | t \in S \land t < 25\}.\) That is,
+\sphinxstyleemphasis{T} is the set of elements that are in \sphinxstyleemphasis{S} and less than \sphinxstyleemphasis{25}.
+The Dafny notation is a little different, but not too much:
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+var T := set t \textbar{} t in S \PYGZam{}\PYGZam{} t \PYGZlt{} 25;
+\end{sphinxVerbatim}
+
+This Dafny code defines \sphinxstyleemphasis{T} to be the set (of integers, but note that
+we let Dafny infer the type of \sphinxstyleemphasis{t} in this case), such that \sphinxstyleemphasis{t} is in
+the set \sphinxstyleemphasis{S} (that we just defined) and \sphinxstyleemphasis{t} is also less than \sphinxstyleemphasis{25}.
+
+As a final example, let’s suppose that we want to define the set of
+all ordered pairs whose first elements are from \sphinxstyleemphasis{S} and whose second
+elements are from \sphinxstyleemphasis{T}, as we’ve defined them here. For example, the
+pair \sphinxstyleemphasis{(76,24)} would be in this set, but not \sphinxstyleemphasis{(24 76)}. In ordinary
+mathematical writing, this would be \(\{ (s,t) | s \in S \land t
+\in T\}.\) This set is, as we’ll learn more about shortly, called the
+\sphinxstyleemphasis{product set} of the sets, \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T}.
+
+In Danfy, this would be written like this:
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+var Q := set s, t \textbar{} s in S \PYGZam{}\PYGZam{} t in T :: (s, t);
+\end{sphinxVerbatim}
+
+This code assigns to the new variable, \sphinxstyleemphasis{Q}, a set formed by taking
+elements, \sphinxstyleemphasis{s} and \sphinxstyleemphasis{t},, such that \sphinxstyleemphasis{s} is in \sphinxstyleemphasis{S} and \sphinxstyleemphasis{t} is in \sphinxstyleemphasis{T}, and
+forming the elements of the new set as tuples, \sphinxstyleemphasis{(s, t)}. This is a far
+easier way to write code for a product set than by explicit iteration
+over the sets \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T}!
+
+
+\section{Operations}
+\label{\detokenize{07-set-theory:operations}}
+
+\subsection{Cardinality}
+\label{\detokenize{07-set-theory:cardinality}}
+By the cardinality of a set, \sphinxstyleemphasis{S}, we mean the number of elements
+in S. When \sphinxstyleemphasis{S} is finite, the cardinality of \sphinxstyleemphasis{S} is a natural number.
+The cardinarily of the empty set is zero, for example, because it has
+no (zero) elements. In ordinary mathematics, if \sphinxstyleemphasis{S} is a finite set,
+then its cardinality is denoted \(|S|\). With \sphinxstyleemphasis{S} defined as in
+the preceding section, the cardinality of \sphinxstyleemphasis{S} is \sphinxstyleemphasis{50}. (There are
+\sphinxstyleemphasis{50} numbers between \sphinxstyleemphasis{0} and \sphinxstyleemphasis{49}, inclusive.)
+
+The Dafny notation for set cardinality is just the same. The following
+code will print the cardinality of \sphinxstyleemphasis{S}, namely \sphinxstyleemphasis{50}, for example.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+print \textbar{}S\textbar{};
+\end{sphinxVerbatim}
+
+If a set is infinite in size, as for example is the set of natural
+numbers, the cardinality of the set is obviously not any natural
+number. One has entered the realm of \sphinxstyleemphasis{transfinite numbers}. We will
+discuss transfinite numbers later in this course. In Dafny, as you
+might expect, the cardinality operator is not defined for infinite
+sets (of type \sphinxstyleemphasis{iset\textless{}T\textgreater{}}).
+
+
+\subsection{Equality}
+\label{\detokenize{07-set-theory:equality}}
+Two sets are considered equal if and only if they contain exactly
+the same elements. To assert that sets \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T} are equal in
+mathematical writing, we would write \sphinxstyleemphasis{S = T}. In Dafny, such an
+assertion would be written, \sphinxstyleemphasis{S == T}.
+
+
+\subsection{Subset}
+\label{\detokenize{07-set-theory:subset}}
+A set, \sphinxstyleemphasis{T}, can be said to be a subset of a set \sphinxstyleemphasis{S} if and only if
+every element in \sphinxstyleemphasis{T} is also in \sphinxstyleemphasis{S}. In this case, mathematicians
+write \(T \subseteq S\). In logical notation, we would write,
+\(T \subseteq S \iff \forall t \in T, t \in S\). That is, \sphinxstyleemphasis{T} is a
+subset of \sphinxstyleemphasis{S} if and only if every element in \sphinxstyleemphasis{T} is also in \sphinxstyleemphasis{S}.
+
+A set \sphinxstyleemphasis{T}, is said to be a \sphinxstyleemphasis{proper} subset of \sphinxstyleemphasis{S}, if \sphinxstyleemphasis{T} is a subset
+of \sphinxstyleemphasis{S} but \sphinxstyleemphasis{T} is not equal to \sphinxstyleemphasis{S}. This is written in mathematics as
+\(T \subset S\). In other words, every element of \sphinxstyleemphasis{T} is in \sphinxstyleemphasis{S} but
+there is at least one element of \sphinxstyleemphasis{S} that is not in \sphinxstyleemphasis{T}.
+
+In our example, \sphinxstyleemphasis{T} (the set of even natural numbers less than \sphinxstyleemphasis{25})
+is a proper subset of \sphinxstyleemphasis{S} (the set of even natural numbers less than
+or equal to \sphinxstyleemphasis{100}).
+
+In Dafny, one uses the usual arithmetic less and and less than or
+equal operator symbols, \sphinxstyleemphasis{\textless{}} and \sphinxstyleemphasis{\textless{}=}, to assert \sphinxstyleemphasis{proper subset} and
+\sphinxstyleemphasis{subset} relationships, respectively. The first two of the following
+assertions are thus both true in Dafny, but the third is not. That
+said, limitations in the Dafny verifier make it hard for Dafny to see
+the truth of such assertions without help. We will not discuss how to
+provide such help at this point.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+assert T \PYGZlt{} S;
+assert T \PYGZlt{}= S;
+assert S \PYGZlt{}= T;
+\end{sphinxVerbatim}
+
+We note every set is a subset, but not a proper subset, of
+itself. It’s also the case that the empty set is a subset of every
+set, in that \sphinxstyleemphasis{all} elements in the empty set are in any other set,
+because there are none. In logic-speak, we’d say \sphinxstyleemphasis{a universally
+quantified proposition over an empty set is trivially true.}
+
+If we reverse the operator, we get the notion of supersets and proper
+supersets. If \sphinxstyleemphasis{T} is a subset of \sphinxstyleemphasis{S}, then \sphinxstyleemphasis{S} is a superset of \sphinxstyleemphasis{T},
+written, \(S \supseteq T\). If \sphinxstyleemphasis{T} is a proper subset of \sphinxstyleemphasis{S} then
+\sphinxstyleemphasis{S} is a proper superset of \sphinxstyleemphasis{T}, written \(S \supset T\). In
+Dafny, the greater than and greater than or equals operator are used
+to denote proper superset and superset relationships between sets.
+So, for example, \sphinxstyleemphasis{S \textgreater{}= T} is the assertion that \sphinxstyleemphasis{S} is a superset of
+\sphinxstyleemphasis{T}. Note that every set is a superset of itself, but never a proper
+superset of itself, and every set is a superset of the empty set.
+
+
+\subsection{Intersection}
+\label{\detokenize{07-set-theory:intersection}}
+The intersection, \(S \cap T\), of two sets, \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T}, is the
+set of elements that are in both \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T}. Mathematically speaking,
+\(S \cap T = \{ e~|~e \in S \land e \in T \}\). In Dafny, the \sphinxstyleemphasis{*}
+operator is used for set intersection.  The intersection of \sphinxstyleemphasis{S} and
+\sphinxstyleemphasis{T} is thus written \sphinxstyleemphasis{S * T}. For example, the command \sphinxstyleemphasis{Q := S * T}
+assigns the intersection of \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T} as the new value of \sphinxstyleemphasis{Q}.
+
+
+\subsection{Union}
+\label{\detokenize{07-set-theory:union}}
+The union, \(S \cup T\), of two sets, \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T}, is the set of
+elements that are in either (including both) \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T}. That is,
+\(S \cup T = \{ e~|~e \in S \lor e \in T \}\). In Dafny, the \sphinxstyleemphasis{+}
+operator is used for set union.  The unionof \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T} is thus
+written \sphinxstyleemphasis{S + T}. For example, the command \sphinxstyleemphasis{V := S + T} assigns the
+union of \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T} as the new value of \sphinxstyleemphasis{V}.
+
+
+\subsection{Difference}
+\label{\detokenize{07-set-theory:difference}}
+The difference, \sphinxstyleemphasis{S\textbackslash{}T} (\sphinxstyleemphasis{S} minus \sphinxstyleemphasis{T}), of sets \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T} is the set
+of elements in \sphinxstyleemphasis{S} that are not also in \sphinxstyleemphasis{T}. Thus, :math:{\color{red}\bfseries{}{}`}S setminus
+T = \{e\textasciitilde{}\textbar{}\textasciitilde{}e in S land e notin T). In Dafny, the minus sign is used
+to denote set difference, as in the expression, \sphinxstyleemphasis{S - T}. Operators in
+Dafny can be applied to sets to make up more complex expressions. So,
+for example, \sphinxstyleemphasis{\textbar{}S-T\textbar{}} denotes the cardinality of \sphinxstyleemphasis{S-T}.
+
+
+\subsection{Product Set}
+\label{\detokenize{07-set-theory:product-set}}
+The product set, \(S \times T\), is the set of all the ordered
+pairs, \sphinxstyleemphasis{(s,t)}, that can be formed by taking one element, \sphinxstyleemphasis{s}, from
+\sphinxstyleemphasis{S}, and one element, \sphinxstyleemphasis{t}, from \sphinxstyleemphasis{T}. That is, \(S \times T = \{
+(s, t) | s \in S \land t \in T \}\). The cardinality of a product set
+is the product of the cardinalities of the individual sets.
+
+There is no product set operator, per se, in Dafny, but given sets,
+\sphinxstyleemphasis{S} and \sphinxstyleemphasis{T} a product set can easily be expressed using Dafny’s set
+comprehension notation: \sphinxstyleemphasis{set s, t: s in S \&\& t in T :: (s,t)}. The
+keyword, \sphinxstyleemphasis{set}, is followed by the names of the variables that will be
+used to form the set comprehension expression, followed by a colon,
+followed by an assertion that selects the values of \sphinxstyleemphasis{s} and \sphinxstyleemphasis{t} that
+will be included in the result, followed by a double colon, and then,
+finally an expression using the local variables that states how each
+value of the resulting set will be formed.
+
+
+\subsection{Power Set}
+\label{\detokenize{07-set-theory:power-set}}
+The power set of a set, \sphinxstyleemphasis{S}, denoted \({\mathbb P}(S),\) is the
+set of all subsets of \sphinxstyleemphasis{S}. If \sphinxstyleemphasis{S = \{1, 2 \}}, for example, the powerset
+of \sphinxstyleemphasis{S} is the set containing the proper and improper subsets of \sphinxstyleemphasis{S},
+namely \sphinxstyleemphasis{\{\}, \{ 1 \}, \{ 2 \},} and \sphinxstyleemphasis{\{ 1, 2\}}.
+
+The powerset of a set with \sphinxstyleemphasis{n} element will have \(2^n\) elements.
+Consider the powerset of the empty set. The only subset of the empty
+set is the empty set itself, so the powerset of the empty set is the
+set containing only the empty set. This set has just \sphinxstyleemphasis{1} element. It’s
+cardinality thus satisfies the rule, as \sphinxstyleemphasis{2} to the power, zero (the
+number of elements in the empty set), is \sphinxstyleemphasis{1}.
+
+Now suppose that for every set, \sphinxstyleemphasis{S}, with cardinality \sphinxstyleemphasis{n}, the
+cardinality of its powerset is \sphinxstyleemphasis{2} to the \sphinxstyleemphasis{n}. Consider a set, \sphinxstyleemphasis{S’},
+of cardinality one bigger than that of \sphinxstyleemphasis{S}. Its powerset contains
+every set in the powerset of \sphinxstyleemphasis{S}, plus every set in that set with the
+new element included, and that’s all the element it includes.
+
+The number of sets in the powerset of \sphinxstyleemphasis{S’} is thus double the number
+of sets in the powerset of \sphinxstyleemphasis{S}. Given that the cardinality of the
+powerset of \sphinxstyleemphasis{S} is \sphinxstyleemphasis{2} to the \sphinxstyleemphasis{n}, the cardinality of \sphinxstyleemphasis{S’}, being
+twice that number, is \sphinxstyleemphasis{2} to the \sphinxstyleemphasis{n + 1}.
+
+Now because the rule holds for sets of size zero, and whenver it holds
+for sets of size \sphinxstyleemphasis{n} it also holds for sets of size \sphinxstyleemphasis{n + 1}, it must
+hold for sets of every (finite) size. So what we have is an informal
+\sphinxstyleemphasis{proof by induction} of a theorem: \(\forall S, |{\mathbb P}(S)|
+= 2^{|S|}\).
+
+
+\section{Tuples}
+\label{\detokenize{07-set-theory:tuples}}
+A tuple is an ordered collection of elements. The number of elements
+in a tuple is called its \sphinxstyleemphasis{arity}. Ordered pairs are of arity, \sphinxstyleemphasis{2}. An
+ordered triple is of arity, \sphinxstyleemphasis{3}. A tuple of arity \sphinxstyleemphasis{2} is called an
+\sphinxstyleemphasis{ordered pair}. A tuple of arity \sphinxstyleemphasis{3} is often called a triple. For a
+larger arity, \sphinxstyleemphasis{n}, a tuple with that arity is called an \sphinxstyleemphasis{n-tuple}.
+The tuple, \sphinxstyleemphasis{(7, X, “house”, square\_func)}, for example, can be said
+to be a \sphinxstyleemphasis{4-tuple}.
+
+The elements of a tuple are in general not of the same type, or drawn
+from the same sets. In the example here, the first element appears to
+be an integer, the second, a variable, the third, a string, and last,
+the name of some function.
+
+Tuples are properly understood as values taken from a set product.  If
+\sphinxstyleemphasis{S} and \sphinxstyleemphasis{T} are our sets of even numbers between zero and one hundred,
+and zero and twenty four, respectively, for example, then the ordered
+pair, \sphinxstyleemphasis{(60,24)} is an element of the product set \(S \times T\).
+
+If one is being careful about types, whether in general mathematical
+discourse or in programming, then the \sphinxstyleemphasis{type} of a tuple is defined as
+the tuple of the types of its elements. In the example here, the type
+of \sphinxstyleemphasis{S} (using Dafny notation) is \sphinxstyleemphasis{set\textless{}int\textgreater{}}, and the type of \sphinxstyleemphasis{T} is
+also \sphinxstyleemphasis{set\textless{}int\textgreater{}}, so the type of elements in \(S \times T\) is the
+type, \sphinxstyleemphasis{(int, int)}. In general the type of a tuple in a set product,
+::\sphinxtitleref{S\_1 times S\_2 times ldots time S\_n}, where the types of these
+sets are \(T_1, \ldots, T_n\) is \((T_1, \ldots, T_n)\).
+
+While all of this might seem a little abstract, it’s actually simple
+and very useful. Any table of data, such as a table with columns that
+hold names, birthdays, and social security numbers, represents data in
+a product set. One set is the set of names, the second set is the set
+of birthdays. The third is the set of social security numbers.  Each
+row in such a table is just a particular tuple in such a set product.
+
+Each row is a tuple. We call each element of a tuple a \sphinxstyleemphasis{field}. An
+\sphinxstyleemphasis{n-tuple} will have \sphinxstyleemphasis{n} fields, which we conventionally refer to by
+indices ranging from \sphinxstyleemphasis{0} to \sphinxstyleemphasis{n-1}.
+
+We are often interested in the value of a particular field of a
+tuple. We can used subscripting as a way to extract the value of a
+particular field from a tuple. We can view such an extraction
+operation as a function from tuple values to field values. We call
+such functions \sphinxstyleemphasis{projection functions}.
+
+An \sphinxstyleemphasis{n-tuple} will have \sphinxstyleemphasis{n} project functions, often denoted using the
+greek letter, \sphinxstyleemphasis{pi}, with a (zero-based) subscript indicating which
+element the project function \sphinxstyleemphasis{projects} out of a given tuple. If for
+example, \sphinxstyleemphasis{t} is the \sphinxstyleemphasis{3-tuple}, \sphinxstyleemphasis{12, 4, 6)}, then \(\pi_1(t) = 4\).
+
+In Dafny, tuples are written as they are in mathematics, as lists of
+field values separated by commas and enclosed in parentheses.  For
+example \sphinxstyleemphasis{t := (1, “hello”, {[}1,2,3{]})” assigns to *t} a \sphinxstyleemphasis{3-tuple} whose
+first field has the value, \sphinxstyleemphasis{1} (of type \sphinxstyleemphasis{int}); whose second field has
+the value, “hello”, a string; and whose third element is the list of
+integers, \sphinxstyleemphasis{{[}2, 4, 6{]}}. Projection in Dafny is accomplished using the
+subscripting operation. So, for example, \sphinxstyleemphasis{t{[}1{]}} in this case has the
+value, \sphinxstyleemphasis{4}.
+
+
+\section{Relations}
+\label{\detokenize{07-set-theory:relations}}
+A relation in nothing but a subset of (the tuples in) a product set. A
+table such as the one described will, in practice, usually not have a
+row with every possible combination of names, birthdays, and SSNs. In
+other words, it won’t contain every tuple in the product of the sets
+from which the values in the respective columns are drawn (the set of
+all names, the set of all birthdays, and the set of all SSNs in this
+case).
+
+In mathematical writing, we will thus often see a sentence of the
+form, Let \(R \subseteq S \times T\) be a relation. All this says
+is that \sphinxstyleemphasis{R} is some subset of the set of all tuples in the product set
+of \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T}. If \sphinxstyleemphasis{S = \{ hot, cold \}} and \sphinxstyleemphasis{T = \{ cat, dog \}}, then
+the product set is \sphinxstyleemphasis{\{ (hot, cat), (hot, dog), (cold, cat), (cold, dog)
+\}}, and a relation on \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T} is any subset of this product set.
+The set, \sphinxstyleemphasis{\{ (hot, cat), (cold, dog) \}} is one such relation.
+
+Here’s an exercise. If \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T} are finite sets, \sphinxstyleemphasis{\textbar{}S\textbar{} = n} and \sphinxstyleemphasis{\textbar{}T\textbar{}
+= m}, how many relations are there over \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T}? First, how many
+tuples are in the product set? Second, how many subsets are there of
+that set? For fun, write a little Dafny program. should take two sets
+of integers as arguments as return the number of relations over them.
+Dafny does not provide a built-in exponentiation funciton, but you can
+now write one yourself (in fact, you’ve already done this). Here’s a
+test case: the number of relations over sets of cardinalities \sphinxstyleemphasis{4} and
+\sphinxstyleemphasis{5} is about a million.
+
+
+\section{Binary Relations}
+\label{\detokenize{07-set-theory:binary-relations}}
+Binary relations are relations over products of \sphinxstyleemphasis{2} sets. The first
+set is called the \sphinxstyleemphasis{domain} of the relation. The second set is called
+the co-domain of the relation. That is, a binary relation is a subset
+of the ordered pairs in a product of the given domain and codomain
+sets.
+
+The everyday functions you have studies in mathematics are binary
+relations, albeit usually infinite ones. For example, the \sphinxstyleemphasis{square}
+function, that associates every real number with its square can be
+understood as the infinite set of ordered pairs of real numbers in
+which the second is the square of the first. Mathematically this is
+:\{ (x, y) \textbar{} y = x\textasciicircum{}2 \}:{\color{red}\bfseries{}{}`}, where we take as implicit that \sphinxstyleemphasis{x} and \sphinxstyleemphasis{y}
+range over the real numbers. Elements of this set include the pairs,
+\sphinxstyleemphasis{(-2, 4)} and \sphinxstyleemphasis{(2, 4)}.
+
+The concept of \sphinxstyleemphasis{square roots} of real numbers is also best understood
+as a relation. The tuples are again pairs of real numbers, but now the
+elements include tuples, \sphinxstyleemphasis{(4, 2)} and \sphinxstyleemphasis{(4, -2)}.
+
+
+\subsection{Single-Valued}
+\label{\detokenize{07-set-theory:single-valued}}
+A binary-relation is said to be \sphinxstyleemphasis{single-valued} if it does not have
+two tuples with the same first element and different second elements.
+A different way to say this is that if \sphinxstyleemphasis{(x, y)} and \sphinxstyleemphasis{(x, z)} are two
+elements in a single-valued binary relation (with the same first
+element, \sphinxstyleemphasis{x}) then it must be that \sphinxstyleemphasis{x} and \sphinxstyleemphasis{y} are the same value, for
+otherwise the relation would not be single-valued. To be more precise,
+then, a relation, \(R \subseteq S \times T\), is single valued if
+\(forall (x, y) \in R, forall (x, z) \in R, y = z\). In logical
+notation, \((x, y) \in R \land (x, z) \in R \rightarrow y = z\).
+
+A single-valued binary relation is also called a \sphinxstyleemphasis{function}. And by a
+\sphinxstyleemphasis{function} in mathematics, we means exactly a single-valued relation.
+The \sphinxstyleemphasis{square} relation is a function, in that for any given number
+there is only one associated square of that number. The relation is
+single-valued in exactly this sense. By contrast, the square root
+relation is not a function, because for any given non-negative real
+number, there are two associated square roots. The relation is not
+single-valued.
+
+
+\subsection{Total vs Partial}
+\label{\detokenize{07-set-theory:total-vs-partial}}
+A binary relation is said to be total if every element of its domain
+appears as the first element in at least one tuple. We say that the
+relation is \sphinxstyleemphasis{defined} for each such element. A relation that is not
+total is said to be partial. And these terms are applied to functions
+as well.
+
+Exercises: Is the function \sphinxstyleemphasis{y = x} on the real numbers total? Is the
+square root function on the domain of the real numbers total? Answer:
+No, because it’s not defined for any real numbers less than zero. Is
+the \sphinxstyleemphasis{log} function defined on the non-negative real numbers? Answer:
+no, because it’t not defined at \sphinxstyleemphasis{x = 0}.  Is the \sphinxstyleemphasis{SSN} function, that
+assigns a U.S. social security number to a person total? No, not every
+person has a social security number.
+
+Implementing partial functions as methods or pure function in software
+presents certain problems. Either a pre-conditions has to be enforced
+to prevent the function of method being called with a value for which
+it’s not define, or the function or method needs to be made total by
+returning some kind of \sphinxstyleemphasis{error} value if it’s called with such a value.
+In this case, callers of the function are obligated always to check
+whether \sphinxstyleemphasis{some} real function value was return or whether \sphinxstyleemphasis{none} was,
+but rather an error flag. The failure of programmers systematically to
+check for such error returns is a ubiquitous source of bugs in real
+software.
+
+By enforcing a requirement that every loop and recursion terminates,
+Dafny demands that every function and method be total in the sense
+that it returns and that it returns some value of the type, if any,
+that it promises to return. When a Dafny total function is used to
+implement a mathematical function that is partial, the problem thus
+arises what to return for inputs not in the domain of the partial
+function being implemented. A little later in the course we will see a
+nice way to handle this issue using what are called \sphinxstyleemphasis{option} types. An
+option type is like a box that contains either a good value or an
+error flag; and to get a good value out of such a box, one must
+explicitly check to see whether the box has a good value in it or,
+alternatively, and error flag.
+
+
+\subsection{Inverse}
+\label{\detokenize{07-set-theory:inverse}}
+The inverse of a given binary relation is simply the set of tuples
+formed by reversing the order of all of the given tuples. To put this
+in mathematical notation, if \sphinxstyleemphasis{R} is a relation, its inverse, denoted
+::\sphinxtitleref{R\textasciicircum{}\{-1\}}, is \(\{ (y, x) | (x, y) \in R \}\). You can see this
+immediately in our example of squares and square roots. One contains
+the tuples, \sphinxstyleemphasis{(-2, 4), (2, 4)}, while the other contains \sphinxstyleemphasis{(4, 2), (4,
+-2)}.
+
+It should immediately be clear that the inverse of a function is not
+always also a function. Indeed, the inverse of the square function is
+the square root relation, but that relation is not itself a function.
+
+A function whose inverse is also a function is said to be invertible.
+The function, \sphinxstyleemphasis{f(x) = x} (or \sphinxstyleemphasis{y = x} if you prefer) is invertible in
+this sense. In fact, its inverse is itself. Is the cube root function
+invertible? (That’s an exercise for the reader. Now prove it with a
+rigorous argument.)
+
+
+\subsection{Injective}
+\label{\detokenize{07-set-theory:injective}}
+A relation (and in particular, a function)is said to be injective if
+no two elements of the domain are associated with the same element in
+the co-domain.
+
+The square function is a function because it is single-valued, but it
+is not injective. To see this, one need only to observe that two
+different values in the domain, \sphinxstyleemphasis{-2} and \sphinxstyleemphasis{2}, have the same squared
+value in the co-domain, namely \sphinxstyleemphasis{4}.
+
+Exercises: Write a precise mathematical definition of what it means
+for a binary relation to be injective.  Is the cube root function
+injective? Is \sphinxstyleemphasis{f(x) = sin(x)} injective?
+
+
+\subsection{Surjective}
+\label{\detokenize{07-set-theory:surjective}}
+A binary relation, and in particular a function, is \sphinxstyleemphasis{surjective} if
+every element in the co-domain appears in some tuple in the relation.
+In other words, the \sphinxstyleemphasis{range} of the relation or function, which one can
+think about as the set of output values, \sphinxstyleemphasis{covers} the co-domain. The
+function, \sphinxstyleemphasis{f(x) = x} (or \sphinxstyleemphasis{y = x} if you prefer), where \sphinxstyleemphasis{x} and \sphinxstyleemphasis{y} are
+real numbers, is surjective, because for every possible value of \sphinxstyleemphasis{y}
+there is some \sphinxstyleemphasis{x} such that \sphinxstyleemphasis{f(x) = y}. By contrast, the function,
+\sphinxstyleemphasis{f(x) = sin(x)}, viewed as a function from the real numbers (on the
+x-axis) to real numbers (on the y-axis) is not surjective, because the
+“output” values of this function are constrained to the range \sphinxstyleemphasis{{[}0,1{]}}.
+
+
+\subsection{Bijective}
+\label{\detokenize{07-set-theory:bijective}}
+A function (already a single-valued relation), is said to be
+\sphinxstyleemphasis{bjective} if it is also both injective and surjective. Such a
+function is also often called a \sphinxstyleemphasis{bijection}. A bijection estabishes a
+one-to-one correspondence between elements of two sets. Each element
+in the domain maps to a different element in the co-domain (injective)
+and every element in the co-domain is mapped to be some element in the
+domain (surjective). Therefore, it is also the case that every element
+in the co-domain can be mapped back to the single element that mapped
+to it. So the inverse of a bijection is also a function and is also a
+bijection. Bijections can only be established between sets of the same
+size.
+
+Exercise: Make a rigorous argument that that last stement is true.
+Try showing that the assumption that you can establish a bijection
+between sets of different sizes leads to some kind of contradiction.
+
+Exercise: How many distinct bijections are there between two sets each
+of cardinality \sphinxstyleemphasis{3}? Generalize: how many bijections are there between
+two sets of cardinality \sphinxstyleemphasis{k}? Hint: Pick a first element in the first
+set. There are \sphinxstyleemphasis{n} ways to map it to some element in the second
+set. For the second element in the first set, there are only \sphinxstyleemphasis{(n-1)}
+ways, as one cannot map it to the element chosen in the first step, as
+that would violate the injectivity property. Continue this line of
+reasoning until you get down to all elements having been mapped.
+
+
+\subsection{Reflexive}
+\label{\detokenize{07-set-theory:reflexive}}
+We now consider properties of certiain special kinds of binary
+relations, starting with relations that maps sets to themselves.  A
+relation that maps real numbers to real numbers is a subset of
+\({\mathbb R} \times {\mathbb R}\), for example. The \sphinxstyleemphasis{friends}
+relation on a social network site associates people with people.
+
+Such a relation is said to be \sphinxstyleemphasis{reflexive} if (perhaps among other
+properties) it (at least) associates every element with itself.  The
+equality relation (e.g., on real numbers) is the “canonical” example
+of a reflexive relation. It associates every number with itself and
+with no other number. The tuples of the equality relation on real
+numbers thus includes \sphinxstyleemphasis{(2.5, 2.5)} and (-3.0, -3.0)* but definitely
+not \sphinxstyleemphasis{(2.5, -3.0)}.
+
+In more mathematical terms, consider a set \sphinxstyleemphasis{S} and a bindary relation,
+\sphinxstyleemphasis{R}, on S*S, :math:R subseteq S times S.{}` \sphinxstyleemphasis{R} is said to be
+reflexive, which we can write as \sphinxstyleemphasis{Reflexive(R)}, iff and only if for
+every \sphinxstyleemphasis{e} in \sphinxstyleemphasis{S}, the tuple \sphinxstyleemphasis{(e,e)} is in R. Or to be rigorous about
+it, \(Reflexive(R) \iff \forall e \in S, (e,e) \in R.\)
+
+Exercise: Is the function, \sphinxstyleemphasis{y = x}, reflexive? If every person loves
+themself, is the \sphinxstyleemphasis{loves} relation reflexive? Is the \sphinxstyleemphasis{less than or
+equals} relation reflexive? Hint: the tuples \sphinxstyleemphasis{(2,3)} and \sphinxstyleemphasis{(3,3)} are
+in this relation becaue \sphinxstyleemphasis{2} is less than or equal to \sphinxstyleemphasis{3}, and so is
+\sphinxstyleemphasis{3}, but \sphinxstyleemphasis{(4,3)} is not in this relation, because \sphinxstyleemphasis{4} isn’t less than
+or equal to \sphinxstyleemphasis{3}. Is the less than relation reflexive?
+
+
+\subsection{Symmetric}
+\label{\detokenize{07-set-theory:symmetric}}
+A binary relation, \sphinxstyleemphasis{R}, on a set \sphinxstyleemphasis{S} is said to be \sphinxstyleemphasis{symmetric} if
+whenever the tuple \sphinxstyleemphasis{(x,y)} is in \sphinxstyleemphasis{R}, the tuple, \sphinxstyleemphasis{(y,x)} is in \sphinxstyleemphasis{R} as
+well. On Facebook, for example, if Joe is “friends” with “Tom” then
+“Tom” is necessarily also friends with “Joe.” The Facebook friends
+relation is thus symmetric in this sense.
+
+More formally, if \sphinxstyleemphasis{R} is a binary relation on a set \sphinxstyleemphasis{S}, i.e., given
+\(R \subseteq S \times S\), then \(Symmetric(R) \iff \forall
+(x,y) \in R, (y,x) \in R\).
+
+Question: is the function \sphinxstyleemphasis{y = x} symmetric? How about the \sphinxstyleemphasis{square}
+function? In an electric circuit, if a conducting wire connects
+terminal \sphinxstyleemphasis{T} to terminal \sphinxstyleemphasis{Q}, it also connects terminal \sphinxstyleemphasis{Q} to
+terminal \sphinxstyleemphasis{T} in the sense that electricity doesn’t care which way it
+flows over the wire. Is the \sphinxstyleemphasis{connects} relation in electronic circuits
+symmetric? If \sphinxstyleemphasis{A} is \sphinxstyleemphasis{near} \sphinxstyleemphasis{B} then \sphinxstyleemphasis{B} is \sphinxstyleemphasis{near} \sphinxstyleemphasis{A}. Is \sphinxstyleemphasis{nearness}
+symmetric? In the real work is the \sphinxstyleemphasis{has-crush-on} relation symmetric?
+
+
+\subsection{Transitive}
+\label{\detokenize{07-set-theory:transitive}}
+Given a binary relation \(R \subseteq S \times S\), \sphinxstyleemphasis{R} is said to
+be transitive if whenever \sphinxstyleemphasis{(x,y)} is in \sphinxstyleemphasis{R} and \sphinxstyleemphasis{(y,z)} is in \sphinxstyleemphasis{R},
+then \sphinxstyleemphasis{(x,z)} is also in \sphinxstyleemphasis{R}. Formally, \(Transitive(R) \iff
+forall (x,y) in R, \forall (y,z) \in R, (x,z) \in R\).
+
+Exercise: Is equality transitive? That is, if \sphinxstyleemphasis{a = b} and \sphinxstyleemphasis{b = c} it
+is also necessarily the case that \sphinxstyleemphasis{a = c}? Answer: Sure, any sensible
+notion of an equality relation has this transitivity property.
+
+Exercise: What about the property of being less than? If \sphinxstyleemphasis{a \textless{} b} and
+\sphinxstyleemphasis{b \textless{} c} is it necessarily the case that \sphinxstyleemphasis{a \textless{} c}? Answer: again,
+yes. The less than, as well as the less than or equal, and greater
+then, and the greater than or equal relations, are all transitive.
+
+How about the \sphinxstyleemphasis{likes} relation amongst real people. If Harry likes
+Sally and Sally likes Bob does Harry necesarily like Bob, too? No, the
+human “likes” relation is definitely not transitive. (And this is the
+cause of many a tragedy.)
+
+
+\subsection{Equivalence}
+\label{\detokenize{07-set-theory:equivalence}}
+Finally (for now), a relation is said to be an \sphinxstyleemphasis{equivalence relation}
+if it is reflexive, transitive, and symmetric. Formally, we can write
+this property as a conjunction of the three individual properties:
+\(Equivalence(R) \iff Symmetric(R) \land Reflexive(R) \land
+Transitive(R)\). Equality is the canonical example of an equivalence
+relation: it is reflexive (\sphinxstyleemphasis{x = x}), symmetric (if \sphinxstyleemphasis{x = y} then \sphinxstyleemphasis{y =
+x}) and transitive (if \sphinxstyleemphasis{x = y} and \sphinxstyleemphasis{y = z} then \sphinxstyleemphasis{x = z}.).
+
+An important property of equivalence relations is that they divide up
+a set into subsets of \sphinxstyleemphasis{equivalent} values. As an example, take the
+equivalence relation on people, \sphinxstyleemphasis{has same birthday as}. Clearly every
+person has the same birthday as him or herself; if Joe has the same
+birthday as Mary, then Mary has the same birthday as Joe; and if Tom
+has the same birthday as mary then Joe necessarily also has the same
+birthday as Tom. This relation thus divides the human population into
+366 equivalence classes. Mathematicians usually use the notation \sphinxstyleemphasis{a \textasciitilde{}
+b} to denote the concept that \sphinxstyleemphasis{a} is equivalent to \sphinxstyleemphasis{b} (under some
+equivalence relation being considered).
+
+
+\section{Quantification}
+\label{\detokenize{07-set-theory:quantification}}
+Similarly functions can be represented as sets of ordered pair of
+values (and, as you might guess, ordered pairs can be represented as
+sets).  For example, consider the function, \(f(x) = x^2\). It can
+be represented as an infinite set of pairs, including, for example,
+the pairs \sphinxstyleemphasis{(2,4), (3,9),} and \sphinxstyleemphasis{4,16.}
+
+
+\section{Sequences}
+\label{\detokenize{07-set-theory:sequences}}
+Polymorphic finite and infinite set types:
+set\textless{}T\textgreater{} and iset\textless{}T\textgreater{}. T must support equality.
+Values of these types are immutable.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method SetPlay()
+\PYGZob{}
+    var empty: set\PYGZlt{}int\PYGZgt{} := \PYGZob{}\PYGZcb{};
+    var primes := \PYGZob{}2, 3, 5, 7, 11\PYGZcb{};
+    var squares := \PYGZob{}1, 4, 9, 16, 25\PYGZcb{};
+    var b1 := empty \PYGZlt{} primes;    // strict subset
+    var b2 := primes \PYGZlt{}= primes;   // subset
+    var b3: bool := primes !! squares; // disjoint
+    var union := primes + squares;
+    var intersection := primes * squares;
+    var difference := primes \PYGZhy{} \PYGZob{}3, 5\PYGZcb{};
+    var b4 := primes == squares;    // false
+    var i1 := \textbar{} primes \textbar{};   // cardinality (5)
+    var b5 := 4 in primes;  // membership (false)
+    var b6 := 4 !in primes; // non\PYGZhy{}membership
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+
 \chapter{8. Propositional Logic}
-\label{\detokenize{08-propositional-logic:propositional-logic}}\label{\detokenize{08-propositional-logic::doc}}
-A mathematical logic is defined by (1) a \sphinxstyleemphasis{syntax} that specifies the
-set (usually infinite) of \sphinxstyleemphasis{well formed expressions} in the language
-(also called \sphinxstyleemphasis{well formed formulae}, or \sphinxstyleemphasis{wffs}), and (2) a \sphinxstyleemphasis{semantics}
-by which one can evaluate \sphinxstyleemphasis{truth value} of any such expression.
+\label{\detokenize{08-propositional-logic::doc}}\label{\detokenize{08-propositional-logic:propositional-logic}}
+A logic is a system for writing, evaluating, and reasoning about truth
+statements, or \sphinxstyleemphasis{propositions}. A proposition asserts that some state
+of affairs holds in some domain. Truth statements can be particular:
+e.g., Tom’s mom is Mary; or general: e.g., Every person has a mother.
 
-Each sentence in a logical language is intended to represent a \sphinxstyleemphasis{truth
-claim}: an assertion, about the prevailing \sphinxstyleemphasis{state of affairs} in some
-\sphinxstyleemphasis{domain of discourse} that is either true or false. Dafny \sphinxstyleemphasis{assertions}
-are logical expressions in this sense: they assert that the state of a
-program at a specific point in its execution has certain properties
-(e.g., that the value of a loop index is greater than zero) , or that
-a specific relationship always holds between the state of the program
-before and after some code is run (e.g., pre- and post-conditions and
-loop invariants).
+In Dafny, a logical language is used to express states of affairs in a
+program that are either required or asserted to hold. An example is
+aproposition that some variable has a value that is greater than \sphinxstyleemphasis{0}.
+When used for program specification and verification, propositions are
+taken as descriptions of states of affairs that are required to hold.
 
+It is then the responsibility of the programmer or programming system
+to ensure that such states of affairs do hold. The failure to prove
+the truth of given propositions in this context leaves possibilities
+open that programs fail to satisfy their specifications.
+
+Dafny is a programming system with a reasonably expressive logic based
+on what is called \sphinxstyleemphasis{first-order set theory}, with automated and often
+reasonably efficient tools for enforcing the truth of propositions
+aboutprograms. Ideally programmers change their programs until they
+satisfy propositions used to specify pre-conditions, post-conditions,
+assertions, and invariants.
+
+In practice, programmers sometimes compromise their work in favor of
+pragmatism by weaking specifications until satisfaction can be proved.
+But this approach casts the validity of the specifications themselves
+into question. A program might satisfy a weakened specification, but
+that might no longer guarantee that it will satisfy the requirements
+for the system.
+
+Of course logic has far broader applications in computer science than
+just in program specification and verification. It is also central to
+many artificial intelligence (AI) systems, optimization systems (e.g.,
+for finding good travel routes), in the development and analysis of
+algorithms, in verification of the functionality of hardware circuits
+in digital logic design, and in many other fields.
+
+Up until now in this course, you have seen one compelling application
+of formal, mechanized logic in programming, namely for specification
+and verification. Having shown one compelling \sphinxstyleemphasis{use case} for logic in
+practical computing, we now start a \sphinxstyleemphasis{deeper dive} to understand logic
+and formal reasoning more generally.
+
+In this chapter and the next, we explore a simple, useful logic called
+\sphinxstyleemphasis{propositional logic}. This is a logic in which the basic elements are
+\sphinxstyleemphasis{atomic propositions}\textendash{}that can be broken down no further\textendash{} that can
+be taken to be either true or false, and in which propositions can be
+composed into larger propositions using logical \sphinxstyleemphasis{connectives}, such as
+\sphinxstyleemphasis{and, or, not,} and \sphinxstyleemphasis{implies}.
+
+For example, atomic propositions might be (1) \sphinxstyleemphasis{it is raining}, (2)
+\sphinxstyleemphasis{the streets are wet}. If one considers all possible worlds, then in
+some of them, each proposition is sometimes true and sometimes false.
+A larger proposition, a \sphinxstyleemphasis{formula}, can be formed by combining these
+(basic) propositions into a larger one: \sphinxstyleemphasis{it is raining} \sphinxstylestrong{implies}
+\sphinxstyleemphasis{the streets are wet}. Another way to say this in English would be,
+\sphinxstyleemphasis{whever it is raining, the streets are wet.} This larger proposition
+is true in some but not all possible worlds. If it’s not raining, the
+proposition correctly describes the world whether the streets are wet
+or not, and so is judged to be true. If it is raining and the streets
+are wet, it also correctly describes the world, and so is judged to be
+world is consistent with the proposition whether the streets are wet
+or not. Only in a world in which it is raining and the streets are dry
+does the proposition fail to correctly describe the state of affairs,
+and so in this world, it’s judged to be false.
+
+
+\section{The Elements of a Logic}
+\label{\detokenize{08-propositional-logic:the-elements-of-a-logic}}
+There are many forms of logic, but they all share three basic
+elements.  First, a logic provides a \sphinxstyleemphasis{formal language} in which
+propositions (truth statements) about states of affairs can be
+expressed with mathematical precision. The set of valid expressions in
+such a language is defined by a \sphinxstyleemphasis{grammar} that expresses the \sphinxstyleemphasis{syntax}
+of the language.
+
+Second, a logic defines a of what is required for a proposition to be
+judged true. This definition constitutes what we call the \sphinxstyleemphasis{semantics}
+of the language. The semantics of a logic given \sphinxstyleemphasis{meaning} to what are
+otherwise abstract mathematical expressions; and do so in particular
+by explaining when a given proposition is true or not true.
+
+Finally, a logic provides a set of \sphinxstyleemphasis{inference rules} for deriving new
+propositions (conclusions) from given propositions (premises) in ways
+that guarantee that if the premises are true, the conclusions will be,
+too. The crucial characteristic of inference rules is that although
+they are guarantee to \sphinxstyleemphasis{preserve meaning} (in the form of truthfulness
+of propositions), they work entirely at the level of syntax.
+
+Each such rule basically says, “if you have a set of premises with
+certain syntactic structures, then you can combine them in ways to
+derive new propositions with absolute certainty that, if the premises
+are true, the conclusion will be, too.  Inference rules are thus rules
+for transforming \sphinxstyleemphasis{syntax} in ways that are \sphinxstyleemphasis{semantically sound}. They
+allow one to derive \sphinxstyleemphasis{meaningful} new conclusions without ever having
+to think about meaning at all.
+
+These ideas bring us to the concept of \sphinxstyleemphasis{proofs} in deductive logic. If
+one is given a proposition that is not yet known to be true or not,
+and a set of premises known or assumed to be true, a proof is simply a
+set of applications of availabile inference rules in a way that, step
+by step, connects the premises \sphinxstyleemphasis{syntactically} to the conclusion.
+
+A key property of such a proof is that it can be checked mechanically,
+without any consideration of \sphinxstyleemphasis{semantics} (meaning) to determine if it
+is a valid proof or not. It is a simple matter at each step to check
+whether a given inference rule was applied correctly to convert one
+collection of propositions into another, and thus to check whether
+\sphinxstyleemphasis{chains} of inference rules properly connect premises to conclusions.
+
+For example, a simple inference rule called \sphinxstyleemphasis{modus ponens} states that
+if \sphinxstyleemphasis{P} and \sphinxstyleemphasis{Q} are propositions and if one has as premises that (1)
+\sphinxstyleemphasis{P} is true*, and (2) \sphinxstyleemphasis{if P is true then Q is true}, then one can
+deduce that \sphinxstyleemphasis{Q is true}. This rule is applicable \sphinxstyleemphasis{no matter what} the
+propositions \sphinxstyleemphasis{P} and \sphinxstyleemphasis{Q} are. It thus encodes a general rule of sound
+reasoning.
+
+A logic enables \sphinxstyleemphasis{semantically sound} “reasoning” by way of syntactic
+transformations alone. And a wonderful thing about syntax is that it
+is relatively easy to mechanize with software. What this means is that
+we can implement systems that can reasoning \sphinxstyleemphasis{meaningfully} based on
+syntactic transformation rules alone.
+
+Note: Modern logic initially developed by Frege as a ” formula
+language for pure though,t modeled on that of arithmetic,” and later
+elaborated by Russel, Peano, and others as a language in which, in
+turn, to establish completely formal foundations for mathematics.
+
+
+\section{Using Logic in Practice}
+\label{\detokenize{08-propositional-logic:using-logic-in-practice}}
 To use a logic for practical purposes, one must (1) understand how to
 represent states of affairs in the domain of discourse of interest as
-expressions in the logical language of the logic, and (2) hae some
+expressions in the logical language of the logic, and (2) havee some
 means of evaluating the truth values of the resulting expressions. In
 Dafny, one must understand the logical language in which assertions
 and related constructs (such as pre- and post-conditions) are written.
@@ -3639,8 +3880,8 @@ finally, are there \sphinxstyleemphasis{efficient} algorithms for \sphinxstyleem
 not the answer to any such question is yes or no.
 
 
-\section{Introduction}
-\label{\detokenize{08-propositional-logic:introduction}}
+\section{Propositional Logic}
+\label{\detokenize{08-propositional-logic:id1}}
 The rest of this chapter illustrates and further develops these ideas
 using Boolean algebra, and a language of Boolean expressions, as a
 case study in precise definition of the syntax (expression structure)
@@ -3925,6 +4166,708 @@ rules for taking a set of expressions as premises and deriving another
 one as a consequence. Mathematical logic allows us to replace human
 mental reasoning with the mechanical \sphinxstyleemphasis{transformation of symbolic
 expressions}.
+
+
+\chapter{6. Dafny Language: Types, Statements, Expressions}
+\label{\detokenize{App2-Lang::doc}}\label{\detokenize{App2-Lang:dafny-language-types-statements-expressions}}
+
+\section{Built-In Types}
+\label{\detokenize{App2-Lang:built-in-types}}
+Dafny natively supports a range of abstract data types akin to those
+found in widely used, industrial imperative programming languages and
+systems, such as Python and Java. In this chapter, we introduce and
+briefly illustrate the use of these types. The types we discuss are
+as follow:
+\begin{itemize}
+\item {} 
+bool, supporting Boolean algebra
+
+\item {} 
+int, nat, and real types, supporting \sphinxstyleemphasis{exact} arithmetic (unlike
+the numerical types found in most industrial languages
+
+\item {} 
+char, supporting character types
+
+\item {} 
+set\textless{}T\textgreater{} and iset\textless{}T\textgreater{}, polymorphic set theory for finite and infinite sets
+
+\item {} 
+seq\textless{}T\textgreater{} and iseq\textless{}T\textgreater{}, polymorphic finite and infinite sequences
+
+\item {} 
+string, supporting character sequences (with addtional helpful functions)
+
+\item {} 
+map\textless{}K,V\textgreater{} and imap\textless{}K,V\textgreater{}, polymorphic finite and infinite partial functions
+
+\item {} 
+array\textless{}T\textgreater{}, polymorphic 1- and multi-dimensional arrays
+
+\end{itemize}
+
+
+\subsection{Booleans}
+\label{\detokenize{App2-Lang:booleans}}
+The bool abstract data type (ADT) in Dafny provides a bool data type
+with values, \sphinxstyleemphasis{true} and \sphinxstyleemphasis{false}, along with the Boolean operators that
+are supported by most programming langauges, along with a few that are
+not commonly supported.
+
+Here’s a method that computes nothing useful and returns no values,
+but that illustrates the range of Boolean operators in Dafny. We also
+use the examples in this chapter to discuss a few other aspects of the
+Dafny language.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method BoolOps(a: bool) returns (r: bool)  // bool \PYGZhy{}\PYGZgt{} bool
+\PYGZob{}
+    var t: bool := true;    // explicit type declaration
+    var f := false;         // type inferred automatically
+    var not := !t;          // negation
+    var conj := t \PYGZam{}\PYGZam{} f;     // conjunction, short\PYGZhy{}circuit evaluation
+    var disj := t \textbar{}\textbar{} f;     // disjunction, short\PYGZhy{}circuit (sc) evaluation
+    var impl := t ==\PYGZgt{} f;    // implication, right associative, sc from left
+    var foll := t \PYGZlt{}== f;    // follows, left associative, sc from right
+    var equv := t \PYGZlt{}==\PYGZgt{} t;   // iff, bi\PYGZhy{}implication
+    return true;            // returning a Boolean value
+ \PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\subsection{Numbers}
+\label{\detokenize{App2-Lang:numbers}}
+Methods aren’t required to return results. Such methods do their jobs
+by having side effects, e.g., doing output or writing data into global
+variables (usually a bad idea).  Here’s a method that doesn’t return a
+value. It illustrates numerical types, syntax, and operations.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method NumOps()
+\PYGZob{}
+    var r1: real := 1000000.0;
+    var i1: int := 1000000;
+    var i2: int := 1\PYGZus{}000\PYGZus{}000;   // underscores for readiability
+    var i3 := 1\PYGZus{}000;            // Dafny can often infer types
+    var b1 := (10 \PYGZlt{} 20) \PYGZam{}\PYGZam{} (20 \PYGZlt{}= 30); // a boolean expression
+    var b2 := 10 \PYGZlt{} 20 \PYGZlt{}= 30;    // equivalent, with \PYGZdq{}chaining\PYGZdq{}
+    var i4: int := (5.5).Floor; // 5
+    var i5 := (\PYGZhy{}2.5).Floor;     // \PYGZhy{}3
+    var i6 := \PYGZhy{}2.5.Floor;        // \PYGZhy{}2 = \PYGZhy{}(2.5.Floor); binding!
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\subsection{Characters}
+\label{\detokenize{App2-Lang:characters}}
+Characters (char) are handled sort of as they are in C, etc.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method CharFun()
+\PYGZob{}
+    var c1: char := \PYGZsq{}a\PYGZsq{};
+    var c2 := \PYGZsq{}b\PYGZsq{};
+    // var i1 := c2 \PYGZhy{} c1;
+    var i1 := (c2 as int) \PYGZhy{} (c1 as int);    // type conversion
+    var b1 := c1 \PYGZlt{} c2;  // ordering operators defined for char
+    var c3 := \PYGZsq{}\PYGZbs{}n\PYGZsq{};     // c\PYGZhy{}style escape for non\PYGZhy{}printing chars
+    var c4 := \PYGZsq{}\PYGZbs{}u265B\PYGZsq{}; // unicode, hex, \PYGZdq{}chess king\PYGZdq{} character
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\subsection{Sets}
+\label{\detokenize{App2-Lang:sets}}
+Polymorphic finite and infinite set types:
+set\textless{}T\textgreater{} and iset\textless{}T\textgreater{}. T must support equality.
+Values of these types are immutable.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method SetPlay()
+\PYGZob{}
+    var empty: set\PYGZlt{}int\PYGZgt{} := \PYGZob{}\PYGZcb{};
+    var primes := \PYGZob{}2, 3, 5, 7, 11\PYGZcb{};
+    var squares := \PYGZob{}1, 4, 9, 16, 25\PYGZcb{};
+    var b1 := empty \PYGZlt{} primes;    // strict subset
+    var b2 := primes \PYGZlt{}= primes;   // subset
+    var b3: bool := primes !! squares; // disjoint
+    var union := primes + squares;
+    var intersection := primes * squares;
+    var difference := primes \PYGZhy{} \PYGZob{}3, 5\PYGZcb{};
+    var b4 := primes == squares;    // false
+    var i1 := \textbar{} primes \textbar{};   // cardinality (5)
+    var b5 := 4 in primes;  // membership (false)
+    var b6 := 4 !in primes; // non\PYGZhy{}membership
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\subsection{Sequences}
+\label{\detokenize{App2-Lang:sequences}}
+Polymorphic sequences (often called “lists”): seq\textless{}T\textgreater{}. These can be
+understood as functions from indices to values. Some of the operations
+require that T support equality. Values of this type are immutable.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method SequencePlay()
+\PYGZob{}
+    var empty\PYGZus{}seq: seq\PYGZlt{}char\PYGZgt{} := [];
+    var hi\PYGZus{}seq: seq\PYGZlt{}char\PYGZgt{} := [\PYGZsq{}h\PYGZsq{}, \PYGZsq{}i\PYGZsq{}];
+    var b1 := hi\PYGZus{}seq == empty\PYGZus{}seq; // equality; !=
+    var hchar := hi\PYGZus{}seq[0];        // indexing
+    var b2 := [\PYGZsq{}h\PYGZsq{}] \PYGZlt{} hi\PYGZus{}seq;   // proper prefix
+    var b3 := hi\PYGZus{}seq \PYGZlt{} hi\PYGZus{}seq;  // this is false
+    var b4 := hi\PYGZus{}seq \PYGZlt{}= hi\PYGZus{}seq; // prefix, true
+    var sum := hi\PYGZus{}seq + hi\PYGZus{}seq; // concatenation
+    var len := \textbar{} hi\PYGZus{}seq \textbar{};
+    var Hi\PYGZus{}seq := hi\PYGZus{}seq[0 := \PYGZsq{}H\PYGZsq{}]; // update
+    var b5 := \PYGZsq{}h\PYGZsq{} in hi\PYGZus{}seq; // member, true, !in
+    var s := [0,1,2,3,4,5];
+    var s1 := s[0..2];  // subseqence
+    var s2 := s[1..];   // \PYGZdq{}drop\PYGZdq{} prefix of len 1
+    var s3 := s[..2];   // \PYGZdq{}take\PYGZdq{} prefix of len 2
+    // there\PYGZsq{}s a slice operator, too; later
+ \PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\subsection{Strings}
+\label{\detokenize{App2-Lang:strings}}
+Dafny has strings. Strings are literally just sequences of characters
+(of type seq\textless{}char\textgreater{}), so you can use all the sequence operations on
+strings.  Dafny provides additional helpful syntax for strings.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method StringPlay()
+ \PYGZob{}
+     var s1: string := \PYGZdq{}Hello CS2102!\PYGZdq{};
+     var s2 := \PYGZdq{}Hello CS2102!\PYGZbs{}n\PYGZdq{};   // return
+     var s3 := \PYGZdq{}\PYGZbs{}\PYGZdq{}Hello CS2102!\PYGZbs{}\PYGZdq{}\PYGZdq{}; // quotes
+ \PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\subsection{Maps (Partial Functions)}
+\label{\detokenize{App2-Lang:maps-partial-functions}}
+Dafny also supports polymorphic maps, both finite (map\textless{}K,V\textgreater{}) and
+infinite (imap\textless{}K,V\textgreater{}).  The key type, K, must support equality (==).
+In mathematical terms, a map really represents a binary relation,
+i.e., a set of \textless{}K,V\textgreater{} pairs, which is to say a subset of the product
+set, K * V, where we view the types K and V as defining sets of
+values.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method MapPlay()
+\PYGZob{}
+    // A map literal is keyword map + a list of maplets.
+    // A maplet is just a single \PYGZlt{}K,V\PYGZgt{} pair (or \PYGZdq{}tuple\PYGZdq{}).
+    // Here\PYGZsq{}s an empty map from strings to ints
+    var emptyMap: map\PYGZlt{}string,int\PYGZgt{} := map[];
+
+    // Here\PYGZsq{}s non empty map from strings to ints
+    // A maplet is \PYGZdq{}k := v,\PYGZdq{} k and v being of types K and V
+    var aMap: map\PYGZlt{}string,int\PYGZgt{}  := map[\PYGZdq{}Hi\PYGZdq{} := 1, \PYGZdq{}There\PYGZdq{} := 2];
+
+    // Map domain (key) membership
+    var isIn: bool := \PYGZdq{}There\PYGZdq{} in aMap; // true
+    var isntIn := \PYGZdq{}Their\PYGZdq{} !in aMap;    // true
+
+    // Finite map cardinality (number of maplets in a map)
+    var card := \textbar{}aMap\textbar{};
+
+    //Map lookup
+    var image1 := aMap[\PYGZdq{}There\PYGZdq{}];
+    // var image2 := aMap[\PYGZdq{}Their\PYGZdq{}]; // error! some kind of magic
+    var image2: int;
+    if (\PYGZdq{}Their\PYGZdq{} in aMap) \PYGZob{} image2 := aMap[\PYGZdq{}Their\PYGZdq{}]; \PYGZcb{}
+
+    // map update, maplet override and maplet addition
+    aMap := aMap[\PYGZdq{}There\PYGZdq{} := 3];
+    aMap := aMap[\PYGZdq{}Their\PYGZdq{} := 10];
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\subsection{Arrays}
+\label{\detokenize{App2-Lang:arrays}}
+Dafny supports arrays. Here’s we’ll see simple 1-d arrays.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method ArrayPlay()
+\PYGZob{}
+    var a := new int[10]; // in general: a: array\PYGZlt{}T\PYGZgt{} := new T[n];
+    var a\PYGZsq{} := new int[10];   // type inference naturally works here
+    var i1 := a.Length;      // Immutable \PYGZdq{}Length\PYGZdq{} member holds length of array
+    a[3] := 3;           // array update
+    var i2 := a[3];          // array access
+    var seq1 := a[3..8];    // take first 8, drop first 3, return as sequence
+    var b := 3 in seq1;     // true! (see sequence operations)
+    var seq2 := a[..8];     // take first 8, return rest as sequence
+    var seq3 := a[3..];     // drop first 3, return rest as sequence
+    var seq4 := a[..];      // return entire array as a sequence
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+Arrays, objects (class instances), and traits (to be discussed) are of
+“reference” types, which is to say, values of these types are stored
+on the heap. Values of other types, including sets and sequences, are
+of “value types,” which is to say values of these types are stored on
+the stack; and they’re thus always treated as “local” variables. They
+are passed by value, not reference, when passed as arguments to
+functions and methods. Value types include the basic scalar types
+(bool, char, nat, int, real), built-in collection types (set,
+multiset, seq, string, map, imap), tuple, inductive, and co-inductive
+types (to be discussed).  Reference type values are allocated
+dynamically on the heap, are passed by reference, and therefore can be
+“side effected” (mofified) by methods to which they are passed.
+
+
+\section{Statements}
+\label{\detokenize{App2-Lang:statements}}
+
+\subsection{Block}
+\label{\detokenize{App2-Lang:block}}
+In Dafny, you can make one bigger command from a sequence of smaller
+ones by enclosing the sequence in braces. You typically use this only
+for the bodies of loops and the parts of conditionals.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYGZob{}
+    print \PYGZdq{}Block: Command1\PYGZbs{}n\PYGZdq{};
+    print \PYGZdq{}Block: Command2\PYGZbs{}n\PYGZdq{};
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\subsection{Break}
+\label{\detokenize{App2-Lang:break}}
+The break command is for prematurely breaking out of loops.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+var i := 5;
+while (i \PYGZgt{} 0)
+\PYGZob{}
+    if (i == 3)
+    \PYGZob{}
+        break;
+    \PYGZcb{}
+    i := i \PYGZhy{} 1;
+\PYGZcb{}
+print \PYGZdq{}Break: Broke when i was \PYGZdq{}, i, \PYGZdq{}\PYGZbs{}n\PYGZdq{};
+\end{sphinxVerbatim}
+
+
+\subsection{Update (Assignment)}
+\label{\detokenize{App2-Lang:update-assignment}}
+There are several forms of the update command. The first is the usual
+assignment that you see in many languages. The second is “multiple
+assignment”, where you can assign several values to several variables
+at once. The final version is not so familar. It \sphinxstyleemphasis{chooses} a value
+that satisfies some property and assigns it to a variable.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+var x := 3;         // typical assignment
+var y := 4;         // typical assignment
+print \PYGZdq{}Update: before swap, x and y are \PYGZdq{}, x, \PYGZdq{}, \PYGZdq{}, y, \PYGZdq{}\PYGZbs{}n\PYGZdq{};
+x, y := y, x;       // one\PYGZhy{}line swap using multiple assignment
+print \PYGZdq{}Update: after swap, x and y are \PYGZdq{}, x, \PYGZdq{}, \PYGZdq{}, y, \PYGZdq{}\PYGZbs{}n\PYGZdq{};
+var s: set\PYGZlt{}int\PYGZgt{} := \PYGZob{} 1, 2, 3 \PYGZcb{}; // typical: assign set value to s
+var c :\textbar{} c in s;    // update c to a value such that c is in s
+print \PYGZdq{}Update: Dafny chose this value from the set: \PYGZdq{}, c, \PYGZdq{}\PYGZbs{}n\PYGZdq{};
+\end{sphinxVerbatim}
+
+
+\subsection{Var (variable declaration)}
+\label{\detokenize{App2-Lang:var-variable-declaration}}
+A variable declaration stsatement is used to declare one or more local
+variables in a method or function. The type of each local variable
+must be given unless the variable is given an initial value in which
+case the type will be inferred. If initial values are given, the
+number of values must match the number of variables declared. Note
+that the type of each variable must be given individually. This “var
+x, y : int;” does not declare both x and y to be of type int. Rather
+it will give an error explaining that the type of x is underspecified.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+var l: seq\PYGZlt{}int\PYGZgt{} := [1, 2, 3]; // explicit type (sequence of its)
+var l\PYGZsq{}          := [1, 2, 3]; // Dafny infers type from [1, 2, 3]
+\end{sphinxVerbatim}
+
+
+\subsection{If (conditional)}
+\label{\detokenize{App2-Lang:if-conditional}}
+There are several forms of the if statement in Dafny.  The first is
+“if (Boolean) block-statement.” The second is “if (Boolean)
+block-statement else block-statement” A block is a sequence of
+commands enclosed by braces (see above).
+
+In addition, there is a multi-way if statement similar to a case
+statement in C or C++. The conditions for the cases are evaluated in
+an unspecified order. The first to match results in evaluation of the
+corresponding command. If no case matches the overall if command does
+nothing.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+if (0==0) \PYGZob{} print \PYGZdq{}If: zero is zero\PYGZbs{}n\PYGZdq{}; \PYGZcb{}   // if (bool) \PYGZob{}block\PYGZcb{}
+if (0==1)
+    \PYGZob{} print \PYGZdq{}If: oops!\PYGZbs{}n\PYGZdq{}; \PYGZcb{}
+else
+    \PYGZob{} print \PYGZdq{}If: oh good, 0 != 1\PYGZbs{}n\PYGZdq{}; \PYGZcb{}
+
+var q := 1;
+if \PYGZob{}
+    case q == 0 =\PYGZgt{} print \PYGZdq{}Case: q is 0\PYGZbs{}n\PYGZdq{};
+    case q == 1 =\PYGZgt{} print \PYGZdq{}Case: q is 1\PYGZbs{}n\PYGZdq{};
+    case q == 2 =\PYGZgt{} print \PYGZdq{}Case: q is 2\PYGZbs{}n\PYGZdq{};
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\subsection{While (iteration)}
+\label{\detokenize{App2-Lang:while-iteration}}
+While statements come in two forms. The first is a typical Python-like
+statement “while (Boolean) block-command”. The second involves the use
+of a case-like construct instead of a single Boolean expression to
+control the loop. This form is typically used when a loop has to
+either run up or down depending on the initial value of the index. An
+example of the first form is given above, for the BREAK
+statement. Here is an example of the second form.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+var r: int;
+while
+    decreases if 0 \PYGZlt{}= r then r else \PYGZhy{}r;
+\PYGZob{}
+    case r \PYGZlt{} 0 =\PYGZgt{} \PYGZob{} r := r + 1; \PYGZcb{}
+    case 0 \PYGZlt{} r =\PYGZgt{} \PYGZob{} r := r \PYGZhy{} 1; \PYGZcb{}
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+Dafny insists on proving that all while loops and all recursive
+functions actually terminate \textendash{} do not loop forever. Proving such
+properties is (infinitely) hard in general. Dafny often makes good
+guesses as to how to do it, in which case one need do nothing more. In
+many other cases, however, Dafny needs some help. For this, one writes
+“loop specifications.” These include clauses called “decreases”,
+“invariant”, and “modifies”, which are written after the while and
+before the left brace of the loop body. We discuss these separately,
+but in the meantime, here are a few examples.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+// a loop that counts down from 5, terminating when i==0.
+i := 5;                 // already declared as int above
+while 0 \PYGZlt{} i
+    invariant 0 \PYGZlt{}= i    // i always \PYGZgt{}= 0 before and after loop
+    decreases i         // decreasing value of i bounds the loop
+\PYGZob{}
+    i := i \PYGZhy{} 1;
+\PYGZcb{}
+
+// this loop counts *up* from i=0 ending with i==5
+// notice that what decreases is difference between i and n
+var n := 5;
+i := 0;
+while i \PYGZlt{} n
+    invariant 0 \PYGZlt{}= i \PYGZlt{}= n
+    decreases n \PYGZhy{} i
+\PYGZob{}
+    i := i + 1;
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\subsection{Assert (assert a proposition about the state of the program)}
+\label{\detokenize{App2-Lang:assert-assert-a-proposition-about-the-state-of-the-program}}
+Assert statements are used to express logical proposition that are
+expected to be true. Dafny will attempt to prove that the assertion is
+true and give an error if not. Once it has proved the assertion it can
+then use its truth to aid in following deductions. Thus if Dafny is
+having a difficult time verifying a method the user may help by
+inserting assertions that Dafny can prove, and whose true may aid in
+the larger verification effort.  (From reference manual.)
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+assert i == 5;      // true because of preceding loop
+assert !(i == 4);   // similarly true
+// assert i == 4;   // uncomment to see static assertion failure
+\end{sphinxVerbatim}
+
+
+\subsection{Print (produce output on console)}
+\label{\detokenize{App2-Lang:print-produce-output-on-console}}
+From reference manual: The print statement is used to print the values
+of a comma-separated list of expressions to the console.  The
+generated C\# code uses the System.Object.ToString() method to convert
+the values to printable strings. The expressions may of course include
+strings that are used for captions. There is no implicit new line
+added, so to get a new line you should include “n” as part of one of
+the expressions. Dafny automatically creates overrides for the
+ToString() method for Dafny data types.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+print \PYGZdq{}Print: The set is \PYGZdq{}, \PYGZob{} 1, 2, 3\PYGZcb{}, \PYGZdq{}\PYGZbs{}n\PYGZdq{}; // print the set
+\end{sphinxVerbatim}
+
+
+\subsection{Return}
+\label{\detokenize{App2-Lang:return}}
+From the reference manual: A return statement can only be used in a
+method. It terminates the execution of the method. To return a value
+from a method, the value is assigned to one of the named return values
+before a return statement. The return values act very much like local
+variables, and can be assigned to more than once. Return statements
+are used when one wants to return before reaching the end of the body
+block of the method.  Return statements can be just the return keyword
+(where the current value of the out parameters are used), or they can
+take a list of values to return. If a list is given the number of
+values given must be the same as the number of named return values.
+
+To return a value from a method, assign to the return parameter
+and then either use an explicit return statement or just let the
+method complete.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method ReturnExample() returns (retval: int)
+\PYGZob{}
+    retval := 10;
+    // implicit return here
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+Methods can return multiple values.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method ReturnExample2() returns (x: int, y:int)
+\PYGZob{}
+    x := 10;
+    y := 20;
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+The return keyword can be used to return immediatey
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method ReturnExample3() returns (x: int)
+\PYGZob{}
+    x := 5;     // don\PYGZsq{}t \PYGZdq{}var\PYGZdq{} decare return variable
+    return;     // return immediately
+    x := 6;     // never gets executed
+    assert 0 == 1; // can\PYGZsq{}t be reached to never gets checked!
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\section{Expressions}
+\label{\detokenize{App2-Lang:expressions}}
+
+\subsection{Literals Expressions}
+\label{\detokenize{App2-Lang:literals-expressions}}
+A literal expression is a boolean literal (true or false), a null
+object reference (null), an unsigned integer (e.g., 3) or real (e.g.,
+3.0) literal, a character (e.g., ‘a’) or string literal (e.g., “abc”),
+or “this” which denote the current object in the context of an
+instance method or function. We have not yet seen objects or talked
+about instance methods or functions.
+
+
+\subsection{If (Conditional) Expressions}
+\label{\detokenize{App2-Lang:if-conditional-expressions}}
+If expressions first evaluate a Boolean expression and then evaluate
+one of the two following expressions, the first if the Boolean
+expression was true, otherwise the second one.  Notice in this example
+that an IF \sphinxstyleemphasis{expression} is used on the right side of an
+update/assignment statement. There is also an if \sphinxstyleemphasis{statement}.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+var x := 11;
+var h := if x != 0 then (10 / x) else 1;    // if expression
+assert h == 0;
+if (h == 0) \PYGZob{}x := 3; \PYGZcb{} else \PYGZob{} x := 0; \PYGZcb{}     // if statement
+assert x == 3;
+\end{sphinxVerbatim}
+
+
+\subsection{Conjunction and Disjunction Expressions}
+\label{\detokenize{App2-Lang:conjunction-and-disjunction-expressions}}
+Conjunction and disjuction are associative. This means that no matter
+what b1, b2, and b3 are, (b1 \&\& b2) \&\& b3 is equal to (b1 \&\& (b2 \&\&
+b3)), The same property holds for \textbar{}\textbar{}.
+
+These operators are also \sphinxstyleemphasis{short circuiting}. What this means is that
+their second argument is evaluated only if evaluating the first does
+not by itself determine the value of the expression.
+
+Here’s an example where short circuit evaluation matters. It is what
+prevents the evaluation of an undefined expressions after the \&\&
+operator.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+var a: array\PYGZlt{}int\PYGZgt{} := null;
+var b1: bool := (a != null) \PYGZam{}\PYGZam{} (a[0]==1);
+\end{sphinxVerbatim}
+
+Here short circuit evaluation protects against evaluation of a{[}0{]} when
+a is null. Rather than evaluating both expressions, reducing them both
+to Boolean values, and then applying a Boolean \sphinxstyleemphasis{and} function, instead
+the right hand expressions is evaluated “lazily”, i.e., only of the
+one on the left doesn’t by itself determine what the result should
+be. In this case, because the left hand expression is false, the whole
+expression must be false, so the right side not only doesn’t have to
+be evaluated; it also \sphinxstyleemphasis{won’t} be evaluated.
+
+
+\subsection{Sequence, Set, Multiset, and Map Expressions}
+\label{\detokenize{App2-Lang:sequence-set-multiset-and-map-expressions}}
+Values of these types can be written using so-called \sphinxstyleemphasis{display}
+expressions. Sequences are written as lists of values within square
+brackets; sets, within braces; and multisets using “multiset” followed
+by a list of values within braces.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+var aSeq: seq\PYGZlt{}int\PYGZgt{} := [1, 2, 3];
+var aVal := aSeq[1];    // get the value at index 1
+assert aVal == 2;       // don\PYGZsq{}t forget about zero base indexing
+
+var aSet: set\PYGZlt{}int\PYGZgt{} := \PYGZob{} 1, 2, 3\PYGZcb{};   // sets are unordered
+assert \PYGZob{} 1, 2, 3 \PYGZcb{} == \PYGZob{} 3, 1, 2\PYGZcb{};   // set equality ignores order
+assert [ 1, 2, 3 ] != [ 3, 1, 2];   // sequence equality doesn\PYGZsq{}t
+
+var mSet := multiset\PYGZob{}1, 2, 2, 3, 3, 3\PYGZcb{};
+assert (3 in mSet) == true;         // in\PYGZhy{}membership is Boolean
+assert mSet[3] == 3;                // [] counts occurrences
+assert mSet[4] == 0;
+
+var sqr := map [0 := 0, 1 := 1, 2 := 4, 3 := 9, 4 := 16];
+assert \textbar{}sqr\textbar{} == 5;
+assert sqr[2] == 4;
+\end{sphinxVerbatim}
+
+
+\subsection{Relational Expressions}
+\label{\detokenize{App2-Lang:relational-expressions}}
+Relation expressions, such as less than, have a relational operator
+that compares two or more terms and returns a Boolean result. The ==,
+!=, \textless{}, \textgreater{}, \textless{}=, and \textgreater{}= operators are examples. These operators are also
+“chaining”. That means one can write expressions such as 0 \textless{}= x \textless{} n,
+and what this means is 0 \textless{}= x \&\& x \textless{} n.
+
+The in and !in relational operators apply to collection types. They
+compute membership or non-membership respectively.
+
+The !! operator computes disjointness of sets and multisets. Two such
+collections are said to be disjoint if they have no elements in
+common. Here are a few examples of relational expressions involving
+collections (all given within assert statements).
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+assert 3 in \PYGZob{} 1, 2, 3 \PYGZcb{};                            // set member
+assert 4 !in \PYGZob{} 1, 2, 3 \PYGZcb{};                           // non\PYGZhy{}member
+assert \PYGZdq{}foo\PYGZdq{} in [\PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{}, \PYGZdq{}bar\PYGZdq{}];              // seq member
+assert \PYGZdq{}foo\PYGZdq{} in \PYGZob{} \PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{}\PYGZcb{};                    // set member
+assert \PYGZob{} \PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{} \PYGZcb{} !! \PYGZob{} \PYGZdq{}baz\PYGZdq{}, \PYGZdq{}bif\PYGZdq{}\PYGZcb{};         // disjoint
+assert \PYGZob{} \PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{} \PYGZcb{} \PYGZlt{} \PYGZob{} \PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{}, \PYGZdq{}baz\PYGZdq{} \PYGZcb{};  // subset
+assert \PYGZob{} \PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{} \PYGZcb{} == \PYGZob{} \PYGZdq{}foo\PYGZdq{}, \PYGZdq{}bar\PYGZdq{} \PYGZcb{};        // set equals
+\end{sphinxVerbatim}
+
+
+\subsection{Array Allocation Expressions}
+\label{\detokenize{App2-Lang:array-allocation-expressions}}
+Arrays in Dafny are \sphinxstyleemphasis{reference values}. That is, the value
+of an array variable is a \sphinxstyleemphasis{reference} to an address in the
+\sphinxstyleemphasis{heap} part of memory, or it is \sphinxstyleemphasis{null}. To get at the data
+in an array, one \sphinxstyleemphasis{dereferences} the array variable, using
+the \sphinxstyleemphasis{subscripting} operator. The array variable must not be
+null in this case. It must reference a chunk of memory that
+has been allocated for the array values, in the \sphinxstyleemphasis{heap} part
+of memory.
+
+To allocate memory for a new array for n elements of type T one
+uses an expression like this: a: array\textless{}T\textgreater{} := new T{[}n{]}. The type
+of \sphinxstyleemphasis{a} here is “an array of elements of type \sphinxstyleemphasis{T},” and the size
+of the allocated memory chunk is big enough to hold \sphinxstyleemphasis{n} values
+of this type.
+
+Multi-dimensional arrays (matrices) are also supported. The types of
+these arrays are “arrayn\textless{}T\textgreater{}, where “n” is the number of dimensions and
+T is the type of the elements. All elements of an array or matrix must
+be of the same type.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+a := new int[10];       // type of a already declared above
+var m: array2\PYGZlt{}int\PYGZgt{} := new int[10, 10];
+a[0] := 1;              // indexing into 1\PYGZhy{}d array
+m[0,0] := 1;            // indexing into multi\PYGZhy{}dimensional array
+\end{sphinxVerbatim}
+
+
+\subsection{Old Expressions}
+\label{\detokenize{App2-Lang:old-expressions}}
+An old expression is used in postconditions. old(e) evaluates to the
+value expression e had on entry to the current method.  Here’s an
+example showing the use of the old expression.  This method increments
+(adds one {\color{red}\bfseries{}to\_} the first element of an array.  The specification part
+of the method \sphinxstyleemphasis{ensures} that the method body has this effect by
+explaining that the new value of a{[}0{]} must be the original (the “old”)
+value plus one. The \sphinxstyleemphasis{requires} (preconditions) statements are needed
+to ensure that the array is not null and not zero length. The modifies
+command explains that the method body is allowed to change the value
+of a.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+method incr(a: array\PYGZlt{}nat\PYGZgt{}) returns (r: array\PYGZlt{}nat\PYGZgt{})
+requires a != null;
+requires a.Length \PYGZgt{} 0;
+modifies a;
+ensures a[0] == old(a[0]) + 1;
+\PYGZob{}
+    a[0] := a[0] + 1;
+    return a;
+\PYGZcb{}
+\end{sphinxVerbatim}
+
+
+\subsection{Cardinality Expressions}
+\label{\detokenize{App2-Lang:cardinality-expressions}}
+For a collection expression c, {\color{red}\bfseries{}\textbar{}c\textbar{}} is the cardinality of c. For a set
+or sequence the cardinality is the number of elements. For a multiset
+the cardinality is the sum of the multiplicities of the elements. For
+a map the cardinality is the cardinality of the domain of the
+map. Cardinality is not defined for infinite maps.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+var c1 := \textbar{} [1, 2, 3] \textbar{};            // cardinality of sequence
+assert c1 == 3;
+var c2 := \textbar{} \PYGZob{} 1, 2, 3 \PYGZcb{} \textbar{};          // cardinality of a set
+assert c2 == 3;
+var c3 := \textbar{} map[ 0 := 0, 1 := 1, 2 := 4, 3 := 9] \textbar{}; // of a map
+assert c3 == 4;
+assert \textbar{} multiset\PYGZob{} 1, 2, 2, 3, 3, 3, 4, 4, 4, 4 \PYGZcb{} \textbar{} == 10; // multiset
+\end{sphinxVerbatim}
+
+
+\subsection{Let Expressions}
+\label{\detokenize{App2-Lang:let-expressions}}
+A let expression allows binding of intermediate values to identifiers
+for use in an expression. The start of the let expression is signaled
+by the var keyword. They look like local variable declarations except
+the scope of the variable only extends to following
+expression. (Adapted from RefMan.)
+
+Here’s an example (see the following code).
+
+First x+x is computed and bound to sum, the result of the overall
+expression on the right hand side of the update/assignment statement
+is then the value of “sum * sum” given this binding. The binding does
+not persist past the evaluation of the “let” expression.  The
+expression is called a “let” expression because in many other
+languages, you’d use a let keyword to write this: let sum = x + x in
+sum * sum. Dafny just uses a slightly different syntax.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+assert x == 3;               // from code above
+var sumsquared := (var sum := x + x; sum * sum);  // let example
+assert sumsquared == 36;     // because of the let expression
+\end{sphinxVerbatim}
 
 
 \chapter{Indices and tables}

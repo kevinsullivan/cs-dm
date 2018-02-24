@@ -25,7 +25,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="09. Natural Deduction" href="09-natural-deduction.html" />
-    <link rel="prev" title="7. Boolean Algebra" href="07-boolean-algebra.html" /> 
+    <link rel="prev" title="Set Theory" href="07-set-theory.html" /> 
   </head>
   <body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -38,7 +38,7 @@
           <a href="09-natural-deduction.html" title="09. Natural Deduction"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="07-boolean-algebra.html" title="7. Boolean Algebra"
+          <a href="07-set-theory.html" title="Set Theory"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
       </ul>
@@ -51,22 +51,121 @@
             
   <div class="section" id="propositional-logic">
 <h1>8. Propositional Logic<a class="headerlink" href="#propositional-logic" title="Permalink to this headline">¶</a></h1>
-<p>A mathematical logic is defined by (1) a <em>syntax</em> that specifies the
-set (usually infinite) of <em>well formed expressions</em> in the language
-(also called <em>well formed formulae</em>, or <em>wffs</em>), and (2) a <em>semantics</em>
-by which one can evaluate <em>truth value</em> of any such expression.</p>
-<p>Each sentence in a logical language is intended to represent a <em>truth
-claim</em>: an assertion, about the prevailing <em>state of affairs</em> in some
-<em>domain of discourse</em> that is either true or false. Dafny <em>assertions</em>
-are logical expressions in this sense: they assert that the state of a
-program at a specific point in its execution has certain properties
-(e.g., that the value of a loop index is greater than zero) , or that
-a specific relationship always holds between the state of the program
-before and after some code is run (e.g., pre- and post-conditions and
-loop invariants).</p>
+<p>A logic is a system for writing, evaluating, and reasoning about truth
+statements, or <em>propositions</em>. A proposition asserts that some state
+of affairs holds in some domain. Truth statements can be particular:
+e.g., Tom’s mom is Mary; or general: e.g., Every person has a mother.</p>
+<p>In Dafny, a logical language is used to express states of affairs in a
+program that are either required or asserted to hold. An example is
+aproposition that some variable has a value that is greater than <em>0</em>.
+When used for program specification and verification, propositions are
+taken as descriptions of states of affairs that are required to hold.</p>
+<p>It is then the responsibility of the programmer or programming system
+to ensure that such states of affairs do hold. The failure to prove
+the truth of given propositions in this context leaves possibilities
+open that programs fail to satisfy their specifications.</p>
+<p>Dafny is a programming system with a reasonably expressive logic based
+on what is called <em>first-order set theory</em>, with automated and often
+reasonably efficient tools for enforcing the truth of propositions
+aboutprograms. Ideally programmers change their programs until they
+satisfy propositions used to specify pre-conditions, post-conditions,
+assertions, and invariants.</p>
+<p>In practice, programmers sometimes compromise their work in favor of
+pragmatism by weaking specifications until satisfaction can be proved.
+But this approach casts the validity of the specifications themselves
+into question. A program might satisfy a weakened specification, but
+that might no longer guarantee that it will satisfy the requirements
+for the system.</p>
+<p>Of course logic has far broader applications in computer science than
+just in program specification and verification. It is also central to
+many artificial intelligence (AI) systems, optimization systems (e.g.,
+for finding good travel routes), in the development and analysis of
+algorithms, in verification of the functionality of hardware circuits
+in digital logic design, and in many other fields.</p>
+<p>Up until now in this course, you have seen one compelling application
+of formal, mechanized logic in programming, namely for specification
+and verification. Having shown one compelling <em>use case</em> for logic in
+practical computing, we now start a <em>deeper dive</em> to understand logic
+and formal reasoning more generally.</p>
+<p>In this chapter and the next, we explore a simple, useful logic called
+<em>propositional logic</em>. This is a logic in which the basic elements are
+<em>atomic propositions</em>–that can be broken down no further– that can
+be taken to be either true or false, and in which propositions can be
+composed into larger propositions using logical <em>connectives</em>, such as
+<em>and, or, not,</em> and <em>implies</em>.</p>
+<p>For example, atomic propositions might be (1) <em>it is raining</em>, (2)
+<em>the streets are wet</em>. If one considers all possible worlds, then in
+some of them, each proposition is sometimes true and sometimes false.
+A larger proposition, a <em>formula</em>, can be formed by combining these
+(basic) propositions into a larger one: <em>it is raining</em> <strong>implies</strong>
+<em>the streets are wet</em>. Another way to say this in English would be,
+<em>whever it is raining, the streets are wet.</em> This larger proposition
+is true in some but not all possible worlds. If it’s not raining, the
+proposition correctly describes the world whether the streets are wet
+or not, and so is judged to be true. If it is raining and the streets
+are wet, it also correctly describes the world, and so is judged to be
+world is consistent with the proposition whether the streets are wet
+or not. Only in a world in which it is raining and the streets are dry
+does the proposition fail to correctly describe the state of affairs,
+and so in this world, it’s judged to be false.</p>
+<div class="section" id="the-elements-of-a-logic">
+<h2>The Elements of a Logic<a class="headerlink" href="#the-elements-of-a-logic" title="Permalink to this headline">¶</a></h2>
+<p>There are many forms of logic, but they all share three basic
+elements.  First, a logic provides a <em>formal language</em> in which
+propositions (truth statements) about states of affairs can be
+expressed with mathematical precision. The set of valid expressions in
+such a language is defined by a <em>grammar</em> that expresses the <em>syntax</em>
+of the language.</p>
+<p>Second, a logic defines a of what is required for a proposition to be
+judged true. This definition constitutes what we call the <em>semantics</em>
+of the language. The semantics of a logic given <em>meaning</em> to what are
+otherwise abstract mathematical expressions; and do so in particular
+by explaining when a given proposition is true or not true.</p>
+<p>Finally, a logic provides a set of <em>inference rules</em> for deriving new
+propositions (conclusions) from given propositions (premises) in ways
+that guarantee that if the premises are true, the conclusions will be,
+too. The crucial characteristic of inference rules is that although
+they are guarantee to <em>preserve meaning</em> (in the form of truthfulness
+of propositions), they work entirely at the level of syntax.</p>
+<p>Each such rule basically says, “if you have a set of premises with
+certain syntactic structures, then you can combine them in ways to
+derive new propositions with absolute certainty that, if the premises
+are true, the conclusion will be, too.  Inference rules are thus rules
+for transforming <em>syntax</em> in ways that are <em>semantically sound</em>. They
+allow one to derive <em>meaningful</em> new conclusions without ever having
+to think about meaning at all.</p>
+<p>These ideas bring us to the concept of <em>proofs</em> in deductive logic. If
+one is given a proposition that is not yet known to be true or not,
+and a set of premises known or assumed to be true, a proof is simply a
+set of applications of availabile inference rules in a way that, step
+by step, connects the premises <em>syntactically</em> to the conclusion.</p>
+<p>A key property of such a proof is that it can be checked mechanically,
+without any consideration of <em>semantics</em> (meaning) to determine if it
+is a valid proof or not. It is a simple matter at each step to check
+whether a given inference rule was applied correctly to convert one
+collection of propositions into another, and thus to check whether
+<em>chains</em> of inference rules properly connect premises to conclusions.</p>
+<p>For example, a simple inference rule called <em>modus ponens</em> states that
+if <em>P</em> and <em>Q</em> are propositions and if one has as premises that (1)
+<em>P</em> is true*, and (2) <em>if P is true then Q is true</em>, then one can
+deduce that <em>Q is true</em>. This rule is applicable <em>no matter what</em> the
+propositions <em>P</em> and <em>Q</em> are. It thus encodes a general rule of sound
+reasoning.</p>
+<p>A logic enables <em>semantically sound</em> “reasoning” by way of syntactic
+transformations alone. And a wonderful thing about syntax is that it
+is relatively easy to mechanize with software. What this means is that
+we can implement systems that can reasoning <em>meaningfully</em> based on
+syntactic transformation rules alone.</p>
+<p>Note: Modern logic initially developed by Frege as a ” formula
+language for pure though,t modeled on that of arithmetic,” and later
+elaborated by Russel, Peano, and others as a language in which, in
+turn, to establish completely formal foundations for mathematics.</p>
+</div>
+<div class="section" id="using-logic-in-practice">
+<h2>Using Logic in Practice<a class="headerlink" href="#using-logic-in-practice" title="Permalink to this headline">¶</a></h2>
 <p>To use a logic for practical purposes, one must (1) understand how to
 represent states of affairs in the domain of discourse of interest as
-expressions in the logical language of the logic, and (2) hae some
+expressions in the logical language of the logic, and (2) havee some
 means of evaluating the truth values of the resulting expressions. In
 Dafny, one must understand the logical language in which assertions
 and related constructs (such as pre- and post-conditions) are written.</p>
@@ -97,8 +196,9 @@ interpretations make it value to true? Can it be there there are no
 interpretations that make a given expression evaluate to true?  And,
 finally, are there <em>efficient</em> algorithms for <em>deciding</em> whether or
 not the answer to any such question is yes or no.</p>
-<div class="section" id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="id1">
+<h2>Propositional Logic<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>The rest of this chapter illustrates and further develops these ideas
 using Boolean algebra, and a language of Boolean expressions, as a
 case study in precise definition of the syntax (expression structure)
@@ -332,8 +432,8 @@ exhaustive checking of all interpretations. &lt;More to come&gt;.</p>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
-  <p class="topless"><a href="07-boolean-algebra.html"
-                        title="previous chapter">7. Boolean Algebra</a></p>
+  <p class="topless"><a href="07-set-theory.html"
+                        title="previous chapter">Set Theory</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="09-natural-deduction.html"
                         title="next chapter">09. Natural Deduction</a></p>
@@ -351,7 +451,7 @@ exhaustive checking of all interpretations. &lt;More to come&gt;.</p>
           <a href="09-natural-deduction.html" title="09. Natural Deduction"
              >next</a> |</li>
         <li class="right" >
-          <a href="07-boolean-algebra.html" title="7. Boolean Algebra"
+          <a href="07-set-theory.html" title="Set Theory"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
       </ul>

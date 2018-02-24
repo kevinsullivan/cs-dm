@@ -14,11 +14,12 @@ Welcome to Mathematical Logic in Software Development
    02-logic-and-code
    03-problems-with-imperative-code
    04-runnable-math
-   05-putting-it-together
-   06-dafny-language
-   07-boolean-algebra
+   05-verifying-logical-specifications
+   06-boolean-algebra
+   07-set-theory
    08-propositional-logic
    09-natural-deduction
+   App2-Lang
 
 
 Indices and tables

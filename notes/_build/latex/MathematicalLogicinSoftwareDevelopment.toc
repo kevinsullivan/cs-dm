@@ -27,70 +27,103 @@
 \contentsline {subsection}{\numberline {5.6.3}A Verified Implementation of the Factorial Function}{21}{subsection.5.6.3}
 \contentsline {section}{\numberline {5.7}Case Study: The Fibonacci Function}{23}{section.5.7}
 \contentsline {section}{\numberline {5.8}What is Dafny, Again?}{25}{section.5.8}
-\contentsline {chapter}{\numberline {6}6. Dafny Language: Types, Statements, Expressions}{27}{chapter.6}
-\contentsline {section}{\numberline {6.1}Built-In Types}{27}{section.6.1}
-\contentsline {subsection}{\numberline {6.1.1}Booleans}{27}{subsection.6.1.1}
-\contentsline {subsection}{\numberline {6.1.2}Numbers}{28}{subsection.6.1.2}
-\contentsline {subsection}{\numberline {6.1.3}Characters}{28}{subsection.6.1.3}
-\contentsline {subsection}{\numberline {6.1.4}Sets}{28}{subsection.6.1.4}
-\contentsline {subsection}{\numberline {6.1.5}Sequences}{29}{subsection.6.1.5}
-\contentsline {subsection}{\numberline {6.1.6}Strings}{29}{subsection.6.1.6}
-\contentsline {subsection}{\numberline {6.1.7}Maps (Partial Functions)}{29}{subsection.6.1.7}
-\contentsline {subsection}{\numberline {6.1.8}Arrays}{30}{subsection.6.1.8}
-\contentsline {section}{\numberline {6.2}Statements}{30}{section.6.2}
-\contentsline {subsection}{\numberline {6.2.1}Block}{30}{subsection.6.2.1}
-\contentsline {subsection}{\numberline {6.2.2}Break}{31}{subsection.6.2.2}
-\contentsline {subsection}{\numberline {6.2.3}Update (Assignment)}{31}{subsection.6.2.3}
-\contentsline {subsection}{\numberline {6.2.4}Var (variable declaration)}{31}{subsection.6.2.4}
-\contentsline {subsection}{\numberline {6.2.5}If (conditional)}{31}{subsection.6.2.5}
-\contentsline {subsection}{\numberline {6.2.6}While (iteration)}{32}{subsection.6.2.6}
-\contentsline {subsection}{\numberline {6.2.7}Assert (assert a proposition about the state of the program)}{33}{subsection.6.2.7}
-\contentsline {subsection}{\numberline {6.2.8}Print (produce output on console)}{33}{subsection.6.2.8}
-\contentsline {subsection}{\numberline {6.2.9}Return}{33}{subsection.6.2.9}
-\contentsline {section}{\numberline {6.3}Expressions}{34}{section.6.3}
-\contentsline {subsection}{\numberline {6.3.1}Literals Expressions}{34}{subsection.6.3.1}
-\contentsline {subsection}{\numberline {6.3.2}If (Conditional) Expressions}{34}{subsection.6.3.2}
-\contentsline {subsection}{\numberline {6.3.3}Conjunction and Disjunction Expressions}{34}{subsection.6.3.3}
-\contentsline {subsection}{\numberline {6.3.4}Sequence, Set, Multiset, and Map Expressions}{35}{subsection.6.3.4}
-\contentsline {subsection}{\numberline {6.3.5}Relational Expressions}{35}{subsection.6.3.5}
-\contentsline {subsection}{\numberline {6.3.6}Array Allocation Expressions}{35}{subsection.6.3.6}
-\contentsline {subsection}{\numberline {6.3.7}Old Expressions}{36}{subsection.6.3.7}
-\contentsline {subsection}{\numberline {6.3.8}Cardinality Expressions}{36}{subsection.6.3.8}
-\contentsline {subsection}{\numberline {6.3.9}Let Expressions}{36}{subsection.6.3.9}
-\contentsline {chapter}{\numberline {7}7. Boolean Algebra}{39}{chapter.7}
-\contentsline {section}{\numberline {7.1}Boolean Algebra in Dafny}{39}{section.7.1}
-\contentsline {section}{\numberline {7.2}Boolean Values}{40}{section.7.2}
-\contentsline {section}{\numberline {7.3}Boolean Operators}{40}{section.7.3}
-\contentsline {subsection}{\numberline {7.3.1}Nullary, Unary, Binary, and n-Ary Operators}{40}{subsection.7.3.1}
-\contentsline {subsection}{\numberline {7.3.2}The Unary Operators of Boolean Algebra}{41}{subsection.7.3.2}
-\contentsline {subsubsection}{Constant False}{41}{subsubsection*.3}
-\contentsline {subsubsection}{Constant True}{41}{subsubsection*.4}
-\contentsline {subsubsection}{Identity Function(s)}{41}{subsubsection*.5}
-\contentsline {subsubsection}{Negation}{42}{subsubsection*.6}
-\contentsline {subsection}{\numberline {7.3.3}Binary Boolean Operators}{42}{subsection.7.3.3}
-\contentsline {subsubsection}{And (conjunction)}{42}{subsubsection*.7}
-\contentsline {subsubsection}{Nand (not and)}{43}{subsubsection*.8}
-\contentsline {subsubsection}{Or (disjunction)}{43}{subsubsection*.9}
-\contentsline {subsubsection}{Xor (exclusive or)}{43}{subsubsection*.10}
-\contentsline {subsubsection}{Nor (not or)}{44}{subsubsection*.11}
-\contentsline {subsubsection}{Implies}{44}{subsubsection*.12}
-\contentsline {subsubsection}{Follows}{44}{subsubsection*.13}
-\contentsline {subsection}{\numberline {7.3.4}A Ternary Binary Operator}{44}{subsection.7.3.4}
-\contentsline {section}{\numberline {7.4}Formal Languages: Syntax and Semantics}{45}{section.7.4}
-\contentsline {section}{\numberline {7.5}The Syntax of Boolean Expressions: Inductive Definitions}{45}{section.7.5}
-\contentsline {subsection}{\numberline {7.5.1}The Syntax and Semantics of \sphinxstyleemphasis {Simplified} Boolean Expression Language}{46}{subsection.7.5.1}
-\contentsline {subsubsection}{Syntax}{46}{subsubsection*.14}
-\contentsline {subsubsection}{Semantics}{46}{subsubsection*.15}
-\contentsline {subsection}{\numberline {7.5.2}The Syntax of a Complete Boolean Expression Language}{47}{subsection.7.5.2}
-\contentsline {section}{\numberline {7.6}The Semantics of Boolean Expressions: Recursive Evaluation}{48}{section.7.6}
-\contentsline {section}{\numberline {7.7}The Syntax and Semantics of Programming Languages}{49}{section.7.7}
+\contentsline {chapter}{\numberline {6}7. Boolean Algebra}{27}{chapter.6}
+\contentsline {section}{\numberline {6.1}Boolean Algebra in Dafny}{27}{section.6.1}
+\contentsline {section}{\numberline {6.2}Boolean Values}{28}{section.6.2}
+\contentsline {section}{\numberline {6.3}Boolean Operators}{28}{section.6.3}
+\contentsline {subsection}{\numberline {6.3.1}Nullary, Unary, Binary, and n-Ary Operators}{28}{subsection.6.3.1}
+\contentsline {subsection}{\numberline {6.3.2}The Unary Operators of Boolean Algebra}{29}{subsection.6.3.2}
+\contentsline {subsubsection}{Constant False}{29}{subsubsection*.3}
+\contentsline {subsubsection}{Constant True}{29}{subsubsection*.4}
+\contentsline {subsubsection}{Identity Function(s)}{29}{subsubsection*.5}
+\contentsline {subsubsection}{Negation}{30}{subsubsection*.6}
+\contentsline {subsection}{\numberline {6.3.3}Binary Boolean Operators}{30}{subsection.6.3.3}
+\contentsline {subsubsection}{And (conjunction)}{30}{subsubsection*.7}
+\contentsline {subsubsection}{Nand (not and)}{31}{subsubsection*.8}
+\contentsline {subsubsection}{Or (disjunction)}{31}{subsubsection*.9}
+\contentsline {subsubsection}{Xor (exclusive or)}{31}{subsubsection*.10}
+\contentsline {subsubsection}{Nor (not or)}{32}{subsubsection*.11}
+\contentsline {subsubsection}{Implies}{32}{subsubsection*.12}
+\contentsline {subsubsection}{Follows}{32}{subsubsection*.13}
+\contentsline {subsection}{\numberline {6.3.4}A Ternary Binary Operator}{32}{subsection.6.3.4}
+\contentsline {section}{\numberline {6.4}Formal Languages: Syntax and Semantics}{33}{section.6.4}
+\contentsline {section}{\numberline {6.5}The Syntax of Boolean Expressions: Inductive Definitions}{33}{section.6.5}
+\contentsline {subsection}{\numberline {6.5.1}The Syntax and Semantics of \sphinxstyleemphasis {Simplified} Boolean Expression Language}{34}{subsection.6.5.1}
+\contentsline {subsubsection}{Syntax}{34}{subsubsection*.14}
+\contentsline {subsubsection}{Semantics}{34}{subsubsection*.15}
+\contentsline {subsection}{\numberline {6.5.2}The Syntax of a Complete Boolean Expression Language}{35}{subsection.6.5.2}
+\contentsline {section}{\numberline {6.6}The Semantics of Boolean Expressions: Recursive Evaluation}{36}{section.6.6}
+\contentsline {section}{\numberline {6.7}The Syntax and Semantics of Programming Languages}{37}{section.6.7}
+\contentsline {chapter}{\numberline {7}Set Theory}{39}{chapter.7}
+\contentsline {section}{\numberline {7.1}Naive Set Theory}{39}{section.7.1}
+\contentsline {section}{\numberline {7.2}Overly Naive Set Theory}{39}{section.7.2}
+\contentsline {section}{\numberline {7.3}Sets}{40}{section.7.3}
+\contentsline {section}{\numberline {7.4}Notation}{40}{section.7.4}
+\contentsline {subsection}{\numberline {7.4.1}Display notation}{40}{subsection.7.4.1}
+\contentsline {subsection}{\numberline {7.4.2}Set comprehension notation}{41}{subsection.7.4.2}
+\contentsline {section}{\numberline {7.5}Operations}{42}{section.7.5}
+\contentsline {subsection}{\numberline {7.5.1}Cardinality}{42}{subsection.7.5.1}
+\contentsline {subsection}{\numberline {7.5.2}Equality}{42}{subsection.7.5.2}
+\contentsline {subsection}{\numberline {7.5.3}Subset}{43}{subsection.7.5.3}
+\contentsline {subsection}{\numberline {7.5.4}Intersection}{43}{subsection.7.5.4}
+\contentsline {subsection}{\numberline {7.5.5}Union}{43}{subsection.7.5.5}
+\contentsline {subsection}{\numberline {7.5.6}Difference}{43}{subsection.7.5.6}
+\contentsline {subsection}{\numberline {7.5.7}Product Set}{44}{subsection.7.5.7}
+\contentsline {subsection}{\numberline {7.5.8}Power Set}{44}{subsection.7.5.8}
+\contentsline {section}{\numberline {7.6}Tuples}{44}{section.7.6}
+\contentsline {section}{\numberline {7.7}Relations}{45}{section.7.7}
+\contentsline {section}{\numberline {7.8}Binary Relations}{45}{section.7.8}
+\contentsline {subsection}{\numberline {7.8.1}Single-Valued}{46}{subsection.7.8.1}
+\contentsline {subsection}{\numberline {7.8.2}Total vs Partial}{46}{subsection.7.8.2}
+\contentsline {subsection}{\numberline {7.8.3}Inverse}{46}{subsection.7.8.3}
+\contentsline {subsection}{\numberline {7.8.4}Injective}{47}{subsection.7.8.4}
+\contentsline {subsection}{\numberline {7.8.5}Surjective}{47}{subsection.7.8.5}
+\contentsline {subsection}{\numberline {7.8.6}Bijective}{47}{subsection.7.8.6}
+\contentsline {subsection}{\numberline {7.8.7}Reflexive}{47}{subsection.7.8.7}
+\contentsline {subsection}{\numberline {7.8.8}Symmetric}{48}{subsection.7.8.8}
+\contentsline {subsection}{\numberline {7.8.9}Transitive}{48}{subsection.7.8.9}
+\contentsline {subsection}{\numberline {7.8.10}Equivalence}{48}{subsection.7.8.10}
+\contentsline {section}{\numberline {7.9}Quantification}{48}{section.7.9}
+\contentsline {section}{\numberline {7.10}Sequences}{49}{section.7.10}
 \contentsline {chapter}{\numberline {8}8. Propositional Logic}{51}{chapter.8}
-\contentsline {section}{\numberline {8.1}Introduction}{51}{section.8.1}
-\contentsline {section}{\numberline {8.2}Syntax}{53}{section.8.2}
-\contentsline {section}{\numberline {8.3}Interpretations}{53}{section.8.3}
-\contentsline {section}{\numberline {8.4}Evaluation}{53}{section.8.4}
-\contentsline {section}{\numberline {8.5}Models}{54}{section.8.5}
-\contentsline {section}{\numberline {8.6}Satisfiability, Validity}{54}{section.8.6}
-\contentsline {section}{\numberline {8.7}Logical Consequence}{55}{section.8.7}
+\contentsline {section}{\numberline {8.1}The Elements of a Logic}{52}{section.8.1}
+\contentsline {section}{\numberline {8.2}Using Logic in Practice}{52}{section.8.2}
+\contentsline {section}{\numberline {8.3}Propositional Logic}{53}{section.8.3}
+\contentsline {section}{\numberline {8.4}Syntax}{54}{section.8.4}
+\contentsline {section}{\numberline {8.5}Interpretations}{55}{section.8.5}
+\contentsline {section}{\numberline {8.6}Evaluation}{55}{section.8.6}
+\contentsline {section}{\numberline {8.7}Models}{55}{section.8.7}
+\contentsline {section}{\numberline {8.8}Satisfiability, Validity}{55}{section.8.8}
+\contentsline {section}{\numberline {8.9}Logical Consequence}{56}{section.8.9}
 \contentsline {chapter}{\numberline {9}09. Natural Deduction}{57}{chapter.9}
-\contentsline {chapter}{\numberline {10}Indices and tables}{59}{chapter.10}
+\contentsline {chapter}{\numberline {10}6. Dafny Language: Types, Statements, Expressions}{59}{chapter.10}
+\contentsline {section}{\numberline {10.1}Built-In Types}{59}{section.10.1}
+\contentsline {subsection}{\numberline {10.1.1}Booleans}{59}{subsection.10.1.1}
+\contentsline {subsection}{\numberline {10.1.2}Numbers}{60}{subsection.10.1.2}
+\contentsline {subsection}{\numberline {10.1.3}Characters}{60}{subsection.10.1.3}
+\contentsline {subsection}{\numberline {10.1.4}Sets}{60}{subsection.10.1.4}
+\contentsline {subsection}{\numberline {10.1.5}Sequences}{61}{subsection.10.1.5}
+\contentsline {subsection}{\numberline {10.1.6}Strings}{61}{subsection.10.1.6}
+\contentsline {subsection}{\numberline {10.1.7}Maps (Partial Functions)}{61}{subsection.10.1.7}
+\contentsline {subsection}{\numberline {10.1.8}Arrays}{62}{subsection.10.1.8}
+\contentsline {section}{\numberline {10.2}Statements}{62}{section.10.2}
+\contentsline {subsection}{\numberline {10.2.1}Block}{62}{subsection.10.2.1}
+\contentsline {subsection}{\numberline {10.2.2}Break}{63}{subsection.10.2.2}
+\contentsline {subsection}{\numberline {10.2.3}Update (Assignment)}{63}{subsection.10.2.3}
+\contentsline {subsection}{\numberline {10.2.4}Var (variable declaration)}{63}{subsection.10.2.4}
+\contentsline {subsection}{\numberline {10.2.5}If (conditional)}{63}{subsection.10.2.5}
+\contentsline {subsection}{\numberline {10.2.6}While (iteration)}{64}{subsection.10.2.6}
+\contentsline {subsection}{\numberline {10.2.7}Assert (assert a proposition about the state of the program)}{65}{subsection.10.2.7}
+\contentsline {subsection}{\numberline {10.2.8}Print (produce output on console)}{65}{subsection.10.2.8}
+\contentsline {subsection}{\numberline {10.2.9}Return}{65}{subsection.10.2.9}
+\contentsline {section}{\numberline {10.3}Expressions}{66}{section.10.3}
+\contentsline {subsection}{\numberline {10.3.1}Literals Expressions}{66}{subsection.10.3.1}
+\contentsline {subsection}{\numberline {10.3.2}If (Conditional) Expressions}{66}{subsection.10.3.2}
+\contentsline {subsection}{\numberline {10.3.3}Conjunction and Disjunction Expressions}{66}{subsection.10.3.3}
+\contentsline {subsection}{\numberline {10.3.4}Sequence, Set, Multiset, and Map Expressions}{67}{subsection.10.3.4}
+\contentsline {subsection}{\numberline {10.3.5}Relational Expressions}{67}{subsection.10.3.5}
+\contentsline {subsection}{\numberline {10.3.6}Array Allocation Expressions}{67}{subsection.10.3.6}
+\contentsline {subsection}{\numberline {10.3.7}Old Expressions}{68}{subsection.10.3.7}
+\contentsline {subsection}{\numberline {10.3.8}Cardinality Expressions}{68}{subsection.10.3.8}
+\contentsline {subsection}{\numberline {10.3.9}Let Expressions}{68}{subsection.10.3.9}
+\contentsline {chapter}{\numberline {11}Indices and tables}{71}{chapter.11}

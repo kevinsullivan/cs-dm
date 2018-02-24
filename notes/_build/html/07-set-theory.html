@@ -1,0 +1,807 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Set Theory &#8212; Discrete Mathematics for Software Professionals 1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/sidebar.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="8. Propositional Logic" href="08-propositional-logic.html" />
+    <link rel="prev" title="7. Boolean Algebra" href="06-boolean-algebra.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="08-propositional-logic.html" title="8. Propositional Logic"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="06-boolean-algebra.html" title="7. Boolean Algebra"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="set-theory">
+<h1>Set Theory<a class="headerlink" href="#set-theory" title="Permalink to this headline">¶</a></h1>
+<p>Modern mathematics is largely founded on set theory: in particular, on
+what is called <em>Zermelo-Fraenkel set theory with the axiom of Choice</em>,
+or <em>ZFC</em>. Every concept you have ever learnedseen in mathematics can
+be reduced to expresions involving sets.  For example, every natural
+number can be represented as a set: zero as the <em>empty set</em> (<em>{}</em>);
+one as the set containing the empty set (<em>{{}}</em>); two as the set that
+contains that set (<em>{{{}}}</em>); ad infinitum.</p>
+<p>Set theory includes the treatment of sets and of special cases
+involving relations (sets of tuples), functions (sets of tuples that
+satisfying the constraint of being <em>single0valued</em>, sequences (sets
+with an ordering imposed on the elements, which can in turn be viewed
+as a function from natural number indices to set elements) and other
+related concepts.  ZFC is a widely accepted <em>formal foundation</em> for
+modern mathematics: a set of axioms that describe properties of sets,
+from which all the rest of mathematics can be deduced.</p>
+<div class="section" id="naive-set-theory">
+<h2>Naive Set Theory<a class="headerlink" href="#naive-set-theory" title="Permalink to this headline">¶</a></h2>
+<p>So what is a set? A <em>naive</em> definition (which will actually be good
+enough for our purposes and for most of practical computer science) is
+that a set is just an unordered collection of elements. In principle,
+these elements are themselves sets, all the way down to empty sets,
+but we don’t need to think in such reductionist terms. We can think
+about a set of natural number elements, for example, without having to
+think of each natural number as itself being some weird kind of set!</p>
+<p>In practice, we just think sets as unordered collections of elements
+off some kind, where any given element is either <em>in</em> or <em>not in</em> any
+given set. Membership is binary.  So, for example, when we combine two
+sets, each containing some common element, the resulting combined set
+will have that element as a member, but it won’t have it twice.</p>
+<p>This chapter introduces <em>naive</em>, which is to say <em>intuitive and
+practical</em>, set theory. It does not cover <em>axiomatic</em> set theory, in
+which every concept is ultimately reduced to a set of logical axioms
+that define what precisely it means to be a set and how sets behave.</p>
+</div>
+<div class="section" id="overly-naive-set-theory">
+<h2>Overly Naive Set Theory<a class="headerlink" href="#overly-naive-set-theory" title="Permalink to this headline">¶</a></h2>
+<p>Before we go on, however, we review a bit of history to understand
+that an overly naive view of sets can lead to logical contradictions
+that make naive set theory completely useless as a logically sound
+foundation for mathematics.</p>
+<p>One of the founders of modern logic, Gotlob Frege, had as his central
+mission to establish foundations of mathematics in symbolic logic.
+The concept of a set was central to his effort. His logic therefore
+allowed one to define sets as collections of elements that satisfy
+given propositions, and to talk about whether a given element is in a
+given set of not. Frege’s notion of sets, in turn, traced back to the
+seminal work of Georg Cantor.</p>
+<p>Boom. In 1903, the British analytical philosopher, Bertrand Russell,
+published a paper presenting a paradox in what we now call <em>naive set
+theory.</em> Russell showed that a logic based on naive set theory would
+be <em>inconsistent</em> (self-contradicting) and thus useless as a logic.</p>
+<p>To see the problem, one need only consider the set of all sets that do
+not contain themselves. In mathematical <em>set comprehension</em> notation,
+we would write this set, let’s call it <em>S</em>, as <img class="math" src="_images/math/a1eecde9ec8a7eb381ac82e7ec68e29cf02b3106.png" alt="S = \{ a: set |
+a \notin a \}."/> That is, <em>S</em> is the set of elements, <em>a</em>, each itself
+a set, such that <em>a</em> is not in (a member of) itself.</p>
+<p>Now ask the decisive question: Does <em>S</em> contain itself? Let’s make a
+notation, <em>C(S)</em>, to represent the idea that <em>S</em> contains itself. Now
+suppose that <em>C(S)</em> is true, i.e., that <em>S</em> does contain itself. In
+this case, <em>S</em>, being a set that contains itself, cannot be a member
+of <em>S</em>, because we just defined <em>S</em> to be the set of sets that do
+<em>not</em> contain themselves. The assumption that <em>S</em> containss itself
+leads to the conclusion that <em>S</em> does not contain itself. In logical
+terms, <img class="math" src="_images/math/88fed86576b69c7f57881ccfe1f506808ec16b07.png" alt="C(S) \rightarrow \neg C(S)."/> This is a contradiction and
+thus a logical impossibility.</p>
+<p>Now suppose <em>S</em> does not contain itself: <img class="math" src="_images/math/4a4e43a13b62324114a4b955a446319f03c21fac.png" alt="\neg C(S)."/>. Being
+such a set, and given that <em>S</em> is the set of sets that do not contain
+themselves, it must now be in <em>S</em>. So <img class="math" src="_images/math/2bf28ffcfdbea32d11c7145b71a2883546e258a6.png" alt="\neg C(S) \rightarrow
+C(S)."/> The assumption that it does <em>not</em> contain itself leads right
+back to the conclusion that it <em>does</em> contain itself. Either the set
+does or does not contain itself, but assuming either case leads to a
+contradictory conclusion. All is lost!</p>
+<p>That such an internal self-contradiction can arise in such a simple
+way (or at all) is a complete disaster for any logic. The whole point
+of a logic is that it gives one a way to reason that is sound, which
+means that from true premises one can never reach a contradictory
+conclusion. If something that is impossible can be proved to be true
+in a given theory, then anything at all can be proved to be true, and
+the whole notion of truth just collapses into meaninglessness. As soon
+as Frege saw Russell’s Paradox, he knew that that was <em>game over</em> for
+his profound attempt to base mathematics on a logic grounded in his
+(Cantor’s) naive notion of sets.</p>
+<p>Two solutions were eventually devised. Russell introduced a notion of
+<em>types</em>, as opposed to sets, per se, as a foundation for mathematics.
+The basic idea is that one can have elements of a certain <em>type</em>; then
+sets of elements of that type, forming a new type; then sets of sets
+elements of that type, forming yet another type; but one cannot even
+talk about a set containing (or not containing) itself, because sets
+can only contain elements of types lower in the type hierarchy.</p>
+<p>The concept of types developed by Russell lead indirectly to modern
+type theory, which remains an area of very active exploration in both
+computer science and pure mathematics. Type theory is being explored
+as an alternative foundation for mathematics, and is at the very heart
+of a great deal of work going on in the areas of programming language
+design and formal software specification and verification.</p>
+<p>On the other hand, Zermelo repaired the paradox by adjusting some of
+the axioms of set theory, to arrive at the starting point of what has
+become ZFC. When we work in set theory today, whether with a <em>naive</em>
+perspective or not, we are usually working in a set theory the logical
+basic of which is ZFC.</p>
+</div>
+<div class="section" id="sets">
+<h2>Sets<a class="headerlink" href="#sets" title="Permalink to this headline">¶</a></h2>
+<p>For our purposes, the <em>naive</em> notion of sets will be good enough. We
+will take a <em>set</em> to be an unordered finite or infinite collection of
+<em>elements</em>. An element is either <em>in</em> or <em>not in</em> a set, and can be in
+a set at most once.  In this chapter, we will not encounter any of the
+bizarre issues that Russell and others had to consider at the start of
+the 20th century.</p>
+<p>What we will find is that set-theoretical thinking is an incredibly
+powerful intellectual tool. It’s at the heart of program specification
+and verification, algorithm design and analysis, and theory of
+computing, among many other areas in computer science. Moreover, Dafny
+makes set theory not only fun but executable. The logic of Dafny, for
+writing assertions, pre- and post-conditions, and invariants <em>is</em> set
+theory, a first-order logic with sets and set-related operations as
+built-in concepts.</p>
+</div>
+<div class="section" id="notation">
+<h2>Notation<a class="headerlink" href="#notation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="display-notation">
+<h3>Display notation<a class="headerlink" href="#display-notation" title="Permalink to this headline">¶</a></h3>
+<p>In everyday mathematical writing, andin Dafny, we denote small sets by
+listing the elements of the set within curly brace. If <em>S</em> is the set
+containing the numbers, one, two, and three, for example, we can write
+<em>S</em> as <img class="math" src="_images/math/681866a8f518adc2b652c8a583e1b642e424b55b.png" alt="\{ 1, 2, 3 \}."/></p>
+<p>In Dafny, we would write almost the same thing.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>var S:set&lt;int&gt; := { 1, 2, 3 }.
+</pre></div>
+</div>
+<p>This code introduces the variable, <em>S</em>, declares that its type is
+<em>finite set of integer</em> (<em>iset&lt;T&gt;</em> being the type of <em>infinite</em> sets
+of elements of tyep <em>T</em>), and assigns to <em>S</em> the set value, <img class="math" src="_images/math/b7d2529464caa57ee93b6344aa404e3030bb115a.png" alt="\{
+1, 2, 3 \}."/> Because the value on the right side of the assignment
+operator, is evidently a set of integers, Dafny will infer the type of
+<em>S</em>, and the explicit type declaration can therefore be omitted.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>var S := { 1, 2, 3 }.
+</pre></div>
+</div>
+<p>When a set is finite but too large to write down easily as a list of
+elements, but when it has a regular structure, mathematicians often
+denote such a set using an elipsis. For example, a set, <em>S</em>, of even
+natural numbers from zero to one hundred could be written like this:
+<img class="math" src="_images/math/9a00b3fe8646fb985d914bf4e01ecb01aec599d2.png" alt="S = \{ 0, 2, 4, \ldots, 100 \}."/> This expression is a kind of
+quasi-formal mathematics. It’s mostly formal but leaves details that
+an educated person should be able to infer to the human reader.</p>
+<p>It is not (currently) possible to write such expressions in Dafny.
+Dafny does not try to fill in missing details in specifications. A
+system that does do such a thing might make a good research project.
+On the other hand, ordinary mathematical writing as well as Dafny do
+have ways to precisely specify sets, including even infinite sets, in
+very concise ways, using what is called <em>set comprehension</em> or <em>set
+builder</em> notation.</p>
+</div>
+<div class="section" id="set-comprehension-notation">
+<h3>Set comprehension notation<a class="headerlink" href="#set-comprehension-notation" title="Permalink to this headline">¶</a></h3>
+<p>Take the example of the set, <em>S</em>, of even numbers from zero to one
+hundred, inclusive. We can denote this set precisely in mathematical
+writing as <img class="math" src="_images/math/97e386e4d3ed865d3932349f6a4550a1bf1e4e58.png" alt="S = \{ n: {\mathbb Z} | 0 &lt;= n &lt;= 100 \land n mod 2
+== 0 \}."/> Let’s pull this expression apart.</p>
+<p>The expression on the right of the equals sign can be read in three
+parts. The vertical bar is read <em>such that</em>. To the left of the bar is
+an expression identifying the set from which the elements of <em>this</em>
+set are drawn, and a name is given to an arbitrary element of this
+source set. So here we can say that <em>S</em> is a set each element <em>n</em> of
+which is a natural number.  A name, here <em>n</em>, for an arbitrary element
+is given for two purposes. First it desribes the form of elements in
+the set being built: here just <em>integers</em>. Second, the name can then
+be used in writing a condition that must be true of each such element.
+That expression is written to the right of the vertical bar.</p>
+<p>Here the condition is that each such element, <em>n</em> must be greater than
+or equal to zero, less than or equal to one hundred, and even, in that
+the remainder must be zero when <em>n</em> is divided by <em>2</em>. The overall set
+comprehension expression is thus read literally as, <em>S</em> is the set of
+integers, <em>n</em>, such that <em>n</em> is greater than or equal to zero, <em>n</em> is
+less than or equal to 100, and <em>n</em> evenly divisible by <em>2</em>. A more
+fluent reading would simply be <em>S</em> is the set of even integers between
+zero and one hundred inclusive.</p>
+<p>Dafny supports set comprehension notations. This same set would be
+written as follows (we assume that the type of S has already been
+declared to be <em>set&lt;int&gt;)</em>:</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>S := set s: int | 0 &lt;= s &lt;= 100;
+</pre></div>
+</div>
+<p>Another way to define the same set in ordinary mathematical writing
+would use a slightly richer form of set comprehension notation. In
+particular, we can define the same set as the set of values of the
+expression <em>2*n</em> for <em>n</em> is in the range zero to fifty, inclusive.
+Where it’s readily inferred, mathematicians will usually also leave
+out explicit type information. <a href="#id1"><span class="problematic" id="id2">`</span></a>S = { 2 * n | 0 &lt;= n &lt;= 50 }. In
+this expression it’s inferred that <em>n</em> ranges over all the natural
+numbers, these values are <em>filtered</em> by the expression on the right,
+and these filtered values are then fed through the expression on the
+left of the bar to produce the elements of the intended set.</p>
+<p>Dafny also supports set comprehension notation in this style. To
+define this very same set in Dafny we could also write this:</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>S := set s: int | 0 &lt;= s &lt;= 50 :: 2 * s;
+</pre></div>
+</div>
+<p>This command assigns to S a set of values, <em>2 * s</em>,, where <em>s</em>
+ranges over the integers and satisfies the predicate (or filter)
+<em>0 &lt;= s &lt;= 50</em>.</p>
+<p>The collection of values from which element are drawn to be
+build into a new set need not just be a built-in type but can
+be another programmer-defined set. Given that <em>S</em> is the set
+of even numbers from zero to one hundred, we can define the
+subset of <em>S</em> of elements that are less than <em>25</em> by writing
+a richer set comprehension. In pure mathematical writing, we
+could write <img class="math" src="_images/math/9cc14614aedd949a467fd052edd0f4f2e3862dd0.png" alt="T = \{ t | t \in S \land t &lt; 25\}."/> That is,
+<em>T</em> is the set of elements that are in <em>S</em> and less than <em>25</em>.
+The Dafny notation is a little different, but not too much:</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>var T := set t | t in S &amp;&amp; t &lt; 25;
+</pre></div>
+</div>
+<p>This Dafny code defines <em>T</em> to be the set (of integers, but note that
+we let Dafny infer the type of <em>t</em> in this case), such that <em>t</em> is in
+the set <em>S</em> (that we just defined) and <em>t</em> is also less than <em>25</em>.</p>
+<p>As a final example, let’s suppose that we want to define the set of
+all ordered pairs whose first elements are from <em>S</em> and whose second
+elements are from <em>T</em>, as we’ve defined them here. For example, the
+pair <em>(76,24)</em> would be in this set, but not <em>(24 76)</em>. In ordinary
+mathematical writing, this would be <img class="math" src="_images/math/6e93c4191ebb0fdc2a5106f5991ef00a0665e9f8.png" alt="\{ (s,t) | s \in S \land t
+\in T\}."/> This set is, as we’ll learn more about shortly, called the
+<em>product set</em> of the sets, <em>S</em> and <em>T</em>.</p>
+<p>In Danfy, this would be written like this:</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>var Q := set s, t | s in S &amp;&amp; t in T :: (s, t);
+</pre></div>
+</div>
+<p>This code assigns to the new variable, <em>Q</em>, a set formed by taking
+elements, <em>s</em> and <em>t</em>,, such that <em>s</em> is in <em>S</em> and <em>t</em> is in <em>T</em>, and
+forming the elements of the new set as tuples, <em>(s, t)</em>. This is a far
+easier way to write code for a product set than by explicit iteration
+over the sets <em>S</em> and <em>T</em>!</p>
+</div>
+</div>
+<div class="section" id="operations">
+<h2>Operations<a class="headerlink" href="#operations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="cardinality">
+<h3>Cardinality<a class="headerlink" href="#cardinality" title="Permalink to this headline">¶</a></h3>
+<p>By the cardinality of a set, <em>S</em>, we mean the number of elements
+in S. When <em>S</em> is finite, the cardinality of <em>S</em> is a natural number.
+The cardinarily of the empty set is zero, for example, because it has
+no (zero) elements. In ordinary mathematics, if <em>S</em> is a finite set,
+then its cardinality is denoted <img class="math" src="_images/math/bca4eb7c95f7b9bb9f0b55ab74fb48501c374794.png" alt="|S|"/>. With <em>S</em> defined as in
+the preceding section, the cardinality of <em>S</em> is <em>50</em>. (There are
+<em>50</em> numbers between <em>0</em> and <em>49</em>, inclusive.)</p>
+<p>The Dafny notation for set cardinality is just the same. The following
+code will print the cardinality of <em>S</em>, namely <em>50</em>, for example.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>print |S|;
+</pre></div>
+</div>
+<p>If a set is infinite in size, as for example is the set of natural
+numbers, the cardinality of the set is obviously not any natural
+number. One has entered the realm of <em>transfinite numbers</em>. We will
+discuss transfinite numbers later in this course. In Dafny, as you
+might expect, the cardinality operator is not defined for infinite
+sets (of type <em>iset&lt;T&gt;</em>).</p>
+</div>
+<div class="section" id="equality">
+<h3>Equality<a class="headerlink" href="#equality" title="Permalink to this headline">¶</a></h3>
+<p>Two sets are considered equal if and only if they contain exactly
+the same elements. To assert that sets <em>S</em> and <em>T</em> are equal in
+mathematical writing, we would write <em>S = T</em>. In Dafny, such an
+assertion would be written, <em>S == T</em>.</p>
+</div>
+<div class="section" id="subset">
+<h3>Subset<a class="headerlink" href="#subset" title="Permalink to this headline">¶</a></h3>
+<p>A set, <em>T</em>, can be said to be a subset of a set <em>S</em> if and only if
+every element in <em>T</em> is also in <em>S</em>. In this case, mathematicians
+write <img class="math" src="_images/math/006926e4a2b3b3a55129b93b7ab1fedf68da96eb.png" alt="T \subseteq S"/>. In logical notation, we would write,
+<img class="math" src="_images/math/0e4eb07fe9d633c95c2e21bf6f6f70df946e43f6.png" alt="T \subseteq S \iff \forall t \in T, t \in S"/>. That is, <em>T</em> is a
+subset of <em>S</em> if and only if every element in <em>T</em> is also in <em>S</em>.</p>
+<p>A set <em>T</em>, is said to be a <em>proper</em> subset of <em>S</em>, if <em>T</em> is a subset
+of <em>S</em> but <em>T</em> is not equal to <em>S</em>. This is written in mathematics as
+<img class="math" src="_images/math/5e1985f6ce3ef221173377903e0f65930b9412aa.png" alt="T \subset S"/>. In other words, every element of <em>T</em> is in <em>S</em> but
+there is at least one element of <em>S</em> that is not in <em>T</em>.</p>
+<p>In our example, <em>T</em> (the set of even natural numbers less than <em>25</em>)
+is a proper subset of <em>S</em> (the set of even natural numbers less than
+or equal to <em>100</em>).</p>
+<p>In Dafny, one uses the usual arithmetic less and and less than or
+equal operator symbols, <em>&lt;</em> and <em>&lt;=</em>, to assert <em>proper subset</em> and
+<em>subset</em> relationships, respectively. The first two of the following
+assertions are thus both true in Dafny, but the third is not. That
+said, limitations in the Dafny verifier make it hard for Dafny to see
+the truth of such assertions without help. We will not discuss how to
+provide such help at this point.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>assert T &lt; S;
+assert T &lt;= S;
+assert S &lt;= T;
+</pre></div>
+</div>
+<p>We note every set is a subset, but not a proper subset, of
+itself. It’s also the case that the empty set is a subset of every
+set, in that <em>all</em> elements in the empty set are in any other set,
+because there are none. In logic-speak, we’d say <em>a universally
+quantified proposition over an empty set is trivially true.</em></p>
+<p>If we reverse the operator, we get the notion of supersets and proper
+supersets. If <em>T</em> is a subset of <em>S</em>, then <em>S</em> is a superset of <em>T</em>,
+written, <img class="math" src="_images/math/545f54f8cb60943285b183ae5bc52fb0fc87ad16.png" alt="S \supseteq T"/>. If <em>T</em> is a proper subset of <em>S</em> then
+<em>S</em> is a proper superset of <em>T</em>, written <img class="math" src="_images/math/65e6f407c7dfce0fa7d0f9e6db27595235e657f2.png" alt="S \supset T"/>. In
+Dafny, the greater than and greater than or equals operator are used
+to denote proper superset and superset relationships between sets.
+So, for example, <em>S &gt;= T</em> is the assertion that <em>S</em> is a superset of
+<em>T</em>. Note that every set is a superset of itself, but never a proper
+superset of itself, and every set is a superset of the empty set.</p>
+</div>
+<div class="section" id="intersection">
+<h3>Intersection<a class="headerlink" href="#intersection" title="Permalink to this headline">¶</a></h3>
+<p>The intersection, <img class="math" src="_images/math/5391bb4cd9797217ba8e85da016c08f73cf66ba9.png" alt="S \cap T"/>, of two sets, <em>S</em> and <em>T</em>, is the
+set of elements that are in both <em>S</em> and <em>T</em>. Mathematically speaking,
+<img class="math" src="_images/math/b93e4637c8680497c56648862807d1a3965cacd8.png" alt="S \cap T = \{ e~|~e \in S \land e \in T \}"/>. In Dafny, the <em>*</em>
+operator is used for set intersection.  The intersection of <em>S</em> and
+<em>T</em> is thus written <em>S * T</em>. For example, the command <em>Q := S * T</em>
+assigns the intersection of <em>S</em> and <em>T</em> as the new value of <em>Q</em>.</p>
+</div>
+<div class="section" id="union">
+<h3>Union<a class="headerlink" href="#union" title="Permalink to this headline">¶</a></h3>
+<p>The union, <img class="math" src="_images/math/10bb12eb90bac33ab070fa2ff9405b721df1230e.png" alt="S \cup T"/>, of two sets, <em>S</em> and <em>T</em>, is the set of
+elements that are in either (including both) <em>S</em> and <em>T</em>. That is,
+<img class="math" src="_images/math/58bdb243ed3b6853a683d0c0d2bfe955008a1865.png" alt="S \cup T = \{ e~|~e \in S \lor e \in T \}"/>. In Dafny, the <em>+</em>
+operator is used for set union.  The unionof <em>S</em> and <em>T</em> is thus
+written <em>S + T</em>. For example, the command <em>V := S + T</em> assigns the
+union of <em>S</em> and <em>T</em> as the new value of <em>V</em>.</p>
+</div>
+<div class="section" id="difference">
+<h3>Difference<a class="headerlink" href="#difference" title="Permalink to this headline">¶</a></h3>
+<p>The difference, <em>S\T</em> (<em>S</em> minus <em>T</em>), of sets <em>S</em> and <em>T</em> is the set
+of elements in <em>S</em> that are not also in <em>T</em>. Thus, :math:<a href="#id3"><span class="problematic" id="id4">`</span></a>S setminus
+T = {e~|~e in S land e notin T). In Dafny, the minus sign is used
+to denote set difference, as in the expression, <em>S - T</em>. Operators in
+Dafny can be applied to sets to make up more complex expressions. So,
+for example, <em>|S-T|</em> denotes the cardinality of <em>S-T</em>.</p>
+</div>
+<div class="section" id="product-set">
+<h3>Product Set<a class="headerlink" href="#product-set" title="Permalink to this headline">¶</a></h3>
+<p>The product set, <img class="math" src="_images/math/64a6eff94bb737b50c491df7ab889fd0c11ecb02.png" alt="S \times T"/>, is the set of all the ordered
+pairs, <em>(s,t)</em>, that can be formed by taking one element, <em>s</em>, from
+<em>S</em>, and one element, <em>t</em>, from <em>T</em>. That is, <img class="math" src="_images/math/66db47fecf99101ab90735c11092ae3be332839a.png" alt="S \times T = \{
+(s, t) | s \in S \land t \in T \}"/>. The cardinality of a product set
+is the product of the cardinalities of the individual sets.</p>
+<p>There is no product set operator, per se, in Dafny, but given sets,
+<em>S</em> and <em>T</em> a product set can easily be expressed using Dafny’s set
+comprehension notation: <em>set s, t: s in S &amp;&amp; t in T :: (s,t)</em>. The
+keyword, <em>set</em>, is followed by the names of the variables that will be
+used to form the set comprehension expression, followed by a colon,
+followed by an assertion that selects the values of <em>s</em> and <em>t</em> that
+will be included in the result, followed by a double colon, and then,
+finally an expression using the local variables that states how each
+value of the resulting set will be formed.</p>
+</div>
+<div class="section" id="power-set">
+<h3>Power Set<a class="headerlink" href="#power-set" title="Permalink to this headline">¶</a></h3>
+<p>The power set of a set, <em>S</em>, denoted <img class="math" src="_images/math/13c471ff6a4226c1aeff17f10d4693215420d207.png" alt="{\mathbb P}(S),"/> is the
+set of all subsets of <em>S</em>. If <em>S = {1, 2 }</em>, for example, the powerset
+of <em>S</em> is the set containing the proper and improper subsets of <em>S</em>,
+namely <em>{}, { 1 }, { 2 },</em> and <em>{ 1, 2}</em>.</p>
+<p>The powerset of a set with <em>n</em> element will have <img class="math" src="_images/math/798d39775b3c54beddeb31ad508597409e6e7c43.png" alt="2^n"/> elements.
+Consider the powerset of the empty set. The only subset of the empty
+set is the empty set itself, so the powerset of the empty set is the
+set containing only the empty set. This set has just <em>1</em> element. It’s
+cardinality thus satisfies the rule, as <em>2</em> to the power, zero (the
+number of elements in the empty set), is <em>1</em>.</p>
+<p>Now suppose that for every set, <em>S</em>, with cardinality <em>n</em>, the
+cardinality of its powerset is <em>2</em> to the <em>n</em>. Consider a set, <em>S’</em>,
+of cardinality one bigger than that of <em>S</em>. Its powerset contains
+every set in the powerset of <em>S</em>, plus every set in that set with the
+new element included, and that’s all the element it includes.</p>
+<p>The number of sets in the powerset of <em>S’</em> is thus double the number
+of sets in the powerset of <em>S</em>. Given that the cardinality of the
+powerset of <em>S</em> is <em>2</em> to the <em>n</em>, the cardinality of <em>S’</em>, being
+twice that number, is <em>2</em> to the <em>n + 1</em>.</p>
+<p>Now because the rule holds for sets of size zero, and whenver it holds
+for sets of size <em>n</em> it also holds for sets of size <em>n + 1</em>, it must
+hold for sets of every (finite) size. So what we have is an informal
+<em>proof by induction</em> of a theorem: <img class="math" src="_images/math/6286656ea11925e78858a3878bc9be8a2866eeb9.png" alt="\forall S, |{\mathbb P}(S)|
+= 2^{|S|}"/>.</p>
+</div>
+</div>
+<div class="section" id="tuples">
+<h2>Tuples<a class="headerlink" href="#tuples" title="Permalink to this headline">¶</a></h2>
+<p>A tuple is an ordered collection of elements. The number of elements
+in a tuple is called its <em>arity</em>. Ordered pairs are of arity, <em>2</em>. An
+ordered triple is of arity, <em>3</em>. A tuple of arity <em>2</em> is called an
+<em>ordered pair</em>. A tuple of arity <em>3</em> is often called a triple. For a
+larger arity, <em>n</em>, a tuple with that arity is called an <em>n-tuple</em>.
+The tuple, <em>(7, X, “house”, square_func)</em>, for example, can be said
+to be a <em>4-tuple</em>.</p>
+<p>The elements of a tuple are in general not of the same type, or drawn
+from the same sets. In the example here, the first element appears to
+be an integer, the second, a variable, the third, a string, and last,
+the name of some function.</p>
+<p>Tuples are properly understood as values taken from a set product.  If
+<em>S</em> and <em>T</em> are our sets of even numbers between zero and one hundred,
+and zero and twenty four, respectively, for example, then the ordered
+pair, <em>(60,24)</em> is an element of the product set <img class="math" src="_images/math/64a6eff94bb737b50c491df7ab889fd0c11ecb02.png" alt="S \times T"/>.</p>
+<p>If one is being careful about types, whether in general mathematical
+discourse or in programming, then the <em>type</em> of a tuple is defined as
+the tuple of the types of its elements. In the example here, the type
+of <em>S</em> (using Dafny notation) is <em>set&lt;int&gt;</em>, and the type of <em>T</em> is
+also <em>set&lt;int&gt;</em>, so the type of elements in <img class="math" src="_images/math/64a6eff94bb737b50c491df7ab889fd0c11ecb02.png" alt="S \times T"/> is the
+type, <em>(int, int)</em>. In general the type of a tuple in a set product,
+::<cite>S_1 times S_2 times ldots time S_n</cite>, where the types of these
+sets are <img class="math" src="_images/math/a25f27eaf855f40709db99b90e3b307f237b9c35.png" alt="T_1, \ldots, T_n"/> is <img class="math" src="_images/math/7e39648e05d3ef616da80fbd0df396bf2e63be58.png" alt="(T_1, \ldots, T_n)"/>.</p>
+<p>While all of this might seem a little abstract, it’s actually simple
+and very useful. Any table of data, such as a table with columns that
+hold names, birthdays, and social security numbers, represents data in
+a product set. One set is the set of names, the second set is the set
+of birthdays. The third is the set of social security numbers.  Each
+row in such a table is just a particular tuple in such a set product.</p>
+<p>Each row is a tuple. We call each element of a tuple a <em>field</em>. An
+<em>n-tuple</em> will have <em>n</em> fields, which we conventionally refer to by
+indices ranging from <em>0</em> to <em>n-1</em>.</p>
+<p>We are often interested in the value of a particular field of a
+tuple. We can used subscripting as a way to extract the value of a
+particular field from a tuple. We can view such an extraction
+operation as a function from tuple values to field values. We call
+such functions <em>projection functions</em>.</p>
+<p>An <em>n-tuple</em> will have <em>n</em> project functions, often denoted using the
+greek letter, <em>pi</em>, with a (zero-based) subscript indicating which
+element the project function <em>projects</em> out of a given tuple. If for
+example, <em>t</em> is the <em>3-tuple</em>, <em>12, 4, 6)</em>, then <img class="math" src="_images/math/209832ca41dbb8f55ee31310b9e8f1b7a7d3b678.png" alt="\pi_1(t) = 4"/>.</p>
+<p>In Dafny, tuples are written as they are in mathematics, as lists of
+field values separated by commas and enclosed in parentheses.  For
+example <em>t := (1, “hello”, [1,2,3])” assigns to *t</em> a <em>3-tuple</em> whose
+first field has the value, <em>1</em> (of type <em>int</em>); whose second field has
+the value, “hello”, a string; and whose third element is the list of
+integers, <em>[2, 4, 6]</em>. Projection in Dafny is accomplished using the
+subscripting operation. So, for example, <em>t[1]</em> in this case has the
+value, <em>4</em>.</p>
+</div>
+<div class="section" id="relations">
+<h2>Relations<a class="headerlink" href="#relations" title="Permalink to this headline">¶</a></h2>
+<p>A relation in nothing but a subset of (the tuples in) a product set. A
+table such as the one described will, in practice, usually not have a
+row with every possible combination of names, birthdays, and SSNs. In
+other words, it won’t contain every tuple in the product of the sets
+from which the values in the respective columns are drawn (the set of
+all names, the set of all birthdays, and the set of all SSNs in this
+case).</p>
+<p>In mathematical writing, we will thus often see a sentence of the
+form, Let <img class="math" src="_images/math/8976c2854fcacf02af1366971f1c7b69eb0420e4.png" alt="R \subseteq S \times T"/> be a relation. All this says
+is that <em>R</em> is some subset of the set of all tuples in the product set
+of <em>S</em> and <em>T</em>. If <em>S = { hot, cold }</em> and <em>T = { cat, dog }</em>, then
+the product set is <em>{ (hot, cat), (hot, dog), (cold, cat), (cold, dog)
+}</em>, and a relation on <em>S</em> and <em>T</em> is any subset of this product set.
+The set, <em>{ (hot, cat), (cold, dog) }</em> is one such relation.</p>
+<p>Here’s an exercise. If <em>S</em> and <em>T</em> are finite sets, <em>|S| = n</em> and <em>|T|
+= m</em>, how many relations are there over <em>S</em> and <em>T</em>? First, how many
+tuples are in the product set? Second, how many subsets are there of
+that set? For fun, write a little Dafny program. should take two sets
+of integers as arguments as return the number of relations over them.
+Dafny does not provide a built-in exponentiation funciton, but you can
+now write one yourself (in fact, you’ve already done this). Here’s a
+test case: the number of relations over sets of cardinalities <em>4</em> and
+<em>5</em> is about a million.</p>
+</div>
+<div class="section" id="binary-relations">
+<h2>Binary Relations<a class="headerlink" href="#binary-relations" title="Permalink to this headline">¶</a></h2>
+<p>Binary relations are relations over products of <em>2</em> sets. The first
+set is called the <em>domain</em> of the relation. The second set is called
+the co-domain of the relation. That is, a binary relation is a subset
+of the ordered pairs in a product of the given domain and codomain
+sets.</p>
+<p>The everyday functions you have studies in mathematics are binary
+relations, albeit usually infinite ones. For example, the <em>square</em>
+function, that associates every real number with its square can be
+understood as the infinite set of ordered pairs of real numbers in
+which the second is the square of the first. Mathematically this is
+:{ (x, y) | y = x^2 }:<a href="#id5"><span class="problematic" id="id6">`</span></a>, where we take as implicit that <em>x</em> and <em>y</em>
+range over the real numbers. Elements of this set include the pairs,
+<em>(-2, 4)</em> and <em>(2, 4)</em>.</p>
+<p>The concept of <em>square roots</em> of real numbers is also best understood
+as a relation. The tuples are again pairs of real numbers, but now the
+elements include tuples, <em>(4, 2)</em> and <em>(4, -2)</em>.</p>
+<div class="section" id="single-valued">
+<h3>Single-Valued<a class="headerlink" href="#single-valued" title="Permalink to this headline">¶</a></h3>
+<p>A binary-relation is said to be <em>single-valued</em> if it does not have
+two tuples with the same first element and different second elements.
+A different way to say this is that if <em>(x, y)</em> and <em>(x, z)</em> are two
+elements in a single-valued binary relation (with the same first
+element, <em>x</em>) then it must be that <em>x</em> and <em>y</em> are the same value, for
+otherwise the relation would not be single-valued. To be more precise,
+then, a relation, <img class="math" src="_images/math/8976c2854fcacf02af1366971f1c7b69eb0420e4.png" alt="R \subseteq S \times T"/>, is single valued if
+<img class="math" src="_images/math/b15ef2125a9f9a15f3490083eca8ccbf873ef604.png" alt="forall (x, y) \in R, forall (x, z) \in R, y = z"/>. In logical
+notation, <img class="math" src="_images/math/6e58633bedbd3498fea2acffa1aa2a225547cb16.png" alt="(x, y) \in R \land (x, z) \in R \rightarrow y = z"/>.</p>
+<p>A single-valued binary relation is also called a <em>function</em>. And by a
+<em>function</em> in mathematics, we means exactly a single-valued relation.
+The <em>square</em> relation is a function, in that for any given number
+there is only one associated square of that number. The relation is
+single-valued in exactly this sense. By contrast, the square root
+relation is not a function, because for any given non-negative real
+number, there are two associated square roots. The relation is not
+single-valued.</p>
+</div>
+<div class="section" id="total-vs-partial">
+<h3>Total vs Partial<a class="headerlink" href="#total-vs-partial" title="Permalink to this headline">¶</a></h3>
+<p>A binary relation is said to be total if every element of its domain
+appears as the first element in at least one tuple. We say that the
+relation is <em>defined</em> for each such element. A relation that is not
+total is said to be partial. And these terms are applied to functions
+as well.</p>
+<p>Exercises: Is the function <em>y = x</em> on the real numbers total? Is the
+square root function on the domain of the real numbers total? Answer:
+No, because it’s not defined for any real numbers less than zero. Is
+the <em>log</em> function defined on the non-negative real numbers? Answer:
+no, because it’t not defined at <em>x = 0</em>.  Is the <em>SSN</em> function, that
+assigns a U.S. social security number to a person total? No, not every
+person has a social security number.</p>
+<p>Implementing partial functions as methods or pure function in software
+presents certain problems. Either a pre-conditions has to be enforced
+to prevent the function of method being called with a value for which
+it’s not define, or the function or method needs to be made total by
+returning some kind of <em>error</em> value if it’s called with such a value.
+In this case, callers of the function are obligated always to check
+whether <em>some</em> real function value was return or whether <em>none</em> was,
+but rather an error flag. The failure of programmers systematically to
+check for such error returns is a ubiquitous source of bugs in real
+software.</p>
+<p>By enforcing a requirement that every loop and recursion terminates,
+Dafny demands that every function and method be total in the sense
+that it returns and that it returns some value of the type, if any,
+that it promises to return. When a Dafny total function is used to
+implement a mathematical function that is partial, the problem thus
+arises what to return for inputs not in the domain of the partial
+function being implemented. A little later in the course we will see a
+nice way to handle this issue using what are called <em>option</em> types. An
+option type is like a box that contains either a good value or an
+error flag; and to get a good value out of such a box, one must
+explicitly check to see whether the box has a good value in it or,
+alternatively, and error flag.</p>
+</div>
+<div class="section" id="inverse">
+<h3>Inverse<a class="headerlink" href="#inverse" title="Permalink to this headline">¶</a></h3>
+<p>The inverse of a given binary relation is simply the set of tuples
+formed by reversing the order of all of the given tuples. To put this
+in mathematical notation, if <em>R</em> is a relation, its inverse, denoted
+::<cite>R^{-1}</cite>, is <img class="math" src="_images/math/6b8262e547923c6ac102733ab306db06ec2c58d2.png" alt="\{ (y, x) | (x, y) \in R \}"/>. You can see this
+immediately in our example of squares and square roots. One contains
+the tuples, <em>(-2, 4), (2, 4)</em>, while the other contains <em>(4, 2), (4,
+-2)</em>.</p>
+<p>It should immediately be clear that the inverse of a function is not
+always also a function. Indeed, the inverse of the square function is
+the square root relation, but that relation is not itself a function.</p>
+<p>A function whose inverse is also a function is said to be invertible.
+The function, <em>f(x) = x</em> (or <em>y = x</em> if you prefer) is invertible in
+this sense. In fact, its inverse is itself. Is the cube root function
+invertible? (That’s an exercise for the reader. Now prove it with a
+rigorous argument.)</p>
+</div>
+<div class="section" id="injective">
+<h3>Injective<a class="headerlink" href="#injective" title="Permalink to this headline">¶</a></h3>
+<p>A relation (and in particular, a function)is said to be injective if
+no two elements of the domain are associated with the same element in
+the co-domain.</p>
+<p>The square function is a function because it is single-valued, but it
+is not injective. To see this, one need only to observe that two
+different values in the domain, <em>-2</em> and <em>2</em>, have the same squared
+value in the co-domain, namely <em>4</em>.</p>
+<p>Exercises: Write a precise mathematical definition of what it means
+for a binary relation to be injective.  Is the cube root function
+injective? Is <em>f(x) = sin(x)</em> injective?</p>
+</div>
+<div class="section" id="surjective">
+<h3>Surjective<a class="headerlink" href="#surjective" title="Permalink to this headline">¶</a></h3>
+<p>A binary relation, and in particular a function, is <em>surjective</em> if
+every element in the co-domain appears in some tuple in the relation.
+In other words, the <em>range</em> of the relation or function, which one can
+think about as the set of output values, <em>covers</em> the co-domain. The
+function, <em>f(x) = x</em> (or <em>y = x</em> if you prefer), where <em>x</em> and <em>y</em> are
+real numbers, is surjective, because for every possible value of <em>y</em>
+there is some <em>x</em> such that <em>f(x) = y</em>. By contrast, the function,
+<em>f(x) = sin(x)</em>, viewed as a function from the real numbers (on the
+x-axis) to real numbers (on the y-axis) is not surjective, because the
+“output” values of this function are constrained to the range <em>[0,1]</em>.</p>
+</div>
+<div class="section" id="bijective">
+<h3>Bijective<a class="headerlink" href="#bijective" title="Permalink to this headline">¶</a></h3>
+<p>A function (already a single-valued relation), is said to be
+<em>bjective</em> if it is also both injective and surjective. Such a
+function is also often called a <em>bijection</em>. A bijection estabishes a
+one-to-one correspondence between elements of two sets. Each element
+in the domain maps to a different element in the co-domain (injective)
+and every element in the co-domain is mapped to be some element in the
+domain (surjective). Therefore, it is also the case that every element
+in the co-domain can be mapped back to the single element that mapped
+to it. So the inverse of a bijection is also a function and is also a
+bijection. Bijections can only be established between sets of the same
+size.</p>
+<p>Exercise: Make a rigorous argument that that last stement is true.
+Try showing that the assumption that you can establish a bijection
+between sets of different sizes leads to some kind of contradiction.</p>
+<p>Exercise: How many distinct bijections are there between two sets each
+of cardinality <em>3</em>? Generalize: how many bijections are there between
+two sets of cardinality <em>k</em>? Hint: Pick a first element in the first
+set. There are <em>n</em> ways to map it to some element in the second
+set. For the second element in the first set, there are only <em>(n-1)</em>
+ways, as one cannot map it to the element chosen in the first step, as
+that would violate the injectivity property. Continue this line of
+reasoning until you get down to all elements having been mapped.</p>
+</div>
+<div class="section" id="reflexive">
+<h3>Reflexive<a class="headerlink" href="#reflexive" title="Permalink to this headline">¶</a></h3>
+<p>We now consider properties of certiain special kinds of binary
+relations, starting with relations that maps sets to themselves.  A
+relation that maps real numbers to real numbers is a subset of
+<img class="math" src="_images/math/0fe9cb77c7db298a4025875b7744e197f8edf6dd.png" alt="{\mathbb R} \times {\mathbb R}"/>, for example. The <em>friends</em>
+relation on a social network site associates people with people.</p>
+<p>Such a relation is said to be <em>reflexive</em> if (perhaps among other
+properties) it (at least) associates every element with itself.  The
+equality relation (e.g., on real numbers) is the “canonical” example
+of a reflexive relation. It associates every number with itself and
+with no other number. The tuples of the equality relation on real
+numbers thus includes <em>(2.5, 2.5)</em> and (-3.0, -3.0)* but definitely
+not <em>(2.5, -3.0)</em>.</p>
+<p>In more mathematical terms, consider a set <em>S</em> and a bindary relation,
+<em>R</em>, on S*S, :math:R subseteq S times S.` <em>R</em> is said to be
+reflexive, which we can write as <em>Reflexive(R)</em>, iff and only if for
+every <em>e</em> in <em>S</em>, the tuple <em>(e,e)</em> is in R. Or to be rigorous about
+it, <img class="math" src="_images/math/01fc7795202a1cf0db19cc409159cc25c22e82a5.png" alt="Reflexive(R) \iff \forall e \in S, (e,e) \in R."/></p>
+<p>Exercise: Is the function, <em>y = x</em>, reflexive? If every person loves
+themself, is the <em>loves</em> relation reflexive? Is the <em>less than or
+equals</em> relation reflexive? Hint: the tuples <em>(2,3)</em> and <em>(3,3)</em> are
+in this relation becaue <em>2</em> is less than or equal to <em>3</em>, and so is
+<em>3</em>, but <em>(4,3)</em> is not in this relation, because <em>4</em> isn’t less than
+or equal to <em>3</em>. Is the less than relation reflexive?</p>
+</div>
+<div class="section" id="symmetric">
+<h3>Symmetric<a class="headerlink" href="#symmetric" title="Permalink to this headline">¶</a></h3>
+<p>A binary relation, <em>R</em>, on a set <em>S</em> is said to be <em>symmetric</em> if
+whenever the tuple <em>(x,y)</em> is in <em>R</em>, the tuple, <em>(y,x)</em> is in <em>R</em> as
+well. On Facebook, for example, if Joe is “friends” with “Tom” then
+“Tom” is necessarily also friends with “Joe.” The Facebook friends
+relation is thus symmetric in this sense.</p>
+<p>More formally, if <em>R</em> is a binary relation on a set <em>S</em>, i.e., given
+<img class="math" src="_images/math/badf8967a9e750fa49296dc504efdd8360424458.png" alt="R \subseteq S \times S"/>, then <img class="math" src="_images/math/a983ca479a92d849d74c93ab3558691789025821.png" alt="Symmetric(R) \iff \forall
+(x,y) \in R, (y,x) \in R"/>.</p>
+<p>Question: is the function <em>y = x</em> symmetric? How about the <em>square</em>
+function? In an electric circuit, if a conducting wire connects
+terminal <em>T</em> to terminal <em>Q</em>, it also connects terminal <em>Q</em> to
+terminal <em>T</em> in the sense that electricity doesn’t care which way it
+flows over the wire. Is the <em>connects</em> relation in electronic circuits
+symmetric? If <em>A</em> is <em>near</em> <em>B</em> then <em>B</em> is <em>near</em> <em>A</em>. Is <em>nearness</em>
+symmetric? In the real work is the <em>has-crush-on</em> relation symmetric?</p>
+</div>
+<div class="section" id="transitive">
+<h3>Transitive<a class="headerlink" href="#transitive" title="Permalink to this headline">¶</a></h3>
+<p>Given a binary relation <img class="math" src="_images/math/badf8967a9e750fa49296dc504efdd8360424458.png" alt="R \subseteq S \times S"/>, <em>R</em> is said to
+be transitive if whenever <em>(x,y)</em> is in <em>R</em> and <em>(y,z)</em> is in <em>R</em>,
+then <em>(x,z)</em> is also in <em>R</em>. Formally, <img class="math" src="_images/math/2209188eabeeb58472953f1513897f62a1f1a32c.png" alt="Transitive(R) \iff
+forall (x,y) in R, \forall (y,z) \in R, (x,z) \in R"/>.</p>
+<p>Exercise: Is equality transitive? That is, if <em>a = b</em> and <em>b = c</em> it
+is also necessarily the case that <em>a = c</em>? Answer: Sure, any sensible
+notion of an equality relation has this transitivity property.</p>
+<p>Exercise: What about the property of being less than? If <em>a &lt; b</em> and
+<em>b &lt; c</em> is it necessarily the case that <em>a &lt; c</em>? Answer: again,
+yes. The less than, as well as the less than or equal, and greater
+then, and the greater than or equal relations, are all transitive.</p>
+<p>How about the <em>likes</em> relation amongst real people. If Harry likes
+Sally and Sally likes Bob does Harry necesarily like Bob, too? No, the
+human “likes” relation is definitely not transitive. (And this is the
+cause of many a tragedy.)</p>
+</div>
+<div class="section" id="equivalence">
+<h3>Equivalence<a class="headerlink" href="#equivalence" title="Permalink to this headline">¶</a></h3>
+<p>Finally (for now), a relation is said to be an <em>equivalence relation</em>
+if it is reflexive, transitive, and symmetric. Formally, we can write
+this property as a conjunction of the three individual properties:
+<img class="math" src="_images/math/38f1bddf350507039ccbfded99e06bd768947643.png" alt="Equivalence(R) \iff Symmetric(R) \land Reflexive(R) \land
+Transitive(R)"/>. Equality is the canonical example of an equivalence
+relation: it is reflexive (<em>x = x</em>), symmetric (if <em>x = y</em> then <em>y =
+x</em>) and transitive (if <em>x = y</em> and <em>y = z</em> then <em>x = z</em>.).</p>
+<p>An important property of equivalence relations is that they divide up
+a set into subsets of <em>equivalent</em> values. As an example, take the
+equivalence relation on people, <em>has same birthday as</em>. Clearly every
+person has the same birthday as him or herself; if Joe has the same
+birthday as Mary, then Mary has the same birthday as Joe; and if Tom
+has the same birthday as mary then Joe necessarily also has the same
+birthday as Tom. This relation thus divides the human population into
+366 equivalence classes. Mathematicians usually use the notation <em>a ~
+b</em> to denote the concept that <em>a</em> is equivalent to <em>b</em> (under some
+equivalence relation being considered).</p>
+</div>
+</div>
+<div class="section" id="quantification">
+<h2>Quantification<a class="headerlink" href="#quantification" title="Permalink to this headline">¶</a></h2>
+<p>Similarly functions can be represented as sets of ordered pair of
+values (and, as you might guess, ordered pairs can be represented as
+sets).  For example, consider the function, <img class="math" src="_images/math/663613de2179758623b228743a008f2df66cf1bc.png" alt="f(x) = x^2"/>. It can
+be represented as an infinite set of pairs, including, for example,
+the pairs <em>(2,4), (3,9),</em> and <em>4,16.</em></p>
+</div>
+<div class="section" id="sequences">
+<h2>Sequences<a class="headerlink" href="#sequences" title="Permalink to this headline">¶</a></h2>
+<p>Polymorphic finite and infinite set types:
+set&lt;T&gt; and iset&lt;T&gt;. T must support equality.
+Values of these types are immutable.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method SetPlay()
+{
+    var empty: set&lt;int&gt; := {};
+    var primes := {2, 3, 5, 7, 11};
+    var squares := {1, 4, 9, 16, 25};
+    var b1 := empty &lt; primes;    // strict subset
+    var b2 := primes &lt;= primes;   // subset
+    var b3: bool := primes !! squares; // disjoint
+    var union := primes + squares;
+    var intersection := primes * squares;
+    var difference := primes - {3, 5};
+    var b4 := primes == squares;    // false
+    var i1 := | primes |;   // cardinality (5)
+    var b5 := 4 in primes;  // membership (false)
+    var b6 := 4 !in primes; // non-membership
+}
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="06-boolean-algebra.html"
+                        title="previous chapter">7. Boolean Algebra</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="08-propositional-logic.html"
+                        title="next chapter">8. Propositional Logic</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="08-propositional-logic.html" title="8. Propositional Logic"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="06-boolean-algebra.html" title="7. Boolean Algebra"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright .
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
+  </body>
+</html>
