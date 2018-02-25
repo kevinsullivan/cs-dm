@@ -844,7 +844,7 @@ are expressed and verified.
 
 
 \chapter{5. Formal Verification of Imperative Programs}
-\label{\detokenize{05-verifying-logical-specifications::doc}}\label{\detokenize{05-verifying-logical-specifications:formal-verification-of-imperative-programs}}
+\label{\detokenize{05-verifying-logical-specifications:formal-verification-of-imperative-programs}}\label{\detokenize{05-verifying-logical-specifications::doc}}
 In this chapter, we first elaborate on the idea that pure functional
 programming make for mathematically clear but potentially inefficient
 specifications, while imperative code makes for efficient code but is
@@ -2450,7 +2450,7 @@ assert sumsquared == 36;     // because of the let expression
 
 
 \chapter{7. Set Theory}
-\label{\detokenize{07-set-theory::doc}}\label{\detokenize{07-set-theory:set-theory}}
+\label{\detokenize{07-set-theory:set-theory}}\label{\detokenize{07-set-theory::doc}}
 Modern mathematics is largely founded on set theory: in particular, on
 what is called \sphinxstyleemphasis{Zermelo-Fraenkel set theory with the axiom of Choice},
 or \sphinxstyleemphasis{ZFC}. Every concept you have ever learned in mathematics can, at
@@ -3578,6 +3578,16 @@ a tuple can be of different types. Tuples also use the \sphinxstyleemphasis{.n} 
 to apply projection functions to tuples. So, again, the value of, say,
 \sphinxstyleemphasis{(“hello”, 7).1} is \sphinxstyleemphasis{7} (of type \sphinxstyleemphasis{int}), while the value of
 \sphinxstyleemphasis{(“hello”, 7).0} is the string, “hello.”
+
+Sequences also support operations not supported for bare sets. These
+include sequence \sphinxstyleemphasis{concatenation} (addition, in which one sequence is
+appended to another to make a new sequence comprising the first one
+followed by the second. In Dafny, concatenation of sequences is done
+using the \sphinxstyleemphasis{+} operator. Dafny also has operations for accessing the
+individual elements of sequences, as well as subsequences. A given
+subsequence is obtained by taking a prefix of a suffix of a sequence.
+See the Dafny language summary for examples of these and other related
+operations on lists.
 
 
 \chapter{8. Boolean Algebra}
@@ -5175,7 +5185,7 @@ expressions}.
 
 
 \chapter{Indices and tables}
-\label{\detokenize{index::doc}}\label{\detokenize{index:indices-and-tables}}\begin{itemize}
+\label{\detokenize{index:indices-and-tables}}\label{\detokenize{index::doc}}\begin{itemize}
 \item {} 
 \DUrole{xref,std,std-ref}{genindex}
 

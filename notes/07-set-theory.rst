@@ -1147,3 +1147,15 @@ a tuple can be of different types. Tuples also use the *.n* notation
 to apply projection functions to tuples. So, again, the value of, say,
 *("hello", 7).1* is *7* (of type *int*), while the value of
 *("hello", 7).0* is the string, "hello." 
+
+Sequences also support operations not supported for bare sets. These
+include sequence *concatenation* (addition, in which one sequence is
+appended to another to make a new sequence comprising the first one
+followed by the second. In Dafny, concatenation of sequences is done
+using the *+* operator. Dafny also has operations for accessing the
+individual elements of sequences, as well as subsequences. A given
+subsequence is obtained by taking a prefix of a suffix of a sequence.
+See the Dafny language summary for examples of these and other related
+operations on lists.
+
+
