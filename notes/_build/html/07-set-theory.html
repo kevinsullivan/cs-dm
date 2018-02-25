@@ -53,16 +53,14 @@
 <h1>7. Set Theory<a class="headerlink" href="#set-theory" title="Permalink to this headline">¶</a></h1>
 <p>Modern mathematics is largely founded on set theory: in particular, on
 what is called <em>Zermelo-Fraenkel set theory with the axiom of Choice</em>,
-or <em>ZFC</em>. Every concept you have ever learnedseen in mathematics can
-be reduced to expresions involving sets.  For example, every natural
-number can be represented as a set: zero as the <em>empty set</em> (<em>{}</em>);
-one as the set containing the empty set (<em>{{}}</em>); two as the set that
-contains that set (<em>{{{}}}</em>); ad infinitum.</p>
-<p>Set theory includes the treatment of sets and of special cases
-involving relations (sets of tuples), functions (sets of tuples that
-satisfying the constraint of being <em>single0valued</em>, sequences (sets
-with an ordering imposed on the elements, which can in turn be viewed
-as a function from natural number indices to set elements) and other
+or <em>ZFC</em>. Every concept you have ever learned in mathematics can, at
+least in principle, be reduced to expresions involving sets.  For
+example, every natural number can be represented as a set: zero as the
+<em>empty set, {}</em>; one as the set containing the empty set, <em>{{}}</em>; two
+as the set that contains that set, <em>{{{}}}</em>; ad infinitum.</p>
+<p>Set theory includes the treatment of sets, including the special cases
+of relations (sets of tuples), functions (<em>single-valued</em> relations),
+sequences (functions from natural numbers to elements), and other
 related concepts.  ZFC is a widely accepted <em>formal foundation</em> for
 modern mathematics: a set of axioms that describe properties of sets,
 from which all the rest of mathematics can be deduced.</p>
@@ -71,51 +69,56 @@ from which all the rest of mathematics can be deduced.</p>
 <p>So what is a set? A <em>naive</em> definition (which will actually be good
 enough for our purposes and for most of practical computer science) is
 that a set is just an unordered collection of elements. In principle,
-these elements are themselves sets, all the way down to empty sets,
-but we don’t need to think in such reductionist terms. We can think
-about a set of natural number elements, for example, without having to
-think of each natural number as itself being some weird kind of set!</p>
+these elements are themselves reducible to setsm but we don’t need to
+think in such reductionist terms. We can think about a set of natural
+numbers, for example, without having to think of each number as itself
+being some weird kind of set.</p>
 <p>In practice, we just think sets as unordered collections of elements
-off some kind, where any given element is either <em>in</em> or <em>not in</em> any
-given set. Membership is binary.  So, for example, when we combine two
-sets, each containing some common element, the resulting combined set
-will have that element as a member, but it won’t have it twice.</p>
+of some kind, where any given element is either <em>in</em> or <em>not in</em> any
+given set. An object can be a member of many different sets, but can
+only by in any give set zero or one times. Membership is binary.  So,
+for example, when we combine (take the <em>union</em> of) two sets, each of
+which contains some common element, the resulting combined set will
+have that element as a member, but it won’t have it twice.</p>
 <p>This chapter introduces <em>naive</em>, which is to say <em>intuitive and
 practical</em>, set theory. It does not cover <em>axiomatic</em> set theory, in
 which every concept is ultimately reduced to a set of logical axioms
-that define what precisely it means to be a set and how sets behave.</p>
+that define what precisely it means to be a set and what operations
+can be use to manipulate sets.</p>
 </div>
 <div class="section" id="overly-naive-set-theory">
 <h2>Overly Naive Set Theory<a class="headerlink" href="#overly-naive-set-theory" title="Permalink to this headline">¶</a></h2>
 <p>Before we go on, however, we review a bit of history to understand
 that an overly naive view of sets can lead to logical contradictions
-that make naive set theory completely useless as a logically sound
-foundation for mathematics.</p>
+that make such a theory useless as a foundation for mathematics.</p>
 <p>One of the founders of modern logic, Gotlob Frege, had as his central
-mission to establish foundations of mathematics in symbolic logic.
-The concept of a set was central to his effort. His logic therefore
-allowed one to define sets as collections of elements that satisfy
-given propositions, and to talk about whether a given element is in a
-given set of not. Frege’s notion of sets, in turn, traced back to the
-seminal work of Georg Cantor.</p>
-<p>Boom. In 1903, the British analytical philosopher, Bertrand Russell,
-published a paper presenting a paradox in what we now call <em>naive set
-theory.</em> Russell showed that a logic based on naive set theory would
-be <em>inconsistent</em> (self-contradicting) and thus useless as a logic.</p>
-<p>To see the problem, one need only consider the set of all sets that do
-not contain themselves. In mathematical <em>set comprehension</em> notation,
-we would write this set, let’s call it <em>S</em>, as <img class="math" src="_images/math/a1eecde9ec8a7eb381ac82e7ec68e29cf02b3106.png" alt="S = \{ a: set |
-a \notin a \}."/> That is, <em>S</em> is the set of elements, <em>a</em>, each itself
-a set, such that <em>a</em> is not in (a member of) itself.</p>
-<p>Now ask the decisive question: Does <em>S</em> contain itself? Let’s make a
-notation, <em>C(S)</em>, to represent the idea that <em>S</em> contains itself. Now
-suppose that <em>C(S)</em> is true, i.e., that <em>S</em> does contain itself. In
-this case, <em>S</em>, being a set that contains itself, cannot be a member
-of <em>S</em>, because we just defined <em>S</em> to be the set of sets that do
-<em>not</em> contain themselves. The assumption that <em>S</em> containss itself
-leads to the conclusion that <em>S</em> does not contain itself. In logical
-terms, <img class="math" src="_images/math/88fed86576b69c7f57881ccfe1f506808ec16b07.png" alt="C(S) \rightarrow \neg C(S)."/> This is a contradiction and
-thus a logical impossibility.</p>
+aim to establish logical foundations for all of mathematics: to show
+that everything could be reduced to a set of axioms, or propositions
+accepted without question, from which all other mathematical truths
+could be deduced.  The concept of a set was central to his effort. His
+logic therefore allowed one to define sets as collections of elements
+that satisfy given propositions, and to talk about whether any given
+element is in a particular set of not. Frege’s notion of sets, in
+turn, traced back to the work of Georg Cantor.</p>
+<p>But then, boom! In 1903, the British analytical philosopher, Bertrand
+Russell, published a paper presenting a terrible paradox in Frege’s
+conception. Russell showed that a logic involving naive set theory
+would be <em>inconsistent</em> (self-contradicting) and there useless as a
+foundation for mathematics.</p>
+<p>To see the problem, one consider the set, <em>S</em>, of all sets that do not
+contain themselves. In <em>set comprehension</em> notation, we would write
+this set as <img class="math" src="_images/math/5fd8e13bfdfe8ceff488029c124be7e2e32abe0b.png" alt="S = \{ a: set | a \notin a \}."/> That is, <em>S</em> is the
+set of elements, <em>a</em>, each a set, such that <em>a</em> is not a member of
+itself.</p>
+<p>Now ask the decisive question: Does <em>S</em> contain itself?</p>
+<p>Let’s adopt a notation, <em>C(S)</em>, to represent the proposition that <em>S</em>
+contains itself. Now suppose that <em>C(S)</em> is true, i.e., that <em>S</em> does
+contain itself. In this case, <em>S</em>, being a set that contains itself,
+cannot be a member of <em>S</em>, because we just defined <em>S</em> to be the set
+of sets that do <em>not</em> contain themselves. So, the assumption that <em>S</em>
+containss itself leads to the conclusion that <em>S</em> does not contain
+itself. In logical terms, <img class="math" src="_images/math/88fed86576b69c7f57881ccfe1f506808ec16b07.png" alt="C(S) \rightarrow \neg C(S)."/> This is
+a contradiction and thus a logical impossibility.</p>
 <p>Now suppose <em>S</em> does not contain itself: <img class="math" src="_images/math/4a4e43a13b62324114a4b955a446319f03c21fac.png" alt="\neg C(S)."/>. Being
 such a set, and given that <em>S</em> is the set of sets that do not contain
 themselves, it must now be in <em>S</em>. So <img class="math" src="_images/math/2bf28ffcfdbea32d11c7145b71a2883546e258a6.png" alt="\neg C(S) \rightarrow
@@ -209,18 +212,19 @@ builder</em> notation.</p>
 <h3>Set comprehension notation<a class="headerlink" href="#set-comprehension-notation" title="Permalink to this headline">¶</a></h3>
 <p>Take the example of the set, <em>S</em>, of even numbers from zero to one
 hundred, inclusive. We can denote this set precisely in mathematical
-writing as <img class="math" src="_images/math/97e386e4d3ed865d3932349f6a4550a1bf1e4e58.png" alt="S = \{ n: {\mathbb Z} | 0 &lt;= n &lt;= 100 \land n mod 2
-== 0 \}."/> Let’s pull this expression apart.</p>
-<p>The expression on the right of the equals sign can be read in three
-parts. The vertical bar is read <em>such that</em>. To the left of the bar is
-an expression identifying the set from which the elements of <em>this</em>
-set are drawn, and a name is given to an arbitrary element of this
-source set. So here we can say that <em>S</em> is a set each element <em>n</em> of
-which is a natural number.  A name, here <em>n</em>, for an arbitrary element
-is given for two purposes. First it desribes the form of elements in
-the set being built: here just <em>integers</em>. Second, the name can then
-be used in writing a condition that must be true of each such element.
-That expression is written to the right of the vertical bar.</p>
+writing as <img class="math" src="_images/math/87faf1ea63943abec666b096763f6edc923017c0.png" alt="S = \{ n: {\mathbb Z}~|~0 &lt;= n &lt;= 100 \land n~mod~2
+= 0 \}."/> Let’s pull this expression apart.</p>
+<p>The set expression (to the right of the first equals sign) can be read
+in three parts. The vertical bar is read <em>such that</em>. To the left of
+the bar is an expression identifying the set from which the elements
+of <em>this</em> set are drawn, and a name is given to an arbitrary element
+of this source set. So here we can say that <em>S</em> is a set each element
+<em>n</em> of which is a natural number.  A name, here <em>n</em>, for an arbitrary
+element is given for two purposes. First it desribes the form of
+elements in the set being built: here just <em>integers</em>. Second, the
+name can then be used in writing a condition that must be true of each
+such element.  That expression is written to the right of the vertical
+bar.</p>
 <p>Here the condition is that each such element, <em>n</em> must be greater than
 or equal to zero, less than or equal to one hundred, and even, in that
 the remainder must be zero when <em>n</em> is divided by <em>2</em>. The overall set
@@ -367,19 +371,20 @@ superset of itself, and every set is a superset of the empty set.</p>
 <h3>Intersection<a class="headerlink" href="#intersection" title="Permalink to this headline">¶</a></h3>
 <p>The intersection, <img class="math" src="_images/math/5391bb4cd9797217ba8e85da016c08f73cf66ba9.png" alt="S \cap T"/>, of two sets, <em>S</em> and <em>T</em>, is the
 set of elements that are in both <em>S</em> and <em>T</em>. Mathematically speaking,
-<img class="math" src="_images/math/b93e4637c8680497c56648862807d1a3965cacd8.png" alt="S \cap T = \{ e~|~e \in S \land e \in T \}"/>. In Dafny, the <em>*</em>
-operator is used for set intersection.  The intersection of <em>S</em> and
-<em>T</em> is thus written <em>S * T</em>. For example, the command <em>Q := S * T</em>
-assigns the intersection of <em>S</em> and <em>T</em> as the new value of <em>Q</em>.</p>
+<img class="math" src="_images/math/b93e4637c8680497c56648862807d1a3965cacd8.png" alt="S \cap T = \{ e~|~e \in S \land e \in T \}"/>.</p>
+<p>In Dafny, the <em>*</em> operator is used for set intersection.  The
+intersection of <em>S</em> and <em>T</em> is thus written <em>S * T</em>. For example, the
+command <em>Q := S * T</em> assigns the intersection of <em>S</em> and <em>T</em> as the
+new value of <em>Q</em>.</p>
 </div>
 <div class="section" id="union">
 <h3>Union<a class="headerlink" href="#union" title="Permalink to this headline">¶</a></h3>
 <p>The union, <img class="math" src="_images/math/10bb12eb90bac33ab070fa2ff9405b721df1230e.png" alt="S \cup T"/>, of two sets, <em>S</em> and <em>T</em>, is the set of
 elements that are in either (including both) <em>S</em> and <em>T</em>. That is,
-<img class="math" src="_images/math/58bdb243ed3b6853a683d0c0d2bfe955008a1865.png" alt="S \cup T = \{ e~|~e \in S \lor e \in T \}"/>. In Dafny, the <em>+</em>
-operator is used for set union.  The unionof <em>S</em> and <em>T</em> is thus
-written <em>S + T</em>. For example, the command <em>V := S + T</em> assigns the
-union of <em>S</em> and <em>T</em> as the new value of <em>V</em>.</p>
+<img class="math" src="_images/math/58bdb243ed3b6853a683d0c0d2bfe955008a1865.png" alt="S \cup T = \{ e~|~e \in S \lor e \in T \}"/>.</p>
+<p>In Dafny, the <em>+</em> operator is used for set union.  The union of <em>S</em>
+and <em>T</em> is thus written <em>S + T</em>. For example, the command <em>V := S +
+T</em> assigns the union of <em>S</em> and <em>T</em> as the new value of <em>V</em>.</p>
 </div>
 <div class="section" id="difference">
 <h3>Difference<a class="headerlink" href="#difference" title="Permalink to this headline">¶</a></h3>
@@ -433,112 +438,151 @@ for sets of size <em>n</em> it also holds for sets of size <em>n + 1</em>, it mu
 hold for sets of every (finite) size. So what we have is an informal
 <em>proof by induction</em> of a theorem: <img class="math" src="_images/math/6286656ea11925e78858a3878bc9be8a2866eeb9.png" alt="\forall S, |{\mathbb P}(S)|
 = 2^{|S|}"/>.</p>
-<p>In Dafny, there is no explicit powerset operator, one taking a set and
-returning its powerset, but the concept can be expressed in an
-extremely elegant form using a set comprehension notation (in both
-pure mathematics and in Dafny). The solution is to say simple the set
-of all sets that are subsets of a given set, <em>S</em>. The follwing three
-line program prints out the powerset of <em>S = { 1, 2, 3 }</em>.  The key
-expression is to the right of the assignment operator on the second
-line.</p>
+<p>In Dafny, there is no explicit powerset operator, one that would take
+a set and returning its powerset, but the concept can be expressed in
+an elegant form using a set comprehension. The solution is simply to
+say <em>the set of all sets that are subsets of a given set, *</em>. In pure
+mathematical notation this would be <img class="math" src="_images/math/e81fbf5e8d1ab6627d0ef257362d2d412eedc562.png" alt="{ R | R \subseteq S }."/> In
+Dafny it’s basically the same expression.  The follwing three-line
+program computes and prints out the powerset of <em>S = { 1, 2, 3 }</em>.
+The key expression is to the right of the assignment operator on the
+second line.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>var S := { 1, 2, 3 };
 var P := set R | R &lt;= S;
 print P;
 </pre></div>
 </div>
-<p>Simple exercise: Write a pure function that when given a value of type
-set&lt;T&gt; returns its powerset. The function will have to be polymorphic.
-Call it powerset&lt;T&gt;.</p>
+<p>Exercise: Write a pure function that when given a value of type set&lt;T&gt;
+returns its powerset. The function will have to be polymorphic.  Call
+it powerset&lt;T&gt;.</p>
 </div>
 </div>
 <div class="section" id="tuples">
 <h2>Tuples<a class="headerlink" href="#tuples" title="Permalink to this headline">¶</a></h2>
-<p>A tuple is an ordered collection of elements. The number of elements
-in a tuple is called its <em>arity</em>. Ordered pairs are of arity, <em>2</em>. An
-ordered triple is of arity, <em>3</em>. A tuple of arity <em>2</em> is called an
-<em>ordered pair</em>. A tuple of arity <em>3</em> is often called a triple. For a
-larger arity, <em>n</em>, a tuple with that arity is called an <em>n-tuple</em>.
-The tuple, <em>(7, X, “house”, square_func)</em>, for example, can be said
-to be a <em>4-tuple</em>.</p>
-<p>The elements of a tuple are in general not of the same type, or drawn
-from the same sets. In the example here, the first element appears to
-be an integer, the second, a variable, the third, a string, and last,
-the name of some function.</p>
-<p>Tuples are properly understood as values taken from a set product.  If
-<em>S</em> and <em>T</em> are our sets of even numbers between zero and one hundred,
-and zero and twenty four, respectively, for example, then the ordered
-pair, <em>(60,24)</em> is an element of the product set <img class="math" src="_images/math/64a6eff94bb737b50c491df7ab889fd0c11ecb02.png" alt="S \times T"/>.</p>
-<p>If one is being careful about types, whether in general mathematical
-discourse or in programming, then the <em>type</em> of a tuple is defined as
-the tuple of the types of its elements. In the example here, the type
-of <em>S</em> (using Dafny notation) is <em>set&lt;int&gt;</em>, and the type of <em>T</em> is
-also <em>set&lt;int&gt;</em>, so the type of elements in <img class="math" src="_images/math/64a6eff94bb737b50c491df7ab889fd0c11ecb02.png" alt="S \times T"/> is the
-type, <em>(int, int)</em>. In general the type of a tuple in a set product,
-::<cite>S_1 times S_2 times ldots time S_n</cite>, where the types of these
-sets are <img class="math" src="_images/math/a25f27eaf855f40709db99b90e3b307f237b9c35.png" alt="T_1, \ldots, T_n"/> is <img class="math" src="_images/math/7e39648e05d3ef616da80fbd0df396bf2e63be58.png" alt="(T_1, \ldots, T_n)"/>.</p>
-<p>While all of this might seem a little abstract, it’s actually simple
-and very useful. Any table of data, such as a table with columns that
-hold names, birthdays, and social security numbers, represents data in
-a product set. One set is the set of names, the second set is the set
-of birthdays. The third is the set of social security numbers.  Each
-row in such a table is just a particular tuple in such a set product.</p>
-<p>Each row is a tuple. We call each element of a tuple a <em>field</em>. An
-<em>n-tuple</em> will have <em>n</em> fields, which we conventionally refer to by
-indices ranging from <em>0</em> to <em>n-1</em>.</p>
-<p>We are often interested in the value of a particular field of a
-tuple. We can used subscripting as a way to extract the value of a
-particular field from a tuple. We can view such an extraction
-operation as a function from tuple values to field values. We call
-such functions <em>projection functions</em>.</p>
-<p>An <em>n-tuple</em> will have <em>n</em> project functions, often denoted using the
-greek letter, <em>pi</em>, with a (zero-based) subscript indicating which
-element the project function <em>projects</em> out of a given tuple. If for
-example, <em>t</em> is the <em>3-tuple</em>, <em>12, 4, 6)</em>, then <img class="math" src="_images/math/209832ca41dbb8f55ee31310b9e8f1b7a7d3b678.png" alt="\pi_1(t) = 4"/>.</p>
+<p>A tuple is an ordered collection of elements. The type of elements in
+a tuple need not all be be the same. The number of elements in a tuple
+is called its <em>arity</em>. Ordered pairs are tuples of arity, <em>2</em>, for
+example. A tuple of arity <em>3</em> can be called a (an ordered) <em>triple</em>.
+A tuple of a larger arity, <em>n</em>, is called an <em>n-tuple</em>.  The tuple,
+<em>(7, X, “house”, square_func)</em>, for example, is a <em>4-tuple</em>.</p>
+<p>As is evident in this example, the elements of a tuple are in general
+not of the same type, or drawn from the same sets. Here, the first
+element is an integer; the second, a variable;, the third, a string;
+and last, a function.</p>
+<p>An <em>n</em>-tuples should be understood as values taken from a product of
+<em>n</em> sets.  If <em>S</em> and <em>T</em> are our sets of even numbers between zero
+and one hundred, and zero and twenty four, for example, then the
+ordered pair, <em>(60,24)</em> is an element of the product set <img class="math" src="_images/math/fd4532a7c98d7c47b7d54737789d6d190f8a7858.png" alt="S
+\times T"/>.  The preceding <em>4</em>-tuple would have come from a product of
+four sets: one of integers, one of variables, one of strings, and one
+of functions.</p>
+<p>The <em>type</em> of a tuple is the tuple of the types of its elements. In
+mathematical writing, we’d say that the tuple, <em>(-3,4)</em> is al element
+of the set <img class="math" src="_images/math/d525dd73f25737324d2d392212dacd850ef44d6e.png" alt="{\mathbb Z} \times {\mathbb Z},"/> and if asked about
+its type, most mathematicians would say <em>pair of integers</em>. In Dafny,
+where types are more explicit than they usually are in quasi-formal
+mathematical discourse, the type of this tuple is <em>(int, int)</em>. In
+general, in both math and in Dafny, in particular, the type of a tuple
+in a set product, ::<cite>S_1 times S_2 times ldots time S_n</cite>, where
+the types of these sets are <img class="math" src="_images/math/a25f27eaf855f40709db99b90e3b307f237b9c35.png" alt="T_1, \ldots, T_n"/> is <img class="math" src="_images/math/74d9c0565f0b3fbb6fd97c1dd34039045be28627.png" alt="(T_1,
+\ldots, T_n)"/>.</p>
+<p>The elements of a tuple are sometimes called <em>fields of that tuple.
+Given an *n</em>-tuple, <em>t</em>, we are often interested in working with the
+value of one of its fields. We thus need a function for <em>projecting</em>
+the value of a field out of a tuple. We actually think of an <em>n</em>-tuple
+as coming with <em>n</em> projection functions, one for each field.</p>
+<p>Projection functions are usually written using the Greek letter,
+::<cite>pi</cite>, with a natural number subscript indicating which field a
+given projection function ” projects”. Given a <em>4</em>-tuple, <em>t = (7, X,
+“house”, square_func)</em>, we would have math::<cite>pi_0(t) = 7</cite> and
+<img class="math" src="_images/math/0832133408abb0b5c9d45e6b0fbffe3dd705bd45.png" alt="\pi_3(t) = square_func."/></p>
+<p>The type of a projection funcion is <em>function from tuple type to field
+type</em>. In general, because tuples have fields of different types, they
+will also have projection functions of different types. For example,
+<img class="math" src="_images/math/f96bb02fb7101e0965f5d94b111888cbe1914724.png" alt="pi_0"/> here is of type (in Dafny) <img class="math" src="_images/math/312b0afa59f8001e7eda18a2d5eebd4787b37d11.png" alt="(int, variable, string,
+int \rightarrow int) \rightarrow {\mathbb Z}"/> while <img class="math" src="_images/math/0dab7d9572fb05154c9fa626fbe6bdaaeccf8fa4.png" alt="pi_3"/> is of
+type <img class="math" src="_images/math/2630939c0e41b2205905b6b6ec364d3e0222b2bf.png" alt="(int, variable, string, int \rightarrow int) \rightarrow
+(int \rightarrow int)."/></p>
 <p>In Dafny, tuples are written as they are in mathematics, as lists of
 field values separated by commas and enclosed in parentheses.  For
 example <em>t := (1, “hello”, [1,2,3])” assigns to *t</em> a <em>3-tuple</em> whose
 first field has the value, <em>1</em> (of type <em>int</em>); whose second field has
 the value, “hello”, a string; and whose third element is the list of
-integers, <em>[2, 4, 6]</em>. Projection in Dafny is accomplished using the
-subscripting operation. So, for example, <em>t[1]</em> in this case has the
-value, <em>4</em>.</p>
+integers, <em>[2, 4, 6]</em>.</p>
+<p>Projection in Dafny is accomplished using the <em>tuple</em> subscripting (as
+opposed to array or list subscripting) operation. Tuple subscripting is
+done by putting a dot (period) followed by an index after the tuple
+expression. Here’s a little Dafny code to illustrate. It defines <em>t</em>
+to be the triple, <em>(7, ‘X’, “hello”)</em> (of type <em>(int, char, string)</em>),
+and then usses the <em>.0</em> and <em>.2</em> projection functions to project the
+first and third elements of the tuple, which it prints. To make the
+type of the tuple explicit, the final line of code declare <em>t’</em> to be
+the same tuple value, but this time explicitly declares its type.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>var t := (7, &#39;X&#39;, &quot;hello&quot;);
+print t.0;
+print t.2;
+var t&#39;: (int, char, string) := (7, &#39;X&#39;, &quot;hello&quot;);
+</pre></div>
+</div>
+<p>While all of this might seem a little abstract, it’s actually simple
+and very useful. Any table of data, such as a table with columns that
+hold names, birthdays, and social security numbers, represents data in
+a product set. Each row is a tuple. The columns correspond to the sets
+from which the field values are drawn. One set is a set of names; the
+second, a set birthdays; the third, a set of social security numbers.
+Each row is just a particular tuple in product of these three sets,
+and the table as a whole is what we call a <em>relation</em>. If you have
+heard of a <em>relational database</em>, you now know what kind of data such
+a system handles: tables, i.e., <em>relations</em>.</p>
 </div>
 <div class="section" id="relations">
 <h2>Relations<a class="headerlink" href="#relations" title="Permalink to this headline">¶</a></h2>
 <p>A relation in nothing but a subset of (the tuples in) a product set. A
-table such as the one described will, in practice, usually not have a
-row with every possible combination of names, birthdays, and SSNs. In
-other words, it won’t contain every tuple in the product of the sets
-from which the values in the respective columns are drawn (the set of
-all names, the set of all birthdays, and the set of all SSNs in this
-case).</p>
+table such as the one just described, will, in practice, usually not
+have a row with every possible combination of names, birthdays, and
+SSNs. In other words, it won’t be the entire product of the sets from
+which the field values drawn. Rather, it will usually contain a small
+subset of the product set.</p>
 <p>In mathematical writing, we will thus often see a sentence of the
-form, Let <img class="math" src="_images/math/8976c2854fcacf02af1366971f1c7b69eb0420e4.png" alt="R \subseteq S \times T"/> be a relation. All this says
-is that <em>R</em> is some subset of the set of all tuples in the product set
-of <em>S</em> and <em>T</em>. If <em>S = { hot, cold }</em> and <em>T = { cat, dog }</em>, then
-the product set is <em>{ (hot, cat), (hot, dog), (cold, cat), (cold, dog)
-}</em>, and a relation on <em>S</em> and <em>T</em> is any subset of this product set.
-The set, <em>{ (hot, cat), (cold, dog) }</em> is one such relation.</p>
-<p>Here’s an exercise. If <em>S</em> and <em>T</em> are finite sets, <em>|S| = n</em> and <em>|T|
-= m</em>, how many relations are there over <em>S</em> and <em>T</em>? First, how many
-tuples are in the product set? Second, how many subsets are there of
-that set? For fun, write a little Dafny program. should take two sets
-of integers as arguments as return the number of relations over them.
-Dafny does not provide a built-in exponentiation funciton, but you can
-now write one yourself (in fact, you’ve already done this). Here’s a
-test case: the number of relations over sets of cardinalities <em>4</em> and
-<em>5</em> is about a million.</p>
+form, Let <img class="math" src="_images/math/8976c2854fcacf02af1366971f1c7b69eb0420e4.png" alt="R \subseteq S \times T"/> be a (binary) relation on <em>S</em>
+and <em>T</em>. All this says is that <em>R</em> is some subset of the set of all
+tuples in the product set of <em>S</em> and <em>T</em>. If <em>S = { hot, cold }</em> and
+<em>T = { cat, dog }</em>, then the product set is <em>{ (hot, cat), (hot, dog),
+(cold, cat), (cold, dog) }</em>, and a relation on <em>S</em> and <em>T</em> is any
+subset of this product set.  The set, <em>{ (hot, cat), (cold, dog) }</em> is
+thus one such relation on <em>S</em> and <em>T</em>.</p>
+<p>Here’s an exercise. If <em>S</em> and <em>T</em> are finite sets, with cardinalities
+<em>|S| = n</em> and <em>|T| = m</em>, how many relations are there over <em>S</em> and
+<em>T</em>? Hint: First, how many tuples are in the product set? Second, how
+many subsets are there of that set? For fun, write a little Dafny
+program that takes two sets of integers as arguments as return the
+number of relations over them.  Write another function that takes two
+sets and returns the set of all possible relations over the sets. Use
+a set comprehension expression rather than writing a while loop. Be
+careful: the number of possible relations will be very large even in
+cases where the given sets contain only a few elements each.</p>
 </div>
-<div class="section" id="binary-relations-and-functions">
-<h2>Binary Relations and Functions<a class="headerlink" href="#binary-relations-and-functions" title="Permalink to this headline">¶</a></h2>
-<p>Binary relations are relations over products of <em>2</em> sets. The first
-set is called the <em>domain</em> of the relation. The second set is called
-the co-domain of the relation. That is, a binary relation is a subset
-of the ordered pairs in a product of the given domain and codomain
-sets.</p>
+<div class="section" id="binary-relations">
+<h2>Binary Relations<a class="headerlink" href="#binary-relations" title="Permalink to this headline">¶</a></h2>
+<p>Binary relations, which play an especially important role in
+mathematics and computer science, are relations over just <em>2</em>
+sets. Suppose <img class="math" src="_images/math/8976c2854fcacf02af1366971f1c7b69eb0420e4.png" alt="R \subseteq S \times T"/> is a binary relation on
+<em>S</em> and <em>T</em>. Then <em>S</em> is called the <em>domain</em> of the relation, and <em>T</em>
+is called its <em>co-domain</em>. That is, a binary relation is a subset of
+the ordered pairs in a product of the given domain and codomain sets.</p>
+<p>If a particular tuple, <em>(s, t)</em> is an element of such a relation, <em>R</em>,
+we will say <em>R</em> is <em>defined for</em> the value, s, and that <em>R achieves</em>
+the value, <em>t</em>. The <em>support</em> of a relation is the subset of values in
+the domain on which it is defined. The <em>range</em> of a relation is the
+subset of co-domain values that it achieves.</p>
+<p>For example, if <em>S = { hot, cold }</em> and <em>T = { cat, dog }</em>, and <em>R =
+*{ (hot, cat), (hot, dog) }</em>, then the domain of <em>R</em> is <em>S</em>; the
+co-domain of <em>R</em> is <em>T</em>; the support of <em>R</em> is just <em>{ hot }</em> (and <em>R</em>
+is thus <em>not defined</em> for the value <em>cold</em>); and the range of <em>R</em> is
+the whole co-domain, <em>T</em>.</p>
 <p>The everyday functions you have studies in mathematics are binary
 relations, albeit usually infinite ones. For example, the <em>square</em>
-function, that associates every real number with its square can be
+function, that associates every real number with its square, can be
 understood as the infinite set of ordered pairs of real numbers in
 which the second is the square of the first. Mathematically this is
 :{ (x, y) | y = x^2 }:<a href="#id5"><span class="problematic" id="id6">`</span></a>, where we take as implicit that <em>x</em> and <em>y</em>
@@ -547,37 +591,45 @@ range over the real numbers. Elements of this set include the pairs,
 <p>The concept of <em>square roots</em> of real numbers is also best understood
 as a relation. The tuples are again pairs of real numbers, but now the
 elements include tuples, <em>(4, 2)</em> and <em>(4, -2)</em>.</p>
-<div class="section" id="functions-are-single-value-binary-relations">
-<h3>Functions are Single-Value Binary Relations<a class="headerlink" href="#functions-are-single-value-binary-relations" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="functions-single-valued-relations">
+<h2>Functions: <em>Single-Valued</em> Relations<a class="headerlink" href="#functions-single-valued-relations" title="Permalink to this headline">¶</a></h2>
 <p>A binary-relation is said to be <em>single-valued</em> if it does not have
-two tuples with the same first element and different second elements.
-A different way to say this is that if <em>(x, y)</em> and <em>(x, z)</em> are two
-elements in a single-valued binary relation (with the same first
-element, <em>x</em>) then it must be that <em>x</em> and <em>y</em> are the same value, for
-otherwise the relation would not be single-valued. To be more precise,
-then, a relation, <img class="math" src="_images/math/8976c2854fcacf02af1366971f1c7b69eb0420e4.png" alt="R \subseteq S \times T"/>, is single valued if
-<img class="math" src="_images/math/b15ef2125a9f9a15f3490083eca8ccbf873ef604.png" alt="forall (x, y) \in R, forall (x, z) \in R, y = z"/>. In logical
-notation, <img class="math" src="_images/math/6e58633bedbd3498fea2acffa1aa2a225547cb16.png" alt="(x, y) \in R \land (x, z) \in R \rightarrow y = z"/>.</p>
-<p>A single-valued binary relation is also called a <em>function</em>. And by a
-<em>function</em> in mathematics, we means exactly a single-valued relation.
-The <em>square</em> relation is a function, in that for any given number
-there is only one associated square of that number. The relation is
-single-valued in exactly this sense. By contrast, the square root
-relation is not a function, because for any given non-negative real
-number, there are two associated square roots. The relation is not
-single-valued.</p>
-<p>There are several ways to represent functions in Dafny, or in most any
-other modern programming language. In Dafny one can represent a
-function as a pure functional program, one can use a method, but for
-our purposes here, it is the representation of a function from values
-of type <em>S</em> to values of type <em>T</em> as a <em>map&lt;S,T&gt;</em> that is pertinent.
-A map is nothing other than an explicit representation of a function
-as a set of pairs.</p>
+tuples with the same first element and different second elements.  A
+single-valued binary relation is also called a <em>function</em>.  Another
+way to say that <em>R</em> is single valued is to say that if <em>(x, y)</em> and
+<em>(x, z)</em> are both in <em>R</em> then it must be that <em>y</em> and <em>z</em> are the same
+value. Otherwise the relation would not be single-valued! To be more
+precise, then, if <img class="math" src="_images/math/8976c2854fcacf02af1366971f1c7b69eb0420e4.png" alt="R \subseteq S \times T"/>, is single valued
+relation, then <img class="math" src="_images/math/a891d93912f06167bde2b4af6ef72b276625e48e.png" alt="(x, y) \in R \land (x, z) \in R \rightarrow y =
+z"/>.</p>
+<p>As an example of a single-valued relation, i.e., a function, consider
+the <em>square</em>. For any given natural number (in the domain) under this
+function there is just a <em>single</em> associated value in the range (the
+square of the first number). The relation is single-valued in exactly
+this sense. By contrast, the square root relation is not a function,
+because it is not single-valued. For any given non-negative number in
+its domain, there are <em>two</em> associated square roots in its range. The
+relation is not single-valued and so it is not a function.</p>
+<p>There are several ways to represent functions in Dafny, or any other
+programming language. One can represent a given function <em>implicity</em>:
+as a <em>program</em> that computes that function. But one can also represent
+a function <em>explicitly</em>, as a relation: that is, as a set of pairs.
+The (polymorphic) <em>map</em> type in Dafny provides such a representation.</p>
+<p>A “map”, i.e., a value of type <em>map&lt;S,T&gt;</em> (where <em>S</em> and <em>T</em> are type
+parameters), is to be understood as an explicit representation of a
+single-valued relation: a set of pairs: a function. In addition to a
+mere set of pairs, this data type also provides helpful functions and
+a clever representation underlying representation that both enforce
+the single-valuedness of maps, and that make it very efficient to look
+up range values given domain values where the map is defined, i.e., to
+<em>apply</em> such a function to a domain value (a “key”) to obtained the
+related range <em>value</em>.</p>
 <p>Given a Dafny map object, <em>m</em>, of type <em>map&lt;S,T&gt;</em>, one can obtain the
 set of values of type <em>S</em> for which the map is defined as <em>m.Keys().</em>
 One can obtain the range, i.e., the set of values of type <em>T</em> that the
 map maps <em>to</em>, as <em>m.Values().</em> One can determine whether a given key,
-<em>s</em> of type <em>S</em> is defined in a map with the expression <em>s in m</em>.</p>
+<em>s</em> of type <em>S</em> is defined in a map with the expression, <em>s in m</em>.</p>
 <p>Exercise: Write a method (or a function) that when given a map&lt;S,T&gt; as
 an argument returns a set&lt;(T,S)&gt; as a result where the return result
 represents the <em>inverse</em> of the map. The inverse of a function is not
@@ -597,42 +649,55 @@ otherwise returns false. Then write a function that takes a map
 satisfying the precondition that it be invertible and that in this
 case returns its inverse, also as a map.</p>
 </div>
+<div class="section" id="properties-of-relations-and-functions">
+<h2>Properties of Relations and Functions<a class="headerlink" href="#properties-of-relations-and-functions" title="Permalink to this headline">¶</a></h2>
+<p>We now introduce essential concepts and terminology regarding for
+distinguishing essential properties and special cases of relations and
+functions.</p>
 <div class="section" id="total-vs-partial">
 <h3>Total vs Partial<a class="headerlink" href="#total-vs-partial" title="Permalink to this headline">¶</a></h3>
-<p>A binary relation is said to be total if every element of its domain
-appears as the first element in at least one tuple. We say that the
-relation is <em>defined</em> for each such element. A relation that is not
-total is said to be partial. And these terms are applied to functions
-as well.</p>
-<p>Exercises: Is the function <em>y = x</em> on the real numbers total? Is the
-square root function on the domain of the real numbers total? Answer:
-No, because it’s not defined for any real numbers less than zero. Is
-the <em>log</em> function defined on the non-negative real numbers? Answer:
+<p>A binary relation (including a function) is said to be <em>total</em> if
+every element of its domain appears as the first element in at least
+one tuple, i.e., its <em>support</em> is its entire <em>domain</em>.  A relation
+that is not total is said to be <em>partial</em>. For example, the square
+function on the real numbers is total, in that it is defined on its
+entire real number domain. By contrast, the square root function is
+not total (if it domain is taken to be the real numbers) because it is
+not defined for real numbers that are less than zero.</p>
+<p>Note that if one considers a slightly different function, the square
+root function on the <em>non-negative</em> real numbers the only difference
+being in the domainm then this function <em>is</em> total. Totality is thus
+relative to the specified domain. Here we have two functions with the
+very same set of ordered pairs, but one is total and the other is not.</p>
+<p>Exercises: Is the function <em>y = x</em> on the real numbers total?  Is the
+<em>log</em> function defined on the non-negative real numbers total? Answer:
 no, because it’t not defined at <em>x = 0</em>.  Is the <em>SSN</em> function, that
-assigns a U.S. social security number to a person total? No, not every
-person has a social security number.</p>
+assigns a U.S. Social Security Number to every person, total? No, not
+every person has a U.S. Social Security number.</p>
 <p>Implementing partial functions as methods or pure function in software
 presents certain problems. Either a pre-conditions has to be enforced
-to prevent the function of method being called with a value for which
-it’s not define, or the function or method needs to be made total by
+to prevent the function or method being called with a value for which
+it’s not defined, or the function or method needs to be made total by
 returning some kind of <em>error</em> value if it’s called with such a value.
-In this case, callers of the function are obligated always to check
-whether <em>some</em> real function value was return or whether <em>none</em> was,
-but rather an error flag. The failure of programmers systematically to
-check for such error returns is a ubiquitous source of bugs in real
-software.</p>
-<p>By enforcing a requirement that every loop and recursion terminates,
-Dafny demands that every function and method be total in the sense
-that it returns and that it returns some value of the type, if any,
-that it promises to return. When a Dafny total function is used to
-implement a mathematical function that is partial, the problem thus
-arises what to return for inputs not in the domain of the partial
-function being implemented. A little later in the course we will see a
-nice way to handle this issue using what are called <em>option</em> types. An
-option type is like a box that contains either a good value or an
-error flag; and to get a good value out of such a box, one must
-explicitly check to see whether the box has a good value in it or,
-alternatively, and error flag.</p>
+In this case, callers of such a function are obligated always to check
+whether <em>some</em> validfunction value was returned or whether instead a
+value was returned that indicates that there is <em>no such value</em>. Such
+a value indicates an <em>error</em> in the use of the function, but one that
+the program caught. The failure of programmers systematically to check
+for <em>error returns</em> is a common source of bugs in real software.</p>
+<p>Finally we note that by enforcing a requirement that every loop and
+recursion terminates, Dafny demands that every function and method be
+total in the sense that it returns and that it returns some value,
+even it it’s a value that could flag an error.</p>
+<p>When a Dafny total function is used to implement a mathematical
+function that is itself partial (e.g., <em>log(x)</em> for any real number,
+<em>x</em>), the problem thus arises what to return for inputs for which the
+underlying mathematical function is not defined.  A little later in
+the course we will see a nice way to handle this issue using what are
+called <em>option</em> types. An option type is like a box that contains
+either a good value or an error flag; and to get a good value out of
+such a box, one must explicitly check to see whether the box has a
+good value in it or, alternatively, and error flag.</p>
 </div>
 <div class="section" id="inverse">
 <h3>Inverse<a class="headerlink" href="#inverse" title="Permalink to this headline">¶</a></h3>
@@ -640,72 +705,213 @@ alternatively, and error flag.</p>
 formed by reversing the order of all of the given tuples. To put this
 in mathematical notation, if <em>R</em> is a relation, its inverse, denoted
 ::<cite>R^{-1}</cite>, is <img class="math" src="_images/math/6b8262e547923c6ac102733ab306db06ec2c58d2.png" alt="\{ (y, x) | (x, y) \in R \}"/>. You can see this
-immediately in our example of squares and square roots. One contains
-the tuples, <em>(-2, 4), (2, 4)</em>, while the other contains <em>(4, 2), (4,
--2)</em>.</p>
+immediately in our example of squares and square roots. Each of these
+relations is the inverse of the other. One contains the tuples, <em>(-2,
+4), (2, 4)</em>, while the other contains <em>(4, 2), (4, -2)</em>.</p>
 <p>It should immediately be clear that the inverse of a function is not
-always also a function. Indeed, the inverse of the square function is
-the square root relation, but that relation is not itself a function.</p>
-<p>A function whose inverse is also a function is said to be invertible.
+always also a function. The inverse of the <em>square</em> function is the
+<em>square root</em> relation, but that relation is not itself a function,
+because it is not single valued.</p>
+<p>Here’s a visual way to think about these concept. Consider the graph
+of the <em>square</em> function. Its a parabola that opens either upward in
+the <em>y</em> direction, or downward. Now select any value for <em>x</em> and draw
+a vertical line. It will intersect the parabola at only one point.
+The function is single-valued.</p>
+<p>The graph of a square root function, on the other hand, is a parabola
+that opens to the left or right. So if one draws a vertial line at
+some value of <em>x</em>, either the line fails to hit the graph at all (the
+square root function is not defined for all values of <em>x</em>), or it
+intersects the line at two points. The square root “function” is not
+single-valued, and isn’t really even a <em>function</em> at all. (If the
+vertical line hits the parabola right at its bottom, the set of points
+at which it intersects contains just one element, but if one takes the
+solution set to be a <em>multi-set</em>, then the value, zero, occurs in that
+set twice.)</p>
+<p>A function whose inverse is a function is said to be <em>invertible</em>.
 The function, <em>f(x) = x</em> (or <em>y = x</em> if you prefer) is invertible in
-this sense. In fact, its inverse is itself. Is the cube root function
-invertible? (That’s an exercise for the reader. Now prove it with a
-rigorous argument.)</p>
+this sense. In fact, its inverse is itself.</p>
+<p>Exercise: Is the cube root function invertible? Prove it informally.</p>
+<p>Exercise: Write a definition in mathematical logic of what precisely
+it means for a function to be invertible. Model your definition on our
+definition of what it means for a relation to be single valued.</p>
 </div>
 <div class="section" id="injective">
 <h3>Injective<a class="headerlink" href="#injective" title="Permalink to this headline">¶</a></h3>
-<p>A relation (and in particular, a function) is said to be injective if
+<p>A relation (or function, in particular) is said to be <em>injective</em> if
 no two elements of the domain are associated with the same element in
-the co-domain.</p>
+the co-domain. Such a relation is also said to be <em>one-one-one</em>,
+rather than <em>many-to-one</em>).</p>
+<p>Take a moment to think about the difference between being injective
+and single valued. Single-valued means no <em>one</em> element of the domain
+“goes to” <a href="#id7"><span class="problematic" id="id8">*</span></a>more than one” value in the range. Injective means that “no
+more than one” value in the domain “goes to” and one value in the
+range.</p>
+<p>Exercise: Draw a picture. Draw the domain and range sets as clouds
+with points inside, representing objects (values) in the domain and
+co-domain. Represent a relation as a set of <em>arrows</em> that connect
+domain objects to co-domain objects. The arrows visually depict the
+ordered pairs in the relation. What does it look like visually for a
+relation to be single-valued? What does it look like for a relation to
+be injective?</p>
 <p>The square function is a function because it is single-valued, but it
-is not injective. To see this, one need only to observe that two
-different values in the domain, <em>-2</em> and <em>2</em>, have the same squared
-value in the co-domain, namely <em>4</em>.</p>
+is not injective. To see this, observe that two different values in
+the domain, <em>-2</em> and <em>2</em>, have the same value in the co-domain: <em>4</em>.
+Think about the graph: if you can draw a <em>horizontal</em> line for any
+value of <em>y</em> that intersects the graph at multiple points, then the
+points at which it intersects correspond to different values of <em>x</em>
+that have the same value <em>under the relation</em>. Such a relation is not
+injective.</p>
 <p>Exercises: Write a precise mathematical definition of what it means
 for a binary relation to be injective.  Is the cube root function
 injective? Is <em>f(x) = sin(x)</em> injective?</p>
+<div class="section" id="an-aside-injectivity-in-type-theory">
+<h4>An Aside: Injectivity in Type Theory<a class="headerlink" href="#an-aside-injectivity-in-type-theory" title="Permalink to this headline">¶</a></h4>
+<p>As an aside, we note that the concept of injectivity is essential in
+<em>type theory</em>.  Whereas <em>set theory</em> provides a universally accepted
+axiomatic foundation for mathematics, <em>type</em> theory is of increasing
+interest as alternative foundation. It is also at the very heart of a
+great deal of work in programming languages and software verification.</p>
+<p>Type theory takes types rather than sets to be elementary. A type in
+type theory comprises a collection of objects, just as a set does in
+set theory. But whereas in set theory, an object can be in many sets,
+in type theory, and object can have only one type.</p>
+<p>The set of values of a given type is defined by a set of constants and
+functions called constructors. Constant constructors define what one
+can think of as the <em>smallest</em> values of a type, while constructors
+that are functions provide means to build larger values of a type by
+<a href="#id9"><span class="problematic" id="id10">*</span></a>packaging up” smaller values of the same and/or other types.</p>
+<p>As a simple example, one might say that the set of values of the type,
+<em>Russian Doll,</em> is given by one constant constructor, <em>SolidDoll</em> and
+by one constructor function, <em>NestDoll</em> that takes a nested doll as an
+argument (the solid one or any other one built by <em>NestDoll</em> itself).
+Speaking intuitively, this constructor function does nothing other
+than <em>package up</em> the smaller nest doll it was given inside a “box”
+labelled <em>NestDoll</em>.  One can thus obtain a nested doll either as the
+constant <em>SolidDoll</em> or by applying the <em>NestDoll</em> constructor some
+finite number of times to smaller nested dolls. Such a nesting will
+always be finitely deep, with the solid doll at the core.</p>
+<p>A key idea in type theory is that <em>constructors are injective</em>. Two
+values of a given type built by different constructors, or by the same
+constructor with different arguments, are <em>always</em> different. So, for
+example, the solid doll is by definition unequal to any doll built by
+the <em>NestDoll</em> constructor; and a russian doll nested two levels deep
+(built by applying <em>NestDoll</em> to an argument representing a doll that
+is nested one level deep)is necessarily unequal to a russian doll one
+level deep (built by applying <em>NestDoll</em> to the solid doll).</p>
+<p>Running this inequality idea in reverse, we can conclude that if two
+values of a given type are known to be equal, then for sure they were
+constructed by the same constructor taking the same arguments (if
+any).  It turns out that knowing such a fact, rooted in the
+<em>injectivity of constructors</em> is often essential to completing proofs
+about programs using type theory. But more on this later.</p>
+</div>
 </div>
 <div class="section" id="surjective">
 <h3>Surjective<a class="headerlink" href="#surjective" title="Permalink to this headline">¶</a></h3>
 <p>A binary relation, and in particular a function, is <em>surjective</em> if
 every element in the co-domain appears in some tuple in the relation.
-In other words, the <em>range</em> of the relation or function, which one can
-think about as the set of output values, <em>covers</em> the co-domain. The
-function, <em>f(x) = x</em> (or <em>y = x</em> if you prefer), where <em>x</em> and <em>y</em> are
-real numbers, is surjective, because for every possible value of <em>y</em>
-there is some <em>x</em> such that <em>f(x) = y</em>. By contrast, the function,
-<em>f(x) = sin(x)</em>, viewed as a function from the real numbers (on the
-x-axis) to real numbers (on the y-axis) is not surjective, because the
-“output” values of this function are constrained to the range <em>[0,1]</em>.</p>
+A surjective relation is also said to be <em>onto</em>. The <em>range</em> of values
+it achieves covers its whole co-domain. Mathematically, a relation
+<img class="math" src="_images/math/8976c2854fcacf02af1366971f1c7b69eb0420e4.png" alt="R \subseteq S \times T"/> is surjective if <img class="math" src="_images/math/bbe12e2c660a1569bad26cde264cda0c8a9f82bf.png" alt="\forall t \in
+T, \exists s \in S~|~(s,t) \in R"/>.</p>
+<p>In the intuitive terms of high school algebra, a relation involving
+<em>x</em> and <em>y</em> is surjective if for any given <em>y</em> value there is always
+some <em>x</em> that “leads to” that <em>y</em>. The <em>square</em> function on the real
+numbers is not surjective, because there is no <em>x</em> that when squared
+gets one to <em>y = -1</em>.</p>
+<p>Exercise: Is the function, <em>f(x) = sin(x)</em>, from the real numbers (on
+the x-axis) to real numbers (on the y-axis) surjective? How might you
+phrase an informal but rigorous proof of your answer?</p>
+<p>Exercise: Is the inverse of a surjective function always total? How
+would you “prove” this with a rigorous, step-by-step argument based on
+the definitions we’ve given here? Hint: It is almost always useful to
+start with definitions. What does it mean for a relation to be total?
+What does it mean for one relation to be the inverse of another? How
+can you connect these definitons to show for sure that your answer is
+right?</p>
 </div>
 <div class="section" id="bijective">
 <h3>Bijective<a class="headerlink" href="#bijective" title="Permalink to this headline">¶</a></h3>
-<p>A function (already a single-valued relation), is said to be
-<em>bjective</em> if it is also both injective and surjective. Such a
-function is also often called a <em>bijection</em>. A bijection estabishes a
-one-to-one correspondence between elements of two sets. Each element
-in the domain maps to a different element in the co-domain (injective)
-and every element in the co-domain is mapped to be some element in the
-domain (surjective). Therefore, it is also the case that every element
-in the co-domain can be mapped back to the single element that mapped
-to it. So the inverse of a bijection is also a function and is also a
-bijection. Bijections can only be established between sets of the same
-size.</p>
-<p>Exercise: Make a rigorous argument that that last stement is true.
-Try showing that the assumption that you can establish a bijection
-between sets of different sizes leads to some kind of contradiction.</p>
-<p>Exercise: How many distinct bijections are there between two sets each
-of cardinality <em>3</em>? Generalize: how many bijections are there between
-two sets of cardinality <em>k</em>? Hint: Pick a first element in the first
-set. There are <em>n</em> ways to map it to some element in the second
-set. For the second element in the first set, there are only <em>(n-1)</em>
-ways, as one cannot map it to the element chosen in the first step, as
-that would violate the injectivity property. Continue this line of
-reasoning until you get down to all elements having been mapped.</p>
+<p>A total function is said to be <em>bjective</em> if it is also both injective
+and surjective. Such a function is also often called a <em>bijection</em>.</p>
+<p>Take a moment to think about the implications of being a bijection.
+Consider a bijective relation, <img class="math" src="_images/math/cdb76e3e99672f56cabfad2588fe14c9fdb2e2a9.png" alt="R \subseteq S \times T."/> <em>R</em> is
+total, so there is an <em>arrow</em> from every <em>s</em> in <em>S</em> to some <em>t</em> in
+<em>T</em>.  <em>R</em> is injective, so no two arrows from any <em>s</em> in <em>s</em> ever hit
+the same <em>t</em> in <em>T</em>. An injection is one-to-one. So there is exactly
+one <em>t</em> in <em>T</em> hit by each <em>s</em> in <em>S</em>. But <em>R</em> is also surjective, so
+every <em>t</em> in <em>T</em> is hit by some arrow from <em>S</em>. Therefore, there has
+to be exactly one element in <em>t</em> for each element in <em>s</em>. So the sets
+are of the same size, and there is a one-to-one correspondence between
+their elements.</p>
+<p>Now consider some <em>t</em> in <em>T</em>. It must be hit by exactly one arrow from
+<em>S</em>, so the <em>inverse</em> relation, <a href="#id11"><span class="problematic" id="id12">:matg:`R^{-1}`</span></a>, from <em>T</em> to <em>S</em>, must
+also single-valued (a function). Moreover, because <em>R</em> is surjective,
+every <em>t</em> in <em>T</em> is hit by some <em>s</em> in <em>S</em>, so the inverse relation is
+defined for every <em>t</em> in <em>T</em>. It, too, is total. Now every arrow from
+any <em>s</em> to some <em>t</em> leads back from that <em>t</em> to that <em>s</em>, so the
+inverse And it’s also (and because <em>R</em> is total, there is such an
+arror for <em>every</em> <em>s</em> in <em>S</em>), the inverse relation is surjective (it
+covers all of <em>S</em>).</p>
+<p>Exercise: Must the inverse of a bijection be one-to-one? Why or why
+not?  Make a rigorous argument based on assumptions derived from our
+definitions.</p>
+<p>Exercise: Must a bijective function be invertible? Make a rigorous
+argument.</p>
+<p>Exercise: What is the inverse of the inverse of a bijective function,
+<em>R</em>. Prove it with a rigorous argument.</p>
+<p>A bijection estabishes an invertible, one-to-one correspondence
+between elements of two sets. Bijections can only be established
+between sets of the same size. So if you want to prove that two sets
+are of the same size, it sufficies to show that one can define a
+bijection between the two sets. That is, one simply shows that there
+is some function that covers each element in each set with arrows
+connecting them, one-to-one in both directions.</p>
+<p>Exercise: Prove that the number of non-negative integers (the
+cardinality of <img class="math" src="_images/math/c8f55b4d0816bb06f543ad34702b2642a045ba47.png" alt="{\mathbb N}"/>), is the same as the number of
+non-negative fractions (the cardinality of <img class="math" src="_images/math/c39e35fcc1b9fb0f451059b362af5d6a2d6a3e97.png" alt="{\mathbb Q^{+}}"/>).</p>
+<p>Exercise: How many bijective relations are there between two sets of
+cardinality <em>k</em>? Hint: Pick a first element in the first set. There
+are <em>n</em> ways to map it to some element in the second set. Now for the
+second element in the first set, there are only <em>(n-1)</em> ways to pair
+it up with an element in the second set, as one cannot map it to the
+element chosen in the first step (the result would not be injective).
+Continue this line of reasoning until you get down to all elements
+having been mapped.</p>
+<p>Exercise: How many bijections are there from a set, <em>S</em>, to itself?
+You can think of such a bijection as a simple kind of encryption. For
+example, if you map each of the <em>26</em> letters of the alphabet to some
+other letter, but in a way that is unambiguous (injective!), then you
+have a simple encryption mechanisms. How many ways can you encrypt a
+text that uses <em>26</em> letters in this way? Given a cyphertext, how would
+you recover the original plaintext?</p>
+<p>Exercise: If you encrypt a text in this manner, using a bijection,
+<em>R</em> and then encrpty the resulting cyphertext using another one <em>T</em>,
+can you necessarily recover the plaintext? How? Is there a <em>single</em>
+bijection that would have accomplished the same encryption result?
+Would the inverse of that bijection effectively decrypt messages?</p>
+<p>Exercise: Is the composition of any two bijections also a bijection?
+If so, can you express its inverse in terms of the inverses of the two
+component bijections?</p>
+<p>Exercise: What is the <em>identity</em> bijection on the set of <em>26</em> letters?</p>
+<p>Question: Are such bijections commutative? That is, you have two of
+them, say <em>R</em> and <em>T</em>, is the bijection that you get by applying <em>R</em>
+and then <em>T</em> the same as the bijection you get by applying <em>T</em> and
+then <em>R</em>? If your answer is <em>no</em>, prove it by giving a counterexample
+(e.g., involving bijections on a small set). If your answer is yes,
+make rigorous argument.</p>
+<p>Programming exercise: Implement encryption and decryption schemes in
+Dafny using bijections over the <em>26</em> capital letters of the English
+alphabet.</p>
+<p>Programming exercise: Implement a <em>compose</em> function in Dafny that
+takes two pure functions, <em>R</em> and <em>T</em>, each implementing a bijection
+between the set of capital letters and that returns a pure function
+that when applied has the effect of first applying <em>T</em> then applying
+<em>R</em>.</p>
 </div>
 <div class="section" id="reflexive">
 <h3>Reflexive<a class="headerlink" href="#reflexive" title="Permalink to this headline">¶</a></h3>
-<p>We now consider properties of certiain special kinds of binary
+<p>We now consider some additional fundamental properties of binary
 relations, starting with relations that maps sets to themselves.  A
 relation that maps real numbers to real numbers is a subset of
 <img class="math" src="_images/math/0fe9cb77c7db298a4025875b7744e197f8edf6dd.png" alt="{\mathbb R} \times {\mathbb R}"/>, for example. The <em>friends</em>
@@ -718,10 +924,10 @@ with no other number. The tuples of the equality relation on real
 numbers thus includes <em>(2.5, 2.5)</em> and (-3.0, -3.0)* but definitely
 not <em>(2.5, -3.0)</em>.</p>
 <p>In more mathematical terms, consider a set <em>S</em> and a bindary relation,
-<em>R</em>, on S*S, :math:R subseteq S times S.` <em>R</em> is said to be
-reflexive, which we can write as <em>Reflexive(R)</em>, iff and only if for
-every <em>e</em> in <em>S</em>, the tuple <em>(e,e)</em> is in R. Or to be rigorous about
-it, <img class="math" src="_images/math/01fc7795202a1cf0db19cc409159cc25c22e82a5.png" alt="Reflexive(R) \iff \forall e \in S, (e,e) \in R."/></p>
+<em>R</em>, on S*S, :math:R subseteq S times S.` <em>R</em> is reflexive, which we
+can write as <em>Reflexive(R)</em>, if and only if for every <em>e</em> in <em>S</em>, the
+tuple <em>(e,e)</em> is in R. Or to be rigorous about it, <img class="math" src="_images/math/29a6521497cbd297db621982c436e24e562c3dac.png" alt="Reflexive(R)
+\iff \forall e \in S, (e,e) \in R."/></p>
 <p>Exercise: Is the function, <em>y = x</em>, reflexive? If every person loves
 themself, is the <em>loves</em> relation reflexive? Is the <em>less than or
 equals</em> relation reflexive? Hint: the tuples <em>(2,3)</em> and <em>(3,3)</em> are

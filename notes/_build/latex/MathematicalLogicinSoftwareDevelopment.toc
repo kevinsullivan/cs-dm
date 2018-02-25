@@ -61,68 +61,70 @@
 \contentsline {section}{\numberline {7.1}Naive Set Theory}{39}{section.7.1}
 \contentsline {section}{\numberline {7.2}Overly Naive Set Theory}{39}{section.7.2}
 \contentsline {section}{\numberline {7.3}Sets}{40}{section.7.3}
-\contentsline {section}{\numberline {7.4}Set Theory Notations}{40}{section.7.4}
-\contentsline {subsection}{\numberline {7.4.1}Display notation}{40}{subsection.7.4.1}
+\contentsline {section}{\numberline {7.4}Set Theory Notations}{41}{section.7.4}
+\contentsline {subsection}{\numberline {7.4.1}Display notation}{41}{subsection.7.4.1}
 \contentsline {subsection}{\numberline {7.4.2}Set comprehension notation}{41}{subsection.7.4.2}
 \contentsline {section}{\numberline {7.5}Set Operations}{42}{section.7.5}
 \contentsline {subsection}{\numberline {7.5.1}Cardinality}{42}{subsection.7.5.1}
-\contentsline {subsection}{\numberline {7.5.2}Equality}{42}{subsection.7.5.2}
+\contentsline {subsection}{\numberline {7.5.2}Equality}{43}{subsection.7.5.2}
 \contentsline {subsection}{\numberline {7.5.3}Subset}{43}{subsection.7.5.3}
 \contentsline {subsection}{\numberline {7.5.4}Intersection}{43}{subsection.7.5.4}
 \contentsline {subsection}{\numberline {7.5.5}Union}{43}{subsection.7.5.5}
-\contentsline {subsection}{\numberline {7.5.6}Difference}{43}{subsection.7.5.6}
+\contentsline {subsection}{\numberline {7.5.6}Difference}{44}{subsection.7.5.6}
 \contentsline {subsection}{\numberline {7.5.7}Product Set}{44}{subsection.7.5.7}
 \contentsline {subsection}{\numberline {7.5.8}Power Set}{44}{subsection.7.5.8}
-\contentsline {section}{\numberline {7.6}Tuples}{44}{section.7.6}
-\contentsline {section}{\numberline {7.7}Relations}{45}{section.7.7}
-\contentsline {section}{\numberline {7.8}Binary Relations and Functions}{45}{section.7.8}
-\contentsline {subsection}{\numberline {7.8.1}Functions are Single-Value Binary Relations}{46}{subsection.7.8.1}
-\contentsline {subsection}{\numberline {7.8.2}Total vs Partial}{46}{subsection.7.8.2}
-\contentsline {subsection}{\numberline {7.8.3}Inverse}{47}{subsection.7.8.3}
-\contentsline {subsection}{\numberline {7.8.4}Injective}{47}{subsection.7.8.4}
-\contentsline {subsection}{\numberline {7.8.5}Surjective}{47}{subsection.7.8.5}
-\contentsline {subsection}{\numberline {7.8.6}Bijective}{47}{subsection.7.8.6}
-\contentsline {subsection}{\numberline {7.8.7}Reflexive}{48}{subsection.7.8.7}
-\contentsline {subsection}{\numberline {7.8.8}Symmetric}{48}{subsection.7.8.8}
-\contentsline {subsection}{\numberline {7.8.9}Transitive}{48}{subsection.7.8.9}
-\contentsline {subsection}{\numberline {7.8.10}Equivalence}{49}{subsection.7.8.10}
-\contentsline {section}{\numberline {7.9}Sequences}{49}{section.7.9}
-\contentsline {chapter}{\numberline {8}8. Boolean Algebra}{51}{chapter.8}
-\contentsline {section}{\numberline {8.1}Boolean Algebra in Dafny}{51}{section.8.1}
-\contentsline {section}{\numberline {8.2}Boolean Values}{52}{section.8.2}
-\contentsline {section}{\numberline {8.3}Boolean Operators}{52}{section.8.3}
-\contentsline {subsection}{\numberline {8.3.1}Nullary, Unary, Binary, and n-Ary Operators}{52}{subsection.8.3.1}
-\contentsline {subsection}{\numberline {8.3.2}The Unary Operators of Boolean Algebra}{53}{subsection.8.3.2}
-\contentsline {subsubsection}{Constant False}{53}{subsubsection*.3}
-\contentsline {subsubsection}{Constant True}{53}{subsubsection*.4}
-\contentsline {subsubsection}{Identity Function(s)}{53}{subsubsection*.5}
-\contentsline {subsubsection}{Negation}{54}{subsubsection*.6}
-\contentsline {subsection}{\numberline {8.3.3}Binary Boolean Operators}{54}{subsection.8.3.3}
-\contentsline {subsubsection}{And (conjunction)}{54}{subsubsection*.7}
-\contentsline {subsubsection}{Nand (not and)}{55}{subsubsection*.8}
-\contentsline {subsubsection}{Or (disjunction)}{55}{subsubsection*.9}
-\contentsline {subsubsection}{Xor (exclusive or)}{55}{subsubsection*.10}
-\contentsline {subsubsection}{Nor (not or)}{56}{subsubsection*.11}
-\contentsline {subsubsection}{Implies}{56}{subsubsection*.12}
-\contentsline {subsubsection}{Follows}{56}{subsubsection*.13}
-\contentsline {subsection}{\numberline {8.3.4}A Ternary Binary Operator}{56}{subsection.8.3.4}
-\contentsline {section}{\numberline {8.4}Formal Languages: Syntax and Semantics}{57}{section.8.4}
-\contentsline {section}{\numberline {8.5}The Syntax of Boolean Expressions: Inductive Definitions}{57}{section.8.5}
-\contentsline {subsection}{\numberline {8.5.1}The Syntax and Semantics of \sphinxstyleemphasis {Simplified} Boolean Expression Language}{58}{subsection.8.5.1}
-\contentsline {subsubsection}{Syntax}{58}{subsubsection*.14}
-\contentsline {subsubsection}{Semantics}{58}{subsubsection*.15}
-\contentsline {subsection}{\numberline {8.5.2}The Syntax of a Complete Boolean Expression Language}{59}{subsection.8.5.2}
-\contentsline {section}{\numberline {8.6}The Semantics of Boolean Expressions: Recursive Evaluation}{60}{section.8.6}
-\contentsline {section}{\numberline {8.7}The Syntax and Semantics of Programming Languages}{61}{section.8.7}
-\contentsline {chapter}{\numberline {9}9. Propositional Logic}{63}{chapter.9}
-\contentsline {section}{\numberline {9.1}The Elements of a Logic}{64}{section.9.1}
-\contentsline {section}{\numberline {9.2}Using Logic in Practice}{64}{section.9.2}
-\contentsline {section}{\numberline {9.3}Propositional Logic}{65}{section.9.3}
-\contentsline {section}{\numberline {9.4}Syntax}{66}{section.9.4}
-\contentsline {section}{\numberline {9.5}Interpretations}{67}{section.9.5}
-\contentsline {section}{\numberline {9.6}Evaluation}{67}{section.9.6}
-\contentsline {section}{\numberline {9.7}Models}{67}{section.9.7}
-\contentsline {section}{\numberline {9.8}Satisfiability, Validity}{67}{section.9.8}
-\contentsline {section}{\numberline {9.9}Logical Consequence}{68}{section.9.9}
-\contentsline {chapter}{\numberline {10}10. Natural Deduction}{69}{chapter.10}
-\contentsline {chapter}{\numberline {11}Indices and tables}{71}{chapter.11}
+\contentsline {section}{\numberline {7.6}Tuples}{45}{section.7.6}
+\contentsline {section}{\numberline {7.7}Relations}{46}{section.7.7}
+\contentsline {section}{\numberline {7.8}Binary Relations}{46}{section.7.8}
+\contentsline {section}{\numberline {7.9}Functions: \sphinxstyleemphasis {Single-Valued} Relations}{46}{section.7.9}
+\contentsline {section}{\numberline {7.10}Properties of Relations and Functions}{47}{section.7.10}
+\contentsline {subsection}{\numberline {7.10.1}Total vs Partial}{47}{subsection.7.10.1}
+\contentsline {subsection}{\numberline {7.10.2}Inverse}{48}{subsection.7.10.2}
+\contentsline {subsection}{\numberline {7.10.3}Injective}{48}{subsection.7.10.3}
+\contentsline {subsubsection}{An Aside: Injectivity in Type Theory}{49}{subsubsection*.3}
+\contentsline {subsection}{\numberline {7.10.4}Surjective}{49}{subsection.7.10.4}
+\contentsline {subsection}{\numberline {7.10.5}Bijective}{50}{subsection.7.10.5}
+\contentsline {subsection}{\numberline {7.10.6}Reflexive}{51}{subsection.7.10.6}
+\contentsline {subsection}{\numberline {7.10.7}Symmetric}{51}{subsection.7.10.7}
+\contentsline {subsection}{\numberline {7.10.8}Transitive}{51}{subsection.7.10.8}
+\contentsline {subsection}{\numberline {7.10.9}Equivalence}{51}{subsection.7.10.9}
+\contentsline {section}{\numberline {7.11}Sequences}{52}{section.7.11}
+\contentsline {chapter}{\numberline {8}8. Boolean Algebra}{53}{chapter.8}
+\contentsline {section}{\numberline {8.1}Boolean Algebra in Dafny}{53}{section.8.1}
+\contentsline {section}{\numberline {8.2}Boolean Values}{54}{section.8.2}
+\contentsline {section}{\numberline {8.3}Boolean Operators}{54}{section.8.3}
+\contentsline {subsection}{\numberline {8.3.1}Nullary, Unary, Binary, and n-Ary Operators}{54}{subsection.8.3.1}
+\contentsline {subsection}{\numberline {8.3.2}The Unary Operators of Boolean Algebra}{55}{subsection.8.3.2}
+\contentsline {subsubsection}{Constant False}{55}{subsubsection*.4}
+\contentsline {subsubsection}{Constant True}{55}{subsubsection*.5}
+\contentsline {subsubsection}{Identity Function(s)}{55}{subsubsection*.6}
+\contentsline {subsubsection}{Negation}{56}{subsubsection*.7}
+\contentsline {subsection}{\numberline {8.3.3}Binary Boolean Operators}{56}{subsection.8.3.3}
+\contentsline {subsubsection}{And (conjunction)}{56}{subsubsection*.8}
+\contentsline {subsubsection}{Nand (not and)}{57}{subsubsection*.9}
+\contentsline {subsubsection}{Or (disjunction)}{57}{subsubsection*.10}
+\contentsline {subsubsection}{Xor (exclusive or)}{57}{subsubsection*.11}
+\contentsline {subsubsection}{Nor (not or)}{58}{subsubsection*.12}
+\contentsline {subsubsection}{Implies}{58}{subsubsection*.13}
+\contentsline {subsubsection}{Follows}{58}{subsubsection*.14}
+\contentsline {subsection}{\numberline {8.3.4}A Ternary Binary Operator}{58}{subsection.8.3.4}
+\contentsline {section}{\numberline {8.4}Formal Languages: Syntax and Semantics}{59}{section.8.4}
+\contentsline {section}{\numberline {8.5}The Syntax of Boolean Expressions: Inductive Definitions}{59}{section.8.5}
+\contentsline {subsection}{\numberline {8.5.1}The Syntax and Semantics of \sphinxstyleemphasis {Simplified} Boolean Expression Language}{60}{subsection.8.5.1}
+\contentsline {subsubsection}{Syntax}{60}{subsubsection*.15}
+\contentsline {subsubsection}{Semantics}{60}{subsubsection*.16}
+\contentsline {subsection}{\numberline {8.5.2}The Syntax of a Complete Boolean Expression Language}{61}{subsection.8.5.2}
+\contentsline {section}{\numberline {8.6}The Semantics of Boolean Expressions: Recursive Evaluation}{62}{section.8.6}
+\contentsline {section}{\numberline {8.7}The Syntax and Semantics of Programming Languages}{63}{section.8.7}
+\contentsline {chapter}{\numberline {9}9. Propositional Logic}{65}{chapter.9}
+\contentsline {section}{\numberline {9.1}The Elements of a Logic}{66}{section.9.1}
+\contentsline {section}{\numberline {9.2}Using Logic in Practice}{66}{section.9.2}
+\contentsline {section}{\numberline {9.3}Propositional Logic}{67}{section.9.3}
+\contentsline {section}{\numberline {9.4}Syntax}{68}{section.9.4}
+\contentsline {section}{\numberline {9.5}Interpretations}{69}{section.9.5}
+\contentsline {section}{\numberline {9.6}Evaluation}{69}{section.9.6}
+\contentsline {section}{\numberline {9.7}Models}{69}{section.9.7}
+\contentsline {section}{\numberline {9.8}Satisfiability, Validity}{69}{section.9.8}
+\contentsline {section}{\numberline {9.9}Logical Consequence}{70}{section.9.9}
+\contentsline {chapter}{\numberline {10}10. Natural Deduction}{71}{chapter.10}
+\contentsline {chapter}{\numberline {11}Indices and tables}{73}{chapter.11}

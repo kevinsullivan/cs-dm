@@ -61,7 +61,7 @@
     
 
 \title{Mathematical Logic in Software Development Documentation}
-\date{Feb 24, 2018}
+\date{Feb 25, 2018}
 \release{1}
 \author{Kevin Sullivan}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -77,7 +77,7 @@
 
 
 \chapter{1. Requirement, Specifications, and Implementations}
-\label{\detokenize{01-reqs-specs-impls::doc}}\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}
+\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}\label{\detokenize{01-reqs-specs-impls::doc}}\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}
 Software is an increasingly critical component of major societal
 systems, from rockets to power grids to healthcare, etc. Failures are
 not always bugs in implementation code. The most critical problems
@@ -470,7 +470,7 @@ requires that a program work correctly for all (\(\forall\)) inputs?
 
 
 \chapter{3. Problems with Imperative Code}
-\label{\detokenize{03-problems-with-imperative-code:problems-with-imperative-code}}\label{\detokenize{03-problems-with-imperative-code::doc}}
+\label{\detokenize{03-problems-with-imperative-code::doc}}\label{\detokenize{03-problems-with-imperative-code:problems-with-imperative-code}}
 There’s no free lunch: One can have the expressiveness of mathematical
 logic, useful for specification, or one can have the ability to run
 code efficiently, along with indispensable ability to interact with an
@@ -2450,20 +2450,18 @@ assert sumsquared == 36;     // because of the let expression
 
 
 \chapter{7. Set Theory}
-\label{\detokenize{07-set-theory:set-theory}}\label{\detokenize{07-set-theory::doc}}
+\label{\detokenize{07-set-theory::doc}}\label{\detokenize{07-set-theory:set-theory}}
 Modern mathematics is largely founded on set theory: in particular, on
 what is called \sphinxstyleemphasis{Zermelo-Fraenkel set theory with the axiom of Choice},
-or \sphinxstyleemphasis{ZFC}. Every concept you have ever learnedseen in mathematics can
-be reduced to expresions involving sets.  For example, every natural
-number can be represented as a set: zero as the \sphinxstyleemphasis{empty set} (\sphinxstyleemphasis{\{\}});
-one as the set containing the empty set (\sphinxstyleemphasis{\{\{\}\}}); two as the set that
-contains that set (\sphinxstyleemphasis{\{\{\{\}\}\}}); ad infinitum.
+or \sphinxstyleemphasis{ZFC}. Every concept you have ever learned in mathematics can, at
+least in principle, be reduced to expresions involving sets.  For
+example, every natural number can be represented as a set: zero as the
+\sphinxstyleemphasis{empty set, \{\}}; one as the set containing the empty set, \sphinxstyleemphasis{\{\{\}\}}; two
+as the set that contains that set, \sphinxstyleemphasis{\{\{\{\}\}\}}; ad infinitum.
 
-Set theory includes the treatment of sets and of special cases
-involving relations (sets of tuples), functions (sets of tuples that
-satisfying the constraint of being \sphinxstyleemphasis{single0valued}, sequences (sets
-with an ordering imposed on the elements, which can in turn be viewed
-as a function from natural number indices to set elements) and other
+Set theory includes the treatment of sets, including the special cases
+of relations (sets of tuples), functions (\sphinxstyleemphasis{single-valued} relations),
+sequences (functions from natural numbers to elements), and other
 related concepts.  ZFC is a widely accepted \sphinxstyleemphasis{formal foundation} for
 modern mathematics: a set of axioms that describe properties of sets,
 from which all the rest of mathematics can be deduced.
@@ -2474,58 +2472,64 @@ from which all the rest of mathematics can be deduced.
 So what is a set? A \sphinxstyleemphasis{naive} definition (which will actually be good
 enough for our purposes and for most of practical computer science) is
 that a set is just an unordered collection of elements. In principle,
-these elements are themselves sets, all the way down to empty sets,
-but we don’t need to think in such reductionist terms. We can think
-about a set of natural number elements, for example, without having to
-think of each natural number as itself being some weird kind of set!
+these elements are themselves reducible to setsm but we don’t need to
+think in such reductionist terms. We can think about a set of natural
+numbers, for example, without having to think of each number as itself
+being some weird kind of set.
 
 In practice, we just think sets as unordered collections of elements
-off some kind, where any given element is either \sphinxstyleemphasis{in} or \sphinxstyleemphasis{not in} any
-given set. Membership is binary.  So, for example, when we combine two
-sets, each containing some common element, the resulting combined set
-will have that element as a member, but it won’t have it twice.
+of some kind, where any given element is either \sphinxstyleemphasis{in} or \sphinxstyleemphasis{not in} any
+given set. An object can be a member of many different sets, but can
+only by in any give set zero or one times. Membership is binary.  So,
+for example, when we combine (take the \sphinxstyleemphasis{union} of) two sets, each of
+which contains some common element, the resulting combined set will
+have that element as a member, but it won’t have it twice.
 
 This chapter introduces \sphinxstyleemphasis{naive}, which is to say \sphinxstyleemphasis{intuitive and
 practical}, set theory. It does not cover \sphinxstyleemphasis{axiomatic} set theory, in
 which every concept is ultimately reduced to a set of logical axioms
-that define what precisely it means to be a set and how sets behave.
+that define what precisely it means to be a set and what operations
+can be use to manipulate sets.
 
 
 \section{Overly Naive Set Theory}
 \label{\detokenize{07-set-theory:overly-naive-set-theory}}
 Before we go on, however, we review a bit of history to understand
 that an overly naive view of sets can lead to logical contradictions
-that make naive set theory completely useless as a logically sound
-foundation for mathematics.
+that make such a theory useless as a foundation for mathematics.
 
 One of the founders of modern logic, Gotlob Frege, had as his central
-mission to establish foundations of mathematics in symbolic logic.
-The concept of a set was central to his effort. His logic therefore
-allowed one to define sets as collections of elements that satisfy
-given propositions, and to talk about whether a given element is in a
-given set of not. Frege’s notion of sets, in turn, traced back to the
-seminal work of Georg Cantor.
+aim to establish logical foundations for all of mathematics: to show
+that everything could be reduced to a set of axioms, or propositions
+accepted without question, from which all other mathematical truths
+could be deduced.  The concept of a set was central to his effort. His
+logic therefore allowed one to define sets as collections of elements
+that satisfy given propositions, and to talk about whether any given
+element is in a particular set of not. Frege’s notion of sets, in
+turn, traced back to the work of Georg Cantor.
 
-Boom. In 1903, the British analytical philosopher, Bertrand Russell,
-published a paper presenting a paradox in what we now call \sphinxstyleemphasis{naive set
-theory.} Russell showed that a logic based on naive set theory would
-be \sphinxstyleemphasis{inconsistent} (self-contradicting) and thus useless as a logic.
+But then, boom! In 1903, the British analytical philosopher, Bertrand
+Russell, published a paper presenting a terrible paradox in Frege’s
+conception. Russell showed that a logic involving naive set theory
+would be \sphinxstyleemphasis{inconsistent} (self-contradicting) and there useless as a
+foundation for mathematics.
 
-To see the problem, one need only consider the set of all sets that do
-not contain themselves. In mathematical \sphinxstyleemphasis{set comprehension} notation,
-we would write this set, let’s call it \sphinxstyleemphasis{S}, as \(S = \{ a: set |
-a \notin a \}.\) That is, \sphinxstyleemphasis{S} is the set of elements, \sphinxstyleemphasis{a}, each itself
-a set, such that \sphinxstyleemphasis{a} is not in (a member of) itself.
+To see the problem, one consider the set, \sphinxstyleemphasis{S}, of all sets that do not
+contain themselves. In \sphinxstyleemphasis{set comprehension} notation, we would write
+this set as \(S = \{ a: set | a \notin a \}.\) That is, \sphinxstyleemphasis{S} is the
+set of elements, \sphinxstyleemphasis{a}, each a set, such that \sphinxstyleemphasis{a} is not a member of
+itself.
 
-Now ask the decisive question: Does \sphinxstyleemphasis{S} contain itself? Let’s make a
-notation, \sphinxstyleemphasis{C(S)}, to represent the idea that \sphinxstyleemphasis{S} contains itself. Now
-suppose that \sphinxstyleemphasis{C(S)} is true, i.e., that \sphinxstyleemphasis{S} does contain itself. In
-this case, \sphinxstyleemphasis{S}, being a set that contains itself, cannot be a member
-of \sphinxstyleemphasis{S}, because we just defined \sphinxstyleemphasis{S} to be the set of sets that do
-\sphinxstyleemphasis{not} contain themselves. The assumption that \sphinxstyleemphasis{S} containss itself
-leads to the conclusion that \sphinxstyleemphasis{S} does not contain itself. In logical
-terms, \(C(S) \rightarrow \neg C(S).\) This is a contradiction and
-thus a logical impossibility.
+Now ask the decisive question: Does \sphinxstyleemphasis{S} contain itself?
+
+Let’s adopt a notation, \sphinxstyleemphasis{C(S)}, to represent the proposition that \sphinxstyleemphasis{S}
+contains itself. Now suppose that \sphinxstyleemphasis{C(S)} is true, i.e., that \sphinxstyleemphasis{S} does
+contain itself. In this case, \sphinxstyleemphasis{S}, being a set that contains itself,
+cannot be a member of \sphinxstyleemphasis{S}, because we just defined \sphinxstyleemphasis{S} to be the set
+of sets that do \sphinxstyleemphasis{not} contain themselves. So, the assumption that \sphinxstyleemphasis{S}
+containss itself leads to the conclusion that \sphinxstyleemphasis{S} does not contain
+itself. In logical terms, \(C(S) \rightarrow \neg C(S).\) This is
+a contradiction and thus a logical impossibility.
 
 Now suppose \sphinxstyleemphasis{S} does not contain itself: \(\neg C(S).\). Being
 such a set, and given that \sphinxstyleemphasis{S} is the set of sets that do not contain
@@ -2635,19 +2639,20 @@ builder} notation.
 \label{\detokenize{07-set-theory:set-comprehension-notation}}
 Take the example of the set, \sphinxstyleemphasis{S}, of even numbers from zero to one
 hundred, inclusive. We can denote this set precisely in mathematical
-writing as \(S = \{ n: {\mathbb Z} | 0 <= n <= 100 \land n mod 2
-== 0 \}.\) Let’s pull this expression apart.
+writing as \(S = \{ n: {\mathbb Z}~|~0 <= n <= 100 \land n~mod~2
+= 0 \}.\) Let’s pull this expression apart.
 
-The expression on the right of the equals sign can be read in three
-parts. The vertical bar is read \sphinxstyleemphasis{such that}. To the left of the bar is
-an expression identifying the set from which the elements of \sphinxstyleemphasis{this}
-set are drawn, and a name is given to an arbitrary element of this
-source set. So here we can say that \sphinxstyleemphasis{S} is a set each element \sphinxstyleemphasis{n} of
-which is a natural number.  A name, here \sphinxstyleemphasis{n}, for an arbitrary element
-is given for two purposes. First it desribes the form of elements in
-the set being built: here just \sphinxstyleemphasis{integers}. Second, the name can then
-be used in writing a condition that must be true of each such element.
-That expression is written to the right of the vertical bar.
+The set expression (to the right of the first equals sign) can be read
+in three parts. The vertical bar is read \sphinxstyleemphasis{such that}. To the left of
+the bar is an expression identifying the set from which the elements
+of \sphinxstyleemphasis{this} set are drawn, and a name is given to an arbitrary element
+of this source set. So here we can say that \sphinxstyleemphasis{S} is a set each element
+\sphinxstyleemphasis{n} of which is a natural number.  A name, here \sphinxstyleemphasis{n}, for an arbitrary
+element is given for two purposes. First it desribes the form of
+elements in the set being built: here just \sphinxstyleemphasis{integers}. Second, the
+name can then be used in writing a condition that must be true of each
+such element.  That expression is written to the right of the vertical
+bar.
 
 Here the condition is that each such element, \sphinxstyleemphasis{n} must be greater than
 or equal to zero, less than or equal to one hundred, and even, in that
@@ -2822,20 +2827,23 @@ superset of itself, and every set is a superset of the empty set.
 \label{\detokenize{07-set-theory:intersection}}
 The intersection, \(S \cap T\), of two sets, \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T}, is the
 set of elements that are in both \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T}. Mathematically speaking,
-\(S \cap T = \{ e~|~e \in S \land e \in T \}\). In Dafny, the \sphinxstyleemphasis{*}
-operator is used for set intersection.  The intersection of \sphinxstyleemphasis{S} and
-\sphinxstyleemphasis{T} is thus written \sphinxstyleemphasis{S * T}. For example, the command \sphinxstyleemphasis{Q := S * T}
-assigns the intersection of \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T} as the new value of \sphinxstyleemphasis{Q}.
+\(S \cap T = \{ e~|~e \in S \land e \in T \}\).
+
+In Dafny, the \sphinxstyleemphasis{*} operator is used for set intersection.  The
+intersection of \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T} is thus written \sphinxstyleemphasis{S * T}. For example, the
+command \sphinxstyleemphasis{Q := S * T} assigns the intersection of \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T} as the
+new value of \sphinxstyleemphasis{Q}.
 
 
 \subsection{Union}
 \label{\detokenize{07-set-theory:union}}
 The union, \(S \cup T\), of two sets, \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T}, is the set of
 elements that are in either (including both) \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T}. That is,
-\(S \cup T = \{ e~|~e \in S \lor e \in T \}\). In Dafny, the \sphinxstyleemphasis{+}
-operator is used for set union.  The unionof \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T} is thus
-written \sphinxstyleemphasis{S + T}. For example, the command \sphinxstyleemphasis{V := S + T} assigns the
-union of \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T} as the new value of \sphinxstyleemphasis{V}.
+\(S \cup T = \{ e~|~e \in S \lor e \in T \}\).
+
+In Dafny, the \sphinxstyleemphasis{+} operator is used for set union.  The union of \sphinxstyleemphasis{S}
+and \sphinxstyleemphasis{T} is thus written \sphinxstyleemphasis{S + T}. For example, the command \sphinxstyleemphasis{V := S +
+T} assigns the union of \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T} as the new value of \sphinxstyleemphasis{V}.
 
 
 \subsection{Difference}
@@ -2898,14 +2906,15 @@ hold for sets of every (finite) size. So what we have is an informal
 \sphinxstyleemphasis{proof by induction} of a theorem: \(\forall S, |{\mathbb P}(S)|
 = 2^{|S|}\).
 
-In Dafny, there is no explicit powerset operator, one taking a set and
-returning its powerset, but the concept can be expressed in an
-extremely elegant form using a set comprehension notation (in both
-pure mathematics and in Dafny). The solution is to say simple the set
-of all sets that are subsets of a given set, \sphinxstyleemphasis{S}. The follwing three
-line program prints out the powerset of \sphinxstyleemphasis{S = \{ 1, 2, 3 \}}.  The key
-expression is to the right of the assignment operator on the second
-line.
+In Dafny, there is no explicit powerset operator, one that would take
+a set and returning its powerset, but the concept can be expressed in
+an elegant form using a set comprehension. The solution is simply to
+say \sphinxstyleemphasis{the set of all sets that are subsets of a given set, *}. In pure
+mathematical notation this would be \({ R | R \subseteq S }.\) In
+Dafny it’s basically the same expression.  The follwing three-line
+program computes and prints out the powerset of \sphinxstyleemphasis{S = \{ 1, 2, 3 \}}.
+The key expression is to the right of the assignment operator on the
+second line.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 var S := \PYGZob{} 1, 2, 3 \PYGZcb{};
@@ -2913,112 +2922,154 @@ var P := set R \textbar{} R \PYGZlt{}= S;
 print P;
 \end{sphinxVerbatim}
 
-Simple exercise: Write a pure function that when given a value of type
-set\textless{}T\textgreater{} returns its powerset. The function will have to be polymorphic.
-Call it powerset\textless{}T\textgreater{}.
+Exercise: Write a pure function that when given a value of type set\textless{}T\textgreater{}
+returns its powerset. The function will have to be polymorphic.  Call
+it powerset\textless{}T\textgreater{}.
 
 
 \section{Tuples}
 \label{\detokenize{07-set-theory:tuples}}
-A tuple is an ordered collection of elements. The number of elements
-in a tuple is called its \sphinxstyleemphasis{arity}. Ordered pairs are of arity, \sphinxstyleemphasis{2}. An
-ordered triple is of arity, \sphinxstyleemphasis{3}. A tuple of arity \sphinxstyleemphasis{2} is called an
-\sphinxstyleemphasis{ordered pair}. A tuple of arity \sphinxstyleemphasis{3} is often called a triple. For a
-larger arity, \sphinxstyleemphasis{n}, a tuple with that arity is called an \sphinxstyleemphasis{n-tuple}.
-The tuple, \sphinxstyleemphasis{(7, X, “house”, square\_func)}, for example, can be said
-to be a \sphinxstyleemphasis{4-tuple}.
+A tuple is an ordered collection of elements. The type of elements in
+a tuple need not all be be the same. The number of elements in a tuple
+is called its \sphinxstyleemphasis{arity}. Ordered pairs are tuples of arity, \sphinxstyleemphasis{2}, for
+example. A tuple of arity \sphinxstyleemphasis{3} can be called a (an ordered) \sphinxstyleemphasis{triple}.
+A tuple of a larger arity, \sphinxstyleemphasis{n}, is called an \sphinxstyleemphasis{n-tuple}.  The tuple,
+\sphinxstyleemphasis{(7, X, “house”, square\_func)}, for example, is a \sphinxstyleemphasis{4-tuple}.
 
-The elements of a tuple are in general not of the same type, or drawn
-from the same sets. In the example here, the first element appears to
-be an integer, the second, a variable, the third, a string, and last,
-the name of some function.
+As is evident in this example, the elements of a tuple are in general
+not of the same type, or drawn from the same sets. Here, the first
+element is an integer; the second, a variable;, the third, a string;
+and last, a function.
 
-Tuples are properly understood as values taken from a set product.  If
-\sphinxstyleemphasis{S} and \sphinxstyleemphasis{T} are our sets of even numbers between zero and one hundred,
-and zero and twenty four, respectively, for example, then the ordered
-pair, \sphinxstyleemphasis{(60,24)} is an element of the product set \(S \times T\).
+An \sphinxstyleemphasis{n}-tuples should be understood as values taken from a product of
+\sphinxstyleemphasis{n} sets.  If \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T} are our sets of even numbers between zero
+and one hundred, and zero and twenty four, for example, then the
+ordered pair, \sphinxstyleemphasis{(60,24)} is an element of the product set \(S
+\times T\).  The preceding \sphinxstyleemphasis{4}-tuple would have come from a product of
+four sets: one of integers, one of variables, one of strings, and one
+of functions.
 
-If one is being careful about types, whether in general mathematical
-discourse or in programming, then the \sphinxstyleemphasis{type} of a tuple is defined as
-the tuple of the types of its elements. In the example here, the type
-of \sphinxstyleemphasis{S} (using Dafny notation) is \sphinxstyleemphasis{set\textless{}int\textgreater{}}, and the type of \sphinxstyleemphasis{T} is
-also \sphinxstyleemphasis{set\textless{}int\textgreater{}}, so the type of elements in \(S \times T\) is the
-type, \sphinxstyleemphasis{(int, int)}. In general the type of a tuple in a set product,
-::\sphinxtitleref{S\_1 times S\_2 times ldots time S\_n}, where the types of these
-sets are \(T_1, \ldots, T_n\) is \((T_1, \ldots, T_n)\).
+The \sphinxstyleemphasis{type} of a tuple is the tuple of the types of its elements. In
+mathematical writing, we’d say that the tuple, \sphinxstyleemphasis{(-3,4)} is al element
+of the set \({\mathbb Z} \times {\mathbb Z},\) and if asked about
+its type, most mathematicians would say \sphinxstyleemphasis{pair of integers}. In Dafny,
+where types are more explicit than they usually are in quasi-formal
+mathematical discourse, the type of this tuple is \sphinxstyleemphasis{(int, int)}. In
+general, in both math and in Dafny, in particular, the type of a tuple
+in a set product, ::\sphinxtitleref{S\_1 times S\_2 times ldots time S\_n}, where
+the types of these sets are \(T_1, \ldots, T_n\) is \((T_1,
+\ldots, T_n)\).
 
-While all of this might seem a little abstract, it’s actually simple
-and very useful. Any table of data, such as a table with columns that
-hold names, birthdays, and social security numbers, represents data in
-a product set. One set is the set of names, the second set is the set
-of birthdays. The third is the set of social security numbers.  Each
-row in such a table is just a particular tuple in such a set product.
+The elements of a tuple are sometimes called \sphinxstyleemphasis{fields of that tuple.
+Given an *n}-tuple, \sphinxstyleemphasis{t}, we are often interested in working with the
+value of one of its fields. We thus need a function for \sphinxstyleemphasis{projecting}
+the value of a field out of a tuple. We actually think of an \sphinxstyleemphasis{n}-tuple
+as coming with \sphinxstyleemphasis{n} projection functions, one for each field.
 
-Each row is a tuple. We call each element of a tuple a \sphinxstyleemphasis{field}. An
-\sphinxstyleemphasis{n-tuple} will have \sphinxstyleemphasis{n} fields, which we conventionally refer to by
-indices ranging from \sphinxstyleemphasis{0} to \sphinxstyleemphasis{n-1}.
+Projection functions are usually written using the Greek letter,
+::\sphinxtitleref{pi}, with a natural number subscript indicating which field a
+given projection function ” projects”. Given a \sphinxstyleemphasis{4}-tuple, \sphinxstyleemphasis{t = (7, X,
+“house”, square\_func)}, we would have math::\sphinxtitleref{pi\_0(t) = 7} and
+\(\pi_3(t) = square_func.\)
 
-We are often interested in the value of a particular field of a
-tuple. We can used subscripting as a way to extract the value of a
-particular field from a tuple. We can view such an extraction
-operation as a function from tuple values to field values. We call
-such functions \sphinxstyleemphasis{projection functions}.
-
-An \sphinxstyleemphasis{n-tuple} will have \sphinxstyleemphasis{n} project functions, often denoted using the
-greek letter, \sphinxstyleemphasis{pi}, with a (zero-based) subscript indicating which
-element the project function \sphinxstyleemphasis{projects} out of a given tuple. If for
-example, \sphinxstyleemphasis{t} is the \sphinxstyleemphasis{3-tuple}, \sphinxstyleemphasis{12, 4, 6)}, then \(\pi_1(t) = 4\).
+The type of a projection funcion is \sphinxstyleemphasis{function from tuple type to field
+type}. In general, because tuples have fields of different types, they
+will also have projection functions of different types. For example,
+\(pi_0\) here is of type (in Dafny) \((int, variable, string,
+int \rightarrow int) \rightarrow {\mathbb Z}\) while \(pi_3\) is of
+type \((int, variable, string, int \rightarrow int) \rightarrow
+(int \rightarrow int).\)
 
 In Dafny, tuples are written as they are in mathematics, as lists of
 field values separated by commas and enclosed in parentheses.  For
 example \sphinxstyleemphasis{t := (1, “hello”, {[}1,2,3{]})” assigns to *t} a \sphinxstyleemphasis{3-tuple} whose
 first field has the value, \sphinxstyleemphasis{1} (of type \sphinxstyleemphasis{int}); whose second field has
 the value, “hello”, a string; and whose third element is the list of
-integers, \sphinxstyleemphasis{{[}2, 4, 6{]}}. Projection in Dafny is accomplished using the
-subscripting operation. So, for example, \sphinxstyleemphasis{t{[}1{]}} in this case has the
-value, \sphinxstyleemphasis{4}.
+integers, \sphinxstyleemphasis{{[}2, 4, 6{]}}.
+
+Projection in Dafny is accomplished using the \sphinxstyleemphasis{tuple} subscripting (as
+opposed to array or list subscripting) operation. Tuple subscripting is
+done by putting a dot (period) followed by an index after the tuple
+expression. Here’s a little Dafny code to illustrate. It defines \sphinxstyleemphasis{t}
+to be the triple, \sphinxstyleemphasis{(7, ‘X’, “hello”)} (of type \sphinxstyleemphasis{(int, char, string)}),
+and then usses the \sphinxstyleemphasis{.0} and \sphinxstyleemphasis{.2} projection functions to project the
+first and third elements of the tuple, which it prints. To make the
+type of the tuple explicit, the final line of code declare \sphinxstyleemphasis{t’} to be
+the same tuple value, but this time explicitly declares its type.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+var t := (7, \PYGZsq{}X\PYGZsq{}, \PYGZdq{}hello\PYGZdq{});
+print t.0;
+print t.2;
+var t\PYGZsq{}: (int, char, string) := (7, \PYGZsq{}X\PYGZsq{}, \PYGZdq{}hello\PYGZdq{});
+\end{sphinxVerbatim}
+
+While all of this might seem a little abstract, it’s actually simple
+and very useful. Any table of data, such as a table with columns that
+hold names, birthdays, and social security numbers, represents data in
+a product set. Each row is a tuple. The columns correspond to the sets
+from which the field values are drawn. One set is a set of names; the
+second, a set birthdays; the third, a set of social security numbers.
+Each row is just a particular tuple in product of these three sets,
+and the table as a whole is what we call a \sphinxstyleemphasis{relation}. If you have
+heard of a \sphinxstyleemphasis{relational database}, you now know what kind of data such
+a system handles: tables, i.e., \sphinxstyleemphasis{relations}.
 
 
 \section{Relations}
 \label{\detokenize{07-set-theory:relations}}
 A relation in nothing but a subset of (the tuples in) a product set. A
-table such as the one described will, in practice, usually not have a
-row with every possible combination of names, birthdays, and SSNs. In
-other words, it won’t contain every tuple in the product of the sets
-from which the values in the respective columns are drawn (the set of
-all names, the set of all birthdays, and the set of all SSNs in this
-case).
+table such as the one just described, will, in practice, usually not
+have a row with every possible combination of names, birthdays, and
+SSNs. In other words, it won’t be the entire product of the sets from
+which the field values drawn. Rather, it will usually contain a small
+subset of the product set.
 
 In mathematical writing, we will thus often see a sentence of the
-form, Let \(R \subseteq S \times T\) be a relation. All this says
-is that \sphinxstyleemphasis{R} is some subset of the set of all tuples in the product set
-of \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T}. If \sphinxstyleemphasis{S = \{ hot, cold \}} and \sphinxstyleemphasis{T = \{ cat, dog \}}, then
-the product set is \sphinxstyleemphasis{\{ (hot, cat), (hot, dog), (cold, cat), (cold, dog)
-\}}, and a relation on \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T} is any subset of this product set.
-The set, \sphinxstyleemphasis{\{ (hot, cat), (cold, dog) \}} is one such relation.
+form, Let \(R \subseteq S \times T\) be a (binary) relation on \sphinxstyleemphasis{S}
+and \sphinxstyleemphasis{T}. All this says is that \sphinxstyleemphasis{R} is some subset of the set of all
+tuples in the product set of \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T}. If \sphinxstyleemphasis{S = \{ hot, cold \}} and
+\sphinxstyleemphasis{T = \{ cat, dog \}}, then the product set is \sphinxstyleemphasis{\{ (hot, cat), (hot, dog),
+(cold, cat), (cold, dog) \}}, and a relation on \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T} is any
+subset of this product set.  The set, \sphinxstyleemphasis{\{ (hot, cat), (cold, dog) \}} is
+thus one such relation on \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T}.
 
-Here’s an exercise. If \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T} are finite sets, \sphinxstyleemphasis{\textbar{}S\textbar{} = n} and \sphinxstyleemphasis{\textbar{}T\textbar{}
-= m}, how many relations are there over \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T}? First, how many
-tuples are in the product set? Second, how many subsets are there of
-that set? For fun, write a little Dafny program. should take two sets
-of integers as arguments as return the number of relations over them.
-Dafny does not provide a built-in exponentiation funciton, but you can
-now write one yourself (in fact, you’ve already done this). Here’s a
-test case: the number of relations over sets of cardinalities \sphinxstyleemphasis{4} and
-\sphinxstyleemphasis{5} is about a million.
+Here’s an exercise. If \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T} are finite sets, with cardinalities
+\sphinxstyleemphasis{\textbar{}S\textbar{} = n} and \sphinxstyleemphasis{\textbar{}T\textbar{} = m}, how many relations are there over \sphinxstyleemphasis{S} and
+\sphinxstyleemphasis{T}? Hint: First, how many tuples are in the product set? Second, how
+many subsets are there of that set? For fun, write a little Dafny
+program that takes two sets of integers as arguments as return the
+number of relations over them.  Write another function that takes two
+sets and returns the set of all possible relations over the sets. Use
+a set comprehension expression rather than writing a while loop. Be
+careful: the number of possible relations will be very large even in
+cases where the given sets contain only a few elements each.
 
 
-\section{Binary Relations and Functions}
-\label{\detokenize{07-set-theory:binary-relations-and-functions}}
-Binary relations are relations over products of \sphinxstyleemphasis{2} sets. The first
-set is called the \sphinxstyleemphasis{domain} of the relation. The second set is called
-the co-domain of the relation. That is, a binary relation is a subset
-of the ordered pairs in a product of the given domain and codomain
-sets.
+\section{Binary Relations}
+\label{\detokenize{07-set-theory:binary-relations}}
+Binary relations, which play an especially important role in
+mathematics and computer science, are relations over just \sphinxstyleemphasis{2}
+sets. Suppose \(R \subseteq S \times T\) is a binary relation on
+\sphinxstyleemphasis{S} and \sphinxstyleemphasis{T}. Then \sphinxstyleemphasis{S} is called the \sphinxstyleemphasis{domain} of the relation, and \sphinxstyleemphasis{T}
+is called its \sphinxstyleemphasis{co-domain}. That is, a binary relation is a subset of
+the ordered pairs in a product of the given domain and codomain sets.
+
+If a particular tuple, \sphinxstyleemphasis{(s, t)} is an element of such a relation, \sphinxstyleemphasis{R},
+we will say \sphinxstyleemphasis{R} is \sphinxstyleemphasis{defined for} the value, s, and that \sphinxstyleemphasis{R achieves}
+the value, \sphinxstyleemphasis{t}. The \sphinxstyleemphasis{support} of a relation is the subset of values in
+the domain on which it is defined. The \sphinxstyleemphasis{range} of a relation is the
+subset of co-domain values that it achieves.
+
+For example, if \sphinxstyleemphasis{S = \{ hot, cold \}} and \sphinxstyleemphasis{T = \{ cat, dog \}}, and \sphinxstyleemphasis{R =
+*\{ (hot, cat), (hot, dog) \}}, then the domain of \sphinxstyleemphasis{R} is \sphinxstyleemphasis{S}; the
+co-domain of \sphinxstyleemphasis{R} is \sphinxstyleemphasis{T}; the support of \sphinxstyleemphasis{R} is just \sphinxstyleemphasis{\{ hot \}} (and \sphinxstyleemphasis{R}
+is thus \sphinxstyleemphasis{not defined} for the value \sphinxstyleemphasis{cold}); and the range of \sphinxstyleemphasis{R} is
+the whole co-domain, \sphinxstyleemphasis{T}.
 
 The everyday functions you have studies in mathematics are binary
 relations, albeit usually infinite ones. For example, the \sphinxstyleemphasis{square}
-function, that associates every real number with its square can be
+function, that associates every real number with its square, can be
 understood as the infinite set of ordered pairs of real numbers in
 which the second is the square of the first. Mathematically this is
 :\{ (x, y) \textbar{} y = x\textasciicircum{}2 \}:{\color{red}\bfseries{}{}`}, where we take as implicit that \sphinxstyleemphasis{x} and \sphinxstyleemphasis{y}
@@ -3030,40 +3081,48 @@ as a relation. The tuples are again pairs of real numbers, but now the
 elements include tuples, \sphinxstyleemphasis{(4, 2)} and \sphinxstyleemphasis{(4, -2)}.
 
 
-\subsection{Functions are Single-Value Binary Relations}
-\label{\detokenize{07-set-theory:functions-are-single-value-binary-relations}}
+\section{Functions: \sphinxstyleemphasis{Single-Valued} Relations}
+\label{\detokenize{07-set-theory:functions-single-valued-relations}}
 A binary-relation is said to be \sphinxstyleemphasis{single-valued} if it does not have
-two tuples with the same first element and different second elements.
-A different way to say this is that if \sphinxstyleemphasis{(x, y)} and \sphinxstyleemphasis{(x, z)} are two
-elements in a single-valued binary relation (with the same first
-element, \sphinxstyleemphasis{x}) then it must be that \sphinxstyleemphasis{x} and \sphinxstyleemphasis{y} are the same value, for
-otherwise the relation would not be single-valued. To be more precise,
-then, a relation, \(R \subseteq S \times T\), is single valued if
-\(forall (x, y) \in R, forall (x, z) \in R, y = z\). In logical
-notation, \((x, y) \in R \land (x, z) \in R \rightarrow y = z\).
+tuples with the same first element and different second elements.  A
+single-valued binary relation is also called a \sphinxstyleemphasis{function}.  Another
+way to say that \sphinxstyleemphasis{R} is single valued is to say that if \sphinxstyleemphasis{(x, y)} and
+\sphinxstyleemphasis{(x, z)} are both in \sphinxstyleemphasis{R} then it must be that \sphinxstyleemphasis{y} and \sphinxstyleemphasis{z} are the same
+value. Otherwise the relation would not be single-valued! To be more
+precise, then, if \(R \subseteq S \times T\), is single valued
+relation, then \((x, y) \in R \land (x, z) \in R \rightarrow y =
+z\).
 
-A single-valued binary relation is also called a \sphinxstyleemphasis{function}. And by a
-\sphinxstyleemphasis{function} in mathematics, we means exactly a single-valued relation.
-The \sphinxstyleemphasis{square} relation is a function, in that for any given number
-there is only one associated square of that number. The relation is
-single-valued in exactly this sense. By contrast, the square root
-relation is not a function, because for any given non-negative real
-number, there are two associated square roots. The relation is not
-single-valued.
+As an example of a single-valued relation, i.e., a function, consider
+the \sphinxstyleemphasis{square}. For any given natural number (in the domain) under this
+function there is just a \sphinxstyleemphasis{single} associated value in the range (the
+square of the first number). The relation is single-valued in exactly
+this sense. By contrast, the square root relation is not a function,
+because it is not single-valued. For any given non-negative number in
+its domain, there are \sphinxstyleemphasis{two} associated square roots in its range. The
+relation is not single-valued and so it is not a function.
 
-There are several ways to represent functions in Dafny, or in most any
-other modern programming language. In Dafny one can represent a
-function as a pure functional program, one can use a method, but for
-our purposes here, it is the representation of a function from values
-of type \sphinxstyleemphasis{S} to values of type \sphinxstyleemphasis{T} as a \sphinxstyleemphasis{map\textless{}S,T\textgreater{}} that is pertinent.
-A map is nothing other than an explicit representation of a function
-as a set of pairs.
+There are several ways to represent functions in Dafny, or any other
+programming language. One can represent a given function \sphinxstyleemphasis{implicity}:
+as a \sphinxstyleemphasis{program} that computes that function. But one can also represent
+a function \sphinxstyleemphasis{explicitly}, as a relation: that is, as a set of pairs.
+The (polymorphic) \sphinxstyleemphasis{map} type in Dafny provides such a representation.
+
+A “map”, i.e., a value of type \sphinxstyleemphasis{map\textless{}S,T\textgreater{}} (where \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T} are type
+parameters), is to be understood as an explicit representation of a
+single-valued relation: a set of pairs: a function. In addition to a
+mere set of pairs, this data type also provides helpful functions and
+a clever representation underlying representation that both enforce
+the single-valuedness of maps, and that make it very efficient to look
+up range values given domain values where the map is defined, i.e., to
+\sphinxstyleemphasis{apply} such a function to a domain value (a “key”) to obtained the
+related range \sphinxstyleemphasis{value}.
 
 Given a Dafny map object, \sphinxstyleemphasis{m}, of type \sphinxstyleemphasis{map\textless{}S,T\textgreater{}}, one can obtain the
 set of values of type \sphinxstyleemphasis{S} for which the map is defined as \sphinxstyleemphasis{m.Keys().}
 One can obtain the range, i.e., the set of values of type \sphinxstyleemphasis{T} that the
 map maps \sphinxstyleemphasis{to}, as \sphinxstyleemphasis{m.Values().} One can determine whether a given key,
-\sphinxstyleemphasis{s} of type \sphinxstyleemphasis{S} is defined in a map with the expression \sphinxstyleemphasis{s in m}.
+\sphinxstyleemphasis{s} of type \sphinxstyleemphasis{S} is defined in a map with the expression, \sphinxstyleemphasis{s in m}.
 
 Exercise: Write a method (or a function) that when given a map\textless{}S,T\textgreater{} as
 an argument returns a set\textless{}(T,S)\textgreater{} as a result where the return result
@@ -3088,45 +3147,62 @@ satisfying the precondition that it be invertible and that in this
 case returns its inverse, also as a map.
 
 
+\section{Properties of Relations and Functions}
+\label{\detokenize{07-set-theory:properties-of-relations-and-functions}}
+We now introduce essential concepts and terminology regarding for
+distinguishing essential properties and special cases of relations and
+functions.
+
+
 \subsection{Total vs Partial}
 \label{\detokenize{07-set-theory:total-vs-partial}}
-A binary relation is said to be total if every element of its domain
-appears as the first element in at least one tuple. We say that the
-relation is \sphinxstyleemphasis{defined} for each such element. A relation that is not
-total is said to be partial. And these terms are applied to functions
-as well.
+A binary relation (including a function) is said to be \sphinxstyleemphasis{total} if
+every element of its domain appears as the first element in at least
+one tuple, i.e., its \sphinxstyleemphasis{support} is its entire \sphinxstyleemphasis{domain}.  A relation
+that is not total is said to be \sphinxstyleemphasis{partial}. For example, the square
+function on the real numbers is total, in that it is defined on its
+entire real number domain. By contrast, the square root function is
+not total (if it domain is taken to be the real numbers) because it is
+not defined for real numbers that are less than zero.
 
-Exercises: Is the function \sphinxstyleemphasis{y = x} on the real numbers total? Is the
-square root function on the domain of the real numbers total? Answer:
-No, because it’s not defined for any real numbers less than zero. Is
-the \sphinxstyleemphasis{log} function defined on the non-negative real numbers? Answer:
+Note that if one considers a slightly different function, the square
+root function on the \sphinxstyleemphasis{non-negative} real numbers the only difference
+being in the domainm then this function \sphinxstyleemphasis{is} total. Totality is thus
+relative to the specified domain. Here we have two functions with the
+very same set of ordered pairs, but one is total and the other is not.
+
+Exercises: Is the function \sphinxstyleemphasis{y = x} on the real numbers total?  Is the
+\sphinxstyleemphasis{log} function defined on the non-negative real numbers total? Answer:
 no, because it’t not defined at \sphinxstyleemphasis{x = 0}.  Is the \sphinxstyleemphasis{SSN} function, that
-assigns a U.S. social security number to a person total? No, not every
-person has a social security number.
+assigns a U.S. Social Security Number to every person, total? No, not
+every person has a U.S. Social Security number.
 
 Implementing partial functions as methods or pure function in software
 presents certain problems. Either a pre-conditions has to be enforced
-to prevent the function of method being called with a value for which
-it’s not define, or the function or method needs to be made total by
+to prevent the function or method being called with a value for which
+it’s not defined, or the function or method needs to be made total by
 returning some kind of \sphinxstyleemphasis{error} value if it’s called with such a value.
-In this case, callers of the function are obligated always to check
-whether \sphinxstyleemphasis{some} real function value was return or whether \sphinxstyleemphasis{none} was,
-but rather an error flag. The failure of programmers systematically to
-check for such error returns is a ubiquitous source of bugs in real
-software.
+In this case, callers of such a function are obligated always to check
+whether \sphinxstyleemphasis{some} validfunction value was returned or whether instead a
+value was returned that indicates that there is \sphinxstyleemphasis{no such value}. Such
+a value indicates an \sphinxstyleemphasis{error} in the use of the function, but one that
+the program caught. The failure of programmers systematically to check
+for \sphinxstyleemphasis{error returns} is a common source of bugs in real software.
 
-By enforcing a requirement that every loop and recursion terminates,
-Dafny demands that every function and method be total in the sense
-that it returns and that it returns some value of the type, if any,
-that it promises to return. When a Dafny total function is used to
-implement a mathematical function that is partial, the problem thus
-arises what to return for inputs not in the domain of the partial
-function being implemented. A little later in the course we will see a
-nice way to handle this issue using what are called \sphinxstyleemphasis{option} types. An
-option type is like a box that contains either a good value or an
-error flag; and to get a good value out of such a box, one must
-explicitly check to see whether the box has a good value in it or,
-alternatively, and error flag.
+Finally we note that by enforcing a requirement that every loop and
+recursion terminates, Dafny demands that every function and method be
+total in the sense that it returns and that it returns some value,
+even it it’s a value that could flag an error.
+
+When a Dafny total function is used to implement a mathematical
+function that is itself partial (e.g., \sphinxstyleemphasis{log(x)} for any real number,
+\sphinxstyleemphasis{x}), the problem thus arises what to return for inputs for which the
+underlying mathematical function is not defined.  A little later in
+the course we will see a nice way to handle this issue using what are
+called \sphinxstyleemphasis{option} types. An option type is like a box that contains
+either a good value or an error flag; and to get a good value out of
+such a box, one must explicitly check to see whether the box has a
+good value in it or, alternatively, and error flag.
 
 
 \subsection{Inverse}
@@ -3135,82 +3211,251 @@ The inverse of a given binary relation is simply the set of tuples
 formed by reversing the order of all of the given tuples. To put this
 in mathematical notation, if \sphinxstyleemphasis{R} is a relation, its inverse, denoted
 ::\sphinxtitleref{R\textasciicircum{}\{-1\}}, is \(\{ (y, x) | (x, y) \in R \}\). You can see this
-immediately in our example of squares and square roots. One contains
-the tuples, \sphinxstyleemphasis{(-2, 4), (2, 4)}, while the other contains \sphinxstyleemphasis{(4, 2), (4,
--2)}.
+immediately in our example of squares and square roots. Each of these
+relations is the inverse of the other. One contains the tuples, \sphinxstyleemphasis{(-2,
+4), (2, 4)}, while the other contains \sphinxstyleemphasis{(4, 2), (4, -2)}.
 
 It should immediately be clear that the inverse of a function is not
-always also a function. Indeed, the inverse of the square function is
-the square root relation, but that relation is not itself a function.
+always also a function. The inverse of the \sphinxstyleemphasis{square} function is the
+\sphinxstyleemphasis{square root} relation, but that relation is not itself a function,
+because it is not single valued.
 
-A function whose inverse is also a function is said to be invertible.
+Here’s a visual way to think about these concept. Consider the graph
+of the \sphinxstyleemphasis{square} function. Its a parabola that opens either upward in
+the \sphinxstyleemphasis{y} direction, or downward. Now select any value for \sphinxstyleemphasis{x} and draw
+a vertical line. It will intersect the parabola at only one point.
+The function is single-valued.
+
+The graph of a square root function, on the other hand, is a parabola
+that opens to the left or right. So if one draws a vertial line at
+some value of \sphinxstyleemphasis{x}, either the line fails to hit the graph at all (the
+square root function is not defined for all values of \sphinxstyleemphasis{x}), or it
+intersects the line at two points. The square root “function” is not
+single-valued, and isn’t really even a \sphinxstyleemphasis{function} at all. (If the
+vertical line hits the parabola right at its bottom, the set of points
+at which it intersects contains just one element, but if one takes the
+solution set to be a \sphinxstyleemphasis{multi-set}, then the value, zero, occurs in that
+set twice.)
+
+A function whose inverse is a function is said to be \sphinxstyleemphasis{invertible}.
 The function, \sphinxstyleemphasis{f(x) = x} (or \sphinxstyleemphasis{y = x} if you prefer) is invertible in
-this sense. In fact, its inverse is itself. Is the cube root function
-invertible? (That’s an exercise for the reader. Now prove it with a
-rigorous argument.)
+this sense. In fact, its inverse is itself.
+
+Exercise: Is the cube root function invertible? Prove it informally.
+
+Exercise: Write a definition in mathematical logic of what precisely
+it means for a function to be invertible. Model your definition on our
+definition of what it means for a relation to be single valued.
 
 
 \subsection{Injective}
 \label{\detokenize{07-set-theory:injective}}
-A relation (and in particular, a function) is said to be injective if
+A relation (or function, in particular) is said to be \sphinxstyleemphasis{injective} if
 no two elements of the domain are associated with the same element in
-the co-domain.
+the co-domain. Such a relation is also said to be \sphinxstyleemphasis{one-one-one},
+rather than \sphinxstyleemphasis{many-to-one}).
+
+Take a moment to think about the difference between being injective
+and single valued. Single-valued means no \sphinxstyleemphasis{one} element of the domain
+“goes to” {\color{red}\bfseries{}*}more than one” value in the range. Injective means that “no
+more than one” value in the domain “goes to” and one value in the
+range.
+
+Exercise: Draw a picture. Draw the domain and range sets as clouds
+with points inside, representing objects (values) in the domain and
+co-domain. Represent a relation as a set of \sphinxstyleemphasis{arrows} that connect
+domain objects to co-domain objects. The arrows visually depict the
+ordered pairs in the relation. What does it look like visually for a
+relation to be single-valued? What does it look like for a relation to
+be injective?
 
 The square function is a function because it is single-valued, but it
-is not injective. To see this, one need only to observe that two
-different values in the domain, \sphinxstyleemphasis{-2} and \sphinxstyleemphasis{2}, have the same squared
-value in the co-domain, namely \sphinxstyleemphasis{4}.
+is not injective. To see this, observe that two different values in
+the domain, \sphinxstyleemphasis{-2} and \sphinxstyleemphasis{2}, have the same value in the co-domain: \sphinxstyleemphasis{4}.
+Think about the graph: if you can draw a \sphinxstyleemphasis{horizontal} line for any
+value of \sphinxstyleemphasis{y} that intersects the graph at multiple points, then the
+points at which it intersects correspond to different values of \sphinxstyleemphasis{x}
+that have the same value \sphinxstyleemphasis{under the relation}. Such a relation is not
+injective.
 
 Exercises: Write a precise mathematical definition of what it means
 for a binary relation to be injective.  Is the cube root function
 injective? Is \sphinxstyleemphasis{f(x) = sin(x)} injective?
 
 
+\subsubsection{An Aside: Injectivity in Type Theory}
+\label{\detokenize{07-set-theory:an-aside-injectivity-in-type-theory}}
+As an aside, we note that the concept of injectivity is essential in
+\sphinxstyleemphasis{type theory}.  Whereas \sphinxstyleemphasis{set theory} provides a universally accepted
+axiomatic foundation for mathematics, \sphinxstyleemphasis{type} theory is of increasing
+interest as alternative foundation. It is also at the very heart of a
+great deal of work in programming languages and software verification.
+
+Type theory takes types rather than sets to be elementary. A type in
+type theory comprises a collection of objects, just as a set does in
+set theory. But whereas in set theory, an object can be in many sets,
+in type theory, and object can have only one type.
+
+The set of values of a given type is defined by a set of constants and
+functions called constructors. Constant constructors define what one
+can think of as the \sphinxstyleemphasis{smallest} values of a type, while constructors
+that are functions provide means to build larger values of a type by
+{\color{red}\bfseries{}*}packaging up” smaller values of the same and/or other types.
+
+As a simple example, one might say that the set of values of the type,
+\sphinxstyleemphasis{Russian Doll,} is given by one constant constructor, \sphinxstyleemphasis{SolidDoll} and
+by one constructor function, \sphinxstyleemphasis{NestDoll} that takes a nested doll as an
+argument (the solid one or any other one built by \sphinxstyleemphasis{NestDoll} itself).
+Speaking intuitively, this constructor function does nothing other
+than \sphinxstyleemphasis{package up} the smaller nest doll it was given inside a “box”
+labelled \sphinxstyleemphasis{NestDoll}.  One can thus obtain a nested doll either as the
+constant \sphinxstyleemphasis{SolidDoll} or by applying the \sphinxstyleemphasis{NestDoll} constructor some
+finite number of times to smaller nested dolls. Such a nesting will
+always be finitely deep, with the solid doll at the core.
+
+A key idea in type theory is that \sphinxstyleemphasis{constructors are injective}. Two
+values of a given type built by different constructors, or by the same
+constructor with different arguments, are \sphinxstyleemphasis{always} different. So, for
+example, the solid doll is by definition unequal to any doll built by
+the \sphinxstyleemphasis{NestDoll} constructor; and a russian doll nested two levels deep
+(built by applying \sphinxstyleemphasis{NestDoll} to an argument representing a doll that
+is nested one level deep)is necessarily unequal to a russian doll one
+level deep (built by applying \sphinxstyleemphasis{NestDoll} to the solid doll).
+
+Running this inequality idea in reverse, we can conclude that if two
+values of a given type are known to be equal, then for sure they were
+constructed by the same constructor taking the same arguments (if
+any).  It turns out that knowing such a fact, rooted in the
+\sphinxstyleemphasis{injectivity of constructors} is often essential to completing proofs
+about programs using type theory. But more on this later.
+
+
 \subsection{Surjective}
 \label{\detokenize{07-set-theory:surjective}}
 A binary relation, and in particular a function, is \sphinxstyleemphasis{surjective} if
 every element in the co-domain appears in some tuple in the relation.
-In other words, the \sphinxstyleemphasis{range} of the relation or function, which one can
-think about as the set of output values, \sphinxstyleemphasis{covers} the co-domain. The
-function, \sphinxstyleemphasis{f(x) = x} (or \sphinxstyleemphasis{y = x} if you prefer), where \sphinxstyleemphasis{x} and \sphinxstyleemphasis{y} are
-real numbers, is surjective, because for every possible value of \sphinxstyleemphasis{y}
-there is some \sphinxstyleemphasis{x} such that \sphinxstyleemphasis{f(x) = y}. By contrast, the function,
-\sphinxstyleemphasis{f(x) = sin(x)}, viewed as a function from the real numbers (on the
-x-axis) to real numbers (on the y-axis) is not surjective, because the
-“output” values of this function are constrained to the range \sphinxstyleemphasis{{[}0,1{]}}.
+A surjective relation is also said to be \sphinxstyleemphasis{onto}. The \sphinxstyleemphasis{range} of values
+it achieves covers its whole co-domain. Mathematically, a relation
+\(R \subseteq S \times T\) is surjective if \(\forall t \in
+T, \exists s \in S~|~(s,t) \in R\).
+
+In the intuitive terms of high school algebra, a relation involving
+\sphinxstyleemphasis{x} and \sphinxstyleemphasis{y} is surjective if for any given \sphinxstyleemphasis{y} value there is always
+some \sphinxstyleemphasis{x} that “leads to” that \sphinxstyleemphasis{y}. The \sphinxstyleemphasis{square} function on the real
+numbers is not surjective, because there is no \sphinxstyleemphasis{x} that when squared
+gets one to \sphinxstyleemphasis{y = -1}.
+
+Exercise: Is the function, \sphinxstyleemphasis{f(x) = sin(x)}, from the real numbers (on
+the x-axis) to real numbers (on the y-axis) surjective? How might you
+phrase an informal but rigorous proof of your answer?
+
+Exercise: Is the inverse of a surjective function always total? How
+would you “prove” this with a rigorous, step-by-step argument based on
+the definitions we’ve given here? Hint: It is almost always useful to
+start with definitions. What does it mean for a relation to be total?
+What does it mean for one relation to be the inverse of another? How
+can you connect these definitons to show for sure that your answer is
+right?
 
 
 \subsection{Bijective}
 \label{\detokenize{07-set-theory:bijective}}
-A function (already a single-valued relation), is said to be
-\sphinxstyleemphasis{bjective} if it is also both injective and surjective. Such a
-function is also often called a \sphinxstyleemphasis{bijection}. A bijection estabishes a
-one-to-one correspondence between elements of two sets. Each element
-in the domain maps to a different element in the co-domain (injective)
-and every element in the co-domain is mapped to be some element in the
-domain (surjective). Therefore, it is also the case that every element
-in the co-domain can be mapped back to the single element that mapped
-to it. So the inverse of a bijection is also a function and is also a
-bijection. Bijections can only be established between sets of the same
-size.
+A total function is said to be \sphinxstyleemphasis{bjective} if it is also both injective
+and surjective. Such a function is also often called a \sphinxstyleemphasis{bijection}.
 
-Exercise: Make a rigorous argument that that last stement is true.
-Try showing that the assumption that you can establish a bijection
-between sets of different sizes leads to some kind of contradiction.
+Take a moment to think about the implications of being a bijection.
+Consider a bijective relation, \(R \subseteq S \times T.\) \sphinxstyleemphasis{R} is
+total, so there is an \sphinxstyleemphasis{arrow} from every \sphinxstyleemphasis{s} in \sphinxstyleemphasis{S} to some \sphinxstyleemphasis{t} in
+\sphinxstyleemphasis{T}.  \sphinxstyleemphasis{R} is injective, so no two arrows from any \sphinxstyleemphasis{s} in \sphinxstyleemphasis{s} ever hit
+the same \sphinxstyleemphasis{t} in \sphinxstyleemphasis{T}. An injection is one-to-one. So there is exactly
+one \sphinxstyleemphasis{t} in \sphinxstyleemphasis{T} hit by each \sphinxstyleemphasis{s} in \sphinxstyleemphasis{S}. But \sphinxstyleemphasis{R} is also surjective, so
+every \sphinxstyleemphasis{t} in \sphinxstyleemphasis{T} is hit by some arrow from \sphinxstyleemphasis{S}. Therefore, there has
+to be exactly one element in \sphinxstyleemphasis{t} for each element in \sphinxstyleemphasis{s}. So the sets
+are of the same size, and there is a one-to-one correspondence between
+their elements.
 
-Exercise: How many distinct bijections are there between two sets each
-of cardinality \sphinxstyleemphasis{3}? Generalize: how many bijections are there between
-two sets of cardinality \sphinxstyleemphasis{k}? Hint: Pick a first element in the first
-set. There are \sphinxstyleemphasis{n} ways to map it to some element in the second
-set. For the second element in the first set, there are only \sphinxstyleemphasis{(n-1)}
-ways, as one cannot map it to the element chosen in the first step, as
-that would violate the injectivity property. Continue this line of
-reasoning until you get down to all elements having been mapped.
+Now consider some \sphinxstyleemphasis{t} in \sphinxstyleemphasis{T}. It must be hit by exactly one arrow from
+\sphinxstyleemphasis{S}, so the \sphinxstyleemphasis{inverse} relation, {\color{red}\bfseries{}:matg:{}`R\textasciicircum{}\{-1\}{}`}, from \sphinxstyleemphasis{T} to \sphinxstyleemphasis{S}, must
+also single-valued (a function). Moreover, because \sphinxstyleemphasis{R} is surjective,
+every \sphinxstyleemphasis{t} in \sphinxstyleemphasis{T} is hit by some \sphinxstyleemphasis{s} in \sphinxstyleemphasis{S}, so the inverse relation is
+defined for every \sphinxstyleemphasis{t} in \sphinxstyleemphasis{T}. It, too, is total. Now every arrow from
+any \sphinxstyleemphasis{s} to some \sphinxstyleemphasis{t} leads back from that \sphinxstyleemphasis{t} to that \sphinxstyleemphasis{s}, so the
+inverse And it’s also (and because \sphinxstyleemphasis{R} is total, there is such an
+arror for \sphinxstyleemphasis{every} \sphinxstyleemphasis{s} in \sphinxstyleemphasis{S}), the inverse relation is surjective (it
+covers all of \sphinxstyleemphasis{S}).
+
+Exercise: Must the inverse of a bijection be one-to-one? Why or why
+not?  Make a rigorous argument based on assumptions derived from our
+definitions.
+
+Exercise: Must a bijective function be invertible? Make a rigorous
+argument.
+
+Exercise: What is the inverse of the inverse of a bijective function,
+\sphinxstyleemphasis{R}. Prove it with a rigorous argument.
+
+A bijection estabishes an invertible, one-to-one correspondence
+between elements of two sets. Bijections can only be established
+between sets of the same size. So if you want to prove that two sets
+are of the same size, it sufficies to show that one can define a
+bijection between the two sets. That is, one simply shows that there
+is some function that covers each element in each set with arrows
+connecting them, one-to-one in both directions.
+
+Exercise: Prove that the number of non-negative integers (the
+cardinality of \({\mathbb N}\)), is the same as the number of
+non-negative fractions (the cardinality of \({\mathbb Q^{+}}\)).
+
+Exercise: How many bijective relations are there between two sets of
+cardinality \sphinxstyleemphasis{k}? Hint: Pick a first element in the first set. There
+are \sphinxstyleemphasis{n} ways to map it to some element in the second set. Now for the
+second element in the first set, there are only \sphinxstyleemphasis{(n-1)} ways to pair
+it up with an element in the second set, as one cannot map it to the
+element chosen in the first step (the result would not be injective).
+Continue this line of reasoning until you get down to all elements
+having been mapped.
+
+Exercise: How many bijections are there from a set, \sphinxstyleemphasis{S}, to itself?
+You can think of such a bijection as a simple kind of encryption. For
+example, if you map each of the \sphinxstyleemphasis{26} letters of the alphabet to some
+other letter, but in a way that is unambiguous (injective!), then you
+have a simple encryption mechanisms. How many ways can you encrypt a
+text that uses \sphinxstyleemphasis{26} letters in this way? Given a cyphertext, how would
+you recover the original plaintext?
+
+Exercise: If you encrypt a text in this manner, using a bijection,
+\sphinxstyleemphasis{R} and then encrpty the resulting cyphertext using another one \sphinxstyleemphasis{T},
+can you necessarily recover the plaintext? How? Is there a \sphinxstyleemphasis{single}
+bijection that would have accomplished the same encryption result?
+Would the inverse of that bijection effectively decrypt messages?
+
+Exercise: Is the composition of any two bijections also a bijection?
+If so, can you express its inverse in terms of the inverses of the two
+component bijections?
+
+Exercise: What is the \sphinxstyleemphasis{identity} bijection on the set of \sphinxstyleemphasis{26} letters?
+
+Question: Are such bijections commutative? That is, you have two of
+them, say \sphinxstyleemphasis{R} and \sphinxstyleemphasis{T}, is the bijection that you get by applying \sphinxstyleemphasis{R}
+and then \sphinxstyleemphasis{T} the same as the bijection you get by applying \sphinxstyleemphasis{T} and
+then \sphinxstyleemphasis{R}? If your answer is \sphinxstyleemphasis{no}, prove it by giving a counterexample
+(e.g., involving bijections on a small set). If your answer is yes,
+make rigorous argument.
+
+Programming exercise: Implement encryption and decryption schemes in
+Dafny using bijections over the \sphinxstyleemphasis{26} capital letters of the English
+alphabet.
+
+Programming exercise: Implement a \sphinxstyleemphasis{compose} function in Dafny that
+takes two pure functions, \sphinxstyleemphasis{R} and \sphinxstyleemphasis{T}, each implementing a bijection
+between the set of capital letters and that returns a pure function
+that when applied has the effect of first applying \sphinxstyleemphasis{T} then applying
+\sphinxstyleemphasis{R}.
 
 
 \subsection{Reflexive}
 \label{\detokenize{07-set-theory:reflexive}}
-We now consider properties of certiain special kinds of binary
+We now consider some additional fundamental properties of binary
 relations, starting with relations that maps sets to themselves.  A
 relation that maps real numbers to real numbers is a subset of
 \({\mathbb R} \times {\mathbb R}\), for example. The \sphinxstyleemphasis{friends}
@@ -3225,10 +3470,10 @@ numbers thus includes \sphinxstyleemphasis{(2.5, 2.5)} and (-3.0, -3.0)* but def
 not \sphinxstyleemphasis{(2.5, -3.0)}.
 
 In more mathematical terms, consider a set \sphinxstyleemphasis{S} and a bindary relation,
-\sphinxstyleemphasis{R}, on S*S, :math:R subseteq S times S.{}` \sphinxstyleemphasis{R} is said to be
-reflexive, which we can write as \sphinxstyleemphasis{Reflexive(R)}, iff and only if for
-every \sphinxstyleemphasis{e} in \sphinxstyleemphasis{S}, the tuple \sphinxstyleemphasis{(e,e)} is in R. Or to be rigorous about
-it, \(Reflexive(R) \iff \forall e \in S, (e,e) \in R.\)
+\sphinxstyleemphasis{R}, on S*S, :math:R subseteq S times S.{}` \sphinxstyleemphasis{R} is reflexive, which we
+can write as \sphinxstyleemphasis{Reflexive(R)}, if and only if for every \sphinxstyleemphasis{e} in \sphinxstyleemphasis{S}, the
+tuple \sphinxstyleemphasis{(e,e)} is in R. Or to be rigorous about it, \(Reflexive(R)
+\iff \forall e \in S, (e,e) \in R.\)
 
 Exercise: Is the function, \sphinxstyleemphasis{y = x}, reflexive? If every person loves
 themself, is the \sphinxstyleemphasis{loves} relation reflexive? Is the \sphinxstyleemphasis{less than or
@@ -3336,7 +3581,7 @@ to apply projection functions to tuples. So, again, the value of, say,
 
 
 \chapter{8. Boolean Algebra}
-\label{\detokenize{08-boolean-algebra:boolean-algebra}}\label{\detokenize{08-boolean-algebra::doc}}
+\label{\detokenize{08-boolean-algebra::doc}}\label{\detokenize{08-boolean-algebra:boolean-algebra}}
 As a first stepping stone toward a deeper exploration of deductive
 logic, we explore the related notion of Boolean \sphinxstyleemphasis{algebra}. Boolean
 algebra is a mathematical framework for representing and reasoning
@@ -4471,7 +4716,7 @@ that satisfies the program preconditions into a post-execution state.
 
 
 \chapter{9. Propositional Logic}
-\label{\detokenize{09-propositional-logic:propositional-logic}}\label{\detokenize{09-propositional-logic::doc}}
+\label{\detokenize{09-propositional-logic::doc}}\label{\detokenize{09-propositional-logic:propositional-logic}}
 A logic is a system for writing, evaluating, and reasoning about truth
 statements, or \sphinxstyleemphasis{propositions}. A proposition asserts that some state
 of affairs holds in some domain. Truth statements can be particular:
