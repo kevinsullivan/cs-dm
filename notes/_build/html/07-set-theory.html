@@ -69,7 +69,7 @@ from which all the rest of mathematics can be deduced.</p>
 <p>So what is a set? A <em>naive</em> definition (which will actually be good
 enough for our purposes and for most of practical computer science) is
 that a set is just an unordered collection of elements. In principle,
-these elements are themselves reducible to setsm but we don’t need to
+these elements are themselves reducible to sets but we don’t need to
 think in such reductionist terms. We can think about a set of natural
 numbers, for example, without having to think of each number as itself
 being some weird kind of set.</p>
@@ -176,12 +176,12 @@ built-in concepts.</p>
 <h2>Set Theory Notations<a class="headerlink" href="#set-theory-notations" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="display-notation">
 <h3>Display notation<a class="headerlink" href="#display-notation" title="Permalink to this headline">¶</a></h3>
-<p>In everyday mathematical writing, andin Dafny, we denote small sets by
+<p>In everyday mathematical writing, and in Dafny, we denote small sets by
 listing the elements of the set within curly brace. If <em>S</em> is the set
 containing the numbers, one, two, and three, for example, we can write
 <em>S</em> as <img class="math" src="_images/math/681866a8f518adc2b652c8a583e1b642e424b55b.png" alt="\{ 1, 2, 3 \}."/></p>
 <p>In Dafny, we would write almost the same thing.</p>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>var S:set&lt;int&gt; := { 1, 2, 3 }.
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>var S:set&lt;int&gt; := { 1, 2, 3 };
 </pre></div>
 </div>
 <p>This code introduces the variable, <em>S</em>, declares that its type is
@@ -190,7 +190,7 @@ of elements of tyep <em>T</em>), and assigns to <em>S</em> the set value, <img c
 1, 2, 3 \}."/> Because the value on the right side of the assignment
 operator, is evidently a set of integers, Dafny will infer the type of
 <em>S</em>, and the explicit type declaration can therefore be omitted.</p>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>var S := { 1, 2, 3 }.
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>var S := { 1, 2, 3 };
 </pre></div>
 </div>
 <p>When a set is finite but too large to write down easily as a list of
@@ -340,7 +340,7 @@ there is at least one element of <em>S</em> that is not in <em>T</em>.</p>
 <p>In our example, <em>T</em> (the set of even natural numbers less than <em>25</em>)
 is a proper subset of <em>S</em> (the set of even natural numbers less than
 or equal to <em>100</em>).</p>
-<p>In Dafny, one uses the usual arithmetic less and and less than or
+<p>In Dafny, one uses the usual arithmetic less than and less than or
 equal operator symbols, <em>&lt;</em> and <em>&lt;=</em>, to assert <em>proper subset</em> and
 <em>subset</em> relationships, respectively. The first two of the following
 assertions are thus both true in Dafny, but the third is not. That
@@ -404,9 +404,9 @@ pairs, <em>(s,t)</em>, that can be formed by taking one element, <em>s</em>, fro
 is the product of the cardinalities of the individual sets.</p>
 <p>There is no product set operator, per se, in Dafny, but given sets,
 <em>S</em> and <em>T</em> a product set can easily be expressed using Dafny’s set
-comprehension notation: <em>set s, t: s in S &amp;&amp; t in T :: (s,t)</em>. The
+comprehension notation: <em>set s, t | s in S &amp;&amp; t in T :: (s,t)</em>. The
 keyword, <em>set</em>, is followed by the names of the variables that will be
-used to form the set comprehension expression, followed by a colon,
+used to form the set comprehension expression, followed by a verticalbar,
 followed by an assertion that selects the values of <em>s</em> and <em>t</em> that
 will be included in the result, followed by a double colon, and then,
 finally an expression using the local variables that states how each
@@ -1020,15 +1020,6 @@ a tuple can be of different types. Tuples also use the <em>.n</em> notation
 to apply projection functions to tuples. So, again, the value of, say,
 <em>(“hello”, 7).1</em> is <em>7</em> (of type <em>int</em>), while the value of
 <em>(“hello”, 7).0</em> is the string, “hello.”</p>
-<p>Sequences also support operations not supported for bare sets. These
-include sequence <em>concatenation</em> (addition, in which one sequence is
-appended to another to make a new sequence comprising the first one
-followed by the second. In Dafny, concatenation of sequences is done
-using the <em>+</em> operator. Dafny also has operations for accessing the
-individual elements of sequences, as well as subsequences. A given
-subsequence is obtained by taking a prefix of a suffix of a sequence.
-See the Dafny language summary for examples of these and other related
-operations on lists.</p>
 </div>
 </div>
 
