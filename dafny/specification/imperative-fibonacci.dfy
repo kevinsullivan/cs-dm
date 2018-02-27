@@ -32,6 +32,8 @@ module imperative_fibonacci
         var fib1 := 1;
         var i := 1;
 
+        assert i < n;
+
         /*
         Given that we maintain the "invariant" that i 
         is always the index of the last computed value

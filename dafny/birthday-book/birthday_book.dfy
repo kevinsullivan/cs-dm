@@ -42,6 +42,16 @@ module birthday_book
         known, if and only if there is
         a birthday registered for that
         name in the "birthday" book.
+
+        Note: a function like this that
+        just returns a bool, indicating
+        the truth or falsity of some
+        proposition about the state of
+        the program can be declared as 
+        a predicate. In that case, the
+        return type is assumed to be
+        bool and is thus omitted from 
+        the text.
         */
         function Valid(): bool
             reads this;
@@ -254,7 +264,6 @@ module birthday_book
     method Main()
     {
         var bb: birthday_book := new birthday_book();
-        assert bb.Valid();
         bb.addBirthday("John", 25);
         bb.addBirthday("Mike", 20);
         bb.addBirthday("Susan", 20);

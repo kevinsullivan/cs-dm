@@ -37,6 +37,7 @@ A little homework exercise for you.
         }
         return acc;
     }
+
     method set_tests()
     {
     /*
@@ -114,8 +115,8 @@ A little homework exercise for you.
 
 
         /*
-        How does the cardinality of s1*s2 related to the cardinalities of s1 and s2 individually? Will this same relationship hold in general? If so, why; if not, why not?
-        Answer here:
+        How does the cardinality of s1*s2 related to the cardinalities of s1 and s2 individually? Will this same relationship hold in general? If so, why; if not, 
+        why not? Answer here:
         */
 
 
