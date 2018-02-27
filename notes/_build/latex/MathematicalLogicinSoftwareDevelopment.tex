@@ -61,7 +61,7 @@
     
 
 \title{Mathematical Logic in Software Development Documentation}
-\date{Feb 25, 2018}
+\date{Feb 26, 2018}
 \release{1}
 \author{Kevin Sullivan}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -77,7 +77,7 @@
 
 
 \chapter{1. Requirement, Specifications, and Implementations}
-\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}\label{\detokenize{01-reqs-specs-impls::doc}}\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}
+\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}\label{\detokenize{01-reqs-specs-impls::doc}}\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}
 Software is an increasingly critical component of major societal
 systems, from rockets to power grids to healthcare, etc. Failures are
 not always bugs in implementation code. The most critical problems
@@ -523,7 +523,7 @@ steer a commercial aircraft, etc.
 
 
 \chapter{4. Pure Functional Programming as Runnable Mathematics}
-\label{\detokenize{04-runnable-math::doc}}\label{\detokenize{04-runnable-math:pure-functional-programming-as-runnable-mathematics}}
+\label{\detokenize{04-runnable-math:pure-functional-programming-as-runnable-mathematics}}\label{\detokenize{04-runnable-math::doc}}
 What we’d really like would be a language that gives us everything:
 the expressiveness and the \sphinxstyleemphasis{safety} of mathematical logic (there’s no
 concept of a memory in logic, and thus no possibility for unexpected
@@ -1748,7 +1748,7 @@ task of learning how to program.
 
 
 \chapter{6. Dafny Language: Types, Statements, Expressions}
-\label{\detokenize{06-dafny-language::doc}}\label{\detokenize{06-dafny-language:dafny-language-types-statements-expressions}}
+\label{\detokenize{06-dafny-language:dafny-language-types-statements-expressions}}\label{\detokenize{06-dafny-language::doc}}
 
 \section{Built-In Types}
 \label{\detokenize{06-dafny-language:built-in-types}}
@@ -4726,36 +4726,32 @@ that satisfies the program preconditions into a post-execution state.
 
 
 \chapter{9. Propositional Logic}
-\label{\detokenize{09-propositional-logic::doc}}\label{\detokenize{09-propositional-logic:propositional-logic}}
+\label{\detokenize{09-propositional-logic:propositional-logic}}\label{\detokenize{09-propositional-logic::doc}}
 A logic is a system for writing, evaluating, and reasoning about truth
 statements, or \sphinxstyleemphasis{propositions}. A proposition asserts that some state
 of affairs holds in some domain. Truth statements can be particular:
 e.g., Tom’s mom is Mary; or general: e.g., Every person has a mother.
 
-In Dafny, a logical language is used to express states of affairs in a
-program that are either required or asserted to hold. An example is
-aproposition that some variable has a value that is greater than \sphinxstyleemphasis{0}.
+In Dafny, a logical language is used to express states of affairs in
+programs, that are required or asserted to hold. A simple example is a
+proposition that some variable has a value that is greater than \sphinxstyleemphasis{0}.
 When used for program specification and verification, propositions are
-taken as descriptions of states of affairs that are required to hold.
+taken as descriptions of states of affairs that are required to hold,
+and that Dafny assures must hold before a program can be run.
 
-It is then the responsibility of the programmer or programming system
-to ensure that such states of affairs do hold. The failure to prove
-the truth of given propositions in this context leaves possibilities
-open that programs fail to satisfy their specifications.
+Dafny is a programming system with an expressive logic, which means
+that many useful conditions can be expressed using it. Dafny’s logic
+is called \sphinxstyleemphasis{first-order logic}. In addition to providing an expressive
+logical language, Dafny also provides automated and often efficient
+tools for enforcing the truth of propositions about programs. Dafny
+requires programmers to change either programs or specifications until
+the former satisfy the latter.
 
-Dafny is a programming system with a reasonably expressive logic based
-on what is called \sphinxstyleemphasis{first-order set theory}, with automated and often
-reasonably efficient tools for enforcing the truth of propositions
-aboutprograms. Ideally programmers change their programs until they
-satisfy propositions used to specify pre-conditions, post-conditions,
-assertions, and invariants.
-
-In practice, programmers sometimes compromise their work in favor of
-pragmatism by weaking specifications until satisfaction can be proved.
-But this approach casts the validity of the specifications themselves
-into question. A program might satisfy a weakened specification, but
-that might no longer guarantee that it will satisfy the requirements
-for the system.
+In practice, programmers sometimes make pragmatic compromises by
+weaking specifications until satisfaction can readilt be proved.  But
+this approach casts the validity of the specifications into question
+and opens a possibility that a program will satisfy its specification
+without satisfy the actual requirements for the system.
 
 Of course logic has far broader applications in computer science than
 just in program specification and verification. It is also central to
@@ -4765,11 +4761,14 @@ algorithms, in verification of the functionality of hardware circuits
 in digital logic design, and in many other fields.
 
 Up until now in this course, you have seen one compelling application
-of formal, mechanized logic in programming, namely for specification
-and verification. Having shown one compelling \sphinxstyleemphasis{use case} for logic in
+of mechanized logic in programming, for program specification and
+verification. Having shown one compelling \sphinxstyleemphasis{use case} for logic in
 practical computing, we now start a \sphinxstyleemphasis{deeper dive} to understand logic
 and formal reasoning more generally.
 
+
+\section{Propositional Logic}
+\label{\detokenize{09-propositional-logic:id1}}
 In this chapter and the next, we explore a simple, useful logic called
 \sphinxstyleemphasis{propositional logic}. This is a logic in which the basic elements are
 \sphinxstyleemphasis{atomic propositions}\textendash{}that can be broken down no further\textendash{} that can
@@ -4793,22 +4792,109 @@ or not. Only in a world in which it is raining and the streets are dry
 does the proposition fail to correctly describe the state of affairs,
 and so in this world, it’s judged to be false.
 
-
-\section{The Elements of a Logic}
-\label{\detokenize{09-propositional-logic:the-elements-of-a-logic}}
 There are many forms of logic, but they all share three basic
-elements.  First, a logic provides a \sphinxstyleemphasis{formal language} in which
-propositions (truth statements) about states of affairs can be
-expressed with mathematical precision. The set of valid expressions in
-such a language is defined by a \sphinxstyleemphasis{grammar} that expresses the \sphinxstyleemphasis{syntax}
-of the language.
+elements: syntax, semantics, and reasoning principles.
 
+
+\section{Syntax of Propositional Logic}
+\label{\detokenize{09-propositional-logic:syntax-of-propositional-logic}}
+A logic provides a \sphinxstyleemphasis{formal language} in which propositions (truth
+statements) are expressed. By a formal language, we mean a (usually
+infinite) set of valid expressions in the language. For example, the
+language of Boolean expressions includes the expression \sphinxstyleemphasis{true and
+false} but not \sphinxstyleemphasis{and or true not}.
+
+When the set of valid expressions in a language is infinite in size,
+it becomes impossible to define the language by simply listing all
+valid expressions. Instead, the set of valid expressions is usually
+defined \sphinxstyleemphasis{inductively} by a \sphinxstyleemphasis{grammar}. A grammar defines a set of
+elementary expressions along with a set of rules for forming ever
+larger expressions from ones already known to be in the language. We
+also call the grammar for a formal language its \sphinxstyleemphasis{syntax}.
+
+The syntax of proposition logic is very simple. First, (with details
+that vary among presentations of propositional logic), it accepts two
+\sphinxstyleemphasis{literal values}, usually called \sphinxstyleemphasis{true} and \sphinxstyleemphasis{false}, as expressions.
+Here we will call these values \sphinxstyleemphasis{pFalse} and \sphinxstyleemphasis{pTrue} to emphasize that
+these are \sphinxstyleemphasis{expressions} that we will eventually \sphinxstyleemphasis{interpret} as having
+particular Boolean values (namely \sphinxstyleemphasis{false} and \sphinxstyleemphasis{true}, respectively).
+
+Second, propositional logic assumes an infinite set of \sphinxstyleemphasis{propositional
+variables}, each represents a proposition, and each on its own a valid
+expression. For example, the variable, \sphinxstyleemphasis{X}, might represent the basic
+proposition, “It is raining outside,” and \sphinxstyleemphasis{Y}, that “The streets are
+wet.”  Such variables should be understood as being equated with basic
+propositions. Instead of the identifier, \sphinxstyleemphasis{X}, one might just as well
+have used the identifier, \sphinxstyleemphasis{it\_is\_raining\_outside}, and for \sphinxstyleemphasis{Y}, the
+identifier, \sphinxstyleemphasis{the\_streets\_are\_wet}.
+
+Finally, in addition to literal values and propositional variables,
+propositional logic provides the basic Boolean connectives to build
+larger propositions from smaller ones. So, for example, \sphinxstyleemphasis{X and Y}, \sphinxstyleemphasis{X
+or Y}, and \sphinxstyleemphasis{not X} are propositions constructed by the use of these
+\sphinxstyleemphasis{logical connectives.} So is \sphinxstyleemphasis{(X or Y) and (not X)}. (Note that here
+we have included parentheses to indicate grouping. We will gloss over
+the parentheses as part of the syntax of propositional logic.)
+
+We have thus defined the entire syntax of propositional logic. We
+can be more precise about the grammar, or syntax, of the language by
+giving a more formal set of rules for forming expressions.
+
+This kind of specification of a grammar, or syntax, is said to be in
+\sphinxstyleemphasis{Backus-Naur Form” or BNF, after the names of two researchers who were
+instrumental in developing the theory of programming languages. (Every
+programming language has such a grammar.) This particular BNF grammar
+reads as follows. A legal expression is either a literal expression, a
+variable expression, or a compound expression.  A literal expression,
+in turn, is either true or false; a variable expression is X, Y, Z, or
+another variable one might wish to employ; and, finally, if one
+already has an expression or two, one can form a larger expression by
+putting the *Not} connective in front of one, or an \sphinxstyleemphasis{And} or \sphinxstyleemphasis{Or}
+connective in front of two smaller expressions. That’s it!
+
+This kind of definition is what we call an inductive definition. The
+set of legal expressions is defined in part in terms of expressions!
+It’s like recursion. What makes it work is that one starts with some
+non-recursive \sphinxstyleemphasis{base} values, and then the inductive rules allow them
+to be put together into ever larger expressions. Thinking in reverse,
+one can always take a large expression and break it into parts, using
+recursion until base cases are reached.
+
+
+\section{Semantics of Propositional Logic}
+\label{\detokenize{09-propositional-logic:semantics-of-propositional-logic}}
 Second, a logic defines a of what is required for a proposition to be
 judged true. This definition constitutes what we call the \sphinxstyleemphasis{semantics}
 of the language. The semantics of a logic given \sphinxstyleemphasis{meaning} to what are
 otherwise abstract mathematical expressions; and do so in particular
 by explaining when a given proposition is true or not true.
 
+The semantics of propositional logic is very simple. The literal
+expressions, \sphinxstyleemphasis{pTrue} and \sphinxstyleemphasis{pFalse} always mean Boolean \sphinxstyleemphasis{true} and
+\sphinxstyleemphasis{false}, respectively. A variable can have either the value, \sphinxstyleemphasis{true} or
+the value, \sphinxstyleemphasis{false}. The value of any particular variable is given by a
+function from variables to Boolean values called an \sphinxstyleemphasis{interpretation}.
+The meaning of a variable expression is just the Boolean value it has
+when given as an argument to the interpretation function. Finally, an
+an expression of the form \sphinxstyleemphasis{pAnd e1 e2}, \sphinxstyleemphasis{pOr e1 e2}, or \sphinxstyleemphasis{pNot e} has a
+value obtained by applying the corresponding Boolean operators to the
+Boolean values of the smaller expressions, \sphinxstyleemphasis{e}, \sphinxstyleemphasis{e1}, and \sphinxstyleemphasis{e2}.
+Evaluation of a larger expression is done by recursively evaluating
+smaller expressions until the base cases of \sphinxstyleemphasis{pTrue} and \sphinxstyleemphasis{pFalse} are
+reached.
+
+Later in this chapter we’ll make all of these ideas completley precise
+by seeing how they can actually be implemented in Dafny.
+
+Exercise: Write a valid expression in propositional logic representing
+the idea that \sphinxstyleemphasis{either it is not raining outside or the streets are wet.}
+
+Exercise: Extend the syntax above to include an \sphinxstyleemphasis{implies} connective
+and express the proposition from the previous exercise using it.
+
+
+\section{Inference Rules for Propositional Logic}
+\label{\detokenize{09-propositional-logic:inference-rules-for-propositional-logic}}
 Finally, a logic provides a set of \sphinxstyleemphasis{inference rules} for deriving new
 propositions (conclusions) from given propositions (premises) in ways
 that guarantee that if the premises are true, the conclusions will be,
@@ -4896,8 +4982,8 @@ finally, are there \sphinxstyleemphasis{efficient} algorithms for \sphinxstyleem
 not the answer to any such question is yes or no.
 
 
-\section{Propositional Logic}
-\label{\detokenize{09-propositional-logic:id1}}
+\section{Implementing Propositional Logic}
+\label{\detokenize{09-propositional-logic:implementing-propositional-logic}}
 The rest of this chapter illustrates and further develops these ideas
 using Boolean algebra, and a language of Boolean expressions, as a
 case study in precise definition of the syntax (expression structure)
@@ -5001,7 +5087,7 @@ of Dafny’s built-in abstract data types, including sets, sequences,
 and maps. So let’s get going.
 
 
-\section{Syntax}
+\subsection{Syntax}
 \label{\detokenize{09-propositional-logic:syntax}}
 Any basic introduction to programming will have made it clear that
 there is an infinite set of Boolean expressions. First, we can take
@@ -5045,8 +5131,8 @@ assign them \sphinxstyleemphasis{true} and \sphinxstyleemphasis{false} values, t
 rendered true or false.
 
 
-\section{Interpretations}
-\label{\detokenize{09-propositional-logic:interpretations}}
+\subsection{Interpretation}
+\label{\detokenize{09-propositional-logic:interpretation}}
 Evaluate a Boolean expression in a given environment.  The recursive
 structure of this algorithm reflects the inductive structure of the
 expressions we’ve defined.
@@ -5056,8 +5142,8 @@ type interp = map\PYGZlt{}Bvar, bool\PYGZgt{}
 \end{sphinxVerbatim}
 
 
-\section{Evaluation}
-\label{\detokenize{09-propositional-logic:evaluation}}
+\subsection{Semantics}
+\label{\detokenize{09-propositional-logic:semantics}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 function method Beval(e: Bexp, i: interp): (r: bool)
 \PYGZob{}
@@ -5101,7 +5187,7 @@ expressions by transforming it repeatedly into simpler forms but in
 ways that preserve its meaning until we reach a single Boolean value.
 
 
-\section{Models}
+\subsection{Models}
 \label{\detokenize{09-propositional-logic:models}}
 
 \section{Satisfiability, Validity}
@@ -5158,9 +5244,23 @@ exhaustive checking of all interpretations. \textless{}More to come\textgreater{
 
 
 \chapter{10. Natural Deduction}
-\label{\detokenize{10-natural-deduction::doc}}\label{\detokenize{10-natural-deduction:natural-deduction}}
-One way
-to defineand (3) a set of \sphinxstyleemphasis{inference} rules that define ways that one
+\label{\detokenize{10-natural-deduction:natural-deduction}}\label{\detokenize{10-natural-deduction::doc}}
+Note to self: The next few chapters separate complexities on the way
+to full first-order logic. The first, addressed here, is the shift
+from a semantic to a syntactic approach to judging truth. Derivation
+vs. Evaluation.
+
+We will use the reasoning principles just validated semantically to
+formulate analogous syntactic rules: i.e., natural deduction. These
+rules provide a needed alternative to truth tables for ascertaining
+truth in propositional logic. Truth tables grow too large too fast.
+
+The next two chapters introduce, respectively, predicate logic without
+quantifiers but including interpretations over arbitrary sets; and then
+the introduction of quantifiers.
+{[}FIX BELOW: UNDER CONSTRUCTION.{]}
+
+One way to define a set of \sphinxstyleemphasis{inference} rules that define ways that one
 can transform one set of expressions (premises) into another (a
 conclusion) in such a manner that whenver all the premises are true,
 the conclusion will be, too.
@@ -5184,8 +5284,57 @@ mental reasoning with the mechanical \sphinxstyleemphasis{transformation of symb
 expressions}.
 
 
+\chapter{11. Sets as Domains: Predicate Logic}
+\label{\detokenize{11-predicate-logic:sets-as-domains-predicate-logic}}\label{\detokenize{11-predicate-logic::doc}}
+In this chapter we move from propositional to a predicate logic, in
+which the values of variables can range not only over :math:\{matbb
+B\}{}` but over arbitrary sets. The issue of \sphinxstyleemphasis{validity} is complicated as
+it now has to be understood as involving judgements of truth that are
+independent of any particular interpretation.
+
+
+\chapter{12. Quantification: First-Order Logic}
+\label{\detokenize{12-quantification::doc}}\label{\detokenize{12-quantification:quantification-first-order-logic}}
+We now address quantifiers with some care.  We’ve been seeing and
+using them all along, of course. What we do in this chapter is to
+address them more rigirously. We discuss elimination and induction
+rules, and the fundamental concepts of induction principles and their
+use to build proofs by induction We’ll then address quantification in
+practice: e.g., in Dafny and maybe SQL. Quantifiers also complicate
+automated verification systems because they allow for the expression
+of very complex specifications. We will briefly address ways in which
+programmers can think about helping Dafny when it needs guidance about
+where to look, e.g., for witnesses needed to prove existentials.
+
+
+\section{Universal and Existential Quantification}
+\label{\detokenize{12-quantification:universal-and-existential-quantification}}
+
+\section{Introduction and Elimination Rules for Exists}
+\label{\detokenize{12-quantification:introduction-and-elimination-rules-for-exists}}
+
+\section{Introduction and Elimination Rules for Forall}
+\label{\detokenize{12-quantification:introduction-and-elimination-rules-for-forall}}
+
+\section{Induction Principles and Algebraic Data Types}
+\label{\detokenize{12-quantification:induction-principles-and-algebraic-data-types}}
+This takes us in particular to induction principles and proofs (where
+we redeem our earlier aside on the injectivity of constructors). This
+is how we introduce truth claims with \sphinxstyleemphasis{for alls} elements in a given
+domain (or type), particularly in cases where the domain quanitified
+over is infinite.
+
+As an example, we’d like to be able to deduce (prove) that every
+program written in some new language either type checks and is
+accepted by the type checker, and in this case no runtime errors can
+occur, or that it is expressly rejected by the checker, and that the
+checker will never \sphinxstyleemphasis{get stuck}.
+
+How might we every prove something about all programs in a language?
+
+
 \chapter{Indices and tables}
-\label{\detokenize{index:indices-and-tables}}\label{\detokenize{index::doc}}\begin{itemize}
+\label{\detokenize{index:indices-and-tables}}\begin{itemize}
 \item {} 
 \DUrole{xref,std,std-ref}{genindex}
 

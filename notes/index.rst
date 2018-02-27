@@ -21,6 +21,7 @@ Welcome to Mathematical Logic in Software Development
    09-propositional-logic
    10-natural-deduction
    11-predicate-logic
+   12-quantification
 
 Indices and tables
 ==================

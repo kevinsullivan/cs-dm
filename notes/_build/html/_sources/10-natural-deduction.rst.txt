@@ -1,10 +1,23 @@
-=====================
+*********************
 10. Natural Deduction
-=====================
+*********************
 
+Note to self: The next few chapters separate complexities on the way
+to full first-order logic. The first, addressed here, is the shift
+from a semantic to a syntactic approach to judging truth. Derivation
+vs. Evaluation.
 
-One way
-to defineand (3) a set of *inference* rules that define ways that one
+We will use the reasoning principles just validated semantically to
+formulate analogous syntactic rules: i.e., natural deduction. These
+rules provide a needed alternative to truth tables for ascertaining
+truth in propositional logic. Truth tables grow too large too fast.
+
+The next two chapters introduce, respectively, predicate logic without
+quantifiers but including interpretations over arbitrary sets; and then
+the introduction of quantifiers. 
+[FIX BELOW: UNDER CONSTRUCTION.]
+
+One way to define a set of *inference* rules that define ways that one
 can transform one set of expressions (premises) into another (a
 conclusion) in such a manner that whenver all the premises are true,
 the conclusion will be, too.

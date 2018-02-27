@@ -55,27 +55,24 @@
 statements, or <em>propositions</em>. A proposition asserts that some state
 of affairs holds in some domain. Truth statements can be particular:
 e.g., Tom’s mom is Mary; or general: e.g., Every person has a mother.</p>
-<p>In Dafny, a logical language is used to express states of affairs in a
-program that are either required or asserted to hold. An example is
-aproposition that some variable has a value that is greater than <em>0</em>.
+<p>In Dafny, a logical language is used to express states of affairs in
+programs, that are required or asserted to hold. A simple example is a
+proposition that some variable has a value that is greater than <em>0</em>.
 When used for program specification and verification, propositions are
-taken as descriptions of states of affairs that are required to hold.</p>
-<p>It is then the responsibility of the programmer or programming system
-to ensure that such states of affairs do hold. The failure to prove
-the truth of given propositions in this context leaves possibilities
-open that programs fail to satisfy their specifications.</p>
-<p>Dafny is a programming system with a reasonably expressive logic based
-on what is called <em>first-order set theory</em>, with automated and often
-reasonably efficient tools for enforcing the truth of propositions
-aboutprograms. Ideally programmers change their programs until they
-satisfy propositions used to specify pre-conditions, post-conditions,
-assertions, and invariants.</p>
-<p>In practice, programmers sometimes compromise their work in favor of
-pragmatism by weaking specifications until satisfaction can be proved.
-But this approach casts the validity of the specifications themselves
-into question. A program might satisfy a weakened specification, but
-that might no longer guarantee that it will satisfy the requirements
-for the system.</p>
+taken as descriptions of states of affairs that are required to hold,
+and that Dafny assures must hold before a program can be run.</p>
+<p>Dafny is a programming system with an expressive logic, which means
+that many useful conditions can be expressed using it. Dafny’s logic
+is called <em>first-order logic</em>. In addition to providing an expressive
+logical language, Dafny also provides automated and often efficient
+tools for enforcing the truth of propositions about programs. Dafny
+requires programmers to change either programs or specifications until
+the former satisfy the latter.</p>
+<p>In practice, programmers sometimes make pragmatic compromises by
+weaking specifications until satisfaction can readilt be proved.  But
+this approach casts the validity of the specifications into question
+and opens a possibility that a program will satisfy its specification
+without satisfy the actual requirements for the system.</p>
 <p>Of course logic has far broader applications in computer science than
 just in program specification and verification. It is also central to
 many artificial intelligence (AI) systems, optimization systems (e.g.,
@@ -83,10 +80,12 @@ for finding good travel routes), in the development and analysis of
 algorithms, in verification of the functionality of hardware circuits
 in digital logic design, and in many other fields.</p>
 <p>Up until now in this course, you have seen one compelling application
-of formal, mechanized logic in programming, namely for specification
-and verification. Having shown one compelling <em>use case</em> for logic in
+of mechanized logic in programming, for program specification and
+verification. Having shown one compelling <em>use case</em> for logic in
 practical computing, we now start a <em>deeper dive</em> to understand logic
 and formal reasoning more generally.</p>
+<div class="section" id="id1">
+<h2>Propositional Logic<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>In this chapter and the next, we explore a simple, useful logic called
 <em>propositional logic</em>. This is a logic in which the basic elements are
 <em>atomic propositions</em>–that can be broken down no further– that can
@@ -108,19 +107,95 @@ world is consistent with the proposition whether the streets are wet
 or not. Only in a world in which it is raining and the streets are dry
 does the proposition fail to correctly describe the state of affairs,
 and so in this world, it’s judged to be false.</p>
-<div class="section" id="the-elements-of-a-logic">
-<h2>The Elements of a Logic<a class="headerlink" href="#the-elements-of-a-logic" title="Permalink to this headline">¶</a></h2>
 <p>There are many forms of logic, but they all share three basic
-elements.  First, a logic provides a <em>formal language</em> in which
-propositions (truth statements) about states of affairs can be
-expressed with mathematical precision. The set of valid expressions in
-such a language is defined by a <em>grammar</em> that expresses the <em>syntax</em>
-of the language.</p>
+elements: syntax, semantics, and reasoning principles.</p>
+</div>
+<div class="section" id="syntax-of-propositional-logic">
+<h2>Syntax of Propositional Logic<a class="headerlink" href="#syntax-of-propositional-logic" title="Permalink to this headline">¶</a></h2>
+<p>A logic provides a <em>formal language</em> in which propositions (truth
+statements) are expressed. By a formal language, we mean a (usually
+infinite) set of valid expressions in the language. For example, the
+language of Boolean expressions includes the expression <em>true and
+false</em> but not <em>and or true not</em>.</p>
+<p>When the set of valid expressions in a language is infinite in size,
+it becomes impossible to define the language by simply listing all
+valid expressions. Instead, the set of valid expressions is usually
+defined <em>inductively</em> by a <em>grammar</em>. A grammar defines a set of
+elementary expressions along with a set of rules for forming ever
+larger expressions from ones already known to be in the language. We
+also call the grammar for a formal language its <em>syntax</em>.</p>
+<p>The syntax of proposition logic is very simple. First, (with details
+that vary among presentations of propositional logic), it accepts two
+<em>literal values</em>, usually called <em>true</em> and <em>false</em>, as expressions.
+Here we will call these values <em>pFalse</em> and <em>pTrue</em> to emphasize that
+these are <em>expressions</em> that we will eventually <em>interpret</em> as having
+particular Boolean values (namely <em>false</em> and <em>true</em>, respectively).</p>
+<p>Second, propositional logic assumes an infinite set of <em>propositional
+variables</em>, each represents a proposition, and each on its own a valid
+expression. For example, the variable, <em>X</em>, might represent the basic
+proposition, “It is raining outside,” and <em>Y</em>, that “The streets are
+wet.”  Such variables should be understood as being equated with basic
+propositions. Instead of the identifier, <em>X</em>, one might just as well
+have used the identifier, <em>it_is_raining_outside</em>, and for <em>Y</em>, the
+identifier, <em>the_streets_are_wet</em>.</p>
+<p>Finally, in addition to literal values and propositional variables,
+propositional logic provides the basic Boolean connectives to build
+larger propositions from smaller ones. So, for example, <em>X and Y</em>, <em>X
+or Y</em>, and <em>not X</em> are propositions constructed by the use of these
+<em>logical connectives.</em> So is <em>(X or Y) and (not X)</em>. (Note that here
+we have included parentheses to indicate grouping. We will gloss over
+the parentheses as part of the syntax of propositional logic.)</p>
+<p>We have thus defined the entire syntax of propositional logic. We
+can be more precise about the grammar, or syntax, of the language by
+giving a more formal set of rules for forming expressions.</p>
+<p>This kind of specification of a grammar, or syntax, is said to be in
+<em>Backus-Naur Form” or BNF, after the names of two researchers who were
+instrumental in developing the theory of programming languages. (Every
+programming language has such a grammar.) This particular BNF grammar
+reads as follows. A legal expression is either a literal expression, a
+variable expression, or a compound expression.  A literal expression,
+in turn, is either true or false; a variable expression is X, Y, Z, or
+another variable one might wish to employ; and, finally, if one
+already has an expression or two, one can form a larger expression by
+putting the *Not</em> connective in front of one, or an <em>And</em> or <em>Or</em>
+connective in front of two smaller expressions. That’s it!</p>
+<p>This kind of definition is what we call an inductive definition. The
+set of legal expressions is defined in part in terms of expressions!
+It’s like recursion. What makes it work is that one starts with some
+non-recursive <em>base</em> values, and then the inductive rules allow them
+to be put together into ever larger expressions. Thinking in reverse,
+one can always take a large expression and break it into parts, using
+recursion until base cases are reached.</p>
+</div>
+<div class="section" id="semantics-of-propositional-logic">
+<h2>Semantics of Propositional Logic<a class="headerlink" href="#semantics-of-propositional-logic" title="Permalink to this headline">¶</a></h2>
 <p>Second, a logic defines a of what is required for a proposition to be
 judged true. This definition constitutes what we call the <em>semantics</em>
 of the language. The semantics of a logic given <em>meaning</em> to what are
 otherwise abstract mathematical expressions; and do so in particular
 by explaining when a given proposition is true or not true.</p>
+<p>The semantics of propositional logic is very simple. The literal
+expressions, <em>pTrue</em> and <em>pFalse</em> always mean Boolean <em>true</em> and
+<em>false</em>, respectively. A variable can have either the value, <em>true</em> or
+the value, <em>false</em>. The value of any particular variable is given by a
+function from variables to Boolean values called an <em>interpretation</em>.
+The meaning of a variable expression is just the Boolean value it has
+when given as an argument to the interpretation function. Finally, an
+an expression of the form <em>pAnd e1 e2</em>, <em>pOr e1 e2</em>, or <em>pNot e</em> has a
+value obtained by applying the corresponding Boolean operators to the
+Boolean values of the smaller expressions, <em>e</em>, <em>e1</em>, and <em>e2</em>.
+Evaluation of a larger expression is done by recursively evaluating
+smaller expressions until the base cases of <em>pTrue</em> and <em>pFalse</em> are
+reached.</p>
+<p>Later in this chapter we’ll make all of these ideas completley precise
+by seeing how they can actually be implemented in Dafny.</p>
+<p>Exercise: Write a valid expression in propositional logic representing
+the idea that <em>either it is not raining outside or the streets are wet.</em></p>
+<p>Exercise: Extend the syntax above to include an <em>implies</em> connective
+and express the proposition from the previous exercise using it.</p>
+</div>
+<div class="section" id="inference-rules-for-propositional-logic">
+<h2>Inference Rules for Propositional Logic<a class="headerlink" href="#inference-rules-for-propositional-logic" title="Permalink to this headline">¶</a></h2>
 <p>Finally, a logic provides a set of <em>inference rules</em> for deriving new
 propositions (conclusions) from given propositions (premises) in ways
 that guarantee that if the premises are true, the conclusions will be,
@@ -197,8 +272,8 @@ interpretations that make a given expression evaluate to true?  And,
 finally, are there <em>efficient</em> algorithms for <em>deciding</em> whether or
 not the answer to any such question is yes or no.</p>
 </div>
-<div class="section" id="id1">
-<h2>Propositional Logic<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="implementing-propositional-logic">
+<h2>Implementing Propositional Logic<a class="headerlink" href="#implementing-propositional-logic" title="Permalink to this headline">¶</a></h2>
 <p>The rest of this chapter illustrates and further develops these ideas
 using Boolean algebra, and a language of Boolean expressions, as a
 case study in precise definition of the syntax (expression structure)
@@ -288,9 +363,8 @@ number of expressions, and the <em>match</em> expression for dealing with
 values of inductively defined types. We will also see uses of several
 of Dafny’s built-in abstract data types, including sets, sequences,
 and maps. So let’s get going.</p>
-</div>
 <div class="section" id="syntax">
-<h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<h3>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h3>
 <p>Any basic introduction to programming will have made it clear that
 there is an infinite set of Boolean expressions. First, we can take
 the Boolean values, <em>true</em> and <em>false</em>, as <em>literal</em> expressions.
@@ -326,8 +400,8 @@ with paramaters. The parameters are the variables. Depending on how we
 assign them <em>true</em> and <em>false</em> values, the overall proposition might be
 rendered true or false.</p>
 </div>
-<div class="section" id="interpretations">
-<h2>Interpretations<a class="headerlink" href="#interpretations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="interpretation">
+<h3>Interpretation<a class="headerlink" href="#interpretation" title="Permalink to this headline">¶</a></h3>
 <p>Evaluate a Boolean expression in a given environment.  The recursive
 structure of this algorithm reflects the inductive structure of the
 expressions we’ve defined.</p>
@@ -335,8 +409,8 @@ expressions we’ve defined.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="evaluation">
-<h2>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="semantics">
+<h3>Semantics<a class="headerlink" href="#semantics" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>function method Beval(e: Bexp, i: interp): (r: bool)
 {
     match e
@@ -375,7 +449,8 @@ expressions by transforming it repeatedly into simpler forms but in
 ways that preserve its meaning until we reach a single Boolean value.</p>
 </div>
 <div class="section" id="models">
-<h2>Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h2>
+<h3>Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h3>
+</div>
 </div>
 <div class="section" id="satisfiability-validity">
 <h2>Satisfiability, Validity<a class="headerlink" href="#satisfiability-validity" title="Permalink to this headline">¶</a></h2>

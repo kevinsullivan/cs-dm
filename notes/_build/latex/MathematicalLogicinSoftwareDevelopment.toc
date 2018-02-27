@@ -117,14 +117,23 @@
 \contentsline {section}{\numberline {8.6}The Semantics of Boolean Expressions: Recursive Evaluation}{62}{section.8.6}
 \contentsline {section}{\numberline {8.7}The Syntax and Semantics of Programming Languages}{63}{section.8.7}
 \contentsline {chapter}{\numberline {9}9. Propositional Logic}{65}{chapter.9}
-\contentsline {section}{\numberline {9.1}The Elements of a Logic}{66}{section.9.1}
-\contentsline {section}{\numberline {9.2}Using Logic in Practice}{66}{section.9.2}
-\contentsline {section}{\numberline {9.3}Propositional Logic}{67}{section.9.3}
-\contentsline {section}{\numberline {9.4}Syntax}{68}{section.9.4}
-\contentsline {section}{\numberline {9.5}Interpretations}{69}{section.9.5}
-\contentsline {section}{\numberline {9.6}Evaluation}{69}{section.9.6}
-\contentsline {section}{\numberline {9.7}Models}{69}{section.9.7}
-\contentsline {section}{\numberline {9.8}Satisfiability, Validity}{69}{section.9.8}
-\contentsline {section}{\numberline {9.9}Logical Consequence}{70}{section.9.9}
-\contentsline {chapter}{\numberline {10}10. Natural Deduction}{71}{chapter.10}
-\contentsline {chapter}{\numberline {11}Indices and tables}{73}{chapter.11}
+\contentsline {section}{\numberline {9.1}Propositional Logic}{65}{section.9.1}
+\contentsline {section}{\numberline {9.2}Syntax of Propositional Logic}{66}{section.9.2}
+\contentsline {section}{\numberline {9.3}Semantics of Propositional Logic}{66}{section.9.3}
+\contentsline {section}{\numberline {9.4}Inference Rules for Propositional Logic}{67}{section.9.4}
+\contentsline {section}{\numberline {9.5}Using Logic in Practice}{67}{section.9.5}
+\contentsline {section}{\numberline {9.6}Implementing Propositional Logic}{68}{section.9.6}
+\contentsline {subsection}{\numberline {9.6.1}Syntax}{69}{subsection.9.6.1}
+\contentsline {subsection}{\numberline {9.6.2}Interpretation}{70}{subsection.9.6.2}
+\contentsline {subsection}{\numberline {9.6.3}Semantics}{70}{subsection.9.6.3}
+\contentsline {subsection}{\numberline {9.6.4}Models}{71}{subsection.9.6.4}
+\contentsline {section}{\numberline {9.7}Satisfiability, Validity}{71}{section.9.7}
+\contentsline {section}{\numberline {9.8}Logical Consequence}{71}{section.9.8}
+\contentsline {chapter}{\numberline {10}10. Natural Deduction}{73}{chapter.10}
+\contentsline {chapter}{\numberline {11}11. Sets as Domains: Predicate Logic}{75}{chapter.11}
+\contentsline {chapter}{\numberline {12}12. Quantification: First-Order Logic}{77}{chapter.12}
+\contentsline {section}{\numberline {12.1}Universal and Existential Quantification}{77}{section.12.1}
+\contentsline {section}{\numberline {12.2}Introduction and Elimination Rules for Exists}{77}{section.12.2}
+\contentsline {section}{\numberline {12.3}Introduction and Elimination Rules for Forall}{77}{section.12.3}
+\contentsline {section}{\numberline {12.4}Induction Principles and Algebraic Data Types}{77}{section.12.4}
+\contentsline {chapter}{\numberline {13}Indices and tables}{79}{chapter.13}

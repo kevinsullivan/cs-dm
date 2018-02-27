@@ -7,30 +7,26 @@ statements, or *propositions*. A proposition asserts that some state
 of affairs holds in some domain. Truth statements can be particular:
 e.g., Tom's mom is Mary; or general: e.g., Every person has a mother.
 
-In Dafny, a logical language is used to express states of affairs in a
-program that are either required or asserted to hold. An example is
-aproposition that some variable has a value that is greater than *0*.
+In Dafny, a logical language is used to express states of affairs in
+programs, that are required or asserted to hold. A simple example is a
+proposition that some variable has a value that is greater than *0*.
 When used for program specification and verification, propositions are
-taken as descriptions of states of affairs that are required to hold.
+taken as descriptions of states of affairs that are required to hold,
+and that Dafny assures must hold before a program can be run.
 
-It is then the responsibility of the programmer or programming system
-to ensure that such states of affairs do hold. The failure to prove
-the truth of given propositions in this context leaves possibilities
-open that programs fail to satisfy their specifications.
+Dafny is a programming system with an expressive logic, which means
+that many useful conditions can be expressed using it. Dafny's logic
+is called *first-order logic*. In addition to providing an expressive
+logical language, Dafny also provides automated and often efficient
+tools for enforcing the truth of propositions about programs. Dafny
+requires programmers to change either programs or specifications until
+the former satisfy the latter.
 
-Dafny is a programming system with a reasonably expressive logic based
-on what is called *first-order set theory*, with automated and often
-reasonably efficient tools for enforcing the truth of propositions
-aboutprograms. Ideally programmers change their programs until they
-satisfy propositions used to specify pre-conditions, post-conditions,
-assertions, and invariants. 
-
-In practice, programmers sometimes compromise their work in favor of
-pragmatism by weaking specifications until satisfaction can be proved.
-But this approach casts the validity of the specifications themselves
-into question. A program might satisfy a weakened specification, but
-that might no longer guarantee that it will satisfy the requirements
-for the system.
+In practice, programmers sometimes make pragmatic compromises by
+weaking specifications until satisfaction can readilt be proved.  But
+this approach casts the validity of the specifications into question
+and opens a possibility that a program will satisfy its specification
+without satisfy the actual requirements for the system.
 
 Of course logic has far broader applications in computer science than
 just in program specification and verification. It is also central to
@@ -40,10 +36,13 @@ algorithms, in verification of the functionality of hardware circuits
 in digital logic design, and in many other fields.
 
 Up until now in this course, you have seen one compelling application
-of formal, mechanized logic in programming, namely for specification
-and verification. Having shown one compelling *use case* for logic in
+of mechanized logic in programming, for program specification and
+verification. Having shown one compelling *use case* for logic in
 practical computing, we now start a *deeper dive* to understand logic
 and formal reasoning more generally.
+
+Propositional Logic
+===================
 
 In this chapter and the next, we explore a simple, useful logic called
 *propositional logic*. This is a logic in which the basic elements are
@@ -68,21 +67,117 @@ or not. Only in a world in which it is raining and the streets are dry
 does the proposition fail to correctly describe the state of affairs,
 and so in this world, it's judged to be false. 
 
-The Elements of a Logic
-=======================
-
 There are many forms of logic, but they all share three basic
-elements.  First, a logic provides a *formal language* in which
-propositions (truth statements) about states of affairs can be
-expressed with mathematical precision. The set of valid expressions in
-such a language is defined by a *grammar* that expresses the *syntax*
-of the language.
+elements: syntax, semantics, and reasoning principles.
+
+Syntax of Propositional Logic
+=============================
+
+A logic provides a *formal language* in which propositions (truth
+statements) are expressed. By a formal language, we mean a (usually
+infinite) set of valid expressions in the language. For example, the
+language of Boolean expressions includes the expression *true and
+false* but not *and or true not*.
+
+When the set of valid expressions in a language is infinite in size,
+it becomes impossible to define the language by simply listing all
+valid expressions. Instead, the set of valid expressions is usually
+defined *inductively* by a *grammar*. A grammar defines a set of
+elementary expressions along with a set of rules for forming ever
+larger expressions from ones already known to be in the language. We
+also call the grammar for a formal language its *syntax*.
+
+The syntax of proposition logic is very simple. First, (with details
+that vary among presentations of propositional logic), it accepts two
+*literal values*, usually called *true* and *false*, as expressions.
+Here we will call these values *pFalse* and *pTrue* to emphasize that
+these are *expressions* that we will eventually *interpret* as having
+particular Boolean values (namely *false* and *true*, respectively).
+
+Second, propositional logic assumes an infinite set of *propositional
+variables*, each represents a proposition, and each on its own a valid
+expression. For example, the variable, *X*, might represent the basic
+proposition, "It is raining outside," and *Y*, that "The streets are
+wet."  Such variables should be understood as being equated with basic
+propositions. Instead of the identifier, *X*, one might just as well
+have used the identifier, *it_is_raining_outside*, and for *Y*, the
+identifier, *the_streets_are_wet*. 
+
+Finally, in addition to literal values and propositional variables,
+propositional logic provides the basic Boolean connectives to build
+larger propositions from smaller ones. So, for example, *X and Y*, *X
+or Y*, and *not X* are propositions constructed by the use of these
+*logical connectives.* So is *(X or Y) and (not X)*. (Note that here
+we have included parentheses to indicate grouping. We will gloss over
+the parentheses as part of the syntax of propositional logic.) 
+
+We have thus defined the entire syntax of propositional logic. We
+can be more precise about the grammar, or syntax, of the language by
+giving a more formal set of rules for forming expressions.
+
+.. code-block: dafny
+
+   Expr       := Literal | Variable | Compound
+   Literal    := pFalse | pTrue
+   Variable   := X | Y | Z | ...
+   Compound   := Not Expr | And Expr Expr | Or Expr Expr
+
+
+This kind of specification of a grammar, or syntax, is said to be in
+*Backus-Naur Form" or BNF, after the names of two researchers who were
+instrumental in developing the theory of programming languages. (Every
+programming language has such a grammar.) This particular BNF grammar
+reads as follows. A legal expression is either a literal expression, a
+variable expression, or a compound expression.  A literal expression,
+in turn, is either true or false; a variable expression is X, Y, Z, or
+another variable one might wish to employ; and, finally, if one
+already has an expression or two, one can form a larger expression by
+putting the *Not* connective in front of one, or an *And* or *Or*
+connective in front of two smaller expressions. That's it!
+
+This kind of definition is what we call an inductive definition. The
+set of legal expressions is defined in part in terms of expressions!
+It's like recursion. What makes it work is that one starts with some
+non-recursive *base* values, and then the inductive rules allow them
+to be put together into ever larger expressions. Thinking in reverse,
+one can always take a large expression and break it into parts, using
+recursion until base cases are reached.
+
+Semantics of Propositional Logic
+================================
 
 Second, a logic defines a of what is required for a proposition to be
 judged true. This definition constitutes what we call the *semantics*
 of the language. The semantics of a logic given *meaning* to what are
 otherwise abstract mathematical expressions; and do so in particular
 by explaining when a given proposition is true or not true.
+
+The semantics of propositional logic is very simple. The literal
+expressions, *pTrue* and *pFalse* always mean Boolean *true* and
+*false*, respectively. A variable can have either the value, *true* or
+the value, *false*. The value of any particular variable is given by a
+function from variables to Boolean values called an *interpretation*.
+The meaning of a variable expression is just the Boolean value it has
+when given as an argument to the interpretation function. Finally, an
+an expression of the form *pAnd e1 e2*, *pOr e1 e2*, or *pNot e* has a
+value obtained by applying the corresponding Boolean operators to the
+Boolean values of the smaller expressions, *e*, *e1*, and *e2*.
+Evaluation of a larger expression is done by recursively evaluating
+smaller expressions until the base cases of *pTrue* and *pFalse* are
+reached.
+
+Later in this chapter we'll make all of these ideas completley precise
+by seeing how they can actually be implemented in Dafny.
+
+Exercise: Write a valid expression in propositional logic representing
+the idea that *either it is not raining outside or the streets are wet.*
+
+Exercise: Extend the syntax above to include an *implies* connective
+and express the proposition from the previous exercise using it.
+
+
+Inference Rules for Propositional Logic
+=======================================
 
 Finally, a logic provides a set of *inference rules* for deriving new
 propositions (conclusions) from given propositions (premises) in ways
@@ -172,8 +267,8 @@ finally, are there *efficient* algorithms for *deciding* whether or
 not the answer to any such question is yes or no.
 
 
-Propositional Logic
-===================
+Implementing Propositional Logic
+================================
 
 The rest of this chapter illustrates and further develops these ideas
 using Boolean algebra, and a language of Boolean expressions, as a
@@ -279,7 +374,7 @@ and maps. So let's get going.
 
 
 Syntax
-=====
+------
 
 Any basic introduction to programming will have made it clear that
 there is an infinite set of Boolean expressions. First, we can take
@@ -323,8 +418,8 @@ with paramaters. The parameters are the variables. Depending on how we
 assign them *true* and *false* values, the overall proposition might be
 rendered true or false.
 
-Interpretations
-===============
+Interpretation
+--------------
 
 
 Evaluate a Boolean expression in a given environment.  The recursive
@@ -336,8 +431,8 @@ expressions we've defined.
     type interp = map<Bvar, bool>
 
 
-Evaluation
-==========
+Semantics
+---------
 
 .. code-block:: dafny
 
@@ -382,7 +477,7 @@ expressions by transforming it repeatedly into simpler forms but in
 ways that preserve its meaning until we reach a single Boolean value.
 
 Models
-======
+------
 
 
 Satisfiability, Validity
