@@ -69,7 +69,7 @@
 \contentsline {subsection}{\numberline {7.5.2}Equality}{43}{subsection.7.5.2}
 \contentsline {subsection}{\numberline {7.5.3}Subset}{43}{subsection.7.5.3}
 \contentsline {subsection}{\numberline {7.5.4}Intersection}{43}{subsection.7.5.4}
-\contentsline {subsection}{\numberline {7.5.5}Union}{43}{subsection.7.5.5}
+\contentsline {subsection}{\numberline {7.5.5}Union}{44}{subsection.7.5.5}
 \contentsline {subsection}{\numberline {7.5.6}Difference}{44}{subsection.7.5.6}
 \contentsline {subsection}{\numberline {7.5.7}Product Set}{44}{subsection.7.5.7}
 \contentsline {subsection}{\numberline {7.5.8}Power Set}{44}{subsection.7.5.8}
@@ -87,7 +87,7 @@
 \contentsline {subsection}{\numberline {7.10.6}Reflexive}{51}{subsection.7.10.6}
 \contentsline {subsection}{\numberline {7.10.7}Symmetric}{51}{subsection.7.10.7}
 \contentsline {subsection}{\numberline {7.10.8}Transitive}{51}{subsection.7.10.8}
-\contentsline {subsection}{\numberline {7.10.9}Equivalence}{51}{subsection.7.10.9}
+\contentsline {subsection}{\numberline {7.10.9}Equivalence}{52}{subsection.7.10.9}
 \contentsline {section}{\numberline {7.11}Sequences}{52}{section.7.11}
 \contentsline {chapter}{\numberline {8}8. Boolean Algebra}{53}{chapter.8}
 \contentsline {section}{\numberline {8.1}Boolean Algebra in Dafny}{53}{section.8.1}

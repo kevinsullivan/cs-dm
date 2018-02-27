@@ -330,16 +330,29 @@ assertion would be written, <em>S == T</em>.</p>
 <h3>Subset<a class="headerlink" href="#subset" title="Permalink to this headline">¶</a></h3>
 <p>A set, <em>T</em>, can be said to be a subset of a set <em>S</em> if and only if
 every element in <em>T</em> is also in <em>S</em>. In this case, mathematicians
-write <img class="math" src="_images/math/006926e4a2b3b3a55129b93b7ab1fedf68da96eb.png" alt="T \subseteq S"/>. In logical notation, we would write,
-<img class="math" src="_images/math/0e4eb07fe9d633c95c2e21bf6f6f70df946e43f6.png" alt="T \subseteq S \iff \forall t \in T, t \in S"/>. That is, <em>T</em> is a
-subset of <em>S</em> if and only if every element in <em>T</em> is also in <em>S</em>.</p>
+write <img class="math" src="_images/math/006926e4a2b3b3a55129b93b7ab1fedf68da96eb.png" alt="T \subseteq S"/>. In mathematical logic notation, we would
+write, <img class="math" src="_images/math/0e4eb07fe9d633c95c2e21bf6f6f70df946e43f6.png" alt="T \subseteq S \iff \forall t \in T, t \in S"/>. That is,
+<em>T</em> is a subset of <em>S</em> if and only if every element in <em>T</em> is also in
+<em>S</em>.</p>
 <p>A set <em>T</em>, is said to be a <em>proper</em> subset of <em>S</em>, if <em>T</em> is a subset
-of <em>S</em> but <em>T</em> is not equal to <em>S</em>. This is written in mathematics as
-<img class="math" src="_images/math/5e1985f6ce3ef221173377903e0f65930b9412aa.png" alt="T \subset S"/>. In other words, every element of <em>T</em> is in <em>S</em> but
-there is at least one element of <em>S</em> that is not in <em>T</em>.</p>
-<p>In our example, <em>T</em> (the set of even natural numbers less than <em>25</em>)
-is a proper subset of <em>S</em> (the set of even natural numbers less than
-or equal to <em>100</em>).</p>
+of <em>S</em> but <em>T</em> is not equal to <em>S</em>. In our example, <em>T</em> (the set of
+even natural numbers less than <em>25</em>) is a proper subset of <em>S</em> (the
+set of even natural numbers less than or equal to <em>100</em>).</p>
+<p>This is written in mathematics as <img class="math" src="_images/math/5e1985f6ce3ef221173377903e0f65930b9412aa.png" alt="T \subset S"/>. In other words,
+every element of <em>T</em> is in <em>S</em> but there is at least one element of
+<em>S</em> that is not in <em>T</em>. Mathematically, <img class="math" src="_images/math/bf151b36ad97d9a191db89e96fefaf66e90ba2b3.png" alt="T \subset S \iff
+\forall t \in T, t \in S \land \exists s \in S, s \notin T"/>.</p>
+<p>The backwards <em>E</em> is the <em>existential quantifier</em> in first-order
+logic, and is read as, and means, <em>there exists.</em> So this expression
+says that <em>T</em> is a proper subset of <em>S</em> if every <em>t</em> in <em>T</em> is in <em>S</em>
+but there is at least one <em>s</em> in <em>S</em> that is not in <em>T</em>. That the
+proper subset operator contains an implicit existential operator poses
+some real problems for verification.</p>
+<p>Without getting into details, when one asserts in Dafny that <em>T</em> is a
+proper subset of <em>S</em>, Dafny needs to find an element of <em>S</em> that is
+not in <em>T</em>, and in general, it needs a lot of help to do that. The
+details are out of scope at this point, but one should be aware of the
+difficulty.</p>
 <p>In Dafny, one uses the usual arithmetic less and and less than or
 equal operator symbols, <em>&lt;</em> and <em>&lt;=</em>, to assert <em>proper subset</em> and
 <em>subset</em> relationships, respectively. The first two of the following

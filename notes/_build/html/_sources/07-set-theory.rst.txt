@@ -337,18 +337,33 @@ Subset
 
 A set, *T*, can be said to be a subset of a set *S* if and only if
 every element in *T* is also in *S*. In this case, mathematicians
-write :math:`T \subseteq S`. In logical notation, we would write,
-:math:`T \subseteq S \iff \forall t \in T, t \in S`. That is, *T* is a
-subset of *S* if and only if every element in *T* is also in *S*.
+write :math:`T \subseteq S`. In mathematical logic notation, we would
+write, :math:`T \subseteq S \iff \forall t \in T, t \in S`. That is,
+*T* is a subset of *S* if and only if every element in *T* is also in
+*S*.
 
 A set *T*, is said to be a *proper* subset of *S*, if *T* is a subset
-of *S* but *T* is not equal to *S*. This is written in mathematics as
-:math:`T \subset S`. In other words, every element of *T* is in *S* but
-there is at least one element of *S* that is not in *T*.
+of *S* but *T* is not equal to *S*. In our example, *T* (the set of
+even natural numbers less than *25*) is a proper subset of *S* (the
+set of even natural numbers less than or equal to *100*).
 
-In our example, *T* (the set of even natural numbers less than *25*)
-is a proper subset of *S* (the set of even natural numbers less than
-or equal to *100*).
+This is written in mathematics as :math:`T \subset S`. In other words,
+every element of *T* is in *S* but there is at least one element of
+*S* that is not in *T*. Mathematically, :math:`T \subset S \iff
+\forall t \in T, t \in S \land \exists s \in S, s \notin T`.
+
+The backwards *E* is the *existential quantifier* in first-order
+logic, and is read as, and means, *there exists.* So this expression
+says that *T* is a proper subset of *S* if every *t* in *T* is in *S*
+but there is at least one *s* in *S* that is not in *T*. That the
+proper subset operator contains an implicit existential operator poses
+some real problems for verification.
+
+Without getting into details, when one asserts in Dafny that *T* is a
+proper subset of *S*, Dafny needs to find an element of *S* that is
+not in *T*, and in general, it needs a lot of help to do that. The
+details are out of scope at this point, but one should be aware of the
+difficulty.
 
 In Dafny, one uses the usual arithmetic less and and less than or
 equal operator symbols, *<* and *<=*, to assert *proper subset* and

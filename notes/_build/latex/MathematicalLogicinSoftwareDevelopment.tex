@@ -61,7 +61,7 @@
     
 
 \title{Mathematical Logic in Software Development Documentation}
-\date{Feb 26, 2018}
+\date{Feb 27, 2018}
 \release{1}
 \author{Kevin Sullivan}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -470,7 +470,7 @@ requires that a program work correctly for all (\(\forall\)) inputs?
 
 
 \chapter{3. Problems with Imperative Code}
-\label{\detokenize{03-problems-with-imperative-code::doc}}\label{\detokenize{03-problems-with-imperative-code:problems-with-imperative-code}}
+\label{\detokenize{03-problems-with-imperative-code:problems-with-imperative-code}}\label{\detokenize{03-problems-with-imperative-code::doc}}
 There’s no free lunch: One can have the expressiveness of mathematical
 logic, useful for specification, or one can have the ability to run
 code efficiently, along with indispensable ability to interact with an
@@ -523,7 +523,7 @@ steer a commercial aircraft, etc.
 
 
 \chapter{4. Pure Functional Programming as Runnable Mathematics}
-\label{\detokenize{04-runnable-math:pure-functional-programming-as-runnable-mathematics}}\label{\detokenize{04-runnable-math::doc}}
+\label{\detokenize{04-runnable-math::doc}}\label{\detokenize{04-runnable-math:pure-functional-programming-as-runnable-mathematics}}
 What we’d really like would be a language that gives us everything:
 the expressiveness and the \sphinxstyleemphasis{safety} of mathematical logic (there’s no
 concept of a memory in logic, and thus no possibility for unexpected
@@ -844,7 +844,7 @@ are expressed and verified.
 
 
 \chapter{5. Formal Verification of Imperative Programs}
-\label{\detokenize{05-verifying-logical-specifications:formal-verification-of-imperative-programs}}\label{\detokenize{05-verifying-logical-specifications::doc}}
+\label{\detokenize{05-verifying-logical-specifications::doc}}\label{\detokenize{05-verifying-logical-specifications:formal-verification-of-imperative-programs}}
 In this chapter, we first elaborate on the idea that pure functional
 programming make for mathematically clear but potentially inefficient
 specifications, while imperative code makes for efficient code but is
@@ -1748,7 +1748,7 @@ task of learning how to program.
 
 
 \chapter{6. Dafny Language: Types, Statements, Expressions}
-\label{\detokenize{06-dafny-language:dafny-language-types-statements-expressions}}\label{\detokenize{06-dafny-language::doc}}
+\label{\detokenize{06-dafny-language::doc}}\label{\detokenize{06-dafny-language:dafny-language-types-statements-expressions}}
 
 \section{Built-In Types}
 \label{\detokenize{06-dafny-language:built-in-types}}
@@ -2779,18 +2779,33 @@ assertion would be written, \sphinxstyleemphasis{S == T}.
 \label{\detokenize{07-set-theory:subset}}
 A set, \sphinxstyleemphasis{T}, can be said to be a subset of a set \sphinxstyleemphasis{S} if and only if
 every element in \sphinxstyleemphasis{T} is also in \sphinxstyleemphasis{S}. In this case, mathematicians
-write \(T \subseteq S\). In logical notation, we would write,
-\(T \subseteq S \iff \forall t \in T, t \in S\). That is, \sphinxstyleemphasis{T} is a
-subset of \sphinxstyleemphasis{S} if and only if every element in \sphinxstyleemphasis{T} is also in \sphinxstyleemphasis{S}.
+write \(T \subseteq S\). In mathematical logic notation, we would
+write, \(T \subseteq S \iff \forall t \in T, t \in S\). That is,
+\sphinxstyleemphasis{T} is a subset of \sphinxstyleemphasis{S} if and only if every element in \sphinxstyleemphasis{T} is also in
+\sphinxstyleemphasis{S}.
 
 A set \sphinxstyleemphasis{T}, is said to be a \sphinxstyleemphasis{proper} subset of \sphinxstyleemphasis{S}, if \sphinxstyleemphasis{T} is a subset
-of \sphinxstyleemphasis{S} but \sphinxstyleemphasis{T} is not equal to \sphinxstyleemphasis{S}. This is written in mathematics as
-\(T \subset S\). In other words, every element of \sphinxstyleemphasis{T} is in \sphinxstyleemphasis{S} but
-there is at least one element of \sphinxstyleemphasis{S} that is not in \sphinxstyleemphasis{T}.
+of \sphinxstyleemphasis{S} but \sphinxstyleemphasis{T} is not equal to \sphinxstyleemphasis{S}. In our example, \sphinxstyleemphasis{T} (the set of
+even natural numbers less than \sphinxstyleemphasis{25}) is a proper subset of \sphinxstyleemphasis{S} (the
+set of even natural numbers less than or equal to \sphinxstyleemphasis{100}).
 
-In our example, \sphinxstyleemphasis{T} (the set of even natural numbers less than \sphinxstyleemphasis{25})
-is a proper subset of \sphinxstyleemphasis{S} (the set of even natural numbers less than
-or equal to \sphinxstyleemphasis{100}).
+This is written in mathematics as \(T \subset S\). In other words,
+every element of \sphinxstyleemphasis{T} is in \sphinxstyleemphasis{S} but there is at least one element of
+\sphinxstyleemphasis{S} that is not in \sphinxstyleemphasis{T}. Mathematically, \(T \subset S \iff
+\forall t \in T, t \in S \land \exists s \in S, s \notin T\).
+
+The backwards \sphinxstyleemphasis{E} is the \sphinxstyleemphasis{existential quantifier} in first-order
+logic, and is read as, and means, \sphinxstyleemphasis{there exists.} So this expression
+says that \sphinxstyleemphasis{T} is a proper subset of \sphinxstyleemphasis{S} if every \sphinxstyleemphasis{t} in \sphinxstyleemphasis{T} is in \sphinxstyleemphasis{S}
+but there is at least one \sphinxstyleemphasis{s} in \sphinxstyleemphasis{S} that is not in \sphinxstyleemphasis{T}. That the
+proper subset operator contains an implicit existential operator poses
+some real problems for verification.
+
+Without getting into details, when one asserts in Dafny that \sphinxstyleemphasis{T} is a
+proper subset of \sphinxstyleemphasis{S}, Dafny needs to find an element of \sphinxstyleemphasis{S} that is
+not in \sphinxstyleemphasis{T}, and in general, it needs a lot of help to do that. The
+details are out of scope at this point, but one should be aware of the
+difficulty.
 
 In Dafny, one uses the usual arithmetic less and and less than or
 equal operator symbols, \sphinxstyleemphasis{\textless{}} and \sphinxstyleemphasis{\textless{}=}, to assert \sphinxstyleemphasis{proper subset} and
@@ -4726,7 +4741,7 @@ that satisfies the program preconditions into a post-execution state.
 
 
 \chapter{9. Propositional Logic}
-\label{\detokenize{09-propositional-logic:propositional-logic}}\label{\detokenize{09-propositional-logic::doc}}
+\label{\detokenize{09-propositional-logic::doc}}\label{\detokenize{09-propositional-logic:propositional-logic}}
 A logic is a system for writing, evaluating, and reasoning about truth
 statements, or \sphinxstyleemphasis{propositions}. A proposition asserts that some state
 of affairs holds in some domain. Truth statements can be particular:
@@ -5244,7 +5259,7 @@ exhaustive checking of all interpretations. \textless{}More to come\textgreater{
 
 
 \chapter{10. Natural Deduction}
-\label{\detokenize{10-natural-deduction:natural-deduction}}\label{\detokenize{10-natural-deduction::doc}}
+\label{\detokenize{10-natural-deduction::doc}}\label{\detokenize{10-natural-deduction:natural-deduction}}
 Note to self: The next few chapters separate complexities on the way
 to full first-order logic. The first, addressed here, is the shift
 from a semantic to a syntactic approach to judging truth. Derivation
@@ -5285,7 +5300,7 @@ expressions}.
 
 
 \chapter{11. Sets as Domains: Predicate Logic}
-\label{\detokenize{11-predicate-logic:sets-as-domains-predicate-logic}}\label{\detokenize{11-predicate-logic::doc}}
+\label{\detokenize{11-predicate-logic::doc}}\label{\detokenize{11-predicate-logic:sets-as-domains-predicate-logic}}
 In this chapter we move from propositional to a predicate logic, in
 which the values of variables can range not only over :math:\{matbb
 B\}{}` but over arbitrary sets. The issue of \sphinxstyleemphasis{validity} is complicated as
@@ -5294,7 +5309,7 @@ independent of any particular interpretation.
 
 
 \chapter{12. Quantification: First-Order Logic}
-\label{\detokenize{12-quantification::doc}}\label{\detokenize{12-quantification:quantification-first-order-logic}}
+\label{\detokenize{12-quantification:quantification-first-order-logic}}\label{\detokenize{12-quantification::doc}}
 We now address quantifiers with some care.  We’ve been seeing and
 using them all along, of course. What we do in this chapter is to
 address them more rigirously. We discuss elimination and induction
