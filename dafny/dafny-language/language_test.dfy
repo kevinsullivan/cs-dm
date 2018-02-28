@@ -16,6 +16,10 @@ A little homework exercise for you.
     ***/
 
  
+    /*
+    A beautiful polymorphic method to compute set products.
+    Completely unnecessary given set comprehension notation!
+    */
      method set_product<T1,T2>(s1: set<T1>, s2: set<T2>) 
         returns (r: set<(T1,T2)>)
     {
