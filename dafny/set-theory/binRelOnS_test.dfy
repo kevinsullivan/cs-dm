@@ -7,7 +7,7 @@ module binRelOnS_test
        method Main()
     {
         var s := { 1, 2, 3 };
-        var p := {(1,1), (2,2), (3,3), (3,2) };
+        var p := { (1,1), (2,2), (3,3) };
         var r := new binRelOnS(s, p);
         analyzeRelation(r);
     }
@@ -16,11 +16,12 @@ module binRelOnS_test
         requires r.Valid();     // shouldn't have to say this
     {
         var t := r.isTotal();
-        var s := r.isSurjective();
+        var isFun := r.isFunction();
+        var s := if isFun then r.isSurjective() else false;
         var p := r.isPartial();
-        var i := r.isInjective();
+        var i := if isFun then r.isInjective() else false;
         var f := r.isFunction();
-        var b := r.isBijective();
+        var b := if isFun then r.isBijective() else false;
         var x := r.isReflexive();
         var y := r.isSymmetric();
         var v := r.isTransitive();

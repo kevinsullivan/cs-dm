@@ -35,6 +35,9 @@ module binRelS
             p := pairs;
         }
 
+        /*
+        Return domain/range set
+        */
         function method dom(): set<T>
             reads this;
             requires Valid();
@@ -43,6 +46,9 @@ module binRelS
             d
         }
 
+        /*
+        Return set of ordered pairs
+        */
         function method rel(): set<(T,T)>
             reads this
             requires Valid();
@@ -51,55 +57,6 @@ module binRelS
             p
         }
 
-        /*
-        Return true iff the relation is total (relative to its domain set)
-        */
-        predicate method isTotal()
-            reads this;
-            requires Valid();
-            ensures isTotal() ==> 
-                    (forall x :: x in dom() ==> 
-                        (exists y :: y in dom() && (x,y) in rel()))
-            ensures Valid();
-        {
-            (set x, y | x in dom() && y in dom() && (x, y) in rel() :: x) == dom()
-        }
-
-    /*
-        Return true iff the relation is surjective (relative to its codomain set)
-        */
-        predicate method isSurjective()
-            reads this;
-            requires Valid();
-            ensures Valid();
-        {
-            (set x, y | x in dom() && y in dom() && (x, y) in rel() :: y) == dom()    
-        }
-
-    /*
-        Return true iff the relation is partial (relative to its domain set)
-        */
-        predicate method isPartial()
-            reads this;
-            requires Valid();
-            ensures Valid();
-        {
-            !isTotal()
-        }
-
-    /*
-        Return true iff the relation is injective
-        */
-        predicate method isInjective()
-            reads this;
-            requires Valid();
-            ensures Valid();
-        {
-        forall x, y, z :: x in dom() && y in dom() && z in dom() &&
-                            (x, z) in rel() && 
-                            (y, z) in rel() ==> 
-                            x == y  
-        }
 
         /*
         Return true iff the relation is single-valued (a function)
@@ -115,19 +72,78 @@ module binRelS
                             y == z  
         }
 
-    /*
-        Return true iff the relation is bijective
+        
+        /*
+        Return true iff the relation is a function and is injective
+        */
+        predicate method isInjective()
+            reads this;
+            requires Valid();
+            requires isFunction();
+            ensures Valid();
+        {
+        forall x, y, z :: x in dom() && y in dom() && z in dom() &&
+                            (x, z) in rel() && 
+                            (y, z) in rel() ==> 
+                            x == y  
+        }
+        
+        
+        /*
+        Return true iff the relation is a function and is surjective 
+        */
+        predicate method isSurjective()
+            reads this;
+            requires Valid();
+            requires isFunction();
+            ensures Valid();
+        {
+            (set x, y | x in dom() && y in dom() && (x, y) in rel() :: y) == dom()    
+        }
+
+
+        /*
+        Return true iff the relation a function and is bijective
         */
 
         predicate method isBijective()
             reads this;
             requires Valid();
+            requires isFunction();
             ensures Valid();
         {
             this.isInjective() && this.isSurjective()    
         }
 
-    /*
+
+       /*
+        Return true iff the relation is total (relative to its domain)
+        */
+        predicate method isTotal()
+            reads this;
+            requires Valid();
+            ensures isTotal() ==> 
+                    (forall x :: x in dom() ==> 
+                        (exists y :: y in dom() && (x,y) in rel()))
+            ensures Valid();
+        {
+            (set x, y | x in dom() && y in dom() && (x, y) in rel() :: x) == dom()
+        }
+
+        
+        /*
+        Return true iff the relation is partial (relative to its domain set)
+        */
+        predicate method isPartial()
+            reads this;
+            requires Valid();
+            ensures Valid();
+        {
+            !isTotal()
+        }
+
+
+        /*
         Return true iff the relation is reflexive
         */
         predicate method isReflexive()
@@ -137,6 +153,7 @@ module binRelS
         {
             forall x :: x in dom() ==> (x, x) in rel() 
         }
+
 
         /*
         Return true iff the relation is symmetric
@@ -150,7 +167,8 @@ module binRelS
                             (x, y) in rel() ==> (y, x) in rel()
         }
 
-    /*
+
+        /*
         Return true iff the relation is transitive
         */
         predicate method isTransitive()
@@ -163,5 +181,11 @@ module binRelS
                             (y, z) in rel() ==> 
                             (x, z) in rel() 
         }
+
+
+        /*
+        Exercise: formalize and implement a test for being
+        an equivalence relation.
+        */
     }
 }
