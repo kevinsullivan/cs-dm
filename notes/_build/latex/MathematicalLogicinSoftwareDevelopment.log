@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500) (preloaded format=pdflatex 2017.12.2)  27 FEB 2018 09:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500) (preloaded format=pdflatex 2017.12.2)  1 MAR 2018 12:35
 entering extended mode
 **./MathematicalLogicinSoftwareDevelopment.tex
 (MathematicalLogicinSoftwareDevelopment.tex
@@ -1297,25 +1297,25 @@ File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
 
 ]
 Chapter 7.
-[39] [40] [41] [42] [43] [44] [45]
+[39] [40] [41] [42] [43] [44] [45] [46]
 LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <14.4> not available
-(Font)              Font shape `T1/phv/b/it' tried instead on input line 3099.
+(Font)              Font shape `T1/phv/b/it' tried instead on input line 3143.
 LaTeX Font Info:    Font shape `T1/phv/b/it' in size <14.4> not available
-(Font)              Font shape `T1/phv/b/sl' tried instead on input line 3099.
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 3143.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\sphinxstyleemphasis' on input line 3099.
+(hyperref)                removing `\sphinxstyleemphasis' on input line 3143.
 
-[46] [47] [48] [49] [50] [51] [52]
+[47] [48] [49] [50] [51] [52]
 Chapter 8.
 [53
 
 ] [54] [55] [56] [57] [58] [59]
 LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <12> not available
-(Font)              Font shape `T1/phv/b/it' tried instead on input line 4472.
+(Font)              Font shape `T1/phv/b/it' tried instead on input line 4480.
 LaTeX Font Info:    Font shape `T1/phv/b/it' in size <12> not available
-(Font)              Font shape `T1/phv/b/sl' tried instead on input line 4472.
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 4480.
  [60] [61] [62] [63] [64
 
 ]
@@ -1337,25 +1337,25 @@ Chapter 12.
 ]
 Chapter 13.
 (MathematicalLogicinSoftwareDevelopment.ind)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 5368.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 5376.
  [79]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 5368.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 5376.
 
 (MathematicalLogicinSoftwareDevelopment.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 5368.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 5368.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 5376.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 5376.
 
 Package rerunfilecheck Info: File `MathematicalLogicinSoftwareDevelopment.out' 
 has not changed.
-(rerunfilecheck)             Checksum: 30DCBE661BA565D396D09B166C273122;13331.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 5368.
+(rerunfilecheck)             Checksum: 9BE4518B8FCEC9B4F2901548F0DB10DF;13432.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 5376.
  ) 
 Here is how much of TeX's memory you used:
- 14554 strings out of 495217
- 205222 string characters out of 3181647
- 354419 words of memory out of 3000000
- 17298 multiletter control sequences out of 15000+200000
- 58437 words of font info for 77 fonts, out of 3000000 for 9000
+ 14558 strings out of 495217
+ 205279 string characters out of 3181647
+ 354456 words of memory out of 3000000
+ 17300 multiletter control sequences out of 15000+200000
+ 59597 words of font info for 78 fonts, out of 3000000 for 9000
  15 hyphenation exceptions out of 8191
  37i,23n,51p,481b,502s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/local/share/miktex-texmf/fonts/enc/dvips/base/8r.enc}</usr/local/share/
@@ -1373,10 +1373,10 @@ texmf/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/share/miktex-texmf/fonts/
 type1/urw/helvetic/uhvbo8a.pfb></usr/local/share/miktex-texmf/fonts/type1/urw/t
 imes/utmb8a.pfb></usr/local/share/miktex-texmf/fonts/type1/urw/times/utmr8a.pfb
 ></usr/local/share/miktex-texmf/fonts/type1/urw/times/utmri8a.pfb>
-Output written on MathematicalLogicinSoftwareDevelopment.pdf (83 pages, 525100 
+Output written on MathematicalLogicinSoftwareDevelopment.pdf (83 pages, 526292 
 bytes).
 PDF statistics:
- 859 PDF objects out of 1000 (max. 8388607)
- 222 named destinations out of 1000 (max. 500000)
- 517 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 865 PDF objects out of 1000 (max. 8388607)
+ 223 named destinations out of 1000 (max. 500000)
+ 525 words of extra memory for PDF output out of 10000 (max. 10000000)
 

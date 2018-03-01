@@ -76,19 +76,20 @@
 \contentsline {section}{\numberline {7.6}Tuples}{45}{section.7.6}
 \contentsline {section}{\numberline {7.7}Relations}{46}{section.7.7}
 \contentsline {section}{\numberline {7.8}Binary Relations}{46}{section.7.8}
-\contentsline {section}{\numberline {7.9}Functions: \sphinxstyleemphasis {Single-Valued} Relations}{46}{section.7.9}
-\contentsline {section}{\numberline {7.10}Properties of Relations and Functions}{47}{section.7.10}
-\contentsline {subsection}{\numberline {7.10.1}Total vs Partial}{47}{subsection.7.10.1}
-\contentsline {subsection}{\numberline {7.10.2}Inverse}{48}{subsection.7.10.2}
-\contentsline {subsection}{\numberline {7.10.3}Injective}{48}{subsection.7.10.3}
+\contentsline {subsection}{\numberline {7.8.1}Inverse}{46}{subsection.7.8.1}
+\contentsline {section}{\numberline {7.9}Functions: \sphinxstyleemphasis {Single-Valued} Relations}{47}{section.7.9}
+\contentsline {section}{\numberline {7.10}Properties of Functions}{48}{section.7.10}
+\contentsline {subsection}{\numberline {7.10.1}Total vs Partial}{48}{subsection.7.10.1}
+\contentsline {subsection}{\numberline {7.10.2}Injective}{48}{subsection.7.10.2}
 \contentsline {subsubsection}{An Aside: Injectivity in Type Theory}{49}{subsubsection*.3}
-\contentsline {subsection}{\numberline {7.10.4}Surjective}{49}{subsection.7.10.4}
-\contentsline {subsection}{\numberline {7.10.5}Bijective}{50}{subsection.7.10.5}
-\contentsline {subsection}{\numberline {7.10.6}Reflexive}{51}{subsection.7.10.6}
-\contentsline {subsection}{\numberline {7.10.7}Symmetric}{51}{subsection.7.10.7}
-\contentsline {subsection}{\numberline {7.10.8}Transitive}{51}{subsection.7.10.8}
-\contentsline {subsection}{\numberline {7.10.9}Equivalence}{52}{subsection.7.10.9}
-\contentsline {section}{\numberline {7.11}Sequences}{52}{section.7.11}
+\contentsline {subsection}{\numberline {7.10.3}Surjective}{49}{subsection.7.10.3}
+\contentsline {subsection}{\numberline {7.10.4}Bijective}{50}{subsection.7.10.4}
+\contentsline {section}{\numberline {7.11}Properties of Relations}{51}{section.7.11}
+\contentsline {subsection}{\numberline {7.11.1}Reflexive}{51}{subsection.7.11.1}
+\contentsline {subsection}{\numberline {7.11.2}Symmetric}{51}{subsection.7.11.2}
+\contentsline {subsection}{\numberline {7.11.3}Transitive}{51}{subsection.7.11.3}
+\contentsline {subsection}{\numberline {7.11.4}Equivalence}{52}{subsection.7.11.4}
+\contentsline {section}{\numberline {7.12}Sequences}{52}{section.7.12}
 \contentsline {chapter}{\numberline {8}8. Boolean Algebra}{53}{chapter.8}
 \contentsline {section}{\numberline {8.1}Boolean Algebra in Dafny}{53}{section.8.1}
 \contentsline {section}{\numberline {8.2}Boolean Values}{54}{section.8.2}

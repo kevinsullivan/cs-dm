@@ -53,17 +53,17 @@
 <h1>7. Set Theory<a class="headerlink" href="#set-theory" title="Permalink to this headline">¶</a></h1>
 <p>Modern mathematics is largely founded on set theory: in particular, on
 what is called <em>Zermelo-Fraenkel set theory with the axiom of Choice</em>,
-or <em>ZFC</em>. Every concept you have ever learned in mathematics can, at
-least in principle, be reduced to expresions involving sets.  For
-example, every natural number can be represented as a set: zero as the
-<em>empty set, {}</em>; one as the set containing the empty set, <em>{{}}</em>; two
-as the set that contains that set, <em>{{{}}}</em>; ad infinitum.</p>
+or <em>ZFC</em>. Every concept you have ever learned in mathematics can, in
+principle, be reduced to expresions involving sets.  For example,
+every natural number can be represented as a set: zero as the <em>empty
+set, {}</em>; one as the set containing the empty set, <em>{{}}</em>; two as the
+set that contains that set, <em>{{{}}}</em>; ad infinitum.</p>
 <p>Set theory includes the treatment of sets, including the special cases
 of relations (sets of tuples), functions (<em>single-valued</em> relations),
-sequences (functions from natural numbers to elements), and other
-related concepts.  ZFC is a widely accepted <em>formal foundation</em> for
-modern mathematics: a set of axioms that describe properties of sets,
-from which all the rest of mathematics can be deduced.</p>
+sequences (functions from natural numbers to elements), and other such
+concepts.  ZFC is a widely accepted <em>formal foundation</em> for modern
+mathematics: a set of axioms that describe properties of sets, from
+which all the rest of mathematics can be deduced.</p>
 <div class="section" id="naive-set-theory">
 <h2>Naive Set Theory<a class="headerlink" href="#naive-set-theory" title="Permalink to this headline">¶</a></h2>
 <p>So what is a set? A <em>naive</em> definition (which will actually be good
@@ -401,12 +401,13 @@ T</em> assigns the union of <em>S</em> and <em>T</em> as the new value of <em>V<
 </div>
 <div class="section" id="difference">
 <h3>Difference<a class="headerlink" href="#difference" title="Permalink to this headline">¶</a></h3>
-<p>The difference, <em>S\T</em> (<em>S</em> minus <em>T</em>), of sets <em>S</em> and <em>T</em> is the set
-of elements in <em>S</em> that are not also in <em>T</em>. Thus, :math:<a href="#id3"><span class="problematic" id="id4">`</span></a>S setminus
-T = {e~|~e in S land e notin T). In Dafny, the minus sign is used
-to denote set difference, as in the expression, <em>S - T</em>. Operators in
-Dafny can be applied to sets to make up more complex expressions. So,
-for example, <em>|S-T|</em> denotes the cardinality of <em>S-T</em>.</p>
+<p>The difference, <img class="math" src="_images/math/455ad52d8d5f1358ba3b36231f49b853407b6bdd.png" alt="S \setminus T"/> (<em>S</em> minus <em>T</em>), of sets <em>S</em> and
+<em>T</em> is the set of elements in <em>S</em> that are not also in <em>T</em>. Thus,
+<img class="math" src="_images/math/c6eba5a43c93c906cd86061a64da8032b690d1bd.png" alt="S \setminus T = \{e~|~e \in S \land e \notin T)"/>. In Dafny, the
+minus sign is used to denote set difference, as in the expression,
+<em>S - T</em>. Operators in Dafny can be applied to sets to make up more
+complex expressions. So, for example, <em>|S-T|</em> denotes the cardinality
+of <em>S-T</em>.</p>
 </div>
 <div class="section" id="product-set">
 <h3>Product Set<a class="headerlink" href="#product-set" title="Permalink to this headline">¶</a></h3>
@@ -598,12 +599,48 @@ relations, albeit usually infinite ones. For example, the <em>square</em>
 function, that associates every real number with its square, can be
 understood as the infinite set of ordered pairs of real numbers in
 which the second is the square of the first. Mathematically this is
-:{ (x, y) | y = x^2 }:<a href="#id5"><span class="problematic" id="id6">`</span></a>, where we take as implicit that <em>x</em> and <em>y</em>
+:{ (x, y) | y = x^2 }:<a href="#id3"><span class="problematic" id="id4">`</span></a>, where we take as implicit that <em>x</em> and <em>y</em>
 range over the real numbers. Elements of this set include the pairs,
 <em>(-2, 4)</em> and <em>(2, 4)</em>.</p>
 <p>The concept of <em>square roots</em> of real numbers is also best understood
 as a relation. The tuples are again pairs of real numbers, but now the
 elements include tuples, <em>(4, 2)</em> and <em>(4, -2)</em>.</p>
+<div class="section" id="inverse">
+<h3>Inverse<a class="headerlink" href="#inverse" title="Permalink to this headline">¶</a></h3>
+<p>The inverse of a given binary relation is simply the set of tuples
+formed by reversing the order of all of the given tuples. To put this
+in mathematical notation, if <em>R</em> is a relation, its inverse, denoted
+<img class="math" src="_images/math/a1ffdf93ec3572c520028d212450d66826146f2b.png" alt="R^{-1}"/>, is <img class="math" src="_images/math/6b8262e547923c6ac102733ab306db06ec2c58d2.png" alt="\{ (y, x) | (x, y) \in R \}"/>. You can see this
+immediately in our example of squares and square roots. Each of these
+relations is the inverse of the other. One contains the tuples, <em>(-2,
+4), (2, 4)</em>, while the other contains <em>(4, 2), (4, -2)</em>.</p>
+<p>It should immediately be clear that the inverse of a function is not
+always also a function. The inverse of the <em>square</em> function is the
+<em>square root</em> relation, but that relation is not itself a function,
+because it is not single valued.</p>
+<p>Here’s a visual way to think about these concept. Consider the graph
+of the <em>square</em> function. Its a parabola that opens either upward in
+the <em>y</em> direction, or downward. Now select any value for <em>x</em> and draw
+a vertical line. It will intersect the parabola at only one point.
+The function is single-valued.</p>
+<p>The graph of a square root function, on the other hand, is a parabola
+that opens to the left or right. So if one draws a vertial line at
+some value of <em>x</em>, either the line fails to hit the graph at all (the
+square root function is not defined for all values of <em>x</em>), or it
+intersects the line at two points. The square root “function” is not
+single-valued, and isn’t really even a <em>function</em> at all. (If the
+vertical line hits the parabola right at its bottom, the set of points
+at which it intersects contains just one element, but if one takes the
+solution set to be a <em>multi-set</em>, then the value, zero, occurs in that
+set twice.)</p>
+<p>A function whose inverse is a function is said to be <em>invertible</em>.
+The function, <em>f(x) = x</em> (or <em>y = x</em> if you prefer) is invertible in
+this sense. In fact, its inverse is itself.</p>
+<p>Exercise: Is the cube root function invertible? Prove it informally.</p>
+<p>Exercise: Write a definition in mathematical logic of what precisely
+it means for a function to be invertible. Model your definition on our
+definition of what it means for a relation to be single valued.</p>
+</div>
 </div>
 <div class="section" id="functions-single-valued-relations">
 <h2>Functions: <em>Single-Valued</em> Relations<a class="headerlink" href="#functions-single-valued-relations" title="Permalink to this headline">¶</a></h2>
@@ -662,21 +699,20 @@ otherwise returns false. Then write a function that takes a map
 satisfying the precondition that it be invertible and that in this
 case returns its inverse, also as a map.</p>
 </div>
-<div class="section" id="properties-of-relations-and-functions">
-<h2>Properties of Relations and Functions<a class="headerlink" href="#properties-of-relations-and-functions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="properties-of-functions">
+<h2>Properties of Functions<a class="headerlink" href="#properties-of-functions" title="Permalink to this headline">¶</a></h2>
 <p>We now introduce essential concepts and terminology regarding for
-distinguishing essential properties and special cases of relations and
-functions.</p>
+distinguishing essential properties and special cases of functions.</p>
 <div class="section" id="total-vs-partial">
 <h3>Total vs Partial<a class="headerlink" href="#total-vs-partial" title="Permalink to this headline">¶</a></h3>
-<p>A binary relation (including a function) is said to be <em>total</em> if
-every element of its domain appears as the first element in at least
-one tuple, i.e., its <em>support</em> is its entire <em>domain</em>.  A relation
-that is not total is said to be <em>partial</em>. For example, the square
-function on the real numbers is total, in that it is defined on its
-entire real number domain. By contrast, the square root function is
-not total (if it domain is taken to be the real numbers) because it is
-not defined for real numbers that are less than zero.</p>
+<p>A function is said to be <em>total</em> if every element of its domain
+appears as the first element in at least one tuple, i.e., its
+<em>support</em> is its entire <em>domain</em>.  A function that is not total is
+said to be <em>partial</em>. For example, the square function on the real
+numbers is total, in that it is defined on its entire real number
+domain. By contrast, the square root function is not total (if it
+domain is taken to be the real numbers) because it is not defined for
+real numbers that are less than zero.</p>
 <p>Note that if one considers a slightly different function, the square
 root function on the <em>non-negative</em> real numbers the only difference
 being in the domainm then this function <em>is</em> total. Totality is thus
@@ -712,51 +748,15 @@ either a good value or an error flag; and to get a good value out of
 such a box, one must explicitly check to see whether the box has a
 good value in it or, alternatively, and error flag.</p>
 </div>
-<div class="section" id="inverse">
-<h3>Inverse<a class="headerlink" href="#inverse" title="Permalink to this headline">¶</a></h3>
-<p>The inverse of a given binary relation is simply the set of tuples
-formed by reversing the order of all of the given tuples. To put this
-in mathematical notation, if <em>R</em> is a relation, its inverse, denoted
-::<cite>R^{-1}</cite>, is <img class="math" src="_images/math/6b8262e547923c6ac102733ab306db06ec2c58d2.png" alt="\{ (y, x) | (x, y) \in R \}"/>. You can see this
-immediately in our example of squares and square roots. Each of these
-relations is the inverse of the other. One contains the tuples, <em>(-2,
-4), (2, 4)</em>, while the other contains <em>(4, 2), (4, -2)</em>.</p>
-<p>It should immediately be clear that the inverse of a function is not
-always also a function. The inverse of the <em>square</em> function is the
-<em>square root</em> relation, but that relation is not itself a function,
-because it is not single valued.</p>
-<p>Here’s a visual way to think about these concept. Consider the graph
-of the <em>square</em> function. Its a parabola that opens either upward in
-the <em>y</em> direction, or downward. Now select any value for <em>x</em> and draw
-a vertical line. It will intersect the parabola at only one point.
-The function is single-valued.</p>
-<p>The graph of a square root function, on the other hand, is a parabola
-that opens to the left or right. So if one draws a vertial line at
-some value of <em>x</em>, either the line fails to hit the graph at all (the
-square root function is not defined for all values of <em>x</em>), or it
-intersects the line at two points. The square root “function” is not
-single-valued, and isn’t really even a <em>function</em> at all. (If the
-vertical line hits the parabola right at its bottom, the set of points
-at which it intersects contains just one element, but if one takes the
-solution set to be a <em>multi-set</em>, then the value, zero, occurs in that
-set twice.)</p>
-<p>A function whose inverse is a function is said to be <em>invertible</em>.
-The function, <em>f(x) = x</em> (or <em>y = x</em> if you prefer) is invertible in
-this sense. In fact, its inverse is itself.</p>
-<p>Exercise: Is the cube root function invertible? Prove it informally.</p>
-<p>Exercise: Write a definition in mathematical logic of what precisely
-it means for a function to be invertible. Model your definition on our
-definition of what it means for a relation to be single valued.</p>
-</div>
 <div class="section" id="injective">
 <h3>Injective<a class="headerlink" href="#injective" title="Permalink to this headline">¶</a></h3>
-<p>A relation (or function, in particular) is said to be <em>injective</em> if
-no two elements of the domain are associated with the same element in
-the co-domain. Such a relation is also said to be <em>one-one-one</em>,
-rather than <em>many-to-one</em>).</p>
+<p>A function is said to be <em>injective</em> if no two elements of the domain
+are associated with the same element in the co-domain. (Note that we
+are limiting the concept of injectivity to functions.) An injective
+function is also said to be <em>one-one-one</em>, rather than <em>many-to-one</em>.</p>
 <p>Take a moment to think about the difference between being injective
 and single valued. Single-valued means no <em>one</em> element of the domain
-“goes to” <a href="#id7"><span class="problematic" id="id8">*</span></a>more than one” value in the range. Injective means that “no
+“goes to” <a href="#id5"><span class="problematic" id="id6">*</span></a>more than one” value in the range. Injective means that “no
 more than one” value in the domain “goes to” and one value in the
 range.</p>
 <p>Exercise: Draw a picture. Draw the domain and range sets as clouds
@@ -792,7 +792,7 @@ in type theory, and object can have only one type.</p>
 functions called constructors. Constant constructors define what one
 can think of as the <em>smallest</em> values of a type, while constructors
 that are functions provide means to build larger values of a type by
-<a href="#id9"><span class="problematic" id="id10">*</span></a>packaging up” smaller values of the same and/or other types.</p>
+<a href="#id7"><span class="problematic" id="id8">*</span></a>packaging up” smaller values of the same and/or other types.</p>
 <p>As a simple example, one might say that the set of values of the type,
 <em>Russian Doll,</em> is given by one constant constructor, <em>SolidDoll</em> and
 by one constructor function, <em>NestDoll</em> that takes a nested doll as an
@@ -821,13 +821,13 @@ about programs using type theory. But more on this later.</p>
 </div>
 <div class="section" id="surjective">
 <h3>Surjective<a class="headerlink" href="#surjective" title="Permalink to this headline">¶</a></h3>
-<p>A binary relation, and in particular a function, is <em>surjective</em> if
-every element in the co-domain appears in some tuple in the relation.
-A surjective relation is also said to be <em>onto</em>. The <em>range</em> of values
-it achieves covers its whole co-domain. Mathematically, a relation
-<img class="math" src="_images/math/8976c2854fcacf02af1366971f1c7b69eb0420e4.png" alt="R \subseteq S \times T"/> is surjective if <img class="math" src="_images/math/bbe12e2c660a1569bad26cde264cda0c8a9f82bf.png" alt="\forall t \in
-T, \exists s \in S~|~(s,t) \in R"/>.</p>
-<p>In the intuitive terms of high school algebra, a relation involving
+<p>A function is said to be <em>surjective</em> if for every element, <em>t</em>, in
+the co-domain there is some element, <em>s</em> in the domain such that
+<em>(s,t)</em> is in the relation. That is, the range <em>range</em> of the function
+is its whole co-domain. Mathematically, a relation <img class="math" src="_images/math/9c670927970f7a233ba136fdb7cc5a3351511e82.png" alt="R \subseteq
+S \times T"/> is surjective if <img class="math" src="_images/math/7052e4c4e009cdd2bf3befda4a6176bc8b539fce.png" alt="\forall t \in T, \exists s \in
+S~|~(s,t) \in R"/>.</p>
+<p>In the intuitive terms of high school algebra, a function involving
 <em>x</em> and <em>y</em> is surjective if for any given <em>y</em> value there is always
 some <em>x</em> that “leads to” that <em>y</em>. The <em>square</em> function on the real
 numbers is not surjective, because there is no <em>x</em> that when squared
@@ -845,8 +845,8 @@ right?</p>
 </div>
 <div class="section" id="bijective">
 <h3>Bijective<a class="headerlink" href="#bijective" title="Permalink to this headline">¶</a></h3>
-<p>A total function is said to be <em>bjective</em> if it is also both injective
-and surjective. Such a function is also often called a <em>bijection</em>.</p>
+<p>A function is said to be <em>bjective</em> if it is also both injective and
+surjective. Such a function is also often called a <em>bijection</em>.</p>
 <p>Take a moment to think about the implications of being a bijection.
 Consider a bijective relation, <img class="math" src="_images/math/cdb76e3e99672f56cabfad2588fe14c9fdb2e2a9.png" alt="R \subseteq S \times T."/> <em>R</em> is
 total, so there is an <em>arrow</em> from every <em>s</em> in <em>S</em> to some <em>t</em> in
@@ -858,7 +858,7 @@ to be exactly one element in <em>t</em> for each element in <em>s</em>. So the s
 are of the same size, and there is a one-to-one correspondence between
 their elements.</p>
 <p>Now consider some <em>t</em> in <em>T</em>. It must be hit by exactly one arrow from
-<em>S</em>, so the <em>inverse</em> relation, <a href="#id11"><span class="problematic" id="id12">:matg:`R^{-1}`</span></a>, from <em>T</em> to <em>S</em>, must
+<em>S</em>, so the <em>inverse</em> relation, <img class="math" src="_images/math/a1ffdf93ec3572c520028d212450d66826146f2b.png" alt="R^{-1}"/>, from <em>T</em> to <em>S</em>, must
 also single-valued (a function). Moreover, because <em>R</em> is surjective,
 every <em>t</em> in <em>T</em> is hit by some <em>s</em> in <em>S</em>, so the inverse relation is
 defined for every <em>t</em> in <em>T</em>. It, too, is total. Now every arrow from
@@ -922,25 +922,32 @@ between the set of capital letters and that returns a pure function
 that when applied has the effect of first applying <em>T</em> then applying
 <em>R</em>.</p>
 </div>
+</div>
+<div class="section" id="properties-of-relations">
+<h2>Properties of Relations<a class="headerlink" href="#properties-of-relations" title="Permalink to this headline">¶</a></h2>
+<p>Functions are special cases of (single-valued) binary relations.  The
+properties of being partial, total, injective, surjective, bijective
+are generally associated with <em>functions</em>, i.e., with relations that
+are already single-valued. Now we turn to properties of relations more
+generally.</p>
 <div class="section" id="reflexive">
 <h3>Reflexive<a class="headerlink" href="#reflexive" title="Permalink to this headline">¶</a></h3>
-<p>We now consider some additional fundamental properties of binary
-relations, starting with relations that maps sets to themselves.  A
-relation that maps real numbers to real numbers is a subset of
-<img class="math" src="_images/math/0fe9cb77c7db298a4025875b7744e197f8edf6dd.png" alt="{\mathbb R} \times {\mathbb R}"/>, for example. The <em>friends</em>
-relation on a social network site associates people with people.</p>
-<p>Such a relation is said to be <em>reflexive</em> if (perhaps among other
-properties) it (at least) associates every element with itself.  The
-equality relation (e.g., on real numbers) is the “canonical” example
-of a reflexive relation. It associates every number with itself and
-with no other number. The tuples of the equality relation on real
-numbers thus includes <em>(2.5, 2.5)</em> and (-3.0, -3.0)* but definitely
-not <em>(2.5, -3.0)</em>.</p>
+<p>Consider a binary relation on a set with itself.  That is, the domain
+and the co-domain are the same sets. A relation that maps real numbers
+to real numbers is an example. It is a subset of <img class="math" src="_images/math/ef4ff4c9b71a95ce07b703abefa85883c885b0b7.png" alt="{\mathbb R}
+\times {\mathbb R}"/>. The <em>friends</em> relation on a social network site
+that associates people with people is another example.</p>
+<p>Such a relation is said to be <em>reflexive</em> if it associates every
+element with itself.  The equality relation (e.g., on real numbers) is
+the “canonical” example of a reflexive relation. It associates every
+number with itself and with no other number. The tuples of the
+equality relation on real numbers thus includes <em>(2.5, 2.5)</em> and
+(-3.0, -3.0)* but not <em>(2.5, -3.0)</em>.</p>
 <p>In more mathematical terms, consider a set <em>S</em> and a bindary relation,
-<em>R</em>, on S*S, :math:R subseteq S times S.` <em>R</em> is reflexive, which we
-can write as <em>Reflexive(R)</em>, if and only if for every <em>e</em> in <em>S</em>, the
-tuple <em>(e,e)</em> is in R. Or to be rigorous about it, <img class="math" src="_images/math/29a6521497cbd297db621982c436e24e562c3dac.png" alt="Reflexive(R)
-\iff \forall e \in S, (e,e) \in R."/></p>
+<em>R</em>, on S*S, <img class="math" src="_images/math/9f720f1e05b3b0684aa5ad81aa8fd6675fd0f5a3.png" alt="R \subseteq S \times S."/> <em>R</em> is reflexive, which
+we can write as <em>Reflexive(R)</em>, if and only if for every <em>e</em> in <em>S</em>,
+the tuple <em>(e,e)</em> is in R. Or to be rigorous about it,
+<img class="math" src="_images/math/01fc7795202a1cf0db19cc409159cc25c22e82a5.png" alt="Reflexive(R) \iff \forall e \in S, (e,e) \in R."/></p>
 <p>Exercise: Is the function, <em>y = x</em>, reflexive? If every person loves
 themself, is the <em>loves</em> relation reflexive? Is the <em>less than or
 equals</em> relation reflexive? Hint: the tuples <em>(2,3)</em> and <em>(3,3)</em> are

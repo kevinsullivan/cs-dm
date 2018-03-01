@@ -296,6 +296,8 @@ INPUT /usr/local/share/miktex-texmf/fonts/vf/adobe/courier/pcrr8c.vf
 INPUT /usr/local/share/miktex-texmf/fonts/tfm/adobe/helvetic/phvbo8t.tfm
 INPUT /usr/local/share/miktex-texmf/fonts/vf/adobe/helvetic/phvbo8t.vf
 INPUT /usr/local/share/miktex-texmf/fonts/tfm/adobe/helvetic/phvbo8r.tfm
+INPUT /usr/local/share/miktex-texmf/fonts/vf/adobe/helvetic/phvbo8t.vf
+INPUT /usr/local/share/miktex-texmf/fonts/tfm/adobe/helvetic/phvbo8r.tfm
 INPUT /usr/local/share/miktex-texmf/fonts/tfm/adobe/helvetic/phvbo8t.tfm
 INPUT /usr/local/share/miktex-texmf/fonts/vf/adobe/helvetic/phvbo8t.vf
 INPUT /usr/local/share/miktex-texmf/fonts/tfm/adobe/helvetic/phvbo8r.tfm

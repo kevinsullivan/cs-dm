@@ -1,21 +1,21 @@
-*************
-7. Set Theory
-*************
+===============
+ 7. Set Theory
+===============
 
 Modern mathematics is largely founded on set theory: in particular, on
 what is called *Zermelo-Fraenkel set theory with the axiom of Choice*,
-or *ZFC*. Every concept you have ever learned in mathematics can, at
-least in principle, be reduced to expresions involving sets.  For
-example, every natural number can be represented as a set: zero as the
-*empty set, {}*; one as the set containing the empty set, *{{}}*; two
-as the set that contains that set, *{{{}}}*; ad infinitum.
+or *ZFC*. Every concept you have ever learned in mathematics can, in
+principle, be reduced to expresions involving sets.  For example,
+every natural number can be represented as a set: zero as the *empty
+set, {}*; one as the set containing the empty set, *{{}}*; two as the
+set that contains that set, *{{{}}}*; ad infinitum.
 
 Set theory includes the treatment of sets, including the special cases
 of relations (sets of tuples), functions (*single-valued* relations),
-sequences (functions from natural numbers to elements), and other
-related concepts.  ZFC is a widely accepted *formal foundation* for
-modern mathematics: a set of axioms that describe properties of sets,
-from which all the rest of mathematics can be deduced.
+sequences (functions from natural numbers to elements), and other such
+concepts.  ZFC is a widely accepted *formal foundation* for modern
+mathematics: a set of axioms that describe properties of sets, from
+which all the rest of mathematics can be deduced.
 
 Naive Set Theory
 ================
@@ -422,12 +422,13 @@ T* assigns the union of *S* and *T* as the new value of *V*.
 Difference
 ----------
 
-The difference, *S\\T* (*S* minus *T*), of sets *S* and *T* is the set
-of elements in *S* that are not also in *T*. Thus, :math:`S \setminus
-T = \{e~|~e \in S \land e \notin T). In Dafny, the minus sign is used
-to denote set difference, as in the expression, *S - T*. Operators in
-Dafny can be applied to sets to make up more complex expressions. So,
-for example, *|S-T|* denotes the cardinality of *S-T*.
+The difference, :math:`S \setminus T` (*S* minus *T*), of sets *S* and
+*T* is the set of elements in *S* that are not also in *T*. Thus,
+:math:`S \setminus T = \{e~|~e \in S \land e \notin T)`. In Dafny, the
+minus sign is used to denote set difference, as in the expression,
+*S - T*. Operators in Dafny can be applied to sets to make up more
+complex expressions. So, for example, *|S-T|* denotes the cardinality
+of *S-T*.
 
 Product Set
 -----------
@@ -657,6 +658,50 @@ The concept of *square roots* of real numbers is also best understood
 as a relation. The tuples are again pairs of real numbers, but now the
 elements include tuples, *(4, 2)* and *(4, -2)*.
 
+Inverse
+-------
+
+The inverse of a given binary relation is simply the set of tuples
+formed by reversing the order of all of the given tuples. To put this
+in mathematical notation, if *R* is a relation, its inverse, denoted
+:math:`R^{-1}`, is :math:`\{ (y, x) | (x, y) \in R \}`. You can see this
+immediately in our example of squares and square roots. Each of these
+relations is the inverse of the other. One contains the tuples, *(-2,
+4), (2, 4)*, while the other contains *(4, 2), (4, -2)*.
+
+It should immediately be clear that the inverse of a function is not
+always also a function. The inverse of the *square* function is the
+*square root* relation, but that relation is not itself a function,
+because it is not single valued.
+
+Here's a visual way to think about these concept. Consider the graph
+of the *square* function. Its a parabola that opens either upward in
+the *y* direction, or downward. Now select any value for *x* and draw
+a vertical line. It will intersect the parabola at only one point.
+The function is single-valued. 
+
+The graph of a square root function, on the other hand, is a parabola
+that opens to the left or right. So if one draws a vertial line at
+some value of *x*, either the line fails to hit the graph at all (the
+square root function is not defined for all values of *x*), or it
+intersects the line at two points. The square root "function" is not
+single-valued, and isn't really even a *function* at all. (If the
+vertical line hits the parabola right at its bottom, the set of points
+at which it intersects contains just one element, but if one takes the
+solution set to be a *multi-set*, then the value, zero, occurs in that
+set twice.)
+
+A function whose inverse is a function is said to be *invertible*.
+The function, *f(x) = x* (or *y = x* if you prefer) is invertible in
+this sense. In fact, its inverse is itself.
+
+Exercise: Is the cube root function invertible? Prove it informally.
+
+Exercise: Write a definition in mathematical logic of what precisely
+it means for a function to be invertible. Model your definition on our
+definition of what it means for a relation to be single valued.
+
+
 Functions: *Single-Valued* Relations
 ====================================
 
@@ -724,25 +769,23 @@ satisfying the precondition that it be invertible and that in this
 case returns its inverse, also as a map.
 
 
-
-Properties of Relations and Functions
-=====================================
+Properties of Functions
+=======================
 
 We now introduce essential concepts and terminology regarding for
-distinguishing essential properties and special cases of relations and
-functions.
+distinguishing essential properties and special cases of functions.
 
 Total vs Partial
 ----------------
 
-A binary relation (including a function) is said to be *total* if
-every element of its domain appears as the first element in at least
-one tuple, i.e., its *support* is its entire *domain*.  A relation
-that is not total is said to be *partial*. For example, the square
-function on the real numbers is total, in that it is defined on its
-entire real number domain. By contrast, the square root function is
-not total (if it domain is taken to be the real numbers) because it is
-not defined for real numbers that are less than zero.
+A function is said to be *total* if every element of its domain
+appears as the first element in at least one tuple, i.e., its
+*support* is its entire *domain*.  A function that is not total is
+said to be *partial*. For example, the square function on the real
+numbers is total, in that it is defined on its entire real number
+domain. By contrast, the square root function is not total (if it
+domain is taken to be the real numbers) because it is not defined for
+real numbers that are less than zero.
 
 Note that if one considers a slightly different function, the square
 root function on the *non-negative* real numbers the only difference
@@ -783,56 +826,13 @@ either a good value or an error flag; and to get a good value out of
 such a box, one must explicitly check to see whether the box has a
 good value in it or, alternatively, and error flag.
 
-Inverse
--------
-
-The inverse of a given binary relation is simply the set of tuples
-formed by reversing the order of all of the given tuples. To put this
-in mathematical notation, if *R* is a relation, its inverse, denoted
-::`R^{-1}`, is :math:`\{ (y, x) | (x, y) \in R \}`. You can see this
-immediately in our example of squares and square roots. Each of these
-relations is the inverse of the other. One contains the tuples, *(-2,
-4), (2, 4)*, while the other contains *(4, 2), (4, -2)*.
-
-It should immediately be clear that the inverse of a function is not
-always also a function. The inverse of the *square* function is the
-*square root* relation, but that relation is not itself a function,
-because it is not single valued.
-
-Here's a visual way to think about these concept. Consider the graph
-of the *square* function. Its a parabola that opens either upward in
-the *y* direction, or downward. Now select any value for *x* and draw
-a vertical line. It will intersect the parabola at only one point.
-The function is single-valued. 
-
-The graph of a square root function, on the other hand, is a parabola
-that opens to the left or right. So if one draws a vertial line at
-some value of *x*, either the line fails to hit the graph at all (the
-square root function is not defined for all values of *x*), or it
-intersects the line at two points. The square root "function" is not
-single-valued, and isn't really even a *function* at all. (If the
-vertical line hits the parabola right at its bottom, the set of points
-at which it intersects contains just one element, but if one takes the
-solution set to be a *multi-set*, then the value, zero, occurs in that
-set twice.)
-
-A function whose inverse is a function is said to be *invertible*.
-The function, *f(x) = x* (or *y = x* if you prefer) is invertible in
-this sense. In fact, its inverse is itself.
-
-Exercise: Is the cube root function invertible? Prove it informally.
-
-Exercise: Write a definition in mathematical logic of what precisely
-it means for a function to be invertible. Model your definition on our
-definition of what it means for a relation to be single valued.
-
 Injective
 ---------
 
-A relation (or function, in particular) is said to be *injective* if
-no two elements of the domain are associated with the same element in
-the co-domain. Such a relation is also said to be *one-one-one*,
-rather than *many-to-one*).
+A function is said to be *injective* if no two elements of the domain
+are associated with the same element in the co-domain. (Note that we
+are limiting the concept of injectivity to functions.) An injective
+function is also said to be *one-one-one*, rather than *many-to-one*.
 
 Take a moment to think about the difference between being injective
 and single valued. Single-valued means no *one* element of the domain
@@ -912,14 +912,14 @@ about programs using type theory. But more on this later.
 Surjective
 ----------
 
-A binary relation, and in particular a function, is *surjective* if
-every element in the co-domain appears in some tuple in the relation.
-A surjective relation is also said to be *onto*. The *range* of values
-it achieves covers its whole co-domain. Mathematically, a relation
-:math:`R \subseteq S \times T` is surjective if :math:`\forall t \in
-T, \exists s \in S~|~(s,t) \in R`.
+A function is said to be *surjective* if for every element, *t*, in
+the co-domain there is some element, *s* in the domain such that
+*(s,t)* is in the relation. That is, the range *range* of the function
+is its whole co-domain. Mathematically, a relation :math:`R \subseteq
+S \times T` is surjective if :math:`\forall t \in T, \exists s \in
+S~|~(s,t) \in R`.
 
-In the intuitive terms of high school algebra, a relation involving
+In the intuitive terms of high school algebra, a function involving
 *x* and *y* is surjective if for any given *y* value there is always
 some *x* that "leads to" that *y*. The *square* function on the real
 numbers is not surjective, because there is no *x* that when squared
@@ -941,8 +941,8 @@ right?
 Bijective
 ---------
 
-A total function is said to be *bjective* if it is also both injective
-and surjective. Such a function is also often called a *bijection*.
+A function is said to be *bjective* if it is also both injective and
+surjective. Such a function is also often called a *bijection*.
 
 Take a moment to think about the implications of being a bijection.
 Consider a bijective relation, :math:`R \subseteq S \times T.` *R* is
@@ -956,7 +956,7 @@ are of the same size, and there is a one-to-one correspondence between
 their elements.
 
 Now consider some *t* in *T*. It must be hit by exactly one arrow from
-*S*, so the *inverse* relation, :matg:`R^{-1}`, from *T* to *S*, must
+*S*, so the *inverse* relation, :math:`R^{-1}`, from *T* to *S*, must
 also single-valued (a function). Moreover, because *R* is surjective,
 every *t* in *T* is hit by some *s* in *S*, so the inverse relation is
 defined for every *t* in *T*. It, too, is total. Now every arrow from
@@ -1034,29 +1034,36 @@ between the set of capital letters and that returns a pure function
 that when applied has the effect of first applying *T* then applying
 *R*.
 
+Properties of Relations
+=======================
+
+Functions are special cases of (single-valued) binary relations.  The
+properties of being partial, total, injective, surjective, bijective
+are generally associated with *functions*, i.e., with relations that
+are already single-valued. Now we turn to properties of relations more
+generally.
 
 Reflexive
 ---------
 
-We now consider some additional fundamental properties of binary
-relations, starting with relations that maps sets to themselves.  A
-relation that maps real numbers to real numbers is a subset of
-:math:`{\mathbb R} \times {\mathbb R}`, for example. The *friends*
-relation on a social network site associates people with people.
+Consider a binary relation on a set with itself.  That is, the domain
+and the co-domain are the same sets. A relation that maps real numbers
+to real numbers is an example. It is a subset of :math:`{\mathbb R}
+\times {\mathbb R}`. The *friends* relation on a social network site
+that associates people with people is another example.
 
-Such a relation is said to be *reflexive* if (perhaps among other
-properties) it (at least) associates every element with itself.  The
-equality relation (e.g., on real numbers) is the "canonical" example
-of a reflexive relation. It associates every number with itself and
-with no other number. The tuples of the equality relation on real
-numbers thus includes *(2.5, 2.5)* and (-3.0, -3.0)* but definitely
-not *(2.5, -3.0)*.
+Such a relation is said to be *reflexive* if it associates every
+element with itself.  The equality relation (e.g., on real numbers) is
+the "canonical" example of a reflexive relation. It associates every
+number with itself and with no other number. The tuples of the
+equality relation on real numbers thus includes *(2.5, 2.5)* and
+(-3.0, -3.0)* but not *(2.5, -3.0)*.
 
 In more mathematical terms, consider a set *S* and a bindary relation,
-*R*, on S*S, :math:R \subseteq S \times S.` *R* is reflexive, which we
-can write as *Reflexive(R)*, if and only if for every *e* in *S*, the
-tuple *(e,e)* is in R. Or to be rigorous about it, :math:`Reflexive(R)
-\iff \forall e \in S, (e,e) \in R.`
+*R*, on S*S, :math:`R \subseteq S \times S.` *R* is reflexive, which
+we can write as *Reflexive(R)*, if and only if for every *e* in *S*,
+the tuple *(e,e)* is in R. Or to be rigorous about it,
+:math:`Reflexive(R) \iff \forall e \in S, (e,e) \in R.`
 
 Exercise: Is the function, *y = x*, reflexive? If every person loves
 themself, is the *loves* relation reflexive? Is the *less than or

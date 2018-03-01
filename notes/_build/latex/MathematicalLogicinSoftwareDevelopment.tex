@@ -61,7 +61,7 @@
     
 
 \title{Mathematical Logic in Software Development Documentation}
-\date{Feb 27, 2018}
+\date{Mar 01, 2018}
 \release{1}
 \author{Kevin Sullivan}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -470,7 +470,7 @@ requires that a program work correctly for all (\(\forall\)) inputs?
 
 
 \chapter{3. Problems with Imperative Code}
-\label{\detokenize{03-problems-with-imperative-code:problems-with-imperative-code}}\label{\detokenize{03-problems-with-imperative-code::doc}}
+\label{\detokenize{03-problems-with-imperative-code::doc}}\label{\detokenize{03-problems-with-imperative-code:problems-with-imperative-code}}
 There’s no free lunch: One can have the expressiveness of mathematical
 logic, useful for specification, or one can have the ability to run
 code efficiently, along with indispensable ability to interact with an
@@ -2453,18 +2453,18 @@ assert sumsquared == 36;     // because of the let expression
 \label{\detokenize{07-set-theory:set-theory}}\label{\detokenize{07-set-theory::doc}}
 Modern mathematics is largely founded on set theory: in particular, on
 what is called \sphinxstyleemphasis{Zermelo-Fraenkel set theory with the axiom of Choice},
-or \sphinxstyleemphasis{ZFC}. Every concept you have ever learned in mathematics can, at
-least in principle, be reduced to expresions involving sets.  For
-example, every natural number can be represented as a set: zero as the
-\sphinxstyleemphasis{empty set, \{\}}; one as the set containing the empty set, \sphinxstyleemphasis{\{\{\}\}}; two
-as the set that contains that set, \sphinxstyleemphasis{\{\{\{\}\}\}}; ad infinitum.
+or \sphinxstyleemphasis{ZFC}. Every concept you have ever learned in mathematics can, in
+principle, be reduced to expresions involving sets.  For example,
+every natural number can be represented as a set: zero as the \sphinxstyleemphasis{empty
+set, \{\}}; one as the set containing the empty set, \sphinxstyleemphasis{\{\{\}\}}; two as the
+set that contains that set, \sphinxstyleemphasis{\{\{\{\}\}\}}; ad infinitum.
 
 Set theory includes the treatment of sets, including the special cases
 of relations (sets of tuples), functions (\sphinxstyleemphasis{single-valued} relations),
-sequences (functions from natural numbers to elements), and other
-related concepts.  ZFC is a widely accepted \sphinxstyleemphasis{formal foundation} for
-modern mathematics: a set of axioms that describe properties of sets,
-from which all the rest of mathematics can be deduced.
+sequences (functions from natural numbers to elements), and other such
+concepts.  ZFC is a widely accepted \sphinxstyleemphasis{formal foundation} for modern
+mathematics: a set of axioms that describe properties of sets, from
+which all the rest of mathematics can be deduced.
 
 
 \section{Naive Set Theory}
@@ -2863,12 +2863,13 @@ T} assigns the union of \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T} as t
 
 \subsection{Difference}
 \label{\detokenize{07-set-theory:difference}}
-The difference, \sphinxstyleemphasis{S\textbackslash{}T} (\sphinxstyleemphasis{S} minus \sphinxstyleemphasis{T}), of sets \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T} is the set
-of elements in \sphinxstyleemphasis{S} that are not also in \sphinxstyleemphasis{T}. Thus, :math:{\color{red}\bfseries{}{}`}S setminus
-T = \{e\textasciitilde{}\textbar{}\textasciitilde{}e in S land e notin T). In Dafny, the minus sign is used
-to denote set difference, as in the expression, \sphinxstyleemphasis{S - T}. Operators in
-Dafny can be applied to sets to make up more complex expressions. So,
-for example, \sphinxstyleemphasis{\textbar{}S-T\textbar{}} denotes the cardinality of \sphinxstyleemphasis{S-T}.
+The difference, \(S \setminus T\) (\sphinxstyleemphasis{S} minus \sphinxstyleemphasis{T}), of sets \sphinxstyleemphasis{S} and
+\sphinxstyleemphasis{T} is the set of elements in \sphinxstyleemphasis{S} that are not also in \sphinxstyleemphasis{T}. Thus,
+\(S \setminus T = \{e~|~e \in S \land e \notin T)\). In Dafny, the
+minus sign is used to denote set difference, as in the expression,
+\sphinxstyleemphasis{S - T}. Operators in Dafny can be applied to sets to make up more
+complex expressions. So, for example, \sphinxstyleemphasis{\textbar{}S-T\textbar{}} denotes the cardinality
+of \sphinxstyleemphasis{S-T}.
 
 
 \subsection{Product Set}
@@ -3096,6 +3097,49 @@ as a relation. The tuples are again pairs of real numbers, but now the
 elements include tuples, \sphinxstyleemphasis{(4, 2)} and \sphinxstyleemphasis{(4, -2)}.
 
 
+\subsection{Inverse}
+\label{\detokenize{07-set-theory:inverse}}
+The inverse of a given binary relation is simply the set of tuples
+formed by reversing the order of all of the given tuples. To put this
+in mathematical notation, if \sphinxstyleemphasis{R} is a relation, its inverse, denoted
+\(R^{-1}\), is \(\{ (y, x) | (x, y) \in R \}\). You can see this
+immediately in our example of squares and square roots. Each of these
+relations is the inverse of the other. One contains the tuples, \sphinxstyleemphasis{(-2,
+4), (2, 4)}, while the other contains \sphinxstyleemphasis{(4, 2), (4, -2)}.
+
+It should immediately be clear that the inverse of a function is not
+always also a function. The inverse of the \sphinxstyleemphasis{square} function is the
+\sphinxstyleemphasis{square root} relation, but that relation is not itself a function,
+because it is not single valued.
+
+Here’s a visual way to think about these concept. Consider the graph
+of the \sphinxstyleemphasis{square} function. Its a parabola that opens either upward in
+the \sphinxstyleemphasis{y} direction, or downward. Now select any value for \sphinxstyleemphasis{x} and draw
+a vertical line. It will intersect the parabola at only one point.
+The function is single-valued.
+
+The graph of a square root function, on the other hand, is a parabola
+that opens to the left or right. So if one draws a vertial line at
+some value of \sphinxstyleemphasis{x}, either the line fails to hit the graph at all (the
+square root function is not defined for all values of \sphinxstyleemphasis{x}), or it
+intersects the line at two points. The square root “function” is not
+single-valued, and isn’t really even a \sphinxstyleemphasis{function} at all. (If the
+vertical line hits the parabola right at its bottom, the set of points
+at which it intersects contains just one element, but if one takes the
+solution set to be a \sphinxstyleemphasis{multi-set}, then the value, zero, occurs in that
+set twice.)
+
+A function whose inverse is a function is said to be \sphinxstyleemphasis{invertible}.
+The function, \sphinxstyleemphasis{f(x) = x} (or \sphinxstyleemphasis{y = x} if you prefer) is invertible in
+this sense. In fact, its inverse is itself.
+
+Exercise: Is the cube root function invertible? Prove it informally.
+
+Exercise: Write a definition in mathematical logic of what precisely
+it means for a function to be invertible. Model your definition on our
+definition of what it means for a relation to be single valued.
+
+
 \section{Functions: \sphinxstyleemphasis{Single-Valued} Relations}
 \label{\detokenize{07-set-theory:functions-single-valued-relations}}
 A binary-relation is said to be \sphinxstyleemphasis{single-valued} if it does not have
@@ -3162,23 +3206,22 @@ satisfying the precondition that it be invertible and that in this
 case returns its inverse, also as a map.
 
 
-\section{Properties of Relations and Functions}
-\label{\detokenize{07-set-theory:properties-of-relations-and-functions}}
+\section{Properties of Functions}
+\label{\detokenize{07-set-theory:properties-of-functions}}
 We now introduce essential concepts and terminology regarding for
-distinguishing essential properties and special cases of relations and
-functions.
+distinguishing essential properties and special cases of functions.
 
 
 \subsection{Total vs Partial}
 \label{\detokenize{07-set-theory:total-vs-partial}}
-A binary relation (including a function) is said to be \sphinxstyleemphasis{total} if
-every element of its domain appears as the first element in at least
-one tuple, i.e., its \sphinxstyleemphasis{support} is its entire \sphinxstyleemphasis{domain}.  A relation
-that is not total is said to be \sphinxstyleemphasis{partial}. For example, the square
-function on the real numbers is total, in that it is defined on its
-entire real number domain. By contrast, the square root function is
-not total (if it domain is taken to be the real numbers) because it is
-not defined for real numbers that are less than zero.
+A function is said to be \sphinxstyleemphasis{total} if every element of its domain
+appears as the first element in at least one tuple, i.e., its
+\sphinxstyleemphasis{support} is its entire \sphinxstyleemphasis{domain}.  A function that is not total is
+said to be \sphinxstyleemphasis{partial}. For example, the square function on the real
+numbers is total, in that it is defined on its entire real number
+domain. By contrast, the square root function is not total (if it
+domain is taken to be the real numbers) because it is not defined for
+real numbers that are less than zero.
 
 Note that if one considers a slightly different function, the square
 root function on the \sphinxstyleemphasis{non-negative} real numbers the only difference
@@ -3220,55 +3263,12 @@ such a box, one must explicitly check to see whether the box has a
 good value in it or, alternatively, and error flag.
 
 
-\subsection{Inverse}
-\label{\detokenize{07-set-theory:inverse}}
-The inverse of a given binary relation is simply the set of tuples
-formed by reversing the order of all of the given tuples. To put this
-in mathematical notation, if \sphinxstyleemphasis{R} is a relation, its inverse, denoted
-::\sphinxtitleref{R\textasciicircum{}\{-1\}}, is \(\{ (y, x) | (x, y) \in R \}\). You can see this
-immediately in our example of squares and square roots. Each of these
-relations is the inverse of the other. One contains the tuples, \sphinxstyleemphasis{(-2,
-4), (2, 4)}, while the other contains \sphinxstyleemphasis{(4, 2), (4, -2)}.
-
-It should immediately be clear that the inverse of a function is not
-always also a function. The inverse of the \sphinxstyleemphasis{square} function is the
-\sphinxstyleemphasis{square root} relation, but that relation is not itself a function,
-because it is not single valued.
-
-Here’s a visual way to think about these concept. Consider the graph
-of the \sphinxstyleemphasis{square} function. Its a parabola that opens either upward in
-the \sphinxstyleemphasis{y} direction, or downward. Now select any value for \sphinxstyleemphasis{x} and draw
-a vertical line. It will intersect the parabola at only one point.
-The function is single-valued.
-
-The graph of a square root function, on the other hand, is a parabola
-that opens to the left or right. So if one draws a vertial line at
-some value of \sphinxstyleemphasis{x}, either the line fails to hit the graph at all (the
-square root function is not defined for all values of \sphinxstyleemphasis{x}), or it
-intersects the line at two points. The square root “function” is not
-single-valued, and isn’t really even a \sphinxstyleemphasis{function} at all. (If the
-vertical line hits the parabola right at its bottom, the set of points
-at which it intersects contains just one element, but if one takes the
-solution set to be a \sphinxstyleemphasis{multi-set}, then the value, zero, occurs in that
-set twice.)
-
-A function whose inverse is a function is said to be \sphinxstyleemphasis{invertible}.
-The function, \sphinxstyleemphasis{f(x) = x} (or \sphinxstyleemphasis{y = x} if you prefer) is invertible in
-this sense. In fact, its inverse is itself.
-
-Exercise: Is the cube root function invertible? Prove it informally.
-
-Exercise: Write a definition in mathematical logic of what precisely
-it means for a function to be invertible. Model your definition on our
-definition of what it means for a relation to be single valued.
-
-
 \subsection{Injective}
 \label{\detokenize{07-set-theory:injective}}
-A relation (or function, in particular) is said to be \sphinxstyleemphasis{injective} if
-no two elements of the domain are associated with the same element in
-the co-domain. Such a relation is also said to be \sphinxstyleemphasis{one-one-one},
-rather than \sphinxstyleemphasis{many-to-one}).
+A function is said to be \sphinxstyleemphasis{injective} if no two elements of the domain
+are associated with the same element in the co-domain. (Note that we
+are limiting the concept of injectivity to functions.) An injective
+function is also said to be \sphinxstyleemphasis{one-one-one}, rather than \sphinxstyleemphasis{many-to-one}.
 
 Take a moment to think about the difference between being injective
 and single valued. Single-valued means no \sphinxstyleemphasis{one} element of the domain
@@ -3347,14 +3347,14 @@ about programs using type theory. But more on this later.
 
 \subsection{Surjective}
 \label{\detokenize{07-set-theory:surjective}}
-A binary relation, and in particular a function, is \sphinxstyleemphasis{surjective} if
-every element in the co-domain appears in some tuple in the relation.
-A surjective relation is also said to be \sphinxstyleemphasis{onto}. The \sphinxstyleemphasis{range} of values
-it achieves covers its whole co-domain. Mathematically, a relation
-\(R \subseteq S \times T\) is surjective if \(\forall t \in
-T, \exists s \in S~|~(s,t) \in R\).
+A function is said to be \sphinxstyleemphasis{surjective} if for every element, \sphinxstyleemphasis{t}, in
+the co-domain there is some element, \sphinxstyleemphasis{s} in the domain such that
+\sphinxstyleemphasis{(s,t)} is in the relation. That is, the range \sphinxstyleemphasis{range} of the function
+is its whole co-domain. Mathematically, a relation \(R \subseteq
+S \times T\) is surjective if \(\forall t \in T, \exists s \in
+S~|~(s,t) \in R\).
 
-In the intuitive terms of high school algebra, a relation involving
+In the intuitive terms of high school algebra, a function involving
 \sphinxstyleemphasis{x} and \sphinxstyleemphasis{y} is surjective if for any given \sphinxstyleemphasis{y} value there is always
 some \sphinxstyleemphasis{x} that “leads to” that \sphinxstyleemphasis{y}. The \sphinxstyleemphasis{square} function on the real
 numbers is not surjective, because there is no \sphinxstyleemphasis{x} that when squared
@@ -3375,8 +3375,8 @@ right?
 
 \subsection{Bijective}
 \label{\detokenize{07-set-theory:bijective}}
-A total function is said to be \sphinxstyleemphasis{bjective} if it is also both injective
-and surjective. Such a function is also often called a \sphinxstyleemphasis{bijection}.
+A function is said to be \sphinxstyleemphasis{bjective} if it is also both injective and
+surjective. Such a function is also often called a \sphinxstyleemphasis{bijection}.
 
 Take a moment to think about the implications of being a bijection.
 Consider a bijective relation, \(R \subseteq S \times T.\) \sphinxstyleemphasis{R} is
@@ -3390,7 +3390,7 @@ are of the same size, and there is a one-to-one correspondence between
 their elements.
 
 Now consider some \sphinxstyleemphasis{t} in \sphinxstyleemphasis{T}. It must be hit by exactly one arrow from
-\sphinxstyleemphasis{S}, so the \sphinxstyleemphasis{inverse} relation, {\color{red}\bfseries{}:matg:{}`R\textasciicircum{}\{-1\}{}`}, from \sphinxstyleemphasis{T} to \sphinxstyleemphasis{S}, must
+\sphinxstyleemphasis{S}, so the \sphinxstyleemphasis{inverse} relation, \(R^{-1}\), from \sphinxstyleemphasis{T} to \sphinxstyleemphasis{S}, must
 also single-valued (a function). Moreover, because \sphinxstyleemphasis{R} is surjective,
 every \sphinxstyleemphasis{t} in \sphinxstyleemphasis{T} is hit by some \sphinxstyleemphasis{s} in \sphinxstyleemphasis{S}, so the inverse relation is
 defined for every \sphinxstyleemphasis{t} in \sphinxstyleemphasis{T}. It, too, is total. Now every arrow from
@@ -3468,27 +3468,35 @@ that when applied has the effect of first applying \sphinxstyleemphasis{T} then 
 \sphinxstyleemphasis{R}.
 
 
+\section{Properties of Relations}
+\label{\detokenize{07-set-theory:properties-of-relations}}
+Functions are special cases of (single-valued) binary relations.  The
+properties of being partial, total, injective, surjective, bijective
+are generally associated with \sphinxstyleemphasis{functions}, i.e., with relations that
+are already single-valued. Now we turn to properties of relations more
+generally.
+
+
 \subsection{Reflexive}
 \label{\detokenize{07-set-theory:reflexive}}
-We now consider some additional fundamental properties of binary
-relations, starting with relations that maps sets to themselves.  A
-relation that maps real numbers to real numbers is a subset of
-\({\mathbb R} \times {\mathbb R}\), for example. The \sphinxstyleemphasis{friends}
-relation on a social network site associates people with people.
+Consider a binary relation on a set with itself.  That is, the domain
+and the co-domain are the same sets. A relation that maps real numbers
+to real numbers is an example. It is a subset of \({\mathbb R}
+\times {\mathbb R}\). The \sphinxstyleemphasis{friends} relation on a social network site
+that associates people with people is another example.
 
-Such a relation is said to be \sphinxstyleemphasis{reflexive} if (perhaps among other
-properties) it (at least) associates every element with itself.  The
-equality relation (e.g., on real numbers) is the “canonical” example
-of a reflexive relation. It associates every number with itself and
-with no other number. The tuples of the equality relation on real
-numbers thus includes \sphinxstyleemphasis{(2.5, 2.5)} and (-3.0, -3.0)* but definitely
-not \sphinxstyleemphasis{(2.5, -3.0)}.
+Such a relation is said to be \sphinxstyleemphasis{reflexive} if it associates every
+element with itself.  The equality relation (e.g., on real numbers) is
+the “canonical” example of a reflexive relation. It associates every
+number with itself and with no other number. The tuples of the
+equality relation on real numbers thus includes \sphinxstyleemphasis{(2.5, 2.5)} and
+(-3.0, -3.0)* but not \sphinxstyleemphasis{(2.5, -3.0)}.
 
 In more mathematical terms, consider a set \sphinxstyleemphasis{S} and a bindary relation,
-\sphinxstyleemphasis{R}, on S*S, :math:R subseteq S times S.{}` \sphinxstyleemphasis{R} is reflexive, which we
-can write as \sphinxstyleemphasis{Reflexive(R)}, if and only if for every \sphinxstyleemphasis{e} in \sphinxstyleemphasis{S}, the
-tuple \sphinxstyleemphasis{(e,e)} is in R. Or to be rigorous about it, \(Reflexive(R)
-\iff \forall e \in S, (e,e) \in R.\)
+\sphinxstyleemphasis{R}, on S*S, \(R \subseteq S \times S.\) \sphinxstyleemphasis{R} is reflexive, which
+we can write as \sphinxstyleemphasis{Reflexive(R)}, if and only if for every \sphinxstyleemphasis{e} in \sphinxstyleemphasis{S},
+the tuple \sphinxstyleemphasis{(e,e)} is in R. Or to be rigorous about it,
+\(Reflexive(R) \iff \forall e \in S, (e,e) \in R.\)
 
 Exercise: Is the function, \sphinxstyleemphasis{y = x}, reflexive? If every person loves
 themself, is the \sphinxstyleemphasis{loves} relation reflexive? Is the \sphinxstyleemphasis{less than or
@@ -3606,7 +3614,7 @@ operations on lists.
 
 
 \chapter{8. Boolean Algebra}
-\label{\detokenize{08-boolean-algebra::doc}}\label{\detokenize{08-boolean-algebra:boolean-algebra}}
+\label{\detokenize{08-boolean-algebra:boolean-algebra}}\label{\detokenize{08-boolean-algebra::doc}}
 As a first stepping stone toward a deeper exploration of deductive
 logic, we explore the related notion of Boolean \sphinxstyleemphasis{algebra}. Boolean
 algebra is a mathematical framework for representing and reasoning
@@ -4741,7 +4749,7 @@ that satisfies the program preconditions into a post-execution state.
 
 
 \chapter{9. Propositional Logic}
-\label{\detokenize{09-propositional-logic::doc}}\label{\detokenize{09-propositional-logic:propositional-logic}}
+\label{\detokenize{09-propositional-logic:propositional-logic}}\label{\detokenize{09-propositional-logic::doc}}
 A logic is a system for writing, evaluating, and reasoning about truth
 statements, or \sphinxstyleemphasis{propositions}. A proposition asserts that some state
 of affairs holds in some domain. Truth statements can be particular:
@@ -5259,7 +5267,7 @@ exhaustive checking of all interpretations. \textless{}More to come\textgreater{
 
 
 \chapter{10. Natural Deduction}
-\label{\detokenize{10-natural-deduction::doc}}\label{\detokenize{10-natural-deduction:natural-deduction}}
+\label{\detokenize{10-natural-deduction:natural-deduction}}\label{\detokenize{10-natural-deduction::doc}}
 Note to self: The next few chapters separate complexities on the way
 to full first-order logic. The first, addressed here, is the shift
 from a semantic to a syntactic approach to judging truth. Derivation
@@ -5300,7 +5308,7 @@ expressions}.
 
 
 \chapter{11. Sets as Domains: Predicate Logic}
-\label{\detokenize{11-predicate-logic::doc}}\label{\detokenize{11-predicate-logic:sets-as-domains-predicate-logic}}
+\label{\detokenize{11-predicate-logic:sets-as-domains-predicate-logic}}\label{\detokenize{11-predicate-logic::doc}}
 In this chapter we move from propositional to a predicate logic, in
 which the values of variables can range not only over :math:\{matbb
 B\}{}` but over arbitrary sets. The issue of \sphinxstyleemphasis{validity} is complicated as
