@@ -194,6 +194,7 @@ module binRelST
 
 
         /*
+        Return true iff given "key" is in domain set.
         */
 
         predicate method inDomain(k: S)
@@ -204,6 +205,10 @@ module binRelST
             k in dom()
         }
 
+        /*
+        Return true iff given "value" is in cpdomain set.
+        */
+
         predicate method inCodomain(v: T)
             requires Valid();
             reads this;
@@ -212,6 +217,11 @@ module binRelST
             v in codom()
         }
 
+        /*
+        Return true iff relation is defined for
+        the given value. Be sure value is in domain
+        before calling this function.
+        */
         predicate method definedAt(k: S)
             requires Valid()
             requires k in d;
@@ -222,7 +232,11 @@ module binRelST
                 | x in dom() && y in codom() && (x, y) in rel() :: x
         }
 
-
+        /*
+        Return true iff given value is in range of
+        relation: not just in codomain set but mapped
+        to by some value for which relation is defined.
+        */
         predicate method inRange(v: T)
             requires Valid()
             requires v in c;
@@ -231,6 +245,7 @@ module binRelST
             v in set x, y | 
                 x in dom() && y in codom() && (x, y) in rel() :: y 
         }
+
 
         /*
         Compute image set of a value under this relation.
