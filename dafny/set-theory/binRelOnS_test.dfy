@@ -8,18 +8,23 @@ module binRelOnS_test
 
     method Main()
     {
-        var s := { 1, 2, 3 };
-        var p := { (1,1), (2,3), (3,2) };
+        var s := { 1, 2, 3, 4, 9 };
+        var p := { (1,1), (2,3) };
+        var q := { (1,4), (3,9) };
 
         var rs := new binRelOnS(s, p);
+        var qs := new binRelOnS(s, q);
+        var h := composeSS(qs, rs);
+        print "The composition is ", h.rel(), "\n";
+
         var rst := new binRelOnST(s,s,p);
 
         print "rst(3) = ", rst.image(3), "\n";
         print "rs(3) = ", rs.image(3), "\n";
 
-        if (rst.isFunction())
+        if (rst.isFunction() && rst.isDefinedFor(3))
         {
-            var x1 := rst.imagef(3);       
+            var x1 := rst.fimage(3);       
             print "rst(3) = ", x1, "\n";
         }
 
