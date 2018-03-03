@@ -1,15 +1,29 @@
 include "binRelOnS.dfy"
+include "binRelOnST.dfy"
 
 module binRelOnS_test
 {
     import opened binRelS
+    import opened binRelST
 
-       method Main()
+    method Main()
     {
         var s := { 1, 2, 3 };
-        var p := { (1,1), (2,2), (3,3) };
-        var r := new binRelOnS(s, p);
-        analyzeRelation(r);
+        var p := { (1,1), (2,3), (3,2) };
+
+        var rs := new binRelOnS(s, p);
+        var rst := new binRelOnST(s,s,p);
+
+        print "rst(3) = ", rst.image(3), "\n";
+        print "rs(3) = ", rs.image(3), "\n";
+
+        if (rst.isFunction())
+        {
+            var x1 := rst.imagef(3);       
+            print "rst(3) = ", x1, "\n";
+        }
+
+        analyzeRelation(rs);
     }
 
     method analyzeRelation<T>(r: binRelOnS<T>)
@@ -26,10 +40,10 @@ module binRelOnS_test
         var y := r.isSymmetric();
         var v := r.isTransitive();
         print "R ", isNt(t), " total\n";
-        print "R ", isNt(s), " surjective\n";
         print "R ", isNt(p), " partial\n";
-        print "R ", isNt(i), " injective\n";
         print "R ", isNt(f), " a function\n";
+        print "R ", isNt(s), " surjective\n";
+        print "R ", isNt(i), " injective\n";
         print "R ", isNt(b), " bijective\n";
         print "R ", isNt(x), " reflexive\n";
         print "R ", isNt(y), " symmetric\n";
