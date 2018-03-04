@@ -368,6 +368,27 @@ module binRelS
 
 
         /*
+        "There are several common ways of formalizing weak orderings, that are different from each other but cryptomorphic (interconvertable with no loss of information): they may be axiomatized as strict weak orderings (partially ordered sets in which incomparability is a transitive relation), as total preorders (transitive binary relations in which at least one of the two possible relations exists between every pair of elements), or as ordered partitions (partitions of the elements into disjoint subsets, together with a total order on the subsets)....
+        
+        ... weak orders have applications in utility theory. In linear programming and other types of combinatorial optimization problem,the prioritization of solutions or of bases is often given by a weak order, determined by a real-valued objective function; the phenomenon of ties in these orderings is called "degeneracy", and several types of tie-breaking rule have been used to refine this weak ordering into a total ordering in order to prevent problems caused by degeneracy.
+
+        Weak orders have also been used in computer science, in partition refinement based algorithms for lexicographic breadth-first search and lexicographic topological ordering. In these algorithms, a weak ordering on the vertices of a graph (represented as a family of sets that partition the vertices, together with a doubly linked list providing a total order on the sets) is gradually refined over the course of the algorithm, eventually producing a total ordering that is the output of the algorithm.
+
+        In the Standard Library for the C++ programming language, the set and multiset data types sort their input by a comparison function that is specified at the time of template instantiation, and that is assumed to implement a strict weak ordering.[2]" --Wikipedia 
+
+        We formalize the concept as "total preorder." KS: Double-check correctness.
+        */
+        predicate method isWeakOrdering()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+        {
+            isTotalPreorder()
+        }
+
+
+        /*
         Quasiorder is another name for a preorder.
         */
         predicate method isQuasiOrder()
@@ -379,6 +400,37 @@ module binRelS
             isPreorder()
         }
 
+        /*
+        "In mathematics, a directed set (or a directed preorder or a filtered set) is a nonempty set A together with a reflexive and transitive binary relation ≤ (that is, a preorder), with the additional property that every pair of elements has an upper bound.[1] In other words, for any a and b in A there must exist c in A with a ≤ c and b ≤ c." --Wikipedia
+        */
+        // CODE HERE
+
+        /*
+        "A downward directed set is defined analogously,[2] meaning when every pair of elements is bounded below.[3]" --Wikipedia
+        */
+        // CODE HERE
+
+        /*
+        Join semilattice. // DEFINITION HERE
+        */
+        // CODE HERE
+
+        /*
+        Wellquasiprdering.
+
+        A well-quasi-ordering on a set {\displaystyle X} X is a quasi-ordering (i.e., a reflexive, transitive binary relation) such that any infinite sequence of elements {\displaystyle x_{0}} x_{0}, {\displaystyle x_{1}} x_{1}, {\displaystyle x_{2}} x_{2}, … from {\displaystyle X} X contains an increasing pair {\displaystyle x_{i}} x_{i}≤ {\displaystyle x_{j}} x_{j} with {\displaystyle i} i< {\displaystyle j} j. The set {\displaystyle X} X is said to be well-quasi-ordered, or shortly wqo.
+
+        ...
+        
+        Among other ways of defining wqo's, one is to say that they are
+        quasi-orderings which do not contain infinite strictly decreasing 
+        sequences (of the form {\displaystyle x_{0}} x_{0}> 
+        {\displaystyle x_{1}} x_{1}> {\displaystyle x_{2}} x_{2}>…) nor
+        infinite sequences of pairwise incomparable elements. Hence a 
+        quasi-order (X,≤) is wqo if and only if (X,<) is well-founded and 
+        has no infinite antichains.
+        */
+        
  
         /*
         A binary relation is said to be antisymmetric
@@ -423,6 +475,16 @@ module binRelS
         }
 
  
+        predicate method isPrewellordering()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+
+        {
+            isTransitive() && isTotal() && isWellFounded()
+        }
+
         /*
         A relation on a set S is said to be irreflexive
         if no element is related, or maps, to itself.
