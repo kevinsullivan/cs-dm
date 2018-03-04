@@ -9,13 +9,16 @@ module binRelOnS_test
     method Main()
     {
         var s := { 1, 2, 3, 4, 9 };
-        var p := { (1,1), (2,3) };
+        var p := { (1,2), (2,3), (3, 4), (4,9) };
         var q := { (1,4), (3,9) };
 
         var rs := new binRelOnS(s, p);
         var qs := new binRelOnS(s, q);
-        var h := composeSS(qs, rs);
+        var h := rs.composeS(qs);
         print "The composition is ", h.rel(), "\n";
+
+        var cls := rs.transitiveClosure();
+        print "The transitive closures of ", p, " is ", cls.rel(), "\n";
 
         var rst := new binRelOnST(s,s,p);
 

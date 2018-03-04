@@ -662,20 +662,21 @@ module binRelS
             ensures r.Valid();
             ensures r.dom() == dom();
             ensures rel() <= r.rel();
-            //ensures r.isTransitive();
+            //ensures r.isTransitive(); -- need to prove it
             ensures Valid();
         {
             var cl := rel();
             var n := |dom()|;
             while (n > 0)
-                invariant forall x, y :: (x, y) in cl ==> x in dom() && y in dom()
+                invariant 
+                    forall x, y :: 
+                        (x, y) in cl ==> x in dom() && y in dom()
                 invariant rel() <= cl;
             {
                 var new_pairs := set x, y, z | 
                         x in dom() && y in dom() && z in dom() &&
                         (x, y) in cl && (y, z) in cl ::
                         (x, z);
-                print "New pairs = ", new_pairs, "\n";
                 if cl == cl + new_pairs { break; }
                 cl := cl + new_pairs;
                 n := n - 1;
