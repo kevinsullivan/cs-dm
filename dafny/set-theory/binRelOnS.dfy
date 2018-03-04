@@ -628,7 +628,6 @@ module binRelS
         // transitive reduction
 
 
-
         /*
         A relation R on a set, S, is said to be well-founded
         if every non-empty subset, X, of S has a "minimum"
