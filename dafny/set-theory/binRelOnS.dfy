@@ -352,6 +352,7 @@ module binRelS
             forall x, y ::     x in dom()   &&   y in dom() &&
                            (x,y) in rel() && (y,x) in rel() ==> 
                            x == y
+            // could also have written xRy ==> !yRx
         }
 
 
@@ -364,6 +365,159 @@ module binRelS
         {
             isReflexive() && isTransitive() && isAntisymmetric()
         }
+
+        predicate method isTotalOrder()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+
+        {
+            isAntisymmetric() && isTransitive() && isTotal()
+        }
+
+ 
+        /*
+        A relation on a set S is said to be irreflexive
+        if no element is related, or maps, to itself.
+        */
+        predicate method isIrreflexive()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+
+        {
+            forall x :: x in dom() ==> (x,x) !in rel()
+        }
+
+
+        /*
+        A binary relation on a set, S, is said to be 
+        quasi-reflexive if every element that is related
+        to some other element is also related to itself.
+        */
+        predicate method isQuasiReflexive()
+             reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+
+        {
+            forall x, y :: 
+                x in dom() && y in dom() && (x,y) in rel() ==> 
+                    (x,x) in rel() && (y,y) in rel()
+        }
+
+
+        /*
+        Returns the identity relation on the domain
+        of this relation. Used, among other things, to
+        compute reflexive closures.
+        */
+        method identityOnS() returns (id: binRelOnS<T>)
+            requires Valid();
+            ensures id.Valid();
+            ensures id.dom() == dom() &&
+                    id.rel() == set x | x in dom() :: (x,x);
+            ensures Valid();
+        {
+             id := new binRelOnS(dom(), set x | x in dom() :: (x,x));
+        }
+
+
+        /*
+        Return the union of this relation and the given 
+        relation, t: b, basicaly (this + t), viewed as sets
+        of pairs. The domain/codomain sets of this and t 
+        must be the same.
+        */
+        method binRelOnSUnion(t: binRelOnS<T>) returns (r: binRelOnS<T>)
+            requires Valid();
+            requires t.Valid();
+            requires t.dom() == dom();
+            ensures r.Valid();
+            ensures r.dom() == dom();
+            ensures r.rel() == t.rel() + rel();
+        {
+            r := new binRelOnS(dom(),t.rel() + rel());
+        }
+
+
+        /*
+        Return the intersection between this relation and 
+        the given relation, t: b, basicaly (this * t). The
+        domain/codomain sets of this and t must be the same.
+        */
+        method binRelOnSIntersection(t: binRelOnS<T>) 
+            returns (r: binRelOnS<T>)
+            requires Valid();
+            requires t.Valid();
+            requires t.dom() == dom();
+            ensures r.Valid();
+            ensures r.dom() == dom();
+            ensures r.rel() == t.rel() * rel();
+        {
+            r := new binRelOnS(dom(),t.rel() * rel());
+        }
+
+
+        /*
+        Return the difference between this relation and 
+        the given relation, t: b, basicaly (this - t). The
+        domain/codomain sets of this and t must be the same.
+        */
+        method binRelOnSDifference(t: binRelOnS<T>) 
+            returns (r: binRelOnS<T>)
+            requires Valid();
+            requires t.Valid();
+            requires t.dom() == dom();
+            ensures r.Valid();
+            ensures r.dom() == dom();
+            ensures r.rel() == rel() - t.rel();
+        {
+            r := new binRelOnS(dom(), rel() - t.rel());
+        }
+
+
+        /*
+        The reflexive closure is the smallest relation
+        that contains this relation and is reflexive. In
+        particular, it's the union of this relation and
+        the identity relation on the same set. That is
+        how we compute it here.
+        */
+        method reflexiveClosure() returns (r: binRelOnS<T>)
+            requires Valid();
+            ensures r.Valid();
+            ensures r.dom() == dom();
+            ensures r.rel() == rel() + set x | x in dom() :: (x,x);
+            ensures Valid();
+        {
+            var id := this.identityOnS();
+            r := binRelOnSUnion(id);
+        }
+ 
+
+        /*
+        The reflexive reduction of a relation is the relation
+        minus the idenitity relation on the same set. It is, to
+        be formal about it, the smallest relation with the same
+        reflexive closure as this (the given) relation.
+        */
+        method reflexiveReduction() returns (r: binRelOnS<T>)
+            requires Valid();
+            ensures r.Valid();
+            ensures r.dom() == dom();
+            ensures r.rel() == rel() -  set x | x in dom() :: (x,x);
+            ensures Valid();
+        {
+            var id := this.identityOnS();
+            r := binRelOnSDifference(id);
+        }
+
+        // transitive closure
+        // transitive reduction
 
         /*
         The image of a domain value under a relation
@@ -482,27 +636,32 @@ module binRelS
         {
             c := new binRelOnST(dom(), codom(), rel());
         }
-    }
 
 
-    method composeSS<T>(g: binRelOnS<T>, f: binRelOnS<T>) 
-        returns (h : binRelOnST<T,T>)
-        requires f.Valid();
-        requires g.Valid();
-        ensures h.Valid();
-        ensures h.dom() == f.dom();
-        ensures h.codom() == g.codom();
-        ensures h.rel() == set r, s, t | 
-                r in f.dom() &&
-                s in f.codom() &&
-                (r, s) in f.rel() &&
-                s in g.dom() && 
-                t in g.codom() &&
-                (s, t) in g.rel() ::
-                (r, t)
-    {
-        var f' := f.convertToBinRelOnST();
-        var g' := g.convertToBinRelOnST();
-        h := composeRST(g',f');
+        /*
+        Return the relation g composed with this 
+        relation, (g o this). The domains/codomains
+        of g and this must be the same.
+        */
+        method composeS(g: binRelOnS<T>) 
+            returns (h : binRelOnST<T,T>)
+            requires Valid();
+            requires g.Valid();
+            ensures h.Valid();
+            ensures h.dom() == dom();
+            ensures h.codom() == g.codom();
+            ensures h.rel() == set r, s, t | 
+                    r in dom() &&
+                    s in codom() &&
+                    (r, s) in rel() &&
+                    s in g.dom() && 
+                    t in g.codom() &&
+                    (s, t) in g.rel() ::
+                    (r, t)
+        {
+            var f' := convertToBinRelOnST();
+            var g' := g.convertToBinRelOnST();
+            h := composeRST(g',f');
+        }
     }
 }
