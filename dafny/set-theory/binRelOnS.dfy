@@ -332,8 +332,24 @@ module binRelS
         }
 
 
+        /*
+        A relation is said to be a preorder if it is
+        reflexive and transitive. That is, every element
+        is related to itself, and if e1 is related to e2
+        and e2 to e3, then e1 is also related to e3. The
+        reachability relation for a direct graph is a
+        preorder: every element reaches itself and if
+        there's a path from a to b then a reaches b. 
+        Given any relation you can obtain a preorder
+        by taking its reflexive and transitive closure.
+        Unlike a partial order, a preorder in general is
+        not antisymmetric (viewing the relation as a 
+        graph, there can be cycles in the graph). 
+        Unlike an equivalence relation, a preorder is 
+        not necesarily symmetric.
+        */
         predicate method isPreorder()
-                    reads this;
+            reads this;
             reads r;
             requires Valid();
             ensures Valid();
@@ -341,7 +357,37 @@ module binRelS
             isReflexive() && isTransitive() 
         }
 
+        predicate method isTotalPreorder()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+            {
+                isPreorder() && isTotal()
+            }
 
+
+        /*
+        Quasiorder is another name for a preorder.
+        */
+        predicate method isQuasiOrder()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+        {
+            isPreorder()
+        }
+
+ 
+        /*
+        A binary relation is said to be antisymmetric
+        if whenever both (x, y) and (y, x) are in the
+        relation, it must be that x == y. A canonical
+        example of an antisymmetric relation is <= on
+        the natural numbers. If x <= y and y <= x (and
+        that is possible) then it must be that x == y.
+        */
         predicate method isAntisymmetric()
             reads this;
             reads r;
@@ -518,6 +564,46 @@ module binRelS
 
         // transitive closure
         // transitive reduction
+
+
+
+        /*
+        A relation R on a set, S, is said to be well-founded
+        if every non-empty subset, X, of S has a "minimum"
+        element, such that there is no other element, x, in
+        X, such that (x, min) is in X.
+
+        As an example, the the less than relation over the
+        infinite set of natural numbers is well founded 
+        because in any subset of the natural numbers there 
+        is because there is always a minimal element, m: an
+        element that is less than every other element in the
+        set. 
+        
+        The concept of being
+        well founded turns out to be vitally important for
+        reasoning about when recursive definitions are valid.
+        In a nutshell, each recursive call has to be moving
+        "down" a finite chain to a minimum element. Another
+        way to explain being well-founded is that a relation
+        is not well founded if there's a way either to "go 
+        down" or to "go around in circles" forever. Here we
+        give a version of well foundedness only for finite 
+        relations (there can never be an infinite descending
+        chain); so what this predicate basically rules out 
+        are cycles in a relation.
+        */
+        predicate method isWellFounded()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+        {
+            forall X | X <= dom() ::
+                X != {} ==>
+                    exists min :: min in X && 
+                        forall s :: s in X ==> (s, min) !in rel()
+        }
 
         /*
         The image of a domain value under a relation
