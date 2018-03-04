@@ -400,23 +400,31 @@ module binRelS
             isPreorder()
         }
 
+
+
         /*
         "In mathematics, a directed set (or a directed preorder or a filtered set) is a nonempty set A together with a reflexive and transitive binary relation ≤ (that is, a preorder), with the additional property that every pair of elements has an upper bound.[1] In other words, for any a and b in A there must exist c in A with a ≤ c and b ≤ c." --Wikipedia
         */
         // CODE HERE
+
+
 
         /*
         "A downward directed set is defined analogously,[2] meaning when every pair of elements is bounded below.[3]" --Wikipedia
         */
         // CODE HERE
 
+
+
         /*
         Join semilattice. // DEFINITION HERE
         */
         // CODE HERE
 
+
+
         /*
-        Wellquasiprdering.
+        Wellquasiordering.
 
         A well-quasi-ordering on a set {\displaystyle X} X is a quasi-ordering (i.e., a reflexive, transitive binary relation) such that any infinite sequence of elements {\displaystyle x_{0}} x_{0}, {\displaystyle x_{1}} x_{1}, {\displaystyle x_{2}} x_{2}, … from {\displaystyle X} X contains an increasing pair {\displaystyle x_{i}} x_{i}≤ {\displaystyle x_{j}} x_{j} with {\displaystyle i} i< {\displaystyle j} j. The set {\displaystyle X} X is said to be well-quasi-ordered, or shortly wqo.
 
@@ -484,6 +492,8 @@ module binRelS
         {
             isTransitive() && isTotal() && isWellFounded()
         }
+
+
 
         /*
         A relation on a set S is said to be irreflexive
@@ -624,8 +634,57 @@ module binRelS
             r := binRelOnSDifference(id);
         }
 
+
+/*
         // transitive closure
-        // transitive reduction
+        method transitiveClosureStep() returns (r: binRelOnS<T>)
+            requires Valid();
+            ensures r.Valid();
+            ensures r.dom() == dom();
+            ensures r.rel() == rel() + set x, y, z | 
+                        x in dom() && y in dom() && z in dom() &&
+                        (x, y) in rel() && (y, z) in rel() ::
+                        (x, z);
+            ensures Valid();
+        {
+            var c := set x, y, z | 
+                        x in dom() && y in dom() && z in dom() &&
+                        (x, y) in rel() && (y, z) in rel() ::
+                        (x, z);
+            r := new binRelOnS(dom(), rel()+ c);
+        }
+*/
+
+
+
+        method transitiveClosure() returns (r: binRelOnS<T>)
+            requires Valid();
+            ensures r.Valid();
+            ensures r.dom() == dom();
+            ensures rel() <= r.rel();
+            //ensures r.isTransitive();
+            ensures Valid();
+        {
+            var cl := rel();
+            var n := |dom()|;
+            while (n > 0)
+                invariant forall x, y :: (x, y) in cl ==> x in dom() && y in dom()
+                invariant rel() <= cl;
+            {
+                var new_pairs := set x, y, z | 
+                        x in dom() && y in dom() && z in dom() &&
+                        (x, y) in cl && (y, z) in cl ::
+                        (x, z);
+                print "New pairs = ", new_pairs, "\n";
+                if cl == cl + new_pairs { break; }
+                cl := cl + new_pairs;
+                n := n - 1;
+            }
+            r := new binRelOnS(dom(), cl);
+        }
+
+
+        // transitive reduction -- TBD
 
 
         /*
