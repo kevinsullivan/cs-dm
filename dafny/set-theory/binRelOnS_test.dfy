@@ -1,3 +1,7 @@
+/*
+(c) Kevin Sullivan. 2018.
+*/
+
 include "binRelOnS.dfy"
 include "binRelOnST.dfy"
 
@@ -9,40 +13,40 @@ module binRelOnS_test
     method Main()
     {
         /*
-        Make a set and two binary relations over this set
+        Make a set and two binary relations over this set.
+        We define the pair sets explicitly using display
+        notation.
         */
-        var aSet := { 1, 2, 3, 4, 9 };
-        var somePairs := { (1,2), (2,3), (3, 4), (4,9) };
+        var aSet := { 1, 2, 3, 4, 5, 7, 9, 10 };
+        var somePairs := {(1,5), (2,5), (3, 7), (4,7), (5, 10), (7, 10)};
         var otherPairs := { (2, 4), (3,9), (3, 4), (4, 1) };
         var aRel := new binRelOnS(aSet, somePairs);
         var otherRel := new binRelOnS(aSet, otherPairs);
 
+
         /*
-        Compute some derived relations
+        Print out relation, "aRel", then print its properties,
+        and finally print out derived relations, including its
+        composition with "otherRel".
         */
-        var compRel := aRel.composeS(otherRel);
-        var inverse := aRel.inverse();
-        var reflexiveClosure := aRel.reflexiveClosure();
-        var symmetricClosure := aRel.symmetricClosure();
-        var transitiveClosure := aRel.transitiveClosure();
-        var refTransClosure := aRel.reflexiveTransitiveClosure();
-        var reflexiveReduction := aRel.reflexiveReduction();
-        //var transitiveReduction := aRel.transitiveReduction();  // TBD
-
-
-        showRel("R", aRel); 
-
+        print "\n\n*********** Relation R ***************\n\n";
+        showRel("S", aRel); 
         analyzeRelation(aRel);
+        deriveRelations(aRel,otherRel);
 
-        showRel("S", otherRel); 
-        showRel("S o R", compRel); 
-        showRel("inverse(R)", inverse); 
-        showRel("transitiveClosure(R)", transitiveClosure); 
-        showRel("reflexiveClosure(R)", reflexiveClosure); 
-        showRel("symmetricClosure(R)", symmetricClosure); 
-        showRel("reflexiveReduction(R)", reflexiveReduction); 
+         /*
+        Compute, print out, and print the properties of the
+        reflexive, transitive closure of "aRel". 
+        */
+       print "\n\n***** Reflexive Transitive Closure of R ******\n\n";
+        var rtc := aRel.reflexiveTransitiveClosure();
+        showRel("S", rtc); 
+        analyzeRelation(rtc);
     }
 
+    /*
+    Determine and print out the properties of relation, r.
+    */
     method analyzeRelation<T>(r: binRelOnS<T>)
         requires r.Valid();     // shouldn't have to say this
     {
@@ -62,8 +66,9 @@ module binRelOnS_test
         showProp(r.isAntisymmetric(), "antisymmetric");
         showProp(r.isAsymmetric(), "asymmetric");
         showProp(r.isTransitive(), "transitive");
-        showProp(r.isEquivalence(), "equivalence");
-        showProp(r.isPreorder(), "preorder");
+        showProp(r.isEquivalence(), "an equivalence relation");
+        showProp(r.isPreorder(), "a preorder");
+        showProp(r.isQuasiOrder(), "a Stanat & McAllister quasi-order");
         showProp(r.isWeakOrdering(), "a weak ordering");
         showProp(r.isPartialOrder(), "a partial order");
         showProp(r.isPrewellordering(), "a pre-well-ordering");
@@ -71,9 +76,37 @@ module binRelOnS_test
         showProp(r.isTotalOrder(), "a total order");
     }
 
+    
+    /*
+    Compute and print out derived relations
+    */
+    method deriveRelations<T>(r: binRelOnS<T>, s: binRelOnS<T>)
+        requires r.Valid();     // shouldn't have to say this
+        requires s.Valid();
+        requires s.dom() == r.codom();
+    {
+        var compRel := r.composeS(s);
+        var inverse := r.inverse();
+        var reflexiveClosure := r.reflexiveClosure();
+        var symmetricClosure := r.symmetricClosure();
+        var transitiveClosure := r.transitiveClosure();
+        var refTransClosure := r.reflexiveTransitiveClosure();
+        var reflexiveReduction := r.reflexiveReduction();
+        //var transitiveReduction := aRel.transitiveReduction();  // TBD
+
+        showRel("S o R", compRel); 
+        showRel("inverse(R)", inverse); 
+        showRel("reflexiveClosure(R)", reflexiveClosure); 
+        showRel("symmetricClosure(R)", symmetricClosure); 
+        showRel("transitiveClosure(R)", transitiveClosure); 
+        showRel("reflexiveTransitiveClosure(R)", refTransClosure);
+        showRel("reflexiveReduction(R)", reflexiveReduction); 
+        // showRel("transitiveReduction(R)", transitiveReduction); // TBD
+}
+
     method showProp(hasProp: bool, labl: string)
     {
-
+        print "The relation ", isNt(hasProp), " ", labl, "\n";
     }
 
     function method isNt(b: bool): string
@@ -88,15 +121,8 @@ module binRelOnS_test
         print labl; 
         show(r); 
         print "\n";
-    }
-
+    } 
     
-    
-    /*
-    Show -- return a string representation of relation in
-    "dot" format. Current just shows pairs in rel() and does
-    not show domain or co-domain elements not mapped.
-    */
     method show<T>(r: binRelOnS<T>) 
         requires r.Valid();
         ensures r.Valid();

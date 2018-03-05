@@ -1,3 +1,7 @@
+/*
+(c) Kevin Sullivan. 2018.
+*/
+
 module binRelST
 {    
     /*

@@ -1,3 +1,7 @@
+/*
+(c) Kevin Sullivan. 2018.
+*/
+
 include "binRelOnST.dfy"
 
 module binRelS
@@ -6,7 +10,7 @@ module binRelS
     /*
     Abstraction of a polymorphic finite binary 
     relation over a set, S, of elements of type,
-    T. 
+    T. I.e., endorelation, homogeneous relation.
     
     The concrete representatation of a value of
     this type is just an object of the binRelOnST
@@ -68,6 +72,21 @@ module binRelS
          {
             r := new binRelOnST(aSet,aSet,pairs);
         }
+
+
+        /*
+        Accessor: Get the underlying set. Note that dom() 
+        and codom() return the same results.
+        */
+        function method theSet(): set<T> 
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+        {
+            r.dom()
+        }
+
 
         /*
         Accessor (projection) function: return the domain 
@@ -357,6 +376,32 @@ module binRelS
             isReflexive() && isTransitive() 
         }
 
+        /*
+        A relation R is said to be a quasi-order if it
+        is irreflexive and transitive. The less than and
+        proper subset inclusion relations are quasi-orders
+        but not partial orders, because partial orders are
+        necessarily also reflexive. The less than or equal
+        and subset inclusion relations are partial orders 
+        but not quasi-orders because they are reflexive. 
+
+        This definition of quasi order is from Stanat and 
+        McAllister, Discrete Mathematics in Computer Science, 
+        Prentice-Hall, 1977. 
+        Others define quasi-order as synonymous with preorder.
+        See Rosen, Discrete Mathematicas and Its Applications, 
+        4th ed., McGraw-Hill, 1999.
+        */
+        predicate method isQuasiOrder()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+        {
+            isIrreflexive() && isTransitive() 
+        }
+
+
         predicate method isTotalPreorder()
             reads this;
             reads r;
@@ -386,20 +431,6 @@ module binRelS
         {
             isTotalPreorder()
         }
-
-
-        /*
-        Quasiorder is another name for a preorder.
-        */
-        predicate method isQuasiOrder()
-            reads this;
-            reads r;
-            requires Valid();
-            ensures Valid();
-        {
-            isPreorder()
-        }
-
 
 
         /*
@@ -495,14 +526,32 @@ module binRelS
             isReflexive() && isTransitive() && isAntisymmetric()
         }
 
+
+
+        /*
+        A relation, R, is said to have the comparability
+        property if any two elements are related in R one
+        way or the other (or both).
+        */
+        predicate method hasComparability()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+        {
+            forall x, y :: x in dom() && y in dom() ==> 
+                 (x, y) in rel() || (y, x) in rel()
+        }
+
         /*
         A total order, also known as a linear order, a simple order, 
-        or a chain, is an antisymmetric, transitive, total relation
-        on a set. This combination of properties arranges the set into
-        a strictly ordered collection. A good example is the integers
-        under the less than operator. By contrast, subset inclusion 
-        in a superset is only a partial order, as two sets, X and Y,
-        can both be subsets of a set Z, but not subsets of each other.
+        or a chain, is a partial order with the additional property 
+        that any two elements, x and y, are comparable. This pair of
+        properties arranges the set into a fully ordered collection. 
+        A good example is the integers under the less than operator. 
+        By contrast, subset inclusion is only a partial order, as two 
+        sets, X and Y, can both be subsets of (less than or equal to) 
+        a set Z, with neither a subset of the other (incomparable).
         */
         predicate method isTotalOrder()
             reads this;
@@ -511,7 +560,7 @@ module binRelS
             ensures Valid();
 
         {
-            isAntisymmetric() && isTransitive() && isTotal()
+            isPartialOrder() && hasComparability()
         }
 
  
@@ -958,5 +1007,23 @@ module binRelS
                     (r, t);
             c := new binRelOnS(dom(), p);
         }
+
+        static method witnessTotal() returns (w: binRelOnS<nat>)
+        {
+            w := new binRelOnS<nat>({},{});
+        }
     }
+
+    /*
+    Idea is now to define subset types for the whole "zoo"
+    of properties on binary relations on a set S. Will do 
+    the same thing for the binRelOnST class, of relations 
+    on S and T. 
+    */
+
+    /* 
+    Pending resolution of Dafny's inability to verify that 
+    subset types of this kind are inhabited.
+    */
+    //type totalOrder<T> = r: binRelOnS?<T> | r.isTotalOrder() witness binRelOnS.witnessTotal();
 }
