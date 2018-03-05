@@ -848,12 +848,57 @@ module binRelS
         }
 
 
+
         /* 
         transitive reduction -- TBD
         */
         // CODE WILL GO HERE
 
+        
+        
+        /*
+        Return the relation g composed with this 
+        relation, (g o this). The domains/codomains
+        of g and this must be the same.
+        */
+        method composeS(g: binRelOnS<T>) 
+            returns (c : binRelOnS<T>)
+            requires Valid();
+            requires g.Valid();
+            requires g.dom() == codom();
+            ensures c.Valid();
+            ensures c.dom() == dom();
+            ensures c.codom() == dom();
+            ensures c.rel() == set r, s, t | 
+                    r in dom() &&
+                    s in codom() &&
+                    (r, s) in rel() &&
+                    s in g.dom() && 
+                    t in g.codom() &&
+                    (s, t) in g.rel() ::
+                    (r, t)
+        {
+        /*
+            var f' := convertToBinRelOnST();
+            var g' := g.convertToBinRelOnST();
+            var h := composeRST(g',f');
+            c := new binRelOnS<T>(dom(),h.rel());
+        */
+            var p := set r, s, t | 
+                    r in dom() &&
+                    s in codom() &&
+                    (r, s) in rel() &&
+                    s in g.dom() && 
+                    t in g.codom() &&
+                    (s, t) in g.rel() ::
+                    (r, t);
+            c := new binRelOnS(dom(), p);
+        }
 
+
+        /******************************************/
+        /***** METHODS FOR APPLYING RELATIONS *****/
+        /******************************************/
 
 
         /*
@@ -972,51 +1017,6 @@ module binRelS
                     c.rel() == rel();
         {
             c := new binRelOnST(dom(), codom(), rel());
-        }
-
-
-        /*
-        Return the relation g composed with this 
-        relation, (g o this). The domains/codomains
-        of g and this must be the same.
-        */
-        method composeS(g: binRelOnS<T>) 
-            returns (c : binRelOnS<T>)
-            requires Valid();
-            requires g.Valid();
-            requires g.dom() == codom();
-            ensures c.Valid();
-            ensures c.dom() == dom();
-            ensures c.codom() == dom();
-            ensures c.rel() == set r, s, t | 
-                    r in dom() &&
-                    s in codom() &&
-                    (r, s) in rel() &&
-                    s in g.dom() && 
-                    t in g.codom() &&
-                    (s, t) in g.rel() ::
-                    (r, t)
-        {
-        /*
-            var f' := convertToBinRelOnST();
-            var g' := g.convertToBinRelOnST();
-            var h := composeRST(g',f');
-            c := new binRelOnS<T>(dom(),h.rel());
-        */
-            var p := set r, s, t | 
-                    r in dom() &&
-                    s in codom() &&
-                    (r, s) in rel() &&
-                    s in g.dom() && 
-                    t in g.codom() &&
-                    (s, t) in g.rel() ::
-                    (r, t);
-            c := new binRelOnS(dom(), p);
-        }
-
-        static method witnessTotal() returns (w: binRelOnS<nat>)
-        {
-            w := new binRelOnS<nat>({},{});
         }
     }
 
