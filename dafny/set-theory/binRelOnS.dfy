@@ -647,6 +647,12 @@ module binRelS
                         forall s :: s in X ==> (s, min) !in rel()
         }
 
+        /**************************************
+         **************************************
+         Methods for computing new relations
+         **************************************
+         *************************************/
+
         /*
         Returns the identity relation on the domain
         of this relation. Used, among other things, to
