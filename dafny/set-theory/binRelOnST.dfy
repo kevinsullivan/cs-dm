@@ -320,44 +320,65 @@ module binRelST
             val :| val in s;
             assert |s| >= 1; // believed true but doesn't verify
         }
-    }
 
-    
-    /*
-    The composition, h, of two functions, f and g, where f maps 
-    R-values to S-values, and g maps S-values to T-values, is
-    a relation that maps R-values to T-values, where h contains
-    a pair (s,r) if and only if there is some t such that (s,t)
-    is in f, and (t,r) is in g. The composition of relations is
-    a special case of the composition of functions. More details
-    to be discussed in class.
-    */
-    method composeRST<R,S,T>(g: binRelOnST<S,T>, f: binRelOnST<R,S>) 
-        returns (h : binRelOnST<R,T>)
-        requires f.Valid();
-        requires g.Valid();
-        ensures h.Valid();
-        ensures h.dom() == f.dom();
-        ensures h.codom() == g.codom();
-        ensures h.rel() == set r, s, t | 
-                r in f.dom() &&
-                s in f.codom() &&
-                (r, s) in f.rel() &&
-                s in g.dom() && 
-                t in g.codom() &&
-                (s, t) in g.rel() ::
-                (r, t)
-    {
-        h := new binRelOnST<R,T>(
-            f.dom(),  
-            g.codom(), 
-            set r, s, t | 
-                r in f.dom() &&
-                s in f.codom() &&
-                (r, s) in f.rel() &&
-                s in g.dom() && 
-                t in g.codom() &&
-                (s, t) in g.rel() ::
-                (r, t));
+
+        method inverse() returns (r: binRelOnST<T,S>)
+            requires Valid();
+            ensures r.Valid();
+            ensures r.dom() == codom();
+            ensures r.codom() == dom();
+            ensures r.rel() == set x, y | 
+                x in dom() && y in codom() && (x, y) in rel():: (y, x);
+            ensures Valid();
+        {
+            var invPairs := set x, y | 
+                x in dom() && y in codom() && (x, y) in rel():: (y, x);
+            r := new binRelOnST(codom(), dom(), invPairs);
+        }
+
+
+
+        /*
+        The composition, h, of this function (from S to T), with g, 
+        from T to R, is a relation that maps S-values to R-values, 
+        where h contains a pair (s,r) if and only if there is some 
+        t such that (s,t) is in this relation, and (t,r) is in g. 
+        Composition of relations is a special case of composition 
+        of functions. More details to be discussed in class.
+        */
+        method compose<R>(g: binRelOnST<T,R>) 
+            returns (h : binRelOnST<S,R>)
+            requires Valid();
+
+            requires g.Valid();
+            requires g.dom() == codom();
+
+            ensures h.Valid();
+            ensures h.dom() == dom();
+            ensures h.codom() == g.codom();
+            ensures h.rel() == set r, s, t | 
+                    s in dom() &&
+                    t in codom() &&
+                    (s, t) in rel() &&
+                    t in codom() && 
+                    r in g.codom() &&
+                    (t, r) in g.rel() ::
+                    (s, r)
+            ensures forall s, r :: 
+                (s, r) in h.rel() ==> s in dom() && r in g.codom();
+
+        {
+            h := new binRelOnST<S, R>(
+                dom(),  
+                g.codom(), 
+                set r, s, t | 
+                    s in dom() &&
+                    t in codom() &&
+                    (s, t) in rel() &&
+                    t in g.dom() && 
+                    r in g.codom() &&
+                    (t, r) in g.rel() ::
+                    (s, r));
+        }
     }
 }

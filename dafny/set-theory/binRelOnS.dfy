@@ -44,12 +44,12 @@ module binRelS
         the constraint that values in the relation be from
         the domain/codomain set.
         */
-        constructor(elts: set<T>, pairs: set<(T,T)>)
+        constructor(aSet: set<T>, pairs: set<(T,T)>)
             /*
             The relation has to be over the given set.
             */
             requires forall x, y :: 
-                (x, y) in pairs ==> x in elts && y in elts;
+                (x, y) in pairs ==> x in aSet && y in aSet;
             
             /*
             Dafny can't see into *method* bodies, so 
@@ -57,7 +57,7 @@ module binRelS
             achieves. Dafny needs this information for 
             later verifications.
             */
-            ensures r.d == elts && r.c == elts && r.r == pairs
+            ensures r.d == aSet && r.c == aSet && r.r == pairs
 
             /*
             The constructor leaves the object in a valid 
@@ -66,7 +66,7 @@ module binRelS
             */
             ensures Valid();
          {
-            r := new binRelOnST(elts,elts,pairs);
+            r := new binRelOnST(aSet,aSet,pairs);
         }
 
         /*
@@ -157,7 +157,7 @@ module binRelS
         }
 
 
-        /*
+         /*
         Return true if and only if the relation is 
         single-valued (i.e., actually a function)
         */
@@ -462,6 +462,29 @@ module binRelS
         }
 
 
+        /*
+        A binary relation, R, is said to be asymmetric 
+        (as distinct from anti-symmetric) if for all a 
+        and b, if a is related to b in R, then b is not 
+        related to a. The canonical example of relation
+        that is asymmetric is less than on the integers.
+        The less than or equals relation, by constrast,
+        is anti-symmetric, whereas less than is both
+        anti-symmetric and irreflexive (no number is
+        less than itself). To be asymmetric is the same
+        as being both asymmetric and irreflexive.
+        */
+        predicate method isAsymmetric()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+
+        {
+            isAntisymmetric() && isIrreflexive()
+        }
+
+
         predicate method isPartialOrder()
             reads this;
             reads r;
@@ -472,6 +495,15 @@ module binRelS
             isReflexive() && isTransitive() && isAntisymmetric()
         }
 
+        /*
+        A total order, also known as a linear order, a simple order, 
+        or a chain, is an antisymmetric, transitive, total relation
+        on a set. This combination of properties arranges the set into
+        a strictly ordered collection. A good example is the integers
+        under the less than operator. By contrast, subset inclusion 
+        in a superset is only a partial order, as two sets, X and Y,
+        can both be subsets of a set Z, but not subsets of each other.
+        */
         predicate method isTotalOrder()
             reads this;
             reads r;
@@ -527,6 +559,44 @@ module binRelS
                     (x,x) in rel() && (y,y) in rel()
         }
 
+
+                /*
+        A relation R on a set, S, is said to be well-founded
+        if every non-empty subset, X, of S has a "minimum"
+        element, such that there is no other element, x, in
+        X, such that (x, min) is in X.
+
+        As an example, the the less than relation over the
+        infinite set of natural numbers is well founded 
+        because in any subset of the natural numbers there 
+        is because there is always a minimal element, m: an
+        element that is less than every other element in the
+        set. 
+        
+        The concept of being
+        well founded turns out to be important for
+        reasoning about when recursive definitions are valid.
+        In a nutshell, each recursive call has to be moving
+        "down" a finite chain to a minimum element. Another
+        way to explain being well-founded is that a relation
+        is not well founded if there's a way either to "go 
+        down" or to "go around in circles" forever. Here we
+        give a version of well foundedness only for finite 
+        relations (there can never be an infinite descending
+        chain); what this predicate basically rules out 
+        are cycles in a relation.
+        */
+        predicate method isWellFounded()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+        {
+            forall X | X <= dom() ::
+                X != {} ==>
+                    exists min :: min in X && 
+                        forall s :: s in X ==> (s, min) !in rel()
+        }
 
         /*
         Returns the identity relation on the domain
@@ -599,6 +669,26 @@ module binRelS
 
 
         /*
+        The inverse of this relation is a relation on the 
+        same set with all the same tuples but in reverse 
+        order.
+        */
+
+        method inverse() returns (r: binRelOnS<T>)
+            requires Valid();
+            ensures r.Valid();
+            ensures r.dom() == dom();
+            ensures r.rel() == set x, y | 
+                x in dom() && y in codom() && (x, y) in rel():: (y, x);
+            ensures Valid();
+        {
+            var invPairs := set x, y | 
+                x in dom() && y in codom() && (x, y) in rel():: (y, x);
+             r := new binRelOnS(dom(), invPairs);
+        }
+      
+
+        /*
         The reflexive closure is the smallest relation
         that contains this relation and is reflexive. In
         particular, it's the union of this relation and
@@ -618,44 +708,26 @@ module binRelS
  
 
         /*
-        The reflexive reduction of a relation is the relation
-        minus the idenitity relation on the same set. It is, to
-        be formal about it, the smallest relation with the same
-        reflexive closure as this (the given) relation.
+        The symmetric closure is the smallest relation
+        that contains this relation and is symmetric. In
+        particular, it's the union of this relation and
+        the inverse relation on the same set. It can be
+        derived from this relation by taking all pairs,
+        (s, t), and making sure that all reversed pairs, 
+        (t, s), are also included.
         */
-        method reflexiveReduction() returns (r: binRelOnS<T>)
+        method symmetricClosure() returns (r: binRelOnS<T>)
             requires Valid();
             ensures r.Valid();
             ensures r.dom() == dom();
-            ensures r.rel() == rel() -  set x | x in dom() :: (x,x);
+            ensures r.rel() == rel() + set x, y | 
+                x in dom() && y in codom() && (x, y) in rel():: (y, x);
             ensures Valid();
         {
-            var id := this.identityOnS();
-            r := binRelOnSDifference(id);
+            var inv := this.inverse();
+            r := binRelOnSUnion(inv);
         }
-
-
-/*
-        // transitive closure
-        method transitiveClosureStep() returns (r: binRelOnS<T>)
-            requires Valid();
-            ensures r.Valid();
-            ensures r.dom() == dom();
-            ensures r.rel() == rel() + set x, y, z | 
-                        x in dom() && y in dom() && z in dom() &&
-                        (x, y) in rel() && (y, z) in rel() ::
-                        (x, z);
-            ensures Valid();
-        {
-            var c := set x, y, z | 
-                        x in dom() && y in dom() && z in dom() &&
-                        (x, y) in rel() && (y, z) in rel() ::
-                        (x, z);
-            r := new binRelOnS(dom(), rel()+ c);
-        }
-*/
-
-
+ 
 
         method transitiveClosure() returns (r: binRelOnS<T>)
             requires Valid();
@@ -683,46 +755,51 @@ module binRelS
             r := new binRelOnS(dom(), cl);
         }
 
-
-        // transitive reduction -- TBD
-
         /*
-        A relation R on a set, S, is said to be well-founded
-        if every non-empty subset, X, of S has a "minimum"
-        element, such that there is no other element, x, in
-        X, such that (x, min) is in X.
-
-        As an example, the the less than relation over the
-        infinite set of natural numbers is well founded 
-        because in any subset of the natural numbers there 
-        is because there is always a minimal element, m: an
-        element that is less than every other element in the
-        set. 
+        The reflexive transitive closure is the smallest 
+        relation that contains this relation and is both
+        reflexive and transitive. 
         
-        The concept of being
-        well founded turns out to be vitally important for
-        reasoning about when recursive definitions are valid.
-        In a nutshell, each recursive call has to be moving
-        "down" a finite chain to a minimum element. Another
-        way to explain being well-founded is that a relation
-        is not well founded if there's a way either to "go 
-        down" or to "go around in circles" forever. Here we
-        give a version of well foundedness only for finite 
-        relations (there can never be an infinite descending
-        chain); so what this predicate basically rules out 
-        are cycles in a relation.
+        FIX: Under-informative specification.
         */
-        predicate method isWellFounded()
-            reads this;
-            reads r;
+        method reflexiveTransitiveClosure() returns (r: binRelOnS<T>)
             requires Valid();
+            ensures r.Valid();
+            ensures r.dom() == dom();
+            ensures rel() <= r.rel();
             ensures Valid();
         {
-            forall X | X <= dom() ::
-                X != {} ==>
-                    exists min :: min in X && 
-                        forall s :: s in X ==> (s, min) !in rel()
+            var refc := this.reflexiveClosure();
+            r := refc.transitiveClosure();
         }
+ 
+
+
+        /*
+        The reflexive reduction of a relation is the relation
+        minus the idenitity relation on the same set. It is, to
+        be formal about it, the smallest relation with the same
+        reflexive closure as this (the given) relation.
+        */
+        method reflexiveReduction() returns (r: binRelOnS<T>)
+            requires Valid();
+            ensures r.Valid();
+            ensures r.dom() == dom();
+            ensures r.rel() == rel() -  set x | x in dom() :: (x,x);
+            ensures Valid();
+        {
+            var id := this.identityOnS();
+            r := binRelOnSDifference(id);
+        }
+
+
+        /* 
+        transitive reduction -- TBD
+        */
+        // CODE WILL GO HERE
+
+
+
 
         /*
         The image of a domain value under a relation
@@ -849,13 +926,14 @@ module binRelS
         of g and this must be the same.
         */
         method composeS(g: binRelOnS<T>) 
-            returns (h : binRelOnST<T,T>)
+            returns (c : binRelOnS<T>)
             requires Valid();
             requires g.Valid();
-            ensures h.Valid();
-            ensures h.dom() == dom();
-            ensures h.codom() == g.codom();
-            ensures h.rel() == set r, s, t | 
+            requires g.dom() == codom();
+            ensures c.Valid();
+            ensures c.dom() == dom();
+            ensures c.codom() == dom();
+            ensures c.rel() == set r, s, t | 
                     r in dom() &&
                     s in codom() &&
                     (r, s) in rel() &&
@@ -864,9 +942,21 @@ module binRelS
                     (s, t) in g.rel() ::
                     (r, t)
         {
+        /*
             var f' := convertToBinRelOnST();
             var g' := g.convertToBinRelOnST();
-            h := composeRST(g',f');
+            var h := composeRST(g',f');
+            c := new binRelOnS<T>(dom(),h.rel());
+        */
+            var p := set r, s, t | 
+                    r in dom() &&
+                    s in codom() &&
+                    (r, s) in rel() &&
+                    s in g.dom() && 
+                    t in g.codom() &&
+                    (s, t) in g.rel() ::
+                    (r, t);
+            c := new binRelOnS(dom(), p);
         }
     }
 }

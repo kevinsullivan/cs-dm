@@ -8,58 +8,110 @@ module binRelOnS_test
 
     method Main()
     {
-        var s := { 1, 2, 3, 4, 9 };
-        var p := { (1,2), (2,3), (3, 4), (4,9) };
-        var q := { (1,4), (3,9) };
+        /*
+        Make a set and two binary relations over this set
+        */
+        var aSet := { 1, 2, 3, 4, 9 };
+        var somePairs := { (1,2), (2,3), (3, 4), (4,9) };
+        var otherPairs := { (2, 4), (3,9), (3, 4), (4, 1) };
+        var aRel := new binRelOnS(aSet, somePairs);
+        var otherRel := new binRelOnS(aSet, otherPairs);
 
-        var rs := new binRelOnS(s, p);
-        var qs := new binRelOnS(s, q);
-        var h := rs.composeS(qs);
-        print "The composition is ", h.rel(), "\n";
+        /*
+        Compute some derived relations
+        */
+        var compRel := aRel.composeS(otherRel);
+        var inverse := aRel.inverse();
+        var reflexiveClosure := aRel.reflexiveClosure();
+        var symmetricClosure := aRel.symmetricClosure();
+        var transitiveClosure := aRel.transitiveClosure();
+        var refTransClosure := aRel.reflexiveTransitiveClosure();
+        var reflexiveReduction := aRel.reflexiveReduction();
+        //var transitiveReduction := aRel.transitiveReduction();  // TBD
 
-        var cls := rs.transitiveClosure();
-        print "The transitive closures of ", p, " is ", cls.rel(), "\n";
 
-        var rst := new binRelOnST(s,s,p);
+        showRel("R", aRel); 
 
-        print "rst(3) = ", rst.image(3), "\n";
-        print "rs(3) = ", rs.image(3), "\n";
+        analyzeRelation(aRel);
 
-        if (rst.isFunction() && rst.isDefinedFor(3))
-        {
-            var x1 := rst.fimage(3);       
-            print "rst(3) = ", x1, "\n";
-        }
-
-        analyzeRelation(rs);
+        showRel("S", otherRel); 
+        showRel("S o R", compRel); 
+        showRel("inverse(R)", inverse); 
+        showRel("transitiveClosure(R)", transitiveClosure); 
+        showRel("reflexiveClosure(R)", reflexiveClosure); 
+        showRel("symmetricClosure(R)", symmetricClosure); 
+        showRel("reflexiveReduction(R)", reflexiveReduction); 
     }
 
     method analyzeRelation<T>(r: binRelOnS<T>)
         requires r.Valid();     // shouldn't have to say this
     {
-        var t := r.isTotal();
-        var isFun := r.isFunction();
-        var s := if isFun then r.isSurjective() else false;
-        var p := r.isPartial();
-        var i := if isFun then r.isInjective() else false;
-        var f := r.isFunction();
-        var b := if isFun then r.isBijective() else false;
-        var x := r.isReflexive();
-        var y := r.isSymmetric();
-        var v := r.isTransitive();
-        print "R ", isNt(t), " total\n";
-        print "R ", isNt(p), " partial\n";
-        print "R ", isNt(f), " a function\n";
-        print "R ", isNt(s), " surjective\n";
-        print "R ", isNt(i), " injective\n";
-        print "R ", isNt(b), " bijective\n";
-        print "R ", isNt(x), " reflexive\n";
-        print "R ", isNt(y), " symmetric\n";
-        print "R ", isNt(v), " transitive\n";
+        showProp(r.isFunction(), "a function");
+        if r.isFunction()
+        {
+            showProp(r.isSurjective(), "surjective");
+            showProp(r.isInjective(), "injective");
+            showProp(r.isBijective(), "bijective");
+        }
+        showProp(r.isTotal(), "total");
+        showProp(r.isPartial(), "partial");
+        showProp(r.isReflexive(), "reflexive");
+        showProp(r.isQuasiReflexive(), "quasi-reflexive");
+        showProp(r.isIrreflexive(), "irreflexive"); // aka anti-reflexive
+        showProp(r.isSymmetric(), "symmetric");
+        showProp(r.isAntisymmetric(), "antisymmetric");
+        showProp(r.isAsymmetric(), "asymmetric");
+        showProp(r.isTransitive(), "transitive");
+        showProp(r.isEquivalence(), "equivalence");
+        showProp(r.isPreorder(), "preorder");
+        showProp(r.isWeakOrdering(), "a weak ordering");
+        showProp(r.isPartialOrder(), "a partial order");
+        showProp(r.isPrewellordering(), "a pre-well-ordering");
+        showProp(r.isWellFounded(), "well founded");
+        showProp(r.isTotalOrder(), "a total order");
+    }
+
+    method showProp(hasProp: bool, labl: string)
+    {
+
     }
 
     function method isNt(b: bool): string
     {
         if b then "is" else "isn't"
+    }
+
+    method showRel<T>(labl: string, r: binRelOnS<T>) 
+        requires r.Valid();
+        ensures r.Valid();
+    {
+        print labl; 
+        show(r); 
+        print "\n";
+    }
+
+    
+    
+    /*
+    Show -- return a string representation of relation in
+    "dot" format. Current just shows pairs in rel() and does
+    not show domain or co-domain elements not mapped.
+    */
+    method show<T>(r: binRelOnS<T>) 
+        requires r.Valid();
+        ensures r.Valid();
+    {
+        print "\ndigraph\n{\n";
+        var p := r.rel();
+        while (p != {})
+            decreases p;
+        {
+            var e :| e in p;
+            var d := e.0;
+            var c := e.1;
+            print d, " -> ", c, ";\n";
+            p := p - { e };
+        }
+        print "}";
     }
 }
