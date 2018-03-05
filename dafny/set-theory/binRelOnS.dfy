@@ -668,9 +668,8 @@ module binRelS
             var cl := rel();
             var n := |dom()|;
             while (n > 0)
-                invariant 
-                    forall x, y :: 
-                        (x, y) in cl ==> x in dom() && y in dom()
+                invariant forall x, y :: 
+                    (x, y) in cl ==> x in dom() && y in dom()
                 invariant rel() <= cl;
             {
                 var new_pairs := set x, y, z | 
@@ -686,7 +685,6 @@ module binRelS
 
 
         // transitive reduction -- TBD
-
 
         /*
         A relation R on a set, S, is said to be well-founded
