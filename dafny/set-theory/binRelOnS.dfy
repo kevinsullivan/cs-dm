@@ -1195,10 +1195,10 @@ module binRelS
     
 
         /*
-        The "restriction" of a relation R on a set S to a subset
-        X of S is a relation R' on X containing all and only the
-        tuples in R whose elements are in X. That X is a subset 
-        of the domain of this relation is a precondition.
+        The "restriction" of a relation, R, on a set, S, to a 
+        subset, X, of S, is a relation X containing the pairs 
+        in R both of whose elements are in X. That X is a subset 
+        of S is a precondition for calling this method.
         */
         method restriction(X: set<T>) returns (r: binRelOnS<T>)
             requires Valid();
@@ -1404,16 +1404,6 @@ module binRelS
             ensures Valid();
         {
             ret := r.fimage(k);
-        }
-
-        method convertToBinRelOnST() returns (c: binRelOnST<T,T>)
-            requires Valid();
-            ensures c.Valid();
-            ensures c.dom() == dom() && 
-                    c.codom() == codom() && 
-                    c.rel() == rel();
-        {
-            c := new binRelOnST(dom(), codom(), rel());
         }
     }
 }
