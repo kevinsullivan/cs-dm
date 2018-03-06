@@ -2,36 +2,54 @@
 (c) Kevin Sullivan. 2018.
 */
 
+/*
+This class provides an abstraction of a polymorphic
+finite binary relation over a set, S, of elements 
+of an equality-supporting type, T. In mathematical
+terminology, this is an endorelation, a homogeneous
+relation or just a set with one of several kinds of
+relations (e.g., an ordered set if the relation is
+a total order).
+*/
+
 include "binRelOnST.dfy"
 
 module binRelS
 {    
     import opened binRelST
-    /*
-    Abstraction of a polymorphic finite binary 
-    relation over a set, S, of elements of type,
-    T. I.e., endorelation, homogeneous relation.
-    
+    /*    
     The concrete representatation of a value of
     this type is just an object of the binRelOnST
     class, where both of its type parameters are
     T, and where the domain and codomain sets are
     just S. This class specializes (restricts) 
-    the more general binRelOnST class. Most of 
-    the operations of this class just "delegate"
-    to the underlying relation object. 
+    the more general binRelOnST class. Some of 
+    the basic operations of this class "delegate"
+    to the underlying relation object, which is 
+    to say, operations of this class work simply
+    by calling corresponding operations on the
+    underlying concrete representation object. 
     */ 
     class binRelOnS<T(!new,==)>
     {
+        /*****************************/
+        /* STATE AND STATE INVARIANT */
+        /*****************************/
+
+
         /*
-        Concrete representation: a binary relation
-        on T X T.
+        STATE: Concrete representation: a binary 
+        relation on S X T where both sets are of
+        the same type, T.
         */
         var r: binRelOnST<T,T>;
 
+
         /*
-        This object is valid if it's a valid relation on
-        S X T and the domain and codomain are the same set.
+        INVARIANT: This object is valid if it's a 
+        valid relation on S X T and the domain and 
+        codomain are the same set: not just sets of
+        the same type, but exactly the same set.
         */
         predicate Valid()
             reads this;
@@ -39,6 +57,11 @@ module binRelS
         {
             r.Valid() && r.dom() == r.codom()
         }
+
+
+        /*****************************/
+        /* CONSTRUCTOR AND ACCESSORS */
+        /*****************************/
 
         /*
         This constructor instantiates a binary relation
@@ -56,41 +79,39 @@ module binRelS
                 (x, y) in pairs ==> x in aSet && y in aSet;
             
             /*
-            Dafny can't see into *method* bodies, so 
-            explain as part of the spec what this method '
-            achieves. Dafny needs this information for 
-            later verifications.
+            Dafny can't see into *method* bodies (they
+            are thus said to be "opaque"), so we have to
+            express what this method achieves as part of 
+            its specification, to enable verification of
+            subsequent propositions about this class.
             */
             ensures r.d == aSet && r.c == aSet && r.r == pairs
 
             /*
             The constructor leaves the object in a valid 
-            state. All other operations require that an 
-            object be Valid as a
+            state. All other operations then require that 
+            an object be Valid as a precondition, and that
+            they also leave the object in a Valid state.
+            The establishment and preservation of the state 
+            invariant for this class is thereby assured. We
+            not that there is in Dafny a somewhat cryptic
+            way to avoid having to include Valid() as both
+            a pre- and post-condition in every operation,
+            but we avoid it here in the interest of being
+            transparent.
             */
-            ensures Valid();
-         {
+        ensures Valid();
+        {
             r := new binRelOnST(aSet,aSet,pairs);
         }
 
 
         /*
-        Accessor: Get the underlying set. Note that dom() 
-        and codom() return the same results.
-        */
-        function method theSet(): set<T> 
-            reads this;
-            reads r;
-            requires Valid();
-            ensures Valid();
-        {
-            r.dom()
-        }
-
-
-        /*
         Accessor (projection) function: return the domain 
-        set.
+        set. The codom() and getSet() methods return the 
+        same result. The three are provided for the sake
+        of the completeness of the abstraction we define
+        here.
         */
         function method dom(): set<T>
 
@@ -146,12 +167,13 @@ module binRelS
             r.dom()
         }
 
+
         /*
         Accessor (projection) function: return the codomain 
-        set. The detailed explanations for the preceding 
-        function apply more or less directly to this and
-        other operations in this class. We do not repeat
-        the comments in every class.
+        set. This operation returns the same result as dom()
+        and getSet(). The explanations for the preceding 
+        function apply to this and other operations in this 
+        class. We do not repeat them here or subsequently.
         */
         function method codom(): set<T>
             reads this;
@@ -161,6 +183,21 @@ module binRelS
         {
             r.codom()
         }
+
+
+        /*
+        Accessor: Get the underlying set. Note that dom() 
+        and codom() also return the same results.
+        */
+        function method theSet(): set<T> 
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+        {
+            r.dom()
+        }
+
 
         /*
         Accessor/projection function: return the 
@@ -176,7 +213,12 @@ module binRelS
         }
 
 
-         /*
+
+        /*********************************/
+        /* BASIC PROPERTIES OF RELATIONS */
+        /*********************************/
+
+        /*
         Return true if and only if the relation is 
         single-valued (i.e., actually a function)
         */
@@ -193,22 +235,24 @@ module binRelS
             r.isFunction()  
         }
 
-        
-        /*
-        Return true iff this relation is a function, 
-        and it is an injective function, in particular.
-        
+
+        /*** 
+        PROPERTIES OF FUNCTIONS, IN PARTICULAR.        
         The properties of being injective, surjective, 
         or bijective apply to single-valued relations,
-        i.e., to functions. We thus restrict the next
-        three operations to apply only when this object
-        satisfies is a function, which is to say that it
-        satisfies the isFunction() predicate. We thus
-        add this.isFunction() as a pre-condition to each
-        of these operations. (We leave off the "this.", 
-        as it's implicitly there already.) We then just
-        delegate legal calls to these operations to the
-        corresponding operations on r.
+        i.e., to functions. The next three properties 
+        only apply to relations that are also functions: 
+        that satisfy the isFunction() predicate. We thus
+        add "isFunction()"" as a pre-condition to each
+        of these operations. We then implement them by
+        simply calling the corresponding operations on
+        the concrete representation object, r, which
+        returns the answer we require.
+        ***/
+
+
+        /*
+        Return true iff this relation is an injection.
         */
         predicate method isInjective()
             reads this;
@@ -234,6 +278,7 @@ module binRelS
         {
             r.isSurjective()
         }
+
 
         /*
         Return true iff the relation is a function 
@@ -305,6 +350,54 @@ module binRelS
             forall x :: x in dom() ==> (x, x) in rel()
         }
 
+
+        /*
+        Return true iff the relation is symmetric
+        */
+        predicate method isSymmetric()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+        {
+            forall x, y ::  x in dom() && y in dom() &&
+                            (x, y) in rel() ==> (y, x) in rel()
+        }
+
+
+        /*
+        Return true iff the relation is transitive
+        */
+        predicate method isTransitive()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+        {
+            forall x, y, z ::  
+                x in dom() && y in dom() && z in dom() &&
+                (x, y) in rel() && 
+                (y, z) in rel() ==> 
+                (x, z) in rel() 
+        }
+
+
+        /*
+        Exercise: formalize and implement a test for being
+        an equivalence relation.
+
+        A preorder that is symmetric.
+        */
+       predicate method isEquivalence()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+        {
+            isPreorder() && isSymmetric() 
+        }
+
+
         /*
         A binary relation is said to be coreflexive is for all x and y in S it holds that if xRy then x = y. Every coreflexive relation
         is a subset of an identity relation. For example, if we define
@@ -319,20 +412,6 @@ module binRelS
         {
             forall x, y :: x in dom() && y in dom() && 
                 (x,y) in rel() ==> x == y
-        }
-
-
-        /*
-        Return true iff the relation is symmetric
-        */
-        predicate method isSymmetric()
-            reads this;
-            reads r;
-            requires Valid();
-            ensures Valid();
-        {
-            forall x, y ::  x in dom() && y in dom() &&
-                            (x, y) in rel() ==> (y, x) in rel()
         }
 
 
@@ -382,23 +461,6 @@ module binRelS
 
 
         /*
-        Return true iff the relation is transitive
-        */
-        predicate method isTransitive()
-            reads this;
-            reads r;
-            requires Valid();
-            ensures Valid();
-        {
-            forall x, y, z ::  
-                x in dom() && y in dom() && z in dom() &&
-                (x, y) in rel() && 
-                (y, z) in rel() ==> 
-                (x, z) in rel() 
-        }
-
-
-        /*
         A relation is said to be a preorder if it is
         reflexive and transitive. That is, every element
         is related to itself, and if e1 is related to e2
@@ -426,22 +488,6 @@ module binRelS
             ensures Valid();
         {
             isReflexive() && isTransitive() 
-        }
-
-
-        /*
-        Exercise: formalize and implement a test for being
-        an equivalence relation.
-
-        A preorder that is symmetric.
-        */
-       predicate method isEquivalence()
-            reads this;
-            reads r;
-            requires Valid();
-            ensures Valid();
-        {
-            isPreorder() && isSymmetric() 
         }
 
 
