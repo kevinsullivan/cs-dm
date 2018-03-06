@@ -74,15 +74,14 @@ module binRelOnS_test
         showProp(r.isPrewellordering(), "a pre-well-ordering");
         showProp(r.isWellFounded(), "well founded");
         showProp(r.isTotalOrder(), "a total order");
-        // isStrictPartialOrder
-        // isStrictWeakOrdering
-        // coreflexive
-        // trichotomous
-        // left Euclidean
-        // right Euclidean
-        // Euclidean
-        // reflexiveSymmetricTransitiveClosure
-        // dependencyRelationOnS
+        showProp(r.isStrictPartialOrder(), "a strict partial order");
+        showProp(r.isStrictWeakOrdering(), "a strict weak ordering");
+        showProp(r.isCoreflexive(), "coreflexive");
+        showProp(r.isTrichotomous(), "trichotomous");
+        showProp(r.isLeftEuclidean(), "left Euclidean");
+        showProp(r.isRightEuclidean(), "right Euclidean");
+        showProp(r.isEuclidean(), "Euclidean");
+        showProp(r.isDependencyRelation(), "a dependency relatio");
     }
 
     
@@ -101,8 +100,7 @@ module binRelOnS_test
         var transitiveClosure := r.transitiveClosure();
         var refTransClosure := r.reflexiveTransitiveClosure();
         var reflexiveReduction := r.reflexiveReduction();
-        //var transitiveReduction := aRel.transitiveReduction();  // TBD
-        // independencyRelationOnS
+        var rstc :=  r.reflexiveSymmetricTransitiveClosure();
 
         showRel("S o R", compRel); 
         showRel("inverse(R)", inverse); 
@@ -111,6 +109,7 @@ module binRelOnS_test
         showRel("transitiveClosure(R)", transitiveClosure); 
         showRel("reflexiveTransitiveClosure(R)", refTransClosure);
         showRel("reflexiveReduction(R)", reflexiveReduction); 
+        showRel("reflexiveSymmetricTransitiveClosure(R)", rstc); 
         // showRel("transitiveReduction(R)", transitiveReduction); // TBD
         // show independencyRelationOnS
 

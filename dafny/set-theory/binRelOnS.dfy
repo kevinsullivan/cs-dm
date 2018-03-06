@@ -337,6 +337,51 @@ module binRelS
 
 
         /*
+        A binary relation is said to be antisymmetric
+        if whenever both (x, y) and (y, x) are in the
+        relation, it must be that x == y. A canonical
+        example of an antisymmetric relation is <= on
+        the natural numbers. If x <= y and y <= x (and
+        that is possible) then it must be that x == y.
+        */
+        predicate method isAntisymmetric()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+
+        {
+            forall x, y ::     x in dom()   &&   y in dom() &&
+                           (x,y) in rel() && (y,x) in rel() ==> 
+                           x == y
+            // could also have written xRy ==> !yRx
+        }
+
+
+        /*
+        A binary relation, R, is said to be asymmetric 
+        (as distinct from anti-symmetric) if for all a 
+        and b, if a is related to b in R, then b is not 
+        related to a. The canonical example of relation
+        that is asymmetric is less than on the integers.
+        The less than or equals relation, by constrast,
+        is anti-symmetric, whereas less than is both
+        anti-symmetric and irreflexive (no number is
+        less than itself). To be asymmetric is the same
+        as being both asymmetric and irreflexive.
+        */
+        predicate method isAsymmetric()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+
+        {
+            isAntisymmetric() && isIrreflexive()
+        }
+
+
+        /*
         Return true iff the relation is transitive
         */
         predicate method isTransitive()
@@ -555,51 +600,6 @@ module binRelS
         // TBD, perhaps in infinite version of library
         
  
-        /*
-        A binary relation is said to be antisymmetric
-        if whenever both (x, y) and (y, x) are in the
-        relation, it must be that x == y. A canonical
-        example of an antisymmetric relation is <= on
-        the natural numbers. If x <= y and y <= x (and
-        that is possible) then it must be that x == y.
-        */
-        predicate method isAntisymmetric()
-            reads this;
-            reads r;
-            requires Valid();
-            ensures Valid();
-
-        {
-            forall x, y ::     x in dom()   &&   y in dom() &&
-                           (x,y) in rel() && (y,x) in rel() ==> 
-                           x == y
-            // could also have written xRy ==> !yRx
-        }
-
-
-        /*
-        A binary relation, R, is said to be asymmetric 
-        (as distinct from anti-symmetric) if for all a 
-        and b, if a is related to b in R, then b is not 
-        related to a. The canonical example of relation
-        that is asymmetric is less than on the integers.
-        The less than or equals relation, by constrast,
-        is anti-symmetric, whereas less than is both
-        anti-symmetric and irreflexive (no number is
-        less than itself). To be asymmetric is the same
-        as being both asymmetric and irreflexive.
-        */
-        predicate method isAsymmetric()
-            reads this;
-            reads r;
-            requires Valid();
-            ensures Valid();
-
-        {
-            isAntisymmetric() && isIrreflexive()
-        }
-
-
         /*
         A binary relation is a partial order if it is
         reflexive, anti-symmetric, and transitive. 
