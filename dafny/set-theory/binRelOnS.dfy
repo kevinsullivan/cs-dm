@@ -336,68 +336,11 @@ module binRelS
         /************************************************/
 
         /*
-        We start by defining what it means for a relation 
-        to be "total," also called "complete." NOTE WELL!
-        The term, "total", means something different when
-        applied to relations in general than to functions
-        in particular. A function is total if for every x
-        in S there is *SOME* y to which it is related (or
-        mapped, as we say). We provide isTotalFunction and
-        isPartialFunction predicates to capture this idea.
-        
-        By contrast, a binary relation (more generally) 
-        is said to be total, or "complete", if for *any* 
-        values, x and y in S, either (or both) of (x, y) 
-        or (y, x) is in the relation.
-
-        A real-world example of a total binary relation
-        is what economists call a preference relation. A
-        preference relation is a mathematical model of 
-        a consumer's preferences, that represents the idea
-        that one finds some item, x, to be "at least as
-        good as", some other item, y. Economists tend to
-        make the (somewhat artificial but mathematically
-        convenient) assumption that consumers can always
-        compare two items, no matter what they are, to
-        say whether one is at least as "preferred" as the
-        other. These ideas belong to the branch of economics
-        called "utility theory" 
-        */
-
-        
-        /*
-        A relation, R, is said to be "complete" or "total"
-        or to have the "comparability" property if any two 
-        elements, x and y, are related one way or the other, 
-        i.e., at least one of (x,y) and (y,x) is in R.
-        */
-        predicate method isTotal()
-            reads this;
-            reads r;
-            requires Valid();
-            ensures Valid();
-        {
-            forall x, y :: x in dom() && y in dom() ==> 
-                 (x, y) in rel() || (y, x) in rel()
-        }
-
-        
-        // We provide isComplete() as a synonym for isTotal()
-        predicate method isComplete()
-            reads this;
-            reads r;
-            requires Valid();
-            ensures Valid();
-        {
-            isTotal()
-        }
-
-        /*
         Return true iff this relation is reflexive.
         To be reflexive a relation must map every
         element of its domain to itself. 
 
-        This funciton provides a good simple example
+        This function provides a good simple example
         of a unversally quantified predicate in Dafny.
         It can be read as "forall x (implicitly of type
         T), if x is in the domain of this relation then
@@ -465,10 +408,75 @@ module binRelS
         }
 
 
-
         /**************************************************/
         /**** ADDITIONAL BASIC PROPERTIES OF RELATIONS ****/
         /**************************************************/
+
+        /*
+        We now define what it means for a binary relation 
+        to be "total," also called "complete." NOTE WELL!
+        The term, "total", means something different when
+        applied to binary relations, in general, than to 
+        functions, in particular. A function is total if 
+        for every x in S there is *SOME* y to which it is 
+        related (or mapped, as we say). We thus provide 
+        isTotalFunction and isPartialFunction predicates 
+        (with Function in the names) to capture this idea.
+        
+        By contrast, a binary relation (more generally) 
+        is said to be total, or "complete", if for *any* 
+        pair of values, x and y in S, either (or both) 
+        of (x, y) or (y, x) is in the relation.
+
+        A simple example of a total relation is the less
+        than or equals relation on integers. Given any 
+        two integers, x and y, it is always the case that
+        either x <= y or y <= x, or both if they're equal.
+
+        Anoather example of a total binary relation
+        is what economists call a preference relation. A
+        preference relation is a mathematical model of 
+        a consumer's preferences. It represents the idea
+        that given *any* two items, or outcomes, x and y,
+        one will always find one of them to be "at least 
+        as good as" the other. These ideas belong to the 
+        branch of economics called "utility theory." 
+
+        The broader point of this brief diversion into 
+        the field of economics is to make it clear that
+        what seem like very abstract concepts (here the
+        property of a binary relation being complete or
+        not) have deep importance in the real world: in
+        CS as well as in many other fields.
+
+        We can now formalize the property of being total.
+        A binary relation, R, on a set, S, is said to be 
+        "complete," "total" or to have the "comparability" 
+        property if *any* two elements, x and y in S, are 
+        related one way or the other by R, i.e., at least 
+        one of (x, y) and (y, x) is in R.
+        */
+        predicate method isTotal()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+        {
+            forall x, y :: x in dom() && y in dom() ==> 
+                 (x, y) in rel() || (y, x) in rel()
+        }
+
+        
+        // isComplete() is a synonym for isTotal()
+        predicate method isComplete()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+        {
+            isTotal()
+        }
+
 
         /*
         A relation on a set S is said to be irreflexive
@@ -695,7 +703,7 @@ module binRelS
             ensures Valid();
 
         {
-            isPartialOrder() && isComplete()
+            isPartialOrder() && isTotal()
         }
 
 
@@ -766,7 +774,11 @@ module binRelS
 
         Weak orders have also been used in computer science, in partition refinement based algorithms for lexicographic breadth-first search and lexicographic topological ordering. In these algorithms, a weak ordering on the vertices of a graph (represented as a family of sets that partition the vertices, together with a doubly linked list providing a total order on the sets) is gradually refined over the course of the algorithm, eventually producing a total ordering that is the output of the algorithm.
 
-        In the Standard Library for the C++ programming language, the set and multiset data types sort their input by a comparison function that is specified at the time of template instantiation, and that is assumed to implement a strict weak ordering.[2]" --Wikipedia 
+        In the Standard (Template) Library for the C++ programming 
+        language, the set and multiset data types sort their input by a 
+        comparison function that is specified at the time of template 
+        instantiation, and that is assumed to implement a strict weak 
+        ordering." --Wikipedia 
 
         We formalize the concept as "total preorder." KS: Double-check correctness.
         */
@@ -779,75 +791,6 @@ module binRelS
             isTotalPreorder()
         }
 
-        /*
-        A strict weak ordering is a binary relation < on a set S that is a strict partial order (a transitive relation that is irreflexive, or equivalently,[6] that is asymmetric) in which the relation "neither a < b nor b < a" is transitive.[1] Therefore, a strict weak ordering has the following properties:
-
-        For all x in S, it is not the case that x < x (irreflexivity).
-        For all x, y in S, if x < y then it is not the case that y < x (asymmetry).
-        For all x, y, z in S, if x < y and y < z then x < z (transitivity).
-        For all x, y, z in S, if x is incomparable with y (neither x < y nor y < x hold), and y is incomparable with z, then x is incomparable with z (transitivity of incomparability).
-        */
-
-
-
-        /*
-        "In mathematics, a directed set (or a directed preorder or a filtered set) is a nonempty set A together with a reflexive and transitive binary relation ≤ (that is, a preorder), with the additional property that every pair of elements has an upper bound.[1] In other words, for any a and b in A there must exist c in A with a ≤ c and b ≤ c." --Wikipedia
-        */
-        // CODE HERE
-
-
-
-        /*
-        "A downward directed set is defined analogously,[2] meaning when every pair of elements is bounded below.[3]" --Wikipedia
-        */
-        // CODE HERE
-
-
-
-        /*
-        Join semilattice. // DEFINITION HERE
-        */
-        // CODE HERE
-
-
-
-        /*
-        Wellquasiordering.
-
-        A well-quasi-ordering on a set {\displaystyle 
-        X} X is a quasi-ordering (i.e., a reflexive, 
-        transitive binary relation) such that any 
-        infinite sequence of elements {\displaystyle 
-        x_{0}} x_{0}, {\displaystyle x_{1}} x_{1}, 
-        {\displaystyle x_{2}} x_{2}, … from {\displaystyle 
-        X} X contains an increasing pair {\displaystyle 
-        x_{i}} x_{i}≤ {\displaystyle x_{j}} x_{j} with 
-        {\displaystyle i} i< {\displaystyle j} j. The 
-        set {\displaystyle X} X is said to be 
-        well-quasi-ordered, or shortly wqo. [Wikipedia]
-
-        NB: The use of "quasi-order" in the preceding
-        paragraph is NOT consistent with the use that
-        we have formalized as a propery, above. Rather,
-        the property indicated here (a reflexive and
-        transitive relation) is what we've called a
-        preorder.
-
-        ...
-        
-        Among other ways of defining wqo's, one is to 
-        say that they are quasi-orderings which do not 
-        contain infinite strictly decreasing sequences 
-        (of the form {\displaystyle x_{0}} x_{0}> 
-        {\displaystyle x_{1}} x_{1}> {\displaystyle 
-        x_{2}} x_{2}>…) nor infinite sequences of 
-        pairwise incomparable elements. Hence a 
-        quasi-order (X,≤) is wqo if and only if 
-        (X,<) is well-founded and has no infinite 
-        antichains.
-        */
-        // TBD, perhaps in infinite version of library
-        
  
         /*
         A relation R is a strict partial order if it's
@@ -894,7 +837,7 @@ module binRelS
             ensures Valid();
         {
             isStrictPartialOrder() && 
-            // transitivity of incomparability
+            // and transitivity of incomparability
             forall x, y, z :: x in dom() && y in dom() && z in dom() &&
                (x, y) !in rel() && (y, z) !in rel() ==> (x, z) !in rel()
         }
@@ -1035,110 +978,15 @@ module binRelS
                         forall s :: s in X ==> (s, min) !in rel()
         }
 
-        /**************************************
-         **************************************
-         Methods for computing new relations
-         **************************************
-         *************************************/
-
-        /*
-        Returns the identity relation on the domain
-        of this relation. Used, among other things, to
-        compute reflexive closures.
-        */
-        method identityOnS() returns (id: binRelOnS<T>)
-            requires Valid();
-            ensures id.Valid();
-            ensures id.dom() == dom() &&
-                    id.rel() == set x | x in dom() :: (x,x);
-            ensures Valid();
-        {
-             id := new binRelOnS(dom(), set x | x in dom() :: (x,x));
-        }
-
-
-        /*
-        Returns the identity relation on the domain
-        of this relation. Used, among other things, to
-        compute reflexive closures.
-        */
-        method independencyRelationOnS(d: binRelOnS<T>) 
-            returns (r: binRelOnS<T>)
-            requires Valid();
-            requires d.Valid();
-            requires d.isDependencyRelation();
-            ensures r.Valid();
-            ensures r.dom() == dom() &&
-                    r.rel() == 
-                        (set x, y | x in dom() && y in dom() :: (x,y)) -
-                        d.rel();
-            ensures Valid();
-        {
-            r := new binRelOnS(
-                dom(), 
-                (set x,y | x in dom() && y in dom() :: (x,y)) - d.rel());
-        }
-
-        /*
-        Return the union of this relation and the given 
-        relation, t: b, basicaly (this + t), viewed as sets
-        of pairs. The domain/codomain sets of this and t 
-        must be the same.
-        */
-        method binRelOnSUnion(t: binRelOnS<T>) returns (r: binRelOnS<T>)
-            requires Valid();
-            requires t.Valid();
-            requires t.dom() == dom();
-            ensures r.Valid();
-            ensures r.dom() == dom();
-            ensures r.rel() == t.rel() + rel();
-        {
-            r := new binRelOnS(dom(),t.rel() + rel());
-        }
-
-
-        /*
-        Return the intersection between this relation and 
-        the given relation, t: b, basicaly (this * t). The
-        domain/codomain sets of this and t must be the same.
-        */
-        method binRelOnSIntersection(t: binRelOnS<T>) 
-            returns (r: binRelOnS<T>)
-            requires Valid();
-            requires t.Valid();
-            requires t.dom() == dom();
-            ensures r.Valid();
-            ensures r.dom() == dom();
-            ensures r.rel() == t.rel() * rel();
-        {
-            r := new binRelOnS(dom(),t.rel() * rel());
-        }
-
-
-        /*
-        Return the difference between this relation and 
-        the given relation, t: b, basicaly (this - t). The
-        domain/codomain sets of this and t must be the same.
-        */
-        method binRelOnSDifference(t: binRelOnS<T>) 
-            returns (r: binRelOnS<T>)
-            requires Valid();
-            requires t.Valid();
-            requires t.dom() == dom();
-            ensures r.Valid();
-            ensures r.dom() == dom();
-            ensures r.rel() == rel() - t.rel();
-        {
-            r := new binRelOnS(dom(), rel() - t.rel());
-        }
-
+        /*********************************************
+         **** Methods for computing new relations ****
+         ********************************************/
 
         /*
         The inverse of this relation is a relation on the 
         same set with all the same tuples but in reverse 
         order.
         */
-
         method inverse() returns (r: binRelOnS<T>)
             requires Valid();
             ensures r.Valid();
@@ -1151,143 +999,30 @@ module binRelS
                 x in dom() && y in codom() && (x, y) in rel():: (y, x);
              r := new binRelOnS(dom(), invPairs);
         }
-      
-
-        /*
-        The reflexive closure is the smallest relation
-        that contains this relation and is reflexive. In
-        particular, it's the union of this relation and
-        the identity relation on the same set. That is
-        how we compute it here.
-        */
-        method reflexiveClosure() returns (r: binRelOnS<T>)
-            requires Valid();
-            ensures r.Valid();
-            ensures r.dom() == dom();
-            ensures r.rel() == rel() + set x | x in dom() :: (x,x);
-            ensures rel() <= r.rel();
-            ensures Valid();
-        {
-            var id := this.identityOnS();
-            r := binRelOnSUnion(id);
-        }
- 
-
-        /*
-        The symmetric closure is the smallest relation
-        that contains this relation and is symmetric. In
-        particular, it's the union of this relation and
-        the inverse relation on the same set. It can be
-        derived from this relation by taking all pairs,
-        (s, t), and making sure that all reversed pairs, 
-        (t, s), are also included.
-        */
-        method symmetricClosure() returns (r: binRelOnS<T>)
-            requires Valid();
-            ensures r.Valid();
-            ensures r.dom() == dom();
-            ensures r.rel() == rel() + set x, y | 
-                x in dom() && y in codom() && (x, y) in rel():: (y, x);
-            ensures rel() <= r.rel();
-            ensures Valid();
-        {
-            var inv := this.inverse();
-            r := binRelOnSUnion(inv);
-        }
- 
-
-        method transitiveClosure() returns (r: binRelOnS<T>)
-            requires Valid();
-            ensures r.Valid();
-            ensures r.dom() == dom();
-            ensures rel() <= r.rel();
-            //ensures r.isTransitive(); -- need to prove it
-            ensures Valid();
-        {
-            var cl := rel();
-            var n := |dom()|;
-            while (n > 0)
-                invariant forall x, y :: 
-                    (x, y) in cl ==> x in dom() && y in dom()
-                invariant rel() <= cl;
-            {
-                var new_pairs := set x, y, z | 
-                        x in dom() && y in dom() && z in dom() &&
-                        (x, y) in cl && (y, z) in cl ::
-                        (x, z);
-                if cl == cl + new_pairs { break; }
-                cl := cl + new_pairs;
-                n := n - 1;
-            }
-            r := new binRelOnS(dom(), cl);
-        }
-
-        /*
-        The reflexive transitive closure is the smallest 
-        relation that contains this relation and is both
-        reflexive and transitive. 
         
-        FIX: Under-informative specification.
-        */
-        method reflexiveTransitiveClosure() returns (r: binRelOnS<T>)
-            requires Valid();
-            ensures r.Valid();
-            ensures r.dom() == dom();
-            ensures rel() <= r.rel();
-            ensures Valid();
-        {
-            var refc := this.reflexiveClosure();
-            r := refc.transitiveClosure();
-        }
- 
-        //Reflexive transitive symmetric closure
-        method reflexiveSymmetricTransitiveClosure() 
-            returns (r: binRelOnS<T>)
-            requires Valid();
-            ensures r.Valid();
-            ensures r.dom() == dom();
-            ensures rel() <= r.rel();
-            ensures Valid();
-        {
-            var refc := this.reflexiveClosure();
-            var symc := refc.symmetricClosure();
-            r := symc.transitiveClosure();
-        }
- 
-        /*
-        The reflexive reduction of a relation is the relation
-        minus the idenitity relation on the same set. It is, to
-        be formal about it, the smallest relation with the same
-        reflexive closure as this (the given) relation.
-        */
-        method reflexiveReduction() returns (r: binRelOnS<T>)
-            requires Valid();
-            ensures r.Valid();
-            ensures r.dom() == dom();
-            ensures r.rel() == rel() -  set x | x in dom() :: (x,x);
-            ensures Valid();
-        {
-            var id := this.identityOnS();
-            r := binRelOnSDifference(id);
-        }
-
-
-
-        /* 
-        transitive reduction -- TBD
-        */
-        // CODE WILL GO HERE
-
         
-        // Domain and range restrictions of relations
-
-
         /*
+        Returns the identity relation on the domain
+        of this relation. Used, among other things, to
+        compute reflexive closures.
+        */
+        method identity() returns (id: binRelOnS<T>)
+            requires Valid();
+            ensures id.Valid();
+            ensures id.dom() == dom() &&
+                    id.rel() == set x | x in dom() :: (x,x);
+            ensures Valid();
+        {
+             id := new binRelOnS(dom(), set x | x in dom() :: (x,x));
+        }
+
+
+         /*
         Return the relation g composed with this 
         relation, (g o this). The domains/codomains
         of g and this must be the same.
         */
-        method composeS(g: binRelOnS<T>) 
+        method compose(g: binRelOnS<T>) 
             returns (c : binRelOnS<T>)
             requires Valid();
             requires g.Valid();
@@ -1319,6 +1054,242 @@ module binRelS
                     (s, t) in g.rel() ::
                     (r, t);
             c := new binRelOnS(dom(), p);
+        }
+
+
+        /*
+        The reflexive closure is the smallest relation
+        that contains this relation and is reflexive. In
+        particular, it's the union of this relation and
+        the identity relation on the same set. That is
+        how we compute it here.
+        */
+        method reflexiveClosure() returns (r: binRelOnS<T>)
+            requires Valid();
+            ensures r.Valid();
+            ensures r.dom() == dom();
+            ensures r.rel() == rel() + set x | x in dom() :: (x,x);
+            ensures rel() <= r.rel();
+            ensures Valid();
+        {
+            var id := this.identity();
+            r := relUnion(id);
+        }
+ 
+
+        /*
+        The symmetric closure is the smallest relation
+        that contains this relation and is symmetric. In
+        particular, it's the union of this relation and
+        the inverse relation on the same set. It can be
+        derived from this relation by taking all pairs,
+        (s, t), and making sure that all reversed pairs, 
+        (t, s), are also included.
+        */
+        method symmetricClosure() returns (r: binRelOnS<T>)
+            requires Valid();
+            ensures r.Valid();
+            ensures r.dom() == dom();
+            ensures r.rel() == rel() + set x, y | 
+                x in dom() && y in codom() && (x, y) in rel():: (y, x);
+            ensures rel() <= r.rel();
+            ensures Valid();
+        {
+            var inv := this.inverse();
+            r := relUnion(inv);
+        }
+ 
+
+        /*
+        The transitive closure of a binary relation, R,
+        on a set, S, is the relation R plus all tuples,
+        (x, y) when there is any "path" (a sequence of 
+        tuples) from x to y in R. In a finite relation.
+        such as those modeled by this class, the length
+        of a path is bounded by the size of the set, S,
+        so we can always compute a transitive closure by
+        following links and adding tuples enough times 
+        to have followed all maximum-length paths in R.
+        That's what we do, here.
+         */
+        method transitiveClosure() returns (r: binRelOnS<T>)
+            requires Valid();
+            ensures r.Valid();
+            ensures r.dom() == dom();
+            ensures rel() <= r.rel();
+            //ensures r.isTransitive(); -- need to prove it
+            ensures Valid();
+        {
+            var cl := rel();
+            var n := |dom()|;
+            while (n > 0)
+                invariant forall x, y :: 
+                    (x, y) in cl ==> x in dom() && y in dom()
+                invariant rel() <= cl;
+            {
+                var new_pairs := set x, y, z | 
+                        x in dom() && y in dom() && z in dom() &&
+                        (x, y) in cl && (y, z) in cl ::
+                        (x, z);
+                if cl == cl + new_pairs { break; }
+                cl := cl + new_pairs;
+                n := n - 1;
+            }
+            r := new binRelOnS(dom(), cl);
+        }
+
+        /*
+        The reflexive transitive closure is the smallest 
+        relation that contains this relation and is both
+        reflexive and transitive. 
+        
+        FIX: Under-informative specification!!!
+        */
+        method reflexiveTransitiveClosure() returns (r: binRelOnS<T>)
+            requires Valid();
+            ensures r.Valid();
+            ensures r.dom() == dom();
+            ensures rel() <= r.rel();
+            ensures Valid();
+        {
+            var refc := this.reflexiveClosure();
+            r := refc.transitiveClosure();
+        }
+ 
+        //Reflexive transitive symmetric closure
+        method reflexiveSymmetricTransitiveClosure() 
+            returns (r: binRelOnS<T>)
+            requires Valid();
+            ensures r.Valid();
+            ensures r.dom() == dom();
+            ensures rel() <= r.rel();
+            ensures Valid();
+        {
+            var refc := this.reflexiveClosure();
+            var symc := refc.symmetricClosure();
+            r := symc.transitiveClosure();
+        }
+ 
+
+        /*
+        The reflexive reduction of a relation is the relation
+        minus the idenitity relation on the same set. It is, to
+        be formal about it, the smallest relation with the same
+        reflexive closure as this (the given) relation.
+        */
+        method reflexiveReduction() returns (r: binRelOnS<T>)
+            requires Valid();
+            ensures r.Valid();
+            ensures r.dom() == dom();
+            ensures r.rel() == rel() -  set x | x in dom() :: (x,x);
+            ensures Valid();
+        {
+            var id := this.identity();
+            r := relDifference(id);
+        }
+
+
+       /* 
+        transitive reduction -- TBD
+        */
+    
+
+        /*
+        The "restriction" of a relation R on a set S to a subset
+        X of S is a relation R' on X containing all and only the
+        tuples in R whose elements are in X. That X is a subset 
+        of the domain of this relation is a precondition.
+        */
+        method restriction(X: set<T>) returns (r: binRelOnS<T>)
+            requires Valid();
+            requires X <= dom();
+            ensures r.Valid();
+            ensures r.dom() == X;
+            ensures r.rel() == set x, y | x in dom() && y in dom() && 
+                (x, y) in rel() && x in X && y in X :: (x, y);
+            ensures Valid();
+        {
+            r := new binRelOnS(X, set x, y | x in dom() && y in dom() && 
+                (x, y) in rel() && x in X && y in X :: (x, y));
+        }
+
+
+        /*
+        Return the union of this relation and the given 
+        relation, t: b, basicaly (this + t), viewed as sets
+        of pairs. The domain/codomain sets of this and t 
+        must be the same.
+        */
+        method relUnion(t: binRelOnS<T>) returns (r: binRelOnS<T>)
+            requires Valid();
+            requires t.Valid();
+            requires t.dom() == dom();
+            ensures r.Valid();
+            ensures r.dom() == dom();
+            ensures r.rel() == t.rel() + rel();
+        {
+            r := new binRelOnS(dom(),t.rel() + rel());
+        }
+
+
+        /*
+        Return the intersection between this relation and 
+        the given relation, t: b, basicaly (this * t). The
+        domain/codomain sets of this and t must be the same.
+        */
+        method relIntersection(t: binRelOnS<T>) 
+            returns (r: binRelOnS<T>)
+            requires Valid();
+            requires t.Valid();
+            requires t.dom() == dom();
+            ensures r.Valid();
+            ensures r.dom() == dom();
+            ensures r.rel() == t.rel() * rel();
+        {
+            r := new binRelOnS(dom(),t.rel() * rel());
+        }
+
+
+        /*
+        Return the difference between this relation and 
+        the given relation, t: b, basicaly (this - t). The
+        domain/codomain sets of this and t must be the same.
+        */
+        method relDifference(t: binRelOnS<T>) 
+            returns (r: binRelOnS<T>)
+            requires Valid();
+            requires t.Valid();
+            requires t.dom() == dom();
+            ensures r.Valid();
+            ensures r.dom() == dom();
+            ensures r.rel() == rel() - t.rel();
+        {
+            r := new binRelOnS(dom(), rel() - t.rel());
+        }
+      
+        
+        /*
+        Return the complement of the given dependency
+        relation on S. Such a relation is called an
+        independency relation. Elements are related in
+        such a relation if they are "independent" in
+        the given dependency relation.
+        */
+        method independencyRelationOnS(d: binRelOnS<T>) 
+            returns (r: binRelOnS<T>)
+            requires Valid();
+            requires d.Valid();
+            requires d.isDependencyRelation();
+            ensures r.Valid();
+            ensures r.dom() == dom() &&
+                    r.rel() == 
+                        (set x, y | x in dom() && y in dom() :: (x,y)) -
+                        d.rel();
+            ensures Valid();
+        {
+            r := new binRelOnS(
+                dom(), 
+                (set x,y | x in dom() && y in dom() :: (x,y)) - d.rel());
         }
 
 
@@ -1445,17 +1416,52 @@ module binRelS
             c := new binRelOnST(dom(), codom(), rel());
         }
     }
-
-    /*
-    Idea is now to define subset types for the whole "zoo"
-    of properties on binary relations on a set S. Will do 
-    the same thing for the binRelOnST class, of relations 
-    on S and T. 
-    */
-
-    /* 
-    Pending resolution of Dafny's inability to verify that 
-    subset types of this kind are inhabited.
-    */
-    //type totalOrder<T> = r: binRelOnS?<T> | r.isTotalOrder() witness binRelOnS.witnessTotal();
 }
+
+        /* 
+
+        CONCEPTS NOT YET IMPLEMENTED -- Wikipedia sources
+
+        * DIRECTED SET
+
+        "In mathematics, a directed set (or a directed preorder or a filtered set) is a nonempty set A together with a reflexive and transitive binary relation ≤ (that is, a preorder), with the additional property that every pair of elements has an upper bound.[1] In other words, for any a and b in A there must exist c in A with a ≤ c and b ≤ c." 
+        
+        "A downward/upward directed set is defined analogously,
+        meaning when every pair of elements is bounded below/above." 
+       
+        * JOIN SEMILATTICE
+
+        * WELL-QUASI-ORDERING
+
+        "A well-quasi-ordering on a set {\displaystyle 
+        X} X is a quasi-ordering (i.e., a reflexive, 
+        transitive binary relation) such that any 
+        infinite sequence of elements {\displaystyle 
+        x_{0}} x_{0}, {\displaystyle x_{1}} x_{1}, 
+        {\displaystyle x_{2}} x_{2}, … from {\displaystyle 
+        X} X contains an increasing pair {\displaystyle 
+        x_{i}} x_{i}≤ {\displaystyle x_{j}} x_{j} with 
+        {\displaystyle i} i< {\displaystyle j} j. The 
+        set {\displaystyle X} X is said to be 
+        well-quasi-ordered, or shortly wqo."
+
+        NB: The use of "quasi-order" in the preceding
+        paragraph is NOT consistent with the use that
+        we have formalized as a propery, above. Rather,
+        the property indicated here (a reflexive and
+        transitive relation) is what we've called a
+        preorder.
+
+        
+        Among other ways of defining wqo's, one is to 
+        say that they are quasi-orderings which do not 
+        contain infinite strictly decreasing sequences 
+        (of the form {\displaystyle x_{0}} x_{0}> 
+        {\displaystyle x_{1}} x_{1}> {\displaystyle 
+        x_{2}} x_{2}>…) nor infinite sequences of 
+        pairwise incomparable elements. Hence a 
+        quasi-order (X,≤) is wqo if and only if 
+        (X,<) is well-founded and has no infinite 
+        antichains.
+        */
+        
