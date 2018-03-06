@@ -23,33 +23,34 @@ module binRelOnS_test
         var aRel := new binRelOnS(aSet, somePairs);
         var otherRel := new binRelOnS(aSet, otherPairs);
 
-
         /*
         Print out relation, "aRel", then print its properties,
         and finally print out derived relations, including its
         composition with "otherRel".
         */
         print "\n\n*********** Relation R ***************\n\n";
-        showRel("S", aRel); 
-        analyzeRelation(aRel);
-        deriveRelations(aRel,otherRel);
+        showRelation("S", aRel); 
+        showProperties(aRel);
+        showDerivedRelations(aRel,otherRel);
 
-         /*
-        Compute, print out, and print the properties of the
-        reflexive, transitive closure of "aRel". 
+        /*
+        As an illustration of capabilities of this code, 
+        compute, print out, and print the properties of the
+        reflexive transitive closure of "aRel". 
         */
-       print "\n\n***** Reflexive Transitive Closure of R ******\n\n";
+        print "\n\n***** Reflexive Transitive Closure of R ******\n\n";
         var rtc := aRel.reflexiveTransitiveClosure();
-        showRel("S", rtc); 
-        analyzeRelation(rtc);
+        showRelation("S", rtc); 
+        showProperties(rtc);
     }
 
     /*
     Determine and print out the properties of relation, r.
     */
-    method analyzeRelation<T>(r: binRelOnS<T>)
+    method showProperties<T>(r: binRelOnS<T>)
         requires r.Valid();     // shouldn't have to say this
     {
+        print "\n\nFUNCTION PROPERTIES\n";
         showProp(r.isFunction(), "a function");
         if r.isFunction()
         {
@@ -57,43 +58,55 @@ module binRelOnS_test
             showProp(r.isInjective(), "injective");
             showProp(r.isBijective(), "bijective");
         }
-        showProp(r.isTotal(), "total");
-        showProp(r.isPartial(), "partial");
+        showProp(r.isTotalFunction(), "a total function");
+        showProp(r.isPartialFunction(), "a partial function");
+
+        print "\n\nBASIC PROPERTIES OF BINARY RELATIONS\n";
         showProp(r.isReflexive(), "reflexive");
-        showProp(r.isQuasiReflexive(), "quasi-reflexive");
-        showProp(r.isIrreflexive(), "irreflexive"); // aka anti-reflexive
         showProp(r.isSymmetric(), "symmetric");
-        showProp(r.isAntisymmetric(), "antisymmetric");
-        showProp(r.isAsymmetric(), "asymmetric");
         showProp(r.isTransitive(), "transitive");
         showProp(r.isEquivalence(), "an equivalence relation");
+
+        print "\n\nMORE PROPERTIES OF BINARY RELATIONS\n";
+        showProp(r.isTotal(), "a total (complete) relation");
+        showProp(r.isIrreflexive(), "irreflexive"); 
+        showProp(r.isAntisymmetric(), "antisymmetric");
+        showProp(r.isAsymmetric(), "asymmetric");
+        showProp(r.isQuasiReflexive(), "quasi-reflexive");
+        showProp(r.isCoreflexive(), "coreflexive");
+
+        print "\n\nBASIC ORDER THEORY PROPERTIES\n";
         showProp(r.isPreorder(), "a preorder");
+        showProp(r.isPartialOrder(), "a partial order");
+        showProp(r.isTotalOrder(), "a total order");
+
+        print "\n\nMORE ADVANCED ORDER THEORY PROPERTIES\n";
+        showProp(r.isTotalPreorder(), "a total preorder");
         showProp(r.isQuasiOrder(), "a Stanat & McAllister quasi-order");
         showProp(r.isWeakOrdering(), "a weak ordering");
-        showProp(r.isPartialOrder(), "a partial order");
-        showProp(r.isPrewellordering(), "a pre-well-ordering");
-        showProp(r.isWellFounded(), "well founded");
-        showProp(r.isTotalOrder(), "a total order");
         showProp(r.isStrictPartialOrder(), "a strict partial order");
         showProp(r.isStrictWeakOrdering(), "a strict weak ordering");
-        showProp(r.isCoreflexive(), "coreflexive");
+        showProp(r.isWellFounded(), "well founded");
+        showProp(r.isPrewellordering(), "a pre-well-ordering");
+
+        print "\n\nOTHER PROPERTIES OF BINARY RELATIONS\n";
         showProp(r.isTrichotomous(), "trichotomous");
         showProp(r.isLeftEuclidean(), "left Euclidean");
         showProp(r.isRightEuclidean(), "right Euclidean");
         showProp(r.isEuclidean(), "Euclidean");
-        showProp(r.isDependencyRelation(), "a dependency relatio");
+        showProp(r.isDependencyRelation(), "a dependency relation");
     }
 
     
     /*
     Compute and print out derived relations
     */
-    method deriveRelations<T>(r: binRelOnS<T>, s: binRelOnS<T>)
+    method showDerivedRelations<T>(r: binRelOnS<T>, s: binRelOnS<T>)
         requires r.Valid();     // shouldn't have to say this
         requires s.Valid();
         requires s.dom() == r.codom();
     {
-        var compRel := r.composeS(s);
+        var compRel := r.compose(s);
         var inverse := r.inverse();
         var reflexiveClosure := r.reflexiveClosure();
         var symmetricClosure := r.symmetricClosure();
@@ -102,17 +115,16 @@ module binRelOnS_test
         var reflexiveReduction := r.reflexiveReduction();
         var rstc :=  r.reflexiveSymmetricTransitiveClosure();
 
-        showRel("S o R", compRel); 
-        showRel("inverse(R)", inverse); 
-        showRel("reflexiveClosure(R)", reflexiveClosure); 
-        showRel("symmetricClosure(R)", symmetricClosure); 
-        showRel("transitiveClosure(R)", transitiveClosure); 
-        showRel("reflexiveTransitiveClosure(R)", refTransClosure);
-        showRel("reflexiveReduction(R)", reflexiveReduction); 
-        showRel("reflexiveSymmetricTransitiveClosure(R)", rstc); 
-        // showRel("transitiveReduction(R)", transitiveReduction); // TBD
-        // show independencyRelationOnS
-
+        showRelation("S o R", compRel); 
+        showRelation("inverse(R)", inverse); 
+        showRelation("reflexiveClosure(R)", reflexiveClosure); 
+        showRelation("symmetricClosure(R)", symmetricClosure); 
+        showRelation("transitiveClosure(R)", transitiveClosure); 
+        showRelation("reflexiveTransitiveClosure(R)", refTransClosure);
+        showRelation("reflexiveReduction(R)", reflexiveReduction); 
+        showRelation("reflexiveSymmetricTransitiveClosure(R)", rstc); 
+        // showRelation("transitiveReduction(R)", transitiveReduction);
+        // show independencyRelationOnS // TBD
 }
 
     method showProp(hasProp: bool, labl: string)
@@ -125,7 +137,7 @@ module binRelOnS_test
         if b then "is" else "isn't"
     }
 
-    method showRel<T>(labl: string, r: binRelOnS<T>) 
+    method showRelation<T>(labl: string, r: binRelOnS<T>) 
         requires r.Valid();
         ensures r.Valid();
     {

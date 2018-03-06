@@ -714,14 +714,12 @@ module binRelS
 
         /*
         A total preorder is preorder in which every
-        pair of elements is in one of two relations,
-        e.g., for every node a and b, either a reaches
-        b or b reaches a. That is, there are no pairs
-        of elements that are *incomparable*. Such a
-        relation thus has the comparability property,
-        though we don't make that explicit here.
+        pair of elements is comparable, e.g., for every 
+        node a and b, either a reaches b or b reaches a. 
+        That is, there are no pairs of elements that are 
+        *incomparable*. 
 
-        EXAMPLE NEEDED
+        BETTER EXAMPLE NEEDED
 
         */
         predicate method isTotalPreorder()
@@ -843,6 +841,47 @@ module binRelS
         }
 
 
+        /*
+        A relation R on a set, S, is said to be well-founded
+        if every non-empty subset, X, of S has a "minimum"
+        element, such that there is no other element, x, in
+        X, such that (x, min) is in X.
+
+        As an example, the the less than relation over the
+        infinite set of natural numbers is well founded 
+        because in any subset of the natural numbers there 
+        is because there is always a minimal element, m: an
+        element that is less than every other element in the
+        set. 
+        
+        The concept of being
+        well founded turns out to be important for
+        reasoning about when recursive definitions are valid.
+        In a nutshell, each recursive call has to be moving
+        "down" a finite chain to a minimum element. Another
+        way to explain being well-founded is that a relation
+        is not well founded if there's a way either to "go 
+        down" or to "go around in circles" forever. Here we
+        give a version of well foundedness only for finite 
+        relations (there can never be an infinite descending
+        chain); what this predicate basically rules out 
+        are cycles in a relation.
+        */
+        predicate method isWellFounded()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+        {
+            forall X | X <= dom() ::
+                X != {} ==>
+                    exists min :: min in X && 
+                        forall s :: s in X ==> (s, min) !in rel()
+        }
+
+        /*
+        NEED DEFINITION AND EXAMPLE
+        */
        predicate method isPrewellordering()
             reads this;
             reads r;
@@ -939,44 +978,6 @@ module binRelS
 
 
 
-
-                /*
-        A relation R on a set, S, is said to be well-founded
-        if every non-empty subset, X, of S has a "minimum"
-        element, such that there is no other element, x, in
-        X, such that (x, min) is in X.
-
-        As an example, the the less than relation over the
-        infinite set of natural numbers is well founded 
-        because in any subset of the natural numbers there 
-        is because there is always a minimal element, m: an
-        element that is less than every other element in the
-        set. 
-        
-        The concept of being
-        well founded turns out to be important for
-        reasoning about when recursive definitions are valid.
-        In a nutshell, each recursive call has to be moving
-        "down" a finite chain to a minimum element. Another
-        way to explain being well-founded is that a relation
-        is not well founded if there's a way either to "go 
-        down" or to "go around in circles" forever. Here we
-        give a version of well foundedness only for finite 
-        relations (there can never be an infinite descending
-        chain); what this predicate basically rules out 
-        are cycles in a relation.
-        */
-        predicate method isWellFounded()
-            reads this;
-            reads r;
-            requires Valid();
-            ensures Valid();
-        {
-            forall X | X <= dom() ::
-                X != {} ==>
-                    exists min :: min in X && 
-                        forall s :: s in X ==> (s, min) !in rel()
-        }
 
         /*********************************************
          **** Methods for computing new relations ****
@@ -1408,50 +1409,3 @@ module binRelS
     }
 }
 
-        /* 
-
-        CONCEPTS NOT YET IMPLEMENTED -- Wikipedia sources
-
-        * DIRECTED SET
-
-        "In mathematics, a directed set (or a directed preorder or a filtered set) is a nonempty set A together with a reflexive and transitive binary relation ≤ (that is, a preorder), with the additional property that every pair of elements has an upper bound.[1] In other words, for any a and b in A there must exist c in A with a ≤ c and b ≤ c." 
-        
-        "A downward/upward directed set is defined analogously,
-        meaning when every pair of elements is bounded below/above." 
-       
-        * JOIN SEMILATTICE
-
-        * WELL-QUASI-ORDERING
-
-        "A well-quasi-ordering on a set {\displaystyle 
-        X} X is a quasi-ordering (i.e., a reflexive, 
-        transitive binary relation) such that any 
-        infinite sequence of elements {\displaystyle 
-        x_{0}} x_{0}, {\displaystyle x_{1}} x_{1}, 
-        {\displaystyle x_{2}} x_{2}, … from {\displaystyle 
-        X} X contains an increasing pair {\displaystyle 
-        x_{i}} x_{i}≤ {\displaystyle x_{j}} x_{j} with 
-        {\displaystyle i} i< {\displaystyle j} j. The 
-        set {\displaystyle X} X is said to be 
-        well-quasi-ordered, or shortly wqo."
-
-        NB: The use of "quasi-order" in the preceding
-        paragraph is NOT consistent with the use that
-        we have formalized as a propery, above. Rather,
-        the property indicated here (a reflexive and
-        transitive relation) is what we've called a
-        preorder.
-
-        
-        Among other ways of defining wqo's, one is to 
-        say that they are quasi-orderings which do not 
-        contain infinite strictly decreasing sequences 
-        (of the form {\displaystyle x_{0}} x_{0}> 
-        {\displaystyle x_{1}} x_{1}> {\displaystyle 
-        x_{2}} x_{2}>…) nor infinite sequences of 
-        pairwise incomparable elements. Hence a 
-        quasi-order (X,≤) is wqo if and only if 
-        (X,<) is well-founded and has no infinite 
-        antichains.
-        */
-        
