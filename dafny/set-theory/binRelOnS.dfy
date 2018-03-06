@@ -305,6 +305,22 @@ module binRelS
             forall x :: x in dom() ==> (x, x) in rel()
         }
 
+        /*
+        A binary relation is said to be coreflexive is for all x and y in S it holds that if xRy then x = y. Every coreflexive relation
+        is a subset of an identity relation. For example, if we define
+        every odd number to be related to itself and say nothing about
+        even numbers, then we have a coreflexive relation.
+        */
+        predicate method isCoreflexive()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid(); 
+        {
+            forall x, y :: x in dom() && y in dom() && 
+                (x,y) in rel() ==> x == y
+        }
+
 
         /*
         Return true iff the relation is symmetric
@@ -338,34 +354,25 @@ module binRelS
 
 
         /*
-        Exercise: formalize and implement a test for being
-        an equivalence relation.
-        */
-       predicate method isEquivalence()
-            reads this;
-            reads r;
-            requires Valid();
-            ensures Valid();
-        {
-            isReflexive() && isSymmetric() && isTransitive() 
-        }
-
-
-        /*
         A relation is said to be a preorder if it is
         reflexive and transitive. That is, every element
         is related to itself, and if e1 is related to e2
-        and e2 to e3, then e1 is also related to e3. The
-        reachability relation for a direct graph is a
-        preorder: every element reaches itself and if
-        there's a path from a to b then a reaches b. 
+        and e2 to e3, then e1 is also related to e3. 
+        
+        A canonical example of a preorder is the
+        *reachability relation* for a direct graph: 
+        every element reaches itself and if there's 
+        a path from a to b then a is said to reach b. 
+
+        Subtyping relations are also frequently 
+        preorders.
+
         Given any relation you can obtain a preorder
         by taking its reflexive and transitive closure.
-        Unlike a partial order, a preorder in general is
-        not antisymmetric (viewing the relation as a 
-        graph, there can be cycles in the graph). 
-        Unlike an equivalence relation, a preorder is 
-        not necesarily symmetric.
+ 
+        Unlike a partial order, a preorder in general 
+        is not antisymmetric. And unlike an equivalence
+        relation, a preorder is not necesarily symmetric.
         */
         predicate method isPreorder()
             reads this;
@@ -376,32 +383,45 @@ module binRelS
             isReflexive() && isTransitive() 
         }
 
-        /*
-        A relation R is said to be a quasi-order if it
-        is irreflexive and transitive. The less than and
-        proper subset inclusion relations are quasi-orders
-        but not partial orders, because partial orders are
-        necessarily also reflexive. The less than or equal
-        and subset inclusion relations are partial orders 
-        but not quasi-orders because they are reflexive. 
 
-        This definition of quasi order is from Stanat and 
-        McAllister, Discrete Mathematics in Computer Science, 
-        Prentice-Hall, 1977. 
-        Others define quasi-order as synonymous with preorder.
-        See Rosen, Discrete Mathematicas and Its Applications, 
-        4th ed., McGraw-Hill, 1999.
+        /*
+        Exercise: formalize and implement a test for being
+        an equivalence relation.
+
+        A preorder that is symmetric.
         */
-        predicate method isQuasiOrder()
+       predicate method isEquivalence()
             reads this;
             reads r;
             requires Valid();
             ensures Valid();
         {
-            isIrreflexive() && isTransitive() 
+            isPreorder() && isSymmetric() 
         }
 
 
+        /*
+        A binary relation is said to be a dependency relation 
+        if it is finite, symmetric, and reflexive; i.e. it is
+        a finite "tolerance relation."
+        */
+        predicate method isDependencyRelation()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+        {
+            isSymmetric() && isReflexive()
+        }
+
+
+        /*
+        A total preorder is preorder in which every
+        pair of elements is in one of two relations,
+        e.g., for every node a and b, either a reaches
+        b or b reaches a. That is, there are no pairs
+        of elements that are *incomparable*.
+        */
         predicate method isTotalPreorder()
             reads this;
             reads r;
@@ -413,6 +433,39 @@ module binRelS
 
 
         /*
+        A relation R is said to be a quasi-order if it
+        is irreflexive and transitive. 
+        
+        The less than and proper subset inclusion 
+        relations are quasi-orders but not partial 
+        orders, because partial orders are necessarily 
+        also reflexive. The less than or equal and 
+        subset inclusion relations are partial orders 
+        but not quasi-orders because they are reflexive.
+
+        Compare with strict partial ordering, which is 
+        a quasi-order that is also anti-symmetric.
+
+        This definition of quasi order is from Stanat and 
+        McAllister, Discrete Mathematics in Computer Science, 
+        Prentice-Hall, 1977. Others define quasi-order as 
+        synonymous with preorder. See Rosen, Discrete 
+        Mathematicas and Its Applications, 4th ed., 
+        McGraw-Hill, 1999.
+        */
+        predicate method isQuasiOrder()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+        {
+            isIrreflexive() && isTransitive() 
+        }
+
+
+        /*
+        Weak order.
+
         "There are several common ways of formalizing weak orderings, that are different from each other but cryptomorphic (interconvertable with no loss of information): they may be axiomatized as strict weak orderings (partially ordered sets in which incomparability is a transitive relation), as total preorders (transitive binary relations in which at least one of the two possible relations exists between every pair of elements), or as ordered partitions (partitions of the elements into disjoint subsets, together with a total order on the subsets)....
         
         ... weak orders have applications in utility theory. In linear programming and other types of combinatorial optimization problem,the prioritization of solutions or of bases is often given by a weak order, determined by a real-valued objective function; the phenomenon of ties in these orderings is called "degeneracy", and several types of tie-breaking rule have been used to refine this weak ordering into a total ordering in order to prevent problems caused by degeneracy.
@@ -431,6 +484,16 @@ module binRelS
         {
             isTotalPreorder()
         }
+
+        /*
+        A strict weak ordering is a binary relation < on a set S that is a strict partial order (a transitive relation that is irreflexive, or equivalently,[6] that is asymmetric) in which the relation "neither a < b nor b < a" is transitive.[1] Therefore, a strict weak ordering has the following properties:
+
+        For all x in S, it is not the case that x < x (irreflexivity).
+        For all x, y in S, if x < y then it is not the case that y < x (asymmetry).
+        For all x, y, z in S, if x < y and y < z then x < z (transitivity).
+        For all x, y, z in S, if x is incomparable with y (neither x < y nor y < x hold), and y is incomparable with z, then x is incomparable with z (transitivity of incomparability).
+        */
+
 
 
         /*
@@ -457,18 +520,39 @@ module binRelS
         /*
         Wellquasiordering.
 
-        A well-quasi-ordering on a set {\displaystyle X} X is a quasi-ordering (i.e., a reflexive, transitive binary relation) such that any infinite sequence of elements {\displaystyle x_{0}} x_{0}, {\displaystyle x_{1}} x_{1}, {\displaystyle x_{2}} x_{2}, … from {\displaystyle X} X contains an increasing pair {\displaystyle x_{i}} x_{i}≤ {\displaystyle x_{j}} x_{j} with {\displaystyle i} i< {\displaystyle j} j. The set {\displaystyle X} X is said to be well-quasi-ordered, or shortly wqo.
+        A well-quasi-ordering on a set {\displaystyle 
+        X} X is a quasi-ordering (i.e., a reflexive, 
+        transitive binary relation) such that any 
+        infinite sequence of elements {\displaystyle 
+        x_{0}} x_{0}, {\displaystyle x_{1}} x_{1}, 
+        {\displaystyle x_{2}} x_{2}, … from {\displaystyle 
+        X} X contains an increasing pair {\displaystyle 
+        x_{i}} x_{i}≤ {\displaystyle x_{j}} x_{j} with 
+        {\displaystyle i} i< {\displaystyle j} j. The 
+        set {\displaystyle X} X is said to be 
+        well-quasi-ordered, or shortly wqo. [Wikipedia]
+
+        NB: The use of "quasi-order" in the preceding
+        paragraph is NOT consistent with the use that
+        we have formalized as a propery, above. Rather,
+        the property indicated here (a reflexive and
+        transitive relation) is what we've called a
+        preorder.
 
         ...
         
-        Among other ways of defining wqo's, one is to say that they are
-        quasi-orderings which do not contain infinite strictly decreasing 
-        sequences (of the form {\displaystyle x_{0}} x_{0}> 
-        {\displaystyle x_{1}} x_{1}> {\displaystyle x_{2}} x_{2}>…) nor
-        infinite sequences of pairwise incomparable elements. Hence a 
-        quasi-order (X,≤) is wqo if and only if (X,<) is well-founded and 
-        has no infinite antichains.
+        Among other ways of defining wqo's, one is to 
+        say that they are quasi-orderings which do not 
+        contain infinite strictly decreasing sequences 
+        (of the form {\displaystyle x_{0}} x_{0}> 
+        {\displaystyle x_{1}} x_{1}> {\displaystyle 
+        x_{2}} x_{2}>…) nor infinite sequences of 
+        pairwise incomparable elements. Hence a 
+        quasi-order (X,≤) is wqo if and only if 
+        (X,<) is well-founded and has no infinite 
+        antichains.
         */
+        // TBD, perhaps in infinite version of library
         
  
         /*
@@ -516,6 +600,21 @@ module binRelS
         }
 
 
+        /*
+        A binary relation is a partial order if it is
+        reflexive, anti-symmetric, and transitive. 
+        
+        A canonical example is the subset-of relation.
+        It's reflexive as every set is a subset of 
+        itself. It's anti-symmetric because if S is a
+        subset of T and T is a subset of S then T=S.
+        And it's transitive: if S is a subset of T
+        and T is a subset of R then S is a subset of
+        R.
+
+        A partial order corresponds to a directed 
+        acyclic graph.
+        */
         predicate method isPartialOrder()
             reads this;
             reads r;
@@ -523,9 +622,59 @@ module binRelS
             ensures Valid();
 
         {
-            isReflexive() && isTransitive() && isAntisymmetric()
+            isPreorder() && isAntisymmetric()
         }
 
+
+        /*
+        A relation R is a strict partial order if it's
+        irreflexive, antisymmetric, and transitive. A
+        canonical example is the less than (<) relation
+        on a set of natural numbers. 
+        */
+        predicate method isStrictPartialOrder()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+        {
+            isIrreflexive() && isAntisymmetric() && isTransitive()
+        }
+
+
+        /*
+        A strict weak ordering is a strict partial order in which the relation "neither a R b nor b R a" is transitive. That is, for
+        all x, y, z in S, if neither x R y nor y R x holds, and if neither y R z nor z R y holds, then neither x R z nor z R x holds.
+
+        In the C++ Standard Template Library (STL), if you want to use
+        a standard sort routine or map data structure you have to define 
+        an overloaded < operator; and it has to imlpement a strict weak
+        ordering relation.
+
+        From StackOverflow:
+
+        This notion, which sounds somewhat like an oxymoron, is not very commonly used in mathematics, but it is in programming. The "strict" just means it is the irreflexive form "<" of the comparison rather than the reflexive "≤". The "weak" means that the absence of both a<b and b<a do not imply that a=b. However as explained here, the relation that neither a<b nor b<a holds is required to be an equivalence relation. The strict weak ordering then induces a (strict) total ordering on the equivalence classes for this equivalence relation.
+
+        This notion is typically used for relations that are in basically total orderings, but defined using only partial information about the identity of items. For instance if a<b between persons means that a has a name that (strictly) precedes the name of b alphabetically, then this defines a strict weak order, since different persons may have identical names; the relation of having identical names is an equivalence relation.
+
+        One can easily show that for a strict weak ordering "<", the relation a≮b is (reflexive and) transitive, so it is a pre-order,and the associated equivalence relation is the same as the one associated above to the strict weak ordering. In fact "a≮b" is a total pre-order which induces the same total ordering (or maybe it is better to say the opposite ordering, in view of the negation) on its equivalence classes as the strict weak ordering does. I think I just explained that the notions of strict weak ordering and total pre-order are equivalent. The WP article also does a reasonable job explaining this.
+
+        Marc van Leeuwen:
+        If you are comparing strings, then you would often just define a total ordering (which is a special case of a strict weak ordering) like lexicographic ordering. However, it could be that you want to ignore upper case/lower case distinctions, which would make it into a true weak ordering (strings differing only by case distinctions would then form an equivalence class).
+
+        Note: isStrictWeakOrdering <==> isTotalPreorder (should verify)
+        */
+        predicate method isStrictWeakOrdering()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+        {
+            isStrictPartialOrder() && 
+            // transitivity of incomparability
+            forall x, y, z :: x in dom() && y in dom() && z in dom() &&
+               (x, y) !in rel() && (y, z) !in rel() ==> (x, z) !in rel()
+        }
 
 
         /*
@@ -573,6 +722,70 @@ module binRelS
         {
             isTransitive() && isTotal() && isWellFounded()
         }
+
+
+
+        /*
+        A binary relation is said to be trichotomous if
+        for any pair of values, x and y, either xRy or 
+        yRx or x==y. The < relation on natural numbers is
+        an example of a trichotomous relation.
+        */
+        predicate method isTrichotomous()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+
+        {
+            forall x, y :: x in dom() && y in dom() ==>
+                (x, y) in rel() || (y, x) in rel() || x == y
+        }
+
+
+        /*
+        Right Euclidean: for all x, y and z in X it holds that if xRy and xRz, then yRz.
+        */
+        predicate method isRightEuclidean()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+
+        {
+            forall x, y, z :: x in dom() && y in dom() && z in dom() ==>
+                (x, y) in rel() && (x, z) in rel() ==> (y, z) in rel()
+        }
+
+        /*
+        Left Euclidean: for all x, y and z in X it holds that if yRx and zRx, then yRz.
+        */
+        predicate method isLeftEuclidean()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+
+        {
+            forall x, y, z :: x in dom() && y in dom() && z in dom() ==>
+                (y, x) in rel() && (z, x) in rel() ==> (y, z) in rel()
+        }
+
+        /*
+        Euclidean: A relation is said to be Euclidean if it 
+        is both left and right Euclidean. Equality is a Euclidean 
+        relation because if x=y and x=z, then y=z.
+        */
+        predicate method isEuclidean()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+
+        {
+            isLeftEuclidean() && isRightEuclidean()
+        }
+
 
 
 
@@ -670,6 +883,28 @@ module binRelS
 
 
         /*
+        Returns the identity relation on the domain
+        of this relation. Used, among other things, to
+        compute reflexive closures.
+        */
+        method independencyRelationOnS(d: binRelOnS<T>) 
+            returns (r: binRelOnS<T>)
+            requires Valid();
+            requires d.Valid();
+            requires d.isDependencyRelation();
+            ensures r.Valid();
+            ensures r.dom() == dom() &&
+                    r.rel() == 
+                        (set x, y | x in dom() && y in dom() :: (x,y)) -
+                        d.rel();
+            ensures Valid();
+        {
+            r := new binRelOnS(
+                dom(), 
+                (set x,y | x in dom() && y in dom() :: (x,y)) - d.rel());
+        }
+
+        /*
         Return the union of this relation and the given 
         relation, t: b, basicaly (this + t), viewed as sets
         of pairs. The domain/codomain sets of this and t 
@@ -755,6 +990,7 @@ module binRelS
             ensures r.Valid();
             ensures r.dom() == dom();
             ensures r.rel() == rel() + set x | x in dom() :: (x,x);
+            ensures rel() <= r.rel();
             ensures Valid();
         {
             var id := this.identityOnS();
@@ -777,6 +1013,7 @@ module binRelS
             ensures r.dom() == dom();
             ensures r.rel() == rel() + set x, y | 
                 x in dom() && y in codom() && (x, y) in rel():: (y, x);
+            ensures rel() <= r.rel();
             ensures Valid();
         {
             var inv := this.inverse();
@@ -828,8 +1065,20 @@ module binRelS
             r := refc.transitiveClosure();
         }
  
-
-
+        //Reflexive transitive symmetric closure
+        method reflexiveSymmetricTransitiveClosure() 
+            returns (r: binRelOnS<T>)
+            requires Valid();
+            ensures r.Valid();
+            ensures r.dom() == dom();
+            ensures rel() <= r.rel();
+            ensures Valid();
+        {
+            var refc := this.reflexiveClosure();
+            var symc := refc.symmetricClosure();
+            r := symc.transitiveClosure();
+        }
+ 
         /*
         The reflexive reduction of a relation is the relation
         minus the idenitity relation on the same set. It is, to
@@ -855,7 +1104,9 @@ module binRelS
         // CODE WILL GO HERE
 
         
-        
+        // Domain and range restrictions of relations
+
+
         /*
         Return the relation g composed with this 
         relation, (g o this). The domains/codomains
