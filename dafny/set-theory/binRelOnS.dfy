@@ -215,8 +215,14 @@ module binRelS
 
 
         /*********************************/
-        /* BASIC PROPERTIES OF RELATIONS */
+        /* BASIC PROPERTIES OF FUNCTIONS */
         /*********************************/
+
+        /*
+        We start by defining what it means for a
+        relation to be a function and some basic
+        properties, or special cases, of functions. 
+        */
 
         /*
         Return true if and only if the relation is 
@@ -228,9 +234,10 @@ module binRelS
             requires Valid();
             ensures Valid();
         {
-            /* Again, we just "delegate" this.isFunction()
-            to r (the underlying binRelOnST object, by calling
-            r.isFunction().
+            /* 
+            Again, we just "delegate" this.isFunction()
+            to r (the underlying binRelOnST object, by 
+            calling r.isFunction().
             */
             r.isFunction()  
         }
@@ -301,7 +308,7 @@ module binRelS
         (i.e., defined on every element of its
         domain set).
         */
-        predicate method isTotal()
+        predicate method isTotalFunction()
             reads this;
             reads r;
             requires Valid();
@@ -315,7 +322,7 @@ module binRelS
         Return true iff the relation is partial 
         (not total relative to its domain set).
         */
-        predicate method isPartial()
+        predicate method isPartialFunction()
             reads this;
             reads r;
             requires Valid();
@@ -324,6 +331,66 @@ module binRelS
             !r.isTotal()
         }
 
+        /************************************************/
+        /* BASIC PROPERTIES OF RELATIONS MORE GENERALLY */
+        /************************************************/
+
+        /*
+        We start by defining what it means for a relation 
+        to be "total," also called "complete." NOTE WELL!
+        The term, "total", means something different when
+        applied to relations in general than to functions
+        in particular. A function is total if for every x
+        in S there is *SOME* y to which it is related (or
+        mapped, as we say). We provide isTotalFunction and
+        isPartialFunction predicates to capture this idea.
+        
+        By contrast, a binary relation (more generally) 
+        is said to be total, or "complete", if for *any* 
+        values, x and y in S, either (or both) of (x, y) 
+        or (y, x) is in the relation.
+
+        A real-world example of a total binary relation
+        is what economists call a preference relation. A
+        preference relation is a mathematical model of 
+        a consumer's preferences, that represents the idea
+        that one finds some item, x, to be "at least as
+        good as", some other item, y. Economists tend to
+        make the (somewhat artificial but mathematically
+        convenient) assumption that consumers can always
+        compare two items, no matter what they are, to
+        say whether one is at least as "preferred" as the
+        other. These ideas belong to the branch of economics
+        called "utility theory" 
+        */
+
+        
+        /*
+        A relation, R, is said to be "complete" or "total"
+        or to have the "comparability" property if any two 
+        elements, x and y, are related one way or the other, 
+        i.e., at least one of (x,y) and (y,x) is in R.
+        */
+        predicate method isTotal()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+        {
+            forall x, y :: x in dom() && y in dom() ==> 
+                 (x, y) in rel() || (y, x) in rel()
+        }
+
+        
+        // We provide isComplete() as a synonym for isTotal()
+        predicate method isComplete()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+        {
+            isTotal()
+        }
 
         /*
         Return true iff this relation is reflexive.
@@ -398,23 +465,29 @@ module binRelS
         }
 
 
+
+        /**************************************************/
+        /**** ADDITIONAL BASIC PROPERTIES OF RELATIONS ****/
+        /**************************************************/
+
         /*
-        A binary relation is said to be coreflexive is for all x and y in S it holds that if xRy then x = y. Every coreflexive relation
-        is a subset of an identity relation. For example, if we define
-        every odd number to be related to itself and say nothing about
-        even numbers, then we have a coreflexive relation.
+        A relation on a set S is said to be irreflexive
+        if no element is related to, or maps, to itself.
+        As an example, the less than relation on natural
+        numbers is irreflexive: not natural number is less
+        than itself.
         */
-        predicate method isCoreflexive()
+        predicate method isIrreflexive()
             reads this;
             reads r;
             requires Valid();
-            ensures Valid(); 
+            ensures Valid();
+
         {
-            forall x, y :: x in dom() && y in dom() && 
-                (x,y) in rel() ==> x == y
+            forall x :: x in dom() ==> (x,x) !in rel()
         }
 
-
+        
         /*
         A binary relation is said to be antisymmetric
         if whenever both (x, y) and (y, x) are in the
@@ -433,21 +506,27 @@ module binRelS
             forall x, y ::     x in dom()   &&   y in dom() &&
                            (x,y) in rel() && (y,x) in rel() ==> 
                            x == y
-            // could also have written xRy ==> !yRx
+            // Note: equivalent to xRy ==> !yRx
         }
 
 
         /*
         A binary relation, R, is said to be asymmetric 
-        (as distinct from anti-symmetric) if for all a 
-        and b, if a is related to b in R, then b is not 
-        related to a. The canonical example of relation
-        that is asymmetric is less than on the integers.
-        The less than or equals relation, by constrast,
-        is anti-symmetric, whereas less than is both
-        anti-symmetric and irreflexive (no number is
-        less than itself). To be asymmetric is the same
-        as being both asymmetric and irreflexive.
+        (as distinct from anti-symmetric) if it is both
+        anti-symmetric and also irreflexive. The latter
+        property rules out an element being related to
+        itself. Think of it as removing the possibility
+        of being "equal" in an otherwise anti-symmetric
+        (such as less than or equal) relation.
+        
+        More precisely, in an asymmetric relation, for 
+        all elements a and and b, if a is related to b 
+        in R, then b is not and cannot be related to a. 
+        
+        The canonical example of an asymmetric relation
+        is less than on the integers. If a < b then it 
+        cannot also be that b < a. To be asymmetric is 
+        the same as being antisymmetric and irreflexive.
         */
         predicate method isAsymmetric()
             reads this;
@@ -459,20 +538,77 @@ module binRelS
             isAntisymmetric() && isIrreflexive()
         }
 
+        /*
+        A binary relation on a set, S, is said to be 
+        quasi-reflexive if every element that is related
+        to some other element is also related to itself.
+
+        Adapted from Wikipedia: An example is a relation 
+        "has the same limit as" on infinite sequences of 
+        real numbers. Recall that some such sequences do
+        converge on a limit. For example, the infinite
+        sequence, 1/n, for n = 1 to infinity, converges
+        on (has limit) zero. Not every sequence of real
+        numbers has such a limit, so the "has same limit
+        as" relation is not reflexive. But if on sequence 
+        has the same limit as some other sequence, then 
+        it has the same limit as itself.
+        */
+        predicate method isQuasiReflexive()
+             reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+
+        {
+            forall x, y :: 
+                x in dom() && y in dom() && (x,y) in rel() ==> 
+                    (x,x) in rel() && (y,y) in rel()
+        }
+
 
         /*
-        A relation is said to be a preorder if it is
+        A binary relation is said to be coreflexive is 
+        for all x and y in S it holds that if xRy then x = y. 
+        Every coreflexive relation is a subset of an identity 
+        relation (in which every element is related to and only
+        to itself). A relation is thus co-reflexive if it 
+        relates just some object to, and only to, themselves.
+        
+        For example, if every odd number is related itself
+        under an admittedly "odd" version of equality, then
+        this relation is coreflexive.
+        */
+        predicate method isCoreflexive()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid(); 
+        {
+            forall x, y :: x in dom() && y in dom() && 
+                (x,y) in rel() ==> x == y
+        }
+
+
+        /*************************************/
+        /**** BASIC ORDER THEORY CONCEPTS ****/
+        /*************************************/
+
+        /*
+        A relation is said to be a "preorder" if it is
         reflexive and transitive. That is, every element
         is related to itself, and if e1 is related to e2
         and e2 to e3, then e1 is also related to e3. 
         
         A canonical example of a preorder is the
-        *reachability relation* for a direct graph: 
+        *reachability relation* for a directed graph: 
         every element reaches itself and if there's 
-        a path from a to b then a is said to reach b. 
+        a *path* from a to b then a is said to reach b. 
 
-        Subtyping relations are also frequently 
-        preorders.
+        Subtyping relations are also often preorders.
+        Every type is a subtype of itself, and if A is
+        a subtype of B, B of C, C ..., of E, then A is
+        also a subtype of B, C, ..., E.
 
         Given any relation you can obtain a preorder
         by taking its reflexive and transitive closure.
@@ -492,26 +628,93 @@ module binRelS
 
 
         /*
-        A binary relation is said to be a dependency relation 
-        if it is finite, symmetric, and reflexive; i.e. it is
-        a finite "tolerance relation."
+        A binary relation is a partial order if it is
+        a preorder (reflexive and transitive) and also
+        anti-symmetric. Recall that anti-symmetry says
+        that the only way that both (x, y) and (y, x) 
+        can be in the relation at once is if x==y.
+        
+        A canonical example of a partial order is the 
+        "subset-of" relation on the powerset of a given
+        set. It's reflexive as every set is a subset of 
+        itself. It's anti-symmetric because if S is a
+        subset of T and T is a subset of S then T=S.
+        And it's transitive, because if S is a subset 
+        of T and T a subset of R then S must also be 
+        a subset of R. 
+        
+        This relation is a *partial* order in that not 
+        every pair of subsets of a set are "comparable," 
+        which is to say  it is possible that neither 
+        is a subset of the other. The sets, {1, 2} and 
+        {2, 3}, are both subsets of the set, {1, 2, 3},
+        for example, but neither is a subset of the
+        other, so they are not "comparable:" There is 
+        no pair of these two sets, in either order, in
+        the "subset-of" relation.
+
+        A partial order in order theory corresponds 
+        directly to a "directed acyclic graph" (DAG)
+        in graph theory.
         */
-        predicate method isDependencyRelation()
+        predicate method isPartialOrder()
             reads this;
             reads r;
             requires Valid();
             ensures Valid();
+
         {
-            isSymmetric() && isReflexive()
+            isPreorder() && isAntisymmetric()
         }
 
+
+        /*
+        The kind of order most familiar from elementary
+        mathematics is a "total" order. The natural and
+        real numbers are totally ordered under the less
+        than or equals relation, for example. Any pair 
+        of such numbers is "comparable." That is, given
+        any two numbers, x and y, either (x, y) or (y, x)
+        is (or both are) in the "less than or equal 
+        relation." 
+
+        A total order, also known as a linear order, a simple order, 
+        or a chain, is a partial order with the additional property 
+        that any two elements, x and y, are comparable. This pair of
+        properties arranges the set into a fully ordered collection. 
+
+        A good example is the integers under the less than or equal
+        operator. By contrast, subset inclusion is a partial order, 
+        as two sets, X and Y, can both be subsets of ("less than or 
+        equal to") a set Z, with neither being a subset of the other.
+        */
+        predicate method isTotalOrder()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+
+        {
+            isPartialOrder() && isComplete()
+        }
+
+
+
+        /*********************************************/
+        /**** MORE ADVANCED ORDER THEORY CONCEPTS ****/
+        /*********************************************/
 
         /*
         A total preorder is preorder in which every
         pair of elements is in one of two relations,
         e.g., for every node a and b, either a reaches
         b or b reaches a. That is, there are no pairs
-        of elements that are *incomparable*.
+        of elements that are *incomparable*. Such a
+        relation thus has the comparability property,
+        though we don't make that explicit here.
+
+        EXAMPLE NEEDED
+
         */
         predicate method isTotalPreorder()
             reads this;
@@ -647,32 +850,6 @@ module binRelS
         
  
         /*
-        A binary relation is a partial order if it is
-        reflexive, anti-symmetric, and transitive. 
-        
-        A canonical example is the subset-of relation.
-        It's reflexive as every set is a subset of 
-        itself. It's anti-symmetric because if S is a
-        subset of T and T is a subset of S then T=S.
-        And it's transitive: if S is a subset of T
-        and T is a subset of R then S is a subset of
-        R.
-
-        A partial order corresponds to a directed 
-        acyclic graph.
-        */
-        predicate method isPartialOrder()
-            reads this;
-            reads r;
-            requires Valid();
-            ensures Valid();
-
-        {
-            isPreorder() && isAntisymmetric()
-        }
-
-
-        /*
         A relation R is a strict partial order if it's
         irreflexive, antisymmetric, and transitive. A
         canonical example is the less than (<) relation
@@ -723,43 +900,7 @@ module binRelS
         }
 
 
-        /*
-        A relation, R, is said to have the comparability
-        property if any two elements are related in R one
-        way or the other (or both).
-        */
-        predicate method hasComparability()
-            reads this;
-            reads r;
-            requires Valid();
-            ensures Valid();
-        {
-            forall x, y :: x in dom() && y in dom() ==> 
-                 (x, y) in rel() || (y, x) in rel()
-        }
-
-        /*
-        A total order, also known as a linear order, a simple order, 
-        or a chain, is a partial order with the additional property 
-        that any two elements, x and y, are comparable. This pair of
-        properties arranges the set into a fully ordered collection. 
-        A good example is the integers under the less than operator. 
-        By contrast, subset inclusion is only a partial order, as two 
-        sets, X and Y, can both be subsets of (less than or equal to) 
-        a set Z, with neither a subset of the other (incomparable).
-        */
-        predicate method isTotalOrder()
-            reads this;
-            reads r;
-            requires Valid();
-            ensures Valid();
-
-        {
-            isPartialOrder() && hasComparability()
-        }
-
- 
-        predicate method isPrewellordering()
+       predicate method isPrewellordering()
             reads this;
             reads r;
             requires Valid();
@@ -768,6 +909,27 @@ module binRelS
         {
             isTransitive() && isTotal() && isWellFounded()
         }
+
+
+        /*************** END OF ORDER THEORY****************/
+
+
+
+        /*
+        A binary relation is said to be a dependency relation 
+        if it is finite, symmetric, and reflexive. That is, 
+        every element "depends on" itself, and if one depends
+        on another, then the other depends on the first. 
+        */
+        predicate method isDependencyRelation()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+        {
+            isSymmetric() && isReflexive()
+        }
+
 
 
 
@@ -833,39 +995,6 @@ module binRelS
         }
 
 
-
-
-        /*
-        A relation on a set S is said to be irreflexive
-        if no element is related, or maps, to itself.
-        */
-        predicate method isIrreflexive()
-            reads this;
-            reads r;
-            requires Valid();
-            ensures Valid();
-
-        {
-            forall x :: x in dom() ==> (x,x) !in rel()
-        }
-
-
-        /*
-        A binary relation on a set, S, is said to be 
-        quasi-reflexive if every element that is related
-        to some other element is also related to itself.
-        */
-        predicate method isQuasiReflexive()
-             reads this;
-            reads r;
-            requires Valid();
-            ensures Valid();
-
-        {
-            forall x, y :: 
-                x in dom() && y in dom() && (x,y) in rel() ==> 
-                    (x,x) in rel() && (y,y) in rel()
-        }
 
 
                 /*
