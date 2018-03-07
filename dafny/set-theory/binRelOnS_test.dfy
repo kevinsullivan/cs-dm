@@ -17,32 +17,46 @@ module binRelOnS_test
         We define the pair sets explicitly using display
         notation.
         */
-        var aSet := { 1, 2, 3, 4, 5, 7, 9, 10 };
-        var somePairs := {(1,5), (2,5), (3, 7), (4,7), (5, 10), (7, 10)};
-        var otherPairs := { (2, 4), (3,9), (3, 4), (4, 1) };
-        var aRel := new binRelOnS(aSet, somePairs);
-        var otherRel := new binRelOnS(aSet, otherPairs);
+        var s := { 1, 2, 3 };
+    //    var p := {};
+    //    var p := { (1,1) };
+    //    var p := { (1,1), (2,2), (3,3) };
+    //    var p := { (1,2), (2,3) };
+    //    var p := { (1,3), (2, 3) };
+    //    var p := { (1,2), (1,3), (2, 3) };
+    //    var p := { (1,3), (2,3) } + { (1,1), (2,2), (3,3) };
+    //    var p := { (1,2), (1,3), (2, 3) } + { (1,1), (2,2), (3,3) };
+    //    var p := { (1,2), (2,1 )};
+    //    var p := { (1,2), (2,1)} + { (1,1), (2,2), (3,3) };
+    //    var p := { (1,2), (2,1), (2,3), (3,2), (1,3), (3,1) };
+        var p := { (1,2), (2,1), (2,3), (3,2), (1,3), (3,1) } +
+                    { (1,1), (2,2), (3,3) };
+        var r := new binRelOnS(s,p);
+
+//        var otherPairs := { (2, 4), (3,10), (3, 4), (4, 1) };
+//        var anotherRelation := new binRelOnS(aSet, otherPairs);
 
         /*
-        Print out relation, "aRel", then print its properties,
+        Print out relation, "aRelation", then print its properties,
         and finally print out derived relations, including its
-        composition with "otherRel".
+        composition with "anotherRelation".
         */
         print "\n\n*********** Relation R ***************\n\n";
-        showRelation("S", aRel); 
-        showProperties(aRel);
-        showDerivedRelations(aRel,otherRel);
+        showRelation("R", r); 
+        showProperties(r);
+        //showDerivedRelations(aRelation,anotherRelation);
 
         /*
         As an illustration of capabilities of this code, 
         compute, print out, and print the properties of the
-        reflexive transitive closure of "aRel". 
-        */
+        reflexive transitive closure of "aRelation". 
+
         print "\n\n***** Reflexive Transitive Closure of R ******\n\n";
-        var rtc := aRel.reflexiveTransitiveClosure();
+        var rtc := aRelation.reflexiveTransitiveClosure();
         showRelation("S", rtc); 
         showProperties(rtc);
-    }
+        */
+        }
 
     /*
     Determine and print out the properties of relation, r.
@@ -57,15 +71,20 @@ module binRelOnS_test
             showProp(r.isSurjective(), "surjective");
             showProp(r.isInjective(), "injective");
             showProp(r.isBijective(), "bijective");
+            showProp(r.isTotalFunction(), "a total function");
+            showProp(r.isPartialFunction(),"a strictly partial function");
         }
-        showProp(r.isTotalFunction(), "a total function");
-        showProp(r.isPartialFunction(), "a partial function");
 
         print "\n\nBASIC PROPERTIES OF BINARY RELATIONS\n";
         showProp(r.isReflexive(), "reflexive");
         showProp(r.isSymmetric(), "symmetric");
         showProp(r.isTransitive(), "transitive");
         showProp(r.isEquivalence(), "an equivalence relation");
+
+        print "\n\nBASIC ORDER THEORY PROPERTIES\n";
+        showProp(r.isPreorder(), "a preorder");
+        showProp(r.isPartialOrder(), "a partial order");
+        showProp(r.isTotalOrder(), "a total order");
 
         print "\n\nMORE PROPERTIES OF BINARY RELATIONS\n";
         showProp(r.isTotal(), "a total (complete) relation");
@@ -75,14 +94,9 @@ module binRelOnS_test
         showProp(r.isQuasiReflexive(), "quasi-reflexive");
         showProp(r.isCoreflexive(), "coreflexive");
 
-        print "\n\nBASIC ORDER THEORY PROPERTIES\n";
-        showProp(r.isPreorder(), "a preorder");
-        showProp(r.isPartialOrder(), "a partial order");
-        showProp(r.isTotalOrder(), "a total order");
-
         print "\n\nMORE ADVANCED ORDER THEORY PROPERTIES\n";
         showProp(r.isTotalPreorder(), "a total preorder");
-        showProp(r.isQuasiOrder(), "a Stanat & McAllister quasi-order");
+        showProp(r.isQuasiOrder(), "a (Stanat & McAllister) quasi-order");
         showProp(r.isWeakOrdering(), "a weak ordering");
         showProp(r.isStrictPartialOrder(), "a strict partial order");
         showProp(r.isStrictWeakOrdering(), "a strict weak ordering");

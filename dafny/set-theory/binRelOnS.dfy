@@ -312,6 +312,7 @@ module binRelS
             reads this;
             reads r;
             requires Valid();
+            requires isFunction();
             ensures Valid();
         {
             r.isTotal()
@@ -326,6 +327,7 @@ module binRelS
             reads this;
             reads r;
             requires Valid();
+            requires isFunction();
             ensures Valid();
         {
             !r.isTotal()
