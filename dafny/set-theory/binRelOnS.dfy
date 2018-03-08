@@ -189,7 +189,7 @@ module binRelS
         Accessor: Get the underlying set. Note that dom() 
         and codom() also return the same results.
         */
-        function method theSet(): set<T> 
+        function method S(): set<T> 
             reads this;
             reads r;
             requires Valid();
@@ -212,6 +212,30 @@ module binRelS
             r.rel()
         }
 
+        /***********************************/
+        /* ARE GIVEN NODES RELATED OR NOT? */
+        /***********************************/
+
+        predicate method related(x: T, y: T)
+            reads this;
+            reads r;
+            requires Valid();
+            requires x in S() && y in S();
+            ensures Valid();
+        {
+            (x, y) in rel()
+        }
+
+
+        predicate method unrelated(x: T, y: T)
+            reads this;
+            reads r;
+            requires Valid();
+            requires x in S() && y in S();
+            ensures Valid();
+        {
+            (x, y) !in rel()
+        }
 
 
         /*********************************/
@@ -221,7 +245,8 @@ module binRelS
         /*
         We start by defining what it means for a
         relation to be a function and some basic
-        properties, or special cases, of functions. 
+        properties of functions as a special kind
+        of binary relation. 
         */
 
         /*
@@ -410,9 +435,120 @@ module binRelS
         }
 
 
-        /**************************************************/
-        /**** ADDITIONAL BASIC PROPERTIES OF RELATIONS ****/
-        /**************************************************/
+
+        /*************************************/
+        /**** BASIC ORDER THEORY CONCEPTS ****/
+        /*************************************/
+
+        /*
+        A relation is said to be a "preorder" if it is
+        reflexive and transitive. That is, every element
+        is related to itself, and if e1 is related to e2
+        and e2 to e3, then e1 is also related to e3. 
+        
+        A canonical example of a preorder is the
+        *reachability relation* for a directed graph: 
+        every element reaches itself and if there's 
+        a *path* from a to b then a is said to reach b. 
+
+        Subtyping relations are also often preorders.
+        Every type is a subtype of itself, and if A is
+        a subtype of B, B of C, C ..., of E, then A is
+        also a subtype of B, C, ..., E.
+
+        Given any relation you can obtain a preorder
+        by taking its reflexive and transitive closure.
+ 
+        Unlike a partial order, a preorder in general 
+        is not antisymmetric. And unlike an equivalence
+        relation, a preorder is not necesarily symmetric.
+        */
+        predicate method isPreorder()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+        {
+            isReflexive() && isTransitive() 
+        }
+
+
+        /*
+        A binary relation is a partial order if it is
+        a preorder (reflexive and transitive) and also
+        anti-symmetric. Recall that anti-symmetry says
+        that the only way that both (x, y) and (y, x) 
+        can be in the relation at once is if x==y.
+        
+        A canonical example of a partial order is the 
+        "subset-of" relation on the powerset of a given
+        set. It's reflexive as every set is a subset of 
+        itself. It's anti-symmetric because if S is a
+        subset of T and T is a subset of S then T=S.
+        And it's transitive, because if S is a subset 
+        of T and T a subset of R then S must also be 
+        a subset of R. 
+        
+        This relation is a *partial* order in that not 
+        every pair of subsets of a set are "comparable," 
+        which is to say  it is possible that neither 
+        is a subset of the other. The sets, {1, 2} and 
+        {2, 3}, are both subsets of the set, {1, 2, 3},
+        for example, but neither is a subset of the
+        other, so they are not "comparable:" There is 
+        no pair of these two sets, in either order, in
+        the "subset-of" relation.
+
+        A partial order in order theory corresponds 
+        directly to a "directed acyclic graph" (DAG)
+        in graph theory.
+        */
+        predicate method isPartialOrder()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+
+        {
+            isPreorder() && isAntisymmetric()
+        }
+
+
+        /*
+        The kind of order most familiar from elementary
+        mathematics is a "total" order. The natural and
+        real numbers are totally ordered under the less
+        than or equals relation, for example. Any pair 
+        of such numbers is "comparable." That is, given
+        any two numbers, x and y, either (x, y) or (y, x)
+        is (or both are) in the "less than or equal 
+        relation." 
+
+        A total order, also known as a linear order, a simple order, 
+        or a chain, is a partial order with the additional property 
+        that any two elements, x and y, are comparable. This pair of
+        properties arranges the set into a fully ordered collection. 
+
+        A good example is the integers under the less than or equal
+        operator. By contrast, subset inclusion is a partial order, 
+        as two sets, X and Y, can both be subsets of ("less than or 
+        equal to") a set Z, with neither being a subset of the other.
+        */
+        predicate method isTotalOrder()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+
+        {
+            isPartialOrder() && isTotal()
+        }
+
+
+
+        /********************************************/
+        /**** ADDITIONAL PROPERTIES OF RELATIONS ****/
+        /********************************************/
 
         /*
         We now define what it means for a binary relation 
@@ -598,116 +734,6 @@ module binRelS
             forall x, y :: x in dom() && y in dom() && 
                 (x,y) in rel() ==> x == y
         }
-
-
-        /*************************************/
-        /**** BASIC ORDER THEORY CONCEPTS ****/
-        /*************************************/
-
-        /*
-        A relation is said to be a "preorder" if it is
-        reflexive and transitive. That is, every element
-        is related to itself, and if e1 is related to e2
-        and e2 to e3, then e1 is also related to e3. 
-        
-        A canonical example of a preorder is the
-        *reachability relation* for a directed graph: 
-        every element reaches itself and if there's 
-        a *path* from a to b then a is said to reach b. 
-
-        Subtyping relations are also often preorders.
-        Every type is a subtype of itself, and if A is
-        a subtype of B, B of C, C ..., of E, then A is
-        also a subtype of B, C, ..., E.
-
-        Given any relation you can obtain a preorder
-        by taking its reflexive and transitive closure.
- 
-        Unlike a partial order, a preorder in general 
-        is not antisymmetric. And unlike an equivalence
-        relation, a preorder is not necesarily symmetric.
-        */
-        predicate method isPreorder()
-            reads this;
-            reads r;
-            requires Valid();
-            ensures Valid();
-        {
-            isReflexive() && isTransitive() 
-        }
-
-
-        /*
-        A binary relation is a partial order if it is
-        a preorder (reflexive and transitive) and also
-        anti-symmetric. Recall that anti-symmetry says
-        that the only way that both (x, y) and (y, x) 
-        can be in the relation at once is if x==y.
-        
-        A canonical example of a partial order is the 
-        "subset-of" relation on the powerset of a given
-        set. It's reflexive as every set is a subset of 
-        itself. It's anti-symmetric because if S is a
-        subset of T and T is a subset of S then T=S.
-        And it's transitive, because if S is a subset 
-        of T and T a subset of R then S must also be 
-        a subset of R. 
-        
-        This relation is a *partial* order in that not 
-        every pair of subsets of a set are "comparable," 
-        which is to say  it is possible that neither 
-        is a subset of the other. The sets, {1, 2} and 
-        {2, 3}, are both subsets of the set, {1, 2, 3},
-        for example, but neither is a subset of the
-        other, so they are not "comparable:" There is 
-        no pair of these two sets, in either order, in
-        the "subset-of" relation.
-
-        A partial order in order theory corresponds 
-        directly to a "directed acyclic graph" (DAG)
-        in graph theory.
-        */
-        predicate method isPartialOrder()
-            reads this;
-            reads r;
-            requires Valid();
-            ensures Valid();
-
-        {
-            isPreorder() && isAntisymmetric()
-        }
-
-
-        /*
-        The kind of order most familiar from elementary
-        mathematics is a "total" order. The natural and
-        real numbers are totally ordered under the less
-        than or equals relation, for example. Any pair 
-        of such numbers is "comparable." That is, given
-        any two numbers, x and y, either (x, y) or (y, x)
-        is (or both are) in the "less than or equal 
-        relation." 
-
-        A total order, also known as a linear order, a simple order, 
-        or a chain, is a partial order with the additional property 
-        that any two elements, x and y, are comparable. This pair of
-        properties arranges the set into a fully ordered collection. 
-
-        A good example is the integers under the less than or equal
-        operator. By contrast, subset inclusion is a partial order, 
-        as two sets, X and Y, can both be subsets of ("less than or 
-        equal to") a set Z, with neither being a subset of the other.
-        */
-        predicate method isTotalOrder()
-            reads this;
-            reads r;
-            requires Valid();
-            ensures Valid();
-
-        {
-            isPartialOrder() && isTotal()
-        }
-
 
 
         /*********************************************/
@@ -1410,4 +1436,3 @@ module binRelS
         }
     }
 }
-
