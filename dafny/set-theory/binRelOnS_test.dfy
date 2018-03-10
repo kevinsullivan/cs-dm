@@ -79,7 +79,6 @@ module binRelOnS_test
         showProp(r.isStrictPartialOrder(), "a strict partial order");
         showProp(r.isStrictWeakOrdering(), "a strict weak ordering");
         showProp(r.isWellFounded(), "well founded");
-        showProp(r.isPrewellordering(), "a pre-well-ordering");
 
         print "\n\nOTHER PROPERTIES OF BINARY RELATIONS\n";
         showProp(r.isTrichotomous(), "trichotomous");
