@@ -17,7 +17,7 @@ module binRelOnS_test
         We define the pair sets explicitly using display
         notation.
         */
-        var s := { 1, 2, 3 };
+        var s := { 1, 2, 3 }; 
     //    var p := {};
     //    var p := { (1,1) };
     //    var p := { (1,1), (2,2), (3,3) };
@@ -32,30 +32,8 @@ module binRelOnS_test
         var p := { (1,2), (2,1), (2,3), (3,2), (1,3), (3,1) } +
                     { (1,1), (2,2), (3,3) };
         var r := new binRelOnS(s,p);
-
-//        var otherPairs := { (2, 4), (3,10), (3, 4), (4, 1) };
-//        var anotherRelation := new binRelOnS(aSet, otherPairs);
-
-        /*
-        Print out relation, "aRelation", then print its properties,
-        and finally print out derived relations, including its
-        composition with "anotherRelation".
-        */
-        print "\n\n*********** Relation R ***************\n\n";
         showRelation("R", r); 
         showProperties(r);
-        //showDerivedRelations(aRelation,anotherRelation);
-
-        /*
-        As an illustration of capabilities of this code, 
-        compute, print out, and print the properties of the
-        reflexive transitive closure of "aRelation". 
-
-        print "\n\n***** Reflexive Transitive Closure of R ******\n\n";
-        var rtc := aRelation.reflexiveTransitiveClosure();
-        showRelation("S", rtc); 
-        showProperties(rtc);
-        */
         }
 
     /*
@@ -139,8 +117,21 @@ module binRelOnS_test
         showRelation("reflexiveSymmetricTransitiveClosure(R)", rstc); 
         // showRelation("transitiveReduction(R)", transitiveReduction);
         // show independencyRelationOnS // TBD
-}
+    }
 
+
+    /*
+    Utility operations, for printing stuff out.
+    */
+    method showRelation<T>(labl: string, r: binRelOnS<T>) 
+        requires r.Valid();
+        ensures r.Valid();
+    {
+        print labl; 
+        show(r); 
+        print "\n";
+    } 
+    
     method showProp(hasProp: bool, labl: string)
     {
         print "The relation ", isNt(hasProp), " ", labl, "\n";
@@ -151,15 +142,6 @@ module binRelOnS_test
         if b then "is" else "isn't"
     }
 
-    method showRelation<T>(labl: string, r: binRelOnS<T>) 
-        requires r.Valid();
-        ensures r.Valid();
-    {
-        print labl; 
-        show(r); 
-        print "\n";
-    } 
-    
     method show<T>(r: binRelOnS<T>) 
         requires r.Valid();
         ensures r.Valid();

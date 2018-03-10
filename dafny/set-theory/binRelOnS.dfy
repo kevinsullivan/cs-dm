@@ -30,7 +30,7 @@ module binRelS
     by calling corresponding operations on the
     underlying concrete representation object. 
     */ 
-    class binRelOnS<T(!new,==)>
+    class binRelOnS<Stype(!new,==)>
     {
         /*****************************/
         /* STATE AND STATE INVARIANT */
@@ -42,7 +42,7 @@ module binRelS
         relation on S X T where both sets are of
         the same type, T.
         */
-        var r: binRelOnST<T,T>;
+        var r: binRelOnST<Stype,Stype>;
 
 
         /*
@@ -71,7 +71,7 @@ module binRelS
         the constraint that values in the relation be from
         the domain/codomain set.
         */
-        constructor(aSet: set<T>, pairs: set<(T,T)>)
+        constructor(aSet: set<Stype>, pairs: set<(Stype,Stype)>)
             /*
             The relation has to be over the given set.
             */
@@ -113,7 +113,7 @@ module binRelS
         of the completeness of the abstraction we define
         here.
         */
-        function method dom(): set<T>
+        function method dom(): set<Stype>
 
             /*
             Every operation (function, method) of this 
@@ -175,7 +175,7 @@ module binRelS
         function apply to this and other operations in this 
         class. We do not repeat them here or subsequently.
         */
-        function method codom(): set<T>
+        function method codom(): set<Stype>
             reads this;
             reads r;
             requires Valid();
@@ -189,13 +189,13 @@ module binRelS
         Accessor: Get the underlying set. Note that dom() 
         and codom() also return the same results.
         */
-        function method S(): set<T> 
+        function method S(): set<Stype> 
             reads this;
             reads r;
             requires Valid();
             ensures Valid();
         {
-            r.dom()
+            dom()
         }
 
 
@@ -203,7 +203,7 @@ module binRelS
         Accessor/projection function: return the 
         relation (pair set).
         */
-        function method rel(): set<(T,T)>
+        function method rel(): set<(Stype,Stype)>
             reads this;
             reads r;
             requires Valid();
@@ -216,25 +216,27 @@ module binRelS
         /* ARE GIVEN NODES RELATED OR NOT? */
         /***********************************/
 
-        predicate method related(x: T, y: T)
+        predicate method related(x: Stype, y: Stype)
             reads this;
             reads r;
             requires Valid();
             requires x in S() && y in S();
             ensures Valid();
         {
-            (x, y) in rel()
+            r.related(x, y)
+            //(x, y) in rel()
         }
 
 
-        predicate method unrelated(x: T, y: T)
+        predicate method unrelated(x: Stype, y: Stype)
             reads this;
             reads r;
             requires Valid();
             requires x in S() && y in S();
             ensures Valid();
         {
-            (x, y) !in rel()
+            r.unrelated(x,y)
+            //(x, y) !in rel()
         }
 
 
@@ -760,6 +762,21 @@ module binRelS
             }
 
 
+       /*
+        A relation R is a strict partial order if it's
+        irreflexive, antisymmetric, and transitive. A
+        canonical example is the less than (<) relation
+        on a set of natural numbers. 
+        */
+        predicate method isStrictPartialOrder()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+        {
+            isIrreflexive() && isAntisymmetric() && isTransitive()
+        }
+
         /*
         A relation R is said to be a quasi-order if it
         is irreflexive and transitive. 
@@ -792,21 +809,46 @@ module binRelS
 
 
         /*
-        Weak order.
+        Weak ordering
 
-        "There are several common ways of formalizing weak orderings, that are different from each other but cryptomorphic (interconvertable with no loss of information): they may be axiomatized as strict weak orderings (partially ordered sets in which incomparability is a transitive relation), as total preorders (transitive binary relations in which at least one of the two possible relations exists between every pair of elements), or as ordered partitions (partitions of the elements into disjoint subsets, together with a total order on the subsets)....
+        "There are several common ways of formalizing weak orderings, 
+        that are different from each other but cryptomorphic 
+        (interconvertable with no loss of information): they may be 
+        axiomatized as strict weak orderings (partially ordered sets 
+        in which incomparability is a transitive relation), as total 
+        preorders (transitive binary relations in which at least one 
+        of the two possible relations exists between every pair of 
+        elements), or as ordered partitions (partitions of the 
+        elements into disjoint subsets, together with a total order 
+        on the subsets)....
         
-        ... weak orders have applications in utility theory. In linear programming and other types of combinatorial optimization problem,the prioritization of solutions or of bases is often given by a weak order, determined by a real-valued objective function; the phenomenon of ties in these orderings is called "degeneracy", and several types of tie-breaking rule have been used to refine this weak ordering into a total ordering in order to prevent problems caused by degeneracy.
+        ... weak orders have applications in utility theory. In 
+        linear programming and other types of combinatorial 
+        optimization problem, the prioritization of solutions or 
+        of bases is often given by a weak order, determined by a 
+        real-valued objective function; the phenomenon of ties 
+        in these orderings is called "degeneracy", and several 
+        types of tie-breaking rule have been used to refine this 
+        weak ordering into a total ordering in order to prevent 
+        problems caused by degeneracy.
 
-        Weak orders have also been used in computer science, in partition refinement based algorithms for lexicographic breadth-first search and lexicographic topological ordering. In these algorithms, a weak ordering on the vertices of a graph (represented as a family of sets that partition the vertices, together with a doubly linked list providing a total order on the sets) is gradually refined over the course of the algorithm, eventually producing a total ordering that is the output of the algorithm.
+        Weak orders have also been used in computer science, in 
+        partition refinement based algorithms for lexicographic 
+        breadth-first search and lexicographic topological ordering. 
+        In these algorithms, a weak ordering on the vertices of 
+        a graph (represented as a family of sets that partition 
+        the vertices, together with a doubly linked list providing 
+        a total order on the sets) is gradually refined over the 
+        course of the algorithm, eventually producing a total 
+        ordering that is the output of the algorithm.
 
         In the Standard (Template) Library for the C++ programming 
-        language, the set and multiset data types sort their input by a 
-        comparison function that is specified at the time of template 
-        instantiation, and that is assumed to implement a strict weak 
-        ordering." --Wikipedia 
+        language, the set and multiset data types sort their input 
+        by a comparison function that is specified at the time of 
+        template instantiation, and that is assumed to implement 
+        a strict weak ordering." --Wikipedia 
 
-        We formalize the concept as "total preorder." KS: Double-check correctness.
+        We formalize the concept as "total preorder." 
         */
         predicate method isWeakOrdering()
             reads this;
@@ -818,22 +860,6 @@ module binRelS
         }
 
  
-        /*
-        A relation R is a strict partial order if it's
-        irreflexive, antisymmetric, and transitive. A
-        canonical example is the less than (<) relation
-        on a set of natural numbers. 
-        */
-        predicate method isStrictPartialOrder()
-            reads this;
-            reads r;
-            requires Valid();
-            ensures Valid();
-        {
-            isIrreflexive() && isAntisymmetric() && isTransitive()
-        }
-
-
         /*
         A strict weak ordering is a strict partial order in which the relation "neither a R b nor b R a" is transitive. That is, for
         all x, y, z in S, if neither x R y nor y R x holds, and if neither y R z nor z R y holds, then neither x R z nor z R x holds.
@@ -907,29 +933,17 @@ module binRelS
                         forall s :: s in X ==> (s, min) !in rel()
         }
 
-        /*
-        NEED DEFINITION AND EXAMPLE
-        */
-       predicate method isPrewellordering()
-            reads this;
-            reads r;
-            requires Valid();
-            ensures Valid();
-
-        {
-            isTransitive() && isTotal() && isWellFounded()
-        }
-
 
         /*************** END OF ORDER THEORY****************/
-
 
 
         /*
         A binary relation is said to be a dependency relation 
         if it is finite, symmetric, and reflexive. That is, 
         every element "depends on" itself, and if one depends
-        on another, then the other depends on the first. 
+        on another, then the other depends on the first. The
+        name, "mutual dependency" or "symmetric dependency"
+        relation would make sense here.
         */
         predicate method isDependencyRelation()
             reads this;
@@ -941,13 +955,14 @@ module binRelS
         }
 
 
-
-
         /*
         A binary relation is said to be trichotomous if
         for any pair of values, x and y, either xRy or 
         yRx or x==y. The < relation on natural numbers is
-        an example of a trichotomous relation.
+        an example of a trichotomous relation: given any
+        two natural numbers, x and y, either x < y or
+        y < x, or, if neither condition holds, then it
+        must be that x = y.
         */
         predicate method isTrichotomous()
             reads this;
@@ -1016,7 +1031,7 @@ module binRelS
         same set with all the same tuples but in reverse 
         order.
         */
-        method inverse() returns (r: binRelOnS<T>)
+        method inverse() returns (r: binRelOnS<Stype>)
             requires Valid();
             ensures r.Valid();
             ensures r.dom() == dom();
@@ -1035,7 +1050,7 @@ module binRelS
         of this relation. Used, among other things, to
         compute reflexive closures.
         */
-        method identity() returns (id: binRelOnS<T>)
+        method identity() returns (id: binRelOnS<Stype>)
             requires Valid();
             ensures id.Valid();
             ensures id.dom() == dom() &&
@@ -1051,8 +1066,8 @@ module binRelS
         relation, (g o this). The domains/codomains
         of g and this must be the same.
         */
-        method compose(g: binRelOnS<T>) 
-            returns (c : binRelOnS<T>)
+        method compose(g: binRelOnS<Stype>) 
+            returns (c : binRelOnS<Stype>)
             requires Valid();
             requires g.Valid();
             requires g.dom() == codom();
@@ -1093,7 +1108,7 @@ module binRelS
         the identity relation on the same set. That is
         how we compute it here.
         */
-        method reflexiveClosure() returns (r: binRelOnS<T>)
+        method reflexiveClosure() returns (r: binRelOnS<Stype>)
             requires Valid();
             ensures r.Valid();
             ensures r.dom() == dom();
@@ -1115,7 +1130,7 @@ module binRelS
         (s, t), and making sure that all reversed pairs, 
         (t, s), are also included.
         */
-        method symmetricClosure() returns (r: binRelOnS<T>)
+        method symmetricClosure() returns (r: binRelOnS<Stype>)
             requires Valid();
             ensures r.Valid();
             ensures r.dom() == dom();
@@ -1141,7 +1156,7 @@ module binRelS
         to have followed all maximum-length paths in R.
         That's what we do, here.
          */
-        method transitiveClosure() returns (r: binRelOnS<T>)
+        method transitiveClosure() returns (r: binRelOnS<Stype>)
             requires Valid();
             ensures r.Valid();
             ensures r.dom() == dom();
@@ -1174,7 +1189,7 @@ module binRelS
         
         FIX: Under-informative specification!!!
         */
-        method reflexiveTransitiveClosure() returns (r: binRelOnS<T>)
+        method reflexiveTransitiveClosure() returns (r: binRelOnS<Stype>)
             requires Valid();
             ensures r.Valid();
             ensures r.dom() == dom();
@@ -1187,7 +1202,7 @@ module binRelS
  
         //Reflexive transitive symmetric closure
         method reflexiveSymmetricTransitiveClosure() 
-            returns (r: binRelOnS<T>)
+            returns (r: binRelOnS<Stype>)
             requires Valid();
             ensures r.Valid();
             ensures r.dom() == dom();
@@ -1206,7 +1221,7 @@ module binRelS
         be formal about it, the smallest relation with the same
         reflexive closure as this (the given) relation.
         */
-        method reflexiveReduction() returns (r: binRelOnS<T>)
+        method reflexiveReduction() returns (r: binRelOnS<Stype>)
             requires Valid();
             ensures r.Valid();
             ensures r.dom() == dom();
@@ -1229,7 +1244,7 @@ module binRelS
         in R both of whose elements are in X. That X is a subset 
         of S is a precondition for calling this method.
         */
-        method restriction(X: set<T>) returns (r: binRelOnS<T>)
+        method restriction(X: set<Stype>) returns (r: binRelOnS<Stype>)
             requires Valid();
             requires X <= dom();
             ensures r.Valid();
@@ -1249,7 +1264,7 @@ module binRelS
         of pairs. The domain/codomain sets of this and t 
         must be the same.
         */
-        method relUnion(t: binRelOnS<T>) returns (r: binRelOnS<T>)
+        method relUnion(t: binRelOnS<Stype>) returns (r: binRelOnS<Stype>)
             requires Valid();
             requires t.Valid();
             requires t.dom() == dom();
@@ -1266,8 +1281,8 @@ module binRelS
         the given relation, t: b, basicaly (this * t). The
         domain/codomain sets of this and t must be the same.
         */
-        method relIntersection(t: binRelOnS<T>) 
-            returns (r: binRelOnS<T>)
+        method relIntersection(t: binRelOnS<Stype>) 
+            returns (r: binRelOnS<Stype>)
             requires Valid();
             requires t.Valid();
             requires t.dom() == dom();
@@ -1284,8 +1299,8 @@ module binRelS
         the given relation, t: b, basicaly (this - t). The
         domain/codomain sets of this and t must be the same.
         */
-        method relDifference(t: binRelOnS<T>) 
-            returns (r: binRelOnS<T>)
+        method relDifference(t: binRelOnS<Stype>) 
+            returns (r: binRelOnS<Stype>)
             requires Valid();
             requires t.Valid();
             requires t.dom() == dom();
@@ -1304,8 +1319,8 @@ module binRelS
         such a relation if they are "independent" in
         the given dependency relation.
         */
-        method independencyRelationOnS(d: binRelOnS<T>) 
-            returns (r: binRelOnS<T>)
+        method independencyRelationOnS(d: binRelOnS<Stype>) 
+            returns (r: binRelOnS<Stype>)
             requires Valid();
             requires d.Valid();
             requires d.isDependencyRelation();
@@ -1339,7 +1354,7 @@ module binRelS
         the image of that value will simply be the
         empty set.
         */
-        function method image(k: T): (r: set<T>)
+        function method image(k: Stype): (r: set<Stype>)
             reads this;
             reads r;
             requires Valid(); 
@@ -1359,7 +1374,7 @@ module binRelS
         function is that all argument values (in ks) be
         in the domain of this relation.
         */
-        function method imageOfSet(ks: set<T>): (r: set<T>)
+        function method imageOfSet(ks: set<Stype>): (r: set<Stype>)
             reads this;
             reads r;
             requires Valid(); 
@@ -1378,7 +1393,7 @@ module binRelS
         is a precondition that v be in the codomain of this
         relation.
         */
-        function method preimage(v: T): (r: set<T>)
+        function method preimage(v: Stype): (r: set<Stype>)
             reads this;
             reads r;
             requires Valid(); 
@@ -1392,7 +1407,7 @@ module binRelS
         /*
         Compute image of a domain element under this relation.
         */
-        function method preimageOfSet(vs: set<T>): (r: set<T>)
+        function method preimageOfSet(vs: set<Stype>): (r: set<Stype>)
             reads this;
             reads r;
             requires Valid(); 
@@ -1408,7 +1423,7 @@ module binRelS
         domain element, k, if the relation maps k to 
         at least one value in the codomain. 
         */
-        predicate method isDefinedFor(k: T)
+        predicate method isDefinedFor(k: Stype)
             reads this;
             reads r;
             requires Valid();
@@ -1423,7 +1438,7 @@ module binRelS
         "apply" it to a single value, on which this
         function is defined, to get a single result. 
         */
-        method apply(k: T) returns (ret: T)
+        method apply(k: Stype) returns (ret: Stype)
             requires Valid(); 
             requires k in dom();   // only ask about domain values
             requires isFunction(); // only ask if this is a function
