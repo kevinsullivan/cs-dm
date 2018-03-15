@@ -177,6 +177,13 @@ module birthday_book
             found (in the set of known names) with birthdays 
             today.
             */
+
+            /*
+            Or we could just do this!
+            */
+            names := set n | n in known && birthday[n] == today;
+
+            /* here's the iterative version
             var left := known;
             var acc := {};
             while (left != {}) 
@@ -191,6 +198,7 @@ module birthday_book
                 left := left - { n };
             }
             return acc;
+            */
         }
 
 
@@ -267,9 +275,12 @@ module birthday_book
         bb.addBirthday("John", 25);
         bb.addBirthday("Mike", 20);
         bb.addBirthday("Susan", 20);
-        var b20 := bb.Remind(20);
+        bb.addBirthday("Jane", 17);
+        //bb.addBirthday("Susan", 23);
+        var b20 := bb.Remind(25);
         var jbd := bb.findBirthday("John");
+        bb.addBirthday("Fred", 15);
         print "John's birthday is on day ", jbd, "\n";
-        print "The people with birthdays on the 20th are ", b20, "\n";
+        print "The people with birthdays on the 25th are ", b20, "\n";
     }
 }

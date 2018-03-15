@@ -17,8 +17,11 @@ A little homework exercise for you.
 
  
     /*
-    A beautiful polymorphic method to compute set products.
-    Completely unnecessary given set comprehension notation!
+    Having noticed that Dafny lacks a set product operator, we
+    wrote one ourselves. Here's a beautiful polymorphic method 
+    to compute set products. It's also completely unnecessary,
+    as we could have used set comprehension notation instead!
+    See the example following this code.
     */
      method set_product<T1,T2>(s1: set<T1>, s2: set<T2>) 
         returns (r: set<(T1,T2)>)
@@ -40,6 +43,15 @@ A little homework exercise for you.
             first := first - { x };
         }
         return acc;
+    }
+
+    /*
+    Here's the same set product functionality as a pure 
+    function using a set comprehension expression.
+    */
+    function method product<T1,T2>(s1: set<T1>, s2: set<T2>): set <(T1,T2)>
+    {
+        set x, y | x in s1 && y in s2 :: (x, y)
     }
 
     method set_tests()
@@ -67,14 +79,13 @@ A little homework exercise for you.
 
         // define s1 to be the set {-1, 0, 1, 2, 3}
 
-        s1 := {-1, 0, 1, 2, 3, -1};
-//        print s1;
-
+        s1 := {-1, 0, 1, 2, 3, -1}; // repeated -1 is not needed and does nothing
 
         // define s2 to be the set { 0, 2, 4 }
         s2 := { 0, 2, 4 };
 
         // define s3 to be the intersection of s1 and s2
+        // * means set intersection in Dafny, not product
         s3 := s1 * s2; 
 
         // define s4 to to be the union of s1 and s2
@@ -98,29 +109,35 @@ A little homework exercise for you.
         // define s7 to be the product set, s1 * s2
         // s7 := s1 X s2;
 
-        s7 := set_product(s1,s2);
-        print "The product of ", s1, "and ", s2, " is ", s7, "\n";
+        s7 := product(s1,s2);
     
         /*
         What kind of things are the elements of this product set?
-        Answer here:
+        Answer here: They are the pairs whose first elements are from
+        s1 and whose second elements are from s2. 
         */
 
         // define s8 to be the product set s2 * s1
+        // ERROR: s8 is declared to be of type set<int>!
+        // We'll introduce a new variable, s8', instead.
+        var s8' := product(s2,s1);
 
     
         /*
         For arbitrary sets, s1 and s2, is s1 * s2 == s2 * s1?
         If they're different, in what way are they different?
-        Answer here:
+        Answer here: They're different. The order of the elements
+        in the ordered pairs is reversed.
         */
 
         // Assign to a new variable c1 the cardinality of s1 * s2. 
-
+        var c1 := |s7|;
 
         /*
-        How does the cardinality of s1*s2 related to the cardinalities of s1 and s2 individually? Will this same relationship hold in general? If so, why; if not, 
-        why not? Answer here:
+        How does the cardinality of s1*s2 related to the cardinalities of s1 and s2 individually? Will this same relationship hold in general? If so, why; if not, why not? Answer here: The cardinality of a product set is the product 
+        of the cardinalities of the multiplicand sets. For each of k elements in 
+        the first set there are n tuples, where n is the cardinality of the second
+        set, so the total number of tuples is k * n.
         */
 
 
@@ -138,14 +155,14 @@ A little homework exercise for you.
                      
         s9 := {"Cat", "Dog", "Giraffe", "Duck", "Lizard" };
 
-        print s1, "\n";
-        print s2, "\n";
-        print s3, "\n";
-        print s4, "\n";
-        print s5, "\n";
-        print s6, "\n";
-        print s7, "\n";
-        print s8, "\n";
+        // (1) type error, sets not of same type
+        // assert s9 <= s1; 
+
+        // (2) as written, where * is intersection, doesn't type check
+        // if set product was intended, cardinality is 25; however, Dafny
+        // doesn't verify this fact (at least not without more help)
+        var p := product(s1,s9);
+        // assert |p| == 25;
     }
 
     /***
@@ -174,27 +191,28 @@ A little homework exercise for you.
          
         assert s1[2] == s2[2] == s3[1];       // <--- Right there.
 
-        // Here's another sequence of int variable, uninitialized
+        // Here's another "sequence of int" variable, uninitialized
         var s4: seq<int>;
 
         /* 
         Assign to s4 the value of an expression involving s1, so 
-        that the following assertion, which you are to un-comment, is verified. The point of this exercise is to make sure you 
+        that the following assertion, which you are to un-comment, 
+        is verified. The point of this exercise is to make sure you 
         understand how indexing works in sub-sequence expressions. 
         Note: assertion should show red until you get the answer.
         */
         
-        s4 :=  s1[0..3];                      // <----Your code here
+        s4 :=  s1[0..3];      // <----Your code here
         assert s4 == s2;      // Uncomment this assertion
 
 
 
         /*
         Write an assertion here stating that s2 is a prefix of s1.
-        Check and comment out if unverified an assertion that s1 is
+        Check, and comment out if unverified, an assertion that s1 is
         a prefix of s2.
         */
-                      // <---- Your code here
+        //assert s1 <= s2;              // <---- Your code here
 
 
 
@@ -203,12 +221,12 @@ A little homework exercise for you.
         verifies that 3 is an element of s1 AND that 7 *IS* in s2. 
         Comment out the assertion if it does not verify.
         */
-                       // <---- Your code here
+        assert 3 in s1 && 7 !in s2;               // <---- Your code here
 
         /*
         Write an assertion here stating that the length of s2 is  5.
         */
-                       // <---- Your code here
+        //assert |s2| == 5;       Not true!
 
 
         /*
@@ -218,16 +236,20 @@ A little homework exercise for you.
         that checks that you got the right answer. You must compute
         the right answer mentally to write the required assertion.
         */
-                           // update/assignment operation
-                           // assertion to check that it worked
+        s3 := s1 + s2;                   // update/assignment operation
+        assert s3 == [1,2,3,4,5,1,2,3];  // assertion to check that it worked
 
 
         /*
         Declare a variable cs of type "sequence of character" and initilize it to the sequence 'h', 'e', 'l', 'l', 'o'. Then assert that the sequence is equal to the string, "hello". Does Dafny accept this assertion as well formed? If not, comment it out. If so, check whether it verifies. Explain in a brief sentence why Dafny behaves as it does here.
 
-        Explain here:
+        Explain here: The sequence of characters is equal to the string. The
+        reason is that strings literally are just sequences of characters in
+        Dafny, albeit with a few extra convenient features that are specialized
+        for dealing with strings.
         */
-                            // <-----code here   
+        var cs: seq<char> := ['h', 'e', 'l', 'l', 'o'];
+        assert cs == "hello";                            // <-----code here   
 
 
         /*
@@ -237,6 +259,10 @@ A little homework exercise for you.
         an expression on the right involving s1 and the "update"
         operator for sequences.
         */ 
+
+        // Oops, error, s4 already declared. We'll use s4' instead.
+        var s4' := s1[2 := 7];
+        assert s4'[2] == 7;
     }
 
     /***
@@ -253,7 +279,7 @@ A little homework exercise for you.
 
         var ages: map<string,nat>;
         ages := map["Jane" := 9, "Lin" := 11, "Anh" := 10];
-        print ages["Jane"];
+        //print ages["Jane"];
 
         /*
         Write separate assertions to check the following claims.
@@ -263,7 +289,10 @@ A little homework exercise for you.
         (3) Jane's age is < 12.
         (4) Lin is older than Anh.
         */
-                     // <--- You code starts here
+        assert "Toby" !in ages;             // <--- You code starts here
+        assert "Jane" in ages;
+        assert ages["Jane"] < 12;
+        assert ages["Lin"] > ages["Anh"];
 
 
         /*
@@ -271,14 +300,17 @@ A little homework exercise for you.
         defined in this map. Include a "new line" character after
         the output answer.
         */
-                    // <--- your code here 
+        var numAges := | ages |;            // <--- your code here 
+        var numAges' := | ages.Keys |;      // this works, too
+        assert numAges == numAges';
+        print "The number of people in the ages relation is ", numAges, "\n";
 
         
        /*
        Assign a new map to the "ages" variable obtained by updating
        the current map to increase Jane's age to 10 (she must have just had a birthday), and by adding a student to the group, "Tim," aged 11. You can do this in two steps if you wish.
        */
-
-
+       ages := ages["Jane" := 10];
+       ages := ages["Tim" := 11];
     }
 }
