@@ -419,10 +419,15 @@ module binRelST
 
 
         /*
-        Helper function: "join" two sets of pairs on a common
-        element.
+        Helper function: "join" two sets of pairs, g and f,
+        returning (g o f), on a common element in the codomain
+        of f and the domain of g. Defining this function once
+        here eliminates redundancy in the definition of the 
+        compose function, below. 
+        
+        Along with the two sets of pairs, g and f, this function  takes sets representing the domains and codomains from which the values in the pairs are drawn: the domain of f, shared codomain of f and domain of g, and the codomain of g. 
         */
-        function method join<X(!new), Y(!new), Z(!new)>
+        static function method join<X(!new), Y(!new), Z(!new)>
             (g: set<(Y,Z)>, f: set<(X,Y)>, 
              fdom: set<X>, shared: set<Y>, gcodom: set<Z>): 
             set<(X,Z)>
@@ -434,12 +439,10 @@ module binRelST
 
 
         /*
-        The composition, h, of this function (from S to T), with g, 
-        from T to R, is a relation that maps S-values to R-values, 
-        where h contains a pair (s,r) if and only if there is some 
-        t such that (s,t) is in this relation, and (t,r) is in g. 
-        Composition of relations is a special case of composition 
-        of functions. More details to be discussed in class.
+        Returns h, the composition of "this" relation, from S to T, with the relation, that, from T to R, yielding a relation from 
+        S to R. S-values to R-values. Composition of relations is a 
+        special case of composition of functions. More details to be
+        discussed in class.
         */
         method compose<Rtype>(g: binRelOnST<Ttype,Rtype>) 
             returns (h : binRelOnST<Stype,Rtype>)
@@ -449,14 +452,14 @@ module binRelST
             ensures h.Valid();
             ensures h.dom() == dom();
             ensures h.codom() == g.codom();
-            ensures h.rel() == join(g.rel(), rel(), dom(), codom(), g.codom())
+            ensures h.rel() == join(g.rel(), rel(), dom(), g.dom(), g.codom())
             ensures forall x, z :: 
                 (x, z) in h.rel() ==> x in dom() && z in g.codom();
         {
             h := new binRelOnST<Stype, Rtype>(
                     dom(),  
                     g.codom(), 
-                    join(g.rel(), rel(), dom(), codom(), g.codom())
+                    join(g.rel(), rel(), dom(), g.dom(), g.codom())
                 );
         }
     }
