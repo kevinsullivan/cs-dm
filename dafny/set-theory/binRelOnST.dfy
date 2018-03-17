@@ -397,7 +397,7 @@ module binRelST
         Helper function: given a set of pairs, return the set
         of inverted (reversed) pairs.
         */
-        function method invert<S(==),T(==)>(ps: set<(S,T)>): 
+        static function method invert<S(==),T(==)>(ps: set<(S,T)>): 
             set<(T,S)>
         {
             set x, y, p | p in ps && x == p.0 && y == p.1 :: (y, x)
