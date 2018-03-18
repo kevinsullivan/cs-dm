@@ -11,7 +11,7 @@ parts of specifications for imperative code, and then we use tools or
 manual methods to *prove* that the imperative code does what such a
 speification requires.
 
-Performance vs. Undertandability
+Performance vs. Understandability
 ================================
 
 To get a clearer sense of the potential differences in performance
@@ -29,7 +29,7 @@ Fibonacci number, we can thus start with the first two, sum them up to
 get the next one, then iterate this process, computing the next value
 on each iteration, until we've got the result.
 
-Footnote: by convention we index sequences starating at zero rather
+Footnote: by convention we index sequences starting at zero rather
 than one. The first element in such a sequence thus has index *0*, the
 second has index *1*, and the *n'th* has index *n - 1*. For example,
 *fib(6)* refers to the *7th* Fibonacci number. You should get used to
@@ -41,7 +41,7 @@ functional language, we can even run it. However, it might not give us
 the performance we require. An imperative program, by constrast, is
 *code*. It's cryptic but it can be very efficient when run.
 
-To get a sense of performance diferences, consider the evaluation of
+To get a sense of performance differences, consider the evaluation of
 each of two programs to compute *fib(5)*: our functional program and
 an imperative one that we will develop in this chapter.
 
@@ -98,7 +98,7 @@ the sum of the numbers required to evaluate *fib(i)* plus the number
 to evaluate *fib(i-1)* plus *1.* If we use *C* to represent the cost
 function, then we could say, :math:`C(n) = C(n-1) + C(n-2) + 1`. This
 kind of function is called a recurrence relation, and there are clever
-ways to solve such functions to determine what function *C* me be. Of
+ways to solve such functions to determine what function *C* may be. Of
 course we can also write a recursive function to compute *C(n)*, if
 we need only to compute it for relatively small values of *n*.
 
@@ -292,7 +292,7 @@ also a function.
 A different way to re-formulate the square root *relation* as a
 *function* would be to view it as returning a single *set* of values
 as a result: a set containing all of the square roots of a given
-argument.  The pair :math:`(4, \{2, -2\}` is in this relation, for
+argument.  The pair :math:`(4, \{2, -2\})` is in this relation, for
 example, and the relation is also a function in that there is only one
 such pair with any given first element.
 
@@ -309,7 +309,7 @@ the *program* can take to the domain on which the actual mathematical
 function is defined. So instead of specifying a square root function
 as taking any real number, we could speficy that it requires that an
 argument value be non-negative. When we add such a precondition to a
-method or function specification in Daphy, the effect is that Dafny
+method or function specification in Dafny, the effect is that Dafny
 checks every place in the code where the method or function is called
 to verify that the argument values satisfy that pre-condition.
 
@@ -887,7 +887,7 @@ program.
 What is Dafny, Again?
 =====================
 
-Dafny is a cutting-edge software language and tooset for verification
+Dafny is a cutting-edge software language and toolset for verification
 of imperative code. It was developed at Microsoft Research---one of
 the top computer science research labs in the world. We are exploring
 Dafny and the ideas underlying it in the first part of this course to

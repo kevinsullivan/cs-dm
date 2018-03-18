@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500) (preloaded format=pdflatex 2017.12.2)  1 MAR 2018 12:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500) (preloaded format=pdflatex 2017.12.2)  17 MAR 2018 21:31
 entering extended mode
 **./MathematicalLogicinSoftwareDevelopment.tex
 (MathematicalLogicinSoftwareDevelopment.tex
@@ -1347,13 +1347,13 @@ Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 5376.
 
 Package rerunfilecheck Info: File `MathematicalLogicinSoftwareDevelopment.out' 
 has not changed.
-(rerunfilecheck)             Checksum: 9BE4518B8FCEC9B4F2901548F0DB10DF;13432.
+(rerunfilecheck)             Checksum: 7B2081FCAEB143038AA742739D4F6622;13437.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 5376.
  ) 
 Here is how much of TeX's memory you used:
  14558 strings out of 495217
- 205279 string characters out of 3181647
- 354456 words of memory out of 3000000
+ 205280 string characters out of 3181647
+ 354457 words of memory out of 3000000
  17300 multiletter control sequences out of 15000+200000
  59597 words of font info for 78 fonts, out of 3000000 for 9000
  15 hyphenation exceptions out of 8191
@@ -1373,7 +1373,7 @@ texmf/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/share/miktex-texmf/fonts/
 type1/urw/helvetic/uhvbo8a.pfb></usr/local/share/miktex-texmf/fonts/type1/urw/t
 imes/utmb8a.pfb></usr/local/share/miktex-texmf/fonts/type1/urw/times/utmr8a.pfb
 ></usr/local/share/miktex-texmf/fonts/type1/urw/times/utmri8a.pfb>
-Output written on MathematicalLogicinSoftwareDevelopment.pdf (83 pages, 526292 
+Output written on MathematicalLogicinSoftwareDevelopment.pdf (83 pages, 526267 
 bytes).
 PDF statistics:
  865 PDF objects out of 1000 (max. 8388607)

@@ -23,7 +23,7 @@ Naive Set Theory
 So what is a set? A *naive* definition (which will actually be good
 enough for our purposes and for most of practical computer science) is
 that a set is just an unordered collection of elements. In principle,
-these elements are themselves reducible to setsm but we don't need to
+these elements are themselves reducible to sets but we don't need to
 think in such reductionist terms. We can think about a set of natural
 numbers, for example, without having to think of each number as itself
 being some weird kind of set.
@@ -78,7 +78,7 @@ contains itself. Now suppose that *C(S)* is true, i.e., that *S* does
 contain itself. In this case, *S*, being a set that contains itself,
 cannot be a member of *S*, because we just defined *S* to be the set
 of sets that do *not* contain themselves. So, the assumption that *S*
-containss itself leads to the conclusion that *S* does not contain
+contains itself leads to the conclusion that *S* does not contain
 itself. In logical terms, :math:`C(S) \rightarrow \neg C(S).` This is
 a contradiction and thus a logical impossibility.
 
@@ -151,7 +151,7 @@ Set Theory Notations
 Display notation
 ----------------
 
-In everyday mathematical writing, andin Dafny, we denote small sets by
+In everyday mathematical writing, and in Dafny, we denote small sets by
 listing the elements of the set within curly brace. If *S* is the set
 containing the numbers, one, two, and three, for example, we can write
 *S* as :math:`\{ 1, 2, 3 \}.`
@@ -160,7 +160,7 @@ In Dafny, we would write almost the same thing.
 
 .. code-block:: dafny
 
-  var S:set<int> := { 1, 2, 3 }.
+  var S:set<int> := { 1, 2, 3 };
 
 This code introduces the variable, *S*, declares that its type is
 *finite set of integer* (*iset<T>* being the type of *infinite* sets
@@ -171,7 +171,7 @@ operator, is evidently a set of integers, Dafny will infer the type of
 
 .. code-block:: dafny
 
-  var S := { 1, 2, 3 }.
+  var S := { 1, 2, 3 };
 
 
 When a set is finite but too large to write down easily as a list of
@@ -365,7 +365,7 @@ not in *T*, and in general, it needs a lot of help to do that. The
 details are out of scope at this point, but one should be aware of the
 difficulty.
 
-In Dafny, one uses the usual arithmetic less and and less than or
+In Dafny, one uses the usual arithmetic less and less than or
 equal operator symbols, *<* and *<=*, to assert *proper subset* and
 *subset* relationships, respectively. The first two of the following
 assertions are thus both true in Dafny, but the third is not. That
@@ -441,7 +441,7 @@ is the product of the cardinalities of the individual sets.
 
 There is no product set operator, per se, in Dafny, but given sets,
 *S* and *T* a product set can easily be expressed using Dafny's set
-comprehension notation: *set s, t: s in S && t in T :: (s,t)*. The
+comprehension notation: *set s, t | s in S && t in T :: (s,t)*. The
 keyword, *set*, is followed by the names of the variables that will be
 used to form the set comprehension expression, followed by a colon,
 followed by an assertion that selects the values of *s* and *t* that

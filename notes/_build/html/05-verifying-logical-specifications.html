@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/sidebar.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="7. Boolean Algebra" href="06-boolean-algebra.html" />
+    <link rel="next" title="6. Dafny Language: Types, Statements, Expressions" href="06-dafny-language.html" />
     <link rel="prev" title="4. Pure Functional Programming as Runnable Mathematics" href="04-runnable-math.html" /> 
   </head>
   <body>
@@ -35,7 +35,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="06-boolean-algebra.html" title="7. Boolean Algebra"
+          <a href="06-dafny-language.html" title="6. Dafny Language: Types, Statements, Expressions"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="04-runnable-math.html" title="4. Pure Functional Programming as Runnable Mathematics"
@@ -59,8 +59,8 @@ get the benefits of both, we use functional programming to write key
 parts of specifications for imperative code, and then we use tools or
 manual methods to <em>prove</em> that the imperative code does what such a
 speification requires.</p>
-<div class="section" id="performance-vs-undertandability">
-<h2>Performance vs. Undertandability<a class="headerlink" href="#performance-vs-undertandability" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="performance-vs-understandability">
+<h2>Performance vs. Understandability<a class="headerlink" href="#performance-vs-understandability" title="Permalink to this headline">¶</a></h2>
 <p>To get a clearer sense of the potential differences in performance
 between a pure functional program and an imperative program that
 compute the same function, and tradeoffs one makes between clarity of
@@ -74,7 +74,7 @@ is the sum of the previous two values.  To compute the <em>n’th (n &gt;= 2)</e
 Fibonacci number, we can thus start with the first two, sum them up to
 get the next one, then iterate this process, computing the next value
 on each iteration, until we’ve got the result.</p>
-<p>Footnote: by convention we index sequences starating at zero rather
+<p>Footnote: by convention we index sequences starting at zero rather
 than one. The first element in such a sequence thus has index <em>0</em>, the
 second has index <em>1</em>, and the <em>n’th</em> has index <em>n - 1</em>. For example,
 <em>fib(6)</em> refers to the <em>7th</em> Fibonacci number. You should get used to
@@ -84,7 +84,7 @@ concise, precise, elegant.  And because we’ve written it in a
 functional language, we can even run it. However, it might not give us
 the performance we require. An imperative program, by constrast, is
 <em>code</em>. It’s cryptic but it can be very efficient when run.</p>
-<p>To get a sense of performance diferences, consider the evaluation of
+<p>To get a sense of performance differences, consider the evaluation of
 each of two programs to compute <em>fib(5)</em>: our functional program and
 an imperative one that we will develop in this chapter.</p>
 <p>Consider the imperative program. If the argument, <em>n</em>, is either zero
@@ -134,7 +134,7 @@ the sum of the numbers required to evaluate <em>fib(i)</em> plus the number
 to evaluate <em>fib(i-1)</em> plus <em>1.</em> If we use <em>C</em> to represent the cost
 function, then we could say, <img class="math" src="_images/math/e49ab712522c24e69d5c1c91f3b5fcdecd6d2b36.png" alt="C(n) = C(n-1) + C(n-2) + 1"/>. This
 kind of function is called a recurrence relation, and there are clever
-ways to solve such functions to determine what function <em>C</em> me be. Of
+ways to solve such functions to determine what function <em>C</em> may be. Of
 course we can also write a recursive function to compute <em>C(n)</em>, if
 we need only to compute it for relatively small values of <em>n</em>.</p>
 <p>Now that we have the formula, we can quickly compute the costs to
@@ -302,7 +302,7 @@ also a function.</p>
 <p>A different way to re-formulate the square root <em>relation</em> as a
 <em>function</em> would be to view it as returning a single <em>set</em> of values
 as a result: a set containing all of the square roots of a given
-argument.  The pair <img class="math" src="_images/math/7be00c356e44a98838dccb8316098b269b5f09ee.png" alt="(4, \{2, -2\}"/> is in this relation, for
+argument.  The pair <img class="math" src="_images/math/2e0e4c11bbc8d7da988b640b0dcf2a3fbc1a3242.png" alt="(4, \{2, -2\})"/> is in this relation, for
 example, and the relation is also a function in that there is only one
 such pair with any given first element.</p>
 <p>So far we have dealt with the situation where a relation holds more
@@ -317,7 +317,7 @@ the <em>program</em> can take to the domain on which the actual mathematical
 function is defined. So instead of specifying a square root function
 as taking any real number, we could speficy that it requires that an
 argument value be non-negative. When we add such a precondition to a
-method or function specification in Daphy, the effect is that Dafny
+method or function specification in Dafny, the effect is that Dafny
 checks every place in the code where the method or function is called
 to verify that the argument values satisfy that pre-condition.</p>
 <p>Alternately, we might “tweak” the type of the return value, so that
@@ -799,7 +799,7 @@ return fib1;
 </div>
 <div class="section" id="what-is-dafny-again">
 <h2>What is Dafny, Again?<a class="headerlink" href="#what-is-dafny-again" title="Permalink to this headline">¶</a></h2>
-<p>Dafny is a cutting-edge software language and tooset for verification
+<p>Dafny is a cutting-edge software language and toolset for verification
 of imperative code. It was developed at Microsoft Research—one of
 the top computer science research labs in the world. We are exploring
 Dafny and the ideas underlying it in the first part of this course to
@@ -842,8 +842,8 @@ task of learning how to program.</p>
   <p class="topless"><a href="04-runnable-math.html"
                         title="previous chapter">4. Pure Functional Programming as Runnable Mathematics</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="06-boolean-algebra.html"
-                        title="next chapter">7. Boolean Algebra</a></p>
+  <p class="topless"><a href="06-dafny-language.html"
+                        title="next chapter">6. Dafny Language: Types, Statements, Expressions</a></p>
         </div>
       </div>
       <div class="clearer"></div>
@@ -855,7 +855,7 @@ task of learning how to program.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="06-boolean-algebra.html" title="7. Boolean Algebra"
+          <a href="06-dafny-language.html" title="6. Dafny Language: Types, Statements, Expressions"
              >next</a> |</li>
         <li class="right" >
           <a href="04-runnable-math.html" title="4. Pure Functional Programming as Runnable Mathematics"

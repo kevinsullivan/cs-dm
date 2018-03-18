@@ -140,7 +140,7 @@ require that T support equality. Values of this type are immutable.
        var b4 := hi_seq <= hi_seq; // prefix, true
        var sum := hi_seq + hi_seq; // concatenation
        var len := | hi_seq |;
-       var Hi_seq := hi_seq[0 := 'H']; // update
+       var hi_seq := hi_seq[0 := 'H']; // update
        var b5 := 'h' in hi_seq; // member, true, !in
        var s := [0,1,2,3,4,5];
        var s1 := s[0..2];  // subseqence

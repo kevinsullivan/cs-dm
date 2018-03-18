@@ -61,7 +61,7 @@
     
 
 \title{Mathematical Logic in Software Development Documentation}
-\date{Mar 01, 2018}
+\date{Mar 17, 2018}
 \release{1}
 \author{Kevin Sullivan}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -77,7 +77,7 @@
 
 
 \chapter{1. Requirement, Specifications, and Implementations}
-\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}\label{\detokenize{01-reqs-specs-impls::doc}}\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}
+\label{\detokenize{01-reqs-specs-impls::doc}}\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}
 Software is an increasingly critical component of major societal
 systems, from rockets to power grids to healthcare, etc. Failures are
 not always bugs in implementation code. The most critical problems
@@ -844,7 +844,7 @@ are expressed and verified.
 
 
 \chapter{5. Formal Verification of Imperative Programs}
-\label{\detokenize{05-verifying-logical-specifications::doc}}\label{\detokenize{05-verifying-logical-specifications:formal-verification-of-imperative-programs}}
+\label{\detokenize{05-verifying-logical-specifications:formal-verification-of-imperative-programs}}\label{\detokenize{05-verifying-logical-specifications::doc}}
 In this chapter, we first elaborate on the idea that pure functional
 programming make for mathematically clear but potentially inefficient
 specifications, while imperative code makes for efficient code but is
@@ -855,8 +855,8 @@ manual methods to \sphinxstyleemphasis{prove} that the imperative code does what
 speification requires.
 
 
-\section{Performance vs. Undertandability}
-\label{\detokenize{05-verifying-logical-specifications:performance-vs-undertandability}}
+\section{Performance vs. Understandability}
+\label{\detokenize{05-verifying-logical-specifications:performance-vs-understandability}}
 To get a clearer sense of the potential differences in performance
 between a pure functional program and an imperative program that
 compute the same function, and tradeoffs one makes between clarity of
@@ -872,7 +872,7 @@ Fibonacci number, we can thus start with the first two, sum them up to
 get the next one, then iterate this process, computing the next value
 on each iteration, until we’ve got the result.
 
-Footnote: by convention we index sequences starating at zero rather
+Footnote: by convention we index sequences starting at zero rather
 than one. The first element in such a sequence thus has index \sphinxstyleemphasis{0}, the
 second has index \sphinxstyleemphasis{1}, and the \sphinxstyleemphasis{n’th} has index \sphinxstyleemphasis{n - 1}. For example,
 \sphinxstyleemphasis{fib(6)} refers to the \sphinxstyleemphasis{7th} Fibonacci number. You should get used to
@@ -884,7 +884,7 @@ functional language, we can even run it. However, it might not give us
 the performance we require. An imperative program, by constrast, is
 \sphinxstyleemphasis{code}. It’s cryptic but it can be very efficient when run.
 
-To get a sense of performance diferences, consider the evaluation of
+To get a sense of performance differences, consider the evaluation of
 each of two programs to compute \sphinxstyleemphasis{fib(5)}: our functional program and
 an imperative one that we will develop in this chapter.
 
@@ -941,7 +941,7 @@ the sum of the numbers required to evaluate \sphinxstyleemphasis{fib(i)} plus th
 to evaluate \sphinxstyleemphasis{fib(i-1)} plus \sphinxstyleemphasis{1.} If we use \sphinxstyleemphasis{C} to represent the cost
 function, then we could say, \(C(n) = C(n-1) + C(n-2) + 1\). This
 kind of function is called a recurrence relation, and there are clever
-ways to solve such functions to determine what function \sphinxstyleemphasis{C} me be. Of
+ways to solve such functions to determine what function \sphinxstyleemphasis{C} may be. Of
 course we can also write a recursive function to compute \sphinxstyleemphasis{C(n)}, if
 we need only to compute it for relatively small values of \sphinxstyleemphasis{n}.
 
@@ -1133,7 +1133,7 @@ also a function.
 A different way to re-formulate the square root \sphinxstyleemphasis{relation} as a
 \sphinxstyleemphasis{function} would be to view it as returning a single \sphinxstyleemphasis{set} of values
 as a result: a set containing all of the square roots of a given
-argument.  The pair \((4, \{2, -2\}\) is in this relation, for
+argument.  The pair \((4, \{2, -2\})\) is in this relation, for
 example, and the relation is also a function in that there is only one
 such pair with any given first element.
 
@@ -1150,7 +1150,7 @@ the \sphinxstyleemphasis{program} can take to the domain on which the actual mat
 function is defined. So instead of specifying a square root function
 as taking any real number, we could speficy that it requires that an
 argument value be non-negative. When we add such a precondition to a
-method or function specification in Daphy, the effect is that Dafny
+method or function specification in Dafny, the effect is that Dafny
 checks every place in the code where the method or function is called
 to verify that the argument values satisfy that pre-condition.
 
@@ -1711,7 +1711,7 @@ return fib1;
 
 \section{What is Dafny, Again?}
 \label{\detokenize{05-verifying-logical-specifications:what-is-dafny-again}}
-Dafny is a cutting-edge software language and tooset for verification
+Dafny is a cutting-edge software language and toolset for verification
 of imperative code. It was developed at Microsoft Research—one of
 the top computer science research labs in the world. We are exploring
 Dafny and the ideas underlying it in the first part of this course to
@@ -1899,7 +1899,7 @@ method SequencePlay()
     var b4 := hi\PYGZus{}seq \PYGZlt{}= hi\PYGZus{}seq; // prefix, true
     var sum := hi\PYGZus{}seq + hi\PYGZus{}seq; // concatenation
     var len := \textbar{} hi\PYGZus{}seq \textbar{};
-    var Hi\PYGZus{}seq := hi\PYGZus{}seq[0 := \PYGZsq{}H\PYGZsq{}]; // update
+    var hi\PYGZus{}seq := hi\PYGZus{}seq[0 := \PYGZsq{}H\PYGZsq{}]; // update
     var b5 := \PYGZsq{}h\PYGZsq{} in hi\PYGZus{}seq; // member, true, !in
     var s := [0,1,2,3,4,5];
     var s1 := s[0..2];  // subseqence
@@ -2450,7 +2450,7 @@ assert sumsquared == 36;     // because of the let expression
 
 
 \chapter{7. Set Theory}
-\label{\detokenize{07-set-theory:set-theory}}\label{\detokenize{07-set-theory::doc}}
+\label{\detokenize{07-set-theory::doc}}\label{\detokenize{07-set-theory:set-theory}}
 Modern mathematics is largely founded on set theory: in particular, on
 what is called \sphinxstyleemphasis{Zermelo-Fraenkel set theory with the axiom of Choice},
 or \sphinxstyleemphasis{ZFC}. Every concept you have ever learned in mathematics can, in
@@ -2472,7 +2472,7 @@ which all the rest of mathematics can be deduced.
 So what is a set? A \sphinxstyleemphasis{naive} definition (which will actually be good
 enough for our purposes and for most of practical computer science) is
 that a set is just an unordered collection of elements. In principle,
-these elements are themselves reducible to setsm but we don’t need to
+these elements are themselves reducible to sets but we don’t need to
 think in such reductionist terms. We can think about a set of natural
 numbers, for example, without having to think of each number as itself
 being some weird kind of set.
@@ -2527,7 +2527,7 @@ contains itself. Now suppose that \sphinxstyleemphasis{C(S)} is true, i.e., that
 contain itself. In this case, \sphinxstyleemphasis{S}, being a set that contains itself,
 cannot be a member of \sphinxstyleemphasis{S}, because we just defined \sphinxstyleemphasis{S} to be the set
 of sets that do \sphinxstyleemphasis{not} contain themselves. So, the assumption that \sphinxstyleemphasis{S}
-containss itself leads to the conclusion that \sphinxstyleemphasis{S} does not contain
+contains itself leads to the conclusion that \sphinxstyleemphasis{S} does not contain
 itself. In logical terms, \(C(S) \rightarrow \neg C(S).\) This is
 a contradiction and thus a logical impossibility.
 
@@ -2596,7 +2596,7 @@ built-in concepts.
 
 \subsection{Display notation}
 \label{\detokenize{07-set-theory:display-notation}}
-In everyday mathematical writing, andin Dafny, we denote small sets by
+In everyday mathematical writing, and in Dafny, we denote small sets by
 listing the elements of the set within curly brace. If \sphinxstyleemphasis{S} is the set
 containing the numbers, one, two, and three, for example, we can write
 \sphinxstyleemphasis{S} as \(\{ 1, 2, 3 \}.\)
@@ -2604,7 +2604,7 @@ containing the numbers, one, two, and three, for example, we can write
 In Dafny, we would write almost the same thing.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-var S:set\PYGZlt{}int\PYGZgt{} := \PYGZob{} 1, 2, 3 \PYGZcb{}.
+var S:set\PYGZlt{}int\PYGZgt{} := \PYGZob{} 1, 2, 3 \PYGZcb{};
 \end{sphinxVerbatim}
 
 This code introduces the variable, \sphinxstyleemphasis{S}, declares that its type is
@@ -2615,7 +2615,7 @@ operator, is evidently a set of integers, Dafny will infer the type of
 \sphinxstyleemphasis{S}, and the explicit type declaration can therefore be omitted.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-var S := \PYGZob{} 1, 2, 3 \PYGZcb{}.
+var S := \PYGZob{} 1, 2, 3 \PYGZcb{};
 \end{sphinxVerbatim}
 
 When a set is finite but too large to write down easily as a list of
@@ -2807,7 +2807,7 @@ not in \sphinxstyleemphasis{T}, and in general, it needs a lot of help to do tha
 details are out of scope at this point, but one should be aware of the
 difficulty.
 
-In Dafny, one uses the usual arithmetic less and and less than or
+In Dafny, one uses the usual arithmetic less and less than or
 equal operator symbols, \sphinxstyleemphasis{\textless{}} and \sphinxstyleemphasis{\textless{}=}, to assert \sphinxstyleemphasis{proper subset} and
 \sphinxstyleemphasis{subset} relationships, respectively. The first two of the following
 assertions are thus both true in Dafny, but the third is not. That
@@ -2882,7 +2882,7 @@ is the product of the cardinalities of the individual sets.
 
 There is no product set operator, per se, in Dafny, but given sets,
 \sphinxstyleemphasis{S} and \sphinxstyleemphasis{T} a product set can easily be expressed using Dafny’s set
-comprehension notation: \sphinxstyleemphasis{set s, t: s in S \&\& t in T :: (s,t)}. The
+comprehension notation: \sphinxstyleemphasis{set s, t \textbar{} s in S \&\& t in T :: (s,t)}. The
 keyword, \sphinxstyleemphasis{set}, is followed by the names of the variables that will be
 used to form the set comprehension expression, followed by a colon,
 followed by an assertion that selects the values of \sphinxstyleemphasis{s} and \sphinxstyleemphasis{t} that
@@ -4749,7 +4749,7 @@ that satisfies the program preconditions into a post-execution state.
 
 
 \chapter{9. Propositional Logic}
-\label{\detokenize{09-propositional-logic:propositional-logic}}\label{\detokenize{09-propositional-logic::doc}}
+\label{\detokenize{09-propositional-logic::doc}}\label{\detokenize{09-propositional-logic:propositional-logic}}
 A logic is a system for writing, evaluating, and reasoning about truth
 statements, or \sphinxstyleemphasis{propositions}. A proposition asserts that some state
 of affairs holds in some domain. Truth statements can be particular:
@@ -5267,7 +5267,7 @@ exhaustive checking of all interpretations. \textless{}More to come\textgreater{
 
 
 \chapter{10. Natural Deduction}
-\label{\detokenize{10-natural-deduction:natural-deduction}}\label{\detokenize{10-natural-deduction::doc}}
+\label{\detokenize{10-natural-deduction::doc}}\label{\detokenize{10-natural-deduction:natural-deduction}}
 Note to self: The next few chapters separate complexities on the way
 to full first-order logic. The first, addressed here, is the shift
 from a semantic to a syntactic approach to judging truth. Derivation
@@ -5308,7 +5308,7 @@ expressions}.
 
 
 \chapter{11. Sets as Domains: Predicate Logic}
-\label{\detokenize{11-predicate-logic:sets-as-domains-predicate-logic}}\label{\detokenize{11-predicate-logic::doc}}
+\label{\detokenize{11-predicate-logic::doc}}\label{\detokenize{11-predicate-logic:sets-as-domains-predicate-logic}}
 In this chapter we move from propositional to a predicate logic, in
 which the values of variables can range not only over :math:\{matbb
 B\}{}` but over arbitrary sets. The issue of \sphinxstyleemphasis{validity} is complicated as
@@ -5317,7 +5317,7 @@ independent of any particular interpretation.
 
 
 \chapter{12. Quantification: First-Order Logic}
-\label{\detokenize{12-quantification:quantification-first-order-logic}}\label{\detokenize{12-quantification::doc}}
+\label{\detokenize{12-quantification::doc}}\label{\detokenize{12-quantification:quantification-first-order-logic}}
 We now address quantifiers with some care.  We’ve been seeing and
 using them all along, of course. What we do in this chapter is to
 address them more rigirously. We discuss elimination and induction
