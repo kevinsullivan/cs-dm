@@ -28,13 +28,12 @@
     /*
     This method returns the value assigned to a given
     propositional variable by a given interpretation,
-    or false if the variable's not mapped by it. The
-    design of this code would be improved by the
-    addition of a precondition that requires v in i.
+    or false if the variable's not mapped by it. 
     */
     function method pVarValue(v: propVar, i: pInterpretation): bool
+        requires v in i
     {
-        if (v in i) then i[v] else false
+        i[v]
     }
 
     /*

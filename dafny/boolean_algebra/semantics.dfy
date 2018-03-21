@@ -5,9 +5,9 @@
      import opened expression
 
     /*
-    Evaluate a Boolean expression in a given environment. 
-    The recursive structure of this algorithm reflects the
-    inductive structure of the expressions we've defined.
+    Evaluate a Boolean expression. The recursive structure 
+    of this algorithm reflects the inductive structure of the 
+    expressions we've defined.
     */
     function method bEval(e: bExp): bool
     {
@@ -17,10 +17,11 @@
             case bTrue => true
             case bFalse => false
         
-            // Evaluate operator exprs recursively in same environment
+            // Evaluate operator exprs recursively 
             case bNot(e: bExp) => !bEval(e)
             case bAnd(e1, e2) => bEval(e1) && bEval(e2)
             case bOr(e1, e2) =>  bEval(e1) || bEval(e2)
+            case bImpl(e1, e2) => bEval(e1) ==> bEval(e2)
         }
     }    
  }

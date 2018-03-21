@@ -1,5 +1,3 @@
-include "syntax.dfy"
-
 module syntax
 {
     datatype propVar = mkPropVar(name: string) 

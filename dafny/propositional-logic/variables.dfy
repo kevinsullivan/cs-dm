@@ -67,14 +67,46 @@ module variables
         return l;
     }
 
-/*
+    /*
+    To write the specification for the method that 
+    gathers all the variables in a given proposition
+    and returns them as a set, we need a predicate
+    that tells us whether a given variable appears
+    in a given proposition. That's what this function
+    does. A variable, v, never appears in any literal 
+    pTrue or pFalse expression. It appears in a variable
+    expression if and only if it's the same variable.
+    Otherwise it appears in an expression built using
+    a connective iff it appears in any subexpression.
+    */
+    predicate method varInExp(v: propVar, e: prop)
+    {
+        match e 
+        {
+            case pFalse => false
+            case pTrue => false
+            case pVar(v') => v'.name == v.name
+            case pNot(e') => varInExp(v,e')
+            case pAnd(e',e'') => varInExp(v,e') || varInExp(v,e'')
+            case pOr(e',e'') => varInExp(v,e') || varInExp(v,e'')
+            case pImpl(e',e'') => varInExp(v,e') || varInExp(v,e'')   
+        }
+    }
+    
+    /*
     Given a prop, we will often need to extract from it
     the set of variables it uses. This method does that.
     Note that even if a variable appears multiple times 
     in an expression it will of course only appear in the
     set once.
     */
-    function method getVarsInProp(e: prop): set<propVar>
+    function method getVarsInProp(e: prop): (r: set<propVar>)
+        /*
+        How to express postcondition? We want to say that
+        a variable is in the returned set iff and only if
+        it appears somewhere in e.
+        */
+        ensures forall v :: v in r <==> varInExp(v,e)
     {
       /*
       Do the work by calling a recursive helper 

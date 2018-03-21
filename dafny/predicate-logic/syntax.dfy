@@ -1,18 +1,36 @@
 module syntax
 {
+    /*
+    We define a set of "propositional variables"
+    as the values of an inductive type, propVar.
+    There is one constructor for this type, called
+    mkPropVar. It takes a string argument. The string
+    is what distinguishes one propVar from another.
+
+    Code that we might write using this type could
+    look like this:
+
+    var X := mkPropVar("X");
+    var Y := mkPropVar("Y");
+    var itsRainingOutside := mkPropVar("it's raining outside");
+
+    We could then use these propositional variables
+    to build propostional expressions using the syntax
+    defined next.
+    */
     datatype propVar = mkPropVar(name: string) 
 
-   /*
-   A value of this prop type represents a sentence, 
-   or expression, in propositional logic. Such an
-   expression is a constant (pTrue or pFalse); a 
-   propositional variable (here, represented by a
-   value of type pVar); or an expression created by 
-   applying one of the logical connectives to one 
-   or more smaller propositions. A value of this
-   type is structured as what we call an "abstract
-   syntax tree."
-   */
+    /*
+    A value of this prop type represents a sentence, 
+    or expression, in propositional logic. Such an
+    expression is a constant (pTrue or pFalse); a 
+    propositional variable (here, represented by a
+    value of type pVar); or an expression created by 
+    applying one of the logical connectives to one 
+    or more smaller propositions. A value of this
+    type is structured as what we call an "abstract
+    syntax tree."
+    */
     datatype prop = 
         pTrue | 
         pFalse |

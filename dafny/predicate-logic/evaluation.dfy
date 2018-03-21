@@ -1,9 +1,11 @@
  include "interpretation.dfy"
+ include "variables.dfy"
  
  module evaluation
  {
      import opened syntax
      import opened interpretation
+     import opened variables
 
     /*
     Evaluate a propositional expression given an interpretation,
@@ -12,6 +14,7 @@
     the syntax of expressions in propositional logic. 
     */
     function method pEval(e: prop, i: pInterpretation): (r: bool)
+        requires forall v :: v in getVarsInProp(e) ==> v in i
     {
         match e 
         {

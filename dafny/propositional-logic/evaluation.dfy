@@ -1,17 +1,22 @@
  include "interpretation.dfy"
+ include "variables.dfy"
  
  module evaluation
  {
      import opened syntax
      import opened interpretation
+     import opened variables
 
     /*
-    Evaluate a propositional expression given an interpretation,
-    yielding a Dafny Boolean values as a result. The recursive 
-    structure of this code mirrors the inductive definition of 
-    the syntax of expressions in propositional logic. 
+    Evaluate a propositional expression given an interpretation, yielding a Dafny Boolean values as a 
+    result. The recursive structure of this code mirrors the 
+    inductive definition of the syntax of expressions in 
+    propositional logic. Calling this function requires
+    that every variable in the proposition be assigned
+    a value by the interpretation.
     */
     function method pEval(e: prop, i: pInterpretation): (r: bool)
+        requires forall v :: v in getVarsInProp(e) ==> v in i
     {
         match e 
         {
