@@ -118,23 +118,26 @@
 \contentsline {section}{\numberline {8.6}The Semantics of Boolean Expressions: Recursive Evaluation}{62}{section.8.6}
 \contentsline {section}{\numberline {8.7}The Syntax and Semantics of Programming Languages}{63}{section.8.7}
 \contentsline {chapter}{\numberline {9}9. Propositional Logic}{65}{chapter.9}
-\contentsline {section}{\numberline {9.1}Propositional Logic}{65}{section.9.1}
-\contentsline {section}{\numberline {9.2}Syntax of Propositional Logic}{66}{section.9.2}
-\contentsline {section}{\numberline {9.3}Semantics of Propositional Logic}{66}{section.9.3}
-\contentsline {section}{\numberline {9.4}Inference Rules for Propositional Logic}{67}{section.9.4}
-\contentsline {section}{\numberline {9.5}Using Logic in Practice}{67}{section.9.5}
-\contentsline {section}{\numberline {9.6}Implementing Propositional Logic}{68}{section.9.6}
-\contentsline {subsection}{\numberline {9.6.1}Syntax}{69}{subsection.9.6.1}
-\contentsline {subsection}{\numberline {9.6.2}Interpretation}{70}{subsection.9.6.2}
-\contentsline {subsection}{\numberline {9.6.3}Semantics}{70}{subsection.9.6.3}
-\contentsline {subsection}{\numberline {9.6.4}Models}{71}{subsection.9.6.4}
-\contentsline {section}{\numberline {9.7}Satisfiability, Validity}{71}{section.9.7}
-\contentsline {section}{\numberline {9.8}Logical Consequence}{71}{section.9.8}
-\contentsline {chapter}{\numberline {10}10. Natural Deduction}{73}{chapter.10}
-\contentsline {chapter}{\numberline {11}11. Sets as Domains: Predicate Logic}{75}{chapter.11}
-\contentsline {chapter}{\numberline {12}12. Quantification: First-Order Logic}{77}{chapter.12}
-\contentsline {section}{\numberline {12.1}Universal and Existential Quantification}{77}{section.12.1}
-\contentsline {section}{\numberline {12.2}Introduction and Elimination Rules for Exists}{77}{section.12.2}
-\contentsline {section}{\numberline {12.3}Introduction and Elimination Rules for Forall}{77}{section.12.3}
-\contentsline {section}{\numberline {12.4}Induction Principles and Algebraic Data Types}{77}{section.12.4}
-\contentsline {chapter}{\numberline {13}Indices and tables}{79}{chapter.13}
+\contentsline {section}{\numberline {9.1}Basic Terminology}{65}{section.9.1}
+\contentsline {section}{\numberline {9.2}Propositional and Predicate Logic}{65}{section.9.2}
+\contentsline {section}{\numberline {9.3}What is a Logic?}{66}{section.9.3}
+\contentsline {section}{\numberline {9.4}Propositional Logic}{67}{section.9.4}
+\contentsline {section}{\numberline {9.5}Inductive Definitions: The Syntax of Propositional Logic}{67}{section.9.5}
+\contentsline {section}{\numberline {9.6}Semantics of Propositional Logic}{68}{section.9.6}
+\contentsline {section}{\numberline {9.7}Inference Rules for Propositional Logic}{69}{section.9.7}
+\contentsline {section}{\numberline {9.8}Using Logic in Practice}{70}{section.9.8}
+\contentsline {section}{\numberline {9.9}Implementing Propositional Logic}{70}{section.9.9}
+\contentsline {subsection}{\numberline {9.9.1}Syntax}{71}{subsection.9.9.1}
+\contentsline {subsection}{\numberline {9.9.2}Interpretation}{72}{subsection.9.9.2}
+\contentsline {subsection}{\numberline {9.9.3}Semantics}{72}{subsection.9.9.3}
+\contentsline {subsection}{\numberline {9.9.4}Models}{73}{subsection.9.9.4}
+\contentsline {section}{\numberline {9.10}Satisfiability, Validity}{73}{section.9.10}
+\contentsline {section}{\numberline {9.11}Logical Consequence}{73}{section.9.11}
+\contentsline {chapter}{\numberline {10}10. Natural Deduction}{75}{chapter.10}
+\contentsline {chapter}{\numberline {11}11. Sets as Domains: Predicate Logic}{77}{chapter.11}
+\contentsline {chapter}{\numberline {12}12. Quantification: First-Order Logic}{79}{chapter.12}
+\contentsline {section}{\numberline {12.1}Universal and Existential Quantification}{79}{section.12.1}
+\contentsline {section}{\numberline {12.2}Introduction and Elimination Rules for Exists}{79}{section.12.2}
+\contentsline {section}{\numberline {12.3}Introduction and Elimination Rules for Forall}{79}{section.12.3}
+\contentsline {section}{\numberline {12.4}Induction Principles and Algebraic Data Types}{79}{section.12.4}
+\contentsline {chapter}{\numberline {13}Indices and tables}{81}{chapter.13}

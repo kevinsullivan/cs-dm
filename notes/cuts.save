@@ -1,0 +1,59 @@
+In Dafny, a logical language is used to express states of affairs in
+programs, that are required or asserted to hold. A simple example is a
+proposition that some variable has a value that is greater than *0*.
+When used for program specification and verification, propositions are
+taken as descriptions of states of affairs that are required to hold,
+and that Dafny assures must hold before a program can be run.
+
+Dafny is a programming system with an expressive logic, which means
+that many useful conditions can be expressed using it. Dafny's logic
+is called *first-order logic*. In addition to providing an expressive
+logical language, Dafny also provides automated and often efficient
+tools for enforcing the truth of propositions about programs. Dafny
+requires programmers to change either programs or specifications until
+the former satisfy the latter.
+
+In practice, programmers sometimes make pragmatic compromises by
+weaking specifications until satisfaction can readilt be proved.  But
+this approach casts the validity of the specifications into question
+and opens a possibility that a program will satisfy its specification
+without satisfy the actual requirements for the system.
+
+
+====
+
+Indeed, the language of propositional logic is really just that of
+Boolean expressions from the last chapter, but now those expressions
+can contain not just Boolean *literal expressions* (i.e., *pTrue* and
+*pFalse*) but also Boolean *variable expressions* (e.g.,. *M* and
+*F*).  *Propositional logic* sounds complicated, but it's not. Just
+think *Boolean expressions that can include Boolean variables*.
+
+where we interpret *M* and *F* as simple propositions that are either
+true or false.  Logical variables in propositional logic take
+
+In this chapter and the next, we explore a simple, useful logic called
+*propositional logic*. This is a logic in which the basic elements are
+*atomic propositions*--that can be broken down no further-- that can
+be taken to be either true or false, and in which propositions can be
+composed into larger propositions using logical *connectives*, such as
+*and, or, not,* and *implies*.
+
+For example, atomic propositions might be (1) *it is raining*, (2)
+*the streets are wet*. If one considers all possible worlds, then in
+some of them, each proposition is sometimes true and sometimes false.
+A larger proposition, a *formula*, can be formed by combining these
+(basic) propositions into a larger one: *it is raining* **implies**
+*the streets are wet*. Another way to say this in English would be,
+*whever it is raining, the streets are wet.* This larger proposition
+is true in some but not all possible worlds. If it's not raining, the
+proposition correctly describes the world whether the streets are wet
+or not, and so is judged to be true. If it is raining and the streets
+are wet, it also correctly describes the world, and so is judged to be
+world is consistent with the proposition whether the streets are wet
+or not. Only in a world in which it is raining and the streets are dry
+does the proposition fail to correctly describe the state of affairs,
+and so in this world, it's judged to be false. 
+
+There are many forms of logic, but they all share three basic
+elements: syntax, semantics, and reasoning principles.

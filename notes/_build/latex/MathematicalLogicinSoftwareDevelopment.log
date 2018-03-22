@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500) (preloaded format=pdflatex 2017.12.2)  17 MAR 2018 21:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500) (preloaded format=pdflatex 2017.12.2)  22 MAR 2018 17:17
 entering extended mode
 **./MathematicalLogicinSoftwareDevelopment.tex
 (MathematicalLogicinSoftwareDevelopment.tex
@@ -1320,41 +1320,48 @@ LaTeX Font Info:    Font shape `T1/phv/b/it' in size <12> not available
 
 ]
 Chapter 9.
-[65] [66] [67] [68] [69] [70] [71] [72
+
+Underfull \hbox (badness 10000) in paragraph at lines 4802--4810
+[]\T1/ptm/m/n/10 By con-trast, our sec-ond propo-si-tion, ev-ery per-son has a
+ mother ($\OMS/cmsy/m/n/10 8\OML/cmm/m/it/10 p \OMS/cmsy/m/n/10 2 \OML/cmm/m/i
+t/10 Persons; \OMS/cmsy/m/n/10 9\OML/cmm/m/it/10 m \OMS/cmsy/m/n/10 2
+ []
+
+[65] [66] [67] [68] [69] [70] [71] [72] [73] [74
 
 ]
 Chapter 10.
-[73] [74
-
-]
-Chapter 11.
 [75] [76
 
 ]
-Chapter 12.
+Chapter 11.
 [77] [78
+
+]
+Chapter 12.
+[79] [80
 
 ]
 Chapter 13.
 (MathematicalLogicinSoftwareDevelopment.ind)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 5376.
- [79]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 5376.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 5558.
+ [81]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 5558.
 
 (MathematicalLogicinSoftwareDevelopment.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 5376.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 5376.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 5558.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 5558.
 
 Package rerunfilecheck Info: File `MathematicalLogicinSoftwareDevelopment.out' 
 has not changed.
-(rerunfilecheck)             Checksum: 7B2081FCAEB143038AA742739D4F6622;13437.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 5376.
+(rerunfilecheck)             Checksum: C4928AB95B8551F9FCD95F5B76BEB18E;14099.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 5558.
  ) 
 Here is how much of TeX's memory you used:
- 14558 strings out of 495217
- 205280 string characters out of 3181647
- 354457 words of memory out of 3000000
- 17300 multiletter control sequences out of 15000+200000
+ 14569 strings out of 495217
+ 205536 string characters out of 3181647
+ 354639 words of memory out of 3000000
+ 17306 multiletter control sequences out of 15000+200000
  59597 words of font info for 78 fonts, out of 3000000 for 9000
  15 hyphenation exceptions out of 8191
  37i,23n,51p,481b,502s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1373,10 +1380,10 @@ texmf/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/share/miktex-texmf/fonts/
 type1/urw/helvetic/uhvbo8a.pfb></usr/local/share/miktex-texmf/fonts/type1/urw/t
 imes/utmb8a.pfb></usr/local/share/miktex-texmf/fonts/type1/urw/times/utmr8a.pfb
 ></usr/local/share/miktex-texmf/fonts/type1/urw/times/utmri8a.pfb>
-Output written on MathematicalLogicinSoftwareDevelopment.pdf (83 pages, 526267 
+Output written on MathematicalLogicinSoftwareDevelopment.pdf (85 pages, 538723 
 bytes).
 PDF statistics:
- 865 PDF objects out of 1000 (max. 8388607)
- 223 named destinations out of 1000 (max. 500000)
- 525 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 889 PDF objects out of 1000 (max. 8388607)
+ 228 named destinations out of 1000 (max. 500000)
+ 549 words of extra memory for PDF output out of 10000 (max. 10000000)
 

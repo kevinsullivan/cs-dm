@@ -2,76 +2,177 @@
 9. Propositional Logic
 **********************
 
-A logic is a system for writing, evaluating, and reasoning about truth
-statements, or *propositions*. A proposition asserts that some state
-of affairs holds in some domain. Truth statements can be particular:
-e.g., Tom's mom is Mary; or general: e.g., Every person has a mother.
+This chapter first introduces logic, in general, and the introduces
+propositional logic, in particular. Proposition logic is a simple but
+useful logic that is very closely related to Boolean algebra.
 
-In Dafny, a logical language is used to express states of affairs in
-programs, that are required or asserted to hold. A simple example is a
-proposition that some variable has a value that is greater than *0*.
-When used for program specification and verification, propositions are
-taken as descriptions of states of affairs that are required to hold,
-and that Dafny assures must hold before a program can be run.
+Basic Terminology
+=================
 
-Dafny is a programming system with an expressive logic, which means
-that many useful conditions can be expressed using it. Dafny's logic
-is called *first-order logic*. In addition to providing an expressive
-logical language, Dafny also provides automated and often efficient
-tools for enforcing the truth of propositions about programs. Dafny
-requires programmers to change either programs or specifications until
-the former satisfy the latter.
+"Tom's mother is Mary." This statement is a *proposition*. It asserts
+that a particular *state of affairs* holds in some particular *domain
+of discourse*. The domain in this case would be some family unit, and
+the state of affairs that is asserted to prevail is that Mary is Tom's
+Mom.
 
-In practice, programmers sometimes make pragmatic compromises by
-weaking specifications until satisfaction can readilt be proved.  But
-this approach casts the validity of the specifications into question
-and opens a possibility that a program will satisfy its specification
-without satisfy the actual requirements for the system.
+Whether such a proposition can be *judged* to be *true* or not is
+another matter. If the domain were that of a family in which there
+really are people, Tom and Mary, and Mary really is the mother of Tom,
+then this proposition could be judged to be true. However, if such a
+state of affairs did not hold, then the proposition would still be a
+fine proposition, but it could not be judged to be true.
 
-Of course logic has far broader applications in computer science than
-just in program specification and verification. It is also central to
-many artificial intelligence (AI) systems, optimization systems (e.g.,
-for finding good travel routes), in the development and analysis of
-algorithms, in verification of the functionality of hardware circuits
-in digital logic design, and in many other fields.
+In place of the phrase "domain of discourse" we could also use the
+word, "world." In general the truth of a proposition depends on the
+world in which it is evaluated. There are some proposition that are
+true in every world, e.g., "true = true;" some that are not true in
+any world, e.g., "true = false;" and many where the truth depends on
+the world in which they are evaluated, e.g., "Mary is Tom's mother."
 
-Up until now in this course, you have seen one compelling application
-of mechanized logic in programming, for program specification and
-verification. Having shown one compelling *use case* for logic in
-practical computing, we now start a *deeper dive* to understand logic
-and formal reasoning more generally.
+Here's another proposition: "Every person has a mother." If the domain
+of discourse is all living humans, then the proposition can be judged
+to be ("is") true, because everyone alive today has a mother (alive or
+deceased). If, however, the domain is taken to be all people who ever
+lived, then things get murky as the chain of *human* motherhood cannot
+continue infinitely into the past.
+
+Propositional and Predicate Logic
+=================================
+
+The proposition, *Tom's mother is Mary*, is simple. It could even be
+collapsed down to, to be represented as, a single variable, say, *M*.
+We could then judge *M* to be true or not. Similarly, a variable, *F*,
+could represent the proposition, *Tom's father is Ernst*.  We could
+then *construct* a larger proposition, *Toms' mother is Mary **and**
+Tom's father is Ernst* (or *M **and** F*) by composing the two given
+propositions, *M* and *F* with the logical *connective*, *and*. We
+could then judge the truth of this compound proposition by conjoining
+the truth values of the constituent propositions.  Such a logic of
+simple propositions and compositions of propositions using connectives
+such as *and*, *or*, and *not* is called *propositional logic*.
+
+By contrast, our second proposition, "every person has a mother"
+(:math:`\forall p \in Persons, \exists m \in Persons, motherOf(p,m)`),
+belongs to a richer logic.  Here, *motherOf(p, m)* stands for the
+proposition that the mother of *p* is *m*, where *p* and *m* are not
+Boolean-valued variables, but variables that range over the set of
+people in the assumed domain of discourse.  The overall proposition
+thus asserts that, for *every* person, *p* (in the domain), there is a
+person, *m*, such that *m* is the mother of *p*.
+
+The *motherOf(p,m)* construct is a *parameterized proposition*. You
+can think of it as a function that takes two values, *p* and *m*, and
+that returns a proposition about those particular values. We call such
+a parameterized proposition a *predicate*. A predicate thus represents
+not a just one proposition but a whole *family* of propositions (one
+for each pair of parameter values), each of which might or might not
+be true. If *m* really is the mother of *p*, then *motherOf(p,m)* can
+be judged to be true. The proposition, *motherOf(Tom, Mary)*, might be
+judged to be true, but *motherOf(Tom, Robert)* maybe would not be.
+
+Another way to look at a predicate is that it *picks out* a subset of
+*(p,m)* pairs, namely all and only those for which *motherOf(p,m)* is
+true. A predicate thus specifies a relation, her a binary relation,
+namely the *motherOf* relation on the set of people in the domain of
+discourse.
+
+We thus have a logic that (1) allows variables, such as *p* and *m*,
+to range over sets of objects (rather that just over Boolean values),
+(2) that supports the use predicates, and (3) that supports universal
+and existential quantifiers. This logic is called *predicate logic*.
+As we will see in a later chapter, a predicate logic also allows the
+use of functions taking arguments to identify objects in the domain.
+
+Predicate logic is the logic of everyday mathematics and computer
+science. It is, among many other things, the logic Dafny provides for
+writing specifications.  Consider our specification of what it means
+for a function, *R*, with domain, *D*, and codomain, *C*, to be
+surjective: :math:`\forall c \in C, \exists d \in D, (d,c) \in R`. In
+Dafny, we would (and did) write this as, *forall c :: c in codom() ==>
+exists d :: d in dom() && (d,c) in rel().* Dafny is specification and
+verification system based on *predicate logic*. We've been using it
+all along!
+
+One of the main goals of this course up to now has been to get you
+reading, writing, and seeing the relevance and utility of predicate
+logic. Far from being an arcane irrelevancy, it is one of the pillars
+of computer science, in general, and rigorous software development, in
+particular. It is also central to many artificial intelligence (AI)
+systems, to combinatorial optimization (e.g., for finding good travel
+routes), in the analysis of algorithms, in digital circuit design, and
+in many other areas of computer science, not to mention mathematics. 
+
+Going forward, one of our main goals is to understand predicate logic
+in much greater depth, including its syntax (what kinds of expressions
+can you write in predicate logic?) and semantics (when are expressions
+in predicate logic *true?*).
+
+In this chapter, which beings Part II of this set of notes, we start
+our exploration of predicate logic and proof by first exploring the
+simpler case of *propositional* logic.  To begin, in the next section,
+we address the basic question, what is *a logic*, in the first place?
+
+What is a Logic?
+================
+
+A logic is (1) a *formal language* of *propositions* along with (2)
+principles for reasoning about whether any given proposition can be
+judged to be *true* or not. A logic has a *syntax*, which is a set of
+mathematically (formally) specified rules that precisely define the
+set of well formed propositions (or *well formed formulae, or wffs*)
+in the language. A logic also has a *semantics*, which is a set of
+formal rules for reasoning about whether a given proposition can be
+judged to be true or not.
+
+In the last chapter, on Boolean algebra, we already saw what amounts
+to a simplified version of propositional logic, with both a syntax and
+a semantics! The syntax of our Boolean expression language is given by
+the inductive *bExp* type.  It provides a set of constructors, which
+are just the rules for building valid expressions, with an implicit
+assumption that the valid expressions in the language are all and only
+those that can be built using the provided constructors. The syntax is
+compositional, in that smaller expressions can be composed into ever
+larger ones, up to arbitrarily large (but always still finite) sizes.
+
+The semantics of the simplified logic is then defined by a *semantic
+evaluation* function, that takes *any* valid expression in the
+language as an argument and that returns a Boolean value indicating
+whether the given expression is (can be judged to be) true or not.
+The semantics is also compositional in that the truth of a composed
+proposition is defined recursively in terms of (1) the truth values of
+its constituent propositions, and (2) the meaning of the connector
+that was used to compose them. The recursive structure of semantic
+evaluation exactly mirrors the inductive definition of the syntax.
 
 Propositional Logic
 ===================
 
-In this chapter and the next, we explore a simple, useful logic called
-*propositional logic*. This is a logic in which the basic elements are
-*atomic propositions*--that can be broken down no further-- that can
-be taken to be either true or false, and in which propositions can be
-composed into larger propositions using logical *connectives*, such as
-*and, or, not,* and *implies*.
+We now introduce propositional logic. The syntax of propositional
+logic is basically that of our Boolean expression language with the
+crucial addition of propositional *variable expressions*. Examples of
+variable expressions include *M* and *F* in our example at the start
+of this chapter. So, for example, in addition to being able to write
+expressions such as *pAnd(pTrue,pFalse)*, we can write *pAnd(pTrue,F)*
+and *POr(M,F)*.
 
-For example, atomic propositions might be (1) *it is raining*, (2)
-*the streets are wet*. If one considers all possible worlds, then in
-some of them, each proposition is sometimes true and sometimes false.
-A larger proposition, a *formula*, can be formed by combining these
-(basic) propositions into a larger one: *it is raining* **implies**
-*the streets are wet*. Another way to say this in English would be,
-*whever it is raining, the streets are wet.* This larger proposition
-is true in some but not all possible worlds. If it's not raining, the
-proposition correctly describes the world whether the streets are wet
-or not, and so is judged to be true. If it is raining and the streets
-are wet, it also correctly describes the world, and so is judged to be
-world is consistent with the proposition whether the streets are wet
-or not. Only in a world in which it is raining and the streets are dry
-does the proposition fail to correctly describe the state of affairs,
-and so in this world, it's judged to be false. 
+As for semantics, propositional variables take Boolean values. To
+evaluate a variable expression, we just look up its Boolean value
+and then proceed as with Boolean expression evaluation in the last
+chapter.
 
-There are many forms of logic, but they all share three basic
-elements: syntax, semantics, and reasoning principles.
+The one complication, then, is that, to evaluate a proposition (which
+in general includes variables), our semantic evaluation function needs
+to have a way to look up the Boolean value of each variable appearing
+in the expression being evaluated. Our semantic evaluator need a *map*
+from variables to values.  Logicians call such a variable-to-value map
+an *interpretation*. Programming language designers call such a map an
+*environment*. To evaluate a variable expression, the evaluator will
+just look up its value in the given intepretation and will otherwise
+proceed as in the last chapter.
 
-Syntax of Propositional Logic
-=============================
+
+Inductive Definitions: The Syntax of Propositional Logic
+========================================================
 
 A logic provides a *formal language* in which propositions (truth
 statements) are expressed. By a formal language, we mean a (usually
@@ -115,7 +216,7 @@ We have thus defined the entire syntax of propositional logic. We
 can be more precise about the grammar, or syntax, of the language by
 giving a more formal set of rules for forming expressions.
 
-.. code-block: dafny
+.. code-block:: BNF
 
    Expr       := Literal | Variable | Compound
    Literal    := pFalse | pTrue
@@ -126,22 +227,62 @@ giving a more formal set of rules for forming expressions.
 This kind of specification of a grammar, or syntax, is said to be in
 *Backus-Naur Form" or BNF, after the names of two researchers who were
 instrumental in developing the theory of programming languages. (Every
-programming language has such a grammar.) This particular BNF grammar
-reads as follows. A legal expression is either a literal expression, a
-variable expression, or a compound expression.  A literal expression,
-in turn, is either true or false; a variable expression is X, Y, Z, or
-another variable one might wish to employ; and, finally, if one
-already has an expression or two, one can form a larger expression by
-putting the *Not* connective in front of one, or an *And* or *Or*
-connective in front of two smaller expressions. That's it!
+programming language has such a grammar.)
 
-This kind of definition is what we call an inductive definition. The
+This particular BNF grammar reads as follows. A legal expression is
+either a literal expression, a variable expression, or a compound
+expression.  A literal expression, in turn, is either *pTrue* or
+*pFalse*. (Recall that these are not Boolean values but Boolean
+*expressions* that *evaluate* to Boolean values.)  A variable
+expression is X, Y, Z, or any another variable letter one might wish
+to employ. Finally, if one already has an expression or two, one can
+form a larger expression by putting the *Not* connective in front of
+one, or an *And* or *Or* connective in front of two expressions.  That
+is the entire grammar of propositional logic. (Some presentations of
+propositional logic leave out the literal expressions, *pTrue* and
+*pFalse*.)
+
+Here's the corresponding completely formal code in Dafny. First, to
+represent *variables*, we define a datatype called *propVar*, with a
+single constructor called *mkPropVar*, that takes a single argument,
+*name*, of type *string*.  Examples of variable objects of this type
+thus include *mkPropVar("M")* and *mkPropVar("F")*. Two variables of
+this type are equal if and only if their string arguments are equal.
+
+.. code-block:: dafny
+
+   datatype propVar = mkPropVar(name: string) 
+
+With that, we can now give a Dafny specification of the syntax of our
+version of propositional logic. It's exactly the same as the syntax of
+Boolean expressions from the last chapter but for the addition of one
+new kind of expression, a *variable expression*, which is built using
+the *pVar* constructor applied to a *variable* (that is, a value of
+type *propVar*).
+
+.. code-block:: dafny
+
+   datatype prop = 
+      pTrue | 
+      pFalse |
+      pVar (v: propVar) |
+      pNot (e: prop) |
+      pAnd (e1: prop, e2: prop) |
+      pOr (e1: prop, e2: prop) |
+      pImpl (e1: prop, e2: prop)
+
+This kind of definition is what we call an *inductive definition*. The
 set of legal expressions is defined in part in terms of expressions!
 It's like recursion. What makes it work is that one starts with some
 non-recursive *base* values, and then the inductive rules allow them
 to be put together into ever larger expressions. Thinking in reverse,
 one can always take a large expression and break it into parts, using
 recursion until base cases are reached.
+
+Note that we distinguish *variables* (values of type *propVar*) from
+*variable expressions* (values of type *prop*). This approach makes it
+easy to represent an interpretation as a map from variables (of type
+*propVar*) to Boolean values.
 
 Semantics of Propositional Logic
 ================================
@@ -152,28 +293,63 @@ of the language. The semantics of a logic given *meaning* to what are
 otherwise abstract mathematical expressions; and do so in particular
 by explaining when a given proposition is true or not true.
 
-The semantics of propositional logic is very simple. The literal
-expressions, *pTrue* and *pFalse* always mean Boolean *true* and
-*false*, respectively. A variable can have either the value, *true* or
-the value, *false*. The value of any particular variable is given by a
-function from variables to Boolean values called an *interpretation*.
-The meaning of a variable expression is just the Boolean value it has
-when given as an argument to the interpretation function. Finally, an
-an expression of the form *pAnd e1 e2*, *pOr e1 e2*, or *pNot e* has a
-value obtained by applying the corresponding Boolean operators to the
-Boolean values of the smaller expressions, *e*, *e1*, and *e2*.
-Evaluation of a larger expression is done by recursively evaluating
-smaller expressions until the base cases of *pTrue* and *pFalse* are
-reached.
+The semantics of propositional logic are simple. They just generalize
+the semantics of our Boolean expression language by also supporting the
+evaluation of propositional variable expressions.
 
-Later in this chapter we'll make all of these ideas completley precise
-by seeing how they can actually be implemented in Dafny.
+The literal expressions, *pTrue* and *pFalse* still evaluate to
+Boolean *true* and *false*, respectively. A variable can have either
+the value, *true* or the value, *false*. To evaluate the value of any
+particular variable expression, one obtains the underlying variable
+and looks up its Boolean values in a given *interpretation*.  Recall
+that an interpretation is just a *map* (or *function*) from variables
+to Boolean values. Finally, an an expression of the form *pAnd e1 e2*,
+*pOr e1 e2*, or *pNot e* are evaluated just as they were in the last
+chapter, by recursively evaluating the sub-expressions and combining
+the values using the Boolean operator corresponding to the constructor
+that was used to build the compound expression. Evaluation of a larger
+expression is done by recursively evaluating smaller expressions until
+the base cases of *pTrue* and *pFalse* are reached.
 
-Exercise: Write a valid expression in propositional logic representing
-the idea that *either it is not raining outside or the streets are wet.*
+Here's the Dafny code for semantic evaluation of any proposition (an
+expression object of type *prop*) in our propositional logic language.
+
+.. code-block:: dafny
+
+   function method pEval(e: prop, i: pInterpretation): (r: bool)
+        requires forall v :: v in getVarsInProp(e) ==> v in i
+    {
+        match e 
+        {
+            case pTrue => true
+            case pFalse => false
+            case pVar(v: propVar) => pVarValue(v,i)
+            case pNot(e1: prop) => !pEval(e1,i)
+            case pAnd(e1, e2) => pEval(e1,i) && pEval(e2, i)
+            case pOr(e1, e2) =>  pEval(e1, i) || pEval(e2, i)
+            case pImpl(e1, e2) => pEval(e1, i) ==> pEval(e2, i)
+        }
+    }    
+
+Our semantic evaluation function is called *pEval*. It takes a
+proposition expression, $e$, and an interpration, *i*, which is just a
+map from variables (of type *propVar*) to Boolean values, i.e., a
+value of type *map<propVar,bool>*. The precondition is stated using an
+auxiliary function we've define; and overall it simply requires that
+there be a value defined in the map for any variable that appears in
+the given expression, *e*. Finally, the evaluation procedure is just
+as it was for our language of Boolean algebra, but now there is one
+more rule: to evaluate a variable expression (built using the
+*propVar* constructor), we just look up its value in the given map
+(interpretation).
+
+Exercise: Write a valid proposition using our Dafny implementation to
+represent the assertion that *either it is not raining outside or the
+streets are wet.* Use only one logical connective.
 
 Exercise: Extend the syntax above to include an *implies* connective
-and express the proposition from the previous exercise using it.
+and express the proposition from the previous exercise using it. (Okay,
+the code already implements it, so this exercise is obsolete.)
 
 
 Inference Rules for Propositional Logic
