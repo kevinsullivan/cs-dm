@@ -59,8 +59,8 @@ module bexptest
 
         print "In infix notation: ",  out_infix, "\n";
 
-        // Evaluating expression and print its "meaning"
-        var v := bEval(PorQandNotR);
+        // Evaluate expression and print its "meaning"
+        var v: bool := bEval(PorQandNotR);
         print "\n\nIts meaning (value) is ", v, "\n";
     }
 }
