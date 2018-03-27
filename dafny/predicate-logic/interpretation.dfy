@@ -45,7 +45,7 @@
     using the string name of each variable in the output.
     */
     method show_interpretation (interp: pInterpretation, vs: seq<propVar>,labels: bool)
-    //    requires forall v :: v in vs ==> v in interp
+        requires forall v :: v in vs ==> v in interp
     {
         var n := | vs |;
         var i := 0;
@@ -69,8 +69,8 @@
  or counterexamples of given propositions.
  */
 method show_interpretations(interps: seq<pInterpretation>, vs: seq<propVar>, labels: bool)
-    //requires forall i :: 0 <= i < |interps| ==> 
-    //    (forall v :: v in vs ==> v in interps[i])
+    requires forall i :: 0 <= i < |interps| ==> 
+        (forall v :: v in vs ==> v in interps[i])
 {
     var i := 0;
     print "{\n";

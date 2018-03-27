@@ -29,8 +29,7 @@ module binRelOnS_test
     //    var p := { (1,2), (2,1 )};
     //    var p := { (1,2), (2,1)} + { (1,1), (2,2), (3,3) };
     //    var p := { (1,2), (2,1), (2,3), (3,2), (1,3), (3,1) };
-        var p := { (1,2), (2,1), (2,3), (3,2), (1,3), (3,1) } +
-                    { (1,1), (2,2), (3,3) };
+        var p := { (1, 2), (2, 3), (1, 3) } + { (1,1), (2,2), (3,3) };
         var r := new binRelOnS(s,p);
         showRelation("R", r); 
         showProperties(r);
@@ -43,7 +42,7 @@ module binRelOnS_test
         requires r.Valid();     // shouldn't have to say this
     {
         print "\n\nFUNCTION PROPERTIES\n";
-        showProp(r.isFunction(), "a function");
+        showProp(r.isFunction(), "a function");        
         if r.isFunction()
         {
             showProp(r.isSurjective(), "surjective");
@@ -146,6 +145,7 @@ module binRelOnS_test
         ensures r.Valid();
     {
         print "\ndigraph\n{\n";
+        showSet(r.dom() + r.codom());
         var p := r.rel();
         while (p != {})
             decreases p;
@@ -157,5 +157,18 @@ module binRelOnS_test
             p := p - { e };
         }
         print "}";
+    }
+
+    method showSet<T>(s: set<T>)
+    {
+        var p := s;
+        while (p != {})
+            decreases p;
+        {
+            var e :| e in p;
+            print e, ";\n";
+            p := p - { e };
+        }
+        
     }
 }
