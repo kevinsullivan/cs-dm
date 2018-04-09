@@ -43,8 +43,8 @@ the proposition, *Tom's father is Ernst*.  We could then *construct* a
 larger proposition by composing these two propositions into a larger
 one under the logical connective called *and*. The result would be the
 proposition, *Toms' mother is Mary **and** Tom's father is Ernst*. We
-could of course write this more concisely as *M **and** F*, or, in a
-more mathematical notation, :math:`M \land F`). 
+could of course write this more concisely as *M and F*, or, in a more
+mathematical notation, :math:`M \land F`).
 
 Now we ask, what is the truth value of this larger proposition? To
 determine the answer, we conjoin the truth values of the constituent
