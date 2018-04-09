@@ -1,10 +1,10 @@
 # Fdb version 3
-["makeindex MathematicalLogicinSoftwareDevelopment.idx"] 1518187197 "MathematicalLogicinSoftwareDevelopment.idx" "MathematicalLogicinSoftwareDevelopment.ind" "MathematicalLogicinSoftwareDevelopment" 1521753430
-  "MathematicalLogicinSoftwareDevelopment.idx" 1521753430 0 d41d8cd98f00b204e9800998ecf8427e ""
+["makeindex MathematicalLogicinSoftwareDevelopment.idx"] 1518187197 "MathematicalLogicinSoftwareDevelopment.idx" "MathematicalLogicinSoftwareDevelopment.ind" "MathematicalLogicinSoftwareDevelopment" 1523276613
+  "MathematicalLogicinSoftwareDevelopment.idx" 1523276612 0 d41d8cd98f00b204e9800998ecf8427e ""
   (generated)
-  "MathematicalLogicinSoftwareDevelopment.ind"
   "MathematicalLogicinSoftwareDevelopment.ilg"
-["pdflatex"] 1521753429 "MathematicalLogicinSoftwareDevelopment.tex" "MathematicalLogicinSoftwareDevelopment.pdf" "MathematicalLogicinSoftwareDevelopment" 1521753430
+  "MathematicalLogicinSoftwareDevelopment.ind"
+["pdflatex"] 1523276612 "MathematicalLogicinSoftwareDevelopment.tex" "MathematicalLogicinSoftwareDevelopment.pdf" "MathematicalLogicinSoftwareDevelopment" 1523276613
   "/Users/sullivan/.miktex/texmfs/data/miktex/data/le/pdftex/pdflatex.fmt" 1512199238 734783 d14813228bf2c0fd7feb82c18ec33433 ""
   "/Users/sullivan/.miktex/texmfs/data/pdftex/config/pdftex.map" 1518187085 83721 56dfc66f96b4bc7777806d83f0266370 ""
   "/Users/sullivan/.miktex/texmfs/install/tex/latex/prftree/prftree.sty" 1472893880 44094 c11bd94e34391d5035409c4a848ac260 ""
@@ -162,20 +162,20 @@
   "/usr/local/share/miktex-texmf/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "/usr/local/share/miktex-texmf/tex/latex/wrapfig/wrapfig.sty" 1044403200 26220 3701aebf80ccdef248c0c20dd062fea9 ""
   "/usr/local/share/miktex-texmf/tex/latex/xcolor/xcolor.sty" 1463135581 57049 74963e80d77be39a0b7442967b27c75b ""
-  "MathematicalLogicinSoftwareDevelopment.aux" 1521753430 34046 fe707c466ba09af86f407c08af88f4ca ""
+  "MathematicalLogicinSoftwareDevelopment.aux" 1523276613 34046 da82636eb0ba17511355a004d5150354 ""
   "MathematicalLogicinSoftwareDevelopment.ind" 1518187197 0 d41d8cd98f00b204e9800998ecf8427e "makeindex MathematicalLogicinSoftwareDevelopment.idx"
-  "MathematicalLogicinSoftwareDevelopment.out" 1521753430 14099 c4928ab95b8551f9fcd95f5b76beb18e ""
-  "MathematicalLogicinSoftwareDevelopment.tex" 1521753426 300402 55b418e81d6e9426b58fe0bc2b755298 ""
-  "MathematicalLogicinSoftwareDevelopment.toc" 1521753430 12538 193b353eac2f91cafb483bd2c8725653 ""
+  "MathematicalLogicinSoftwareDevelopment.out" 1523276613 14099 c4928ab95b8551f9fcd95f5b76beb18e ""
+  "MathematicalLogicinSoftwareDevelopment.tex" 1523276609 301006 bb6a00ca17ac49065cdff0277108a249 ""
+  "MathematicalLogicinSoftwareDevelopment.toc" 1523276613 12538 193b353eac2f91cafb483bd2c8725653 ""
   "footnotehyper-sphinx.sty" 1513570062 8841 e18cbb7bca599a223414f9b8a156abee ""
   "sphinx.sty" 1513570062 62670 74cadfc8799b8ec9c0014b7f476b628d ""
-  "sphinxhighlight.sty" 1521753426 8137 2f6ce4d699e6f06af9ae7b1db3c43de9 ""
+  "sphinxhighlight.sty" 1523276609 8137 c8e0b83be0d4f6454c64846329eedfd5 ""
   "sphinxmanual.cls" 1513570062 3589 0b0aac49c6f36925cf5f9d524a75a978 ""
   "sphinxmulticell.sty" 1513570062 14618 0defbdc8536ad2e67f1eac6a1431bc55 ""
   (generated)
-  "MathematicalLogicinSoftwareDevelopment.aux"
-  "MathematicalLogicinSoftwareDevelopment.idx"
-  "MathematicalLogicinSoftwareDevelopment.pdf"
-  "MathematicalLogicinSoftwareDevelopment.toc"
   "MathematicalLogicinSoftwareDevelopment.out"
+  "MathematicalLogicinSoftwareDevelopment.toc"
+  "MathematicalLogicinSoftwareDevelopment.aux"
+  "MathematicalLogicinSoftwareDevelopment.pdf"
+  "MathematicalLogicinSoftwareDevelopment.idx"
   "MathematicalLogicinSoftwareDevelopment.log"

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500) (preloaded format=pdflatex 2017.12.2)  22 MAR 2018 17:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500) (preloaded format=pdflatex 2017.12.2)  9 APR 2018 08:23
 entering extended mode
 **./MathematicalLogicinSoftwareDevelopment.tex
 (MathematicalLogicinSoftwareDevelopment.tex
@@ -1320,13 +1320,6 @@ LaTeX Font Info:    Font shape `T1/phv/b/it' in size <12> not available
 
 ]
 Chapter 9.
-
-Underfull \hbox (badness 10000) in paragraph at lines 4802--4810
-[]\T1/ptm/m/n/10 By con-trast, our sec-ond propo-si-tion, ev-ery per-son has a
- mother ($\OMS/cmsy/m/n/10 8\OML/cmm/m/it/10 p \OMS/cmsy/m/n/10 2 \OML/cmm/m/i
-t/10 Persons; \OMS/cmsy/m/n/10 9\OML/cmm/m/it/10 m \OMS/cmsy/m/n/10 2
- []
-
 [65] [66] [67] [68] [69] [70] [71] [72] [73] [74
 
 ]
@@ -1344,18 +1337,18 @@ Chapter 12.
 ]
 Chapter 13.
 (MathematicalLogicinSoftwareDevelopment.ind)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 5558.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 5569.
  [81]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 5558.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 5569.
 
 (MathematicalLogicinSoftwareDevelopment.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 5558.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 5558.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 5569.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 5569.
 
 Package rerunfilecheck Info: File `MathematicalLogicinSoftwareDevelopment.out' 
 has not changed.
 (rerunfilecheck)             Checksum: C4928AB95B8551F9FCD95F5B76BEB18E;14099.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 5558.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 5569.
  ) 
 Here is how much of TeX's memory you used:
  14569 strings out of 495217
@@ -1380,7 +1373,7 @@ texmf/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/share/miktex-texmf/fonts/
 type1/urw/helvetic/uhvbo8a.pfb></usr/local/share/miktex-texmf/fonts/type1/urw/t
 imes/utmb8a.pfb></usr/local/share/miktex-texmf/fonts/type1/urw/times/utmr8a.pfb
 ></usr/local/share/miktex-texmf/fonts/type1/urw/times/utmri8a.pfb>
-Output written on MathematicalLogicinSoftwareDevelopment.pdf (85 pages, 538723 
+Output written on MathematicalLogicinSoftwareDevelopment.pdf (85 pages, 539941 
 bytes).
 PDF statistics:
  889 PDF objects out of 1000 (max. 8388607)

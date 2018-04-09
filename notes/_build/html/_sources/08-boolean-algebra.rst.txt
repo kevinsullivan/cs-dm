@@ -42,7 +42,7 @@ and *||* is the *or* operator.
 
 
 Here's a (useless) Dafny method that illustrates how Boolean values
-and operators can be used in Dafny. It presents a method, $BoolOps$,
+and operators can be used in Dafny. It presents a method, *BoolOps*,
 that takes a Boolean value and returns one. The commands within the
 method body illustrate the use of Boolean constant (literal) values
 and the unary and binary operators provided by the Dafny language.
@@ -761,7 +761,7 @@ operators to produce final results.
 The meaning (Boolean value) of any of the infinite number of Boolean
 expressions in the Boolean expression language defined by our syntax
 (or *grammar*) can be found by a simple application of our *bEval*
-function. To compute the value of $R$, above, for example, we just run
+function. To compute the value of *R*, above, for example, we just run
 *bEval(R)*. For this *R*, this function will without any doubt return
 the intended result, *true*.
 

@@ -61,7 +61,7 @@
     
 
 \title{Mathematical Logic in Software Development Documentation}
-\date{Mar 22, 2018}
+\date{Apr 09, 2018}
 \release{1}
 \author{Kevin Sullivan}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -77,7 +77,7 @@
 
 
 \chapter{1. Requirement, Specifications, and Implementations}
-\label{\detokenize{01-reqs-specs-impls::doc}}\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}
+\label{\detokenize{01-reqs-specs-impls::doc}}\label{\detokenize{01-reqs-specs-impls:requirement-specifications-and-implementations}}\label{\detokenize{01-reqs-specs-impls:welcome-to-mathematical-logic-in-software-development}}
 Software is an increasingly critical component of major societal
 systems, from rockets to power grids to healthcare, etc. Failures are
 not always bugs in implementation code. The most critical problems
@@ -844,7 +844,7 @@ are expressed and verified.
 
 
 \chapter{5. Formal Verification of Imperative Programs}
-\label{\detokenize{05-verifying-logical-specifications::doc}}\label{\detokenize{05-verifying-logical-specifications:formal-verification-of-imperative-programs}}
+\label{\detokenize{05-verifying-logical-specifications:formal-verification-of-imperative-programs}}\label{\detokenize{05-verifying-logical-specifications::doc}}
 In this chapter, we first elaborate on the idea that pure functional
 programming make for mathematically clear but potentially inefficient
 specifications, while imperative code makes for efficient code but is
@@ -1748,7 +1748,7 @@ task of learning how to program.
 
 
 \chapter{6. Dafny Language: Types, Statements, Expressions}
-\label{\detokenize{06-dafny-language::doc}}\label{\detokenize{06-dafny-language:dafny-language-types-statements-expressions}}
+\label{\detokenize{06-dafny-language:dafny-language-types-statements-expressions}}\label{\detokenize{06-dafny-language::doc}}
 
 \section{Built-In Types}
 \label{\detokenize{06-dafny-language:built-in-types}}
@@ -3614,7 +3614,7 @@ operations on lists.
 
 
 \chapter{8. Boolean Algebra}
-\label{\detokenize{08-boolean-algebra::doc}}\label{\detokenize{08-boolean-algebra:boolean-algebra}}
+\label{\detokenize{08-boolean-algebra:boolean-algebra}}\label{\detokenize{08-boolean-algebra::doc}}
 As a first stepping stone toward a deeper exploration of deductive
 logic, we explore the related notion of Boolean \sphinxstyleemphasis{algebra}. Boolean
 algebra is a mathematical framework for representing and reasoning
@@ -3654,7 +3654,7 @@ The Boolean operators are also denoted not by words, such as \sphinxstyleemphasi
 and \sphinxstyleemphasis{\textbar{}\textbar{}} is the \sphinxstyleemphasis{or} operator.
 
 Here’s a (useless) Dafny method that illustrates how Boolean values
-and operators can be used in Dafny. It presents a method, \$BoolOps\$,
+and operators can be used in Dafny. It presents a method, \sphinxstyleemphasis{BoolOps},
 that takes a Boolean value and returns one. The commands within the
 method body illustrate the use of Boolean constant (literal) values
 and the unary and binary operators provided by the Dafny language.
@@ -4726,7 +4726,7 @@ operators to produce final results.
 The meaning (Boolean value) of any of the infinite number of Boolean
 expressions in the Boolean expression language defined by our syntax
 (or \sphinxstyleemphasis{grammar}) can be found by a simple application of our \sphinxstyleemphasis{bEval}
-function. To compute the value of \$R\$, above, for example, we just run
+function. To compute the value of \sphinxstyleemphasis{R}, above, for example, we just run
 \sphinxstyleemphasis{bEval(R)}. For this \sphinxstyleemphasis{R}, this function will without any doubt return
 the intended result, \sphinxstyleemphasis{true}.
 
@@ -4749,7 +4749,7 @@ that satisfies the program preconditions into a post-execution state.
 
 
 \chapter{9. Propositional Logic}
-\label{\detokenize{09-propositional-logic::doc}}\label{\detokenize{09-propositional-logic:propositional-logic}}
+\label{\detokenize{09-propositional-logic:propositional-logic}}\label{\detokenize{09-propositional-logic::doc}}
 This chapter first introduces logic, in general, and the introduces
 propositional logic, in particular. Proposition logic is a simple but
 useful logic that is very closely related to Boolean algebra.
@@ -4757,103 +4757,114 @@ useful logic that is very closely related to Boolean algebra.
 
 \section{Basic Terminology}
 \label{\detokenize{09-propositional-logic:basic-terminology}}
-“Tom’s mother is Mary.” This statement is a \sphinxstyleemphasis{proposition}. It asserts
+Here is a proposition: “Tom’s mother is Mary.” A proposition asserts
 that a particular \sphinxstyleemphasis{state of affairs} holds in some particular \sphinxstyleemphasis{domain
-of discourse}. The domain in this case would be some family unit, and
+of discourse}. The domain in this case would be some family unit; and
 the state of affairs that is asserted to prevail is that Mary is Tom’s
 Mom.
 
-Whether such a proposition can be \sphinxstyleemphasis{judged} to be \sphinxstyleemphasis{true} or not is
-another matter. If the domain were that of a family in which there
-really are people, Tom and Mary, and Mary really is the mother of Tom,
-then this proposition could be judged to be true. However, if such a
-state of affairs did not hold, then the proposition would still be a
-fine proposition, but it could not be judged to be true.
+Whether such a proposition can be \sphinxstyleemphasis{judged} to be \sphinxstyleemphasis{true} is another
+matter. If the domain of discourse (or just \sphinxstyleemphasis{domain}) were that of a
+family in which there really are people, Tom and Mary, and in that
+family unity Mary really is the mother of Tom, then this proposition
+could be judged to be true. However, if such a state of affairs did
+not hold in that family unity, then the proposition would still be a
+fine proposition, but it could not be judged to be true (and indeed
+could be judged to be false).
 
 In place of the phrase “domain of discourse” we could also use the
-word, “world.” In general the truth of a proposition depends on the
+word, “world.” In general, the truth of a proposition depends on the
 world in which it is evaluated. There are some proposition that are
-true in every world, e.g., “true = true;” some that are not true in
-any world, e.g., “true = false;” and many where the truth depends on
-the world in which they are evaluated, e.g., “Mary is Tom’s mother.”
-
-Here’s another proposition: “Every person has a mother.” If the domain
-of discourse is all living humans, then the proposition can be judged
-to be (“is”) true, because everyone alive today has a mother (alive or
-deceased). If, however, the domain is taken to be all people who ever
-lived, then things get murky as the chain of \sphinxstyleemphasis{human} motherhood cannot
-continue infinitely into the past.
+true in every world, e.g., “zero equals zero;” some that are not true
+in any world, e.g., “zero equals one;” and many where the truth of the
+proposition depends on the world in which it is evaluated, e.g., “Mary
+is Tom’s mother.”
 
 
 \section{Propositional and Predicate Logic}
 \label{\detokenize{09-propositional-logic:propositional-and-predicate-logic}}
 The proposition, \sphinxstyleemphasis{Tom’s mother is Mary}, is simple. It could even be
-collapsed down to, to be represented as, a single variable, say, \sphinxstyleemphasis{M}.
-We could then judge \sphinxstyleemphasis{M} to be true or not. Similarly, a variable, \sphinxstyleemphasis{F},
-could represent the proposition, \sphinxstyleemphasis{Tom’s father is Ernst}.  We could
-then \sphinxstyleemphasis{construct} a larger proposition, \sphinxstyleemphasis{Toms’ mother is Mary **and*}
-Tom’s father is Ernst* (or \sphinxstyleemphasis{M **and*} F*) by composing the two given
-propositions, \sphinxstyleemphasis{M} and \sphinxstyleemphasis{F} with the logical \sphinxstyleemphasis{connective}, \sphinxstyleemphasis{and}. We
-could then judge the truth of this compound proposition by conjoining
-the truth values of the constituent propositions.  Such a logic of
-simple propositions and compositions of propositions using connectives
-such as \sphinxstyleemphasis{and}, \sphinxstyleemphasis{or}, and \sphinxstyleemphasis{not} is called \sphinxstyleemphasis{propositional logic}.
+represented as a single variable, let’s call it \sphinxstyleemphasis{M}.  In what we call
+propositional logic, we generally represent propositions as variables
+in this manner. Similarly, a logical variable, \sphinxstyleemphasis{F}, could represent
+the proposition, \sphinxstyleemphasis{Tom’s father is Ernst}.  We could then \sphinxstyleemphasis{construct} a
+larger proposition by composing these two propositions into a larger
+one under the logical connective called \sphinxstyleemphasis{and}. The result would be the
+proposition, \sphinxstyleemphasis{Toms’ mother is Mary **and*} Tom’s father is Ernst*. We
+could of course write this more concisely as \sphinxstyleemphasis{M **and*} F*, or, in a
+more mathematical notation, \(M \land F\)).
 
-By contrast, our second proposition, “every person has a mother”
-(\(\forall p \in Persons, \exists m \in Persons, motherOf(p,m)\)),
-belongs to a richer logic.  Here, \sphinxstyleemphasis{motherOf(p, m)} stands for the
-proposition that the mother of \sphinxstyleemphasis{p} is \sphinxstyleemphasis{m}, where \sphinxstyleemphasis{p} and \sphinxstyleemphasis{m} are not
-Boolean-valued variables, but variables that range over the set of
-people in the assumed domain of discourse.  The overall proposition
-thus asserts that, for \sphinxstyleemphasis{every} person, \sphinxstyleemphasis{p} (in the domain), there is a
-person, \sphinxstyleemphasis{m}, such that \sphinxstyleemphasis{m} is the mother of \sphinxstyleemphasis{p}.
+Now we ask, what is the truth value of this larger proposition? To
+determine the answer, we conjoin the truth values of the constituent
+propositions.  The meaning of the larger proposition is determined by
+(1) the meanings of its smaller parts, and (2) the logical connective
+that composes them into a larger proposition. Such a logic of simple
+propositions and their compositions using connectives such as \sphinxstyleemphasis{and},
+\sphinxstyleemphasis{or}, and \sphinxstyleemphasis{not} is called \sphinxstyleemphasis{propositional logic}.
 
-The \sphinxstyleemphasis{motherOf(p,m)} construct is a \sphinxstyleemphasis{parameterized proposition}. You
-can think of it as a function that takes two values, \sphinxstyleemphasis{p} and \sphinxstyleemphasis{m}, and
-that returns a proposition about those particular values. We call such
-a parameterized proposition a \sphinxstyleemphasis{predicate}. A predicate thus represents
-not a just one proposition but a whole \sphinxstyleemphasis{family} of propositions (one
-for each pair of parameter values), each of which might or might not
-be true. If \sphinxstyleemphasis{m} really is the mother of \sphinxstyleemphasis{p}, then \sphinxstyleemphasis{motherOf(p,m)} can
-be judged to be true. The proposition, \sphinxstyleemphasis{motherOf(Tom, Mary)}, might be
-judged to be true, but \sphinxstyleemphasis{motherOf(Tom, Robert)} maybe would not be.
+By contrast, the proposition, “every person has a mother” (or to put
+it more formally, \(\forall p \in Persons, \exists m \in Persons,
+motherOf(p,m)\)), belongs to a richer logic.  Here, \sphinxstyleemphasis{motherOf(p, m)} is
+a \sphinxstyleemphasis{predicate on two values}. It stands for the family of propositions,
+\sphinxstyleemphasis{the mother of p is m}, where \sphinxstyleemphasis{p} and \sphinxstyleemphasis{m} are variables that range
+over the set of people in the given domain of discourse.  The overall
+proposition thus asserts that, for \sphinxstyleemphasis{every} person, \sphinxstyleemphasis{p} in the domain,
+there is a person, \sphinxstyleemphasis{m}, such that \sphinxstyleemphasis{m} is the mother of \sphinxstyleemphasis{p}.
+
+The \sphinxstyleemphasis{motherOf(p,m)} construct is a \sphinxstyleemphasis{parameterized proposition}, which,
+again, we call a \sphinxstyleemphasis{predicate}. You can think of it as a function that
+takes two values, \sphinxstyleemphasis{p} and \sphinxstyleemphasis{m}, and that returns a proposition \sphinxstyleemphasis{about
+those particular values}. A predicate thus represents not a just one
+proposition but a whole \sphinxstyleemphasis{family} of propositions, one for each pair of
+parameter values. Any particular proposition of this form might be
+true or false depending on the domain of discourse. If \sphinxstyleemphasis{m} really is
+the mother of \sphinxstyleemphasis{p} (in the assumed domain), then \sphinxstyleemphasis{motherOf(p,m)} can be
+judged to be true (for that domain), and otherwise not.
 
 Another way to look at a predicate is that it \sphinxstyleemphasis{picks out} a subset of
 \sphinxstyleemphasis{(p,m)} pairs, namely all and only those for which \sphinxstyleemphasis{motherOf(p,m)} is
-true. A predicate thus specifies a relation, her a binary relation,
+true. A predicate thus specifies a relation, here a binary relation,
 namely the \sphinxstyleemphasis{motherOf} relation on the set of people in the domain of
 discourse.
 
-We thus have a logic that (1) allows variables, such as \sphinxstyleemphasis{p} and \sphinxstyleemphasis{m},
-to range over sets of objects (rather that just over Boolean values),
-(2) that supports the use predicates, and (3) that supports universal
-and existential quantifiers. This logic is called \sphinxstyleemphasis{predicate logic}.
-As we will see in a later chapter, a predicate logic also allows the
-use of functions taking arguments to identify objects in the domain.
+This richer logic, called \sphinxstyleemphasis{predicate logic}, (1) allows variables,
+such as \sphinxstyleemphasis{p} and \sphinxstyleemphasis{m}, to range over sets of objects (rather that just
+over Boolean values), (2) supports the expression predicates involving
+elements of such sets, and (3) provides botg universal and existential
+quantifiers (\sphinxstyleemphasis{for all} and \sphinxstyleemphasis{there exists}, respectively). As we will
+see in a later chapter, a predicate logic also allows the definition
+and use of functions taking arguments in the domain to identify other
+objects in the domain. So, for example, a function, \sphinxstyleemphasis{theMotherOf},
+might be used to identify \sphinxstyleemphasis{Mary} as \sphinxstyleemphasis{theMotherOf(Tom)}. Note that when
+a function is applied to domain values, the result is another domain
+value, whereas when a predicate is applied to domain values, the
+result is a proposition about those value.
 
 Predicate logic is the logic of everyday mathematics and computer
-science. It is, among many other things, the logic Dafny provides for
-writing specifications.  Consider our specification of what it means
-for a function, \sphinxstyleemphasis{R}, with domain, \sphinxstyleemphasis{D}, and codomain, \sphinxstyleemphasis{C}, to be
-surjective: \(\forall c \in C, \exists d \in D, (d,c) \in R\). In
-Dafny, we would (and did) write this as, \sphinxstyleemphasis{forall c :: c in codom() ==\textgreater{}
-exists d :: d in dom() \&\& (d,c) in rel().} Dafny is specification and
-verification system based on \sphinxstyleemphasis{predicate logic}. We’ve been using it
-all along!
+science. It is, among other things, the logic Dafny provides for
+writing specifications.  As an example, consider our specification of
+what it means for a function, \sphinxstyleemphasis{R}, with domain, \sphinxstyleemphasis{D}, and codomain,
+\sphinxstyleemphasis{C}, to be surjective: \(\forall c \in C, \exists d \in D, (d,c)
+\in R\). In Dafny, we would (and did) write this as, \sphinxstyleemphasis{forall c :: c in
+codom() ==\textgreater{} exists d :: d in dom() \&\& (d,c) in rel().} Dafny is thus a
+specification and verification system based on \sphinxstyleemphasis{predicate
+logic}. We’ve been using it all along!
 
 One of the main goals of this course up to now has been to get you
-reading, writing, and seeing the relevance and utility of predicate
-logic. Far from being an arcane irrelevancy, it is one of the pillars
-of computer science, in general, and rigorous software development, in
-particular. It is also central to many artificial intelligence (AI)
-systems, to combinatorial optimization (e.g., for finding good travel
-routes), in the analysis of algorithms, in digital circuit design, and
-in many other areas of computer science, not to mention mathematics.
+reading, writing, and seeing the utility of predicate logic. Far from
+being an irrelevancy, it is one of the pillars of computer science. It
+is a fundamental tool for specifying and reasoning about software.  It
+is also central to artificial intelligence (AI), to combinatorial
+optimization (e.g., for finding good travel routes), in the analysis
+of algorithms, in digital circuit design, and in many other areas of
+computer science, not to mention mathematics and mathematical fields
+such as economics.
 
 Going forward, one of our main goals is to understand predicate logic
-in much greater depth, including its syntax (what kinds of expressions
-can you write in predicate logic?) and semantics (when are expressions
-in predicate logic \sphinxstyleemphasis{true?}).
+in greater depth, including its syntax (what kinds of expressions can
+you write in predicate logic?) its semantics (when are expressions in
+predicate logic \sphinxstyleemphasis{true?}), and how to show that given expressions are
+true.
 
 In this chapter, which beings Part II of this set of notes, we start
 our exploration of predicate logic and proof by first exploring the
@@ -5449,7 +5460,7 @@ exhaustive checking of all interpretations. \textless{}More to come\textgreater{
 
 
 \chapter{10. Natural Deduction}
-\label{\detokenize{10-natural-deduction::doc}}\label{\detokenize{10-natural-deduction:natural-deduction}}
+\label{\detokenize{10-natural-deduction:natural-deduction}}\label{\detokenize{10-natural-deduction::doc}}
 Note to self: The next few chapters separate complexities on the way
 to full first-order logic. The first, addressed here, is the shift
 from a semantic to a syntactic approach to judging truth. Derivation

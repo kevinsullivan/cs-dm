@@ -9,103 +9,114 @@ useful logic that is very closely related to Boolean algebra.
 Basic Terminology
 =================
 
-"Tom's mother is Mary." This statement is a *proposition*. It asserts
+Here is a proposition: "Tom's mother is Mary." A proposition asserts
 that a particular *state of affairs* holds in some particular *domain
-of discourse*. The domain in this case would be some family unit, and
+of discourse*. The domain in this case would be some family unit; and
 the state of affairs that is asserted to prevail is that Mary is Tom's
 Mom.
 
-Whether such a proposition can be *judged* to be *true* or not is
-another matter. If the domain were that of a family in which there
-really are people, Tom and Mary, and Mary really is the mother of Tom,
-then this proposition could be judged to be true. However, if such a
-state of affairs did not hold, then the proposition would still be a
-fine proposition, but it could not be judged to be true.
+Whether such a proposition can be *judged* to be *true* is another
+matter. If the domain of discourse (or just *domain*) were that of a
+family in which there really are people, Tom and Mary, and in that
+family unity Mary really is the mother of Tom, then this proposition
+could be judged to be true. However, if such a state of affairs did
+not hold in that family unity, then the proposition would still be a
+fine proposition, but it could not be judged to be true (and indeed
+could be judged to be false).
 
 In place of the phrase "domain of discourse" we could also use the
-word, "world." In general the truth of a proposition depends on the
+word, "world." In general, the truth of a proposition depends on the
 world in which it is evaluated. There are some proposition that are
-true in every world, e.g., "true = true;" some that are not true in
-any world, e.g., "true = false;" and many where the truth depends on
-the world in which they are evaluated, e.g., "Mary is Tom's mother."
-
-Here's another proposition: "Every person has a mother." If the domain
-of discourse is all living humans, then the proposition can be judged
-to be ("is") true, because everyone alive today has a mother (alive or
-deceased). If, however, the domain is taken to be all people who ever
-lived, then things get murky as the chain of *human* motherhood cannot
-continue infinitely into the past.
+true in every world, e.g., "zero equals zero;" some that are not true
+in any world, e.g., "zero equals one;" and many where the truth of the
+proposition depends on the world in which it is evaluated, e.g., "Mary
+is Tom's mother."
 
 Propositional and Predicate Logic
 =================================
 
 The proposition, *Tom's mother is Mary*, is simple. It could even be
-collapsed down to, to be represented as, a single variable, say, *M*.
-We could then judge *M* to be true or not. Similarly, a variable, *F*,
-could represent the proposition, *Tom's father is Ernst*.  We could
-then *construct* a larger proposition, *Toms' mother is Mary **and**
-Tom's father is Ernst* (or *M **and** F*) by composing the two given
-propositions, *M* and *F* with the logical *connective*, *and*. We
-could then judge the truth of this compound proposition by conjoining
-the truth values of the constituent propositions.  Such a logic of
-simple propositions and compositions of propositions using connectives
-such as *and*, *or*, and *not* is called *propositional logic*.
+represented as a single variable, let's call it *M*.  In what we call
+propositional logic, we generally represent propositions as variables
+in this manner. Similarly, a logical variable, *F*, could represent
+the proposition, *Tom's father is Ernst*.  We could then *construct* a
+larger proposition by composing these two propositions into a larger
+one under the logical connective called *and*. The result would be the
+proposition, *Toms' mother is Mary **and** Tom's father is Ernst*. We
+could of course write this more concisely as *M **and** F*, or, in a
+more mathematical notation, :math:`M \land F`). 
 
-By contrast, our second proposition, "every person has a mother"
-(:math:`\forall p \in Persons, \exists m \in Persons, motherOf(p,m)`),
-belongs to a richer logic.  Here, *motherOf(p, m)* stands for the
-proposition that the mother of *p* is *m*, where *p* and *m* are not
-Boolean-valued variables, but variables that range over the set of
-people in the assumed domain of discourse.  The overall proposition
-thus asserts that, for *every* person, *p* (in the domain), there is a
-person, *m*, such that *m* is the mother of *p*.
+Now we ask, what is the truth value of this larger proposition? To
+determine the answer, we conjoin the truth values of the constituent
+propositions.  The meaning of the larger proposition is determined by
+(1) the meanings of its smaller parts, and (2) the logical connective
+that composes them into a larger proposition. Such a logic of simple
+propositions and their compositions using connectives such as *and*,
+*or*, and *not* is called *propositional logic*.
 
-The *motherOf(p,m)* construct is a *parameterized proposition*. You
-can think of it as a function that takes two values, *p* and *m*, and
-that returns a proposition about those particular values. We call such
-a parameterized proposition a *predicate*. A predicate thus represents
-not a just one proposition but a whole *family* of propositions (one
-for each pair of parameter values), each of which might or might not
-be true. If *m* really is the mother of *p*, then *motherOf(p,m)* can
-be judged to be true. The proposition, *motherOf(Tom, Mary)*, might be
-judged to be true, but *motherOf(Tom, Robert)* maybe would not be.
+By contrast, the proposition, "every person has a mother" (or to put
+it more formally, :math:`\forall p \in Persons, \exists m \in Persons,
+motherOf(p,m)`), belongs to a richer logic.  Here, *motherOf(p, m)* is
+a *predicate on two values*. It stands for the family of propositions,
+*the mother of p is m*, where *p* and *m* are variables that range
+over the set of people in the given domain of discourse.  The overall
+proposition thus asserts that, for *every* person, *p* in the domain,
+there is a person, *m*, such that *m* is the mother of *p*.
+
+The *motherOf(p,m)* construct is a *parameterized proposition*, which,
+again, we call a *predicate*. You can think of it as a function that
+takes two values, *p* and *m*, and that returns a proposition *about
+those particular values*. A predicate thus represents not a just one
+proposition but a whole *family* of propositions, one for each pair of
+parameter values. Any particular proposition of this form might be
+true or false depending on the domain of discourse. If *m* really is
+the mother of *p* (in the assumed domain), then *motherOf(p,m)* can be
+judged to be true (for that domain), and otherwise not.
 
 Another way to look at a predicate is that it *picks out* a subset of
 *(p,m)* pairs, namely all and only those for which *motherOf(p,m)* is
-true. A predicate thus specifies a relation, her a binary relation,
+true. A predicate thus specifies a relation, here a binary relation,
 namely the *motherOf* relation on the set of people in the domain of
 discourse.
 
-We thus have a logic that (1) allows variables, such as *p* and *m*,
-to range over sets of objects (rather that just over Boolean values),
-(2) that supports the use predicates, and (3) that supports universal
-and existential quantifiers. This logic is called *predicate logic*.
-As we will see in a later chapter, a predicate logic also allows the
-use of functions taking arguments to identify objects in the domain.
+This richer logic, called *predicate logic*, (1) allows variables,
+such as *p* and *m*, to range over sets of objects (rather that just
+over Boolean values), (2) supports the expression predicates involving
+elements of such sets, and (3) provides botg universal and existential
+quantifiers (*for all* and *there exists*, respectively). As we will
+see in a later chapter, a predicate logic also allows the definition
+and use of functions taking arguments in the domain to identify other
+objects in the domain. So, for example, a function, *theMotherOf*,
+might be used to identify *Mary* as *theMotherOf(Tom)*. Note that when
+a function is applied to domain values, the result is another domain
+value, whereas when a predicate is applied to domain values, the
+result is a proposition about those value.
 
 Predicate logic is the logic of everyday mathematics and computer
-science. It is, among many other things, the logic Dafny provides for
-writing specifications.  Consider our specification of what it means
-for a function, *R*, with domain, *D*, and codomain, *C*, to be
-surjective: :math:`\forall c \in C, \exists d \in D, (d,c) \in R`. In
-Dafny, we would (and did) write this as, *forall c :: c in codom() ==>
-exists d :: d in dom() && (d,c) in rel().* Dafny is specification and
-verification system based on *predicate logic*. We've been using it
-all along!
+science. It is, among other things, the logic Dafny provides for
+writing specifications.  As an example, consider our specification of
+what it means for a function, *R*, with domain, *D*, and codomain,
+*C*, to be surjective: :math:`\forall c \in C, \exists d \in D, (d,c)
+\in R`. In Dafny, we would (and did) write this as, *forall c :: c in
+codom() ==> exists d :: d in dom() && (d,c) in rel().* Dafny is thus a
+specification and verification system based on *predicate
+logic*. We've been using it all along!
 
 One of the main goals of this course up to now has been to get you
-reading, writing, and seeing the relevance and utility of predicate
-logic. Far from being an arcane irrelevancy, it is one of the pillars
-of computer science, in general, and rigorous software development, in
-particular. It is also central to many artificial intelligence (AI)
-systems, to combinatorial optimization (e.g., for finding good travel
-routes), in the analysis of algorithms, in digital circuit design, and
-in many other areas of computer science, not to mention mathematics. 
+reading, writing, and seeing the utility of predicate logic. Far from
+being an irrelevancy, it is one of the pillars of computer science. It
+is a fundamental tool for specifying and reasoning about software.  It
+is also central to artificial intelligence (AI), to combinatorial
+optimization (e.g., for finding good travel routes), in the analysis
+of algorithms, in digital circuit design, and in many other areas of
+computer science, not to mention mathematics and mathematical fields
+such as economics.
 
 Going forward, one of our main goals is to understand predicate logic
-in much greater depth, including its syntax (what kinds of expressions
-can you write in predicate logic?) and semantics (when are expressions
-in predicate logic *true?*).
+in greater depth, including its syntax (what kinds of expressions can
+you write in predicate logic?) its semantics (when are expressions in
+predicate logic *true?*), and how to show that given expressions are
+true.
 
 In this chapter, which beings Part II of this set of notes, we start
 our exploration of predicate logic and proof by first exploring the
