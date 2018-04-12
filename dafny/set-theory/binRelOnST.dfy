@@ -432,9 +432,15 @@ module binRelST
              fdom: set<X>, shared: set<Y>, gcodom: set<Z>): 
             set<(X,Z)>
         {
+            set x, z | 
+                x in fdom && z in gcodom &&
+                exists y :: y in shared && 
+                (x, y) in f && (y, z) in g :: (x,z)
+            /*
             set x, y, z | 
                 x in fdom && y in shared && z in gcodom &&
                 (x, y) in f && (y, z) in g :: (x, z)
+            */
         }
 
 

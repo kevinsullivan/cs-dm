@@ -17,7 +17,7 @@ module myblang
     type "variable". These will be our variables.
     */
 
-    datatype variable = V(n:nat)
+    datatype variable = V(n: nat)
     
     /*
     Note that we can give variables more convenient names in code
@@ -57,7 +57,7 @@ module myblang
     /* 
     SEMANTICS: Their meaning is evaluated by structural recursion
     */
-    function method bEval(e: bExp, env: map<variable,bool>): bool    
+    function method bEval(e: bExp, env: map<variable,bool>): bool  
     {
         match e 
         {
@@ -78,12 +78,14 @@ module myblang
             */
             case bTrue => true 
             case bFalse => false
-            case bNot(e) => !bEval(e)
-            case bAnd(e1, e2) => bEval(e1) && bEval(e2)
-            case bOr(e1, e2) => bEval(e1) || bEval(e2)
-            case bImpl(e1, e2) => bEval(e1) ==> bEval(e2)
+            case bNot(e') => !bEval(e', env)
+            case bAnd(e1, e2) => bEval(e1, env) && bEval(e2, env)
+            case bOr(e1, e2) => bEval(e1, env) || bEval(e2, env)
+            case bImpl(e1, e2) => bEval(e1, env) ==> bEval(e2, env)
             case bIfThenElse(e1, e2, e3) => 
-                    if bEval(e1) then bEval(e2) else bEval(e3)
+                    if bEval(e1, env) 
+                    then bEval(e2, env) 
+                    else bEval(e3, env)
 
             /*
             And here's the rule for evaluating variable
@@ -99,10 +101,14 @@ module myblang
             the map does have to have a value for each variable
             in your expression!
             */
-            case bVar(v: variable) => env[v]
+            case bVar(v: variable) => lookup(v,env)
         }
     }
 
+    function method lookup(v: variable, env: map<variable, bool>): bool
+    {
+        if v in env then env[v] else false
+    }
     
     /*
     We have defined our own little language, both syntax and semantics
@@ -114,7 +120,7 @@ module myblang
         give the convenient names, P, Q, and R. Henceforth we will
         refer to them using these names.
         */
-        var P: variable := V(0);
+        var P := V(0);
         var Q := V(1);
         var R := V(2);
 
@@ -122,13 +128,13 @@ module myblang
         Now you are to build a term representing the Boolean expression
         (P \/ Q) /\ ~R. That is "(P or Q) and (not R)".
         */
-        var T := bFalse; // replace bFalse with the correct bExp value
+        var T := bAnd(bOr(bVar(P),bVar(Q)),bNot(bVar(R))); // replace bFalse with the correct bExp value
 
         /*
         Next we construct an environment (a map) that associates a
         Boolean value with each of these variables.
         */
-        var env1 := map[P := true, Q := false, R := true];
+        var env1 := map[P := true, Q := false, R := false];
 
         /*
         And now finally we can evaluate our Boolean expression, T, in
@@ -137,6 +143,11 @@ module myblang
         that includes variables, you *must* provide an "environment" that
         "explains" what the value of each parameter is!
         */
-        print bEval(T,env1);
+        var result := bEval(T,env1);
+
+        /*
+        Print the result.    
+        */
+        print "The answer is ", bEval(T,env1), "\n";
     }
 }
