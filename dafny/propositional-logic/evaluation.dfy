@@ -22,7 +22,7 @@
         {
             case pTrue => true
             case pFalse => false
-            case pVar(v: propVar) => pVarValue(v,i)
+            case pVar(v: propVar) => i[v]
             case pNot(e1: prop) => !pEval(e1,i)
             case pAnd(e1, e2) => pEval(e1,i) && pEval(e2, i)
             case pOr(e1, e2) =>  pEval(e1, i) || pEval(e2, i)
