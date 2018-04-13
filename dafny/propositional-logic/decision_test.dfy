@@ -34,26 +34,29 @@ method Main()
         var Pvar: propVar := mkPropVar("P");
         var Qvar := mkPropVar("Q");
         var Rvar := mkPropVar("R");
+        var Tvar := mkPropVar("T");
     
         // propositions
         var P: prop := pVar(Pvar); 
         var Q := pVar(Qvar);
         var R := pVar(Rvar);
+        var T := pVar(Tvar);
         var notR := pNot(R);
         var PorQ := pOr(P,Q);
         var PorQandnotR := pAnd(PorQ,notR);
+        var PQRT := pOr(PorQandnotR,T);
 
         // variable sequence for printing interpretations
-        var varOrder := [Pvar, Qvar, Rvar];
+        var varOrder := [Pvar, Qvar, Rvar, Tvar];
 
         // printable string for proposition
         var ourVars: string := showVars(varOrder, "\t");
-        var ourExpr: string := showProp(PorQandnotR);
+        var ourExpr: string := showProp(PQRT);
 
         print ourVars + " " + ourExpr + "\n";
 
         // Print a truth table
-        show_truth_table_for_prop(PorQandnotR,varOrder,false);
+        show_truth_table_for_prop(PQRT,varOrder,false);
 
         /*
         Here are the actual test calls to the various
@@ -68,7 +71,7 @@ method Main()
 
 
         // test satisfiability solver / model finder
-        yes, models := satisfiable(PorQandnotR);
+        yes, models := satisfiable(PQRT);
         if yes 
         { 
             var s := showProp(PorQandnotR);
@@ -79,7 +82,7 @@ method Main()
 
 
         // test unsatisfiability checker
-        yes, models := unsatisfiable(PorQandnotR);
+        yes, models := unsatisfiable(PQRT);
         if yes {print "It's unsatisfiable\n"; }
         else  
         {
@@ -89,7 +92,7 @@ method Main()
 
 
         // test validity checker
-        yes, models := valid(PorQandnotR);
+        yes, models := valid(PQRT);
         if yes { print "It's valid\n"; }
         else 
         {
