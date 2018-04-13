@@ -44,15 +44,19 @@ larger proposition by composing these two propositions into a larger
 one under the logical connective called *and*. The result would be the
 proposition, *Toms' mother is Mary and Tom's father is Ernst*. We
 could of course write this more concisely as *M and F*, or, in a more
-mathematical notation, :math:`M \land F`).
+mathematical notation, :math:`M \land F`.
 
 Now we ask, what is the truth value of this larger proposition? To
 determine the answer, we conjoin the truth values of the constituent
 propositions.  The meaning of the larger proposition is determined by
 (1) the meanings of its smaller parts, and (2) the logical connective
-that composes them into a larger proposition. Such a logic of simple
-propositions and their compositions using connectives such as *and*,
-*or*, and *not* is called *propositional logic*.
+that composes them into a larger proposition. For example, if it's
+true that Tom's mother is Mary and it's also true that Tom's father is
+Ernst, then the truth of the compound conjuction is *true and true*,
+which is true. Such a logic of propositionsm their compositions into
+larger propositions using connectives such as *and*, *or*, and *not*,
+and this compositional way of determining the truth of propositions,
+is called *propositional logic*.
 
 By contrast, the proposition, "every person has a mother" (or to put
 it more formally, :math:`\forall p \in Persons, \exists m \in Persons,
@@ -163,20 +167,27 @@ logic is basically that of our Boolean expression language with the
 crucial addition of propositional *variable expressions*. Examples of
 variable expressions include *M* and *F* in our example at the start
 of this chapter. So, for example, in addition to being able to write
-expressions such as *pAnd(pTrue,pFalse)*, we can write *pAnd(pTrue,F)*
-and *POr(M,F)*.
+expressions such as *pAnd(pTrue,pFalse)*, we can write *pAnd(M,F)*,
+where *M* and *F* are proposition variables that can have *true* or
+*false* as their values.
 
-As for semantics, propositional variables take Boolean values. To
-evaluate a variable expression, we just look up its Boolean value
-and then proceed as with Boolean expression evaluation in the last
-chapter.
+As for semantics, propositional variables thus have Boolean values. To
+evaluate a proposition in propositional logic, we thus ascertain the
+Boolean value of each variable appearing in the proposition and then
+proceed to evaluate the result just as we did with Boolean expression
+evaluation in the last chapter. For example, if *M* is *true* and *F*
+is *true*, then to evaluate *M and F*, we first evaluate each of *M*
+and *F* individually, reducing the proposition to *true and true*. We
+then reduce that expression using the rules for Boolean algebra. The
+result in this case is, of course, just *true*.
 
-The one complication, then, is that, to evaluate a proposition (which
-in general includes variables), our semantic evaluation function needs
-to have a way to look up the Boolean value of each variable appearing
-in the expression being evaluated. Our semantic evaluator need a *map*
-from variables to values.  Logicians call such a variable-to-value map
-an *interpretation*. Programming language designers call such a map an
+The one complication, then, is that, to evaluate a proposition that
+includes variables, our semantic evaluation function needs to have a
+way to look up the Boolean value of each variable in the expression to
+be evaluated. Our semantic evaluator needs a function, which could be
+represented as a *map*, for example, from propositional variables such
+as *M* and *F* to Boolean values.  Logicians call such a function an
+*interpretation*. Programming language designers sometimes call it an
 *environment*. To evaluate a variable expression, the evaluator will
 just look up its value in the given intepretation and will otherwise
 proceed as in the last chapter.
