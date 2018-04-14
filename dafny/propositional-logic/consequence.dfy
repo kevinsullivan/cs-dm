@@ -263,24 +263,42 @@ module consequence
     }
 
     /*
-    Return a string representation of an inference rule.
-    This code gets strings representing the context, the
-    conclusion, a line of the right length to separate them,
-    and the name of the rule; it then computes strings for
-    the context and conclusion centered above and/or below
-    the line; and it finally prints the rule with its name
-    to the right.
+    This method returns a string representation of an 
+    inference rule along with some additional information:
+    the width of the context/conclusion part, and the width
+    of the rule with the name printed to the right. This
+    information helps users of this method to surround the
+    output of a rule with correct-width borders. This method
+    works by getting strings representing the context and 
+    the conclusion; by generating a line of the right width
+    to separate them; by getting the name of the rule; by 
+    centering the context and conclusion strings so that 
+    the result looks nice; and by concatenating all these 
+    strings together. Ther result is a printable version 
+    of the rule, with its name, without any surrounding 
+    formatting.
     */
     method showInferenceRule(r: inference_rule) 
         returns (rule_str: string, rule_width: nat, width_with_name: nat)
     {
-        var context := showPropList(get_context(r));
+        // Get a string representing the context (proposition list)
+        var context := showContext(get_context(r));
+
+        // Get a string representing the conclusion
         var concl := showProp(get_conclusion(r));
+
+        // Figure out how wide the rule will be when printed
         var width := max(|context|,|concl|);
+
+        // Center the context and conclusion strings to that width
         context := center(context, width, ' ');
         concl := center(concl, width, ' ');
+
+        // Get the name of the rule; make a ---- line the right width
         var name := get_name(r);
         var line := make_line('-',width);
+ 
+        // put it all together and return the result
         rule_str := 
             context + "\n" +
             line + " " + name + "\n" +
@@ -289,10 +307,10 @@ module consequence
     }
 
 
-    // Return the maximum of two natural numbers
+    // Helper function: return the maximum of two natural numbers
     function method max(n: nat, m: nat): nat { if n > m then n else m } 
 
-    // return a string centered in space of given width
+    // Helper: return string centered in given width, padded with char c
     method center(s: string, w: nat, c: char) returns (result: string)
     {
         var left_gap := 
@@ -307,7 +325,7 @@ module consequence
     }
 
     /* 
-    Return a string of characters of given width
+    Return a string of characters (the char c repeated) of given width
     */
     function method make_line(c: char, width: nat): string
     {
@@ -315,14 +333,11 @@ module consequence
     }
 
     /*
-    Returns printable string rendering of a context
-    for human reading. Format is a comma-separated 
-    textual list of propositions, each serilized by
-    the showProp method.
-
-    Fix: Simplify name to showContext.
+    Return a string representing a context as a comma-separated
+    list of propositions. This could be rewritten in a nicer form 
+    using recursion.
     */
-    method showPropList(cx: context) returns (f: string)
+    method showContext(cx: context) returns (f: string)
     {
         var i := 0;
         var s: string := "";
