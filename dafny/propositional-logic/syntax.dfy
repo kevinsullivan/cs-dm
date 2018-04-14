@@ -22,6 +22,14 @@ module syntax
         pOr (e1: prop, e2: prop) |
         pImpl (e1: prop, e2: prop)
 
+    method foo()
+    {
+        var X := mkPropVar("X");
+        var Y := mkPropVar("Y");
+        var Xexp := pVar(X);
+        var XandY := pAnd(pVar(X),pVar(Y));
+    }
+
 
     /*
     showprop takes a propositional expression in

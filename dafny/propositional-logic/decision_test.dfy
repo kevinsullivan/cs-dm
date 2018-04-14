@@ -44,7 +44,8 @@ method Main()
         var notR := pNot(R);
         var PorQ := pOr(P,Q);
         var PorQandnotR := pAnd(PorQ,notR);
-        var PQRT := pOr(PorQandnotR,T);
+        var PQRT := pOr(PorQandnotR,T); // ((P \/ Q) /\ (~R)) \/ T
+        
 
         // variable sequence for printing interpretations
         var varOrder := [Pvar, Qvar, Rvar, Tvar];

@@ -7,6 +7,7 @@ module model
     import opened interpretation
     import opened truth_table
     import opened evaluation
+    import opened variables
 
     /*
     This important method returns a sequence 
@@ -38,6 +39,9 @@ module model
     */
    method get_models_helper(tt_inputs: seq<pInterpretation>, p: prop, acc: seq<pInterpretation>) 
         returns (r: seq<pInterpretation>)
+        requires forall v :: v in getVarsInProp(p) ==> 
+                    forall i :: 0 <= i < |tt_inputs| ==> 
+                        v in tt_inputs[i];  // kjs -- need to import variables
     {
         var idx := 0;
         var res := acc;

@@ -11,6 +11,24 @@ module truth_table
 
     /*
     This method returns a sequence of all possible
+    interpretations for a given proposition. It does
+    it by getting a sequence of all the variables in
+    the expression and by then calling a helper
+    function, truth_table_inputs_for_vars, which does
+    most of the work.
+    */
+    method truth_table_inputs_for_prop(p: prop) 
+        returns (result: seq<pInterpretation>)
+        ensures forall v :: v in getVarsInProp(p) ==> 
+                    forall i :: 0 <= i < |result| ==>
+                        v in result[i];     // kjs
+    {
+        var vs := seqVarsInProp(p);
+        result := truth_table_inputs_for_vars(vs);
+    }
+    
+    /*
+    This method returns a sequence of all possible
     interpretations for a given sequence of Boolean
     variables, in increasing order from all false to
     all true. Each interpretation is a map from each
@@ -22,34 +40,28 @@ module truth_table
     */
     method truth_table_inputs_for_vars(vs: seq<propVar>) 
         returns (result: seq<pInterpretation>)
+        ensures forall i :: 0 <= i < |result| ==>   // kjs
+            forall v :: v in vs ==> v in result[i];
     {
         result := [];
         var interp := all_false_interp(vs);
         var i: nat := 0;
         var n := pow2(|vs|);
         while (i < n)
+            invariant i <= n;
+            invariant |result| == i;
+            invariant forall v :: v in vs ==> v in interp;
+            invariant 
+                forall k :: 0 <= k < i ==> 
+                    forall v :: v in vs ==>
+                        v in result[k];
+
+
         {
             result := result + [interp];
             interp := next_interp(vs, interp);
             i := i + 1;
         }
-        return result;
-    }
-    
-    method truth_table_inputs_for_prop(p: prop) 
-        returns (result: seq<pInterpretation>)
-    {
-        var vs := seqVarsInProp(p);
-        result := truth_table_inputs_for_vars(vs);
-        return;
-    }
-    
-    method truth_table_inputs_for_props(ps: seq<prop>) 
-        returns (result: seq<pInterpretation>)
-    {
-        var vs := seqVarsInProps(ps);
-        result := truth_table_inputs_for_vars(vs);
-        return;
     }
     
      /*
@@ -59,18 +71,27 @@ module truth_table
     */
     method all_false_interp(vs: seq<propVar>) 
         returns (result: pInterpretation)
+        ensures forall v :: v in vs ==> v in result //kjs
     {
         result := map[];
-        var i := 0;
+        var i := 0; // the number of elements in the map so far
         while (i < | vs |)
+            invariant i <= |vs|;
+            invariant forall k :: 0 <= k < i ==> vs[k] in result;
         {
             result := result[ vs[i] := false ];
             i := i + 1;
         }
-
-        return result;
     }
 
+    method truth_table_inputs_for_props(ps: seq<prop>) 
+        returns (result: seq<pInterpretation>)
+    {
+        var vs := seqVarsInProps(ps);
+        result := truth_table_inputs_for_vars(vs);
+        return;
+    }
+    
     /*
     Given a sequence of variables and an interpretation
     for those variables, computes a "next" interpretation.
@@ -81,13 +102,14 @@ module truth_table
     */
     method next_interp(vs: seq<propVar>, interp: pInterpretation) 
         returns (result: pInterpretation)
+        requires forall v :: v in vs ==> v in interp;   //kjs
+        ensures forall v :: v in vs ==> v in result;
     {
         result := interp;
         var i := | vs | - 1;
         while (i >= 0 ) 
+            invariant forall v :: v in vs ==> v in result;  //kjs
         {
-            if (! (vs[i] in interp)) { return; }
-            assert vs[i] in interp;
             if (interp[ vs[i] ] == false) 
             { 
                 result := result[ vs[i] := true ];
@@ -99,7 +121,6 @@ module truth_table
             }
             i := i - 1;
         }
-        return result;
     }
 
     /*
@@ -112,7 +133,7 @@ module truth_table
     }
 
     method show_truth_table_for_prop(p: prop, ord: seq<propVar>, labels: bool)
-        // assume var_order complete for props; would be better to check
+        requires forall v :: v in getVarsInProp(p) ==> v in ord; // kjs
     {
         var varSeq := seqVarsInProp(p);
         var tt_inputs := truth_table_inputs_for_vars(varSeq);
@@ -121,6 +142,7 @@ module truth_table
         {
             show_interpretation(tt_inputs[i],ord,labels);
             print " :: ";
+            var tt_input := tt_inputs[i];
             var out := pEval(p, tt_inputs[i]);
             var propString := showProp(p);
             if labels { print propString, " := "; }

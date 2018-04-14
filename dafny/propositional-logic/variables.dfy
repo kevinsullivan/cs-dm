@@ -30,6 +30,7 @@ module variables
     import opened syntax
 
     method seqVarsInProp(e: prop) returns (result: seq<propVar>)
+        ensures forall v :: v in getVarsInProp(e) <==> v in result;
     {
         /* Compute the set of variables the convert to sequence
            Dafny does not allow expressions in return statements
@@ -38,7 +39,6 @@ module variables
         */
 
         result := varSetToSeq(getVarsInProp(e));
-        return;
     }
 
     /*
@@ -54,11 +54,13 @@ module variables
     at the empty set. 
     */
     method varSetToSeq(s: set<propVar>) returns (result: seq<propVar>)
+        ensures forall v :: v in s <==> v in result;
     {
         var l: seq<propVar> := [];
         var s' := s;
         while (s' != {}) 
             decreases s';
+            invariant forall v' :: v' in s <==> v' in s' || (v' !in s' && v' in l); 
         {
             var v :| v in s';
             l := [ v ] + l;
