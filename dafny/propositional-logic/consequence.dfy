@@ -24,7 +24,11 @@ module consequence
     --------------------  name_of_rule
           conclusion
 
-    For example, the inference rule that we generally call "and introduction" (or "and_intro" for short) asserts that if we 
+    Above the line is the context: a list of premises. Below the line 
+    is the conclusion. To the right of this context/conclusion pair is
+    a name for the rule.
+    
+    For example, the inference rule that we generally call "and introduction" (or "and_intro" for short) asserts this: if we 
     know a proposition, P, is true, and we know that a proposition
     Q is true, then it must be that the proposition P /\ Q is also 
     true. Here's how we'd write this rule.
@@ -36,31 +40,37 @@ module consequence
     Valid inference rules, such as and_intro, provide us with powerful 
     means for logical reasoning. But not every proposed inference rule
     is valid. Here's an example. It's not that case in general that if
-    (P implies Q) then (not P implies not Q). Here's how we'd write the
-    invalid rule. 
+    P implies Q (the context) then not P implies not Q, the conclusion.
+    Thus is such a classic example of an invalid form of reasoning that
+    logicians have given it a name: denying the antecedent. (Antecedent is another name for premise.) Here's how we'd write this bad rule. 
 
      P -> Q
-    --------  oops! wrong
+    --------  deny_antecedent
     ~P -> ~Q
 
-    For example, while it's true that "if it's raining outside the ground 
+    Consider sn example of this for of reasoning to understand that it's
+    not valid. While it's true that "if it's raining outside the ground 
     is wet", that doesn't mean that "if the ground is wet then it must be raining outside." There might be other reasons for wet ground, such 
     as a sprinkler being turned on, snow melting, or a fire hydrant being
-    running. This inference rule, then, is not valid.
+    running. This inference rule does not constutute an always-valid form 
+    of deductive reasoning.
 
     In this unit, we develop a suite of proposed inference rules and check
     each one for validity using our propositional logic validity checker.
     To check a rule, we convert it into an implication asserting that the
     conjunction of the premises implies the conclusion, and then we just
-    check that proposition for validity by constructing a truth table for
-    the proposition and checking that its true in every interpretation. 
+    check that proposition for validity using the methods we have already 
+    developed: namely by constructing a truth table and checking that the
+    proposition is true in each of its possible interpretations. 
     
     For example, we'd validate the and_intro rule by converting it into
-    the proposition (P /\ Q) -> (P /\ Q). The left side is obtained by
-    conjoining (joining with "and") the individual premises, P and Q. The
-    right hand side is the conclusion. And it should be intuitive clear
-    that the resulting proposition is always true; but if you're not 
-    sure, just run our validity checker and check the truth table!
+    the proposition (P /\ Q) -> (P /\ Q). The left side (the premise) is 
+    obtained by conjoining the individual premises, P and Q, yielding P
+    /\ Q. The right hand side is just the conclusion. And it should be  
+    clear that the resulting proposition, which just says that P /\ Q
+    implies itself (i.e., that P /\ Q is true whenever P /\ Q is true) 
+    is always true. If you're not convinced, represent the congoined
+    proposition, run our validity checker, and check the truth table!
 
     Most of the inference rules we will propose will turn out to be valid.
     These end up being fundamental inference rules for deductive logic and
@@ -77,10 +87,9 @@ module consequence
     This rule says that if from P you can deduce Q and if from Q you 
     can deduce R, then from P you can deduce R directly. Another way
     to state this rule is that implication is transitive! To check the
-    validity of this rule, we will convert it into the implication,
-    ((P -> Q) /\ (Q -> R)) -> (P -> R). Our grammar for propositional
-    logic is entirely adequate to express this proposition, and our 
-    validity checker will show it to be true under all interpretations.
+    validity of this rule using truth tables, we  convert it into the 
+    implication, ((P -> Q) /\ (Q -> R)) -> (P -> R). Our syntax is adequate to express it, and our validity checker will show it to 
+    be true under all interpretations.
 
     And here's modus ponens, also known as -> (arrow) elimination. 
 
@@ -100,7 +109,7 @@ module consequence
     ideas, and to  enable hands on exploration and experimentation.
 
     The main content of this course module is in the consequence_test
-    file, in the form of an organized suite of inference rules along
+    file, and in the consequence file that implements the new functions. This file formulates an organized suite of inference rules along
     with checks of their validity. Compile and run the program to see
     wat it does. 
     
@@ -109,18 +118,9 @@ module consequence
     checking of arbitrary propositions. The only substantial new function
     needed for this unit was representing inference rules, converting
     them into propositional logic propositions, and formatting them for
-    nice output. These functions are all implemented in this file. The 
-    rest of this file. So let's get to it and see how it all works. 
-    
-    In this unit, we just introduce a simple new type, representing an
-    inference rule as a pair, where the first element is itself a pair,
-    namely a list of propositions (premises), and the second element is
-    a proposition (conclusion), and where the second element of the pair
-    is just a string giving a name to the inference rule. 
+    nice output. These functions are implemented in consequence.dfy.
     */
-
-    /************ IMPLEMENTATION FOLLOWS *****************/
-
+    
     /*
     In the field of logic and proof, the term "context" generally 
     refers to a set of propositions that are already judged or assumed 
@@ -183,15 +183,20 @@ module consequence
 
 
     /*
-    The Main() routine of this unit, in consequence_test.dfy,
-    mainly prints out a bunch of proposed inference rules along
-    with indications of whether they are logically valid or not.
-    This is the main routine for printing the outputs for the
-    individual rules.  Compare the output produced when Main()
-    runs, with this code, to see the correspondence. Then read
-    the functions and methods that this method calls, most of
-    which are just further down in this file, to see how this
-    method is implemented. 
+    This method prints out an inference rule along with an
+    indication of its validity.  Compare the output produced 
+    when Main() in consequence_test.dfy runs, with this code. 
+    Then read the functions and methods that this method calls, 
+    most of which are just further down in this file, to see 
+    how this method does its job. The only logically interesting
+    function is the one that converts an inference rule into a
+    single proposition for purposes of validity checking; and
+    the most interesting function used for that purpose is the
+    one that uses a recursion to reduce a list of propositions
+    to a single proposition in which the elements of the list
+    are all conjoined together using pAnds. You should study
+    that code. while glossing over the code that does most of
+    the work of nicely formatting the printed outputs. 
     */
     method checkAndShowInferenceRule(r: inference_rule)
     {
@@ -340,7 +345,7 @@ module consequence
     method showContext(cx: context) returns (f: string)
     {
         var i := 0;
-        var s: string := "";
+        var s: string := "[ ";
         while (i < |cx|)
         {
             var s' := showProp(cx[i]);
@@ -348,6 +353,6 @@ module consequence
             if (i < | cx | - 1 ) { s := s + ", "; }
             i := i + 1;
         }
-        return s;
+        return s + " ]";
     }
 }
