@@ -153,6 +153,11 @@ what their types are.
 
 -- Get the exists symbol by typing "\exists"
 
+-- Propositions are values, too!
+
+def aProp := ∀ n: ℕ, ∃ m: ℕ, m = n + 1
+
+#check aProp
 
 /-
 In each case, we see that the type of a 
@@ -279,15 +284,14 @@ declared or inferred type.
 
 /-
 What does it mean for a proposition to be true
-in Lean? It means exactly that there is some
+in Lean? It means exactly that there is a proof,
+which is to say that it means that there is some
 value of that type. A proposition that is false
 is a good proposition, and a good type, but it
-is a type that has no values! It's an "empty"
-type. The type, 1=0, has no values (no proofs).
-To prove a proposition (a type) in Lean means 
-that one has produced/exhibited a value of that
-type: a value that the type checker confirms is
-of that type.
+is a type that has no proofs, no values! It is 
+an "empty," or "uninhabited" type. The type, 1=0,  
+has no values (no proofs). There is no way to
+produce a value of tihs type. 
 -/
 
 
@@ -364,6 +368,125 @@ for proving propositions of a certain kind,
 namely propositions that assert equalities.
 -/
 
+
+
+/- ND INTRODUCTION AND ELIMINATION RULES -/
+
+/- ******* True Introduction ******** -/
+
+/-
+Recall from our introduction to inference 
+rules in propositional logic that the
+proposition, pTrue, is true without any
+preconditions. We wrote the rule like this:
+([],pTrue), and we called it "true intro".
+We proved the rule semantically valid, so
+we can write  [] |= pTrue. That is, from
+an empty context (no previous assumptions)
+we can conclude that pTrue is true. 
+
+In lean, "true" is the true proposition.
+You can check that "true" is a proposition
+using #check.
+-/
+
+#check true
+
+/-
+Note: the proposition, true, is different
+than the Boolean value, true. The Boolean
+value, true, written "tt" in Lean, is one
+of the two values of the bool datatype. It
+is not a proposition.  Chek it out.
+-/
+
+#check tt
+
+
+/-
+
+In Lean and similar proof assistants, 
+propositions, such as true in Lean, can
+be defined inductively. The keyword for
+an inductive datatype in Dafny is just
+"datatype". Recall the definition of 
+our syntax for propositional logic, 
+for example. The values of a type are
+defined by a list of contructors. 
+
+As proofs are values of types, we can
+define propositions as types and proofs
+of such propositions as values produced
+by constructors. The simplest example 
+is the proposition, true, in Lean. It's
+defined in Lean's core library like so:
+
+inductive true : Prop
+| intro : true
+
+This says that true is of type Prop,
+i.e., is a proposition, and it has just
+one value, proof, namely "intro". The
+constructor says, "intro" is of type
+(i.e., is a proof of) true. The intro
+constructor takes no arguments and so
+is always available as a proof of true.
+We thus have our true introduction: just
+use the constructor. Here we should how
+to assert that the proposition "true" is
+true (there's a proof for it) by giving
+the one and only proof, namely "intro".
+To refer to a constructor of a type,
+use the type name dot constructor name.
+-/
+
+theorem proofOfTrue: true := true.intro
+
+/-
+This isn't a very useful rule of natural
+deduction, as it doesn't really tell you
+anything you didn't already know. It is not
+commonly used in proofs.
+-/
+
+
+
+/- *** The proposition, false  *** -/
+
+
+/-
+In Lean, false is also a proposition. By
+contrast, the Boolean false value in Lean
+is written as ff.
+-/
+
+#check false
+
+/-
+false is meant to be the proposition 
+that is never true, i.e., that can never
+be proved, i.e., for which there is no 
+proof. As a type, it has no values. It
+is an uninhabited type. 
+
+The false proposition/type is defined 
+inductively as having type, Prop, and
+as having exactly no constructors! It's 
+a proposition but there is no way to 
+contruct a proof. Here's the definition
+of false from the Lean core libraries:
+
+inductive false : Prop
+
+That's it. Look, no constructors!
+
+There is no false introduction rule.
+There is no way to introduce a proof of
+false. There is no proof of false. We'll
+discuss false elimination later in this
+chapter.
+-/
+
 /- ***** PROOFS OF CONJUNCTIONS ****** -/
 
 /- 
@@ -415,6 +538,8 @@ to play with.
 -/
 theorem oeqo : 1 = 1 := rfl
 
+/--------- And Introduction -----------/
+
 /-
 To start, we conjecture that 0=0 /\ 1=1. We 
 already have a proof of 0=0, namely zeqz.
@@ -465,7 +590,41 @@ There are two, one to obtain each element.
 Thus from a proof of P ∧ Q we can apply
 the and elimination rules to obtain a
 proof of P and a proof of Q.
+-/
 
+/--------- And Elimination -----------/
+
+/-
+And introduction creates a proof of a 
+conjunction from proofs of its parts (its
+"conjuncts"). Such a proof is a pair the
+elements of which are the two "smaller" 
+proofs. Given such a proof/pair, the and
+*elimination* rules return one of the 
+other the component proofs. For example,
+from a proof of P ∧ Q, and.elim_left will
+return the contained proof of P, and the
+and.elim_right rule returns the proof of 
+Q.
+-/
+
+theorem e1: 0=0 := and.elim_left t2
+
+/-
+This says that a value, e1, of type 0=0, 
+i.e., a proof of 0=0, can be obtained by
+applying and.elim_left to t2, which is a
+proof of 0=0 ∧ 1=1, which is to say that
+it is a pair of proofs, one of 0=0 and 
+one of 1=1. The and elimination rules
+are just "project operators" on pairs of
+proofs.
+-/
+
+
+
+
+/-
 Natural deduction, which is the proof 
 system that we're using here, is a set 
 of functions (inference rules) for taking 
@@ -512,73 +671,6 @@ correctness of proofs, it can be worth
 the trouble to make sure they're right.
 -/
 
-
-/- ***** PROOFS OF DISJUNCTIONS ***** -/
-
-/-
-To prove a conjunction, we saw that we 
-need to construct a pair of proofs, one
-for each conject. To prove a disjunction,
-P ∨ Q, we just need a proof of P or a proof
-of Q. We thus have two inference rules to
-prove P ∨ Q, one takeing a proof of P and
-returning a proof of P ∨ Q, and one taking
-a proof of Q and returning a proof of P ∨ Q.
-We thus have two or introduction rules in
-the natural deduction proof system, one 
-taking a proof of the left disjunct (P),
-and one taking a proof of the right (Q).
-
-For example, we can prove the proposition, 
-0=0 ∨ 1=0 using an "or introduction" rule.
-In general, you have to decide which rule
-will work. In this case, we won't be able
-to build a proof of 1=0 (it's not true!),
-but we can build a proof of 0=0, so we'll
-do that and then use the left introduction
-rule to generate a proof of the overall
-proposition. 
-
-The or introduction rules in Lean are
-called or.inl (left) and or.inr (right).
-Here then we construct a proof just as
-described above, but now checked by the
-tool.
--/
-theorem t3: 0=0 ∨ 1=0 := 
-    or.inl zeqz
-
-theorem t4: 1=0 ∨ 1=1 := 
-    or.inr oeqo
-
-/-
-Once again, we emphasize that whether or
-not you're using Lean or any other tool or
-no tool at all, the strategy for proving a
-disjunction is to prove at least one of its
-disjucts, and then to take that as enough
-to prove the overall disjunction. You see
-that each form of proposition has its own
-corresponding proof strategy (or at least
-one; there might be several that work). In
-the cases we've seen so far, you look at
-the constructor that was used to build the
-proposition and from that you select the
-appropriate inference rule / strategy to
-use to build the final proof. You then
-either have, or construct, the proofs that
-you need to apply that rule to construct
-the required proof.
-
-As a computational object, a proof of a
-disjunction is like a discriminated union
-in C or C++: an object containing one of
-two values along with a label that tells
-you what kind of value it contains. In
-this case, the label is given by the
-introduction rule used to construct the
-proof object: either or.inl or or.inr.
--/
 
 /-******** FUNCTIONS **********-/
 
@@ -762,7 +854,11 @@ and reflexivity, i.e., rfl), of conjunctions
 (using and.intro), and of disjuctions (using
 one of the or introduction rules). What about
 implications? 
+-/
 
+/- Arrow Introduction -/ 
+
+/-
 Suppose we wanted to show, for example, that 
 (1=1 ∧ 0=0() → (0=0 ∧ 1=1). Here the order of
 the conjuncts is reversed.
@@ -777,16 +873,21 @@ a proof. An implication is thus read as saying
 if you assume that the premise, P, is true, in
 other words if you assume you have a proof of
 P, then you can then derive a proof of the 
-conclusion, Q. But proofs are just values of 
-(these strange propositional) types, and so
-a proposition in the form of an implication,
-such as P → Q is true exactly when we have
-a way to convert any value (proof) of type P 
-into a value (proof) of type Q. We call such 
-things, that change values into other values, 
-functions! Think about this: the implication,
-P → Q is true if we can define a function of
-type, yep, you guessed it, P → Q. Whoa!  
+conclusion, Q. 
+
+But proofs are just values of (these strange 
+propositional) types, and so a proposition in 
+the form of an implication, such as P → Q is 
+true when we have a way to convert any value 
+(proof) of type P into a value (proof) of type 
+Q. We call such a thing a function! 
+
+Think about this: the implication, P → Q is 
+true if we can define a function (body) of 
+this type, P → Q. Here's the actual code from
+the Lean core library:  
+
+def implies (a b : Prop) := a → b
 
 So now, think about how to write a function
 that takes an argument of type 1=1 ∧ 0=0 and
@@ -806,24 +907,393 @@ return a pair constituting a proof of the
 conjunction with the component proofs in 
 the opposite order.
 -/ 
-theorem and_swap: 1=1 ∧ 0=0 → 0=0 ∧ 1=1 :=
-  λ premise: 1=1 ∧ 0=0, 
+/-
+Here's an ordinary function that does the trick.
+-/
+def and_swap(premise: 1=1 ∧ 0=0): 0=0 ∧ 1=1 :=
+    and.intro 
+        (and.elim_right premise) 
+        (and.elim_left premise)
+
+/-
+Now we can use it as a proof of the theorem.
+-/
+theorem and_commutes': 1=1 ∧ 0=0 → 0=0 ∧ 1=1 :=
+    and_swap   -- just give function as proof
+
+
+/-
+Here's the same thing using a lambda. You can
+see here how lambda expressions (also know as
+anonymous functions) can make for cleaner code.
+They're also essential when you want to return
+a function.
+-/
+theorem and_commutes: 1=1 ∧ 0=0 → 0=0 ∧ 1=1 :=
+  /- 
+  a function taking premise, a proof of 
+  1=1 ∧ 0=0, as an argument, and returning ...
+  -/
+  λ premise: 1=1 ∧ 0=0,  
+  /-
+  a proof of the conjunction reversed
+  -/
     and.intro 
         (and.elim_right premise) 
         (and.elim_left premise)
   
 /-
-If using lambda is still confusing at this
-point, just write it as an ordinary function,
-and then give the function name as the proof.
+The bottom line here is that we introduce
+an arrow by defining a function, which we
+can also now pronounce as "by proving an
+implication (which is done by giving such
+a function)."
 -/
-def and_swap_fun(premise: 1=1 ∧ 0=0): 0=0 ∧ 1=1 :=
-    and.intro 
-        (and.elim_right premise) 
-        (and.elim_left premise)
 
-theorem and_swap': 1=1 ∧ 0=0 → 0=0 ∧ 1=1 :=
-    and_swap_fun -- give named function as proof
+/- Arrow Elimination-/
+
+/-
+Arrow elimination starts with an implication
+(aka, function), in the context, along with 
+a proof of its premise (i.e., an argument of 
+the type that the function takes), and ends 
+with a proof of the conclusion. This is just 
+modus ponens! And just function application!
+-/
+
+theorem modus_ponens' (hImp: 1=1 ∧ 0=0 → 0=0 ∧ 1=1) 
+                     (hc: 1=1 ∧ 0=0): 0=0 ∧ 1=1 :=
+    (hImp hc)
+
+theorem modus_ponens'': 
+    (1=1 ∧ 0=0 → 0=0 ∧ 1=1) → 
+        1=1 ∧ 0=0 → 
+            0=0 ∧ 1=1 :=
+    λ hImp, λ hc, (hImp hc)
+
+/-
+Arrow elimination is modus ponens is function
+application to an argument. Here's the general
+statement of modus ponens as a function that is
+polymorphic in the types/propositions, P and Q.
+You can see that the propositions are arguments
+to the function, along with a P → Q function and
+a (value) proof of (type) P, finally producing a 
+(value) proof of (type) Q.
+-/
+theorem modus_ponens: ∀ P Q: Prop, (P → Q) → P → Q :=
+    λ P Q: Prop, λ pfImp: P → Q, λ pfP: P, (pfImp pfP)
+
+/-
+We could of course have written that using 
+ordinary function notation.
+-/
+theorem modus_ponens2 
+    (P Q: Prop) (pfImp: (P → Q)) (pfP: P): Q :=
+        (pfImp pfP)
+
+/-
+As an advanced concept, putting arguments in 
+curly braces tells Lean to use type inference
+to infer their values.
+-/
+theorem modus_ponens3
+    {P Q: Prop} (pfImp: (P → Q)) (pfP: P): Q :=
+        (pfImp pfP)
+
+/-
+Type inference can also be specified for lambdas
+by enclosing parameters to be inferred in braces.
+-/
+theorem modus_ponens4: ∀ P Q: Prop, (P → Q) → P → Q :=
+    λ P Q: Prop, λ pfImp: P → Q, λ pfP: P, (pfImp pfP)
+
+
+/-
+Compare the use of our modus_ponens function
+with modus_ponens3. In the latter case, Lean
+infers that the propositions (values of the
+first two parameters) are P and Q, Such uses
+of type inference improve code readaibility.
+-/
+section mp
+variables P Q: Prop     -- assume in section
+variable hImp: P → Q    -- assumption
+variable hP: P          -- assumption    
+#check modus_ponens P Q hImp hP
+#check modus_ponens3 hImp hP
+end mp
+
+
+/- ***** PROOFS OF DISJUNCTIONS ***** -/
+
+/-
+To prove a conjunction, we saw that we 
+need to construct a pair of proofs, one
+for each conject. To prove a disjunction,
+P ∨ Q, we just need a proof of P or a proof
+of Q. We thus have two inference rules to
+prove P ∨ Q, one takeing a proof of P and
+returning a proof of P ∨ Q, and one taking
+a proof of Q and returning a proof of P ∨ Q.
+We thus have two or introduction rules in
+the natural deduction proof system, one 
+taking a proof of the left disjunct (P),
+and one taking a proof of the right (Q).
+
+For example, we can prove the proposition, 
+0=0 ∨ 1=0 using an "or introduction" rule.
+In general, you have to decide which rule
+will work. In this case, we won't be able
+to build a proof of 1=0 (it's not true!),
+but we can build a proof of 0=0, so we'll
+do that and then use the left introduction
+rule to generate a proof of the overall
+proposition. 
+
+The or introduction rules in Lean are
+called or.inl (left) and or.inr (right).
+Here then we construct a proof just as
+described above, but now checked by the
+tool.
+-/
+theorem t3: 0=0 ∨ 1=0 := 
+    or.inl zeqz
+
+theorem t4: 1=0 ∨ 1=1 := 
+    or.inr oeqo
+
+/-
+Once again, we emphasize that whether or
+not you're using Lean or any other tool or
+no tool at all, the strategy for proving a
+disjunction is to prove at least one of its
+disjucts, and then to take that as enough
+to prove the overall disjunction. You see
+that each form of proposition has its own
+corresponding proof strategy (or at least
+one; there might be several that work). In
+the cases we've seen so far, you look at
+the constructor that was used to build the
+proposition and from that you select the
+appropriate inference rule / strategy to
+use to build the final proof. You then
+either have, or construct, the proofs that
+you need to apply that rule to construct
+the required proof.
+
+As a computational object, a proof of a
+disjunction is like a discriminated union
+in C or C++: an object containing one of
+two values along with a label that tells
+you what kind of value it contains. In
+this case, the label is given by the
+introduction rule used to construct the
+proof object: either or.inl or or.inr.
+-/
+
+/- ******** FALSE ELIMINATION ******** -/
+
+/-
+There is no false introduction rule. If
+there were, we'd be able to introduce a
+proof of false, and that would be bad. It
+would allow us to prove anything at all.
+
+That this is the case is explained by the
+false elimination rule. If given a proof
+of false, we can use it to prove anything 
+at all. Here we prove 0=1. That is, we'd 
+be able to prove it if we started from a
+contradiction. 
+
+Here we see the use of false.elim in two
+equivalent forms, differing only in the
+movement of arguments from one side of the
+colon to the other.
+-/
+
+theorem fe: false → 0 = 1 := 
+    λ f: false, false.elim f
+
+/-
+The way to read the lambda expression is
+as a function that if given a proof of
+false applies false.elim to it to produce
+a proof of 0=1. That proposition is an
+implicit argument to false.elim, which
+makes this notation less than completely
+transparent; but that is what's going on.
+Here's exactly the same "theorem" in the
+form of an ordinary function definition.
+-/
+
+def fe' (f: false): 0=1 := false.elim f
+
+/-
+The good news, of course, is that while
+these are perfectly good functions (and
+implications), you can never use them,
+because in a sound logic, you can never
+produce a proof of false.
+
+But suppose you could. Then you can use 
+functions like these to produce proofs 
+of anything at all. Here we use the fe 
+function applied to a proof of false 
+that we just assume exists to produce 
+a proof of 0=1. You *do not* want to be 
+able to prove false in a logic. If you 
+can, the logic becomes useless, as one
+then prove anything at all.
+-/
+section bad
+variable f: false  -- assume proof of false
+#check fe(f)       -- derive a proof of 0=1   
+end bad            -- or anything else at all
+
+
+/-
+Here's a proof that shows that if you have a
+proof of a proposition P and of its negation,
+then that is tantamount to having a proof of
+false, and so, again you can prove anything.
+-/
+theorem fromContraQ: ∀ P Q: Prop, P -> ¬ P -> Q :=
+    λ P Q: Prop, 
+        λ pfP: P, 
+            λ pfNotP: ¬ P, 
+                false.elim (pfNotP pfP) 
+
+/-
+We can't produce a contradiction in Lean except
+by assuming one. We do so here within a section
+to see this principle in action.
+-/
+
+section contra
+variables P Q: Prop
+variable pfP: P
+variable pfNotP: ¬ P
+-- the type of the next term is Q (proof of Q)
+#check fromContraQ P Q pfP pfNotP
+-- from a contradiction we can prove anything 
+end contra
+
+
+/- ******* NOT INTRODUCTION ********** -/
+
+theorem notIntro: ∀ P Q: Prop, (P → Q) → ¬ Q → ¬ P :=
+    λ (P Q: Prop) hImp QimpF, 
+        λ pfP: P, (QimpF (hImp pfP))
+
+def notIntro' {P Q: Prop} (hImp: P → Q) (QimpF: ¬ Q): ¬ P :=
+    λ pfP: P, QimpF (hImp pfP)
+
+/-
+example (hpq : p → q) (hnq : ¬q) : ¬p :=
+assume hp : p,
+show false, from hnq (hpq hp)
+-/
+
+theorem fe'' : forall P: Prop, false -> P := 
+    λ P: Prop, false.elim
+
+/- ******* NEGATION INTRODUCTION ******* -/
+
+/-
+We are allowed to conclude ¬ P if we can show
+that P leads to a contradiction: P → false. The
+idea is a kind of proof by contradiction. If from
+P we can prove "false" (which is supposed to be,
+and is, impossible) then the assumption that P
+is true must be wrong, and ¬ p must be true.
+
+Indeed, Lean (and similar systems) define not P
+as P -> false. Here's the actual code.
+
+def not (a : Prop) := a → false
+
+If we have a proof of ¬P (a function from P to
+false) and (by some impossible means) a proof of
+P, then we can derive a proof of false.
+--/
+
+/- Negation Introduction -/
+
+/- 
+A proof of (P → false) implies ¬P, because a
+proof of (P → false) *is* a proof of ¬P. 
+This is our negation introduction rule. 
+
+-/
+theorem f'': (1=0 -> false) -> ¬1=0 := 
+    λ i: (1=0 -> false), i
+
+/- Negation Elimination -/
+
+/-
+Negation elimination is just a special case of
+arrow elimination. We eliminate an arrow (i.e. a
+function) by applying it to an argument of the 
+right
+From a proof of ¬ P and a proof of P (i.e., from
+a contradiction), we can derive a proof of false.
+Of course if ¬ P is true, we'll never be able to
+come up with a value of type P, so we can really
+never use this function! 
+-/
+theorem f: ¬1=0 -> 1=0 -> false := 
+  λ pf_n1e0: ¬1=0, λ pf_1e0: 1=0, pf_n1e0 pf_1e0
+
+/-
+There's a simpler way to write this, as a proof
+of ¬ P simply is a proof of (P → false). So we
+can prove the overall theorem by just returning
+the assumed proof of ¬1=0. If you put parens 
+around (1=0 → false) in the statement of the
+theorem, the picture might be clearer. As, once
+again, ¬ P simply means (P → false).
+-/
+theorem f': ¬1=0 -> 1=0 -> false := 
+  λ pf_n1e0, pf_n1e0
+
+/- ****** STRUCTURING COMPLEX PROOFS ******** -/
+
+/-
+The "sorry" keyword tells Lean to accept a theorem,
+value, proof, by assumption, or "axiomatically." It's
+a dangerous capability: it's easy to introduce a new
+"fact" that contradicts one already known. But it is
+very helpful in structuring larger proofs, in that you
+can "stub out" parts of proofs, make overall proofs 
+work, then go back and "backfill" by proving all of
+the propositions you previously just "assumed away."
+-/
+theorem test (p q : Prop) (hp : p) (hq : q) : p ∧ q ∧ p :=
+sorry
+
+/-
+Using _ in place of sorry asks Lean to try to fill in a
+proof for you. Hover the mouse over the "hole" and Lean
+will tell you what inference needs to be validated *and*
+the context available for validating it.
+-/
+theorem test' (p q : Prop) (hp : p) (hq : q) : p ∧ q ∧ p :=
+-- _
+sorry
+
+theorem test'' (p q : Prop) (hp : p) (hq : q) : p ∧ q ∧ p :=
+begin
+apply and.intro,
+exact hp,
+apply and.intro,
+exact hq,
+exact hp
+end
+
+
+
 
 
 /- ******* CONCLUSION ******* -/
@@ -931,7 +1401,7 @@ by declaring variables to be of these types.
 Here's one example (which we won't use futher
 in this code).
 -/
-variable proof_of_P: P
+variable proof_P: P
 
 /-
 Now we can write somewhat more interesting 
@@ -954,6 +1424,10 @@ theorem t7: P ∧ Q → Q ∧ P :=
         (and.elim_right PandQ) 
         (and.elim_left PandQ)
 
+/- Arrow Elimination-/
+
+theorem ae: (P → Q) -> P -> Q :=
+    λ pf_impl: (P → Q), (λ pf_P: P, pf_impl pf_P)
 /-
 EXERCISES
 -/
