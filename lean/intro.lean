@@ -56,6 +56,8 @@ of a variable, x, bound to the value, 1, of
 type, nat.  
 -/
 def x: nat := 1
+def z: ℕ := 1
+def y := 1
 
 /-
 In Lean, you can check the type of a term
@@ -143,13 +145,17 @@ what their types are.
 -- zero equals zero; this is a proposition
 #check 0=0
 
+#check Prop
+
 -- every natural numbers is non-negative
 #check ∀ n: nat, n >= 0
 
 -- Get the forall symbol by typing "\forall"
 
 -- every natural number has a successor
-#check ∀ n: ℕ, ∃ m: ℕ, m = n + 1
+#check ∀ n: ℕ, (∃ m: ℕ, (m = n + 1))
+
+#check ∀ n: ℕ, n = 0
 
 -- Get the exists symbol by typing "\exists"
 
@@ -218,6 +224,12 @@ rule, rfl, build a proof that anything is
 equal to itself 
 -/
 def zeqz: 0 = 0 := rfl
+
+def q: nat := 1
+
+def heqh: "hello" = "hello" := rfl
+
+#check rfl
 
 /-
 The proof is produced the rfl inference rule.
@@ -440,6 +452,10 @@ To refer to a constructor of a type,
 use the type name dot constructor name.
 -/
 
+#check false
+
+def weird(f: false): nat := 0
+
 theorem proofOfTrue: true := true.intro
 
 /-
@@ -536,6 +552,9 @@ given that we already have a proof of 0=0
 that we have two propositions and proofs 
 to play with. 
 -/
+
+#check zeqz
+
 theorem oeqo : 1 = 1 := rfl
 
 /--------- And Introduction -----------/
@@ -558,6 +577,19 @@ backslash-and, followed by a space.)
 -/
 theorem t2: 0=0 ∧ 1=1 :=  -- proposition
     and.intro zeqz oeqo   -- build proof
+
+#check t2
+
+
+/-
+This example isn't required for 2101.
+-/
+theorem t2': 0=0 ∧ 1=1 :=
+begin
+apply and.intro,
+exact zeqz,
+exact oeqo
+end
 
 /-
 NOTE!!! Whereas we typically define
@@ -608,6 +640,8 @@ and.elim_right rule returns the proof of
 Q.
 -/
 
+
+
 theorem e1: 0=0 := and.elim_left t2
 
 /-
@@ -620,9 +654,6 @@ one of 1=1. The and elimination rules
 are just "project operators" on pairs of
 proofs.
 -/
-
-
-
 
 /-
 Natural deduction, which is the proof 
@@ -728,7 +759,9 @@ and look at the function.dfy file to see
 just how similar the syntax is.
 -/
 def inc(n: nat): nat := n + 1
+
 def sqr(n: nat): nat := n * n
+
 def comp(n: nat): nat := sqr (inc n)
 
 /-
@@ -761,6 +794,10 @@ of the argument. Here then is the way
 we'd rewrite inc using this new notation.
 -/
 def inc': ℕ → ℕ := λ n: nat, n + 1
+def inc'' := λ n: nat, n + 1
+
+#check inc' 1
+#eval inc' 1
 
 /-
 As you might suspect, from the function
@@ -934,13 +971,13 @@ theorem and_commutes: 1=1 ∧ 0=0 → 0=0 ∧ 1=1 :=
   a function taking premise, a proof of 
   1=1 ∧ 0=0, as an argument, and returning ...
   -/
-  λ premise: 1=1 ∧ 0=0,  
+  λ pf: 1=1 ∧ 0=0,  
   /-
   a proof of the conjunction reversed
   -/
     and.intro 
-        (and.elim_right premise) 
-        (and.elim_left premise)
+        (and.elim_right pf) 
+        (and.elim_left pf)
   
 /-
 The bottom line here is that we introduce
@@ -1092,186 +1129,312 @@ introduction rule used to construct the
 proof object: either or.inl or or.inr.
 -/
 
-/- ******** FALSE ELIMINATION ******** -/
+
+
+/- *** FALSITY AND NEGATION *** -/
+
+/- ******* ¬ P ******* -/
 
 /-
-There is no false introduction rule. If
-there were, we'd be able to introduce a
-proof of false, and that would be bad. It
-would allow us to prove anything at all.
+The proposition, ¬ P, is read "not P."
+It's an assertion that P is false. One 
+generally proves a proposition, ¬ P, by
+showing that that an assumption that P 
+is true leads to a contraction. 
 
-That this is the case is explained by the
-false elimination rule. If given a proof
-of false, we can use it to prove anything 
-at all. Here we prove 0=1. That is, we'd 
-be able to prove it if we started from a
-contradiction. 
+In a paper and pencil proof, one would 
+write, "We prove ¬ P by contradiction. 
+Assume that P is true. We will show that
+this assumption leads to a contradiction.
+The assumption therefore must be wrong, 
+and ¬ P must be true. Then you present
+details showing how a contradiction 
+follows from the assumption that P is
+true. For example, to show that sqrt(2)
+is not rational, assume that sqrt(2) is
+rational, and derive a contradiction.
+This is a classic example of proof by
+contradiction.
 
-Here we see the use of false.elim in two
-equivalent forms, differing only in the
-movement of arguments from one side of the
-colon to the other.
+
+In Lean, what is meant by ¬ P is that an
+assumption that there is a proof of P 
+leads to a contradiction; and what is 
+meant by a "contradiction" is a proof 
+of false, which of course can't exist,
+as the false type has no constructors. 
+To prove ¬ P in other words means to 
+prove P → false, and what that means
+is defining a function that *if* it 
+could be given a proof of P would in
+turn construct and return a proof of
+false.
+
+The key thing to remember is that the
+proposition (type) ¬ P is defined in 
+as the proposition (and function type)
+P → false. Here's the definition from
+the Lean core library:
+
+def not (a : Prop) := a → false
+
+Read this carefully "not" is a function 
+that takes any proposition, a, and that
+returns the *type* (the function type), 
+a → false. 
+
+To prove ¬ P one thus "proves" P → false, 
+which one does by giving a value of this 
+type, will be a function body (e.g., a
+lambda expression) that has this type. 
+
+It's not that you'd ever be able to 
+call such a function, because if ¬ P 
+really is true, you'll never be able 
+to give a proof of P as an argument. 
+
+Rather, the function just promises 
+that *if* you could give a proof of 
+P as an argument, then you could in
+turn construct a proof of false as a
+result. It's the fact that can write
+such a function at all that proves 
+the implication that P → false, which
+is the definition of what it means 
+for ¬ P to be (proved) true.
+
+Again, to show that ¬ P is true, you 
+have to define a function body of type 
+P → false. The problem thus reduces to 
+→  introduction, which we've already 
+seen. Define a function that takes an
+argument of type P and returns a proof
+of false.
 -/
 
-theorem fe: false → 0 = 1 := 
+/-
+Here's a very simple example. We can
+prove the proposition ¬ false by giving
+a function that *if* given a proof of
+false, returns a proof of false. That's
+easy: just return the argument itself. 
+-/
+theorem notFalse: ¬false := 
+    λ f: false, f
+
+
+/-
+A slightly more interesting example is 
+to prove that for any proposition P, we
+have ¬(P ∧ ¬P). In other words, it's not
+possible for both P and ¬ P to be true.
+We'll write this as: ∀ P: Prop, ¬(P ∧ ¬P).
+Remember that what this really means is
+∀ P: Prop, (P ∧ ¬P) → false. A proof of
+this claim is a function that will take
+two arguments: an arbitrary proposition,
+P, and an assumed proof of (P ∧ ¬P). It
+will need to return a proof of false. 
+The key to seeing how this is going to
+work is to recognize that (P ∧ ¬P) in
+turn means (P ∧ (P → false)). That is,
+that we have both a proof of P and also
+a proof of P → false: a function that
+turns a proof of P into a proof of false.
+We'll just apply that assumed function
+to the assumed proof of P to obtain the
+desired contradiction (proof of false),
+and that will show that for any P, the
+assumption that (P ∧ ¬P) lets us build
+a proof of false, which is to say that
+there is a function from (P ∧ ¬P) to
+false, i.e., (P ∧ ¬P) → false, and that
+is what ¬ (P ∧ ¬P) means. Thus we have
+our proof.
+-/
+
+theorem noContra: ∀ P: Prop, ¬(P ∧ ¬P) :=
+  λ (P: Prop) (pf: P ∧ ¬P),
+    (and.elim_right pf) (and.elim_left pf)
+
+
+/-
+There is no false introduction rule in Lean. 
+If there were, we'd be able to introduce a
+proof of false, and that would be bad. Why?
+Because a logic that allows one to prove a
+contradiction allows one to prove anything 
+at all, and so is useless for distinguishing
+between true and false statements.
+
+The phrase to remember is that "From false,
+anything follows." Ex falso quodlibit is the
+latin phrase for this dear to logicians.
+
+In other words, if we can prove false, we
+can prove any proposition, Q, whatsoever.
+
+In Lean, the ability to prove any Q from
+false is enshrined in the false elimination
+inference rule.
+
+Here's an example of how it's used. Suppose
+we wanted to prove that false implies that
+0=1. Given a proof of false, we just apply
+the false.elim inference rule to it, and it
+"returns" a proof of 0=1. False implies 0=1.
+-/
+
+theorem fImpZeroEqOne: false → 0 = 1 := 
     λ f: false, false.elim f
+
+/-
+False elimination works to prove any
+proposition whatsoever.
+-/
+
+theorem fImpAnyProp : ∀ Q: Prop, false → Q :=
+  λ (Q: Prop) (f: false), false.elim f
 
 /-
 The way to read the lambda expression is
 as a function that if given a proof of
 false applies false.elim to it to produce
-a proof of 0=1. That proposition is an
+a proof of 0=1, or Q. The conclusion is an
 implicit argument to false.elim, which
 makes this notation less than completely
-transparent; but that is what's going on.
-Here's exactly the same "theorem" in the
-form of an ordinary function definition.
+transparent; but that's what's going on.
 -/
-
-def fe' (f: false): 0=1 := false.elim f
-
-/-
-The good news, of course, is that while
-these are perfectly good functions (and
-implications), you can never use them,
-because in a sound logic, you can never
-produce a proof of false.
-
-But suppose you could. Then you can use 
-functions like these to produce proofs 
-of anything at all. Here we use the fe 
-function applied to a proof of false 
-that we just assume exists to produce 
-a proof of 0=1. You *do not* want to be 
-able to prove false in a logic. If you 
-can, the logic becomes useless, as one
-then prove anything at all.
--/
-section bad
-variable f: false  -- assume proof of false
-#check fe(f)       -- derive a proof of 0=1   
-end bad            -- or anything else at all
-
 
 /-
 Here's a proof that shows that if you have a
-proof of a proposition P and of its negation,
-then that is tantamount to having a proof of
-false, and so, again you can prove anything.
+proof of a any proposition P and of its negation,
+then you can prove any proposition Q whatsoever.
+This prove combines the idea we've seen before.
+We use and.elim rules to get at the assumed
+proof of P and proof of ¬ P. The proof of ¬ P
+is a function from P → false, which we apply 
+to the assumed proof of P to derive a proof of
+false. We then apply the false elimination rule
+(which from false proves anything) to prove Q. 
 -/
-theorem fromContraQ: ∀ P Q: Prop, P -> ¬ P -> Q :=
-    λ P Q: Prop, 
-        λ pfP: P, 
-            λ pfNotP: ¬ P, 
-                false.elim (pfNotP pfP) 
+theorem fromContraQ: ∀ P Q: Prop, (P ∧ ¬ P) -> Q :=
+    λ (P Q: Prop) (pf: P ∧ ¬ P),
+        false.elim 
+            ((and.elim_right pf) (and.elim_left pf))
 
-/-
-We can't produce a contradiction in Lean except
-by assuming one. We do so here within a section
-to see this principle in action.
--/
-
-section contra
-variables P Q: Prop
-variable pfP: P
-variable pfNotP: ¬ P
--- the type of the next term is Q (proof of Q)
-#check fromContraQ P Q pfP pfNotP
--- from a contradiction we can prove anything 
-end contra
-
-
-/- ******* NOT INTRODUCTION ********** -/
-
-theorem notIntro: ∀ P Q: Prop, (P → Q) → ¬ Q → ¬ P :=
-    λ (P Q: Prop) hImp QimpF, 
-        λ pfP: P, (QimpF (hImp pfP))
-
-def notIntro' {P Q: Prop} (hImp: P → Q) (QimpF: ¬ Q): ¬ P :=
-    λ pfP: P, QimpF (hImp pfP)
-
-/-
-example (hpq : p → q) (hnq : ¬q) : ¬p :=
-assume hp : p,
-show false, from hnq (hpq hp)
--/
-
-theorem fe'' : forall P: Prop, false -> P := 
-    λ P: Prop, false.elim
-
-/- ******* NEGATION INTRODUCTION ******* -/
-
-/-
-We are allowed to conclude ¬ P if we can show
-that P leads to a contradiction: P → false. The
-idea is a kind of proof by contradiction. If from
-P we can prove "false" (which is supposed to be,
-and is, impossible) then the assumption that P
-is true must be wrong, and ¬ p must be true.
-
-Indeed, Lean (and similar systems) define not P
-as P -> false. Here's the actual code.
-
-def not (a : Prop) := a → false
-
-If we have a proof of ¬P (a function from P to
-false) and (by some impossible means) a proof of
-P, then we can derive a proof of false.
---/
-
-/- Negation Introduction -/
 
 /- 
-A proof of (P → false) implies ¬P, because a
-proof of (P → false) *is* a proof of ¬P. 
-This is our negation introduction rule. 
-
+Here's another form of proof by contradiction.
+If know that ¬Q is true (there can be no proof) 
+of Q, and we also know that P → Q (we have a 
+function *if* given a proof of P returns a proof
+of Q), then we see that an assumption that P is
+true leads to a contradiction, which proves ¬ P.
 -/
-theorem f'': (1=0 -> false) -> ¬1=0 := 
-    λ i: (1=0 -> false), i
 
-/- Negation Elimination -/
+theorem notPbyContra: 
+    ∀ P Q: Prop, ¬Q → (P → Q) → ¬P :=
+    -- need to return proof of P → false
+    -- that will be a function of this type
+        λ (P Q: Prop) notQ PimpQ, 
+            λ pfP: P, (notQ (PimpQ pfP))
+
 
 /-
-Negation elimination is just a special case of
-arrow elimination. We eliminate an arrow (i.e. a
-function) by applying it to an argument of the 
-right
-From a proof of ¬ P and a proof of P (i.e., from
-a contradiction), we can derive a proof of false.
-Of course if ¬ P is true, we'll never be able to
-come up with a value of type P, so we can really
-never use this function! 
+Here's essentially the same proof, written as
+an ordinary function definition, but where the
+parameters, P and Q, are to be inferred rather
+than given as explicit arguments in the λ. The
+curly braces around P and Q tell Lean to use
+type inference to infer the values of P and Q.
 -/
-theorem f: ¬1=0 -> 1=0 -> false := 
-  λ pf_n1e0: ¬1=0, λ pf_1e0: 1=0, pf_n1e0 pf_1e0
+def notPbyContra' {P Q: Prop} (PimpQ: P → Q) (notQ: ¬ Q): ¬ P :=
+    λ pfP: P, notQ (PimpQ pfP)
+
+
+
+/- ******* BI-IMPLICATION ******** -/
 
 /-
-There's a simpler way to write this, as a proof
-of ¬ P simply is a proof of (P → false). So we
-can prove the overall theorem by just returning
-the assumed proof of ¬1=0. If you put parens 
-around (1=0 → false) in the statement of the
-theorem, the picture might be clearer. As, once
-again, ¬ P simply means (P → false).
+A proposition of the form P ↔ Q is read as
+P (is true) if and only if Q (is true). It 
+is defined as (P → Q) ∧ (Q → P). The  phrase 
+"if and only if" is often written as "iff" 
+in mathematics. To obtain the ↔ symbol in 
+Lean, just type "\iff". P ↔ Q is known as 
+a bi-implication or a logical equivalence. 
+
+A proof of a bi-implication requires that you
+prove both conjuncts: P → Q and Q → P. So, in
+an ordinary paper-and-pencil proof, you would 
+start by saying, "To prove P ↔ Q, we have to
+prove the implications in both directions. We 
+first consider the forward direction, P → Q. 
+<Give a proof>. Now we turn prove the other 
+direction, Q → P. <Give proof>. Having proved 
+both direction, we conclude that P ↔ Q." 
+    
+P ↔ Q is again defined as (P → Q) ∧ (Q → P). 
+So a proof of a bi-implication will be a pair
+of proofs, one of P → Q and one of Q → P. Each
+of these proofs, in turn, is a function. In
+Lean, there's an inference rule, iff.intro, 
+takes two such functions (of types P → Q and 
+Q → P) and that returns a proof of P ↔ Q.
 -/
-theorem f': ¬1=0 -> 1=0 -> false := 
-  λ pf_n1e0, pf_n1e0
+
+/-
+We we illustrate by assuming that for arbitrary
+types P and Q, we have a proof of P and a proof
+of Q, and we apply to rule to produce a proof of
+P ↔ Q.
+-/
+
+def biImpl (P Q: Prop) (PimpQ: P → Q) (QimpP: Q → P): P ↔ Q :=
+  iff.intro PimpQ QimpP
+
+/-
+Writing this same function as a theorem ...
+-/
+
+theorem biImpl': forall P Q: Prop, (P → Q) ∧ (Q → P) → (P ↔ Q) :=
+  λ (P Q: Prop) (pf: (P → Q) ∧ (Q → P)), 
+    iff.intro (and.elim_left pf) (and.elim_right pf)
+
+
+/-
+Finally, here's an application of the idea: we show
+that for arbitrary propositions, P and Q, P∧Q ↔ Q∧P.
+Note the structure of the proof: there are two cases:
+forward and backwards.
+-/
+
+theorem PandQiffQandP: forall P Q: Prop, P ∧ Q ↔ Q ∧ P :=
+  λ (P Q: Prop),
+    iff.intro 
+      (λ pf: P ∧ Q, and.intro (and.elim_right pf) (and.elim_left pf))(λ pf: Q ∧ P, and.intro (and.elim_right pf) (and.elim_left pf))
+
 
 /- ****** STRUCTURING COMPLEX PROOFS ******** -/
 
 /-
 The "sorry" keyword tells Lean to accept a theorem,
-value, proof, by assumption, or "axiomatically." It's
-a dangerous capability: it's easy to introduce a new
-"fact" that contradicts one already known. But it is
-very helpful in structuring larger proofs, in that you
-can "stub out" parts of proofs, make overall proofs 
-work, then go back and "backfill" by proving all of
+value, or proof, by assumption, or "axiomatically." 
+It's "dangerous" in that it's easy to introduce a new
+"fact" that leads to a logical inconsistency, i.e., 
+the possibility of producing a proof of false. But it 
+is helpful in structuring larger proofs. You can use 
+it to "stub out" parts of proofs to make large proofs 
+"work", and then go back and "backfill" by proving 
 the propositions you previously just "assumed away."
 -/
-theorem test (p q : Prop) (hp : p) (hq : q) : p ∧ q ∧ p :=
+theorem sorry1 (p q : Prop) (hp : p) (hq : q) : p ∧ q :=
 sorry
+
+theorem oops: false := sorry
+
+theorem anythingGoes: forall Q: Prop, Q := false.elim oops
 
 /-
 Using _ in place of sorry asks Lean to try to fill in a
@@ -1279,10 +1442,16 @@ proof for you. Hover the mouse over the "hole" and Lean
 will tell you what inference needs to be validated *and*
 the context available for validating it.
 -/
-theorem test' (p q : Prop) (hp : p) (hq : q) : p ∧ q ∧ p :=
--- _
-sorry
+theorem test' (p q : Prop) (hp : p) (hq : q) : p ∧ q :=
+_
 
+
+/-
+FYI, Lean also supports incremental, interactive,
+tactic-style proofs. Here's an example. You don't
+need to be able to write proofs this way for this
+class.
+-/
 theorem test'' (p q : Prop) (hp : p) (hq : q) : p ∧ q ∧ p :=
 begin
 apply and.intro,
@@ -1291,10 +1460,6 @@ apply and.intro,
 exact hq,
 exact hp
 end
-
-
-
-
 
 /- ******* CONCLUSION ******* -/
 
