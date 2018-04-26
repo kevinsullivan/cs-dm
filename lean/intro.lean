@@ -1593,6 +1593,16 @@ Give it a try.
 def swap(pair: nat × string): (string × nat) := 
     _
 
+-- When the code is complete, this test will pass!
+theorem swapTest1: swap (5, "hi") = ("hi", 5) := rfl
+
+/- 
+FYI, type "\times" to get the × symbol. If S and
+T are types, S × T is the type of S-T pairs. A
+value of this type is written as an ordered pair,
+(s, t), where s: S, and t: T.
+-/
+
 /-
 Lean also supports what are called proof tactics.
 A tactic is a program that turns one context-goal
