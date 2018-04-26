@@ -1902,7 +1902,7 @@ theorem t7: P ∧ Q → Q ∧ P :=
         (and.elim_right PandQ) 
         (and.elim_left PandQ)
 
-/- And another example of arrow elimination-/
+/- And another example of arrow elimination -/
 
 theorem ae: (P → Q) -> P -> Q :=
     λ pf_impl: (P → Q), (λ pf_P: P, pf_impl pf_P)
