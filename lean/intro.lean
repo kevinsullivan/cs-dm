@@ -8,12 +8,12 @@ the inference rules as valid transformation
 between sets of premises and conclusions. We
 view the Ps, Qs, Rs in the rules we validated
 as "standing for" arbitrary propositions, and
-we now apply the rules without having to go
+we now apply these rules without having to go
 back and validate the results "semantically"
 (using truth tables). We thus transition 
 from what we call "semantic entailment" to
 "syntactic entailment," which finally moves
-us into the realm of symbolic logic and proof.
+us into the realm of logic and proof.
 
 We now also shift tools, from Dafny, which
 allows us to write logic, but which largely
@@ -22,7 +22,7 @@ Lean, which is what we call a proof assistant.
 Many propositions are too difficult for tools
 such as Dafny to prove automatically. If we
 still want the assurances of correctness (of
-software or even just of pure mathematics)
+software or even just in pure mathematics)
 provided by a strongly typed checker, then
 we have to use a tool in which we manipulate
 both propositions and proofs explicitly. We
@@ -30,28 +30,26 @@ are now there.
 
 The purpose of this initial unit is to give
 you an introduction to the fundamental concepts
-of propositions and proofs when using a proof
-assistant tool, here the Lean Prover. The key
-point of this chapter is that different forms
-of propositions require the use of different
-proof strategies and have different forms of
-proofs. These are ideas that are fundmental
-to discrete mathematical whether or not you
-are using a proof assistant tool such as 
-Lean. The benefits of using Lean include
+of propositions and proofs, using a proof tool
+as an aid to learning: here the Lean Prover. 
+
+
+A key point in this chapter is that different 
+forms of propositions have different forms of
+proofs, and require you to use different proof
+"strategies" to construct such proofs. These 
+ideas are fundmental to discrete mathematics
+ whether or not you are using a proof tool. 
+Benefits of using a tool like Lean include
 nearly absolute assurance that you haven't
-made mistakes: that proofs don't contain
-errors. This technology is now also at the
-forefront of important research not only in 
-ultra high assurance software and systems, 
-but even in pure mathematics. Wecome to the
-cutting edge!
+made a mistake by accepting a proof that isn't
+really valid.
 -/
 
 /- **** PROPOSITIONS AS TYPES **** -/
 
 /-
-Here's a typical definition, in this case,
+Here's a typical definition: in this case,
 of a variable, x, bound to the value, 1, of
 type, nat.  
 -/
@@ -166,7 +164,7 @@ def aProp := ∀ n: ℕ, ∃ m: ℕ, m = n + 1
 #check aProp
 
 /-
-In each case, we see that the type of a 
+In each case, we see that the type of any
 proposition is Prop. What's the type of Prop?
 -/
 
@@ -177,14 +175,13 @@ Ok, the type of Prop is also Type. So what
 we have here is a type hierarchy in which the 
 familiar types, such as nat, have the type, 
 Type, but where there's also a type, called 
-Prop, that is also of type, Type, and that, 
-in turn, is the type of all propositions.
+Prop, that is also of type, Type, and it, in
+turn, is the type of all propositions.
 
 So let's start again with x := 1. The value
 of x is 1. The type of the value, 1, is nat.
 The type of nat is Type. From there the type
 of each type is just the next bigger "Type n.""  
-
 We've also seen that a proposition, such as
 0=0, is of type, Prop, which in turn has the
 type, Type. But what about proofs?
@@ -203,33 +200,32 @@ of the proposition that it proves, viewed as
 a type. So just as 1 is a value of type nat,
 and nat in turn is a value of type, Type, so
 a proof of 0=0 is a value of type 0=0! The
-proposition is the type, the proof, if there
-is one, is a value of such a type. The type
-of a proposition (itself a type) is Prop.
-And the type of Prop is Type. To see this
-clearly, we need to build some proof values.
+proposition is the type. The proof, if there
+is one, is a value of such a type, and its
+type is Prop. To see this more clearly, we 
+need to build some proofs/values.
 -/
 
 /-
-Here (following this comment) is another 
+Here (following this comment) is a new 
 definition, of the variable, zeqz. But 
 whereas before we defined x to be of the
-type, nat, now we define zeqz to be of the
-type, 0=0. We're using a proposition as a
+type, nat, with value 1, now we define 
+zeqz to be of the type, 0=0, with a value
+given by that strange terms, "rfl."
+    
+We're using the proposition, 0=0, as a
 type! To this variable we then assign a 
 value, which we will understand to be a
 proof. Proof values are built by what we
 can view as inference rules. The inference
-rule, rfl, build a proof that anything is
-equal to itself 
+rule, rfl, builds a proof that anything is
+equal to itself, in this case that 0=0.
 -/
 def zeqz: 0 = 0 := rfl
 
-def q: nat := 1
-
+-- rfl works for any type, not just nat
 def heqh: "hello" = "hello" := rfl
-
-#check rfl
 
 /-
 The proof is produced the rfl inference rule.
@@ -238,18 +234,19 @@ inference rule is, after all) is polymorphic,
 uses type inference, takes a single argument,
 a, and yields a proof of a = a. The value in
 this case is 0 and the type is nat. What the
-rule rule says more formally is that, without 
-any premises you can conclude that for any 
+rule says more formally is that, without any 
+premises you can always conclude that for any 
 type, A, and for any value, a, of that type, 
-there is a proof of a = a. For example, if you 
-need a proof of 0=0, you use this rule to build
-it. The rule infers the type to be nat and the 
-value, a, to be 0. The result is a proof of 
-the proposition 0 = 0. The value of zeqz is 
-thus a *proof*, a proof of its type, i.e., 
-of the logical proposition, 0 = 0. Checke the
+there is a proof of a = a. 
+
+For example, if you  need a proof of 0=0, you 
+use this rule to build it. The rule infers the 
+type to be nat and the value, a, to be 0. The 
+result is a proof of 0 = 0. The value of zeqz 
+in this case is thus a *proof*, of its type, 
+i.e., of the proposition, 0 = 0. Check the
 type of zeqz. Its type is the proposition that
-it is a proof of!
+it proves!
 -/
 #check zeqz
 
@@ -275,7 +272,7 @@ the same name, which is an error in Lean.
 theorem zeqz': 0 = 0 := rfl
 
 /-
-We could have defined x := 1 as a theorem.
+We could even have defined x := 1 as a theorem.
 -/
 
 theorem x'': nat := 1
@@ -287,9 +284,10 @@ entirely new view: a value is a proof of its
 type. 1 is thus a proof of the type nat. Our
 ability to provide any value for a type gives
 us a proof of that type. The type checker in
-Lean of course ensures that we never assign
-a value to a variable that is not of its
-declared or inferred type.
+Lean ensures that we never assign a value to 
+a variable that is not of its type. Thus it
+ensures that we never accept a proof that is
+not a valid proof of its type/proposition.
 -/
 
 /- ********** TRUTH ********** -/
@@ -303,7 +301,7 @@ is a good proposition, and a good type, but it
 is a type that has no proofs, no values! It is 
 an "empty," or "uninhabited" type. The type, 1=0,  
 has no values (no proofs). There is no way to
-produce a value of tihs type. 
+produce a value of this type. 
 -/
 
 
@@ -317,11 +315,11 @@ high level of sophistication and automation!
 
 In particular, we now start to explore different
 *forms of propositions* and corresponding *proof
-strategies*. The rest of this unit focuses on
-propositions that claim that two terms are equal,
-and the proof strategy we see is called "proof
-by simplification and by the reflexive property
-of equality".
+strategies*. The first unit in the remainder of
+this introduction focuses on propositions that 
+assert that two terms are equal. The strategy 
+we see used here is"proof by simplification 
+and by the reflexive property of equality".
 -/
 
 /- ******** PROOFS OF EQUALITY ******* -/
@@ -340,7 +338,7 @@ terms. So we can also produce a proof of
 0+0=0, for example, because 0+0 reduces
 to 0, and then you have identical terms on
 each side of the =. This notion of equality 
-is called "definitional equality"). As you'd
+is called "definitional equality". As you'd
 expect, it's a binary, reflexive, symmetric,
 and transitive relation on terms. It is also
 polymorphic, and so can be used for any two
@@ -349,7 +347,7 @@ is. The Lean inference rule that produces
 proofs of definitional equality is just rfl.
 
 Here (following) are several terms that are 
-definitionally  equal even though they're not 
+definitionally equal even though they're not 
 identical. rfl is happy to build proofs for 
 them. The second example illustrates that
 terms that look pretty different can still 
@@ -358,13 +356,13 @@ a nat/string pair. The .1 after the pair is
 the operator that extracts the first element
 of the pair, here term 1-1. This term then 
 reduces to 0. The terms on either side of 
-the = reduce to the same term, 0, which 
+the = thus reduce to the same term, 0, which 
 allows rfl to complete its work and return
 a value that is accepted as being of the
 right type, i.e., as a proof of equality. 
 -/
 theorem t0 : 1 - 1 = 5 - 5 := rfl
-theorem t1 : (1-1, "fidgblof").1 = 0 := rfl
+theorem t1 : (1-1, "fidge").1 = 0 := rfl
 
 /-
 What you are seeing here is a strategy of
@@ -378,11 +376,24 @@ such as Lean or just doing paper-and-pencil
 mathematics, this is a fundamental strategy
 for proving propositions of a certain kind,
 namely propositions that assert equalities.
+
+There are analogous strategies for dealing
+with other situations involving equalities.
+For example, if we have proofs of a = b and
+b = c and we need a proof of a = c, then we
+would use an inference rule that depends not
+on the reflexive property of equality but 
+on that fact that it is transitive: if a = b
+and b = c then a = c. Similarly, there is a
+rule that reflects the symmetric property of
+equality: given a proof of a = b, it builds
+and returns a proof of b = a. We do not get
+into the details at this time.
 -/
 
 
 
-/- ND INTRODUCTION AND ELIMINATION RULES -/
+/- INTRODUCTION AND ELIMINATION RULES -/
 
 /- ******* True Introduction ******** -/
 
@@ -1217,66 +1228,34 @@ The proposition, ¬P, is read "not P."
 It's an assertion that P is false. One 
 proves a proposition, ¬P, by showing 
 that that an assumption that P is true 
-leads to a contraction. The strategy
-is called "proof by contradiction."
+leads to a contraction. 
+
+¬P means P → false. 
 
 In a paper and pencil proof, one would 
-write, "We prove ¬P by contradiction.  
-Assume that P is true; we will show that
-this assumption leads to a contradiction,
-the assumption must have been wrong, and 
-so ¬P must be true. QED." 
-    
-Then you present details showing how a 
-contradiction follows from an assumption 
-that P is true, i.e., that there is a
-proof of P. 
-
-As a classical example known even to the
-early Greeks, one can prove that sqrt(2)
-is irrational (¬ rational(sqrt(2))) by
-contradiction. First assume that sqrt(2) 
-is rational, and derive a contradiction.
-The details are left out here but you can
-easily find them yourself. Do so!
-
-In Lean, what is meant by ¬P is that an
-assumption that there is a proof of P 
-leads to a contradiction, where what is 
-meant by a "contradiction" is a proof 
-of false. Such a proof of course can't 
-exist, as the false type has no values.
-To prove ¬ P in other words means to 
-prove P → false, and what that means
-is defining a function that, *if* it 
-were ever given a proof of P, would in
-turn construct and return a proof of
-false.
+write, "We prove ¬P by showing that an
+assumption that P is true leads to a
+contradiction (a proof of false). There
+can be no such thing, so the assumption 
+must have been wrong, and ¬P must be 
+true. QED." Then you present details 
+proving the implication. That in turn
+is done by defining a function that, 
+*if* it were ever given a proof of P, 
+would in turn construct and return a 
+proof of false.
 
 The key thing to remember is that the
 proposition (type) ¬P is defined to be
 exactly the proposition (function type)
-P → false. To prove ¬P you have to give
+P → false. To prove ¬P you have to prove
+P → false, and this is done by defining
 a function that converts a proof of P
-into a proof of false. Here's the 
-definition of negation from the Lean 
-core library:
+into a proof of false. 
 
-def not (a : Prop) := a → false
-
-Read this carefully "not" is a function 
-that takes any proposition, a, and that
-returns the *type* (the function type), 
-a → false. 
-
-Again, to prove ¬ P one must "prove 
-P → false, which, as we've discussed,
-is done by giving a value of this type, 
-namely a function body (e.g., a lambda 
-expression) that has this type. 
 
 It's not that you'd ever be able to 
-call such a function, because if ¬P 
+call such a function: because if ¬P 
 really is true, you'll never be able 
 to give a proof of P as an argument. 
 
@@ -1288,15 +1267,7 @@ result. It's the fact that can write
 such a function at all that proves 
 the implication that P → false, which
 is the definition of what it means 
-for ¬ P to be (proved) true.
-
-Again, to show that ¬ P is true, you 
-have to define a function body of type 
-P → false. The problem thus reduces to 
-→  introduction, which we've already 
-seen. Define a function that takes an
-argument of type P and returns a proof
-of false.
+for ¬P to be (proved) true.
 -/
 
 /-
@@ -1309,8 +1280,105 @@ easy: just return the argument itself.
 theorem notFalse: ¬false := 
     λ f: false, f
 
+/-
+Strangely, in constructive logic, which
+is the form of logic that Lean and other
+such provers implement, you cannot prove
+that ¬¬P -> P. That is, double negatives
+can't generally be eliminated. 
+
+Double negative elimination is equivalent
+to having another rule of classical logic:
+that for any proposition, P, P ∨ ¬P is true.
+But you will recall that to prove P ∨ ¬P,
+we have to apply an or.intro rule to either
+a proof of P or a proof of ¬ P. However, in
+mathematics, there are important unsolved
+problems: propositions for which we have 
+neither a proof of the proposition or a
+proof of its negation. For such problems,
+we cannot prove either the proposition P
+or its negation, ¬P, so we can't prove
+P ∨ ¬P!
+
+This is a bit of a problem because it 
+deprives us of an important proof strategy
+called proof by contradiction. In this
+strategy, we start by assuming ¬ P and
+derive a contraction, proving ¬ ¬ P. In
+classical logic, that is equivalent to P.
+But in constructive logic, that's not so.
+Let's see what happens if we try to prove
+the theorem, ¬¬P -> P. 
+
+We start by observing that ¬¬P means
+¬P → false, and that in turn means
+(P → false) → false. A proof of this
+would be a function that if given a
+proof of P → false would produce a
+proof of false. The argument, a proof
+of P → false, is itself a function
+that, if given a proof of P returns
+a proof of false. But nowhere here 
+do we actually have a proof of P, and
+there's nothing else to build one from,
+so there's no way to conver a proof of
+¬¬P into a proof of P.
+
+One can however extend the logic of
+Lean to become a classical logic by
+adding the law of the excluded middle
+(that P ∨ ¬P is always true) to the
+environment as an axiom.
+-/
+
+axiom excludedMiddle: ∀ P, P ∨ ¬P
 
 /-
+Note that the definition of ¬ is that
+if one starts with proof of P then one
+can conclude false. In double negative
+elimination one starts with a proof of
+¬P and concludes false, and from that
+contradiction, one infers that P must 
+be true. It's that last step that isn't
+available in constructive logic. If you
+want to use classical logic in Lean,
+you have to add the axiom above. Lean
+provides a standard way to do this.
+The problem is that the logic is then
+no longer "constructive", and that has
+real costs when it comes to being able
+to generate code. The details are beyond
+the scope of this class. 
+
+There are two things to remember. One
+is that proof by contradiction proves
+P by showing that ¬P leads to a proof
+of false (a contradiction). This is a
+very common proof strategy in practice.
+For example, it's used to prove that
+the square root of two is irrational.
+The proof goes like this: Assume that
+it isn't irrational (that is, that 
+it's rational). Then show that this 
+leads to a conclusion that can't be 
+true. Conclude that  the sequare root
+of two must therefore be irrational.
+
+The second thing to remember is that
+in constructive logic, this strategy
+is not available, but it can be enabled
+by accepting the law of the excluded
+middle as something that is assumed,
+not proven, to be true. It is known
+that this axiom can be added to the
+core constructive logic without causing
+the logic to become inconsistent.
+-/
+
+/-
+Here's something else that we can prove.
 A slightly more interesting example is 
 to prove that for any proposition P, we
 have ¬(P ∧ ¬P). In other words, it's not
@@ -1336,7 +1404,7 @@ assumption that (P ∧ ¬P) lets us build
 a proof of false, which is to say that
 there is a function from (P ∧ ¬P) to
 false, i.e., (P ∧ ¬P) → false, and that
-is what ¬ (P ∧ ¬P) means. Thus we have
+is what ¬(P ∧ ¬P) means. Thus we have
 our proof.
 -/
 
@@ -1590,7 +1658,7 @@ hole pretty much tells you what to do at each step.
 Give it a try.
 -/
 
-def swap(pair: nat × string): (string × nat) := 
+def swap(aPair: nat × string): (string × nat) := 
     _
 
 -- When the code is complete, this test will pass!
