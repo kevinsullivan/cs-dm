@@ -1691,46 +1691,59 @@ rules: from a proof of P ↔ Q, you can get
 a proof of either P → Q or Q → P as you 
 might need.
 
-To identify the kind of proposition you have
-to proof, look at the "top-level" connective.
-In a conjunction, it's ∧, for example. All the
-details in the individual conjects can just be
-ignored at this point: the strategy is "find or
-build proofs of the individual conjuncts." Now
-you need to apply the same ideas recursive: 
-look at the form of each conjunct and pick an
-appropriate strategiy based on its form. Do
-this recursively "all the way down". When you
-are done, apply the inference rule for the 
-top-level connective to the proofs of the
-parts and you're done! 
+To prove ¬P, realize that it means P → false,
+so just implement a function that when given 
+a proof of P, it constructs and returns a proof
+of false. Of couse it will never be able to do
+that because if ¬P is true, then no proof of P
+can ever be given as an argument.
 
-Here's another way to say it. From the form
-of the proposition to be proved, identify the
-inference rule needed to prove it. Now look at
-the premises that have to be proved to apply
-the rule. Recursively prove the premises, Then
-finally apply the identified rule. 
+In the other direction, if you have a proof
+of ¬P and you need a proof of false (so as to
+prove some other arbitrary proposition), just
+apply the proof of ¬P to an proof of P to get
+the false input you need to pass to the false
+elmination inference rule (which proves any
+proposition whatsoever).
 
-Of course, if you already have, or once you
-have constructed, proofs of the premises, you
-then move in a "forward" direction (toward the
-final goal) by applying inference rules to get
-you from proofs of premises to proofs of goals.
+If you need a proof of true, it's always
+available, in Lean as true.intro. We already
+explained how to get a proof of false. There
+are other ways. For example, if you have a
+proof of P and a proof of ¬ P (which is just
+a function), apply the function to the proof
+and you're done.
+
+From the form of a proposition to be proved, 
+identify the inference rule (or a theorem)
+otherwise already proved that can be applied
+to prove your proposition.  Now look at what
+premises/arguments/proofs are needed to apply
+it. Either find such proofs, or construct them
+by recursive application of the same ideas, and
+finally apply the rule to these arguments to
+complete the proof. 
 
 As an example, consider 1=1 ∧ 0=0. It's a 
 conjunction. A conjunction can be proved 
-using and.intro. This rule, however, need
-proofs of the conjuncts as arguments. So 
-now we need proofs of 1=1 and of 0=0. This
-is where the "recursion" comes in. Look at
+using and.intro. This rule, however, needs
+proofs of the conjuncts as arguments. It 
+needs proofs of 1=1 and of 0=0. This is 
+where the "recursion" comes in. Look at
 each of these "goals" and identify the right
 rule for it, given its form. Each of these
 goals is an equality. For that we will want
 to use the rfl inference rule. Once we've 
 got the proofs of the conjuncts, we pass 
 them to and.intro, and that's how it works. 
+-/
 
+theorem t5: 1=1 ∧ 0=0 := 
+    and.intro   -- top-level inference rule  
+        rfl     -- proof of first conjunct 
+        rfl     -- proof of second conjunct
+
+/-
 Proving theorems in this way is thus,
 in effect, an exercise in what amounts to 
 "top-down structured programming," but
@@ -1738,26 +1751,23 @@ what we're building isn't a program that we
 intend to *run* but a proof that witnesses 
 the truth of a proposition.
 -/
-theorem t5: 1=1 ∧ 0=0 := 
-    and.intro   -- top-level inference rule  
-        rfl     -- proof of first conjunct 
-        rfl     -- proof of second conjunct
 
-
-
-/- ****** GENERALIZING PROPOSITIONS ******* -/
+/- *** Declaring reusable variables *** -/
 
 /-
 Up until now, when we want to write a theorem
 about arbitrary propositions, we've used the ∀
-connective to declare them as propositions. We
-can avoid having to do this over an over again
-by declaring them as "variables." We can then
-use them in follow-on definitions withou having
-to introduce them again using ∀. Lean basically
-does this for us. Here are a few examples. We
-put the code within a "section", which limits
-the scope of the variables so declared. 
+connective to declare them as propositions. So
+we've written "∀ P Q R: Prop, ..." for example.
+
+We can avoid having to do this over an over 
+again by declaring P, Q, and R, or any other
+objects as "variables" in the "environment." 
+We can then use them in follow-on definitions 
+without having to introduce them each time by
+using a ∀. Lean figures out that that's what 
+we mean, and does it for us. Here are a few 
+examples. 
 -/
 
 variables P Q R: Prop
@@ -1784,7 +1794,16 @@ theorem t6: P ∧ Q → P :=
   λ PandQ: P ∧ Q, and.elim_left PandQ
 
 /-
+When you check the type of t6, you can see 
+that Lean inserted the ∀ P Q: Prop for us.
+-/
+
+#check t6
+
+/-
 Similarly we can prove that P ∧ Q → Q ∧ P
+without having to explicitly declare P and
+Q to be arbitrary objects of type Prop.
 -/
 theorem t7: P ∧ Q → Q ∧ P :=
   λ PandQ: P ∧ Q, 
@@ -1792,11 +1811,35 @@ theorem t7: P ∧ Q → Q ∧ P :=
         (and.elim_right PandQ) 
         (and.elim_left PandQ)
 
-/- Arrow Elimination-/
+/- And another example of arrow elimination-/
 
 theorem ae: (P → Q) -> P -> Q :=
     λ pf_impl: (P → Q), (λ pf_P: P, pf_impl pf_P)
 
+/-
+Enclosing the declaration of variables and of
+definitions that use those variables within a
+"section <name> .... .... end <name>" pair limits
+the scope of the variables to that section. It's a
+very useful device, but we don't need to use it 
+here, and so we'll just leave it at that for now.
+Here's a tiny example.
+-/
+
+section nest
+variable v: nat
+theorem veqv: v = v := rfl
+end nest
+
+/-
+The variable, v, is not defined outside of the 
+section. You can #check it to see. On the other
+hand, veqv, a definition, is defined. If you
+check its type, you'll see that the variable,
+v, is now introduced using a "∀ v: nat, ...""
+-/
+
+#check veqv
 
 /-
 EXERCISES
