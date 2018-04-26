@@ -452,23 +452,19 @@ To refer to a constructor of a type,
 use the type name dot constructor name.
 -/
 
-#check false
-
-def weird(f: false): nat := 0
-
 theorem proofOfTrue: true := true.intro
 
 /-
-This isn't a very useful rule of natural
-deduction, as it doesn't really tell you
-anything you didn't already know. It is not
-commonly used in proofs.
+True introduction isn't a very useful rule 
+of natural deduction, as it doesn't allow
+you to conclude anything new. It's not used
+much in real-world proofs, but it's good to
+know about.
 -/
 
 
 
 /- *** The proposition, false  *** -/
-
 
 /-
 In Lean, false is also a proposition. By
@@ -476,14 +472,14 @@ contrast, the Boolean false value in Lean
 is written as ff.
 -/
 
-#check false
+#check false    -- proposition (Prop)
+#check ff       -- Boolean value (bool)
 
 /-
-false is meant to be the proposition 
-that is never true, i.e., that can never
-be proved, i.e., for which there is no 
-proof. As a type, it has no values. It
-is an uninhabited type. 
+false is meant to be and is a proposition 
+that is never true, i.e., for which there 
+is no proof. As a type, it has no values. 
+It is said to be an "uninhabited" type. 
 
 The false proposition/type is defined 
 inductively as having type, Prop, and
@@ -492,48 +488,74 @@ a proposition but there is no way to
 contruct a proof. Here's the definition
 of false from the Lean core libraries:
 
-inductive false : Prop
+inductive false : Prop 
 
-That's it. Look, no constructors!
+That's it, there are no constructors.
 
 There is no false introduction rule.
 There is no way to introduce a proof of
-false. There is no proof of false. We'll
-discuss false elimination later in this
-chapter.
+false because there is no proof of false. 
+We'll discuss false elimination later.
 -/
+
 
 /- ***** PROOFS OF CONJUNCTIONS ****** -/
 
+/-
+We now explore the use of the and introduction
+and elimination inference rules, whether doing
+paper-and-pencil mathematics or when using an
+automated proof assistant such as Lean. This
+section also serves as an introduction to the
+idea that you use different proof techniques 
+to prove different kinds of propositions: e.g.,
+conjunctions, implications, disjuctions, etc.
+-/
+
+/- -------- And Introduction ---------- -/
+
 /- 
-Key Point: Propositions of different kinds
-require the use of different proof strategies.
+Whether in pencil-and-paper mathematics or
+when using a proof assistant such as Lean,
+to prove a conjunction, P ∧ Q, you have to
+produce a proof of P and a proof of Q. You
+then use the "and introduction" inference
+rule to conclude that P ∧ Q is true, where
+the proof is just the pair of proofs of the
+individual conjuncts, P and Q, respectively.
+
+What we're going to see as we move forward
+on the topics of proofs is that of different 
+forms of propositions require different kinds
+of proof techniques, or "proof strategies.""
 Learning to recognize what kind of proposition
 you're looking at, and then to pick the right
-proof strategy, is critical. To illustate this
-point, we now look at how to produce proofs 
-of conjunctions: propositions of the form,
-P ∧ Q. The key idea is simple: a proof of 
-P ∧ Q can be constructed if and only if you
-have (or can produce) both a proof of P and 
-a proof of Q. In that case, you can use the
-and introduction rule to build the desired
-proof. Remember the rule: [P, Q] ⊢ P ∧ Q.
-Now we can write this rule to distinguish
-propositions, such a P and Q, from proofs.
-[pfP: P, pfQ: Q] ⊢ (pfP, pfQ): P ∧ Q. In
-other words, if I have a proof, pfP, of P 
-(a value, pfP, type, P!), and a proof, pfQ,
-of Q, then I can build a proof, (pfP, pfQ),
-of P ∧ Q; and the proof of the conjuction is
-just the ordered pair of the individual proof
-values! The and introduction rule can be
-understood as a function that takes two
-proof values and returns them as an ordered
-pair, which in Lean proves the conjunction 
-of the corresponding propositions. 
+proof strategy, is critical. When the goal is
+to prove a conjunction, P ∧ Q, the strategy
+is to prove each individually then combine
+the proofs using the and introduction rule 
+to reach the goal.
 
-Whether using a proof assistant  or just 
+Remember the and introduction rule from our
+work on propositional logic. We wrote it like
+this [P, Q] ⊢ P ∧ Q. Now that we've equated 
+"being true" with "having a proof" we can 
+write it with some more details, like this:
+
+[pfP: P, pfQ: Q] ⊢ (pfP, pfQ): P ∧ Q. 
+
+In other words, if I have a proof, pfP, of P 
+(i.e., a value, pfP, type, P!), and a proof, 
+pfQ, of Q, then I can build a proof of P ∧ Q,
+in the form of the ordered pair (pfQ, pfQ).
+
+The and introduction rule can be understood 
+as a function that takes two proof values, of
+types P and Q, respectively, and returns a 
+new proof value, of type P ∧ Q in the form 
+of an ordered pair of the "smaller" proofs. 
+
+Whether using a proof assistant or just 
 doing paper and pencil math, the strategy
 for proving a conjunction of propositions
 is to split the conjunction into its two
@@ -557,14 +579,12 @@ to play with.
 
 theorem oeqo : 1 = 1 := rfl
 
-/--------- And Introduction -----------/
-
 /-
-To start, we conjecture that 0=0 /\ 1=1. We 
+To start, let's prove 0=0 ∧ 1=1. We 
 already have a proof of 0=0, namely zeqz.
 And we already have a proof of 1=1, namely
 oeqo. So we should be able to produce a
-proof of 0=0 /\ 1=1 by using the "and
+proof of 0=0 ∧ 1=1 by using the "and
 introduction" inference rule. Remember
 that it says that if a proposition, P, is
 true (and now by that we mean that we
@@ -582,22 +602,12 @@ theorem t2: 0=0 ∧ 1=1 :=  -- proposition
 
 
 /-
-This example isn't required for 2101.
--/
-theorem t2': 0=0 ∧ 1=1 :=
-begin
-apply and.intro,
-exact zeqz,
-exact oeqo
-end
-
-/-
 NOTE!!! Whereas we typically define
 functions to take a single tuples of 
 argument values, and thus write the
 arguments to functions as tuples (in 
-parenthesis), e.g., inc(0), we write 
-the arguments to proof constructors 
+parenthesis), e.g., inc(0), here we 
+write arguments to proof constructors 
 (inference rules) without parenthesis
 and without commas between values. So 
 here for example, and below, we write 
@@ -605,23 +615,6 @@ here for example, and below, we write
 and.intro(zeqz, oeqo). Be careful when
 you get to the exercises to remember
 this point. 
--/
-
-/-
-The preceding code should make it pretty
-clear that and.intro is, for all intents
-and purposes, a function that takes proofs
-of 0=0 and 1=1, respectively, and constructs 
-a proof of 0=0 /\ 1=1. As we've already 
-discussed, such a proof is in essence the
-ordered pair of the given proof values.
-As such, we should be able to extract the
-individual proofs from such a pair, and
-that is what the and elimination rules do!
-There are two, one to obtain each element.
-Thus from a proof of P ∧ Q we can apply
-the and elimination rules to obtain a
-proof of P and a proof of Q.
 -/
 
 /--------- And Elimination -----------/
@@ -640,21 +633,18 @@ and.elim_right rule returns the proof of
 Q.
 -/
 
-
-
 theorem e1: 0=0 := and.elim_left t2
 
 /-
 This says that a value, e1, of type 0=0, 
 i.e., a proof of 0=0, can be obtained by
 applying and.elim_left to t2, which is a
-proof of 0=0 ∧ 1=1, which is to say that
-it is a pair of proofs, one of 0=0 and 
-one of 1=1. The and elimination rules
-are just "project operators" on pairs of
-proofs.
+proof of 0=0 ∧ 1=1. The and elimination 
+rules are just "project operators" (getter
+functions) on pairs of proofs.
 -/
 
+/- ****** NATURAL DEDUCTION ******* -/
 /-
 Natural deduction, which is the proof 
 system that we're using here, is a set 
@@ -668,15 +658,12 @@ invented long before autoamted tools, and
 is one of the fundamental systems for 
 precise logical reasoning. The Lean Prover
 and similar "proof assistants" automate
+natural deduction proof development, and
 and use strong, static type checking to 
 make sure that you can never produce an 
-incorrect proof, because you're never
+incorrect proof: because you're never
 allowed to pass arguments of the wrong
-types to the inference rules, and at the
-end of the day, you don't have a proof
-of a complex proposition unless the type
-checkers accepts it as a value of the 
-type (proposition) it is inteded to prove.
+types to the inference rules.
 
 Take-away: You're learning the natural 
 deduction style of producing proofs of
@@ -684,14 +671,15 @@ mathematical conjectures; but unlike the
 students doing this with paper and pencil
 and no tool to help, you have the benefit
 of automation and a highly trustworthy
-correctness checker. The cost is that
-now you can't be slooppy. Inded, you
-have to be very precise about every 
-step. Experienced mathematicians like
+correctness checker. 
+
+The cost is that now you can't be sloppy. 
+Inded, you have to be very precise about 
+every step. Experienced mathematicians like
 to skip many steps in writing proofs,
 when they (think they) know that the
 details will all work out. The upside
-is that it's easier to "write the code."
+is that it's easier to write proofs.
 The downside is that errors can easily
 go undetected. Many errors in proofs of
 important theorems have only been found
@@ -703,7 +691,7 @@ the trouble to make sure they're right.
 -/
 
 
-/-******** FUNCTIONS **********-/
+/-*** IMPLICATIONS ARE FUNCTIONS ***-/
 
 /-
 Next we turn to proofs of propositions in
@@ -722,12 +710,12 @@ we need to conclude that P → Q is true
 is a proof, i.e., a value of type P → Q. 
 
 What does such a value look like? Well,
-what does the type P → Q look like?! We
+what does the type P → Q look like? We
 have seen such types before. It looks 
 like a function type: for a function
 that when given any value of type, P,
 returns a value of type, Q. And indeed,
-that's just what we want! We will view
+that's just what we want. We will view
 P → Q, the proposition, to be true, if
 and only if we can produce a *function*
 that, when given any proof of P, gives
@@ -736,7 +724,12 @@ a function, it means that if P is true
 (if you can produce a proof value for
 P) then Q is true (you can obtain a
 proof for Q) just by calling the given
-function. 
+function. Note, proving P → Q doesn't
+tell you anything about whether P is
+true, but only that *if* you can give
+a proof of P, then you can construct a
+proof of Q: if you "assume" that P is
+true, then you can deduce that Q is too.
 
 To make this idea clear, it will help
 to spend a little more time talking 
@@ -750,6 +743,8 @@ somewhat arcane name, lambda expressions,
 also written as λ expressions. So let's
 get started. 
 -/
+
+/-  ****** MORE ON FUNCTIONS ******* -/
 
 /-
 We can define functions in Lean almost
@@ -893,7 +888,7 @@ one of the or introduction rules). What about
 implications? 
 -/
 
-/- Arrow Introduction -/ 
+/- ********* Arrow Introduction ********* -/ 
 
 /-
 Suppose we wanted to show, for example, that 
@@ -902,105 +897,134 @@ the conjuncts is reversed.
 
 How to think about this? First, remember that
 an implication, such as P → Q, doesn't claim 
-that the conclusion, P, is necessarily true.
-Rather, it only claims that *if the premise 
-is true, then the conclusion is true. Now, by 
-"true", we mean that we have or can construct
-a proof. An implication is thus read as saying 
-if you assume that the premise, P, is true, in
-other words if you assume you have a proof of
-P, then you can then derive a proof of the 
-conclusion, Q. 
+that the premise, P, is necessarily true, or
+that Q is. Rather, it only claims that *if 
+the premise, P,  is true, then the conclusion,
+Q, must be as well. 
 
-But proofs are just values of (these strange 
-propositional) types, and so a proposition in 
-the form of an implication, such as P → Q is 
-true when we have a way to convert any value 
-(proof) of type P into a value (proof) of type 
-Q. We call such a thing a function! 
+Again, by "true", we now mean that we have 
+or can construct a proof. An implication is 
+thus read as saying  if you assume that the 
+premise, P, is true, in other words if you 
+assume that you are given a proof of P, then
+you can then derive (construct) a proof of Q. 
+
+But proofs are just values, so a proposition 
+in  the form of an implication, P → Q is true 
+when we have a way to convert any value (proof) 
+of type P into a value (proof) of type Q. We 
+call such a value converter a function! 
 
 Think about this: the implication, P → Q is 
 true if we can define a function (body) of 
-this type, P → Q. Here's the actual code from
-the Lean core library:  
-
-def implies (a b : Prop) := a → b
+type, P → Q. 
 
 So now, think about how to write a function
 that takes an argument of type 1=1 ∧ 0=0 and
-that returns a result of type 0=0 ∧ 1=1. To
-make it even clearer, understand that a proof
-of a conjunction is a pair of proofs, the and
-elimination rules just give you the values in
-such pairs, and the and introduction rule just
-forms such an ordered pair given arguments of
-the right types. The strategy for writing the
+that returns a result of type 0=0 ∧ 1=1 (the
+conjuncts are biw in the reverse order). 
+
+Start by recalling that a proof of a 
+conjunction, such as 0=0 ∧ 1=1, is a pair 
+of proofs; the and elimination rules you a
+way to get at the individual values/proofs in
+such pairs; and the and introduction rule 
+creates such a pair given arguments of the 
+right types. The strategy for writing the
 function we need is thus:
 
-start with (proof of 1=1, proof of 0=0) as
-a pair proving 1=1 ∧ 0=0; extract each of 
-the component proofs, then construct and
+start with a proof of 1=1 ∧ 0=0, which is
+a pair, (proof of 1=1, proof of 0=0); then
+extract the component proofs, then build and
 return a pair constituting a proof of the
 conjunction with the component proofs in 
 the opposite order.
 -/ 
 /-
 Here's an ordinary function that does the trick.
+From an assumption that 1=1 ∧ 0=0 it constructs
+and returns a proof of 0=0 ∧ 1=1. It does it just
+as we said: extract the component proofs then put
+them back together in the reverse order. Voila!
 -/
-def and_swap(premise: 1=1 ∧ 0=0): 0=0 ∧ 1=1 :=
+def and_swap(assumption: 1=1 ∧ 0=0): 0=0 ∧ 1=1 :=
     and.intro 
-        (and.elim_right premise) 
-        (and.elim_left premise)
+        (and.elim_right assumption) 
+        (and.elim_left assumption)
 
 /-
-Now we can use it as a proof of the theorem.
+A paper and pencil proof could be written like this.
+
+"Assume 0=0 ∧ 1=1. From this premise (using the and 
+elimination rule of natural deduction), we can deduce 
+immediately that both 0=0 and 1=1. Having shown that 
+these propositions are true, we can immediately (using
+the and introduction rule of natural deduction) deduce
+that 0=0 ∧ 1=1. QED."
+
+The QED stands for the Latin, quod es demontratum, 
+so it is shown. It's used to signal that the goal
+to be proved has been proved.
+-/
+
+/-
+This function proves the implication by giving a
+recipe for converting a proof of the premise into
+a proof of the conclusion.
 -/
 theorem and_commutes': 1=1 ∧ 0=0 → 0=0 ∧ 1=1 :=
     and_swap   -- just give function as proof
 
 
 /-
-Here's the same thing using a lambda. You can
+Here's the same proof using a lambda. You can
 see here how lambda expressions (also know as
 anonymous functions) can make for cleaner code.
 They're also essential when you want to return
 a function.
 -/
 theorem and_commutes: 1=1 ∧ 0=0 → 0=0 ∧ 1=1 :=
-  /- 
-  a function taking premise, a proof of 
-  1=1 ∧ 0=0, as an argument, and returning ...
-  -/
-  λ pf: 1=1 ∧ 0=0,  
-  /-
-  a proof of the conjunction reversed
-  -/
-    and.intro 
+  
+  λ pf: 1=1 ∧ 0=0,      -- given/assuming pf  
+    and.intro           -- build desired proof
         (and.elim_right pf) 
         (and.elim_left pf)
   
 /-
-The bottom line here is that we introduce
-an arrow by defining a function, which we
-can also now pronounce as "by proving an
-implication (which is done by giving such
-a function)."
+The bottom line here is that we introduce,
+which is to say that we prove a proposition
+that has, an "arrow," by defining a function.
+
+Whereas the proof of a conjunction is pair 
+of smaller proofs, the proof of an implication
+is a function from one type of proof to another.
+
+Whether using a proof assistant or writing
+paper and pencil proofs, they key to proving
+an implication is to show that if you *assume*
+you are given a proof of the premise, you can
+turn that into a proof of the conclusion. We
+thus have a second fundamental proof strategy.
 -/
 
 /- Arrow Elimination-/
 
 /-
-Arrow elimination starts with an implication
-(aka, function), in the context, along with 
-a proof of its premise (i.e., an argument of 
-the type that the function takes), and ends 
-with a proof of the conclusion. This is just 
-modus ponens! And just function application!
+The arrow elimination inference rule looks
+like this: [P -> Q, P] ⊢ Q. It starts with 
+both an implication (aka, function), in the 
+context, along with a proof of its premise,
+and derives the conclusion of the implication.
+This is just modus ponens, and the way you
+get from the premises to the conclusion is
+by applying the implication (it's a function)
+to the assumed proof of P, yielding a proof
+of Q! Modus ponens is function application!
 -/
 
-theorem modus_ponens' (hImp: 1=1 ∧ 0=0 → 0=0 ∧ 1=1) 
-                     (hc: 1=1 ∧ 0=0): 0=0 ∧ 1=1 :=
-    (hImp hc)
+theorem modus_ponens' 
+  (hImp: 1=1 ∧ 0=0 → 0=0 ∧ 1=1) (hc: 1=1 ∧ 0=0): 0=0 ∧ 1=1 
+    := hImp hc   -- apply function hImp to argument hc
 
 theorem modus_ponens'': 
     (1=1 ∧ 0=0 → 0=0 ∧ 1=1) → 
@@ -1029,6 +1053,8 @@ theorem modus_ponens2
     (P Q: Prop) (pfImp: (P → Q)) (pfP: P): Q :=
         (pfImp pfP)
 
+/- Optional material on using type inference -/
+
 /-
 As an advanced concept, putting arguments in 
 curly braces tells Lean to use type inference
@@ -1053,14 +1079,6 @@ infers that the propositions (values of the
 first two parameters) are P and Q, Such uses
 of type inference improve code readaibility.
 -/
-section mp
-variables P Q: Prop     -- assume in section
-variable hImp: P → Q    -- assumption
-variable hP: P          -- assumption    
-#check modus_ponens P Q hImp hP
-#check modus_ponens3 hImp hP
-end mp
-
 
 /- ***** PROOFS OF DISJUNCTIONS ***** -/
 
@@ -1129,52 +1147,120 @@ introduction rule used to construct the
 proof object: either or.inl or or.inr.
 -/
 
+/- ***** OR ELIMINATION ****** -/
 
+/-
+The or elimination inference rule of natural
+deduction, which we first saw, and validated,
+in the unit on propositional logic, is used 
+to prove propositions of the form: P ∨ Q → R.
+What's needed to make such a proof work are
+two additional proofs: one showing that if P
+is true, then R must be (i.e., that P → R),
+and one showing that if Q is true, then so is
+R (i.e., Q → R.) The idea is that if you know
+P ∨ Q is true then you know that at least one
+of P or Q is true, and if you also know that
+both of them individually imply R, then you
+can validly deduce that R must be true. Here
+is an example of the use of Lean's rule for
+or elimination.
+-/
+
+theorem or_elim: 
+  forall P Q R: Prop, (P ∨ Q) → (P → R) → (Q → R) → R :=
+    λ P Q R pq pr qr, 
+        or.elim pq pr qr
+
+#check or_elim
+
+/-
+If you prefer an ordinary function, here it is again.
+-/
+
+def or_elim' (P Q R: Prop) (pq: P ∨ Q) (pr: P → R) (qr: Q → R): R :=
+    or.elim pq pr qr
+
+
+/-
+In informal mathematical writing, you would
+write something like this.
+
+"We aim to prove that P ∨ Q implies R. We 
+do this by *case analysis*. First we consider
+the case where P is true, and we show that P
+implies R. Then we consider the case were Q 
+is true, and we show that Q implies R. From
+the combination of P ∨ Q, P → R, and Q → R,
+and by application of the natural deduction
+rule of or elimination, we deduce that R is
+true in either case, so P ∨ Q → R. QED."
+
+The proof of an or-eliminating proposition
+is thus generally by case analysis, where to
+complete the proof, you have to come up with
+(rather than just being given) the proofs of
+P → R and Q → R.
+
+Think of a proof of P ∨ Q → R as a pair of
+proofs, of of P → R and one of Q → R. These
+are the cases you need to prove P ∨ Q → R. 
+The proof strategy is thus "by case analysis."
+-/
 
 /- *** FALSITY AND NEGATION *** -/
 
-/- ******* ¬ P ******* -/
+/- ******* ¬P ******* -/
 
 /-
-The proposition, ¬ P, is read "not P."
+The proposition, ¬P, is read "not P."
 It's an assertion that P is false. One 
-generally proves a proposition, ¬ P, by
-showing that that an assumption that P 
-is true leads to a contraction. 
+proves a proposition, ¬P, by showing 
+that that an assumption that P is true 
+leads to a contraction. The strategy
+is called "proof by contradiction."
 
 In a paper and pencil proof, one would 
-write, "We prove ¬ P by contradiction. 
-Assume that P is true. We will show that
-this assumption leads to a contradiction.
-The assumption therefore must be wrong, 
-and ¬ P must be true. Then you present
-details showing how a contradiction 
-follows from the assumption that P is
-true. For example, to show that sqrt(2)
-is not rational, assume that sqrt(2) is
-rational, and derive a contradiction.
-This is a classic example of proof by
-contradiction.
+write, "We prove ¬P by contradiction.  
+Assume that P is true; we will show that
+this assumption leads to a contradiction,
+the assumption must have been wrong, and 
+so ¬P must be true. QED." 
+    
+Then you present details showing how a 
+contradiction follows from an assumption 
+that P is true, i.e., that there is a
+proof of P. 
 
+As a classical example known even to the
+early Greeks, one can prove that sqrt(2)
+is irrational (¬ rational(sqrt(2))) by
+contradiction. First assume that sqrt(2) 
+is rational, and derive a contradiction.
+The details are left out here but you can
+easily find them yourself. Do so!
 
-In Lean, what is meant by ¬ P is that an
+In Lean, what is meant by ¬P is that an
 assumption that there is a proof of P 
-leads to a contradiction; and what is 
+leads to a contradiction, where what is 
 meant by a "contradiction" is a proof 
-of false, which of course can't exist,
-as the false type has no constructors. 
+of false. Such a proof of course can't 
+exist, as the false type has no values.
 To prove ¬ P in other words means to 
 prove P → false, and what that means
-is defining a function that *if* it 
-could be given a proof of P would in
+is defining a function that, *if* it 
+were ever given a proof of P, would in
 turn construct and return a proof of
 false.
 
 The key thing to remember is that the
-proposition (type) ¬ P is defined in 
-as the proposition (and function type)
-P → false. Here's the definition from
-the Lean core library:
+proposition (type) ¬P is defined to be
+exactly the proposition (function type)
+P → false. To prove ¬P you have to give
+a function that converts a proof of P
+into a proof of false. Here's the 
+definition of negation from the Lean 
+core library:
 
 def not (a : Prop) := a → false
 
@@ -1183,13 +1269,14 @@ that takes any proposition, a, and that
 returns the *type* (the function type), 
 a → false. 
 
-To prove ¬ P one thus "proves" P → false, 
-which one does by giving a value of this 
-type, will be a function body (e.g., a
-lambda expression) that has this type. 
+Again, to prove ¬ P one must "prove 
+P → false, which, as we've discussed,
+is done by giving a value of this type, 
+namely a function body (e.g., a lambda 
+expression) that has this type. 
 
 It's not that you'd ever be able to 
-call such a function, because if ¬ P 
+call such a function, because if ¬P 
 really is true, you'll never be able 
 to give a proof of P as an argument. 
 
@@ -1364,50 +1451,55 @@ is defined as (P → Q) ∧ (Q → P). The  phrase
 in mathematics. To obtain the ↔ symbol in 
 Lean, just type "\iff". P ↔ Q is known as 
 a bi-implication or a logical equivalence. 
-
-A proof of a bi-implication requires that you
-prove both conjuncts: P → Q and Q → P. So, in
-an ordinary paper-and-pencil proof, you would 
-start by saying, "To prove P ↔ Q, we have to
-prove the implications in both directions. We 
-first consider the forward direction, P → Q. 
-<Give a proof>. Now we turn prove the other 
-direction, Q → P. <Give proof>. Having proved 
-both direction, we conclude that P ↔ Q." 
-    
-P ↔ Q is again defined as (P → Q) ∧ (Q → P). 
-So a proof of a bi-implication will be a pair
-of proofs, one of P → Q and one of Q → P. Each
-of these proofs, in turn, is a function. In
-Lean, there's an inference rule, iff.intro, 
-takes two such functions (of types P → Q and 
-Q → P) and that returns a proof of P ↔ Q.
 -/
 
+/- ****** IFF INTRODUCTION ******* -/
+
 /-
+A proof of a bi-implication requires that you
+prove both conjuncts: P → Q and Q → P. Given
+such proofs, you can use the iff introduction 
+inference rule to construct a proof of P ↔ Q.
+In Lean, iff.intro is the name of this rule.  
+It takes proofs of P → Q and Q → P and gives
+you back a proof of P ↔ Q.
+    
+A proof of P ↔ Q is thus, in essence, a proof
+of (P → Q) ∧ (Q → P). And this is a pair of 
+proofs, one of P → Q and one of Q → P. Each
+of these proofs, in turn, being a proof of an
+implication, is a function, taking either a
+proof of P and constructing a proof of Q, or
+taking a proof of Q and constructing one of P. 
+
 We we illustrate by assuming that for arbitrary
-types P and Q, we have a proof of P and a proof
-of Q, and we apply to rule to produce a proof of
-P ↔ Q.
+propositions P and Q, we have a proof of P and 
+a proof of Q, and we then apply the iff.intro 
+inference rule to produce a proof of P ↔ Q. We 
+first write the theorem as an ordinary function 
+of the type we seek to prove: given propositions
+P and Q,
 -/
 
 def biImpl (P Q: Prop) (PimpQ: P → Q) (QimpP: Q → P): P ↔ Q :=
   iff.intro PimpQ QimpP
 
 /-
-Writing this same function as a theorem ...
+Now we write it as an equivalent theorem ...
 -/
 
-theorem biImpl': forall P Q: Prop, (P → Q) ∧ (Q → P) → (P ↔ Q) :=
-  λ (P Q: Prop) (pf: (P → Q) ∧ (Q → P)), 
-    iff.intro (and.elim_left pf) (and.elim_right pf)
+theorem biImpl': forall P Q: Prop, (P → Q) → (Q → P) → (P ↔ Q) :=
+  λ (P Q: Prop) (PimpQ: P → Q) (QimpP: Q → P), 
+    iff.intro PimpQ QimpP
 
 
 /-
-Finally, here's an application of the idea: we show
-that for arbitrary propositions, P and Q, P∧Q ↔ Q∧P.
-Note the structure of the proof: there are two cases:
-forward and backwards.
+Here's a slightly more interesting application of the 
+idea: we show that for arbitrary propositions, P and Q, 
+P ∧ Q ↔ Q ∧ P. Remember, whenever you want to prove any
+bi-implication, the strategy is to prove the implication
+in each direction, at which you you can then appeal to 
+the iff intro inference rule to complete the proof. 
 -/
 
 theorem PandQiffQandP: forall P Q: Prop, P ∧ Q ↔ Q ∧ P :=
@@ -1415,65 +1507,124 @@ theorem PandQiffQandP: forall P Q: Prop, P ∧ Q ↔ Q ∧ P :=
     iff.intro 
       (λ pf: P ∧ Q, and.intro (and.elim_right pf) (and.elim_left pf))(λ pf: Q ∧ P, and.intro (and.elim_right pf) (and.elim_left pf))
 
+/-
+Exercise: Write this theorem as an ordinary function,
+called PandQiffQandP'.
+-/
 
 /- ****** STRUCTURING COMPLEX PROOFS ******** -/
 
 /-
-The "sorry" keyword tells Lean to accept a theorem,
-value, or proof, by assumption, or "axiomatically." 
-It's "dangerous" in that it's easy to introduce a new
-"fact" that leads to a logical inconsistency, i.e., 
-the possibility of producing a proof of false. But it 
-is helpful in structuring larger proofs. You can use 
-it to "stub out" parts of proofs to make large proofs 
-"work", and then go back and "backfill" by proving 
-the propositions you previously just "assumed away."
+There are two main use cases for Lean and for other
+tools like it. First, it can be used for research in
+pure mathematics. Second, it can be used to verify
+properties of software. The latter is the use case
+that most interests computer scientists and software
+engineers.
+
+To use Lean for verification, one first write code
+to be verified, then one writes propositions about
+that code, and finally one proves them. The result
+is code that is almost beyond any doubt guaranteed
+to have the property or properties so proved. 
+
+The problem is that such proofs can be complex 
+and hard to just write out as if you were just
+writing ordinary code. Lean provides numerous 
+mechanisms to ease the task of obtaining proofs. 
+Here we briefly review a few of them. 
 -/
-theorem sorry1 (p q : Prop) (hp : p) (hq : q) : p ∧ q :=
-sorry
 
-theorem oops: false := sorry
-
-theorem anythingGoes: forall Q: Prop, Q := false.elim oops
 
 /-
-Using _ in place of sorry asks Lean to try to fill in a
-proof for you. Hover the mouse over the "hole" and Lean
-will tell you what inference needs to be validated *and*
-the context available for validating it.
+First, the "sorry" keyword tells Lean to accept 
+a theorem, value, or proof, by assumption, i.e.,
+without proof, or "as an axiom." 
+-/
+
+theorem oeqz: 1 = 0 := sorry
+
+/-
+As you can see here, undisciplined use of sorry
+can be danger. It's easy to introduce a new "fact" 
+that leads to a logical inconsistency, i.e., the 
+possibility of producing a proof of false. Taking
+1=0 as an axiom is an example. From it you can
+prove false, at which point you've ruined your
+logic. 
+
+On the other hand, using sorry can be helpful. In
+particular, it allow you to do what you can think
+of as top-down structured proof development. You 
+can use it to "stub out" parts of proofs to make 
+larger proofs "work", and then go back and replace
+the sorrys with real proofs.  When all sorrys are
+eliminated, you then have a verified proof. 
+-/
+
+/-
+Using _ (underscore) in place of sorry asks Lean to 
+try to fill in a proof for you. In some cases it can
+do so automatically, which is nice, but in any case,
+if you hover the mouse over the "hole", Lean will 
+tell you what type of proof is needed and what you
+have in the current context that might be useful in
+constructive a proof. Hover your mouse over the
+underscore here. Then replace it with "and.intro _ _"
+and hover your mouse over those underscores. You 
+will see how this mechanism can help you to develop
+a proof "top down."
 -/
 theorem test' (p q : Prop) (hp : p) (hq : q) : p ∧ q :=
-_
-
+    _
 
 /-
-FYI, Lean also supports incremental, interactive,
-tactic-style proofs. Here's an example. You don't
-need to be able to write proofs this way for this
-class.
+This mechanism also works for ordinary programming
+by the way. Suppose we want to develop a function
+that takes a nat/string pair and returns it in the
+reverse order, as a string/nat pair. You can write
+the program with a hole for the entire body, then
+you can "refine" the hole incrementally until you
+have a correct working program. The type of each 
+hole pretty much tells you what to do at each step.
+Give it a try.
+-/
+
+def swap(pair: nat × string): (string × nat) := 
+    _
+
+/-
+Lean also supports what are called proof tactics.
+A tactic is a program that turns one context-goal
+structure (called a sequent) into another. The 
+context/assumptions you can use appear before the
+turnstile. The remaining "goal" to be proved is 
+after it=. Your job is to apply a sequence of 
+tactics to eliminate (satisfy) the goal/goals.
+Hover your mouse over the red line at the end and
+study the sequent, then uncomment each commented
+tactic in turn, seeing how it changes the sequent.
+To begin with, you have a context in which p and 
+q are assumed to be arbitrary propositions and hp
+and hq are assumed to be proofs of p and q, resp.,
+and the goal is p ∧ q ∧ p. Applying the and.intro
+rule decomposes the original goal into two smaller
+goals: provide a proof of p, and provide a proof
+of q ∧ p. The exact hp says "take hp as a complete
+proof of p." You can follow the rest yourself.
 -/
 theorem test'' (p q : Prop) (hp : p) (hq : q) : p ∧ q ∧ p :=
 begin
-apply and.intro,
-exact hp,
-apply and.intro,
-exact hq,
-exact hp
+--apply and.intro,
+--exact hp,
+--apply and.intro,
+--exact hq,
+--exact hp
 end
 
 /- ******* CONCLUSION ******* -/
 
 /-
-This unit has given an introduction to deductive
-logic using natural deduction based on introduction
-and elimination rules that we first saw in the unit
-on propositional logic. We saw that these rules are
-semantically valid (based on truth tables), and now
-we take them as valid ways of deducing the truth of
-propositions (conclusions) in given contexts, in 
-which we have proofs of sequences of propositions 
-(contexts, assumptions, premises).
-
 As mathematicians and computer scientists, we're
 often the goal of proving some putative (unproven)
 theorem (aka conjecture). A key question in such
@@ -1481,82 +1632,134 @@ a case is what proof strategy to use to produce a
 proof. The rules of natural deduction can help.
 First, look at the form of the proposition. Then
 ask what inference rule could be used to deduce
-it. Then apply the strategy associated with that
-rule.
+it. That rule tells you what you need to already
+have proved to apply the rule. In some cases, no
+further proofs are needed, in which case you can
+just apply the inference rule directly. Otherwise
+you construct proofs of the premises of the rule,
+and then apply it to contruct the desired proof. 
+
 
 If you want to prove an equality, simplify and
 then apply the axiom that says that identical
 terms can be considered equal without any other
-proofs at all. If you want to prove a conjunction,
-obtain proofs of the conjuncts, then deduce by
-"and introduction" the desired result. If you
-want to prove an implication, P → Q, explain 
-how the assumption that you're given a proof
-of P enables you to construct a proof of Q (or
-if you're using a tool like Lean, do this in a
-precise way by writing a function).
+proofs at all. The rfl inference rule is what 
+you need in this case.
 
-Proof strategies emerge from the choices of
-inference rules needed to produce a final result.
-If you already have proofs of all premises for 
-a rule, just apply the rule. But in many cases,
-you don't. 
+If you want to prove a conjunction, you need
+to have (or construct) proofs of the conjuncts
+then use the "and introduction" inference rule.
 
-The twist is to read inference rules not from top 
-to bottom: if I know these things then I can 
-conclude that. Instead, read them backwards: 
-from bottom to top: if I want to prove this,
-then it will suffice to prove these other things, 
-the premises, because if I have proofs of those 
-things, then I can apply this inference rule 
-to get the final proof that I want.
+If you have a proof of a conjunction and you
+need a proof of one of its conjuncts, use one
+of the and elimination rules.
 
-In this way, the problem of proving a complex
-conjecture is decomposed into simpler problems,
-to prove each of the premises. You then apply 
-this idea recursively to each premise, selecting
-a proof strategy appropriate for its form, and
-working backwards in this way until you get to
-propositions for which proofs are available with
-no futher recursion. An example is 0=0. We can
-get a proof of this using rfl without any 
-futher "backward chaining." Once you've worked
-all the way back to propositions for which you
-have "base case" proofs, you then apply the
-inference rules going forward, to build the
-desired proof from all of the elementary and
-intermediates proofs, until, voila, you have
-what you need.
+If you want to prove an implication, P → Q, 
+you need to write (and have the type checker
+agree that you've written) a function of type
+P → Q. Such a function promises to return a
+value of type Q (a proof, when Q is in Prop),
+whenever you give it a value of type (a proof
+of) P. 
+
+If you have such a function/implication and
+you need a proof of Q, first get yourself a
+proof of P, then apply the P → Q "function"
+to it to produce a proof of Q. This is the
+way to do → elimination. 
+
+If you need a proof of P ∨ Q, you first need
+a proof of P or a proof of Q, then you use the
+or introduction inference rule.
+
+If from a proof of P ∨ Q you need to deduce
+a proof of R, then you need in addition to 
+the proof of P ∨ Q both a proof of P → R and
+a proof of Q → R. Then you can use the or
+elimination inference rule to prove R (i.e.,
+to construct and return a proof of R).
+
+To obtain a proof of P ↔ Q, you need both a
+proof of P → Q and a proof of Q → P. You can
+then use the iff introduction rule to get the
+proof you want. Think of P ↔ Q as equivalent
+to P → Q ∧ Q → P. You need proofs of both of
+the conjuncts to construct a proof of the
+conjunction. The iff elimination rules are
+basically the same as the and elimination 
+rules: from a proof of P ↔ Q, you can get
+a proof of either P → Q or Q → P as you 
+might need.
+
+To identify the kind of proposition you have
+to proof, look at the "top-level" connective.
+In a conjunction, it's ∧, for example. All the
+details in the individual conjects can just be
+ignored at this point: the strategy is "find or
+build proofs of the individual conjuncts." Now
+you need to apply the same ideas recursive: 
+look at the form of each conjunct and pick an
+appropriate strategiy based on its form. Do
+this recursively "all the way down". When you
+are done, apply the inference rule for the 
+top-level connective to the proofs of the
+parts and you're done! 
+
+Here's another way to say it. From the form
+of the proposition to be proved, identify the
+inference rule needed to prove it. Now look at
+the premises that have to be proved to apply
+the rule. Recursively prove the premises, Then
+finally apply the identified rule. 
+
+Of course, if you already have, or once you
+have constructed, proofs of the premises, you
+then move in a "forward" direction (toward the
+final goal) by applying inference rules to get
+you from proofs of premises to proofs of goals.
 
 As an example, consider 1=1 ∧ 0=0. It's a 
 conjunction. A conjunction can be proved 
-using and.intro. It, however, requires proofs
-of the conjuncts. So now we need proofs of 
-1=1 and of 0=0. Considering each of these 
-"sub-goals" recursively, we can obtains proofs
-without futher recursion, using rfl. Given 
-those proofs we can combine them going
-forward using and.intro. And that's how it
-works. Proving theorems in this way is thus
-in effect an exercise in what amounts to 
+using and.intro. This rule, however, need
+proofs of the conjuncts as arguments. So 
+now we need proofs of 1=1 and of 0=0. This
+is where the "recursion" comes in. Look at
+each of these "goals" and identify the right
+rule for it, given its form. Each of these
+goals is an equality. For that we will want
+to use the rfl inference rule. Once we've 
+got the proofs of the conjuncts, we pass 
+them to and.intro, and that's how it works. 
+
+Proving theorems in this way is thus,
+in effect, an exercise in what amounts to 
 "top-down structured programming," but
 what we're building isn't a program that we
-intend to *run* but a proof that, if it type
-checks, witnesses the truth of a proposition.
+intend to *run* but a proof that witnesses 
+the truth of a proposition.
 -/
-theorem t5: 1=1 ∧ 0=0 := and.intro rfl rfl
+theorem t5: 1=1 ∧ 0=0 := 
+    and.intro   -- top-level inference rule  
+        rfl     -- proof of first conjunct 
+        rfl     -- proof of second conjunct
 
 
 
 /- ****** GENERALIZING PROPOSITIONS ******* -/
 
 /-
-In Lean we can declare variables to be of given
-types without actually defining values for them.
-You can think of these as "assumptions." So for
-example, you can say, "assume that P, Q, and R 
-are arbitrary propositions (of type Prop)".
+Up until now, when we want to write a theorem
+about arbitrary propositions, we've used the ∀
+connective to declare them as propositions. We
+can avoid having to do this over an over again
+by declaring them as "variables." We can then
+use them in follow-on definitions withou having
+to introduce them again using ∀. Lean basically
+does this for us. Here are a few examples. We
+put the code within a "section", which limits
+the scope of the variables so declared. 
 -/
+
 variables P Q R: Prop
 
 /-
@@ -1566,7 +1769,7 @@ by declaring variables to be of these types.
 Here's one example (which we won't use futher
 in this code).
 -/
-variable proof_P: P
+variable pf_P: P
 
 /-
 Now we can write somewhat more interesting 
@@ -1593,6 +1796,8 @@ theorem t7: P ∧ Q → Q ∧ P :=
 
 theorem ae: (P → Q) -> P -> Q :=
     λ pf_impl: (P → Q), (λ pf_P: P, pf_impl pf_P)
+
+
 /-
 EXERCISES
 -/
@@ -1605,7 +1810,8 @@ This problem gives practice writing function
 bodies as lambda expressions.
 -/
 
-
+def comp': ℕ → ℕ := 
+    λ n, sqr(inc(n))
 
 /-
 (2) Write three test cases for comp' and
@@ -1614,6 +1820,9 @@ generate proofs using the strategy of
 of equality."
 -/
 
+theorem test1: comp' 0 = 1 := rfl 
+theorem test2: comp' 1 = 4 := rfl
+theorem test3: comp' 2 = 9 := rfl
 
 
 /-
@@ -1630,6 +1839,14 @@ syntax is similar to that of the Haskell
 language.
 -/
 
+def fib: ℕ → ℕ
+| 0 := 0
+| 1 := 1
+| (n+2) := fib n + fib (n+1)
+
+theorem fibtest1: fib 0 = 0 := rfl
+theorem fibtest2: fib 1 = 1 := rfl
+theorem fibtest10: fib 10 = 55 := rfl
 
 /-
 (4) Uncomment then complete this proof of the
@@ -1641,15 +1858,32 @@ you might want to use at some point. It also gives
 you an example showing that rfl works for diverse
 types. It's polymorphic, as we said.
 -/
---theorem hw : "Hello World" = string.append "Hello" " World" := <answer>
+
+theorem hw : "Hello World" = string.append "Hello" " World" := 
+    rfl
 
 
 /- 
 (5) Prove P ∧ Q ∧ R → R . Hint: ∧ is right-associative. 
 In other words, P ∧ Q ∧ R means P ∧ (Q ∧ R). A proof of
 this proposition will thus have a pair inside a pair.
+Note that we're using the fact that P, Q, and R have
+already been introduced as arbitrary propositions. See
+the "variables" declaration above.
 -/
 
+theorem xyz: P ∧ Q ∧ R → R :=
+  λ pf: P ∧ Q ∧ R, and.elim_right (and.elim_right pf)
+
+/-
+If we didn't already have the variables declared, we
+would introduce local declarations using ∀. Note that
+the names of the variables used in the definition of 
+the function need to be of the same type, but do not
+have to have the same names as those variables.
+-/
+theorem xyz': ∀ X Y Z: Prop, X ∧ Y ∧ Z → Z :=
+  λ P Q R pf, and.elim_right (and.elim_right pf)
 
 
 /-
@@ -1665,7 +1899,11 @@ proof of P ∧ Q. The body of the outer lambda will thus
 use a lambda.
 -/
 
+theorem PimpQimpPandQ: P → Q → (P ∧ Q) :=
+  λ pfP pfQ, and.intro pfP pfQ
 
+def PimpQimpPandQ'(pfP: P) (pfQ: Q): P ∧ Q :=
+  and.intro pfP pfQ
 
 /- EXTRA KUDOS!
 
@@ -1683,10 +1921,5 @@ the disjunction as an argument. Then just apply the or
 elimination rule in Lean, which is written as or.elim.
 -/ 
 
-
-
-/-
-For fun and insight, check the type of orelim, the
-proposition we just proved. Notice how P, Q, and R
-are generalized to be *any* propositions at all. 
--/
+theorem orelim: (P ∨ Q) → (P → R) → (Q → R) -> R :=
+    λ pq pr qr, or.elim pq pr qr
