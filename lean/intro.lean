@@ -1521,7 +1521,7 @@ curly braces around P and Q tell Lean to use
 type inference to infer the values of P and Q.
 -/
 def notPbyContra' {P Q: Prop} (PimpQ: P → Q) (notQ: ¬ Q): ¬ P :=
-    λ pfP: P, notQ (PimpQ pfP)
+    λ pfP: P, notQ (PimpQ pfP) 
 
 
 
