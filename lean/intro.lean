@@ -1041,7 +1041,7 @@ theorem modus_ponens'':
     (1=1 ∧ 0=0 → 0=0 ∧ 1=1) → 
         1=1 ∧ 0=0 → 
             0=0 ∧ 1=1 :=
-    λ hImp, λ hc, (hImp hc)
+    λ hImp hc, (hImp hc)
 
 /-
 Arrow elimination is modus ponens is function
@@ -1054,7 +1054,7 @@ a (value) proof of (type) P, finally producing a
 (value) proof of (type) Q.
 -/
 theorem modus_ponens: ∀ P Q: Prop, (P → Q) → P → Q :=
-    λ P Q: Prop, λ pfImp: P → Q, λ pfP: P, (pfImp pfP)
+    λ (P Q: Prop) (funP2Q: P → Q) (pfP: P), funP2Q pfP
 
 /-
 We could of course have written that using 
@@ -1126,6 +1126,9 @@ tool.
 theorem t3: 0=0 ∨ 1=0 := 
     or.inl zeqz
 
+#check zeqz
+#eval zeqz
+
 theorem t4: 1=0 ∨ 1=1 := 
     or.inr oeqo
 
@@ -1178,10 +1181,23 @@ is an example of the use of Lean's rule for
 or elimination.
 -/
 
+-- shorthand, without all the explicit lambdas
 theorem or_elim: 
   forall P Q R: Prop, (P ∨ Q) → (P → R) → (Q → R) → R :=
     λ P Q R pq pr qr, 
         or.elim pq pr qr
+
+/-
+ Version with all the lambdas explicit, and parentheses
+ to make the associativity in the propositon (and also in
+ the corresponding function definition) clear.
+ -/
+theorem or_elim': 
+  forall P Q R: Prop, (P ∨ Q) → ((P → R) → ((Q → R) → R)) :=
+    λ (P Q R: Prop), (λ pfPorQ, (λ pfPimpR, (λ pfQimpR, 
+        or.elim pfPorQ pfPimpR pfQimpR)))
+
+
 
 #check or_elim
 
@@ -1189,7 +1205,7 @@ theorem or_elim:
 If you prefer an ordinary function, here it is again.
 -/
 
-def or_elim' (P Q R: Prop) (pq: P ∨ Q) (pr: P → R) (qr: Q → R): R :=
+def or_elim'' (P Q R: Prop) (pq: P ∨ Q) (pr: P → R) (qr: Q → R): R :=
     or.elim pq pr qr
 
 
@@ -1485,7 +1501,7 @@ If know that ¬Q is true (there can be no proof)
 of Q, and we also know that P → Q (we have a 
 function *if* given a proof of P returns a proof
 of Q), then we see that an assumption that P is
-true leads to a contradiction, which proves ¬ P.
+true leads to a contradiction, which proves ¬P.
 -/
 
 theorem notPbyContra: 
@@ -1672,6 +1688,11 @@ value of this type is written as an ordered pair,
 -/
 
 /-
+THIS BRIEF INTRODUCTION TO TACTIC-BASED PROOFS IS
+COMPLETELY OPTIONAL. SKIP IT AT NO COST. READ IT IF
+YOU'RE INTERESTED. THIS MATERIAL WILL NOT BE ON THE
+TEST IN ANY FORM.
+
 Lean also supports what are called proof tactics.
 A tactic is a program that turns one context-goal
 structure (called a sequent) into another. The 
@@ -1802,34 +1823,6 @@ by recursive application of the same ideas, and
 finally apply the rule to these arguments to
 complete the proof. 
 
-As an example, consider 1=1 ∧ 0=0. It's a 
-conjunction. A conjunction can be proved 
-using and.intro. This rule, however, needs
-proofs of the conjuncts as arguments. It 
-needs proofs of 1=1 and of 0=0. This is 
-where the "recursion" comes in. Look at
-each of these "goals" and identify the right
-rule for it, given its form. Each of these
-goals is an equality. For that we will want
-to use the rfl inference rule. Once we've 
-got the proofs of the conjuncts, we pass 
-them to and.intro, and that's how it works. 
--/
-
-theorem t5: 1=1 ∧ 0=0 := 
-    and.intro   -- top-level inference rule  
-        rfl     -- proof of first conjunct 
-        rfl     -- proof of second conjunct
-
-/-
-Proving theorems in this way is thus,
-in effect, an exercise in what amounts to 
-"top-down structured programming," but
-what we're building isn't a program that we
-intend to *run* but a proof that witnesses 
-the truth of a proposition.
--/
-
 /- *** Declaring reusable variables *** -/
 
 /-
@@ -1868,8 +1861,25 @@ a function that given a proof of P ∧ Q returns
 a proof of P by applying and.elim_left to its
 argument.
 -/
-theorem t6: P ∧ Q → P :=
-  λ PandQ: P ∧ Q, and.elim_left PandQ
+
+/-
+Now, rather than writing propositons that use
+∀ explicitly to define variables, we can just
+use P, Q, and R as if they were so defined. So,
+instead of this ...
+-/
+
+theorem t6: ∀ P Q R: Prop, P ∧ Q → R,
+  λ pfPandQ, and.elim_left pfPandQ
+
+/- 
+... we can write this. Note the absence of 
+the ∀ P Q R: Prop. It's not needed as these
+variables are already defined.
+-/
+
+theorem t6': P ∧ Q → P :=
+  λ pfPandQ: P ∧ Q, and.elim_left pfPandQ
 
 /-
 When you check the type of t6, you can see 
@@ -1877,6 +1887,7 @@ that Lean inserted the ∀ P Q: Prop for us.
 -/
 
 #check t6
+#check t6'
 
 /-
 Similarly we can prove that P ∧ Q → Q ∧ P
@@ -1932,7 +1943,8 @@ bodies as lambda expressions.
 -/
 
 def comp': ℕ → ℕ := 
-    λ n, sqr(inc(n))
+  λ n: nat, sqr(inc(n))
+    
 
 /-
 (2) Write three test cases for comp' and
@@ -1993,7 +2005,7 @@ already been introduced as arbitrary propositions. See
 the "variables" declaration above.
 -/
 
-theorem xyz: P ∧ Q ∧ R → R :=
+theorem xyz: P ∧ (Q ∧ R) → R :=
   λ pf: P ∧ Q ∧ R, and.elim_right (and.elim_right pf)
 
 /-
@@ -2009,7 +2021,7 @@ theorem xyz': ∀ X Y Z: Prop, X ∧ Y ∧ Z → Z :=
 
 /-
 (6)
-Prove P → Q → (P ∧ Q). You can read this as saying
+Prove P → (Q → (P ∧ Q)). You can read this as saying
 that if you have a proof of P, then if you (also) have
 a proof of Q ,then you can produce a proof of P and Q.
 Hint: → is right associative, so P → Q → (P ∧ Q) means
@@ -2020,9 +2032,10 @@ proof of P ∧ Q. The body of the outer lambda will thus
 use a lambda.
 -/
 
-theorem PimpQimpPandQ: P → Q → (P ∧ Q) :=
-  λ pfP pfQ, and.intro pfP pfQ
+theorem PimpQimpPandQ: P → (Q → (P ∧ Q)) :=
+    λ (pfP: P) (pfQ: Q), and.intro pfP pfQ
 
+  
 def PimpQimpPandQ'(pfP: P) (pfQ: Q): P ∧ Q :=
   and.intro pfP pfQ
 
