@@ -1822,6 +1822,7 @@ it. Either find such proofs, or construct them
 by recursive application of the same ideas, and
 finally apply the rule to these arguments to
 complete the proof. 
+-/
 
 /- *** Declaring reusable variables *** -/
 
@@ -1869,8 +1870,8 @@ use P, Q, and R as if they were so defined. So,
 instead of this ...
 -/
 
-theorem t6: ∀ P Q R: Prop, P ∧ Q → R,
-  λ pfPandQ, and.elim_left pfPandQ
+theorem t6: ∀ P Q: Prop, P ∧ Q → P :=
+  λ (P Q: Prop) (pfPandQ: P ∧ Q), and.elim_left pfPandQ
 
 /- 
 ... we can write this. Note the absence of 
@@ -1884,6 +1885,7 @@ theorem t6': P ∧ Q → P :=
 /-
 When you check the type of t6, you can see 
 that Lean inserted the ∀ P Q: Prop for us.
+Both t6 and t6' have exactly the same type.
 -/
 
 #check t6
@@ -2039,7 +2041,7 @@ theorem PimpQimpPandQ: P → (Q → (P ∧ Q)) :=
 def PimpQimpPandQ'(pfP: P) (pfQ: Q): P ∧ Q :=
   and.intro pfP pfQ
 
-/- EXTRA KUDOS!
+/- EXTRA KUDOS
 
 Prove (P ∨ Q) → (P → R) → (Q → R) -> R. This looks
 scary, but think about it in the context of material
