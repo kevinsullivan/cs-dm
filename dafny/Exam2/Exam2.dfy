@@ -57,7 +57,7 @@ method Main()
     
     /*
     Replace the stub with a set comprehension expression
-    so that tots represents the set of partial functions 
+    so that parts represents the set of partial functions 
     on S. Hint: Take advantage of your definition of rels
     and your definitions of set theory predicates, below.
     Fix the print statement so it prints out the number
@@ -79,8 +79,7 @@ method Main()
 
    /*
     Replace the stub with a set comprehension expression
-    so that tots represents the set of total functions
-    on S.
+    so that bijs represents the set of bijections on S.
     */
 
     var bijs := stub; 
