@@ -81,7 +81,9 @@ work required in the file Exam2.dfy.
 
 ************************************************
 Submit the files syntax.dfy, evaluation.dfy, 
-consequence_test.dfy, and Exam2.dfy on Collab.
+consequence_test.dfy, any other files that you
+had to change, and Exam2.dfy on Collab.
+
 The exam is due before 9:30AM next Tuesday. Do
 NOT submit it late! Late submissions, if taken
 at all, will have 15 points off for being late.
