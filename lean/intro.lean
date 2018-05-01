@@ -361,6 +361,7 @@ allows rfl to complete its work and return
 a value that is accepted as being of the
 right type, i.e., as a proof of equality. 
 -/
+
 theorem t0 : 1 - 1 = 5 - 5 := rfl
 theorem t1 : (1-1, "fidge").1 = 0 := rfl
 
@@ -391,6 +392,132 @@ and returns a proof of b = a. We do not get
 into the details at this time.
 -/
 
+/- 
+Proof by Reflexive Property of Equality.
+
+The reflexive property of equality
+provides a corresponding inference
+rule: forall α : Type, p: α ⊢ p=p. 
+That is, for any type, α, and any
+value, p, of that type, there is a
+proof of p = p. In Lean this rule
+is called eq.refl. When applied to
+a value, p, it produces a proof of
+p = p. The "rfl" construct that 
+you have already seen is just a 
+shorthand for applying eq.refl to
+the value to be proved equal to 
+itself. Here we give and example
+in which we just formalize the
+main idea: for any type and for
+any value of that type, there is
+a proof of equality of that value
+with itself.
+-/
+
+theorem byRefl: ∀ α : Type, ∀ a : α, a = a
+        := λ (α: Type) (a: α), 
+        /-
+        Assuming α is any type, and p
+        is any value of that type, the
+        next line generates a proof of
+        p=p.
+        -/
+        eq.refl a
+
+/-
+An English-language proof of p = p
+would read, "... p = p is true by 
+the reflexive property of equality."
+Remember: "rfl" is just a shorthand
+for "eq.refl a", where "a" is the 
+value on the left of the equals
+sign. 
+-/
+
+
+
+/- 
+Proof by Symmetric Property of Equality
+ 
+-/
+
+theorem bySymm: ∀ α : Type, ∀ p q: α, 
+    p = q → q = p 
+        /-
+        eq.symm applied to a proof of
+        p=q constructs a proof of q=p
+        -/
+        := λ α p q pf, eq.symm pf
+
+
+
+/- 
+Proof by Transitive Property of Eq 
+
+THe transitive property of equality
+provides a corresponding inference
+rule, p=q, q=r ⊢ p=r. In Lean this 
+rule is called eq.trans. We give an
+example its use in proving a theorem
+that simply asserts that equality 
+has the transitiveity property.
+-/
+
+theorem byTrans: 
+    ∀ α: Type, 
+        ∀ p q r: α, 
+            p = q → q = r → p = r 
+    /-
+    Applying eq.trans to a proof of p=q and
+    a proof of p=q and a proof of q=r yields
+    a proof of p=r.
+    -/
+    :=  λ α p q r pq qr, eq.trans pq qr
+
+/-
+In ordinary English we'd say "if p=q and
+q=r then p=r. We could write the theorem
+using and; we'd just have to access the
+proofs within the pair constituting the
+proof of the conjunction."
+-/
+
+theorem byTrans': 
+    ∀ α: Type, 
+        ∀ p q r: α, 
+            p = q ∧ q = r → p = r 
+    /-
+    Applying eq.trans to a proof of p=q and
+    a proof of p=q and a proof of q=r yields
+    a proof of p=r. Here we have to extract
+    the proofs of p=q and q=r from the proof
+    of (p=q ∧ q=r).
+    -/
+    :=  λ α p q r conj, 
+        eq.trans 
+            (and.elim_left conj)
+            (and.elim_right conj) 
+
+
+/- Optional: Substitutability of Equals -/
+
+theorem substutabilityOfEquals: 
+    ∀ α: Type, ∀ P: α → Prop, ∀ a1 a2: α,   
+        a1 = a2 → P a1 → P a2 :=
+        /-
+        If a1 equals a2, then if the predicate
+        (a proposition with a parameter), P, is
+        true of a1, then P is also true of a2.
+        -/
+            λ α P a1 a2 eql, eq.subst eql
+
+
+/- An exercise: Example of an Exam Question -/
+theorem eq_quiz: ∀ α: Type, ∀ p q r s: α, 
+    p = q → (p = q → r = s) → q = r → p = s :=
+        λ α p q r s pq pq_rs qr, 
+            eq.trans pq (eq.trans qr (pq_rs pq))
 
 
 /- INTRODUCTION AND ELIMINATION RULES -/
@@ -1235,7 +1362,11 @@ are the cases you need to prove P ∨ Q → R.
 The proof strategy is thus "by case analysis."
 -/
 
+
+/- *****************************-/
 /- *** FALSITY AND NEGATION *** -/
+/- *****************************-/
+
 
 /- ******* ¬P ******* -/
 
@@ -1246,7 +1377,43 @@ proves a proposition, ¬P, by showing
 that that an assumption that P is true 
 leads to a contraction. 
 
-¬P means P → false. 
+We highlight an important point here.
+This section is about proving ¬P by
+showing that if you assume there is a
+proof of P then you can prove "false",
+which is absurd. In classical logic, 
+you can prove P by showing a proof of
+¬P leads to a contradiction. This is
+the method of "proof by contradiction."
+It relies on the fact that ¬¬P → P,
+i.e., on double-negative elimination.
+In both propositional logic and in 
+classical predicate logic, this is a
+valid inference rule. It's not valid
+in the logic of lean unless one adds
+an axiom allowing it. You *should be*
+familiar with (1) the concept of
+double negative elimination, (2) the
+idea that it can be used to prove a
+proposition, P, in classical logic by
+showing that the assumption of ¬P 
+leads to a contradiction, therefore
+one can conclude ¬¬P, and then by
+double negative elimination, P. And
+you should be familiar with the fact
+that this form of reasoning is not
+valid in a constructive logic, such
+as that of Lean, without the addition
+of an extra "axiom" allowing it.
+
+So let's get back to the point at
+hand: ¬P means P → false. You prove 
+¬P by showing that assuming that there 
+is a proof of P enables you to build 
+a proof of false. That is, you show 
+¬P by showing that there is a function 
+that, given a proof of P, constructs
+and returns a proof of false.
 
 In a paper and pencil proof, one would 
 write, "We prove ¬P by showing that an
@@ -1265,25 +1432,21 @@ The key thing to remember is that the
 proposition (type) ¬P is defined to be
 exactly the proposition (function type)
 P → false. To prove ¬P you have to prove
-P → false, and this is done by defining
-a function that converts a proof of P
-into a proof of false. 
-
+P → false, and this is done, as for any
+proof of an implication, by defining a
+function that converts an assumed proof 
+of P into a proof of false. 
 
 It's not that you'd ever be able to 
 call such a function: because if ¬P 
 really is true, you'll never be able 
 to give a proof of P as an argument. 
-
-Rather, the function just promises 
-that *if* you could give a proof of 
-P as an argument, then you could in
-turn construct a proof of false as a
-result. It's the fact that can write
-such a function at all that proves 
-the implication that P → false, which
-is the definition of what it means 
-for ¬P to be (proved) true.
+Rather, the function serves to show
+that *if* you could be given a proof
+of P then you'd be able to return a
+proof of false, and because that's not
+possible (as there are no proofs of
+false), there must be no proof of P.
 -/
 
 /-
@@ -1294,7 +1457,7 @@ false, returns a proof of false. That's
 easy: just return the argument itself. 
 -/
 theorem notFalse: ¬false := 
-    λ f: false, f
+    λ pf: false, pf
 
 /-
 Strangely, in constructive logic, which
@@ -1522,7 +1685,6 @@ type inference to infer the values of P and Q.
 -/
 def notPbyContra' {P Q: Prop} (PimpQ: P → Q) (notQ: ¬ Q): ¬ P :=
     λ pfP: P, notQ (PimpQ pfP) 
-
 
 
 /- ******* BI-IMPLICATION ******** -/
