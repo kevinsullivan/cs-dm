@@ -392,38 +392,10 @@ and returns a proof of b = a. We do not get
 into the details at this time.
 -/
 
-/- 
-Proof by Reflexive Property of Equality.
 
-The reflexive property of equality
-provides a corresponding inference
-rule: forall α : Type, p: α ⊢ p=p. 
-That is, for any type, α, and any
-value, p, of that type, there is a
-proof of p = p. In Lean this rule
-is called eq.refl. When applied to
-a value, p, it produces a proof of
-p = p. The "rfl" construct that 
-you have already seen is just a 
-shorthand for applying eq.refl to
-the value to be proved equal to 
-itself. Here we give and example
-in which we just formalize the
-main idea: for any type and for
-any value of that type, there is
-a proof of equality of that value
-with itself.
--/
 
 theorem byRefl: ∀ α : Type, ∀ a : α, a = a
-        := λ (α: Type) (a: α), 
-        /-
-        Assuming α is any type, and p
-        is any value of that type, the
-        next line generates a proof of
-        p=p.
-        -/
-        eq.refl a
+        := λ (α: Type) (a: α), eq.refl a
 
 /-
 An English-language proof of p = p
@@ -439,16 +411,18 @@ sign.
 
 /- 
 Proof by Symmetric Property of Equality
- 
+
 -/
 
-theorem bySymm: ∀ α : Type, ∀ p q: α, 
-    p = q → q = p 
+theorem bySymm: ∀ α : Type, ∀ p q: α, p = q → q = p 
         /-
         eq.symm applied to a proof of
         p=q constructs a proof of q=p
         -/
-        := λ α p q pf, eq.symm pf
+        := λ (α: Type) (p q: α) (pfpq: p = q), 
+            eq.symm pfpq
+
+#check 1 = 2
 
 
 
@@ -467,13 +441,8 @@ has the transitiveity property.
 theorem byTrans: 
     ∀ α: Type, 
         ∀ p q r: α, 
-            p = q → q = r → p = r 
-    /-
-    Applying eq.trans to a proof of p=q and
-    a proof of p=q and a proof of q=r yields
-    a proof of p=r.
-    -/
-    :=  λ α p q r pq qr, eq.trans pq qr
+            p = q → q = r → p = r :=
+    λ α p q r pfpq pfqr, eq.trans pfpq pfqr
 
 /-
 In ordinary English we'd say "if p=q and
@@ -514,10 +483,16 @@ theorem substutabilityOfEquals:
 
 
 /- An exercise: Example of an Exam Question -/
-theorem eq_quiz: ∀ α: Type, ∀ p q r s: α, 
+theorem eq_quiz: ∀ (α : Type) (p q r s: α),
     p = q → (p = q → r = s) → q = r → p = s :=
-        λ α p q r s pq pq_rs qr, 
-            eq.trans pq (eq.trans qr (pq_rs pq))
+        λ α p q r s pfpq pfpqrs pfqr, 
+            eq.trans
+                (eq.trans
+                    pfpq
+                    pfqr)
+                (pfpqrs pfpq) 
+
+#check eq_quiz
 
 
 /- INTRODUCTION AND ELIMINATION RULES -/
