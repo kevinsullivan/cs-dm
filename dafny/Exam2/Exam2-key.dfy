@@ -1,6 +1,6 @@
 method Main()
 {
-    var S := {1, 2 };
+    var S := {1, 2, 3 };
     /*
     Replace the {} with a set comprehension expression
     that evalutes to the product set of s with itself. 
