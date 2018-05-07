@@ -1,7 +1,10 @@
 method Main()
 {
     var S := {1, 2, 3 };
-    /*
+    /* 
+
+    1.
+
     Replace the {} with a set comprehension expression
     that evalutes to the product set of s with itself. 
     */
@@ -13,9 +16,12 @@ method Main()
 
 
     /*
+
+    2.
+
     Replace the {} with a set comprehension expression
     that evalutes to the set of all binary relations on 
-    s. Hint: use "prod" in your expression.
+    S. Hint: use "prod" in your expression.
     */
     var rels := set R | R <= prod;
     /*
@@ -26,8 +32,11 @@ method Main()
     */
 
     /*
+
+    3. 
+
     Replace the 0 in the following print statement so
-    that it prints the number of binary relations on s.
+    that it prints the number of binary relations on S.
     */
     print "The # of relations is ", |rels|,  "\n";
     /*
@@ -38,6 +47,9 @@ method Main()
     */
 
     /*
+
+    4.
+
     Give a mathematical formula for the number of binary 
     relations on a finite set with cardinality, n.
 
@@ -59,9 +71,10 @@ method Main()
     Note: We are *not* using the binRelOnS class here.) 
     */
     
-    /*
+    /* 5.
+
     Replace the {} with a set comprehension expression
-    so that tots represents the set of partial functions 
+    so that parts represents the set of partial functions 
     on S. Hint: Take advantage of your definition of rels
     and your definitions of set theory predicates, below.
     Fix the print statement so it prints out the number
@@ -69,6 +82,8 @@ method Main()
     */
     var parts := set R | 
         R in rels && isFun (S, R);
+    var parts' := set R | 
+        R in rels && isFun (S, R) && !isTot(S, R);
     print "The # of partial functions is ", |parts|,  "\n";
     /*
     We'll take two answers here: consistent with binRelOnST, 
@@ -81,6 +96,9 @@ method Main()
 
 
     /*
+
+    6.
+
     Replace the {} with a set comprehension expression
     so that tots represents the set of total functions
     on S.
@@ -92,6 +110,9 @@ method Main()
     print "The # of total functions is ", |tots|,  "\n";
 
    /*
+
+   7.
+
     Replace the {} with a set comprehension expression
     so that tots represents the set of bijections on S.
     */
@@ -101,6 +122,9 @@ method Main()
 
 
     /*
+
+    8.
+
     Give a mathematical expression for the number of
     bijections on a set of cardinality n. Hint: vary 
     the size of S between 0 and 4 and see if you can
@@ -109,6 +133,8 @@ method Main()
     you apply a bijection to each element of a set?
     
     Your answer here: n!
+
+    8a. 52! is the answer
 
     Small extra credit: Give a mathematical expression
     for the number of possible orderings (shufflings) of
@@ -138,6 +164,9 @@ method Main()
 
     }
 /*
+
+9.
+
 Replace the body of this defintion with a predicate
 (a proposition involving S and R) that states that 
 if there is a pair (x, y) in R then both x and y 
@@ -158,6 +187,10 @@ S. That's what the specification here says.
 */
 
 /*
+
+10.
+
+
 Replace the body of this defintion with a predicate
 that states that the relation is total, in the sense
 that the relation is defined for every value in S.
@@ -176,6 +209,10 @@ For every x in S there has to be a y in S such that
 
 
 /*
+
+11.
+
+
 Replace the body of this definition with a predicate
 that expresses that the relation R is a function on S.
 */
@@ -192,6 +229,9 @@ to be in R is for y=z.
 */
 
 /*
+
+12. 
+
 Modify this this definition to expresses that the 
 relation R is both a function and that it is surjective.
 Make "being a function" a precondition.
@@ -210,6 +250,9 @@ said to be "onto".
 */
 
 /*
+
+13.
+
 Modify this this definition to expresses that the 
 relation R is both an injective function. Make "being 
 a function" a precondition.
@@ -229,6 +272,9 @@ x = y.
 */
 
 /*
+
+14. 
+
 Modify this this definition to expresses that the 
 relation R is a bijection. Make "being a function" 
 a precondition. Do not (directly) use quantifiers
