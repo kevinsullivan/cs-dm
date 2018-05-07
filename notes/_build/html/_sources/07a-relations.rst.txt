@@ -1,5 +1,7 @@
-Relations
-=========
+************
+5. Relations
+************
+
 
 A relation in nothing but a subset of (the tuples in) a product set. A
 table such as the one just described, will, in practice, usually not

@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Relations &#8212; Discrete Mathematics for Software Professionals 1 documentation</title>
+    <title>5. Relations &#8212; Discrete Mathematics for Software Professionals 1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -50,7 +50,7 @@
           <div class="body" role="main">
             
   <div class="section" id="relations">
-<h1>Relations<a class="headerlink" href="#relations" title="Permalink to this headline">¶</a></h1>
+<h1>5. Relations<a class="headerlink" href="#relations" title="Permalink to this headline">¶</a></h1>
 <p>A relation in nothing but a subset of (the tuples in) a product set. A
 table such as the one just described, will, in practice, usually not
 have a row with every possible combination of names, birthdays, and
@@ -75,9 +75,8 @@ sets and returns the set of all possible relations over the sets. Use
 a set comprehension expression rather than writing a while loop. Be
 careful: the number of possible relations will be very large even in
 cases where the given sets contain only a few elements each.</p>
-</div>
 <div class="section" id="binary-relations">
-<h1>Binary Relations<a class="headerlink" href="#binary-relations" title="Permalink to this headline">¶</a></h1>
+<h2>Binary Relations<a class="headerlink" href="#binary-relations" title="Permalink to this headline">¶</a></h2>
 <p>Binary relations, which play an especially important role in
 mathematics and computer science, are relations over just <em>2</em>
 sets. Suppose <img class="math" src="_images/math/8976c2854fcacf02af1366971f1c7b69eb0420e4.png" alt="R \subseteq S \times T"/> is a binary relation on
@@ -234,7 +233,7 @@ requires isDefinedFor(k);  // and that is non-empty</div></blockquote>
 </dd>
 </dl>
 <div class="section" id="inverse">
-<h2>Inverse<a class="headerlink" href="#inverse" title="Permalink to this headline">¶</a></h2>
+<h3>Inverse<a class="headerlink" href="#inverse" title="Permalink to this headline">¶</a></h3>
 <p>The inverse of a given binary relation is simply the set of tuples
 formed by reversing the order of all of the given tuples. To put this
 in mathematical notation, if <em>R</em> is a relation, its inverse, denoted
@@ -271,7 +270,7 @@ definition of what it means for a relation to be single valued.</p>
 </div>
 </div>
 <div class="section" id="functions-single-valued-relations">
-<h1>Functions: <em>Single-Valued</em> Relations<a class="headerlink" href="#functions-single-valued-relations" title="Permalink to this headline">¶</a></h1>
+<h2>Functions: <em>Single-Valued</em> Relations<a class="headerlink" href="#functions-single-valued-relations" title="Permalink to this headline">¶</a></h2>
 <p>A binary-relation is said to be <em>single-valued</em> if it does not have
 tuples with the same first element and different second elements.  A
 single-valued binary relation is also called a <em>function</em>.  Another
@@ -328,11 +327,11 @@ satisfying the precondition that it be invertible and that in this
 case returns its inverse, also as a map.</p>
 </div>
 <div class="section" id="properties-of-functions">
-<h1>Properties of Functions<a class="headerlink" href="#properties-of-functions" title="Permalink to this headline">¶</a></h1>
+<h2>Properties of Functions<a class="headerlink" href="#properties-of-functions" title="Permalink to this headline">¶</a></h2>
 <p>We now introduce essential concepts and terminology regarding for
 distinguishing essential properties and special cases of functions.</p>
 <div class="section" id="total-vs-partial">
-<h2>Total vs Partial<a class="headerlink" href="#total-vs-partial" title="Permalink to this headline">¶</a></h2>
+<h3>Total vs Partial<a class="headerlink" href="#total-vs-partial" title="Permalink to this headline">¶</a></h3>
 <p>A function is said to be <em>total</em> if every element of its domain
 appears as the first element in at least one tuple, i.e., its
 <em>support</em> is its entire <em>domain</em>.  A function that is not total is
@@ -377,7 +376,7 @@ such a box, one must explicitly check to see whether the box has a
 good value in it or, alternatively, and error flag.</p>
 </div>
 <div class="section" id="injective">
-<h2>Injective<a class="headerlink" href="#injective" title="Permalink to this headline">¶</a></h2>
+<h3>Injective<a class="headerlink" href="#injective" title="Permalink to this headline">¶</a></h3>
 <p>A function is said to be <em>injective</em> if no two elements of the domain
 are associated with the same element in the co-domain. (Note that we
 are limiting the concept of injectivity to functions.) An injective
@@ -406,7 +405,7 @@ injective.</p>
 for a binary relation to be injective.  Is the cube root function
 injective? Is <em>f(x) = sin(x)</em> injective?</p>
 <div class="section" id="an-aside-injectivity-in-type-theory">
-<h3>An Aside: Injectivity in Type Theory<a class="headerlink" href="#an-aside-injectivity-in-type-theory" title="Permalink to this headline">¶</a></h3>
+<h4>An Aside: Injectivity in Type Theory<a class="headerlink" href="#an-aside-injectivity-in-type-theory" title="Permalink to this headline">¶</a></h4>
 <p>As an aside, we note that the concept of injectivity is essential in
 <em>type theory</em>.  Whereas <em>set theory</em> provides a universally accepted
 axiomatic foundation for mathematics, <em>type</em> theory is of increasing
@@ -448,7 +447,7 @@ about programs using type theory. But more on this later.</p>
 </div>
 </div>
 <div class="section" id="surjective">
-<h2>Surjective<a class="headerlink" href="#surjective" title="Permalink to this headline">¶</a></h2>
+<h3>Surjective<a class="headerlink" href="#surjective" title="Permalink to this headline">¶</a></h3>
 <p>A function is said to be <em>surjective</em> if for every element, <em>t</em>, in
 the co-domain there is some element, <em>s</em> in the domain such that
 <em>(s,t)</em> is in the relation. That is, the range <em>range</em> of the function
@@ -472,7 +471,7 @@ can you connect these definitons to show for sure that your answer is
 right?</p>
 </div>
 <div class="section" id="bijective">
-<h2>Bijective<a class="headerlink" href="#bijective" title="Permalink to this headline">¶</a></h2>
+<h3>Bijective<a class="headerlink" href="#bijective" title="Permalink to this headline">¶</a></h3>
 <p>A function is said to be <em>bjective</em> if it is also both injective and
 surjective. Such a function is also often called a <em>bijection</em>.</p>
 <p>Take a moment to think about the implications of being a bijection.
@@ -552,14 +551,14 @@ that when applied has the effect of first applying <em>T</em> then applying
 </div>
 </div>
 <div class="section" id="properties-of-relations">
-<h1>Properties of Relations<a class="headerlink" href="#properties-of-relations" title="Permalink to this headline">¶</a></h1>
+<h2>Properties of Relations<a class="headerlink" href="#properties-of-relations" title="Permalink to this headline">¶</a></h2>
 <p>Functions are special cases of (single-valued) binary relations.  The
 properties of being partial, total, injective, surjective, bijective
 are generally associated with <em>functions</em>, i.e., with relations that
 are already single-valued. Now we turn to properties of relations more
 generally.</p>
 <div class="section" id="reflexive">
-<h2>Reflexive<a class="headerlink" href="#reflexive" title="Permalink to this headline">¶</a></h2>
+<h3>Reflexive<a class="headerlink" href="#reflexive" title="Permalink to this headline">¶</a></h3>
 <p>Consider a binary relation on a set with itself.  That is, the domain
 and the co-domain are the same sets. A relation that maps real numbers
 to real numbers is an example. It is a subset of <img class="math" src="_images/math/ef4ff4c9b71a95ce07b703abefa85883c885b0b7.png" alt="{\mathbb R}
@@ -584,7 +583,7 @@ in this relation becaue <em>2</em> is less than or equal to <em>3</em>, and so i
 or equal to <em>3</em>. Is the less than relation reflexive?</p>
 </div>
 <div class="section" id="symmetric">
-<h2>Symmetric<a class="headerlink" href="#symmetric" title="Permalink to this headline">¶</a></h2>
+<h3>Symmetric<a class="headerlink" href="#symmetric" title="Permalink to this headline">¶</a></h3>
 <p>A binary relation, <em>R</em>, on a set <em>S</em> is said to be <em>symmetric</em> if
 whenever the tuple <em>(x,y)</em> is in <em>R</em>, the tuple, <em>(y,x)</em> is in <em>R</em> as
 well. On Facebook, for example, if Joe is “friends” with “Tom” then
@@ -602,7 +601,7 @@ symmetric? If <em>A</em> is <em>near</em> <em>B</em> then <em>B</em> is <em>near
 symmetric? In the real work is the <em>has-crush-on</em> relation symmetric?</p>
 </div>
 <div class="section" id="transitive">
-<h2>Transitive<a class="headerlink" href="#transitive" title="Permalink to this headline">¶</a></h2>
+<h3>Transitive<a class="headerlink" href="#transitive" title="Permalink to this headline">¶</a></h3>
 <p>Given a binary relation <img class="math" src="_images/math/badf8967a9e750fa49296dc504efdd8360424458.png" alt="R \subseteq S \times S"/>, <em>R</em> is said to
 be transitive if whenever <em>(x,y)</em> is in <em>R</em> and <em>(y,z)</em> is in <em>R</em>,
 then <em>(x,z)</em> is also in <em>R</em>. Formally, <img class="math" src="_images/math/2209188eabeeb58472953f1513897f62a1f1a32c.png" alt="Transitive(R) \iff
@@ -620,7 +619,7 @@ human “likes” relation is definitely not transitive. (And this is the
 cause of many a tragedy.)</p>
 </div>
 <div class="section" id="equivalence">
-<h2>Equivalence<a class="headerlink" href="#equivalence" title="Permalink to this headline">¶</a></h2>
+<h3>Equivalence<a class="headerlink" href="#equivalence" title="Permalink to this headline">¶</a></h3>
 <p>Finally (for now), a relation is said to be an <em>equivalence relation</em>
 if it is reflexive, transitive, and symmetric. Formally, we can write
 this property as a conjunction of the three individual properties:
@@ -641,7 +640,7 @@ equivalence relation is being considered).</p>
 </div>
 </div>
 <div class="section" id="new-stuff">
-<h1>NEW STUFF<a class="headerlink" href="#new-stuff" title="Permalink to this headline">¶</a></h1>
+<h2>NEW STUFF<a class="headerlink" href="#new-stuff" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>/<strong>*********************************</strong>/</dt>
 <dd><blockquote class="first">
@@ -1277,10 +1276,10 @@ ensures Valid();</div></blockquote>
 </dl>
 </div>
 <div class="section" id="end-new-stuff">
-<h1>END NEW STUFF<a class="headerlink" href="#end-new-stuff" title="Permalink to this headline">¶</a></h1>
+<h2>END NEW STUFF<a class="headerlink" href="#end-new-stuff" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="sequences">
-<h1>Sequences<a class="headerlink" href="#sequences" title="Permalink to this headline">¶</a></h1>
+<h2>Sequences<a class="headerlink" href="#sequences" title="Permalink to this headline">¶</a></h2>
 <p>A sequence of elements is an ordered collection in which elements can
 appear zero or more times. In both mathematical writing and in Dafny,
 sequences are often denoted as lists of elements enclosed in square
@@ -1318,7 +1317,7 @@ See the Dafny language summary for examples of these and other related
 operations on lists.</p>
 </div>
 <div class="section" id="break">
-<h1>BREAK<a class="headerlink" href="#break" title="Permalink to this headline">¶</a></h1>
+<h2>BREAK<a class="headerlink" href="#break" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><blockquote>
 <div><blockquote>
@@ -1556,6 +1555,7 @@ ensures r.rel() == set x, y | x in dom() &amp;&amp; y in dom() &amp;&amp;</p>
 </dd>
 </dl>
 </div></blockquote>
+</div>
 </div>
 
 
