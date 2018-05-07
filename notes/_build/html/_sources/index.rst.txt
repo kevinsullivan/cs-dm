@@ -19,11 +19,12 @@ Welcome to Mathematical Logic in Software Development
    07-set-theory
    07a-relations
    08-boolean-algebra
+   08a-formal-languages
    09-propositional-logic
    09a-satisfiability
    09a-consequence
-   10-natural-deduction
    11-predicate-logic
+   10-natural-deduction
    12-induction
 
 Indices and tables

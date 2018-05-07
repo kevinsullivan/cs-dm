@@ -1,0 +1,377 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>8. Formal Languages &#8212; Discrete Mathematics for Software Professionals 1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/sidebar.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="9. Propositional Logic" href="09-propositional-logic.html" />
+    <link rel="prev" title="8. Boolean Algebra" href="08-boolean-algebra.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="09-propositional-logic.html" title="9. Propositional Logic"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="08-boolean-algebra.html" title="8. Boolean Algebra"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="formal-languages">
+<h1>8. Formal Languages<a class="headerlink" href="#formal-languages" title="Permalink to this headline">¶</a></h1>
+<p>Any introduction to programming will have made it clear that there is
+an infinite set of Boolean expressions. For example, in Dafny, <em>true</em>
+is a Boolean expression; so are <em>false</em>, <em>true || false</em>, <em>(true ||
+false) &amp;&amp; (!false)</em>, and one could keep going on forever.</p>
+<p>Boolean <em>expressions</em>, as we see here, are a different kind of thing
+than Boolean <em>values</em>. There are only two Boolean values, but there is
+an infinity of Boolean expressions. The connection is that each such
+expression has a corresponding Boolean truth value. For example, the
+expression, <em>(true || false) &amp;&amp; (!false)</em> has the value, <em>true</em>.</p>
+<p>The set of valid Boolean expressions is defined by the <em>syntax</em> of the
+Boolean expression language. The sequence of symbols, <em>(true || false)
+&amp;&amp; (!false)</em>, is a valid expression in the language, for example, but
+<em>)( true false()||) false !&amp;&amp;</em> is not, just as the sequence of words,
+“Mary works long hours” is a valid sentence in the English language,
+but “long works hours Mary” isn’t.</p>
+<p>The syntax of a language defines the set of valid sentences in the
+language. The semantics of a language gives a meaning to each valid
+sentence in the language. In the case of Boolean expressions, the
+meaning given to each valid “sentence” (expression) is simply the
+Boolean value that that expression <em>reduces to</em>.</p>
+<p>In the rest of this chapter, we use the case of Boolean expressions to
+introduce the concepts of the <em>syntax</em> and the <em>semantics</em> of <em>formal
+languages</em>. The syntax of a formal language precisely defines a set of
+<em>expressions</em> (sometimes called sentences or formulae). A <em>semantics</em>
+associates a <em>meaning</em>, in the form of a <em>value</em>, with each expression
+in the language.</p>
+<div class="section" id="the-syntax-of-boolean-expressions-inductive-definitions">
+<h2>The Syntax of Boolean Expressions: Inductive Definitions<a class="headerlink" href="#the-syntax-of-boolean-expressions-inductive-definitions" title="Permalink to this headline">¶</a></h2>
+<p>As an example of syntax, the <em>true</em>, in the statement, <em>var b :=
+true;</em> is a valid expression in the language of Boolean expressions,
+as defined by the <em>syntaxt</em> of this language. The semantics of the
+language associates the Boolean <em>value</em>, <em>true</em>, with this expression.</p>
+<p>You probably just noticed that we used the same symbol, <em>true</em>, for
+both an expression and a value, blurring the distinction between
+expressions and values. Expressions that directly represent values are
+called <em>literal expressions</em>. Many languages use the usual name for a
+value as a literal expression, and the semantics of the language then
+associate each such expression with its corresponding value.</p>
+<p>In the semantics of practical formal languages, literal expressions
+are assigned the values that they name. So the <em>expression</em>, <em>true</em>,
+means the <em>value</em>, <em>true</em>, for example. Similarly, when <em>3</em> appears on
+the right side of an assignment/update statement, such as in <em>x := 3</em>,
+it is an <em>expression</em>, a literal expression, that when <em>evaluated</em> is
+taken to <em>mean</em> the natural number (that we usually represent as) <em>3</em>.</p>
+<p>As computer scientists interested in languages and meaning, we can
+make these concepts of syntax and semantics not only precisely clear
+but also <em>runnable</em>. So let’s get started.</p>
+<div class="section" id="the-syntax-and-semantics-of-simplified-boolean-expression-language">
+<h3>The Syntax and Semantics of <em>Simplified</em> Boolean Expression Language<a class="headerlink" href="#the-syntax-and-semantics-of-simplified-boolean-expression-language" title="Permalink to this headline">¶</a></h3>
+<p>We start by considering a simplified language of Boolean expressions:
+one with only two literal expressions.  To make it clear that they are
+not Boolean values but expressions, we will call them not <em>true</em> and
+<em>false</em> but <em>bTrue</em> and <em>bFalse</em>.</p>
+<div class="section" id="syntax">
+<h4>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h4>
+<p>We can represent the syntax of this language in Dafny using what we
+call an <em>inductive data type definition.</em> A data type defines a set of
+values. So what we need to define is a data type whose values are all
+and only the valid expressions in the language. The data type defines
+the <em>syntax</em> of the language.</p>
+<p>In the current case, we need a type with only two values, each one of
+them representing a valid expression in our language. Here’s how we’d
+write it in Dafny.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>datatype Bexp =
+     bTrue |
+     bFalse
+</pre></div>
+</div>
+<p>The definition starts with the <em>datatype</em> keyword, followed by the
+name of the type being defined (<em>Bexp</em>, short for Boolean expression)
+then an equals sign, and finally a list of <em>constructors</em> separated by
+vertical bar characters. The constructors define the ways in which the
+values of the type (or <em>terms</em>) can be created. Each constructor has a
+and can take optional parameters. Here the names are <em>bTrue</em> and
+<em>bFalse</em> and neither takes any parameters.</p>
+<p>The only values of an inductive type are those that can be built using
+the provided constructors. So the language that we have specified thus
+far has only two values, which we take to be the valid expressions in
+the language we are specifying, namely <em>bTrue</em> and <em>bFalse</em>.  That is
+all there is to specifying the <em>syntax</em> of our simplified language of
+Boolean expressions.</p>
+</div>
+<div class="section" id="semantics">
+<h4>Semantics<a class="headerlink" href="#semantics" title="Permalink to this headline">¶</a></h4>
+<p>To give a preview of what is coming, we now specify a semantics for
+this language. Speaking informally, we want to associate, to each of
+the expressions, a correponding meaning in the form of a Boolean
+value.  We do this by defining a <em>function</em> that takes an expression
+(a value of type <em>bExp</em>) as an argument and that returns the Boolean
+<em>value</em> that the semantics defines as the meaning of that expression.
+Here, we want a function that returns Dafny’s Boolean value <em>true</em> for
+the expression, <em>bTrue</em>, and the Boolean value <em>false</em> for <em>bFalse</em>.</p>
+<p>Here’s how we can write this function in Dafny.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>function method bEval(e: bExp): bool
+{
+  match e
+  {
+      case bTrue =&gt; true
+      case bFalse =&gt; false
+  }
+}
+</pre></div>
+</div>
+<p>As a shorhand for <em>Boolean semantic evaluator</em> we call it <em>bEval</em>. It
+takes an expression (a value of type, <em>bExp</em>) and returns a Boolean
+value.  The function implementation uses an important construct that
+is probably new to most readers: a <em>match</em> expression. What a match
+expression does is to: first determine how a value of an inductive
+type was buit, namely what constructor was used and what arguments
+were provided (if any) and then to compute a result for the case at
+hand.</p>
+<p>The match expression starts with the match keyword followed by the
+variable naming the value being matched. Then within curly braces
+there is a <em>case</em> for each constructor for the type of that value.
+There are two constructors for the type, <em>bExp</em>, so there are two
+cases. Each case starts with the <em>case</em> keyword, then the name of a
+constructor followed by an argument list if the construtor took
+parameters. Neither constructor took any parameters, so there is no
+need to deal with parameters here. The left side thus determines how
+the value was constructed. Each case has an arrow, <em>=&gt;</em>, that is
+followed by an expression that when evaluated yields the result <em>for
+that case</em>.</p>
+<p>The code here can thus be read as saying, first look at the given
+expression, then determine if it was <em>bTrue</em> or <em>bFalse</em>. In the first
+case, return <em>true</em>. In the second case, return <em>false</em>. That is all
+there is to defining a semantics for this simple language.</p>
+</div>
+</div>
+<div class="section" id="the-syntax-of-a-complete-boolean-expression-language">
+<h3>The Syntax of a Complete Boolean Expression Language<a class="headerlink" href="#the-syntax-of-a-complete-boolean-expression-language" title="Permalink to this headline">¶</a></h3>
+<p>The real language of Boolean expressions has many more than two valid
+expressions, of course. In Dafny’s Boolean expression sub-language,
+for example, one can write not only the literal expressions, <em>true</em>
+and <em>false</em>, but also expressions such as <em>(true || false) &amp;&amp; (not
+false)</em>.</p>
+<p>There is an infinity of such expressions, because given any one or two
+valid expressions (starting with <em>true</em> and <em>false</em>) we can always
+build a bigger expression by combing the two given ones with a Boolean
+operator. No matter how complex expressions <em>P</em> and <em>Q</em> are, we can,
+for example, always form the even more complex expressions, <em>!P</em>, <em>P
+&amp;&amp; Q</em>, and <em>P || Q</em>, among others.</p>
+<p>How can we extend the syntax of our simplified language so that it
+specifies the infinity set of well formed expressions in the language
+of Boolean expressions? The answer is that we need to add some more
+cosntructors. In particular, for each Boolean operator (including
+<em>and, or</em>, and <em>not</em>), we need a a constructor that takes the right
+number of smaller expressions as arguments and the builds the right
+larger expression.</p>
+<p>For example, if <em>P</em> and <em>Q</em> are arbitrary “smaller” expressions, we
+need a consructor to build the expression <em>P and Q</em>, a constructor to
+build the expression, <em>P or Q</em>, and one that can build the expressions
+<em>not P</em> and <em>not Q</em>. Here then is the induction: some constructors of
+the <em>bExp</em> type will take values of the very type we’re defining as
+parameters. And because we’ve defined some values as constants, we
+have some expressions to get started with. Here’s how we’d write the
+code in Dafny.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>datatype bExp =
+     bTrue |
+     bFalse |
+     bNot (e: bExp) |
+     bAnd (e1: bExp, e2: bExp) |
+     bOr (e1: bExp, e2: bExp)
+</pre></div>
+</div>
+<p>We’ve added three new constructors: one corresponding to each of the
+<em>operator</em> in Boolean algebra (to keep things simple, we’re dealing
+with only three of them here). We have named each constructor in a way
+that makes the connection to the corresponding operator clear.</p>
+<p>We also see that these new constructors take parameters. The <em>bNot</em>
+constructor takes a “smaller” expression, <em>e</em>, and builds/returns the
+expression, <em>bNot e</em>, which we will interpret as <em>not e</em>, or, as we’d
+write it in Dafny, <em>!e</em>. Similarly, given expressions, <em>e1</em> and <em>e2</em>,
+the <em>bAnd</em> and <em>bOr</em> operators construct the expressions <em>bAnd(e1,e2)</em>
+and <em>bOr(e1,e2)</em>, respectively, representing <em>e1 and e2</em> and <em>e1 or
+e2</em>, respectively, or, in Dafny syntax, <em>e1 &amp;&amp; e2</em> and <em>e1 || e2</em>.</p>
+<p>An expression in our <em>bExp</em> language for the Dafny expression <em>(true
+|| false) and (not false))</em> would be written as <em>bAnd( (bOr (bTrue,
+bFalse)), (bNot bFalse))</em>. Writing complex expressions like this in
+a single line of code can get awkward, to we could also structure the
+code like this:</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>var T: bExp := bTrue;
+var F:      := bFalse;
+var P:      := bOr ( T,  F );
+var Q       := bNot ( F );
+var R       := bAnd ( P, Q );
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="the-semantics-of-boolean-expressions-recursive-evaluation">
+<h2>The Semantics of Boolean Expressions: Recursive Evaluation<a class="headerlink" href="#the-semantics-of-boolean-expressions-recursive-evaluation" title="Permalink to this headline">¶</a></h2>
+<p>The remaining question, then, is how to give meanings to each of the
+expressions in the infinite set of expressions that can be built by
+finite numbers of applications of the constructor of our extended
+<em>bExp</em> type? When we had only two values in the type, it was easy to
+write a function that returned the right meaning-value for each of the
+two cases. We can’t possibly write a separate case, though, for each
+of an infinite number of expressions. The solution lies again in the
+realm of recursive functions.</p>
+<p>Such a function will simply do mechanically what you the reader would
+do if presented with a complex Boolean expression to evaluate.  You
+first figure out what operator was applied to what smaller expression
+or expressions. You then evaluate those expressions to get values for
+them. And finally you apply the Boolean operator to those values to
+get a result.</p>
+<p>Take the expression, <em>(true || false) and (not false))</em>, which in our
+language is expressed by the term, <em>bAnd( (bOr (bTrue, bFalse)), (bNot
+bFalse))</em>. First we identify the <em>constructor</em> that was used to build
+the expression In this case it’s the constructor corresponding to the
+<em>and</em> operator: <em>&amp;&amp;</em> in the Dafny expression and the <em>bAnd</em> in our own
+expression language. What we then do depends on what case has occured.</p>
+<p>In the case at hand, we are looking at the constructor for the <em>and</em>
+operator. It took two smaller expressions as arguments. To enable the
+precise expression of the return result, ew given temporary names to
+the argument values that were passed to the constructor. We can call
+them <em>e1</em> and <em>e2</em>, for example.
+sub-expressions that the operator was applied to.</p>
+<p>In this case, <em>e1</em> would be <em>(true || false)</em> and <em>e2</em> would be <em>(not
+false)</em>. To compute the value of the whole expression, we then obtain
+Boolean values for each of <em>e1</em> and <em>e2</em> and then combine them using
+the Boolean <em>and</em> operator.</p>
+<p>The secret is that we get the values for <em>e1</em> and <em>e2</em> by the very
+same means: recursively! Within the evaluation of the overall Boolean
+expression, we thus recursively evaluate the subexpressions. Let’s
+work through the recursive evaluation of <em>e1</em>. It was built using the
+<em>bOr</em> constructor. That constructor took two arguments, and they were,
+in this instance, the literal expressions, <em>bTrue</em> and <em>bFalse</em>. To
+obtain an overall result, we recursively evaluate each of these
+expressions and then combine the result using the Boolean <em>or</em>
+operator. Let’s look at the recursive evaluation of the <em>bTrue</em>
+expression. It just evaluates to the Boolean value, <em>true</em> with no
+further recursion, so we’re done with that. The <em>bFalse</em> evaluates to
+<em>false</em>. These two values are then combined using <em>or</em> resulting in
+a value of <em>true</em> for <em>eq</em>. A similarly recursive process produces
+the value, <em>true</em>, for <em>e2</em>. (Reason through the details yourself!)
+And finally the two Boolean values, <em>true</em> and <em>true</em> are combined
+using Boolean <em>and</em>, and a value for the overall expression is thus
+computed and returned.</p>
+<p>Here’s the Dafny code.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>function method bEval(e: bExp): (r: bool)
+{
+    match e
+    {
+        case bTrue =&gt; true
+        case bFase =&gt; false
+        case bNot(e: bExp) =&gt; !bEval(e)
+        case bAnd(e1, e2) =&gt; bEval(e1) &amp;&amp; bEval(e2)
+        case bOrEe1, e2) =&gt;  bEval(e1) || bEval(e2)
+    }
+}
+</pre></div>
+</div>
+<p>This code extends our simpler example by adding three cases, one for
+each of the new constructor. These constructors took smaller
+expression values as arguments, so the corresponding cases have used
+parameter lists to temporarily give names (<em>e1</em>, <em>e2</em>, etc.) to the
+arguments that were given when the constructor was orginally used.
+These names are then used to write the expressions on the right sides
+of the arrows, to compute the final results.</p>
+<p>These result-computing expressions use recursive evalation of the
+constitute subexpressions to obtain their meanings (actual Boolean
+values in Dafny) which they then combine using actual Dafny Boolean
+operators to produce final results.</p>
+<p>The meaning (Boolean value) of any of the infinite number of Boolean
+expressions in the Boolean expression language defined by our syntax
+(or <em>grammar</em>) can be found by a simple application of our <em>bEval</em>
+function. To compute the value of <em>R</em>, above, for example, we just run
+<em>bEval(R)</em>. For this <em>R</em>, this function will without any doubt return
+the intended result, <em>true</em>.</p>
+</div>
+<div class="section" id="the-syntax-and-semantics-of-programming-languages">
+<h2>The Syntax and Semantics of Programming Languages<a class="headerlink" href="#the-syntax-and-semantics-of-programming-languages" title="Permalink to this headline">¶</a></h2>
+<p>Syntax defines legal expressions. Semantics give each legal expression
+an associated meaning. The meanings of Boolean expressions are Boolean
+values. Using exactly the same ideas used here for Boolean expressions
+we could not only specify but compute with the syntax semantics of a
+language of arithmetic expressions.</p>
+<p>Indeed, the same ideas apply to programming language. A programming
+language has a syntax. It defines the set of valid “programs” in that
+language. A programming language also has a semantics, It specifies
+what each such program means. However, th meaning of a program is not
+captured in a single value. Rather, it is expressed ina relation that
+explains how running the programs transforms any pre-execution state
+that satisfies the program preconditions into a post-execution state.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="08-boolean-algebra.html"
+                        title="previous chapter">8. Boolean Algebra</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="09-propositional-logic.html"
+                        title="next chapter">9. Propositional Logic</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="09-propositional-logic.html" title="9. Propositional Logic"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="08-boolean-algebra.html" title="8. Boolean Algebra"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright .
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
+  </body>
+</html>
