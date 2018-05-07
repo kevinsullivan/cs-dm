@@ -20,7 +20,8 @@ module syntax
         pNot (e: prop) |
         pAnd (e1: prop, e2: prop) |
         pOr (e1: prop, e2: prop) |
-        pImpl (e1: prop, e2: prop)
+        pImpl (e1: prop, e2: prop) |
+        pEquiv(e1: prop, e2: prop)
 
     method foo()
     {
@@ -71,6 +72,12 @@ module syntax
                 var s1:= showProp(e1);
                 var s2:= showProp(e2);
                 return "Implies(" + s1 + ", " + s2 + ")";
+            }
+            case pEquiv(e1, e2) => 
+            {
+                var s1:= showProp(e1);
+                var s2:= showProp(e2);
+                return "Iff(" + s1 + ", " + s2 + ")";
             }
         }
     }

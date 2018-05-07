@@ -91,7 +91,8 @@ module variables
             case pNot(e') => varInExp(v,e')
             case pAnd(e',e'') => varInExp(v,e') || varInExp(v,e'')
             case pOr(e',e'') => varInExp(v,e') || varInExp(v,e'')
-            case pImpl(e',e'') => varInExp(v,e') || varInExp(v,e'')   
+            case pImpl(e',e'') => varInExp(v,e') || varInExp(v,e'')  
+            case pEquiv(e',e'') => varInExp(v,e') || varInExp(v,e'')
         }
     }
     
@@ -144,6 +145,8 @@ module variables
             case pOr (e1: prop, e2: prop) =>
                 r + getVarsInProp(e1) + getVarsInProp(e2)
             case pImpl (e1: prop, e2: prop) =>
+                r + getVarsInProp(e1) + getVarsInProp(e2)
+            case pEquiv (e1: prop, e2: prop) =>
                 r + getVarsInProp(e1) + getVarsInProp(e2)
         }
     }

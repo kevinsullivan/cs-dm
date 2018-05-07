@@ -90,5 +90,17 @@ module consequence_test
 
         var deny_antecedent := (([pImpl(P,Q)],pImpl(pNot(P),pNot(Q))),"deny antecedent");
         checkAndShowInferenceRule(deny_antecedent);
+
+        /*
+        Exam 2 consequence answers
+        */
+        var iff_elim_l := (([pEquiv(P,Q)], pImpl(P,Q)),"iff_elim_l");
+        checkAndShowInferenceRule(iff_elim_l);
+
+        var iff_elim_r := (([pEquiv(P,Q)], pImpl(Q,P)),"iff_elim_r");
+        checkAndShowInferenceRule(iff_elim_r);
+
+        var iff_intro := (([pImpl(P,Q), pImpl(Q,P)], pEquiv(P,Q)),"iff_intro");
+        checkAndShowInferenceRule(iff_intro);
     }
 }

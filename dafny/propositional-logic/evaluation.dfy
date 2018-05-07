@@ -27,6 +27,7 @@
             case pAnd(e1, e2) => pEval(e1,i) && pEval(e2, i)
             case pOr(e1, e2) =>  pEval(e1, i) || pEval(e2, i)
             case pImpl(e1, e2) => pEval(e1, i) ==> pEval(e2, i)
+            case pEquiv(e1, e2) => pEval(e1, i) <==> pEval(e2, i)
         }
     }    
  }
