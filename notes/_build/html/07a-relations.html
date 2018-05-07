@@ -1,0 +1,1597 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Relations &#8212; Discrete Mathematics for Software Professionals 1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/sidebar.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="8. Boolean Algebra" href="08-boolean-algebra.html" />
+    <link rel="prev" title="7. Set Theory" href="07-set-theory.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="08-boolean-algebra.html" title="8. Boolean Algebra"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="07-set-theory.html" title="7. Set Theory"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="relations">
+<h1>Relations<a class="headerlink" href="#relations" title="Permalink to this headline">¶</a></h1>
+<p>A relation in nothing but a subset of (the tuples in) a product set. A
+table such as the one just described, will, in practice, usually not
+have a row with every possible combination of names, birthdays, and
+SSNs. In other words, it won’t be the entire product of the sets from
+which the field values drawn. Rather, it will usually contain a small
+subset of the product set.</p>
+<p>In mathematical writing, we will thus often see a sentence of the
+form, Let <img class="math" src="_images/math/8976c2854fcacf02af1366971f1c7b69eb0420e4.png" alt="R \subseteq S \times T"/> be a (binary) relation on <em>S</em>
+and <em>T</em>. All this says is that <em>R</em> is some subset of the set of all
+tuples in the product set of <em>S</em> and <em>T</em>. If <em>S = { hot, cold }</em> and
+<em>T = { cat, dog }</em>, then the product set is <em>{ (hot, cat), (hot, dog),
+(cold, cat), (cold, dog) }</em>, and a relation on <em>S</em> and <em>T</em> is any
+subset of this product set.  The set, <em>{ (hot, cat), (cold, dog) }</em> is
+thus one such relation on <em>S</em> and <em>T</em>.</p>
+<p>Here’s an exercise. If <em>S</em> and <em>T</em> are finite sets, with cardinalities
+<em>|S| = n</em> and <em>|T| = m</em>, how many relations are there over <em>S</em> and
+<em>T</em>? Hint: First, how many tuples are in the product set? Second, how
+many subsets are there of that set? For fun, write a little Dafny
+program that takes two sets of integers as arguments as return the
+number of relations over them.  Write another function that takes two
+sets and returns the set of all possible relations over the sets. Use
+a set comprehension expression rather than writing a while loop. Be
+careful: the number of possible relations will be very large even in
+cases where the given sets contain only a few elements each.</p>
+</div>
+<div class="section" id="binary-relations">
+<h1>Binary Relations<a class="headerlink" href="#binary-relations" title="Permalink to this headline">¶</a></h1>
+<p>Binary relations, which play an especially important role in
+mathematics and computer science, are relations over just <em>2</em>
+sets. Suppose <img class="math" src="_images/math/8976c2854fcacf02af1366971f1c7b69eb0420e4.png" alt="R \subseteq S \times T"/> is a binary relation on
+<em>S</em> and <em>T</em>. Then <em>S</em> is called the <em>domain</em> of the relation, and <em>T</em>
+is called its <em>co-domain</em>. That is, a binary relation is a subset of
+the ordered pairs in a product of the given domain and codomain sets.</p>
+<p>If a particular tuple, <em>(s, t)</em> is an element of such a relation, <em>R</em>,
+we will say <em>R</em> is <em>defined for</em> the value, s, and that <em>R achieves</em>
+the value, <em>t</em>. The <em>support</em> of a relation is the subset of values in
+the domain on which it is defined. The <em>range</em> of a relation is the
+subset of co-domain values that it achieves.</p>
+<p>For example, if <em>S = { hot, cold }</em> and <em>T = { cat, dog }</em>, and <em>R =
+*{ (hot, cat), (hot, dog) }</em>, then the domain of <em>R</em> is <em>S</em>; the
+co-domain of <em>R</em> is <em>T</em>; the support of <em>R</em> is just <em>{ hot }</em> (and <em>R</em>
+is thus <em>not defined</em> for the value <em>cold</em>); and the range of <em>R</em> is
+the whole co-domain, <em>T</em>.</p>
+<p>The everyday functions you have studies in mathematics are binary
+relations, albeit usually infinite ones. For example, the <em>square</em>
+function, that associates every real number with its square, can be
+understood as the infinite set of ordered pairs of real numbers in
+which the second is the square of the first. Mathematically this is
+:{ (x, y) | y = x^2 }:<a href="#id1"><span class="problematic" id="id2">`</span></a>, where we take as implicit that <em>x</em> and <em>y</em>
+range over the real numbers. Elements of this set include the pairs,
+<em>(-2, 4)</em> and <em>(2, 4)</em>.</p>
+<p>The concept of <em>square roots</em> of real numbers is also best understood
+as a relation. The tuples are again pairs of real numbers, but now the
+elements include tuples, <em>(4, 2)</em> and <em>(4, -2)</em>.</p>
+<hr class="docutils" />
+<blockquote>
+<div><p>/<strong>**************************************</strong>/
+/<strong>*</strong> METHODS FOR APPLYING RELATIONS <strong>*</strong>/
+/<strong>**************************************</strong>/</p>
+<p>/*
+The image of a domain value under a relation
+is the set of values to which the relation
+maps that domain element. This method provides
+this behavior. It computes and returns the
+image of a domain element under this relation.
+It requires that the given value actually be
+in the domain set. Note that if the relation
+is not defined for an element in its domain,
+the image of that value will simply be the
+empty set.
+<a href="#id3"><span class="problematic" id="id4">*</span></a>/
+function method image(k: Stype): (r: set&lt;Stype&gt;)</p>
+<blockquote>
+<div>reads this;
+reads r;
+requires Valid();
+requires k in dom();
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>r.image(k)</dd>
+</dl>
+<p>}</p>
+<p>/*
+The image of a <em>set</em> of domain elements is just
+the set of values that the relation maps those
+elements to. It basically “looks up” each domain
+element and returns the union of all the images
+of those values. A precondition for calling this
+function is that all argument values (in ks) be
+in the domain of this relation.
+<a href="#id5"><span class="problematic" id="id6">*</span></a>/
+function method imageOfSet(ks: set&lt;Stype&gt;): (r: set&lt;Stype&gt;)</p>
+<blockquote>
+<div>reads this;
+reads r;
+requires Valid();
+requires forall k :: k in ks ==&gt; k in dom();
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>r.imageOfSet(ks)</dd>
+</dl>
+<p>}</p>
+<p>/*
+Given an element in the range of a relation, its
+preimage is the set of elements in in the domain
+that map to it. This function returns the preimage
+of a given value in the range of this relation. It
+is a precondition that v be in the codomain of this
+relation.
+<a href="#id7"><span class="problematic" id="id8">*</span></a>/
+function method preimage(v: Stype): (r: set&lt;Stype&gt;)</p>
+<blockquote>
+<div>reads this;
+reads r;
+requires Valid();
+requires v in codom();
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>r.preimage(v)</dd>
+</dl>
+<p>}</p>
+<p>/*
+Compute image of a domain element under this relation.
+<a href="#id9"><span class="problematic" id="id10">*</span></a>/
+function method preimageOfSet(vs: set&lt;Stype&gt;): (r: set&lt;Stype&gt;)</p>
+<blockquote>
+<div>reads this;
+reads r;
+requires Valid();
+requires forall v :: v in vs ==&gt; v in codom();
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>r.preimageOfSet(vs)</dd>
+</dl>
+<p>}</p>
+<p>/*
+A relation is said to be defined for a given
+domain element, k, if the relation maps k to
+at least one value in the codomain.
+<a href="#id11"><span class="problematic" id="id12">*</span></a>/
+predicate method isDefinedFor(k: Stype)</p>
+<blockquote>
+<div>reads this;
+reads r;
+requires Valid();
+requires k in dom();
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>r.isDefinedFor(k)</dd>
+</dl>
+<p>}</p>
+<p>/*
+If this relation is a function, then we can
+“apply” it to a single value, on which this
+function is defined, to get a single result.
+<a href="#id13"><span class="problematic" id="id14">*</span></a>/
+method apply(k: Stype) returns (ret: Stype)</p>
+<blockquote>
+<div>requires Valid();
+requires k in dom();   // only ask about domain values
+requires isFunction(); // only ask if this is a function
+requires isTotal();   // that is defined for every value
+requires isDefinedFor(k);  // and that is non-empty</div></blockquote>
+</div></blockquote>
+<dl class="docutils">
+<dt>//            ensures ret in image(k);  // want <a href="#id91"><span class="problematic" id="id92">|image(k)|</span></a> == 1, too</dt>
+<dd><blockquote class="first last">
+<div><blockquote>
+<div>ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>ret := r.fimage(k);</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+</dd>
+</dl>
+<div class="section" id="inverse">
+<h2>Inverse<a class="headerlink" href="#inverse" title="Permalink to this headline">¶</a></h2>
+<p>The inverse of a given binary relation is simply the set of tuples
+formed by reversing the order of all of the given tuples. To put this
+in mathematical notation, if <em>R</em> is a relation, its inverse, denoted
+<img class="math" src="_images/math/a1ffdf93ec3572c520028d212450d66826146f2b.png" alt="R^{-1}"/>, is <img class="math" src="_images/math/6b8262e547923c6ac102733ab306db06ec2c58d2.png" alt="\{ (y, x) | (x, y) \in R \}"/>. You can see this
+immediately in our example of squares and square roots. Each of these
+relations is the inverse of the other. One contains the tuples, <em>(-2,
+4), (2, 4)</em>, while the other contains <em>(4, 2), (4, -2)</em>.</p>
+<p>It should immediately be clear that the inverse of a function is not
+always also a function. The inverse of the <em>square</em> function is the
+<em>square root</em> relation, but that relation is not itself a function,
+because it is not single valued.</p>
+<p>Here’s a visual way to think about these concept. Consider the graph
+of the <em>square</em> function. Its a parabola that opens either upward in
+the <em>y</em> direction, or downward. Now select any value for <em>x</em> and draw
+a vertical line. It will intersect the parabola at only one point.
+The function is single-valued.</p>
+<p>The graph of a square root function, on the other hand, is a parabola
+that opens to the left or right. So if one draws a vertial line at
+some value of <em>x</em>, either the line fails to hit the graph at all (the
+square root function is not defined for all values of <em>x</em>), or it
+intersects the line at two points. The square root “function” is not
+single-valued, and isn’t really even a <em>function</em> at all. (If the
+vertical line hits the parabola right at its bottom, the set of points
+at which it intersects contains just one element, but if one takes the
+solution set to be a <em>multi-set</em>, then the value, zero, occurs in that
+set twice.)</p>
+<p>A function whose inverse is a function is said to be <em>invertible</em>.
+The function, <em>f(x) = x</em> (or <em>y = x</em> if you prefer) is invertible in
+this sense. In fact, its inverse is itself.</p>
+<p>Exercise: Is the cube root function invertible? Prove it informally.</p>
+<p>Exercise: Write a definition in mathematical logic of what precisely
+it means for a function to be invertible. Model your definition on our
+definition of what it means for a relation to be single valued.</p>
+</div>
+</div>
+<div class="section" id="functions-single-valued-relations">
+<h1>Functions: <em>Single-Valued</em> Relations<a class="headerlink" href="#functions-single-valued-relations" title="Permalink to this headline">¶</a></h1>
+<p>A binary-relation is said to be <em>single-valued</em> if it does not have
+tuples with the same first element and different second elements.  A
+single-valued binary relation is also called a <em>function</em>.  Another
+way to say that <em>R</em> is single valued is to say that if <em>(x, y)</em> and
+<em>(x, z)</em> are both in <em>R</em> then it must be that <em>y</em> and <em>z</em> are the same
+value. Otherwise the relation would not be single-valued! To be more
+precise, then, if <img class="math" src="_images/math/8976c2854fcacf02af1366971f1c7b69eb0420e4.png" alt="R \subseteq S \times T"/>, is single valued
+relation, then <img class="math" src="_images/math/a891d93912f06167bde2b4af6ef72b276625e48e.png" alt="(x, y) \in R \land (x, z) \in R \rightarrow y =
+z"/>.</p>
+<p>As an example of a single-valued relation, i.e., a function, consider
+the <em>square</em>. For any given natural number (in the domain) under this
+function there is just a <em>single</em> associated value in the range (the
+square of the first number). The relation is single-valued in exactly
+this sense. By contrast, the square root relation is not a function,
+because it is not single-valued. For any given non-negative number in
+its domain, there are <em>two</em> associated square roots in its range. The
+relation is not single-valued and so it is not a function.</p>
+<p>There are several ways to represent functions in Dafny, or any other
+programming language. One can represent a given function <em>implicity</em>:
+as a <em>program</em> that computes that function. But one can also represent
+a function <em>explicitly</em>, as a relation: that is, as a set of pairs.
+The (polymorphic) <em>map</em> type in Dafny provides such a representation.</p>
+<p>A “map”, i.e., a value of type <em>map&lt;S,T&gt;</em> (where <em>S</em> and <em>T</em> are type
+parameters), is to be understood as an explicit representation of a
+single-valued relation: a set of pairs: a function. In addition to a
+mere set of pairs, this data type also provides helpful functions and
+a clever representation underlying representation that both enforce
+the single-valuedness of maps, and that make it very efficient to look
+up range values given domain values where the map is defined, i.e., to
+<em>apply</em> such a function to a domain value (a “key”) to obtained the
+related range <em>value</em>.</p>
+<p>Given a Dafny map object, <em>m</em>, of type <em>map&lt;S,T&gt;</em>, one can obtain the
+set of values of type <em>S</em> for which the map is defined as <em>m.Keys().</em>
+One can obtain the range, i.e., the set of values of type <em>T</em> that the
+map maps <em>to</em>, as <em>m.Values().</em> One can determine whether a given key,
+<em>s</em> of type <em>S</em> is defined in a map with the expression, <em>s in m</em>.</p>
+<p>Exercise: Write a method (or a function) that when given a map&lt;S,T&gt; as
+an argument returns a set&lt;(T,S)&gt; as a result where the return result
+represents the <em>inverse</em> of the map. The inverse of a function is not
+necessarily a function so the inverse of a map cannot be represented
+as a map, in general. Rather, we represent the inverse just as a <em>set</em>
+of <em>(S,T)</em> tuples.</p>
+<p>Exercise: Write a pure function that when given a set of ordered pairs
+returns true if, viewed as a relation, the set is also a function, and
+that returns false, otherwise.</p>
+<p>Exercise: Write a function or method that takes a set of ordered pairs
+with a pre-condition requiring that the set satisfy the predicate from
+the preceding exercise and that then returns a <em>map</em> that contains the
+same set of pairs as the given set.</p>
+<p>Exercise: Write a function that takes a map as an argument and that
+returns true if the function that it represents is invertible and that
+otherwise returns false. Then write a function that takes a map
+satisfying the precondition that it be invertible and that in this
+case returns its inverse, also as a map.</p>
+</div>
+<div class="section" id="properties-of-functions">
+<h1>Properties of Functions<a class="headerlink" href="#properties-of-functions" title="Permalink to this headline">¶</a></h1>
+<p>We now introduce essential concepts and terminology regarding for
+distinguishing essential properties and special cases of functions.</p>
+<div class="section" id="total-vs-partial">
+<h2>Total vs Partial<a class="headerlink" href="#total-vs-partial" title="Permalink to this headline">¶</a></h2>
+<p>A function is said to be <em>total</em> if every element of its domain
+appears as the first element in at least one tuple, i.e., its
+<em>support</em> is its entire <em>domain</em>.  A function that is not total is
+said to be <em>partial</em>. For example, the square function on the real
+numbers is total, in that it is defined on its entire real number
+domain. By contrast, the square root function is not total (if it
+domain is taken to be the real numbers) because it is not defined for
+real numbers that are less than zero.</p>
+<p>Note that if one considers a slightly different function, the square
+root function on the <em>non-negative</em> real numbers the only difference
+being in the domainm then this function <em>is</em> total. Totality is thus
+relative to the specified domain. Here we have two functions with the
+very same set of ordered pairs, but one is total and the other is not.</p>
+<p>Exercises: Is the function <em>y = x</em> on the real numbers total?  Is the
+<em>log</em> function defined on the non-negative real numbers total? Answer:
+no, because it’t not defined at <em>x = 0</em>.  Is the <em>SSN</em> function, that
+assigns a U.S. Social Security Number to every person, total? No, not
+every person has a U.S. Social Security number.</p>
+<p>Implementing partial functions as methods or pure function in software
+presents certain problems. Either a pre-conditions has to be enforced
+to prevent the function or method being called with a value for which
+it’s not defined, or the function or method needs to be made total by
+returning some kind of <em>error</em> value if it’s called with such a value.
+In this case, callers of such a function are obligated always to check
+whether <em>some</em> validfunction value was returned or whether instead a
+value was returned that indicates that there is <em>no such value</em>. Such
+a value indicates an <em>error</em> in the use of the function, but one that
+the program caught. The failure of programmers systematically to check
+for <em>error returns</em> is a common source of bugs in real software.</p>
+<p>Finally we note that by enforcing a requirement that every loop and
+recursion terminates, Dafny demands that every function and method be
+total in the sense that it returns and that it returns some value,
+even it it’s a value that could flag an error.</p>
+<p>When a Dafny total function is used to implement a mathematical
+function that is itself partial (e.g., <em>log(x)</em> for any real number,
+<em>x</em>), the problem thus arises what to return for inputs for which the
+underlying mathematical function is not defined.  A little later in
+the course we will see a nice way to handle this issue using what are
+called <em>option</em> types. An option type is like a box that contains
+either a good value or an error flag; and to get a good value out of
+such a box, one must explicitly check to see whether the box has a
+good value in it or, alternatively, and error flag.</p>
+</div>
+<div class="section" id="injective">
+<h2>Injective<a class="headerlink" href="#injective" title="Permalink to this headline">¶</a></h2>
+<p>A function is said to be <em>injective</em> if no two elements of the domain
+are associated with the same element in the co-domain. (Note that we
+are limiting the concept of injectivity to functions.) An injective
+function is also said to be <em>one-one-one</em>, rather than <em>many-to-one</em>.</p>
+<p>Take a moment to think about the difference between being injective
+and single valued. Single-valued means no <em>one</em> element of the domain
+“goes to” <a href="#id15"><span class="problematic" id="id16">*</span></a>more than one” value in the range. Injective means that “no
+more than one” value in the domain “goes to” and one value in the
+range.</p>
+<p>Exercise: Draw a picture. Draw the domain and range sets as clouds
+with points inside, representing objects (values) in the domain and
+co-domain. Represent a relation as a set of <em>arrows</em> that connect
+domain objects to co-domain objects. The arrows visually depict the
+ordered pairs in the relation. What does it look like visually for a
+relation to be single-valued? What does it look like for a relation to
+be injective?</p>
+<p>The square function is a function because it is single-valued, but it
+is not injective. To see this, observe that two different values in
+the domain, <em>-2</em> and <em>2</em>, have the same value in the co-domain: <em>4</em>.
+Think about the graph: if you can draw a <em>horizontal</em> line for any
+value of <em>y</em> that intersects the graph at multiple points, then the
+points at which it intersects correspond to different values of <em>x</em>
+that have the same value <em>under the relation</em>. Such a relation is not
+injective.</p>
+<p>Exercises: Write a precise mathematical definition of what it means
+for a binary relation to be injective.  Is the cube root function
+injective? Is <em>f(x) = sin(x)</em> injective?</p>
+<div class="section" id="an-aside-injectivity-in-type-theory">
+<h3>An Aside: Injectivity in Type Theory<a class="headerlink" href="#an-aside-injectivity-in-type-theory" title="Permalink to this headline">¶</a></h3>
+<p>As an aside, we note that the concept of injectivity is essential in
+<em>type theory</em>.  Whereas <em>set theory</em> provides a universally accepted
+axiomatic foundation for mathematics, <em>type</em> theory is of increasing
+interest as alternative foundation. It is also at the very heart of a
+great deal of work in programming languages and software verification.</p>
+<p>Type theory takes types rather than sets to be elementary. A type in
+type theory comprises a collection of objects, just as a set does in
+set theory. But whereas in set theory, an object can be in many sets,
+in type theory, and object can have only one type.</p>
+<p>The set of values of a given type is defined by a set of constants and
+functions called constructors. Constant constructors define what one
+can think of as the <em>smallest</em> values of a type, while constructors
+that are functions provide means to build larger values of a type by
+<a href="#id17"><span class="problematic" id="id18">*</span></a>packaging up” smaller values of the same and/or other types.</p>
+<p>As a simple example, one might say that the set of values of the type,
+<em>Russian Doll,</em> is given by one constant constructor, <em>SolidDoll</em> and
+by one constructor function, <em>NestDoll</em> that takes a nested doll as an
+argument (the solid one or any other one built by <em>NestDoll</em> itself).
+Speaking intuitively, this constructor function does nothing other
+than <em>package up</em> the smaller nest doll it was given inside a “box”
+labelled <em>NestDoll</em>.  One can thus obtain a nested doll either as the
+constant <em>SolidDoll</em> or by applying the <em>NestDoll</em> constructor some
+finite number of times to smaller nested dolls. Such a nesting will
+always be finitely deep, with the solid doll at the core.</p>
+<p>A key idea in type theory is that <em>constructors are injective</em>. Two
+values of a given type built by different constructors, or by the same
+constructor with different arguments, are <em>always</em> different. So, for
+example, the solid doll is by definition unequal to any doll built by
+the <em>NestDoll</em> constructor; and a russian doll nested two levels deep
+(built by applying <em>NestDoll</em> to an argument representing a doll that
+is nested one level deep)is necessarily unequal to a russian doll one
+level deep (built by applying <em>NestDoll</em> to the solid doll).</p>
+<p>Running this inequality idea in reverse, we can conclude that if two
+values of a given type are known to be equal, then for sure they were
+constructed by the same constructor taking the same arguments (if
+any).  It turns out that knowing such a fact, rooted in the
+<em>injectivity of constructors</em> is often essential to completing proofs
+about programs using type theory. But more on this later.</p>
+</div>
+</div>
+<div class="section" id="surjective">
+<h2>Surjective<a class="headerlink" href="#surjective" title="Permalink to this headline">¶</a></h2>
+<p>A function is said to be <em>surjective</em> if for every element, <em>t</em>, in
+the co-domain there is some element, <em>s</em> in the domain such that
+<em>(s,t)</em> is in the relation. That is, the range <em>range</em> of the function
+is its whole co-domain. Mathematically, a relation <img class="math" src="_images/math/9c670927970f7a233ba136fdb7cc5a3351511e82.png" alt="R \subseteq
+S \times T"/> is surjective if <img class="math" src="_images/math/7052e4c4e009cdd2bf3befda4a6176bc8b539fce.png" alt="\forall t \in T, \exists s \in
+S~|~(s,t) \in R"/>.</p>
+<p>In the intuitive terms of high school algebra, a function involving
+<em>x</em> and <em>y</em> is surjective if for any given <em>y</em> value there is always
+some <em>x</em> that “leads to” that <em>y</em>. The <em>square</em> function on the real
+numbers is not surjective, because there is no <em>x</em> that when squared
+gets one to <em>y = -1</em>.</p>
+<p>Exercise: Is the function, <em>f(x) = sin(x)</em>, from the real numbers (on
+the x-axis) to real numbers (on the y-axis) surjective? How might you
+phrase an informal but rigorous proof of your answer?</p>
+<p>Exercise: Is the inverse of a surjective function always total? How
+would you “prove” this with a rigorous, step-by-step argument based on
+the definitions we’ve given here? Hint: It is almost always useful to
+start with definitions. What does it mean for a relation to be total?
+What does it mean for one relation to be the inverse of another? How
+can you connect these definitons to show for sure that your answer is
+right?</p>
+</div>
+<div class="section" id="bijective">
+<h2>Bijective<a class="headerlink" href="#bijective" title="Permalink to this headline">¶</a></h2>
+<p>A function is said to be <em>bjective</em> if it is also both injective and
+surjective. Such a function is also often called a <em>bijection</em>.</p>
+<p>Take a moment to think about the implications of being a bijection.
+Consider a bijective relation, <img class="math" src="_images/math/cdb76e3e99672f56cabfad2588fe14c9fdb2e2a9.png" alt="R \subseteq S \times T."/> <em>R</em> is
+total, so there is an <em>arrow</em> from every <em>s</em> in <em>S</em> to some <em>t</em> in
+<em>T</em>.  <em>R</em> is injective, so no two arrows from any <em>s</em> in <em>s</em> ever hit
+the same <em>t</em> in <em>T</em>. An injection is one-to-one. So there is exactly
+one <em>t</em> in <em>T</em> hit by each <em>s</em> in <em>S</em>. But <em>R</em> is also surjective, so
+every <em>t</em> in <em>T</em> is hit by some arrow from <em>S</em>. Therefore, there has
+to be exactly one element in <em>t</em> for each element in <em>s</em>. So the sets
+are of the same size, and there is a one-to-one correspondence between
+their elements.</p>
+<p>Now consider some <em>t</em> in <em>T</em>. It must be hit by exactly one arrow from
+<em>S</em>, so the <em>inverse</em> relation, <img class="math" src="_images/math/a1ffdf93ec3572c520028d212450d66826146f2b.png" alt="R^{-1}"/>, from <em>T</em> to <em>S</em>, must
+also single-valued (a function). Moreover, because <em>R</em> is surjective,
+every <em>t</em> in <em>T</em> is hit by some <em>s</em> in <em>S</em>, so the inverse relation is
+defined for every <em>t</em> in <em>T</em>. It, too, is total. Now every arrow from
+any <em>s</em> to some <em>t</em> leads back from that <em>t</em> to that <em>s</em>, so the
+inverse And it’s also (and because <em>R</em> is total, there is such an
+arror for <em>every</em> <em>s</em> in <em>S</em>), the inverse relation is surjective (it
+covers all of <em>S</em>).</p>
+<p>Exercise: Must the inverse of a bijection be one-to-one? Why or why
+not?  Make a rigorous argument based on assumptions derived from our
+definitions.</p>
+<p>Exercise: Must a bijective function be invertible? Make a rigorous
+argument.</p>
+<p>Exercise: What is the inverse of the inverse of a bijective function,
+<em>R</em>. Prove it with a rigorous argument.</p>
+<p>A bijection estabishes an invertible, one-to-one correspondence
+between elements of two sets. Bijections can only be established
+between sets of the same size. So if you want to prove that two sets
+are of the same size, it sufficies to show that one can define a
+bijection between the two sets. That is, one simply shows that there
+is some function that covers each element in each set with arrows
+connecting them, one-to-one in both directions.</p>
+<p>Exercise: Prove that the number of non-negative integers (the
+cardinality of <img class="math" src="_images/math/c8f55b4d0816bb06f543ad34702b2642a045ba47.png" alt="{\mathbb N}"/>), is the same as the number of
+non-negative fractions (the cardinality of <img class="math" src="_images/math/c39e35fcc1b9fb0f451059b362af5d6a2d6a3e97.png" alt="{\mathbb Q^{+}}"/>).</p>
+<p>Exercise: How many bijective relations are there between two sets of
+cardinality <em>k</em>? Hint: Pick a first element in the first set. There
+are <em>n</em> ways to map it to some element in the second set. Now for the
+second element in the first set, there are only <em>(n-1)</em> ways to pair
+it up with an element in the second set, as one cannot map it to the
+element chosen in the first step (the result would not be injective).
+Continue this line of reasoning until you get down to all elements
+having been mapped.</p>
+<p>Exercise: How many bijections are there from a set, <em>S</em>, to itself?
+You can think of such a bijection as a simple kind of encryption. For
+example, if you map each of the <em>26</em> letters of the alphabet to some
+other letter, but in a way that is unambiguous (injective!), then you
+have a simple encryption mechanisms. How many ways can you encrypt a
+text that uses <em>26</em> letters in this way? Given a cyphertext, how would
+you recover the original plaintext?</p>
+<p>Exercise: If you encrypt a text in this manner, using a bijection,
+<em>R</em> and then encrpty the resulting cyphertext using another one <em>T</em>,
+can you necessarily recover the plaintext? How? Is there a <em>single</em>
+bijection that would have accomplished the same encryption result?
+Would the inverse of that bijection effectively decrypt messages?</p>
+<p>Exercise: Is the composition of any two bijections also a bijection?
+If so, can you express its inverse in terms of the inverses of the two
+component bijections?</p>
+<p>Exercise: What is the <em>identity</em> bijection on the set of <em>26</em> letters?</p>
+<p>Question: Are such bijections commutative? That is, you have two of
+them, say <em>R</em> and <em>T</em>, is the bijection that you get by applying <em>R</em>
+and then <em>T</em> the same as the bijection you get by applying <em>T</em> and
+then <em>R</em>? If your answer is <em>no</em>, prove it by giving a counterexample
+(e.g., involving bijections on a small set). If your answer is yes,
+make rigorous argument.</p>
+<p>Programming exercise: Implement encryption and decryption schemes in
+Dafny using bijections over the <em>26</em> capital letters of the English
+alphabet.</p>
+<p>Programming exercise: Implement a <em>compose</em> function in Dafny that
+takes two pure functions, <em>R</em> and <em>T</em>, each implementing a bijection
+between the set of capital letters and that returns a pure function
+that when applied has the effect of first applying <em>T</em> then applying
+<em>R</em>.</p>
+</div>
+</div>
+<div class="section" id="properties-of-relations">
+<h1>Properties of Relations<a class="headerlink" href="#properties-of-relations" title="Permalink to this headline">¶</a></h1>
+<p>Functions are special cases of (single-valued) binary relations.  The
+properties of being partial, total, injective, surjective, bijective
+are generally associated with <em>functions</em>, i.e., with relations that
+are already single-valued. Now we turn to properties of relations more
+generally.</p>
+<div class="section" id="reflexive">
+<h2>Reflexive<a class="headerlink" href="#reflexive" title="Permalink to this headline">¶</a></h2>
+<p>Consider a binary relation on a set with itself.  That is, the domain
+and the co-domain are the same sets. A relation that maps real numbers
+to real numbers is an example. It is a subset of <img class="math" src="_images/math/ef4ff4c9b71a95ce07b703abefa85883c885b0b7.png" alt="{\mathbb R}
+\times {\mathbb R}"/>. The <em>friends</em> relation on a social network site
+that associates people with people is another example.</p>
+<p>Such a relation is said to be <em>reflexive</em> if it associates every
+element with itself.  The equality relation (e.g., on real numbers) is
+the “canonical” example of a reflexive relation. It associates every
+number with itself and with no other number. The tuples of the
+equality relation on real numbers thus includes <em>(2.5, 2.5)</em> and
+(-3.0, -3.0)* but not <em>(2.5, -3.0)</em>.</p>
+<p>In more mathematical terms, consider a set <em>S</em> and a bindary relation,
+<em>R</em>, on S*S, <img class="math" src="_images/math/9f720f1e05b3b0684aa5ad81aa8fd6675fd0f5a3.png" alt="R \subseteq S \times S."/> <em>R</em> is reflexive, which
+we can write as <em>Reflexive(R)</em>, if and only if for every <em>e</em> in <em>S</em>,
+the tuple <em>(e,e)</em> is in R. Or to be rigorous about it,
+<img class="math" src="_images/math/01fc7795202a1cf0db19cc409159cc25c22e82a5.png" alt="Reflexive(R) \iff \forall e \in S, (e,e) \in R."/></p>
+<p>Exercise: Is the function, <em>y = x</em>, reflexive? If every person loves
+themself, is the <em>loves</em> relation reflexive? Is the <em>less than or
+equals</em> relation reflexive? Hint: the tuples <em>(2,3)</em> and <em>(3,3)</em> are
+in this relation becaue <em>2</em> is less than or equal to <em>3</em>, and so is
+<em>3</em>, but <em>(4,3)</em> is not in this relation, because <em>4</em> isn’t less than
+or equal to <em>3</em>. Is the less than relation reflexive?</p>
+</div>
+<div class="section" id="symmetric">
+<h2>Symmetric<a class="headerlink" href="#symmetric" title="Permalink to this headline">¶</a></h2>
+<p>A binary relation, <em>R</em>, on a set <em>S</em> is said to be <em>symmetric</em> if
+whenever the tuple <em>(x,y)</em> is in <em>R</em>, the tuple, <em>(y,x)</em> is in <em>R</em> as
+well. On Facebook, for example, if Joe is “friends” with “Tom” then
+“Tom” is necessarily also friends with “Joe.” The Facebook friends
+relation is thus symmetric in this sense.</p>
+<p>More formally, if <em>R</em> is a binary relation on a set <em>S</em>, i.e., given
+<img class="math" src="_images/math/badf8967a9e750fa49296dc504efdd8360424458.png" alt="R \subseteq S \times S"/>, then <img class="math" src="_images/math/a983ca479a92d849d74c93ab3558691789025821.png" alt="Symmetric(R) \iff \forall
+(x,y) \in R, (y,x) \in R"/>.</p>
+<p>Question: is the function <em>y = x</em> symmetric? How about the <em>square</em>
+function? In an electric circuit, if a conducting wire connects
+terminal <em>T</em> to terminal <em>Q</em>, it also connects terminal <em>Q</em> to
+terminal <em>T</em> in the sense that electricity doesn’t care which way it
+flows over the wire. Is the <em>connects</em> relation in electronic circuits
+symmetric? If <em>A</em> is <em>near</em> <em>B</em> then <em>B</em> is <em>near</em> <em>A</em>. Is <em>nearness</em>
+symmetric? In the real work is the <em>has-crush-on</em> relation symmetric?</p>
+</div>
+<div class="section" id="transitive">
+<h2>Transitive<a class="headerlink" href="#transitive" title="Permalink to this headline">¶</a></h2>
+<p>Given a binary relation <img class="math" src="_images/math/badf8967a9e750fa49296dc504efdd8360424458.png" alt="R \subseteq S \times S"/>, <em>R</em> is said to
+be transitive if whenever <em>(x,y)</em> is in <em>R</em> and <em>(y,z)</em> is in <em>R</em>,
+then <em>(x,z)</em> is also in <em>R</em>. Formally, <img class="math" src="_images/math/2209188eabeeb58472953f1513897f62a1f1a32c.png" alt="Transitive(R) \iff
+forall (x,y) in R, \forall (y,z) \in R, (x,z) \in R"/>.</p>
+<p>Exercise: Is equality transitive? That is, if <em>a = b</em> and <em>b = c</em> it
+is also necessarily the case that <em>a = c</em>? Answer: Sure, any sensible
+notion of an equality relation has this transitivity property.</p>
+<p>Exercise: What about the property of being less than? If <em>a &lt; b</em> and
+<em>b &lt; c</em> is it necessarily the case that <em>a &lt; c</em>? Answer: again,
+yes. The less than, as well as the less than or equal, and greater
+then, and the greater than or equal relations, are all transitive.</p>
+<p>How about the <em>likes</em> relation amongst real people. If Harry likes
+Sally and Sally likes Bob does Harry necesarily like Bob, too? No, the
+human “likes” relation is definitely not transitive. (And this is the
+cause of many a tragedy.)</p>
+</div>
+<div class="section" id="equivalence">
+<h2>Equivalence<a class="headerlink" href="#equivalence" title="Permalink to this headline">¶</a></h2>
+<p>Finally (for now), a relation is said to be an <em>equivalence relation</em>
+if it is reflexive, transitive, and symmetric. Formally, we can write
+this property as a conjunction of the three individual properties:
+<img class="math" src="_images/math/38f1bddf350507039ccbfded99e06bd768947643.png" alt="Equivalence(R) \iff Symmetric(R) \land Reflexive(R) \land
+Transitive(R)"/>. Equality is the canonical example of an equivalence
+relation: it is reflexive (<em>x = x</em>), symmetric (if <em>x = y</em> then <em>y =
+x</em>) and transitive (if <em>x = y</em> and <em>y = z</em> then <em>x = z</em>.).</p>
+<p>An important property of equivalence relations is that they divide up
+a set into subsets of <em>equivalent</em> values. As an example, take the
+equivalence relation on people, <em>has same birthday as</em>. Clearly every
+person has the same birthday as him or herself; if Joe has the same
+birthday as Mary, then Mary has the same birthday as Joe; and if Tom
+has the same birthday as mary then Joe necessarily also has the same
+birthday as Tom. This relation thus divides the human population into
+366 equivalence classes. Mathematicians usually use the notation <em>a ~
+b</em> to denote the concept that <em>a</em> is equivalent to <em>b</em> (under whatever
+equivalence relation is being considered).</p>
+</div>
+</div>
+<div class="section" id="new-stuff">
+<h1>NEW STUFF<a class="headerlink" href="#new-stuff" title="Permalink to this headline">¶</a></h1>
+<dl class="docutils">
+<dt>/<strong>*********************************</strong>/</dt>
+<dd><blockquote class="first">
+<div><p>/<a href="#id19"><span class="problematic" id="id20">**</span></a>** BASIC ORDER THEORY CONCEPTS <a href="#id21"><span class="problematic" id="id22">**</span></a><strong>/
+/***********************************</strong>/</p>
+<p>/*
+A relation is said to be a “preorder” if it is
+reflexive and transitive. That is, every element
+is related to itself, and if e1 is related to e2
+and e2 to e3, then e1 is also related to e3.</p>
+<p>A canonical example of a preorder is the
+<em>reachability relation</em> for a directed graph:
+every element reaches itself and if there’s
+a <em>path</em> from a to b then a is said to reach b.</p>
+<p>Subtyping relations are also often preorders.
+Every type is a subtype of itself, and if A is
+a subtype of B, B of C, C …, of E, then A is
+also a subtype of B, C, …, E.</p>
+<p>Given any relation you can obtain a preorder
+by taking its reflexive and transitive closure.</p>
+<p>Unlike a partial order, a preorder in general
+is not antisymmetric. And unlike an equivalence
+relation, a preorder is not necesarily symmetric.
+<a href="#id23"><span class="problematic" id="id24">*</span></a>/
+predicate method isPreorder()</p>
+<blockquote>
+<div>reads this;
+reads r;
+requires Valid();
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>isReflexive() &amp;&amp; isTransitive()</dd>
+</dl>
+<p>}</p>
+<p>/*
+A binary relation is a partial order if it is
+a preorder (reflexive and transitive) and also
+anti-symmetric. Recall that anti-symmetry says
+that the only way that both (x, y) and (y, x)
+can be in the relation at once is if x==y.</p>
+<p>A canonical example of a partial order is the
+“subset-of” relation on the powerset of a given
+set. It’s reflexive as every set is a subset of
+itself. It’s anti-symmetric because if S is a
+subset of T and T is a subset of S then T=S.
+And it’s transitive, because if S is a subset
+of T and T a subset of R then S must also be
+a subset of R.</p>
+<p>This relation is a <em>partial</em> order in that not
+every pair of subsets of a set are “comparable,”
+which is to say  it is possible that neither
+is a subset of the other. The sets, {1, 2} and
+{2, 3}, are both subsets of the set, {1, 2, 3},
+for example, but neither is a subset of the
+other, so they are not “comparable:” There is
+no pair of these two sets, in either order, in
+the “subset-of” relation.</p>
+<p>A partial order in order theory corresponds
+directly to a “directed acyclic graph” (DAG)
+in graph theory.
+<a href="#id25"><span class="problematic" id="id26">*</span></a>/
+predicate method isPartialOrder()</p>
+<blockquote>
+<div>reads this;
+reads r;
+requires Valid();
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>isPreorder() &amp;&amp; isAntisymmetric()</dd>
+</dl>
+<p>}</p>
+<p>/*
+The kind of order most familiar from elementary
+mathematics is a “total” order. The natural and
+real numbers are totally ordered under the less
+than or equals relation, for example. Any pair
+of such numbers is “comparable.” That is, given
+any two numbers, x and y, either (x, y) or (y, x)
+is (or both are) in the “less than or equal
+relation.”</p>
+<p>A total order, also known as a linear order, a simple order,
+or a chain, is a partial order with the additional property
+that any two elements, x and y, are comparable. This pair of
+properties arranges the set into a fully ordered collection.</p>
+<p>A good example is the integers under the less than or equal
+operator. By contrast, subset inclusion is a partial order,
+as two sets, X and Y, can both be subsets of (“less than or
+equal to”) a set Z, with neither being a subset of the other.
+<a href="#id27"><span class="problematic" id="id28">*</span></a>/
+predicate method isTotalOrder()</p>
+<blockquote>
+<div>reads this;
+reads r;
+requires Valid();
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>isPartialOrder() &amp;&amp; isTotal()</dd>
+</dl>
+<p>}</p>
+<p>/<strong>****************************************</strong>/
+/<a href="#id29"><span class="problematic" id="id30">**</span></a>** ADDITIONAL PROPERTIES OF RELATIONS <a href="#id31"><span class="problematic" id="id32">**</span></a><strong>/
+/******************************************</strong>/</p>
+<p>/*
+We now define what it means for a binary relation
+to be “total,” also called “complete.” NOTE WELL!
+The term, “total”, means something different when
+applied to binary relations, in general, than to
+functions, in particular. A function is total if
+for every x in S there is <em>SOME</em> y to which it is
+related (or mapped, as we say). We thus provide
+isTotalFunction and isPartialFunction predicates
+(with Function in the names) to capture this idea.</p>
+<p>By contrast, a binary relation (more generally)
+is said to be total, or “complete”, if for <em>any</em>
+pair of values, x and y in S, either (or both)
+of (x, y) or (y, x) is in the relation.</p>
+<p>A simple example of a total relation is the less
+than or equals relation on integers. Given any
+two integers, x and y, it is always the case that
+either x &lt;= y or y &lt;= x, or both if they’re equal.</p>
+<p>Anoather example of a total binary relation
+is what economists call a preference relation. A
+preference relation is a mathematical model of
+a consumer’s preferences. It represents the idea
+that given <em>any</em> two items, or outcomes, x and y,
+one will always find one of them to be “at least
+as good as” the other. These ideas belong to the
+branch of economics called “utility theory.”</p>
+<p>The broader point of this brief diversion into
+the field of economics is to make it clear that
+what seem like very abstract concepts (here the
+property of a binary relation being complete or
+not) have deep importance in the real world: in
+CS as well as in many other fields.</p>
+<p>We can now formalize the property of being total.
+A binary relation, R, on a set, S, is said to be
+“complete,” “total” or to have the “comparability”
+property if <em>any</em> two elements, x and y in S, are
+related one way or the other by R, i.e., at least
+one of (x, y) and (y, x) is in R.
+<a href="#id33"><span class="problematic" id="id34">*</span></a>/
+predicate method isTotal()</p>
+<blockquote>
+<div>reads this;
+reads r;
+requires Valid();
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd><dl class="first last docutils">
+<dt>forall x, y :: x in dom() &amp;&amp; y in dom() ==&gt;</dt>
+<dd>(x, y) in rel() || (y, x) in rel()</dd>
+</dl>
+</dd>
+</dl>
+<p>}</p>
+<p>// isComplete() is a synonym for isTotal()
+predicate method isComplete()</p>
+<blockquote>
+<div>reads this;
+reads r;
+requires Valid();
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>isTotal()</dd>
+</dl>
+<p>}</p>
+<p>/*
+A relation on a set S is said to be irreflexive
+if no element is related to, or maps, to itself.
+As an example, the less than relation on natural
+numbers is irreflexive: not natural number is less
+than itself.
+<a href="#id35"><span class="problematic" id="id36">*</span></a>/
+predicate method isIrreflexive()</p>
+<blockquote>
+<div>reads this;
+reads r;
+requires Valid();
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>forall x :: x in dom() ==&gt; (x,x) !in rel()</dd>
+</dl>
+<p>}</p>
+<p>/*
+A binary relation is said to be antisymmetric
+if whenever both (x, y) and (y, x) are in the
+relation, it must be that x == y. A canonical
+example of an antisymmetric relation is &lt;= on
+the natural numbers. If x &lt;= y and y &lt;= x (and
+that is possible) then it must be that x == y.
+<a href="#id37"><span class="problematic" id="id38">*</span></a>/
+predicate method isAntisymmetric()</p>
+<blockquote>
+<div>reads this;
+reads r;
+requires Valid();
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd><dl class="first docutils">
+<dt>forall x, y ::     x in dom()   &amp;&amp;   y in dom() &amp;&amp;</dt>
+<dd>(x,y) in rel() &amp;&amp; (y,x) in rel() ==&gt;
+x == y</dd>
+</dl>
+<p class="last">// Note: equivalent to xRy ==&gt; !yRx</p>
+</dd>
+</dl>
+<p>}</p>
+<p>/*
+A binary relation, R, is said to be asymmetric
+(as distinct from anti-symmetric) if it is both
+anti-symmetric and also irreflexive. The latter
+property rules out an element being related to
+itself. Think of it as removing the possibility
+of being “equal” in an otherwise anti-symmetric
+(such as less than or equal) relation.</p>
+<p>More precisely, in an asymmetric relation, for
+all elements a and and b, if a is related to b
+in R, then b is not and cannot be related to a.</p>
+<p>The canonical example of an asymmetric relation
+is less than on the integers. If a &lt; b then it
+cannot also be that b &lt; a. To be asymmetric is
+the same as being antisymmetric and irreflexive.
+<a href="#id39"><span class="problematic" id="id40">*</span></a>/
+predicate method isAsymmetric()</p>
+<blockquote>
+<div>reads this;
+reads r;
+requires Valid();
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>isAntisymmetric() &amp;&amp; isIrreflexive()</dd>
+</dl>
+<p>}</p>
+<p>/*
+A binary relation on a set, S, is said to be
+quasi-reflexive if every element that is related
+to some other element is also related to itself.</p>
+<p>Adapted from Wikipedia: An example is a relation
+“has the same limit as” on infinite sequences of
+real numbers. Recall that some such sequences do
+converge on a limit. For example, the infinite
+sequence, 1/n, for n = 1 to infinity, converges
+on (has limit) zero. Not every sequence of real
+numbers has such a limit, so the “has same limit
+as” relation is not reflexive. But if on sequence
+has the same limit as some other sequence, then
+it has the same limit as itself.
+<a href="#id41"><span class="problematic" id="id42">*</span></a>/
+predicate method isQuasiReflexive()</p>
+<blockquote>
+<div><blockquote>
+<div>reads this;</div></blockquote>
+<p>reads r;
+requires Valid();
+ensures Valid();</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd><dl class="first last docutils">
+<dt>forall x, y ::</dt>
+<dd><dl class="first last docutils">
+<dt>x in dom() &amp;&amp; y in dom() &amp;&amp; (x,y) in rel() ==&gt;</dt>
+<dd>(x,x) in rel() &amp;&amp; (y,y) in rel()</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>}</p>
+<p>/*
+A binary relation is said to be coreflexive is
+for all x and y in S it holds that if xRy then x = y.
+Every coreflexive relation is a subset of an identity
+relation (in which every element is related to and only
+to itself). A relation is thus co-reflexive if it
+relates just some object to, and only to, themselves.</p>
+<p>For example, if every odd number is related itself
+under an admittedly “odd” version of equality, then
+this relation is coreflexive.
+<a href="#id43"><span class="problematic" id="id44">*</span></a>/
+predicate method isCoreflexive()</p>
+<blockquote>
+<div>reads this;
+reads r;
+requires Valid();
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd><dl class="first last docutils">
+<dt>forall x, y :: x in dom() &amp;&amp; y in dom() &amp;&amp;</dt>
+<dd>(x,y) in rel() ==&gt; x == y</dd>
+</dl>
+</dd>
+</dl>
+<p>}</p>
+<p>/<strong>*****************************************</strong>/
+/<a href="#id45"><span class="problematic" id="id46">**</span></a>** MORE ADVANCED ORDER THEORY CONCEPTS <a href="#id47"><span class="problematic" id="id48">**</span></a><strong>/
+/*******************************************</strong>/</p>
+<p>/*
+A total preorder is preorder in which every
+pair of elements is comparable, e.g., for every
+node a and b, either a reaches b or b reaches a.
+That is, there are no pairs of elements that are
+<em>incomparable</em>.</p>
+<p>BETTER EXAMPLE NEEDED</p>
+<p><a href="#id49"><span class="problematic" id="id50">*</span></a>/
+predicate method isTotalPreorder()</p>
+<blockquote>
+<div><p>reads this;
+reads r;
+requires Valid();
+ensures Valid();
+{</p>
+<blockquote>
+<div>isPreorder() &amp;&amp; isTotal()</div></blockquote>
+<p>}</p>
+</div></blockquote>
+</div></blockquote>
+<dl class="last docutils">
+<dt>/*</dt>
+<dd><p class="first">A relation R is a strict partial order if it’s
+irreflexive, antisymmetric, and transitive. A
+canonical example is the less than (&lt;) relation
+on a set of natural numbers.
+<a href="#id51"><span class="problematic" id="id52">*</span></a>/
+predicate method isStrictPartialOrder()</p>
+<blockquote>
+<div>reads this;
+reads r;
+requires Valid();
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>isIrreflexive() &amp;&amp; isAntisymmetric() &amp;&amp; isTransitive()</dd>
+</dl>
+<p>}</p>
+<p>/*
+A relation R is said to be a quasi-order if it
+is irreflexive and transitive.</p>
+<p>The less than and proper subset inclusion
+relations are quasi-orders but not partial
+orders, because partial orders are necessarily
+also reflexive. The less than or equal and
+subset inclusion relations are partial orders
+but not quasi-orders because they are reflexive.</p>
+<p>Compare with strict partial ordering, which is
+a quasi-order that is also anti-symmetric.</p>
+<p>This definition of quasi order is from Stanat and
+McAllister, Discrete Mathematics in Computer Science,
+Prentice-Hall, 1977. Others define quasi-order as
+synonymous with preorder. See Rosen, Discrete
+Mathematicas and Its Applications, 4th ed.,
+McGraw-Hill, 1999.
+<a href="#id53"><span class="problematic" id="id54">*</span></a>/
+predicate method isQuasiOrder()</p>
+<blockquote>
+<div>reads this;
+reads r;
+requires Valid();
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>isIrreflexive() &amp;&amp; isTransitive()</dd>
+</dl>
+<p>}</p>
+<p>/*
+Weak ordering</p>
+<p>“There are several common ways of formalizing weak orderings,
+that are different from each other but cryptomorphic
+(interconvertable with no loss of information): they may be
+axiomatized as strict weak orderings (partially ordered sets
+in which incomparability is a transitive relation), as total
+preorders (transitive binary relations in which at least one
+of the two possible relations exists between every pair of
+elements), or as ordered partitions (partitions of the
+elements into disjoint subsets, together with a total order
+on the subsets)….</p>
+<p>… weak orders have applications in utility theory. In
+linear programming and other types of combinatorial
+optimization problem, the prioritization of solutions or
+of bases is often given by a weak order, determined by a
+real-valued objective function; the phenomenon of ties
+in these orderings is called “degeneracy”, and several
+types of tie-breaking rule have been used to refine this
+weak ordering into a total ordering in order to prevent
+problems caused by degeneracy.</p>
+<p>Weak orders have also been used in computer science, in
+partition refinement based algorithms for lexicographic
+breadth-first search and lexicographic topological ordering.
+In these algorithms, a weak ordering on the vertices of
+a graph (represented as a family of sets that partition
+the vertices, together with a doubly linked list providing
+a total order on the sets) is gradually refined over the
+course of the algorithm, eventually producing a total
+ordering that is the output of the algorithm.</p>
+<p>In the Standard (Template) Library for the C++ programming
+language, the set and multiset data types sort their input
+by a comparison function that is specified at the time of
+template instantiation, and that is assumed to implement
+a strict weak ordering.” –Wikipedia</p>
+<p>We formalize the concept as “total preorder.”
+<a href="#id55"><span class="problematic" id="id56">*</span></a>/
+predicate method isWeakOrdering()</p>
+<blockquote>
+<div>reads this;
+reads r;
+requires Valid();
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>isTotalPreorder()</dd>
+</dl>
+<p>}</p>
+<p>/*
+A strict weak ordering is a strict partial order in which the relation “neither a R b nor b R a” is transitive. That is, for
+all x, y, z in S, if neither x R y nor y R x holds, and if neither y R z nor z R y holds, then neither x R z nor z R x holds.</p>
+<p>In the C++ Standard Template Library (STL), if you want to use
+a standard sort routine or map data structure you have to define
+an overloaded &lt; operator; and it has to imlpement a strict weak
+ordering relation.</p>
+<p>From StackOverflow:</p>
+<p>This notion, which sounds somewhat like an oxymoron, is not very commonly used in mathematics, but it is in programming. The “strict” just means it is the irreflexive form “&lt;” of the comparison rather than the reflexive “≤”. The “weak” means that the absence of both a&lt;b and b&lt;a do not imply that a=b. However as explained here, the relation that neither a&lt;b nor b&lt;a holds is required to be an equivalence relation. The strict weak ordering then induces a (strict) total ordering on the equivalence classes for this equivalence relation.</p>
+<p>This notion is typically used for relations that are in basically total orderings, but defined using only partial information about the identity of items. For instance if a&lt;b between persons means that a has a name that (strictly) precedes the name of b alphabetically, then this defines a strict weak order, since different persons may have identical names; the relation of having identical names is an equivalence relation.</p>
+<p>One can easily show that for a strict weak ordering “&lt;”, the relation a≮b is (reflexive and) transitive, so it is a pre-order,and the associated equivalence relation is the same as the one associated above to the strict weak ordering. In fact “a≮b” is a total pre-order which induces the same total ordering (or maybe it is better to say the opposite ordering, in view of the negation) on its equivalence classes as the strict weak ordering does. I think I just explained that the notions of strict weak ordering and total pre-order are equivalent. The WP article also does a reasonable job explaining this.</p>
+<p>Marc van Leeuwen:
+If you are comparing strings, then you would often just define a total ordering (which is a special case of a strict weak ordering) like lexicographic ordering. However, it could be that you want to ignore upper case/lower case distinctions, which would make it into a true weak ordering (strings differing only by case distinctions would then form an equivalence class).</p>
+<p>Note: isStrictWeakOrdering &lt;==&gt; isTotalPreorder (should verify)
+<a href="#id57"><span class="problematic" id="id58">*</span></a>/
+predicate method isStrictWeakOrdering()</p>
+<blockquote>
+<div>reads this;
+reads r;
+requires Valid();
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd><p class="first">isStrictPartialOrder() &amp;&amp;
+// and transitivity of incomparability
+forall x, y, z :: x in dom() &amp;&amp; y in dom() &amp;&amp; z in dom() &amp;&amp;</p>
+<blockquote class="last">
+<div>(x, y) !in rel() &amp;&amp; (y, z) !in rel() ==&gt; (x, z) !in rel()</div></blockquote>
+</dd>
+</dl>
+<p>}</p>
+<p>/*
+A relation R on a set, S, is said to be well-founded
+if every non-empty subset, X, of S has a “minimum”
+element, such that there is no other element, x, in
+X, such that (x, min) is in X.</p>
+<p>As an example, the the less than relation over the
+infinite set of natural numbers is well founded
+because in any subset of the natural numbers there
+is because there is always a minimal element, m: an
+element that is less than every other element in the
+set.</p>
+<p>The concept of being
+well founded turns out to be important for
+reasoning about when recursive definitions are valid.
+In a nutshell, each recursive call has to be moving
+“down” a finite chain to a minimum element. Another
+way to explain being well-founded is that a relation
+is not well founded if there’s a way either to “go
+down” or to “go around in circles” forever. Here we
+give a version of well foundedness only for finite
+relations (there can never be an infinite descending
+chain); what this predicate basically rules out
+are cycles in a relation.
+<a href="#id59"><span class="problematic" id="id60">*</span></a>/
+predicate method isWellFounded()</p>
+<blockquote>
+<div>reads this;
+reads r;
+requires Valid();
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd><dl class="first last docutils">
+<dt>forall X | X &lt;= dom() ::</dt>
+<dd><dl class="first last docutils">
+<dt>X != {} ==&gt;</dt>
+<dd><dl class="first last docutils">
+<dt>exists min :: min in X &amp;&amp;</dt>
+<dd>forall s :: s in X ==&gt; (s, min) !in rel()</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>}</p>
+<p>/<strong>***********</strong> END OF ORDER THEORY****************/</p>
+<p>/*
+A binary relation is said to be a dependency relation
+if it is finite, symmetric, and reflexive. That is,
+every element “depends on” itself, and if one depends
+on another, then the other depends on the first. The
+name, “mutual dependency” or “symmetric dependency”
+relation would make sense here.
+<a href="#id61"><span class="problematic" id="id62">*</span></a>/
+predicate method isDependencyRelation()</p>
+<blockquote>
+<div>reads this;
+reads r;
+requires Valid();
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>isSymmetric() &amp;&amp; isReflexive()</dd>
+</dl>
+<p>}</p>
+<p>/*
+Return the complement of the given dependency
+relation on S. Such a relation is called an
+independency relation. Elements are related in
+such a relation if they are “independent” in
+the given dependency relation.
+<a href="#id63"><span class="problematic" id="id64">*</span></a>/
+method independencyRelationOnS(d: binRelOnS&lt;Stype&gt;)</p>
+<blockquote>
+<div><p>returns (r: binRelOnS&lt;Stype&gt;)
+requires Valid();
+requires d.Valid();
+requires d.isDependencyRelation();
+ensures r.Valid();
+ensures r.dom() == dom() &amp;&amp;</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>r.rel() ==</dt>
+<dd>(set x, y | x in dom() &amp;&amp; y in dom() :: (x,y)) -
+d.rel();</dd>
+</dl>
+</div></blockquote>
+<p>ensures Valid();</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd><dl class="first last docutils">
+<dt>r := new binRelOnS(</dt>
+<dd>dom(),
+(set x,y | x in dom() &amp;&amp; y in dom() :: (x,y)) - d.rel());</dd>
+</dl>
+</dd>
+</dl>
+<p>}</p>
+<p>/*
+A binary relation is said to be trichotomous if
+for any pair of values, x and y, either xRy or
+yRx or x==y. The &lt; relation on natural numbers is
+an example of a trichotomous relation: given any
+two natural numbers, x and y, either x &lt; y or
+y &lt; x, or, if neither condition holds, then it
+must be that x = y.
+<a href="#id65"><span class="problematic" id="id66">*</span></a>/
+predicate method isTrichotomous()</p>
+<blockquote>
+<div>reads this;
+reads r;
+requires Valid();
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd><dl class="first last docutils">
+<dt>forall x, y :: x in dom() &amp;&amp; y in dom() ==&gt;</dt>
+<dd>(x, y) in rel() || (y, x) in rel() || x == y</dd>
+</dl>
+</dd>
+</dl>
+<p>}</p>
+<p>/*
+Right Euclidean: for all x, y and z in X it holds that if xRy and xRz, then yRz.
+<a href="#id67"><span class="problematic" id="id68">*</span></a>/
+predicate method isRightEuclidean()</p>
+<blockquote>
+<div>reads this;
+reads r;
+requires Valid();
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd><dl class="first last docutils">
+<dt>forall x, y, z :: x in dom() &amp;&amp; y in dom() &amp;&amp; z in dom() ==&gt;</dt>
+<dd>(x, y) in rel() &amp;&amp; (x, z) in rel() ==&gt; (y, z) in rel()</dd>
+</dl>
+</dd>
+</dl>
+<p>}</p>
+<p>/*
+Left Euclidean: for all x, y and z in X it holds that if yRx and zRx, then yRz.
+<a href="#id69"><span class="problematic" id="id70">*</span></a>/
+predicate method isLeftEuclidean()</p>
+<blockquote>
+<div>reads this;
+reads r;
+requires Valid();
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd><dl class="first last docutils">
+<dt>forall x, y, z :: x in dom() &amp;&amp; y in dom() &amp;&amp; z in dom() ==&gt;</dt>
+<dd>(y, x) in rel() &amp;&amp; (z, x) in rel() ==&gt; (y, z) in rel()</dd>
+</dl>
+</dd>
+</dl>
+<p>}</p>
+<p>/*
+Euclidean: A relation is said to be Euclidean if it
+is both left and right Euclidean. Equality is a Euclidean
+relation because if x=y and x=z, then y=z.
+<a href="#id71"><span class="problematic" id="id72">*</span></a>/
+predicate method isEuclidean()</p>
+<blockquote>
+<div>reads this;
+reads r;
+requires Valid();
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>isLeftEuclidean() &amp;&amp; isRightEuclidean()</dd>
+</dl>
+<p class="last">}</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+<div class="section" id="end-new-stuff">
+<h1>END NEW STUFF<a class="headerlink" href="#end-new-stuff" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="sequences">
+<h1>Sequences<a class="headerlink" href="#sequences" title="Permalink to this headline">¶</a></h1>
+<p>A sequence of elements is an ordered collection in which elements can
+appear zero or more times. In both mathematical writing and in Dafny,
+sequences are often denoted as lists of elements enclosed in square
+brackets.  The same kinds of elisions (using elipses) can be used as
+shorthands in quasi-formal mathematical writing as with set notation.
+For example, in Dafny, a sequence <em>s := [1, 2, 3, 1]</em> is a sequence of
+integers, of length four, the elements of which can be referred to by
+subscripting. So <em>s[0]</em> is <em>1</em>, for example, as is <em>s[3]</em>.</p>
+<p>While at first a sequence might seem like an entirely different kind
+of thing than a set, in reality a sequence of length, <em>n</em>, is best
+understood, and is formalized, as a binary relation. The domain of the
+relation is the sequence of natural numbers from <em>0</em> to <em>n-1</em>.  These
+are the index values. The relation then associates each such index
+value with the value in that position in the sequence. So in reality,
+a sequence is a special case of a binary relation, and a binary
+relation is, as we’ve seen, just a special case of a set.  So here we
+are, at the end of this chapter, closing the loop with where we
+started. We have seen that the concept of sets really is a fundamental
+concept, and a great deal of other machinery is then built as using
+special cases, including relations, maps, and sequences.</p>
+<p>Tuples, too, are basically maps from indices to values. Whereas all
+the values in a sequence are necessarily of the same type, elements in
+a tuple can be of different types. Tuples also use the <em>.n</em> notation
+to apply projection functions to tuples. So, again, the value of, say,
+<em>(“hello”, 7).1</em> is <em>7</em> (of type <em>int</em>), while the value of
+<em>(“hello”, 7).0</em> is the string, “hello.”</p>
+<p>Sequences also support operations not supported for bare sets. These
+include sequence <em>concatenation</em> (addition, in which one sequence is
+appended to another to make a new sequence comprising the first one
+followed by the second. In Dafny, concatenation of sequences is done
+using the <em>+</em> operator. Dafny also has operations for accessing the
+individual elements of sequences, as well as subsequences. A given
+subsequence is obtained by taking a prefix of a suffix of a sequence.
+See the Dafny language summary for examples of these and other related
+operations on lists.</p>
+</div>
+<div class="section" id="break">
+<h1>BREAK<a class="headerlink" href="#break" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><blockquote>
+<div><blockquote>
+<div>/*</div></blockquote>
+<p>Return the relation g composed with this
+relation, (g o this). The domains/codomains
+of g and this must be the same.
+<a href="#id73"><span class="problematic" id="id74">*</span></a>/
+method compose(g: binRelOnS&lt;Stype&gt;)</p>
+<blockquote>
+<div><p>returns (c : binRelOnS&lt;Stype&gt;)
+requires Valid();
+requires g.Valid();
+requires g.dom() == codom();
+ensures c.Valid();
+ensures c.dom() == dom();
+ensures c.codom() == dom();
+ensures c.rel() == set r, s, t |</p>
+<blockquote>
+<div>r in dom() &amp;&amp;
+s in codom() &amp;&amp;
+(r, s) in rel() &amp;&amp;
+s in g.dom() &amp;&amp;
+t in g.codom() &amp;&amp;
+(s, t) in g.rel() ::
+(r, t)</div></blockquote>
+</div></blockquote>
+<p>{
+/*</p>
+<blockquote>
+<div>var f’ := convertToBinRelOnST();
+var g’ := g.convertToBinRelOnST();
+var h := composeRST(g’,f’);
+c := new binRelOnS&lt;T&gt;(dom(),h.rel());</div></blockquote>
+<dl class="docutils">
+<dt><a href="#id75"><span class="problematic" id="id76">*</span></a>/</dt>
+<dd><dl class="first docutils">
+<dt>var p := set r, s, t |</dt>
+<dd>r in dom() &amp;&amp;
+s in codom() &amp;&amp;
+(r, s) in rel() &amp;&amp;
+s in g.dom() &amp;&amp;
+t in g.codom() &amp;&amp;
+(s, t) in g.rel() ::
+(r, t);</dd>
+</dl>
+<p class="last">c := new binRelOnS(dom(), p);</p>
+</dd>
+</dl>
+<p>}</p>
+<p>/*
+The reflexive closure is the smallest relation
+that contains this relation and is reflexive. In
+particular, it’s the union of this relation and
+the identity relation on the same set. That is
+how we compute it here.
+<a href="#id77"><span class="problematic" id="id78">*</span></a>/
+method reflexiveClosure() returns (r: binRelOnS&lt;Stype&gt;)</p>
+<blockquote>
+<div>requires Valid();
+ensures r.Valid();
+ensures r.dom() == dom();
+ensures r.rel() == rel() + set x | x in dom() :: (x,x);
+ensures rel() &lt;= r.rel();
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>var id := this.identity();
+r := relUnion(id);</dd>
+</dl>
+<p>}</p>
+<p>/*
+The symmetric closure is the smallest relation
+that contains this relation and is symmetric. In
+particular, it’s the union of this relation and
+the inverse relation on the same set. It can be
+derived from this relation by taking all pairs,
+(s, t), and making sure that all reversed pairs,
+(t, s), are also included.
+<a href="#id79"><span class="problematic" id="id80">*</span></a>/
+method symmetricClosure() returns (r: binRelOnS&lt;Stype&gt;)</p>
+<blockquote>
+<div><p>requires Valid();
+ensures r.Valid();
+ensures r.dom() == dom();
+ensures r.rel() == rel() + set x, y |</p>
+<blockquote>
+<div>x in dom() &amp;&amp; y in codom() &amp;&amp; (x, y) in rel():: (y, x);</div></blockquote>
+<p>ensures rel() &lt;= r.rel();
+ensures Valid();</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>var inv := this.inverse();
+r := relUnion(inv);</dd>
+</dl>
+<p>}</p>
+<p>/*
+The transitive closure of a binary relation, R,
+on a set, S, is the relation R plus all tuples,
+(x, y) when there is any “path” (a sequence of
+tuples) from x to y in R. In a finite relation.
+such as those modeled by this class, the length
+of a path is bounded by the size of the set, S,
+so we can always compute a transitive closure by
+following links and adding tuples enough times
+to have followed all maximum-length paths in R.
+That’s what we do, here.</p>
+<blockquote>
+<div><a href="#id81"><span class="problematic" id="id82">*</span></a>/</div></blockquote>
+<dl class="docutils">
+<dt>method transitiveClosure() returns (r: binRelOnS&lt;Stype&gt;)</dt>
+<dd>requires Valid();
+ensures r.Valid();
+ensures r.dom() == dom();
+ensures rel() &lt;= r.rel();
+//ensures r.isTransitive(); – need to prove it
+ensures Valid();</dd>
+</dl>
+<dl class="docutils">
+<dt>{</dt>
+<dd><p class="first">var cl := rel();
+var n := <a href="#id93"><span class="problematic" id="id94">|dom()|</span></a>;
+while (n &gt; 0)</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>invariant forall x, y ::</dt>
+<dd>(x, y) in cl ==&gt; x in dom() &amp;&amp; y in dom()</dd>
+</dl>
+<p>invariant rel() &lt;= cl;</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd><dl class="first docutils">
+<dt>var new_pairs := set x, y, z |</dt>
+<dd>x in dom() &amp;&amp; y in dom() &amp;&amp; z in dom() &amp;&amp;
+(x, y) in cl &amp;&amp; (y, z) in cl ::
+(x, z);</dd>
+</dl>
+<p class="last">if cl == cl + new_pairs { break; }
+cl := cl + new_pairs;
+n := n - 1;</p>
+</dd>
+</dl>
+<p class="last">}
+r := new binRelOnS(dom(), cl);</p>
+</dd>
+</dl>
+<p>}</p>
+<p>/*
+The reflexive transitive closure is the smallest
+relation that contains this relation and is both
+reflexive and transitive.</p>
+<p>FIX: Under-informative specification!!!
+<a href="#id83"><span class="problematic" id="id84">*</span></a>/
+method reflexiveTransitiveClosure() returns (r: binRelOnS&lt;Stype&gt;)</p>
+<blockquote>
+<div>requires Valid();
+ensures r.Valid();
+ensures r.dom() == dom();
+ensures rel() &lt;= r.rel();
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>var refc := this.reflexiveClosure();
+r := refc.transitiveClosure();</dd>
+</dl>
+<p>}</p>
+<p>//Reflexive transitive symmetric closure
+method reflexiveSymmetricTransitiveClosure()</p>
+<blockquote>
+<div>returns (r: binRelOnS&lt;Stype&gt;)
+requires Valid();
+ensures r.Valid();
+ensures r.dom() == dom();
+ensures rel() &lt;= r.rel();
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>var refc := this.reflexiveClosure();
+var symc := refc.symmetricClosure();
+r := symc.transitiveClosure();</dd>
+</dl>
+<p>}</p>
+<p>/*
+The reflexive reduction of a relation is the relation
+minus the idenitity relation on the same set. It is, to
+be formal about it, the smallest relation with the same
+reflexive closure as this (the given) relation.
+<a href="#id85"><span class="problematic" id="id86">*</span></a>/
+method reflexiveReduction() returns (r: binRelOnS&lt;Stype&gt;)</p>
+<blockquote>
+<div>requires Valid();
+ensures r.Valid();
+ensures r.dom() == dom();
+ensures r.rel() == rel() -  set x | x in dom() :: (x,x);
+ensures Valid();</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>var id := this.identity();
+r := relDifference(id);</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>/*</dt>
+<dd><p class="first">transitive reduction – TBD
+<a href="#id87"><span class="problematic" id="id88">*</span></a>/</p>
+<p>/*
+The “restriction” of a relation, R, on a set, S, to a
+subset, X, of S, is a relation X containing the pairs
+in R both of whose elements are in X. That X is a subset
+of S is a precondition for calling this method.
+<a href="#id89"><span class="problematic" id="id90">*</span></a>/
+method restriction(X: set&lt;Stype&gt;) returns (r: binRelOnS&lt;Stype&gt;)</p>
+<blockquote>
+<div><p>requires Valid();
+requires X &lt;= dom();
+ensures r.Valid();
+ensures r.dom() == X;
+ensures r.rel() == set x, y | x in dom() &amp;&amp; y in dom() &amp;&amp;</p>
+<blockquote>
+<div>(x, y) in rel() &amp;&amp; x in X &amp;&amp; y in X :: (x, y);</div></blockquote>
+<p>ensures Valid();</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd><dl class="first last docutils">
+<dt>r := new binRelOnS(X, set x, y | x in dom() &amp;&amp; y in dom() &amp;&amp;</dt>
+<dd>(x, y) in rel() &amp;&amp; x in X &amp;&amp; y in X :: (x, y));</dd>
+</dl>
+</dd>
+</dl>
+<p class="last">}</p>
+</dd>
+</dl>
+</div></blockquote>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="07-set-theory.html"
+                        title="previous chapter">7. Set Theory</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="08-boolean-algebra.html"
+                        title="next chapter">8. Boolean Algebra</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="08-boolean-algebra.html" title="8. Boolean Algebra"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="07-set-theory.html" title="7. Set Theory"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright .
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
+  </body>
+</html>

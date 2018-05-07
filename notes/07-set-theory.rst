@@ -500,7 +500,6 @@ second line.
 Exercise: Write a pure function that when given a value of type set<T>
 returns its powerset. The function will have to be polymorphic.  Call
 it powerset<T>.
-
 		
 
 Tuples
@@ -1137,6 +1136,12 @@ birthday as Tom. This relation thus divides the human population into
 366 equivalence classes. Mathematicians usually use the notation *a ~
 b* to denote the concept that *a* is equivalent to *b* (under whatever
 equivalence relation is being considered).
+
+
+
+
+
+
 
 Sequences
 =========

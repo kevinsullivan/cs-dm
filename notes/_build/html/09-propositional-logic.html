@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/sidebar.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="10. Natural Deduction" href="10-natural-deduction.html" />
+    <link rel="next" title="Satisfiability" href="09a-satisfiability.html" />
     <link rel="prev" title="8. Boolean Algebra" href="08-boolean-algebra.html" /> 
   </head>
   <body>
@@ -35,7 +35,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="10-natural-deduction.html" title="10. Natural Deduction"
+          <a href="09a-satisfiability.html" title="Satisfiability"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="08-boolean-algebra.html" title="8. Boolean Algebra"
@@ -88,14 +88,18 @@ larger proposition by composing these two propositions into a larger
 one under the logical connective called <em>and</em>. The result would be the
 proposition, <em>Toms’ mother is Mary and Tom’s father is Ernst</em>. We
 could of course write this more concisely as <em>M and F</em>, or, in a more
-mathematical notation, <img class="math" src="_images/math/b6a03bb07b16c653ebfb0058c38d66c7ab234a17.png" alt="M \land F"/>).</p>
+mathematical notation, <img class="math" src="_images/math/b6a03bb07b16c653ebfb0058c38d66c7ab234a17.png" alt="M \land F"/>.</p>
 <p>Now we ask, what is the truth value of this larger proposition? To
 determine the answer, we conjoin the truth values of the constituent
 propositions.  The meaning of the larger proposition is determined by
 (1) the meanings of its smaller parts, and (2) the logical connective
-that composes them into a larger proposition. Such a logic of simple
-propositions and their compositions using connectives such as <em>and</em>,
-<em>or</em>, and <em>not</em> is called <em>propositional logic</em>.</p>
+that composes them into a larger proposition. For example, if it’s
+true that Tom’s mother is Mary and it’s also true that Tom’s father is
+Ernst, then the truth of the compound conjuction is <em>true and true</em>,
+which is true. Such a logic of propositionsm their compositions into
+larger propositions using connectives such as <em>and</em>, <em>or</em>, and <em>not</em>,
+and this compositional way of determining the truth of propositions,
+is called <em>propositional logic</em>.</p>
 <p>By contrast, the proposition, “every person has a mother” (or to put
 it more formally, <img class="math" src="_images/math/3a2c24211ae54a244f8ed095bd7dd699d5641206.png" alt="\forall p \in Persons, \exists m \in Persons,
 motherOf(p,m)"/>), belongs to a richer logic.  Here, <em>motherOf(p, m)</em> is
@@ -194,18 +198,25 @@ logic is basically that of our Boolean expression language with the
 crucial addition of propositional <em>variable expressions</em>. Examples of
 variable expressions include <em>M</em> and <em>F</em> in our example at the start
 of this chapter. So, for example, in addition to being able to write
-expressions such as <em>pAnd(pTrue,pFalse)</em>, we can write <em>pAnd(pTrue,F)</em>
-and <em>POr(M,F)</em>.</p>
-<p>As for semantics, propositional variables take Boolean values. To
-evaluate a variable expression, we just look up its Boolean value
-and then proceed as with Boolean expression evaluation in the last
-chapter.</p>
-<p>The one complication, then, is that, to evaluate a proposition (which
-in general includes variables), our semantic evaluation function needs
-to have a way to look up the Boolean value of each variable appearing
-in the expression being evaluated. Our semantic evaluator need a <em>map</em>
-from variables to values.  Logicians call such a variable-to-value map
-an <em>interpretation</em>. Programming language designers call such a map an
+expressions such as <em>pAnd(pTrue,pFalse)</em>, we can write <em>pAnd(M,F)</em>,
+where <em>M</em> and <em>F</em> are proposition variables that can have <em>true</em> or
+<em>false</em> as their values.</p>
+<p>As for semantics, propositional variables thus have Boolean values. To
+evaluate a proposition in propositional logic, we thus ascertain the
+Boolean value of each variable appearing in the proposition and then
+proceed to evaluate the result just as we did with Boolean expression
+evaluation in the last chapter. For example, if <em>M</em> is <em>true</em> and <em>F</em>
+is <em>true</em>, then to evaluate <em>M and F</em>, we first evaluate each of <em>M</em>
+and <em>F</em> individually, reducing the proposition to <em>true and true</em>. We
+then reduce that expression using the rules for Boolean algebra. The
+result in this case is, of course, just <em>true</em>.</p>
+<p>The one complication, then, is that, to evaluate a proposition that
+includes variables, our semantic evaluation function needs to have a
+way to look up the Boolean value of each variable in the expression to
+be evaluated. Our semantic evaluator needs a function, which could be
+represented as a <em>map</em>, for example, from propositional variables such
+as <em>M</em> and <em>F</em> to Boolean values.  Logicians call such a function an
+<em>interpretation</em>. Programming language designers sometimes call it an
 <em>environment</em>. To evaluate a variable expression, the evaluator will
 just look up its value in the given intepretation and will otherwise
 proceed as in the last chapter.</p>
@@ -682,8 +693,8 @@ exhaustive checking of all interpretations. &lt;More to come&gt;.</p>
   <p class="topless"><a href="08-boolean-algebra.html"
                         title="previous chapter">8. Boolean Algebra</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="10-natural-deduction.html"
-                        title="next chapter">10. Natural Deduction</a></p>
+  <p class="topless"><a href="09a-satisfiability.html"
+                        title="next chapter">Satisfiability</a></p>
         </div>
       </div>
       <div class="clearer"></div>
@@ -695,7 +706,7 @@ exhaustive checking of all interpretations. &lt;More to come&gt;.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="10-natural-deduction.html" title="10. Natural Deduction"
+          <a href="09a-satisfiability.html" title="Satisfiability"
              >next</a> |</li>
         <li class="right" >
           <a href="08-boolean-algebra.html" title="8. Boolean Algebra"
