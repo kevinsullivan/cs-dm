@@ -25,6 +25,7 @@ Welcome to Mathematical Logic in Software Development
    09a-consequence
    11-predicate-logic
    10-natural-deduction
+   10a-equality
    12-induction
 
 Indices and tables

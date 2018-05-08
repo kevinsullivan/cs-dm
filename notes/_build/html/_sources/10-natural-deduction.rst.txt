@@ -2,6 +2,17 @@
 10. Natural Deduction
 *********************
 
+
+KS: Edit this intro.
+
+Finally, logic consequence. A set of logical propositions, premises,
+is said to entail another, a conclusion, if in every interpretation
+where all of the premises are true the conclusion is also true. See
+the file, consequence.dfy, for a consequence checker that works by
+exhaustive checking of all interpretations. <More to come>.
+
+KS: Transition here from sematic to syntactic entailment.
+
 Note to self: The next few chapters separate complexities on the way
 to full first-order logic. The first, addressed here, is the shift
 from a semantic to a syntactic approach to judging truth. Derivation
@@ -40,271 +51,225 @@ one as a consequence. Mathematical logic allows us to replace human
 mental reasoning with the mechanical *transformation of symbolic
 expressions*. 
 
-Foo
-===
 
-/-
-At this point, we've proposed and validated
-(using truth tables) a set of fundamental
-inference rules. Unfortunately, using truth
-tables doesn't scale well. We thus play an
-important game, now, where we simply accept
-the inference rules as valid transformation
-between sets of premises and conclusions. We
-view the Ps, Qs, Rs in the rules we validated
-as "standing for" arbitrary propositions, and
-we now apply these rules without having to go
-back and validate the results "semantically"
-(using truth tables). We thus transition 
-from what we call "semantic entailment" to
-"syntactic entailment," which finally moves
-us into the realm of logic and proof.
-
-We now also shift tools, from Dafny, which
-allows us to write logic, but which largely
-hides the proofs and their construction, to
-Lean, which is what we call a proof assistant.
-Many propositions are too difficult for tools
-such as Dafny to prove automatically. If we
-still want the assurances of correctness (of
-software or even just in pure mathematics)
-provided by a strongly typed checker, then
-we have to use a tool in which we manipulate
-both propositions and proofs explicitly. We
-are now there. 
-
-The purpose of this initial unit is to give
-you an introduction to the fundamental concepts
-of propositions and proofs, using a proof tool
-as an aid to learning: here the Lean Prover. 
+Unscalability of Semantic Entailment
+====================================
 
 
-A key point in this chapter is that different 
-forms of propositions have different forms of
-proofs, and require you to use different proof
-"strategies" to construct such proofs. These 
-ideas are fundmental to discrete mathematics
- whether or not you are using a proof tool. 
-Benefits of using a tool like Lean include
-nearly absolute assurance that you haven't
-made a mistake by accepting a proof that isn't
-really valid.
--/
+At this point, we've proposed and validated (using truth tables) a set
+of fundamental inference rules. Unfortunately, using truth tables
+doesn't scale well. We thus play an important game, now, where we
+simply accept the inference rules as valid transformation between sets
+of premises and conclusions. We view the Ps, Qs, Rs in the rules we
+validated as "standing for" arbitrary propositions, and we now apply
+these rules without having to go back and validate the results
+"semantically" (using truth tables). We thus transition from what we
+call "semantic entailment" to "syntactic entailment," which finally
+moves us into the realm of logic and proof.
 
-/- **** PROPOSITIONS AS TYPES **** -/
+We now also shift tools, from Dafny, which allows us to write logic,
+but which largely hides the proofs and their construction, to Lean,
+which is what we call a proof assistant.  Many propositions are too
+difficult for tools such as Dafny to prove automatically. If we still
+want the assurances of correctness (of software or even just in pure
+mathematics) provided by a strongly typed checker, then we have to use
+a tool in which we manipulate both propositions and proofs
+explicitly. We are now there.
 
-/-
-Here's a typical definition: in this case,
-of a variable, x, bound to the value, 1, of
-type, nat.  
--/
-def x: nat := 1
-def z: ℕ := 1
-def y := 1
-
-/-
-In Lean, you can check the type of a term
-by using the #check command. Hover your
-mouse over the #check in VSCode to see 
-the result.
--/
-
-#check 1
-#check x
-
-/-
-Lean tells you that the type of x is nat.
-It uses the standard mathematical script N
-(ℕ) for nat. You can use it too by typing 
-"\nat" rather than just "nat" for the type.
--/
-
-def x': ℕ := 1
-
-/-
-You can evaluate an expression in Lean using
-the #eval command. (There are other ways to
-do this, as well, which we'll see later.) You
-hover your mouse over the command to see the
-result.
--/
-
-#eval x
-
-/-
-In Lean, definitions start with the keyword, 
-def, followed by the name of a variable, here
-x; a colon; then the declared type of the
-variable, here nat; then :=; and finally an
-expression of the right type, here simply 
-the literal expression, 1, of type ℕ. Lean
-type-checks the assignment and gives and error
-if the term on the right doesn't have the same
-type declared or inferror for the variable on 
-the left.
--/
+The purpose of this initial unit is to give you an introduction to the
+fundamental concepts of propositions and proofs, using a proof tool as
+an aid to learning: here the Lean Prover.
 
 
-/- ****** TYPES ARE VALUES, TOO ****** -/
+A key point in this chapter is that different forms of propositions
+have different forms of proofs, and require you to use different proof
+"strategies" to construct such proofs. These ideas are fundmental to
+discrete mathematics whether or not you are using a proof tool.
+Benefits of using a tool like Lean include nearly absolute assurance
+that you haven't made a mistake by accepting a proof that isn't really
+valid. 
 
-/-
-In Lean, every term has a type. A type is a
-term, too, so it, too, has a type. We've seen
-that the type of x is nat. What is the type
-of nat? 
--/
 
-#check nat
+PROPOSITIONS AS TYPES
+====================
 
-/-
+
+Binding Values to Variables
+---------------------------
+
+Here's a typical definition: in this case, of a variable, x, bound to
+the value, 1, of type, nat.
+
+    def x: nat := 1
+    def z: ℕ := 1
+    def y := 1
+
+
+Checking Types
+--------------
+
+You can check the type of a term by using the #check command. Then
+hover your mouse over the #check in VSCode to see the result.
+
+
+    #check 1
+    #check x
+
+Lean tells you that the type of x is nat.  It uses the standard
+mathematical script N (ℕ) for nat. You can use it too by typing "\nat"
+rather than just "nat" for the type.
+
+    def x': ℕ := 1
+
+
+You can evaluate an expression in Lean using the #eval command. (There
+are other ways to do this, as well, which we'll see later.) You hover
+your mouse over the command to see the result.
+
+    #eval x
+
+
+In Lean, definitions start with the keyword, def, followed by the name
+of a variable, here x; a colon; then the declared type of the
+variable, here nat; then :=; and finally an expression of the right
+type, here simply the literal expression, 1, of type ℕ. Lean
+type-checks the assignment and gives and error if the term on the
+right doesn't have the same type declared or inferror for the variable
+on the left.
+
+
+
+Types Are Values Too
+====================
+
+
+In Lean, every term has a type. A type is a term, too, so it, too, has
+a type. We've seen that the type of x is nat. What is the type of nat?
+
+
+    #check nat
+
 What is the type of Type?
--/
 
-#check Type
+    #check Type
 
-/-
 What is the type of Type 1?
--/
 
-#check Type 1
+    #check Type 1
 
-/-
 You can guess where it goes from here!
--/
 
 
-/- ****** PROPOSITIONS ****** -/
 
-/-
-Lean and similar constructive logic proof
-assistants unify and automate mathematical
-logic and computing. So propositions are
-now values, and so are proofs. As such, 
-propositions must have types. Let's write 
-a few simple propositions and check to see
-what their types are.
--/
+Propositions
+============
 
--- zero equals zero; this is a proposition
-#check 0=0
+Lean and related proof assistants unify mathematical logic and
+computation, enabling us once again to mix code and logic, but where
+the logic is now higher-order and constructive. So propositions are
+objects and so are proofs. As such, propositions must have types. Let's
+write a few simple propositions and check to see what their types are.
 
-#check Prop
+Zero equals zero is a proposition.
 
--- every natural numbers is non-negative
-#check ∀ n: nat, n >= 0
+    #check 0=0
 
--- Get the forall symbol by typing "\forall"
+    #check Prop
 
--- every natural number has a successor
-#check ∀ n: ℕ, (∃ m: ℕ, (m = n + 1))
+Every natural numbers is non-negative.
 
-#check ∀ n: ℕ, n = 0
+    #check ∀ n: nat, n >= 0
 
--- Get the exists symbol by typing "\exists"
+Get the forall symbol by typing "\forall"
 
--- Propositions are values, too!
+Every natural number has a successor.
 
-def aProp := ∀ n: ℕ, ∃ m: ℕ, m = n + 1
+    #check ∀ n: ℕ, (∃ m: ℕ, (m = n + 1))
 
-#check aProp
+    #check ∀ n: ℕ, n = 0
 
-/-
-In each case, we see that the type of any
-proposition is Prop. What's the type of Prop?
--/
+Get the exists symbol by typing "\exists".
+
+Propositions are values, too!
+
+    def aProp := ∀ n: ℕ, ∃ m: ℕ, m = n + 1
+
+    #check aProp
+
+In each case, we see that the type of any proposition is Prop. What's
+the type of Prop?
 
 #check Prop
 
-/- 
-Ok, the type of Prop is also Type. So what
-we have here is a type hierarchy in which the 
-familiar types, such as nat, have the type, 
-Type, but where there's also a type, called 
-Prop, that is also of type, Type, and it, in
-turn, is the type of all propositions.
 
-So let's start again with x := 1. The value
-of x is 1. The type of the value, 1, is nat.
-The type of nat is Type. From there the type
-of each type is just the next bigger "Type n.""  
-We've also seen that a proposition, such as
-0=0, is of type, Prop, which in turn has the
+The Type Hierarchy (Universes) of Lean
+======================================
+
+Ok, the type of Prop is also Type. So what we have here is a type
+hierarchy in which the familiar types, such as nat, have the type,
+Type, but where there's also a type, called Prop, that is also of
+type, Type, and it, in turn, is the type of all propositions.
+
+So let's start again with x := 1. The value of x is 1. The type of the
+value, 1, is nat.  The type of nat is Type. From there the type of
+each type is just the next bigger "Type n.""  We've also seen that a
+proposition, such as 0=0, is of type, Prop, which in turn has the
 type, Type. But what about proofs?
--/
 
 
-/- ** PROOFS: PROPOSITIONS ARE TYPES! ** -/
+PROPOSITIONS ARE TYPES; PROOFS ARE VALUES
+=========================================
 
-/-
-So what about proofs? They crazy idea that
-Lean and similar systems are built on is that
-propositions can themselves be viewed as types,
-and proofs as values of these types! In this
-analogy, a proof is a value of a type, namely
-of the proposition that it proves, viewed as
-a type. So just as 1 is a value of type nat,
-and nat in turn is a value of type, Type, so
-a proof of 0=0 is a value of type 0=0! The
-proposition is the type. The proof, if there
-is one, is a value of such a type, and its
-type is Prop. To see this more clearly, we 
-need to build some proofs/values.
--/
+So what about proofs? They crazy idea that Lean and similar systems
+are built on is that propositions can themselves be viewed as types,
+and proofs as values of these types! In this analogy, a proof is a
+value of a type, namely of the proposition that it proves, viewed as a
+type. So just as 1 is a value of type nat, and nat in turn is a value
+of type, Type, so a proof of 0=0 is a value of type 0=0! The
+proposition is the type. The proof, if there is one, is a value of
+such a type, and its type is Prop. To see this more clearly, we need
+to build some proofs/values.
 
-/-
-Here (following this comment) is a new 
-definition, of the variable, zeqz. But 
-whereas before we defined x to be of the
-type, nat, with value 1, now we define 
-zeqz to be of the type, 0=0, with a value
-given by that strange terms, "rfl."
+Here (following this comment) is a new definition, of the variable,
+zeqz. But whereas before we defined x to be of the type, nat, with
+value 1, now we define zeqz to be of the type, 0=0, with a value given
+by that strange terms, "rfl."
     
-We're using the proposition, 0=0, as a
-type! To this variable we then assign a 
-value, which we will understand to be a
-proof. Proof values are built by what we
-can view as inference rules. The inference
-rule, rfl, builds a proof that anything is
-equal to itself, in this case that 0=0.
--/
-def zeqz: 0 = 0 := rfl
+We're using the proposition, 0=0, as a type! To this variable we then
+assign a value, which we will understand to be a proof. Proof values
+are built by what we can view as inference rules. The inference rule,
+rfl, builds a proof that anything is equal to itself, in this case
+that 0=0.  -/ def zeqz: 0 = 0 := rfl
 
--- rfl works for any type, not just nat
-def heqh: "hello" = "hello" := rfl
+The rfl widget, whatever it is, works for any type, not just nat.
 
-/-
+    def heqh: "hello" = "hello" := rfl
+
 The proof is produced the rfl inference rule.
-The rfl "proof constructor" (that is what an
-inference rule is, after all) is polymorphic, 
+It is a "proof constructor" (that is what an
+inference rule is, after all), is polymorphic, 
 uses type inference, takes a single argument,
-a, and yields a proof of a = a. The value in
-this case is 0 and the type is nat. What the
-rule says more formally is that, without any 
-premises you can always conclude that for any 
-type, A, and for any value, a, of that type, 
-there is a proof of a = a. 
+a, and yields a proof of a = a.
 
-For example, if you  need a proof of 0=0, you 
-use this rule to build it. The rule infers the 
-type to be nat and the value, a, to be 0. The 
-result is a proof of 0 = 0. The value of zeqz 
-in this case is thus a *proof*, of its type, 
-i.e., of the proposition, 0 = 0. Check the
-type of zeqz. Its type is the proposition that
-it proves!
--/
-#check zeqz
+The value in this case is 0 and the type is nat. What the rule says
+more formally is that, without any premises you can always conclude
+that for any type, A, and for any value, a, of that type, there is a
+proof of a = a.
 
-/-
-It helps to draw a picture. Draw a picture
-that includes "nodes" for all of the values
-we've used or defined so far, with arrows
-depicting the "hasType" relation. There are
-nodes for 1, x, zeqz, nat, Prop, Type, Type 1,
-Type 2, etc. 
--/
+For example, if you need a proof of 0=0, you use this rule to build
+it. The rule infers the type to be nat and the value, a, to be 0. The
+result is a proof of 0 = 0. The value of zeqz in this case is thus a
+*proof*, of its type, i.e., of the proposition, 0 = 0. Check the type
+of zeqz. Its type is the proposition that
 
-/-
+    #check zeqz
+
+It helps to draw a picture. Draw a picture that includes "nodes" for
+all of the values we've used or defined so far, with arrows depicting
+the "hasType" relation. There are nodes for 1, x, zeqz, nat, Prop,
+Type, Type 1, Type 2, etc. KS: DRAW THE GRAPHIC
+
+
 When we're building values that are proofs
 of propositions, we generally use the keyword,
 "theorem", instead of "def". They mean exactly
@@ -313,153 +278,121 @@ different intentions to human readers. We add
 a tick mark to the name of the theorem here
 only to avoid giving multiple definitions of
 the same name, which is an error in Lean.
--/
-theorem zeqz': 0 = 0 := rfl
 
-/-
+    theorem zeqz': 0 = 0 := rfl
+
 We could even have defined x := 1 as a theorem.
--/
 
-theorem x'': nat := 1
+    theorem x'': nat := 1
 
-/-
-While this means exactly the same thing as
-our original definition of x, it gives us an
-entirely new view: a value is a proof of its
-type. 1 is thus a proof of the type nat. Our
-ability to provide any value for a type gives
-us a proof of that type. The type checker in
-Lean ensures that we never assign a value to 
-a variable that is not of its type. Thus it
-ensures that we never accept a proof that is
-not a valid proof of its type/proposition.
--/
-
-/- ********** TRUTH ********** -/
-
-/-
-What does it mean for a proposition to be true
-in Lean? It means exactly that there is a proof,
-which is to say that it means that there is some
-value of that type. A proposition that is false
-is a good proposition, and a good type, but it
-is a type that has no proofs, no values! It is 
-an "empty," or "uninhabited" type. The type, 1=0,  
-has no values (no proofs). There is no way to
-produce a value of this type. 
--/
+While this means exactly the same thing as our original definition of
+x, it gives us an entirely new view: a value is a proof of its type. 1
+is thus a proof of the type nat. Our ability to provide any value for
+a type gives us a proof of that type. The type checker in Lean ensures
+that we never assign a value to a variable that is not of its
+type. Thus it ensures that we never accept a proof that is not a valid
+proof of its type/proposition.
 
 
-/- ********** NEXT STEPS ************ -/
+Truth
+=====
 
-/-
+
+What does it mean for a proposition to be true in Lean? It means
+exactly that there is a proof, which is to say that it means that
+there is some value of that type. A proposition that is false is a
+good proposition, and a good type, but it is a type that has no
+proofs, no values! It is an "empty," or "uninhabited" type. The type,
+1=0, has no values (no proofs). There is no way to produce a value of
+this type.
+
+
+FORMS OF PROPOSITIONS AND OF THEIR PROOFS
+=========================================
+
 With this background in hand, we can now use
 what we've learned to start to investigate the
-world of mathematical logic and proof at a very
-high level of sophistication and automation! 
+world of mathematical logic and proof at a high
+level of sophistication and automation! 
 
 In particular, we now start to explore different
 *forms of propositions* and corresponding *proof
 strategies*. The first unit in the remainder of
 this introduction focuses on propositions that 
 assert that two terms are equal. The strategy 
-we see used here is"proof by simplification 
+we see used here is "proof by simplification 
 and by the reflexive property of equality".
--/
 
-/- ******** PROOFS OF EQUALITY ******* -/
 
-/-
-An expression, v1=v2, is a proposition that
-asserts the equality of the terms v1 and v2.
-The terms are considered equal if and only 
-if one can produce a proof of v1=v2. There
-is an inference rule defined in Lean that
-can produce such a proof whenever v1 and v2
-are exactly the same terms, such as in 0=0. 
-This rule can also produce a proof whenever
-v1 and v2 reduce (evaluate) to identical 
-terms. So we can also produce a proof of 
-0+0=0, for example, because 0+0 reduces
-to 0, and then you have identical terms on
-each side of the =. This notion of equality 
-is called "definitional equality". As you'd
-expect, it's a binary, reflexive, symmetric,
-and transitive relation on terms. It is also
-polymorphic, and so can be used for any two
-terms of the same type, A, no matter what A
-is. The Lean inference rule that produces 
+PROOFS OF EQUALITY
+==================
+
+An expression, v1=v2, is a proposition that asserts the equality of
+the terms v1 and v2.  The terms are considered equal if and only if
+one can produce a proof of v1=v2. There is an inference rule defined
+in Lean that can produce such a proof whenever v1 and v2 are exactly
+the same terms, such as in 0=0.  This rule can also produce a proof
+whenever v1 and v2 reduce (evaluate) to identical terms. So we can
+also produce a proof of 0+0=0, for example, because 0+0 reduces to 0,
+and then you have identical terms on each side of the =. This notion
+of equality is called "definitional equality". As you'd expect, it's a
+binary, reflexive, symmetric, and transitive relation on terms. It is
+also polymorphic, and so can be used for any two terms of the same
+type, A, no matter what A is. The Lean inference rule that produces
 proofs of definitional equality is just rfl.
 
-Here (following) are several terms that are 
-definitionally equal even though they're not 
-identical. rfl is happy to build proofs for 
-them. The second example illustrates that
-terms that look pretty different can still 
-be definitionally equal. On the left we have
-a nat/string pair. The .1 after the pair is
-the operator that extracts the first element
-of the pair, here term 1-1. This term then 
-reduces to 0. The terms on either side of 
-the = thus reduce to the same term, 0, which 
-allows rfl to complete its work and return
-a value that is accepted as being of the
-right type, i.e., as a proof of equality. 
--/
+Here (following) are several terms that are definitionally equal even
+though they're not identical. rfl is happy to build proofs for
+them. The second example illustrates that terms that look pretty
+different can still be definitionally equal. On the left we have a
+nat/string pair. The .1 after the pair is the operator that extracts
+the first element of the pair, here term 1-1. This term then reduces
+to 0. The terms on either side of the = thus reduce to the same term,
+0, which allows rfl to complete its work and return a value that is
+accepted as being of the right type, i.e., as a proof of equality.
 
-theorem t0 : 1 - 1 = 5 - 5 := rfl
-theorem t1 : (1-1, "fidge").1 = 0 := rfl
+    theorem t0 : 1 - 1 = 5 - 5 := rfl
+    theorem t1 : (1-1, "fidge").1 = 0 := rfl
 
-/-
-What you are seeing here is a strategy of
-proving propositions that assert equalities 
-in two steps: first simplify (evaluate) the 
-expressions on either side of the =, and 
-then certify a proof of equality if and 
-only if the resulting terms are identical. 
-Whether you are using a proof assistant tool
-such as Lean or just doing paper-and-pencil
-mathematics, this is a fundamental strategy
-for proving propositions of a certain kind,
-namely propositions that assert equalities.
-
-There are analogous strategies for dealing
-with other situations involving equalities.
-For example, if we have proofs of a = b and
-b = c and we need a proof of a = c, then we
-would use an inference rule that depends not
-on the reflexive property of equality but 
-on that fact that it is transitive: if a = b
-and b = c then a = c. Similarly, there is a
-rule that reflects the symmetric property of
-equality: given a proof of a = b, it builds
-and returns a proof of b = a. We do not get
-into the details at this time.
--/
+What you are seeing here is a strategy of proving propositions that
+assert equalities in two steps: first simplify (evaluate) the
+expressions on either side of the =, and then certify a proof of
+equality if and only if the resulting terms are identical.  Whether
+you are using a proof assistant tool such as Lean or just doing
+paper-and-pencil mathematics, this is a fundamental strategy for
+proving propositions of a certain kind, namely propositions that
+assert equalities.
 
 
+Proofs Based on Properties of Equality
+--------------------------------------
 
-theorem byRefl: ∀ α : Type, ∀ a : α, a = a
-        := λ (α: Type) (a: α), eq.refl a
+There are analogous strategies for dealing with other situations
+involving equalities.  For example, if we have proofs of a = b and b =
+c and we need a proof of a = c, then we would use an inference rule
+that depends not on the reflexive property of equality but on that
+fact that it is transitive: if a = b and b = c then a = c. Similarly,
+there is a rule that reflects the symmetric property of equality:
+given a proof of a = b, it builds and returns a proof of b = a. We do
+not get into the details at this time.
 
-/-
-An English-language proof of p = p
-would read, "... p = p is true by 
-the reflexive property of equality."
-Remember: "rfl" is just a shorthand
-for "eq.refl a", where "a" is the 
-value on the left of the equals
-sign. 
--/
+By The Reflexive Property of Equality
++++++++++++++++++++++++++++++++++++++
+
+    theorem byRefl: ∀ α : Type, ∀ a : α, a = a
+            := λ (α: Type) (a: α), eq.refl a
+
+An English-language proof of p = p would read, "... p = p is true by
+the reflexive property of equality."  Remember: "rfl" is just a
+shorthand for "eq.refl a", where "a" is the value on the left of the
+equals sign.
 
 
+By the Symmetric Property of Equality
++++++++++++++++++++++++++++++++++++++
 
-/- 
-Proof by Symmetric Property of Equality
 
--/
-
-theorem bySymm: ∀ α : Type, ∀ p q: α, p = q → q = p 
+    theorem bySymm: ∀ α : Type, ∀ p q: α, p = q → q = p 
         /-
         eq.symm applied to a proof of
         p=q constructs a proof of q=p
@@ -467,77 +400,76 @@ theorem bySymm: ∀ α : Type, ∀ p q: α, p = q → q = p
         := λ (α: Type) (p q: α) (pfpq: p = q), 
             eq.symm pfpq
 
-#check 1 = 2
+    #check 1 = 2
 
 
 
-/- 
-Proof by Transitive Property of Eq 
+By the Transitive Property of Equality
+++++++++++++++++++++++++++++++++++++++
 
-THe transitive property of equality
+The transitive property of equality
 provides a corresponding inference
 rule, p=q, q=r ⊢ p=r. In Lean this 
 rule is called eq.trans. We give an
 example its use in proving a theorem
 that simply asserts that equality 
 has the transitiveity property.
--/
 
-theorem byTrans: 
-    ∀ α: Type, 
-        ∀ p q r: α, 
-            p = q → q = r → p = r :=
-    λ α p q r pfpq pfqr, eq.trans pfpq pfqr
-
-/-
-In ordinary English we'd say "if p=q and
-q=r then p=r. We could write the theorem
-using and; we'd just have to access the
-proofs within the pair constituting the
-proof of the conjunction."
--/
-
-theorem byTrans': 
-    ∀ α: Type, 
-        ∀ p q r: α, 
-            p = q ∧ q = r → p = r 
-    /-
-    Applying eq.trans to a proof of p=q and
-    a proof of p=q and a proof of q=r yields
-    a proof of p=r. Here we have to extract
-    the proofs of p=q and q=r from the proof
-    of (p=q ∧ q=r).
-    -/
-    :=  λ α p q r conj, 
-        eq.trans 
-            (and.elim_left conj)
-            (and.elim_right conj) 
+    theorem byTrans: 
+        ∀ α: Type, 
+            ∀ p q r: α, 
+                p = q → q = r → p = r :=
+        λ α p q r pfpq pfqr, eq.trans pfpq pfqr
 
 
-/- Optional: Substitutability of Equals -/
+In ordinary English we'd say "if p=q and q=r then p=r. We could write
+the theorem using and; we'd just have to access the proofs within the
+pair constituting the proof of the conjunction."
 
-theorem substutabilityOfEquals: 
-    ∀ α: Type, ∀ P: α → Prop, ∀ a1 a2: α,   
-        a1 = a2 → P a1 → P a2 :=
+
+    theorem byTrans': 
+        ∀ α: Type, 
+            ∀ p q r: α, 
+                p = q ∧ q = r → p = r 
         /-
-        If a1 equals a2, then if the predicate
-        (a proposition with a parameter), P, is
-        true of a1, then P is also true of a2.
+        Applying eq.trans to a proof of p=q and
+        a proof of p=q and a proof of q=r yields
+        a proof of p=r. Here we have to extract
+        the proofs of p=q and q=r from the proof
+        of (p=q ∧ q=r).
         -/
-            λ α P a1 a2 eql, eq.subst eql
+        :=  λ α p q r conj, 
+            eq.trans 
+                (and.elim_left conj)
+                (and.elim_right conj) 
 
 
-/- An exercise: Example of an Exam Question -/
-theorem eq_quiz: ∀ (α : Type) (p q r s: α),
-    p = q → (p = q → r = s) → q = r → p = s :=
-        λ α p q r s pfpq pfpqrs pfqr, 
-            eq.trans
-                (eq.trans
-                    pfpq
-                    pfqr)
-                (pfpqrs pfpq) 
+Optional: Substitutability of Equals
+++++++++++++++++++++++++++++++++++++
 
-#check eq_quiz
+
+    theorem substutabilityOfEquals: 
+        ∀ α: Type, ∀ P: α → Prop, ∀ a1 a2: α,   
+            a1 = a2 → P a1 → P a2 :=
+            /-
+            If a1 equals a2, then if the predicate
+            (a proposition with a parameter), P, is
+            true of a1, then P is also true of a2.
+            -/
+                λ α P a1 a2 eql, eq.subst eql
+
+
+    /- An exercise: Example of an Exam Question -/
+    theorem eq_quiz: ∀ (α : Type) (p q r s: α),
+        p = q → (p = q → r = s) → q = r → p = s :=
+            λ α p q r s pfpq pfpqrs pfqr, 
+                eq.trans
+                    (eq.trans
+                        pfpq
+                        pfqr)
+                    (pfpqrs pfpq) 
+
+    #check eq_quiz
 
 
 /- INTRODUCTION AND ELIMINATION RULES -/

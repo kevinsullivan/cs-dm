@@ -2,6 +2,26 @@
 Natural Deduction
 *****************
 
+ABOVE IS RAW
+============
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Deductive logical reasoning involves arguments of a very specific
 form, based on the idea that: if one is in a context in which a set of
 propositions (called "premises") are true, then it is necessarily the
