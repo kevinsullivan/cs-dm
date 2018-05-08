@@ -80,6 +80,67 @@ you are using a proof assistant tool such as Lean or just doing
 paper-and-pencil mathematics, this is a fundamental strategy for
 proving propositions of a certain kind, namely propositions that
 assert equalities.</p>
+</div>
+<div class="section" id="propositions-are-types-proofs-are-values">
+<h1>PROPOSITIONS ARE TYPES; PROOFS ARE VALUES<a class="headerlink" href="#propositions-are-types-proofs-are-values" title="Permalink to this headline">¶</a></h1>
+<p>So what about proofs? They crazy idea that Lean and similar systems
+are built on is that propositions can themselves be viewed as types,
+and proofs as values of these types! In this analogy, a proof is a
+value of a type, namely of the proposition that it proves, viewed as a
+type. So just as 1 is a value of type nat, and nat in turn is a value
+of type, Type, so a proof of 0=0 is a value of type 0=0! The
+proposition is the type. The proof, if there is one, is a value of
+such a type, and its type is Prop. To see this more clearly, we need
+to build some proofs/values.</p>
+<p>Here (following this comment) is a new definition, of the variable,
+zeqz. But whereas before we defined x to be of the type, nat, with
+value 1, now we define zeqz to be of the type, 0=0, with a value given
+by that strange terms, “rfl.”</p>
+<p>We’re using the proposition, 0=0, as a type! To this variable we then
+assign a value, which we will understand to be a proof. Proof values
+are built by what we can view as inference rules. The inference rule,
+rfl, builds a proof that anything is equal to itself, in this case
+that 0=0.  -/ def zeqz: 0 = 0 := rfl</p>
+<p>The rfl widget, whatever it is, works for any type, not just nat.</p>
+<blockquote>
+<div>def heqh: “hello” = “hello” := rfl</div></blockquote>
+<p>The proof is produced the rfl inference rule.  It is a “proof
+constructor” (that is what an inference rule is, after all), is
+polymorphic, uses type inference, takes a single argument, a, and
+yields a proof of a = a.</p>
+<p>The value in this case is 0 and the type is nat. What the rule says
+more formally is that, without any premises you can always conclude
+that for any type, A, and for any value, a, of that type, there is a
+proof of a = a.</p>
+<p>For example, if you need a proof of 0=0, you use this rule to build
+it. The rule infers the type to be nat and the value, a, to be 0. The
+result is a proof of 0 = 0. The value of zeqz in this case is thus a
+<em>proof</em>, of its type, i.e., of the proposition, 0 = 0. Check the type
+of zeqz. Its type is the proposition that</p>
+<blockquote>
+<div>#check zeqz</div></blockquote>
+<p>It helps to draw a picture. Draw a picture that includes “nodes” for
+all of the values we’ve used or defined so far, with arrows depicting
+the “hasType” relation. There are nodes for 1, x, zeqz, nat, Prop,
+Type, Type 1, Type 2, etc. KS: DRAW THE GRAPHIC</p>
+<p>When we’re building values that are proofs of propositions, we
+generally use the keyword, “theorem”, instead of “def”. They mean
+exactly the same thing to Lean, but they communicate different
+intentions to human readers. We add a tick mark to the name of the
+theorem here only to avoid giving multiple definitions of the same
+name, which is an error in Lean.</p>
+<blockquote>
+<div>theorem zeqz’: 0 = 0 := rfl</div></blockquote>
+<p>We could even have defined x := 1 as a theorem.</p>
+<blockquote>
+<div>theorem x’‘: nat := 1</div></blockquote>
+<p>While this means exactly the same thing as our original definition of
+x, it gives us an entirely new view: a value is a proof of its type. 1
+is thus a proof of the type nat. Our ability to provide any value for
+a type gives us a proof of that type. The type checker in Lean ensures
+that we never assign a value to a variable that is not of its
+type. Thus it ensures that we never accept a proof that is not a valid
+proof of its type/proposition.</p>
 <div class="section" id="proofs-based-on-properties-of-equality">
 <h2>Proofs Based on Properties of Equality<a class="headerlink" href="#proofs-based-on-properties-of-equality" title="Permalink to this headline">¶</a></h2>
 <p>There are analogous strategies for dealing with other situations
