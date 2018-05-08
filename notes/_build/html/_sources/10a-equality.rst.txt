@@ -1,5 +1,6 @@
+******************
 PROOFS OF EQUALITY
-==================
+******************
 
 An expression, v1=v2, is a proposition that asserts the equality of
 the terms v1 and v2.  The terms are considered equal if and only if

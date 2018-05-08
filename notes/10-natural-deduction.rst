@@ -90,74 +90,143 @@ that you haven't made a mistake by accepting a proof that isn't really
 valid. 
 
 
-PROPOSITIONS AS TYPES
-====================
+
+Propositions in the Higher Order Logic of Lean
+==============================================
+
+KS: This is where it the course is realized.
+
+Lean and related proof assistants unify mathematical logic and
+computation, enabling us once again to mix code and logic, but where
+the logic is now higher-order and constructive. So propositions are
+objects and so are proofs. As such, propositions must have types. Let's
+write a few simple propositions and check to see what their types are.
+
+Zero equals zero is a proposition.
+
+    #check 0=0
+
+    #check Prop
+
+Every natural numbers is non-negative.
+
+    #check ∀ n: nat, n >= 0
+
+Get the forall symbol by typing "\forall"
+
+Every natural number has a successor.
+
+    #check ∀ n: ℕ, (∃ m: ℕ, (m = n + 1))
+
+    #check ∀ n: ℕ, n = 0
+
+Get the exists symbol by typing "\exists".
+
+Propositions are values, too!
+
+    def aProp := ∀ n: ℕ, ∃ m: ℕ, m = n + 1
+
+    #check aProp
+
+In each case, we see that the type of any proposition is Prop. What's
+the type of Prop?
+
+#check Prop
 
 
-Binding Values to Variables
----------------------------
+Ok, the type of Prop is also Type. So what we have here is a type
+hierarchy in which the familiar types, such as nat, have the type,
+Type, but where there's also a type, called Prop, that is also of
+type, Type, and it, in turn, is the type of all propositions.
 
-Here's a typical definition: in this case, of a variable, x, bound to
-the value, 1, of type, nat.
-
-    def x: nat := 1
-    def z: ℕ := 1
-    def y := 1
-
-
-Checking Types
---------------
-
-You can check the type of a term by using the #check command. Then
-hover your mouse over the #check in VSCode to see the result.
+So let's start again with x := 1. The value of x is 1. The type of the
+value, 1, is nat.  The type of nat is Type. From there the type of
+each type is just the next bigger "Type n.""  We've also seen that a
+proposition, such as 0=0, is of type, Prop, which in turn has the
+type, Type. But what about proofs?
 
 
-    #check 1
-    #check x
-
-Lean tells you that the type of x is nat.  It uses the standard
-mathematical script N (ℕ) for nat. You can use it too by typing "\nat"
-rather than just "nat" for the type.
-
-    def x': ℕ := 1
+PROOF AND TRUTH
+===============
 
 
-You can evaluate an expression in Lean using the #eval command. (There
-are other ways to do this, as well, which we'll see later.) You hover
-your mouse over the command to see the result.
+What does it mean for a proposition to be true in Lean? It means
+exactly that there is a proof, which is to say that it means that
+there is some value of that type. A proposition that is false is a
+good proposition, and a good type, but it is a type that has no
+proofs, no values! It is an "empty," or "uninhabited" type. The type,
+1=0, has no values (no proofs). There is no way to produce a value of
+this type.
 
-    #eval x
+So what about proofs? They crazy idea that Lean and similar systems
+are built on is that propositions can themselves be viewed as types,
+and proofs as values of these types! In this analogy, a proof is a
+value of a type, namely of the proposition that it proves, viewed as a
+type. So just as 1 is a value of type nat, and nat in turn is a value
+of type, Type, so a proof of 0=0 is a value of type 0=0! The
+proposition is the type. The proof, if there is one, is a value of
+such a type, and its type is Prop. To see this more clearly, we need
+to build some proofs/values.
+
+Here (following this comment) is a new definition, of the variable,
+zeqz. But whereas before we defined x to be of the type, nat, with
+value 1, now we define zeqz to be of the type, 0=0, with a value given
+by that strange terms, "rfl."
+    
+We're using the proposition, 0=0, as a type! To this variable we then
+assign a value, which we will understand to be a proof. Proof values
+are built by what we can view as inference rules. The inference rule,
+rfl, builds a proof that anything is equal to itself, in this case
+that 0=0.  -/ def zeqz: 0 = 0 := rfl
+
+The rfl widget, whatever it is, works for any type, not just nat.
+
+    def heqh: "hello" = "hello" := rfl
+
+The proof is produced the rfl inference rule.  It is a "proof
+constructor" (that is what an inference rule is, after all), is
+polymorphic, uses type inference, takes a single argument, a, and
+yields a proof of a = a.
+
+The value in this case is 0 and the type is nat. What the rule says
+more formally is that, without any premises you can always conclude
+that for any type, A, and for any value, a, of that type, there is a
+proof of a = a.
+
+For example, if you need a proof of 0=0, you use this rule to build
+it. The rule infers the type to be nat and the value, a, to be 0. The
+result is a proof of 0 = 0. The value of zeqz in this case is thus a
+*proof*, of its type, i.e., of the proposition, 0 = 0. Check the type
+of zeqz. Its type is the proposition that
+
+    #check zeqz
+
+It helps to draw a picture. Draw a picture that includes "nodes" for
+all of the values we've used or defined so far, with arrows depicting
+the "hasType" relation. There are nodes for 1, x, zeqz, nat, Prop,
+Type, Type 1, Type 2, etc. KS: DRAW THE GRAPHIC
 
 
-In Lean, definitions start with the keyword, def, followed by the name
-of a variable, here x; a colon; then the declared type of the
-variable, here nat; then :=; and finally an expression of the right
-type, here simply the literal expression, 1, of type ℕ. Lean
-type-checks the assignment and gives and error if the term on the
-right doesn't have the same type declared or inferror for the variable
-on the left.
+When we're building values that are proofs of propositions, we
+generally use the keyword, "theorem", instead of "def". They mean
+exactly the same thing to Lean, but they communicate different
+intentions to human readers. We add a tick mark to the name of the
+theorem here only to avoid giving multiple definitions of the same
+name, which is an error in Lean.
 
+    theorem zeqz': 0 = 0 := rfl
 
+We could even have defined x := 1 as a theorem.
 
-Types Are Values Too
-====================
+    theorem x'': nat := 1
 
-
-In Lean, every term has a type. A type is a term, too, so it, too, has
-a type. We've seen that the type of x is nat. What is the type of nat?
-
-
-    #check nat
-
-What is the type of Type?
-
-    #check Type
-
-What is the type of Type 1?
-
-    #check Type 1
-
-You can guess where it goes from here!
+While this means exactly the same thing as our original definition of
+x, it gives us an entirely new view: a value is a proof of its type. 1
+is thus a proof of the type nat. Our ability to provide any value for
+a type gives us a proof of that type. The type checker in Lean ensures
+that we never assign a value to a variable that is not of its
+type. Thus it ensures that we never accept a proof that is not a valid
+proof of its type/proposition.
 
 
 
@@ -203,7 +272,7 @@ the type of Prop?
 
 
 The Type Hierarchy (Universes) of Lean
-======================================
+--------------------------------------
 
 Ok, the type of Prop is also Type. So what we have here is a type
 hierarchy in which the familiar types, such as nat, have the type,
@@ -218,7 +287,8 @@ type, Type. But what about proofs?
 
 
 Proof is Truth
-==============
+--------------
+
 
 
 What does it mean for a proposition to be true in Lean? It means
@@ -228,6 +298,79 @@ good proposition, and a good type, but it is a type that has no
 proofs, no values! It is an "empty," or "uninhabited" type. The type,
 1=0, has no values (no proofs). There is no way to produce a value of
 this type.
+
+
+
+
+
+
+Using Lean
+==========
+
+Binding Values to Variables
+---------------------------
+
+Here's a typical definition: in this case, of a variable, x, bound to
+the value, 1, of type, nat.
+
+    def x: nat := 1
+    def z: ℕ := 1
+    def y := 1
+
+
+Checking Types
+--------------
+
+You can check the type of a term by using the #check command. Then
+hover your mouse over the #check in VSCode to see the result.
+
+
+    #check 1
+    #check x
+
+Lean tells you that the type of x is nat.  It uses the standard
+mathematical script N (ℕ) for nat. You can use it too by typing "\nat"
+rather than just "nat" for the type.
+
+    def x': ℕ := 1
+
+
+You can evaluate an expression in Lean using the #eval command. (There
+are other ways to do this, as well, which we'll see later.) You hover
+your mouse over the command to see the result.
+
+    #eval x
+
+
+In Lean, definitions start with the keyword, def, followed by the name
+of a variable, here x; a colon; then the declared type of the
+variable, here nat; then :=; and finally an expression of the right
+type, here simply the literal expression, 1, of type ℕ. Lean
+type-checks the assignment and gives and error if the term on the
+right doesn't have the same type declared or inferror for the variable
+on the left.
+
+
+Types Are Values Too
+--------------------
+
+
+In Lean, every term has a type. A type is a term, too, so it, too, has
+a type. We've seen that the type of x is nat. What is the type of nat?
+
+
+    #check nat
+
+What is the type of Type?
+
+    #check Type
+
+What is the type of Type 1?
+
+    #check Type 1
+
+You can guess where it goes from here!
+
 
 
 FORMS OF PROPOSITIONS AND OF THEIR PROOFS

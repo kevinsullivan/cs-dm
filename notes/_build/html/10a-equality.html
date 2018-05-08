@@ -80,9 +80,8 @@ you are using a proof assistant tool such as Lean or just doing
 paper-and-pencil mathematics, this is a fundamental strategy for
 proving propositions of a certain kind, namely propositions that
 assert equalities.</p>
-</div>
 <div class="section" id="propositions-are-types-proofs-are-values">
-<h1>PROPOSITIONS ARE TYPES; PROOFS ARE VALUES<a class="headerlink" href="#propositions-are-types-proofs-are-values" title="Permalink to this headline">¶</a></h1>
+<h2>PROPOSITIONS ARE TYPES; PROOFS ARE VALUES<a class="headerlink" href="#propositions-are-types-proofs-are-values" title="Permalink to this headline">¶</a></h2>
 <p>So what about proofs? They crazy idea that Lean and similar systems
 are built on is that propositions can themselves be viewed as types,
 and proofs as values of these types! In this analogy, a proof is a
@@ -142,7 +141,7 @@ that we never assign a value to a variable that is not of its
 type. Thus it ensures that we never accept a proof that is not a valid
 proof of its type/proposition.</p>
 <div class="section" id="proofs-based-on-properties-of-equality">
-<h2>Proofs Based on Properties of Equality<a class="headerlink" href="#proofs-based-on-properties-of-equality" title="Permalink to this headline">¶</a></h2>
+<h3>Proofs Based on Properties of Equality<a class="headerlink" href="#proofs-based-on-properties-of-equality" title="Permalink to this headline">¶</a></h3>
 <p>There are analogous strategies for dealing with other situations
 involving equalities.  For example, if we have proofs of a = b and b =
 c and we need a proof of a = c, then we would use an inference rule
@@ -152,7 +151,7 @@ there is a rule that reflects the symmetric property of equality:
 given a proof of a = b, it builds and returns a proof of b = a. We do
 not get into the details at this time.</p>
 <div class="section" id="by-the-reflexive-property-of-equality">
-<h3>By The Reflexive Property of Equality<a class="headerlink" href="#by-the-reflexive-property-of-equality" title="Permalink to this headline">¶</a></h3>
+<h4>By The Reflexive Property of Equality<a class="headerlink" href="#by-the-reflexive-property-of-equality" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem byRefl: ∀ α <span class="classifier-delimiter">:</span> <span class="classifier">Type, ∀ a</span> <span class="classifier-delimiter">:</span> <span class="classifier">α, a = a</span></dt>
@@ -173,7 +172,7 @@ shorthand for “eq.refl a”, where “a” is the value on the left of the
 equals sign.</p>
 </div>
 <div class="section" id="by-the-symmetric-property-of-equality">
-<h3>By the Symmetric Property of Equality<a class="headerlink" href="#by-the-symmetric-property-of-equality" title="Permalink to this headline">¶</a></h3>
+<h4>By the Symmetric Property of Equality<a class="headerlink" href="#by-the-symmetric-property-of-equality" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem bySymm: ∀ α <span class="classifier-delimiter">:</span> <span class="classifier">Type, ∀ p q: α, p = q → q = p</span></dt>
@@ -190,7 +189,7 @@ p=q constructs a proof of q=p
 </div></blockquote>
 </div>
 <div class="section" id="by-the-transitive-property-of-equality">
-<h3>By the Transitive Property of Equality<a class="headerlink" href="#by-the-transitive-property-of-equality" title="Permalink to this headline">¶</a></h3>
+<h4>By the Transitive Property of Equality<a class="headerlink" href="#by-the-transitive-property-of-equality" title="Permalink to this headline">¶</a></h4>
 <p>The transitive property of equality
 provides a corresponding inference
 rule, p=q, q=r ⊢ p=r. In Lean this
@@ -247,7 +246,7 @@ of (p=q ∧ q=r).
 </div></blockquote>
 </div>
 <div class="section" id="optional-substitutability-of-equals">
-<h3>Optional: Substitutability of Equals<a class="headerlink" href="#optional-substitutability-of-equals" title="Permalink to this headline">¶</a></h3>
+<h4>Optional: Substitutability of Equals<a class="headerlink" href="#optional-substitutability-of-equals" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem substutabilityOfEquals:</dt>
@@ -289,6 +288,7 @@ pfqr)</dd>
 </div></blockquote>
 <p>#check eq_quiz</p>
 </div></blockquote>
+</div>
 </div>
 </div>
 </div>

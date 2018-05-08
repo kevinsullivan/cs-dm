@@ -120,8 +120,170 @@ Benefits of using a tool like Lean include nearly absolute assurance
 that you haven’t made a mistake by accepting a proof that isn’t really
 valid.</p>
 </div>
-<div class="section" id="propositions-as-types">
-<h2>PROPOSITIONS AS TYPES<a class="headerlink" href="#propositions-as-types" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="propositions-in-the-higher-order-logic-of-lean">
+<h2>Propositions in the Higher Order Logic of Lean<a class="headerlink" href="#propositions-in-the-higher-order-logic-of-lean" title="Permalink to this headline">¶</a></h2>
+<p>KS: This is where it the course is realized.</p>
+<p>Lean and related proof assistants unify mathematical logic and
+computation, enabling us once again to mix code and logic, but where
+the logic is now higher-order and constructive. So propositions are
+objects and so are proofs. As such, propositions must have types. Let’s
+write a few simple propositions and check to see what their types are.</p>
+<p>Zero equals zero is a proposition.</p>
+<blockquote>
+<div><p>#check 0=0</p>
+<p>#check Prop</p>
+</div></blockquote>
+<p>Every natural numbers is non-negative.</p>
+<blockquote>
+<div>#check ∀ n: nat, n &gt;= 0</div></blockquote>
+<p>Get the forall symbol by typing “forall”</p>
+<p>Every natural number has a successor.</p>
+<blockquote>
+<div><p>#check ∀ n: ℕ, (∃ m: ℕ, (m = n + 1))</p>
+<p>#check ∀ n: ℕ, n = 0</p>
+</div></blockquote>
+<p>Get the exists symbol by typing “exists”.</p>
+<p>Propositions are values, too!</p>
+<blockquote>
+<div><p>def aProp := ∀ n: ℕ, ∃ m: ℕ, m = n + 1</p>
+<p>#check aProp</p>
+</div></blockquote>
+<p>In each case, we see that the type of any proposition is Prop. What’s
+the type of Prop?</p>
+<p>#check Prop</p>
+<p>Ok, the type of Prop is also Type. So what we have here is a type
+hierarchy in which the familiar types, such as nat, have the type,
+Type, but where there’s also a type, called Prop, that is also of
+type, Type, and it, in turn, is the type of all propositions.</p>
+<p>So let’s start again with x := 1. The value of x is 1. The type of the
+value, 1, is nat.  The type of nat is Type. From there the type of
+each type is just the next bigger “Type n.””  We’ve also seen that a
+proposition, such as 0=0, is of type, Prop, which in turn has the
+type, Type. But what about proofs?</p>
+</div>
+<div class="section" id="proof-and-truth">
+<h2>PROOF AND TRUTH<a class="headerlink" href="#proof-and-truth" title="Permalink to this headline">¶</a></h2>
+<p>What does it mean for a proposition to be true in Lean? It means
+exactly that there is a proof, which is to say that it means that
+there is some value of that type. A proposition that is false is a
+good proposition, and a good type, but it is a type that has no
+proofs, no values! It is an “empty,” or “uninhabited” type. The type,
+1=0, has no values (no proofs). There is no way to produce a value of
+this type.</p>
+<p>So what about proofs? They crazy idea that Lean and similar systems
+are built on is that propositions can themselves be viewed as types,
+and proofs as values of these types! In this analogy, a proof is a
+value of a type, namely of the proposition that it proves, viewed as a
+type. So just as 1 is a value of type nat, and nat in turn is a value
+of type, Type, so a proof of 0=0 is a value of type 0=0! The
+proposition is the type. The proof, if there is one, is a value of
+such a type, and its type is Prop. To see this more clearly, we need
+to build some proofs/values.</p>
+<p>Here (following this comment) is a new definition, of the variable,
+zeqz. But whereas before we defined x to be of the type, nat, with
+value 1, now we define zeqz to be of the type, 0=0, with a value given
+by that strange terms, “rfl.”</p>
+<p>We’re using the proposition, 0=0, as a type! To this variable we then
+assign a value, which we will understand to be a proof. Proof values
+are built by what we can view as inference rules. The inference rule,
+rfl, builds a proof that anything is equal to itself, in this case
+that 0=0.  -/ def zeqz: 0 = 0 := rfl</p>
+<p>The rfl widget, whatever it is, works for any type, not just nat.</p>
+<blockquote>
+<div>def heqh: “hello” = “hello” := rfl</div></blockquote>
+<p>The proof is produced the rfl inference rule.  It is a “proof
+constructor” (that is what an inference rule is, after all), is
+polymorphic, uses type inference, takes a single argument, a, and
+yields a proof of a = a.</p>
+<p>The value in this case is 0 and the type is nat. What the rule says
+more formally is that, without any premises you can always conclude
+that for any type, A, and for any value, a, of that type, there is a
+proof of a = a.</p>
+<p>For example, if you need a proof of 0=0, you use this rule to build
+it. The rule infers the type to be nat and the value, a, to be 0. The
+result is a proof of 0 = 0. The value of zeqz in this case is thus a
+<em>proof</em>, of its type, i.e., of the proposition, 0 = 0. Check the type
+of zeqz. Its type is the proposition that</p>
+<blockquote>
+<div>#check zeqz</div></blockquote>
+<p>It helps to draw a picture. Draw a picture that includes “nodes” for
+all of the values we’ve used or defined so far, with arrows depicting
+the “hasType” relation. There are nodes for 1, x, zeqz, nat, Prop,
+Type, Type 1, Type 2, etc. KS: DRAW THE GRAPHIC</p>
+<p>When we’re building values that are proofs of propositions, we
+generally use the keyword, “theorem”, instead of “def”. They mean
+exactly the same thing to Lean, but they communicate different
+intentions to human readers. We add a tick mark to the name of the
+theorem here only to avoid giving multiple definitions of the same
+name, which is an error in Lean.</p>
+<blockquote>
+<div>theorem zeqz’: 0 = 0 := rfl</div></blockquote>
+<p>We could even have defined x := 1 as a theorem.</p>
+<blockquote>
+<div>theorem x’‘: nat := 1</div></blockquote>
+<p>While this means exactly the same thing as our original definition of
+x, it gives us an entirely new view: a value is a proof of its type. 1
+is thus a proof of the type nat. Our ability to provide any value for
+a type gives us a proof of that type. The type checker in Lean ensures
+that we never assign a value to a variable that is not of its
+type. Thus it ensures that we never accept a proof that is not a valid
+proof of its type/proposition.</p>
+</div>
+<div class="section" id="propositions">
+<h2>Propositions<a class="headerlink" href="#propositions" title="Permalink to this headline">¶</a></h2>
+<p>Lean and related proof assistants unify mathematical logic and
+computation, enabling us once again to mix code and logic, but where
+the logic is now higher-order and constructive. So propositions are
+objects and so are proofs. As such, propositions must have types. Let’s
+write a few simple propositions and check to see what their types are.</p>
+<p>Zero equals zero is a proposition.</p>
+<blockquote>
+<div><p>#check 0=0</p>
+<p>#check Prop</p>
+</div></blockquote>
+<p>Every natural numbers is non-negative.</p>
+<blockquote>
+<div>#check ∀ n: nat, n &gt;= 0</div></blockquote>
+<p>Get the forall symbol by typing “forall”</p>
+<p>Every natural number has a successor.</p>
+<blockquote>
+<div><p>#check ∀ n: ℕ, (∃ m: ℕ, (m = n + 1))</p>
+<p>#check ∀ n: ℕ, n = 0</p>
+</div></blockquote>
+<p>Get the exists symbol by typing “exists”.</p>
+<p>Propositions are values, too!</p>
+<blockquote>
+<div><p>def aProp := ∀ n: ℕ, ∃ m: ℕ, m = n + 1</p>
+<p>#check aProp</p>
+</div></blockquote>
+<p>In each case, we see that the type of any proposition is Prop. What’s
+the type of Prop?</p>
+<p>#check Prop</p>
+<div class="section" id="the-type-hierarchy-universes-of-lean">
+<h3>The Type Hierarchy (Universes) of Lean<a class="headerlink" href="#the-type-hierarchy-universes-of-lean" title="Permalink to this headline">¶</a></h3>
+<p>Ok, the type of Prop is also Type. So what we have here is a type
+hierarchy in which the familiar types, such as nat, have the type,
+Type, but where there’s also a type, called Prop, that is also of
+type, Type, and it, in turn, is the type of all propositions.</p>
+<p>So let’s start again with x := 1. The value of x is 1. The type of the
+value, 1, is nat.  The type of nat is Type. From there the type of
+each type is just the next bigger “Type n.””  We’ve also seen that a
+proposition, such as 0=0, is of type, Prop, which in turn has the
+type, Type. But what about proofs?</p>
+</div>
+<div class="section" id="proof-is-truth">
+<h3>Proof is Truth<a class="headerlink" href="#proof-is-truth" title="Permalink to this headline">¶</a></h3>
+<p>What does it mean for a proposition to be true in Lean? It means
+exactly that there is a proof, which is to say that it means that
+there is some value of that type. A proposition that is false is a
+good proposition, and a good type, but it is a type that has no
+proofs, no values! It is an “empty,” or “uninhabited” type. The type,
+1=0, has no values (no proofs). There is no way to produce a value of
+this type.</p>
+</div>
+</div>
+<div class="section" id="using-lean">
+<h2>Using Lean<a class="headerlink" href="#using-lean" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="binding-values-to-variables">
 <h3>Binding Values to Variables<a class="headerlink" href="#binding-values-to-variables" title="Permalink to this headline">¶</a></h3>
 <p>Here’s a typical definition: in this case, of a variable, x, bound to
@@ -156,9 +318,8 @@ type-checks the assignment and gives and error if the term on the
 right doesn’t have the same type declared or inferror for the variable
 on the left.</p>
 </div>
-</div>
 <div class="section" id="types-are-values-too">
-<h2>Types Are Values Too<a class="headerlink" href="#types-are-values-too" title="Permalink to this headline">¶</a></h2>
+<h3>Types Are Values Too<a class="headerlink" href="#types-are-values-too" title="Permalink to this headline">¶</a></h3>
 <p>In Lean, every term has a type. A type is a term, too, so it, too, has
 a type. We’ve seen that the type of x is nat. What is the type of nat?</p>
 <blockquote>
@@ -171,58 +332,6 @@ a type. We’ve seen that the type of x is nat. What is the type of nat?</p>
 <div>#check Type 1</div></blockquote>
 <p>You can guess where it goes from here!</p>
 </div>
-<div class="section" id="propositions">
-<h2>Propositions<a class="headerlink" href="#propositions" title="Permalink to this headline">¶</a></h2>
-<p>Lean and related proof assistants unify mathematical logic and
-computation, enabling us once again to mix code and logic, but where
-the logic is now higher-order and constructive. So propositions are
-objects and so are proofs. As such, propositions must have types. Let’s
-write a few simple propositions and check to see what their types are.</p>
-<p>Zero equals zero is a proposition.</p>
-<blockquote>
-<div><p>#check 0=0</p>
-<p>#check Prop</p>
-</div></blockquote>
-<p>Every natural numbers is non-negative.</p>
-<blockquote>
-<div>#check ∀ n: nat, n &gt;= 0</div></blockquote>
-<p>Get the forall symbol by typing “forall”</p>
-<p>Every natural number has a successor.</p>
-<blockquote>
-<div><p>#check ∀ n: ℕ, (∃ m: ℕ, (m = n + 1))</p>
-<p>#check ∀ n: ℕ, n = 0</p>
-</div></blockquote>
-<p>Get the exists symbol by typing “exists”.</p>
-<p>Propositions are values, too!</p>
-<blockquote>
-<div><p>def aProp := ∀ n: ℕ, ∃ m: ℕ, m = n + 1</p>
-<p>#check aProp</p>
-</div></blockquote>
-<p>In each case, we see that the type of any proposition is Prop. What’s
-the type of Prop?</p>
-<p>#check Prop</p>
-</div>
-<div class="section" id="the-type-hierarchy-universes-of-lean">
-<h2>The Type Hierarchy (Universes) of Lean<a class="headerlink" href="#the-type-hierarchy-universes-of-lean" title="Permalink to this headline">¶</a></h2>
-<p>Ok, the type of Prop is also Type. So what we have here is a type
-hierarchy in which the familiar types, such as nat, have the type,
-Type, but where there’s also a type, called Prop, that is also of
-type, Type, and it, in turn, is the type of all propositions.</p>
-<p>So let’s start again with x := 1. The value of x is 1. The type of the
-value, 1, is nat.  The type of nat is Type. From there the type of
-each type is just the next bigger “Type n.””  We’ve also seen that a
-proposition, such as 0=0, is of type, Prop, which in turn has the
-type, Type. But what about proofs?</p>
-</div>
-<div class="section" id="proof-is-truth">
-<h2>Proof is Truth<a class="headerlink" href="#proof-is-truth" title="Permalink to this headline">¶</a></h2>
-<p>What does it mean for a proposition to be true in Lean? It means
-exactly that there is a proof, which is to say that it means that
-there is some value of that type. A proposition that is false is a
-good proposition, and a good type, but it is a type that has no
-proofs, no values! It is an “empty,” or “uninhabited” type. The type,
-1=0, has no values (no proofs). There is no way to produce a value of
-this type.</p>
 </div>
 <div class="section" id="forms-of-propositions-and-of-their-proofs">
 <h2>FORMS OF PROPOSITIONS AND OF THEIR PROOFS<a class="headerlink" href="#forms-of-propositions-and-of-their-proofs" title="Permalink to this headline">¶</a></h2>
