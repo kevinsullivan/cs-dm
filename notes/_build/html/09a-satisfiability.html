@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Satisfiability &#8212; Discrete Mathematics for Software Professionals 1 documentation</title>
+    <title>8. Satisfiability &#8212; Discrete Mathematics for Software Professionals 1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/sidebar.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="&lt;no title&gt;" href="09a-consequence.html" />
+    <link rel="next" title="Natural Deduction" href="09a-consequence.html" />
     <link rel="prev" title="9. Propositional Logic" href="09-propositional-logic.html" /> 
   </head>
   <body>
@@ -35,7 +35,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="09a-consequence.html" title="&lt;no title&gt;"
+          <a href="09a-consequence.html" title="Natural Deduction"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="09-propositional-logic.html" title="9. Propositional Logic"
@@ -50,63 +50,61 @@
           <div class="body" role="main">
             
   <div class="section" id="satisfiability">
-<h1>Satisfiability<a class="headerlink" href="#satisfiability" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="truth-tables-for-propositions">
-<h2>Truth Tables for Propositions<a class="headerlink" href="#truth-tables-for-propositions" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><p>/*
-This method returns a sequence of all possible
-interpretations for a given proposition. It does
-it by getting a sequence of all the variables in
-the expression and by then calling a helper
-function, truth_table_inputs_for_vars, which does
-most of the work.
-<a href="#id1"><span class="problematic" id="id2">*</span></a>/
-method truth_table_inputs_for_prop(p: prop)</p>
-<blockquote>
-<div><p>returns (result: seq&lt;pInterpretation&gt;)
-ensures forall v :: v in getVarsInProp(p) ==&gt;</p>
+<h1>8. Satisfiability<a class="headerlink" href="#satisfiability" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="interpretations-for-a-proposition">
+<h2>Interpretations for a Proposition<a class="headerlink" href="#interpretations-for-a-proposition" title="Permalink to this headline">¶</a></h2>
+<p>This method returns a sequence of all possible interpretations for a
+given proposition. It does it by getting a sequence of all the
+variables in the expression and by then calling a helper function,
+truth_table_inputs_for_vars, which does most of the work.</p>
 <blockquote>
 <div><dl class="docutils">
-<dt>forall i :: 0 &lt;= i &lt; <a href="#id29"><span class="problematic" id="id30">|result|</span></a> ==&gt;</dt>
+<dt>method truth_table_inputs_for_prop(p: prop)</dt>
+<dd><p class="first">returns (result: seq&lt;pInterpretation&gt;)
+ensures forall v :: v in getVarsInProp(p) ==&gt;</p>
+<blockquote class="last">
+<div><dl class="docutils">
+<dt>forall i :: 0 &lt;= i &lt; <a href="#id21"><span class="problematic" id="id22">|result|</span></a> ==&gt;</dt>
 <dd>v in result[i];     // kjs</dd>
 </dl>
 </div></blockquote>
-</div></blockquote>
+</dd>
+</dl>
 <dl class="docutils">
 <dt>{</dt>
 <dd>var vs := seqVarsInProp(p);
 result := truth_table_inputs_for_vars(vs);</dd>
 </dl>
 <p>}</p>
-<p>/*
-This method returns a sequence of all possible
-interpretations for a given sequence of Boolean
-variables, in increasing order from all false to
-all true. Each interpretation is a map from each
-of the variables to that variable’s bool value
-under the given interpretation. In other words,
-this method returns the “input” parts of each row
-of a truth table for the given propositional
-variables.
-<a href="#id3"><span class="problematic" id="id4">*</span></a>/
-method truth_table_inputs_for_vars(vs: seq&lt;propVar&gt;)</p>
-<blockquote>
-<div><p>returns (result: seq&lt;pInterpretation&gt;)
-ensures forall i :: 0 &lt;= i &lt; <a href="#id31"><span class="problematic" id="id32">|result|</span></a> ==&gt;   // kjs</p>
-<blockquote>
-<div>forall v :: v in vs ==&gt; v in result[i];</div></blockquote>
 </div></blockquote>
+</div>
+<div class="section" id="interpretations-for-a-sequence-of-propositions">
+<h2>Interpretations for a Sequence of Propositions<a class="headerlink" href="#interpretations-for-a-sequence-of-propositions" title="Permalink to this headline">¶</a></h2>
+<p>This method returns a sequence of all possible interpretations for a
+given sequence of Boolean variables, in increasing order from all
+false to all true. Each interpretation is a map from each of the
+variables to that variable’s bool value under the given
+interpretation. In other words, this method returns the “input” parts
+of each row of a truth table for the given propositional variables.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>method truth_table_inputs_for_vars(vs: seq&lt;propVar&gt;)</dt>
+<dd><p class="first">returns (result: seq&lt;pInterpretation&gt;)
+ensures forall i :: 0 &lt;= i &lt; <a href="#id23"><span class="problematic" id="id24">|result|</span></a> ==&gt;   // kjs</p>
+<blockquote class="last">
+<div>forall v :: v in vs ==&gt; v in result[i];</div></blockquote>
+</dd>
+</dl>
 <dl class="docutils">
 <dt>{</dt>
 <dd><p class="first">result := [];
 var interp := all_false_interp(vs);
 var i: nat := 0;
-var n := pow2(<a href="#id33"><span class="problematic" id="id34">|vs|</span></a>);
+var n := pow2(<a href="#id25"><span class="problematic" id="id26">|vs|</span></a>);
 while (i &lt; n)</p>
 <blockquote>
 <div><p>invariant i &lt;= n;
-invariant <a href="#id35"><span class="problematic" id="id36">|result|</span></a> == i;
+invariant <a href="#id27"><span class="problematic" id="id28">|result|</span></a> == i;
 invariant forall v :: v in vs ==&gt; v in interp;
 invariant</p>
 <blockquote>
@@ -130,7 +128,12 @@ i := i + 1;</dd>
 </dd>
 </dl>
 <p>}</p>
+</div></blockquote>
+</div>
+<div class="section" id="the-all-false-interpetation">
+<h2>The All-False Interpetation<a class="headerlink" href="#the-all-false-interpetation" title="Permalink to this headline">¶</a></h2>
 <blockquote>
+<div><blockquote>
 <div><dl class="docutils">
 <dt>/*</dt>
 <dd>Return an interpretation for the variables in
@@ -138,7 +141,7 @@ the sequence vs such that every variable maps
 to false.</dd>
 </dl>
 </div></blockquote>
-<p><a href="#id5"><span class="problematic" id="id6">*</span></a>/
+<p><a href="#id1"><span class="problematic" id="id2">*</span></a>/
 method all_false_interp(vs: seq&lt;propVar&gt;)</p>
 <blockquote>
 <div>returns (result: pInterpretation)
@@ -147,9 +150,9 @@ ensures forall v :: v in vs ==&gt; v in result //kjs</div></blockquote>
 <dt>{</dt>
 <dd><p class="first">result := map[];
 var i := 0; // the number of elements in the map so far
-while (i &lt; | vs <a href="#id7"><span class="problematic" id="id8">|</span></a>)</p>
+while (i &lt; | vs <a href="#id3"><span class="problematic" id="id4">|</span></a>)</p>
 <blockquote>
-<div>invariant i &lt;= <a href="#id37"><span class="problematic" id="id38">|vs|</span></a>;
+<div>invariant i &lt;= <a href="#id29"><span class="problematic" id="id30">|vs|</span></a>;
 invariant forall k :: 0 &lt;= k &lt; i ==&gt; vs[k] in result;</div></blockquote>
 <dl class="docutils">
 <dt>{</dt>
@@ -160,7 +163,12 @@ i := i + 1;</dd>
 </dd>
 </dl>
 <p>}</p>
-<dl class="docutils">
+</div></blockquote>
+</div>
+<div class="section" id="huh">
+<h2>HuH???<a class="headerlink" href="#huh" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><dl class="docutils">
 <dt>method truth_table_inputs_for_props(ps: seq&lt;prop&gt;)</dt>
 <dd>returns (result: seq&lt;pInterpretation&gt;)</dd>
 </dl>
@@ -171,19 +179,22 @@ result := truth_table_inputs_for_vars(vs);
 return;</dd>
 </dl>
 <p>}</p>
-<p>/*
-Given a sequence of variables and an interpretation
-for those variables, computes a “next” interpretation.
-Treat the sequence of values as a binary integer and
-increment it by one. Any variables in vs that are not
-in interp are ignored. Would be better to enforce a
-pre-condition to rule out this possibility.
-<a href="#id9"><span class="problematic" id="id10">*</span></a>/
-method next_interp(vs: seq&lt;propVar&gt;, interp: pInterpretation)</p>
+</div></blockquote>
+</div>
+<div class="section" id="increment-interpretation">
+<h2>Increment Interpretation<a class="headerlink" href="#increment-interpretation" title="Permalink to this headline">¶</a></h2>
+<p>Given a sequence of variables and an interpretation for those
+variables, computes a “next” interpretation.  Treat the sequence of
+values as a binary integer and increment it by one. Any variables in
+vs that are not in interp are ignored. Would be better to enforce a
+pre-condition to rule out this possibility.</p>
 <blockquote>
-<div>returns (result: pInterpretation)
+<div><dl class="docutils">
+<dt>method next_interp(vs: seq&lt;propVar&gt;, interp: pInterpretation)</dt>
+<dd>returns (result: pInterpretation)
 requires forall v :: v in vs ==&gt; v in interp;   //kjs
-ensures forall v :: v in vs ==&gt; v in result;</div></blockquote>
+ensures forall v :: v in vs ==&gt; v in result;</dd>
+</dl>
 <dl class="docutils">
 <dt>{</dt>
 <dd><p class="first">result := interp;
@@ -211,18 +222,12 @@ i := i - 1;</p>
 </dd>
 </dl>
 <p>}</p>
-<p>/*
-Compute and return 2^n given n.
-<a href="#id11"><span class="problematic" id="id12">*</span></a>/
-function method pow2(n: nat): (r: nat)</p>
+</div></blockquote>
+</div>
+<div class="section" id="print-truth-table-for-a-propositional-logic-proposition">
+<h2>Print Truth Table for a Propositional Logic Proposition<a class="headerlink" href="#print-truth-table-for-a-propositional-logic-proposition" title="Permalink to this headline">¶</a></h2>
 <blockquote>
-<div>ensures r &gt;= 1</div></blockquote>
-<dl class="docutils">
-<dt>{</dt>
-<dd>if n == 0 then 1 else 2 * pow2(n-1)</dd>
-</dl>
-<p>}</p>
-<dl class="docutils">
+<div><dl class="docutils">
 <dt>method show_truth_table_for_prop(p: prop, ord: seq&lt;propVar&gt;, labels: bool)</dt>
 <dd>requires forall v :: v in getVarsInProp(p) ==&gt; v in ord; // kjs</dd>
 </dl>
@@ -231,7 +236,7 @@ function method pow2(n: nat): (r: nat)</p>
 <dd><p class="first">var varSeq := seqVarsInProp(p);
 var tt_inputs := truth_table_inputs_for_vars(varSeq);
 var i := 0;
-while (i &lt; | tt_inputs <a href="#id13"><span class="problematic" id="id14">|</span></a>)
+while (i &lt; | tt_inputs <a href="#id5"><span class="problematic" id="id6">|</span></a>)
 {</p>
 <blockquote>
 <div>show_interpretation(tt_inputs[i],ord,labels);
@@ -249,8 +254,22 @@ i := i + 1;</div></blockquote>
 </div></blockquote>
 <p>}</p>
 </div>
+<div class="section" id="utility-routine">
+<h2>Utility Routine<a class="headerlink" href="#utility-routine" title="Permalink to this headline">¶</a></h2>
+<p>Compute and return 2^n given n.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>function method pow2(n: nat): (r: nat)</dt>
+<dd>ensures r &gt;= 1</dd>
+</dl>
+<dl class="docutils">
+<dt>{</dt>
+<dd>if n == 0 then 1 else 2 * pow2(n-1)</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
 <div class="section" id="models">
-<h2>Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h2>
+<h3>Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><blockquote>
 <div><p>/*
@@ -265,7 +284,7 @@ and an empty list of models to the helper
 function, which augments that empty list with
 each of the interpretations for which the
 proposition evaluates to true.
-<a href="#id15"><span class="problematic" id="id16">*</span></a>/
+<a href="#id7"><span class="problematic" id="id8">*</span></a>/
 method get_models(p: prop) returns</p>
 <blockquote>
 <div>(r: seq&lt;pInterpretation&gt;)</div></blockquote>
@@ -281,7 +300,7 @@ This method iterates through a list of interpretations
 and appends each one, for which the given proposition,
 e, evaluates to true, to the list, acc, which is then
 returned.
-<a href="#id17"><span class="problematic" id="id18">*</span></a>/</p>
+<a href="#id9"><span class="problematic" id="id10">*</span></a>/</p>
 </div></blockquote>
 <dl class="docutils">
 <dt>method get_models_helper(tt_inputs: seq&lt;pInterpretation&gt;, p: prop, acc: seq&lt;pInterpretation&gt;)</dt>
@@ -290,7 +309,7 @@ returned.
 requires forall v :: v in getVarsInProp(p) ==&gt;</p>
 <blockquote>
 <div><dl class="docutils">
-<dt>forall i :: 0 &lt;= i &lt; <a href="#id39"><span class="problematic" id="id40">|tt_inputs|</span></a> ==&gt;</dt>
+<dt>forall i :: 0 &lt;= i &lt; <a href="#id31"><span class="problematic" id="id32">|tt_inputs|</span></a> ==&gt;</dt>
 <dd>v in tt_inputs[i];  // kjs – need to import variables</dd>
 </dl>
 </div></blockquote>
@@ -299,7 +318,7 @@ requires forall v :: v in getVarsInProp(p) ==&gt;</p>
 <dt>{</dt>
 <dd><p class="first">var idx := 0;
 var res := acc;
-while (idx &lt; | tt_inputs <a href="#id19"><span class="problematic" id="id20">|</span></a>)
+while (idx &lt; | tt_inputs <a href="#id11"><span class="problematic" id="id12">|</span></a>)
 {</p>
 <blockquote>
 <div>if pEval(p, tt_inputs[idx])
@@ -316,7 +335,7 @@ return res;</p>
 <p>}</p>
 </div>
 <div class="section" id="satisfiability-unsatisfiability-validity">
-<h2>Satisfiability, Unsatisfiability, Validity<a class="headerlink" href="#satisfiability-unsatisfiability-validity" title="Permalink to this headline">¶</a></h2>
+<h3>Satisfiability, Unsatisfiability, Validity<a class="headerlink" href="#satisfiability-unsatisfiability-validity" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><blockquote>
 <div><p>/*
@@ -324,7 +343,7 @@ Return true (and an empty interpretation) if the given
 Boolean expression is valid, otherwise return false with
 a counter-example, i.e., an interpretation for which the
 given expression is false
-<a href="#id21"><span class="problematic" id="id22">*</span></a>/
+<a href="#id13"><span class="problematic" id="id14">*</span></a>/
 method satisfiable(e: prop) returns (result: bool,</p>
 <blockquote>
 <div>models: seq&lt;pInterpretation&gt;)</div></blockquote>
@@ -339,7 +358,7 @@ return false, [];</dd>
 Return true (and an empty interpretation) if e is unsatisfiable,
 otherwise return false and a counterexample, i.e., a model, i.e.,
 an interpretation, that makes the expression true.
-<a href="#id23"><span class="problematic" id="id24">*</span></a>/
+<a href="#id15"><span class="problematic" id="id16">*</span></a>/
 method unsatisfiable(e: prop)</p>
 <blockquote>
 <div><dl class="docutils">
@@ -365,7 +384,7 @@ is valid. If such a “witness” to the invalidity of
 the original proposition is found, return false to
 the question of validity, along with the witnesses
 to invalidity.
-<a href="#id25"><span class="problematic" id="id26">*</span></a>/
+<a href="#id17"><span class="problematic" id="id18">*</span></a>/
 method valid(e: prop) returns (result: bool,</p>
 <blockquote>
 <div>counters: seq&lt;pInterpretation&gt;)</div></blockquote>
@@ -382,7 +401,7 @@ of the main propositions, i.e., that the negation
 is satisfiable. Try to satisfy it and return results
 and counterexamples (models of the negated prop)
 accordingly.</p>
-<p><a href="#id27"><span class="problematic" id="id28">*</span></a>/
+<p><a href="#id19"><span class="problematic" id="id20">*</span></a>/
 method invalid(e: prop) returns (result: bool,</p>
 <blockquote>
 <div>counters: seq&lt;pInterpretation&gt;)</div></blockquote>
@@ -398,6 +417,7 @@ return negIsSat, counters;</dd>
 </div></blockquote>
 </div>
 </div>
+</div>
 
 
           </div>
@@ -410,7 +430,7 @@ return negIsSat, counters;</dd>
                         title="previous chapter">9. Propositional Logic</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="09a-consequence.html"
-                        title="next chapter">&lt;no title&gt;</a></p>
+                        title="next chapter">Natural Deduction</a></p>
         </div>
       </div>
       <div class="clearer"></div>
@@ -422,7 +442,7 @@ return negIsSat, counters;</dd>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="09a-consequence.html" title="&lt;no title&gt;"
+          <a href="09a-consequence.html" title="Natural Deduction"
              >next</a> |</li>
         <li class="right" >
           <a href="09-propositional-logic.html" title="9. Propositional Logic"

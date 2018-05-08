@@ -2,13 +2,6 @@
 9. Propositional Logic
 **********************
 
-This chapter first introduces logic, in general, and the introduces
-propositional logic, in particular. Proposition logic is a simple but
-useful logic that is very closely related to Boolean algebra.
-
-Basic Terminology
-=================
-
 Here is a proposition: "Tom's mother is Mary." A proposition asserts
 that a particular *state of affairs* holds in some particular *domain
 of discourse*. The domain in this case would be some family unit; and
@@ -31,6 +24,15 @@ true in every world, e.g., "zero equals zero;" some that are not true
 in any world, e.g., "zero equals one;" and many where the truth of the
 proposition depends on the world in which it is evaluated, e.g., "Mary
 is Tom's mother."
+
+Logic is the discipline that studies such issues: what constitutes a
+valid proposition, and when can we judge a proposition to be true?
+The rest of this chapter introduces logic, in general, and what we
+call propositional logic, in particular. Proposition logic is a simple
+but useful logic that is very closely related to Boolean algebra. If
+you understood the material on Boolean algebra, the transition to this
+chapter should be very easy.
+
 
 Propositional and Predicate Logic
 =================================
@@ -193,8 +195,8 @@ just look up its value in the given intepretation and will otherwise
 proceed as in the last chapter.
 
 
-Inductive Definitions: The Syntax of Propositional Logic
-========================================================
+Syntax
+======
 
 A logic provides a *formal language* in which propositions (truth
 statements) are expressed. By a formal language, we mean a (usually

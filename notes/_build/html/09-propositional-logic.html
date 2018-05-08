@@ -24,8 +24,8 @@
     <script type="text/javascript" src="_static/sidebar.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Satisfiability" href="09a-satisfiability.html" />
-    <link rel="prev" title="8. Boolean Algebra" href="08-boolean-algebra.html" /> 
+    <link rel="next" title="8. Satisfiability" href="09a-satisfiability.html" />
+    <link rel="prev" title="8. Formal Languages" href="08a-formal-languages.html" /> 
   </head>
   <body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -35,10 +35,10 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="09a-satisfiability.html" title="Satisfiability"
+          <a href="09a-satisfiability.html" title="8. Satisfiability"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="08-boolean-algebra.html" title="8. Boolean Algebra"
+          <a href="08a-formal-languages.html" title="8. Formal Languages"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
       </ul>
@@ -51,11 +51,6 @@
             
   <div class="section" id="propositional-logic">
 <h1>9. Propositional Logic<a class="headerlink" href="#propositional-logic" title="Permalink to this headline">¶</a></h1>
-<p>This chapter first introduces logic, in general, and the introduces
-propositional logic, in particular. Proposition logic is a simple but
-useful logic that is very closely related to Boolean algebra.</p>
-<div class="section" id="basic-terminology">
-<h2>Basic Terminology<a class="headerlink" href="#basic-terminology" title="Permalink to this headline">¶</a></h2>
 <p>Here is a proposition: “Tom’s mother is Mary.” A proposition asserts
 that a particular <em>state of affairs</em> holds in some particular <em>domain
 of discourse</em>. The domain in this case would be some family unit; and
@@ -76,7 +71,13 @@ true in every world, e.g., “zero equals zero;” some that are not true
 in any world, e.g., “zero equals one;” and many where the truth of the
 proposition depends on the world in which it is evaluated, e.g., “Mary
 is Tom’s mother.”</p>
-</div>
+<p>Logic is the discipline that studies such issues: what constitutes a
+valid proposition, and when can we judge a proposition to be true?
+The rest of this chapter introduces logic, in general, and what we
+call propositional logic, in particular. Proposition logic is a simple
+but useful logic that is very closely related to Boolean algebra. If
+you understood the material on Boolean algebra, the transition to this
+chapter should be very easy.</p>
 <div class="section" id="propositional-and-predicate-logic">
 <h2>Propositional and Predicate Logic<a class="headerlink" href="#propositional-and-predicate-logic" title="Permalink to this headline">¶</a></h2>
 <p>The proposition, <em>Tom’s mother is Mary</em>, is simple. It could even be
@@ -221,8 +222,8 @@ as <em>M</em> and <em>F</em> to Boolean values.  Logicians call such a function 
 just look up its value in the given intepretation and will otherwise
 proceed as in the last chapter.</p>
 </div>
-<div class="section" id="inductive-definitions-the-syntax-of-propositional-logic">
-<h2>Inductive Definitions: The Syntax of Propositional Logic<a class="headerlink" href="#inductive-definitions-the-syntax-of-propositional-logic" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="syntax">
+<h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
 <p>A logic provides a <em>formal language</em> in which propositions (truth
 statements) are expressed. By a formal language, we mean a (usually
 infinite) set of valid expressions in the language. For example, the
@@ -546,8 +547,8 @@ number of expressions, and the <em>match</em> expression for dealing with
 values of inductively defined types. We will also see uses of several
 of Dafny’s built-in abstract data types, including sets, sequences,
 and maps. So let’s get going.</p>
-<div class="section" id="syntax">
-<h3>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3>Syntax<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>Any basic introduction to programming will have made it clear that
 there is an infinite set of Boolean expressions. First, we can take
 the Boolean values, <em>true</em> and <em>false</em>, as <em>literal</em> expressions.
@@ -690,11 +691,11 @@ exhaustive checking of all interpretations. &lt;More to come&gt;.</p>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
-  <p class="topless"><a href="08-boolean-algebra.html"
-                        title="previous chapter">8. Boolean Algebra</a></p>
+  <p class="topless"><a href="08a-formal-languages.html"
+                        title="previous chapter">8. Formal Languages</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="09a-satisfiability.html"
-                        title="next chapter">Satisfiability</a></p>
+                        title="next chapter">8. Satisfiability</a></p>
         </div>
       </div>
       <div class="clearer"></div>
@@ -706,10 +707,10 @@ exhaustive checking of all interpretations. &lt;More to come&gt;.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="09a-satisfiability.html" title="Satisfiability"
+          <a href="09a-satisfiability.html" title="8. Satisfiability"
              >next</a> |</li>
         <li class="right" >
-          <a href="08-boolean-algebra.html" title="8. Boolean Algebra"
+          <a href="08a-formal-languages.html" title="8. Formal Languages"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
       </ul>

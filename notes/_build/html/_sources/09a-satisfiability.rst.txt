@@ -1,19 +1,20 @@
-Satisfiability
-==============
+*****************
+8. Satisfiability
+*****************
 
 
-Truth Tables for Propositions
------------------------------
+
+Interpretations for a Proposition
+=================================
 
 
-    /*
-    This method returns a sequence of all possible
-    interpretations for a given proposition. It does
-    it by getting a sequence of all the variables in
-    the expression and by then calling a helper
-    function, truth_table_inputs_for_vars, which does
-    most of the work.
-    */
+This method returns a sequence of all possible interpretations for a
+given proposition. It does it by getting a sequence of all the
+variables in the expression and by then calling a helper function,
+truth_table_inputs_for_vars, which does most of the work.
+
+
+    
     method truth_table_inputs_for_prop(p: prop) 
         returns (result: seq<pInterpretation>)
         ensures forall v :: v in getVarsInProp(p) ==> 
@@ -24,17 +25,19 @@ Truth Tables for Propositions
         result := truth_table_inputs_for_vars(vs);
     }
     
-    /*
-    This method returns a sequence of all possible
-    interpretations for a given sequence of Boolean
-    variables, in increasing order from all false to
-    all true. Each interpretation is a map from each
-    of the variables to that variable's bool value 
-    under the given interpretation. In other words, 
-    this method returns the "input" parts of each row 
-    of a truth table for the given propositional
-    variables. 
-    */
+
+
+Interpretations for a Sequence of Propositions
+==============================================
+
+This method returns a sequence of all possible interpretations for a
+given sequence of Boolean variables, in increasing order from all
+false to all true. Each interpretation is a map from each of the
+variables to that variable's bool value under the given
+interpretation. In other words, this method returns the "input" parts
+of each row of a truth table for the given propositional variables.
+
+    
     method truth_table_inputs_for_vars(vs: seq<propVar>) 
         returns (result: seq<pInterpretation>)
         ensures forall i :: 0 <= i < |result| ==>   // kjs
@@ -61,6 +64,13 @@ Truth Tables for Propositions
         }
     }
     
+
+
+
+The All-False Interpetation
+===========================
+
+
      /*
         Return an interpretation for the variables in 
         the sequence vs such that every variable maps 
@@ -81,6 +91,12 @@ Truth Tables for Propositions
         }
     }
 
+
+
+HuH???
+======
+
+
     method truth_table_inputs_for_props(ps: seq<prop>) 
         returns (result: seq<pInterpretation>)
     {
@@ -89,14 +105,19 @@ Truth Tables for Propositions
         return;
     }
     
-    /*
-    Given a sequence of variables and an interpretation
-    for those variables, computes a "next" interpretation.
-    Treat the sequence of values as a binary integer and 
-    increment it by one. Any variables in vs that are not
-    in interp are ignored. Would be better to enforce a
-    pre-condition to rule out this possibility.
-    */
+
+
+
+
+Increment Interpretation
+========================
+
+Given a sequence of variables and an interpretation for those
+variables, computes a "next" interpretation.  Treat the sequence of
+values as a binary integer and increment it by one. Any variables in
+vs that are not in interp are ignored. Would be better to enforce a
+pre-condition to rule out this possibility.
+
     method next_interp(vs: seq<propVar>, interp: pInterpretation) 
         returns (result: pInterpretation)
         requires forall v :: v in vs ==> v in interp;   //kjs
@@ -120,14 +141,12 @@ Truth Tables for Propositions
         }
     }
 
-    /*
-    Compute and return 2^n given n.
-    */
-    function method pow2(n: nat): (r: nat)
-        ensures r >= 1
-    { 
-        if n == 0 then 1 else 2 * pow2(n-1) 
-    }
+
+
+    
+
+Print Truth Table for a Propositional Logic Proposition
+=======================================================
 
     method show_truth_table_for_prop(p: prop, ord: seq<propVar>, labels: bool)
         requires forall v :: v in getVarsInProp(p) ==> v in ord; // kjs
@@ -149,6 +168,19 @@ Truth Tables for Propositions
     }
 }
 
+
+
+Utility Routine
+===============
+
+Compute and return 2^n given n.
+
+
+    function method pow2(n: nat): (r: nat)
+        ensures r >= 1
+    { 
+        if n == 0 then 1 else 2 * pow2(n-1) 
+    }
 
 
 
