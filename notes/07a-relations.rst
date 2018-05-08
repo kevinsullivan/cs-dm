@@ -1,6 +1,6 @@
-************
-5. Relations
-************
+**************
+07a. Relations
+**************
 
 
 A relation in nothing but a subset of (the tuples in) a product set. A
@@ -1327,14 +1327,20 @@ operations on lists.
 
 
 
-BREAK
-=====
+Maps
+====
 
-         /*
-        Return the relation g composed with this 
-        relation, (g o this). The domains/codomains
-        of g and this must be the same.
-        */
+
+Fill in.
+
+
+
+Composition of Relations
+========================
+
+Return the relation g composed with this relation, (g o this). The
+domains/codomains of g and this must be the same.
+
         method compose(g: binRelOnS<Stype>) 
             returns (c : binRelOnS<Stype>)
             requires Valid();
@@ -1370,13 +1376,18 @@ BREAK
         }
 
 
-        /*
-        The reflexive closure is the smallest relation
-        that contains this relation and is reflexive. In
-        particular, it's the union of this relation and
-        the identity relation on the same set. That is
-        how we compute it here.
-        */
+Closure Operations
+==================
+
+Reflexive Closure
+-----------------
+
+The reflexive closure is the smallest relation
+that contains this relation and is reflexive. In
+particular, it's the union of this relation and
+the identity relation on the same set. That is
+how we compute it here.
+
         method reflexiveClosure() returns (r: binRelOnS<Stype>)
             requires Valid();
             ensures r.Valid();
@@ -1390,15 +1401,15 @@ BREAK
         }
  
 
-        /*
-        The symmetric closure is the smallest relation
-        that contains this relation and is symmetric. In
-        particular, it's the union of this relation and
-        the inverse relation on the same set. It can be
-        derived from this relation by taking all pairs,
-        (s, t), and making sure that all reversed pairs, 
-        (t, s), are also included.
-        */
+Symmetric Closure
+-----------------
+
+The symmetric closure is the smallest relation that contains this
+relation and is symmetric. In particular, it's the union of this
+relation and the inverse relation on the same set. It can be derived
+from this relation by taking all pairs, (s, t), and making sure that
+all reversed pairs, (t, s), are also included.
+
         method symmetricClosure() returns (r: binRelOnS<Stype>)
             requires Valid();
             ensures r.Valid();
@@ -1411,20 +1422,19 @@ BREAK
             var inv := this.inverse();
             r := relUnion(inv);
         }
- 
 
-        /*
-        The transitive closure of a binary relation, R,
-        on a set, S, is the relation R plus all tuples,
-        (x, y) when there is any "path" (a sequence of 
-        tuples) from x to y in R. In a finite relation.
-        such as those modeled by this class, the length
-        of a path is bounded by the size of the set, S,
-        so we can always compute a transitive closure by
-        following links and adding tuples enough times 
-        to have followed all maximum-length paths in R.
-        That's what we do, here.
-         */
+
+Transitive Closure
+------------------
+
+The transitive closure of a binary relation, R, on a set, S, is the
+relation R plus all tuples, (x, y) when there is any "path" (a
+sequence of tuples) from x to y in R. In a finite relation.  such as
+those modeled by this class, the length of a path is bounded by the
+size of the set, S, so we can always compute a transitive closure by
+following links and adding tuples enough times to have followed all
+maximum-length paths in R.  That's what we do, here.
+
         method transitiveClosure() returns (r: binRelOnS<Stype>)
             requires Valid();
             ensures r.Valid();
@@ -1451,13 +1461,14 @@ BREAK
             r := new binRelOnS(dom(), cl);
         }
 
-        /*
-        The reflexive transitive closure is the smallest 
-        relation that contains this relation and is both
-        reflexive and transitive. 
-        
-        FIX: Under-informative specification!!!
-        */
+
+Reflexive Transitive Closure
+----------------------------
+
+The reflexive transitive closure is the smallest relation that
+contains this relation and is both reflexive and transitive.  KS FIX:
+Under-informative specification.
+
         method reflexiveTransitiveClosure() returns (r: binRelOnS<Stype>)
             requires Valid();
             ensures r.Valid();
@@ -1469,7 +1480,9 @@ BREAK
             r := refc.transitiveClosure();
         }
  
-        //Reflexive transitive symmetric closure
+Reflexive Transitive Symmetric closure
+--------------------------------------
+
         method reflexiveSymmetricTransitiveClosure() 
             returns (r: binRelOnS<Stype>)
             requires Valid();
@@ -1484,12 +1497,14 @@ BREAK
         }
  
 
-        /*
-        The reflexive reduction of a relation is the relation
-        minus the idenitity relation on the same set. It is, to
-        be formal about it, the smallest relation with the same
-        reflexive closure as this (the given) relation.
-        */
+Reflexive Reduction
+-------------------
+
+The reflexive reduction of a relation is the relation
+minus the idenitity relation on the same set. It is, to
+be formal about it, the smallest relation with the same
+reflexive closure as this (the given) relation.
+
         method reflexiveReduction() returns (r: binRelOnS<Stype>)
             requires Valid();
             ensures r.Valid();
@@ -1502,17 +1517,22 @@ BREAK
         }
 
 
-       /* 
-        transitive reduction -- TBD
-        */
+Transitive Reduction
+--------------------
+
+TBD
     
 
-        /*
-        The "restriction" of a relation, R, on a set, S, to a 
-        subset, X, of S, is a relation X containing the pairs 
-        in R both of whose elements are in X. That X is a subset 
-        of S is a precondition for calling this method.
-        */
+
+
+Domain and Range Restriction
+============================
+
+The "restriction" of a relation, R, on a set, S, to a subset, X, of S,
+is a relation X containing the pairs in R both of whose elements are
+in X. That X is a subset of S is a precondition for calling this
+method.
+
         method restriction(X: set<Stype>) returns (r: binRelOnS<Stype>)
             requires Valid();
             requires X <= dom();

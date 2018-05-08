@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>5. Relations &#8212; Discrete Mathematics for Software Professionals 1 documentation</title>
+    <title>07a. Relations &#8212; Discrete Mathematics for Software Professionals 1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -49,8 +49,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="relations">
-<h1>5. Relations<a class="headerlink" href="#relations" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="a-relations">
+<h1>07a. Relations<a class="headerlink" href="#a-relations" title="Permalink to this headline">¶</a></h1>
 <p>A relation in nothing but a subset of (the tuples in) a product set. A
 table such as the one just described, will, in practice, usually not
 have a row with every possible combination of names, birthdays, and
@@ -220,7 +220,7 @@ requires isTotal();   // that is defined for every value
 requires isDefinedFor(k);  // and that is non-empty</div></blockquote>
 </div></blockquote>
 <dl class="docutils">
-<dt>//            ensures ret in image(k);  // want <a href="#id91"><span class="problematic" id="id92">|image(k)|</span></a> == 1, too</dt>
+<dt>//            ensures ret in image(k);  // want <a href="#id75"><span class="problematic" id="id76">|image(k)|</span></a> == 1, too</dt>
 <dd><blockquote class="first last">
 <div><blockquote>
 <div>ensures Valid();</div></blockquote>
@@ -1316,19 +1316,18 @@ subsequence is obtained by taking a prefix of a suffix of a sequence.
 See the Dafny language summary for examples of these and other related
 operations on lists.</p>
 </div>
-<div class="section" id="break">
-<h2>BREAK<a class="headerlink" href="#break" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="maps">
+<h2>Maps<a class="headerlink" href="#maps" title="Permalink to this headline">¶</a></h2>
+<p>Fill in.</p>
+</div>
+<div class="section" id="composition-of-relations">
+<h2>Composition of Relations<a class="headerlink" href="#composition-of-relations" title="Permalink to this headline">¶</a></h2>
+<p>Return the relation g composed with this relation, (g o this). The
+domains/codomains of g and this must be the same.</p>
 <blockquote>
-<div><blockquote>
-<div><blockquote>
-<div>/*</div></blockquote>
-<p>Return the relation g composed with this
-relation, (g o this). The domains/codomains
-of g and this must be the same.
-<a href="#id73"><span class="problematic" id="id74">*</span></a>/
-method compose(g: binRelOnS&lt;Stype&gt;)</p>
-<blockquote>
-<div><p>returns (c : binRelOnS&lt;Stype&gt;)
+<div><dl class="docutils">
+<dt>method compose(g: binRelOnS&lt;Stype&gt;)</dt>
+<dd><p class="first">returns (c : binRelOnS&lt;Stype&gt;)
 requires Valid();
 requires g.Valid();
 requires g.dom() == codom();
@@ -1336,7 +1335,7 @@ ensures c.Valid();
 ensures c.dom() == dom();
 ensures c.codom() == dom();
 ensures c.rel() == set r, s, t |</p>
-<blockquote>
+<blockquote class="last">
 <div>r in dom() &amp;&amp;
 s in codom() &amp;&amp;
 (r, s) in rel() &amp;&amp;
@@ -1344,7 +1343,8 @@ s in g.dom() &amp;&amp;
 t in g.codom() &amp;&amp;
 (s, t) in g.rel() ::
 (r, t)</div></blockquote>
-</div></blockquote>
+</dd>
+</dl>
 <p>{
 /*</p>
 <blockquote>
@@ -1353,7 +1353,7 @@ var g’ := g.convertToBinRelOnST();
 var h := composeRST(g’,f’);
 c := new binRelOnS&lt;T&gt;(dom(),h.rel());</div></blockquote>
 <dl class="docutils">
-<dt><a href="#id75"><span class="problematic" id="id76">*</span></a>/</dt>
+<dt><a href="#id73"><span class="problematic" id="id74">*</span></a>/</dt>
 <dd><dl class="first docutils">
 <dt>var p := set r, s, t |</dt>
 <dd>r in dom() &amp;&amp;
@@ -1368,67 +1368,74 @@ t in g.codom() &amp;&amp;
 </dd>
 </dl>
 <p>}</p>
-<p>/*
-The reflexive closure is the smallest relation
+</div></blockquote>
+</div>
+<div class="section" id="closure-operations">
+<h2>Closure Operations<a class="headerlink" href="#closure-operations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="reflexive-closure">
+<h3>Reflexive Closure<a class="headerlink" href="#reflexive-closure" title="Permalink to this headline">¶</a></h3>
+<p>The reflexive closure is the smallest relation
 that contains this relation and is reflexive. In
 particular, it’s the union of this relation and
 the identity relation on the same set. That is
-how we compute it here.
-<a href="#id77"><span class="problematic" id="id78">*</span></a>/
-method reflexiveClosure() returns (r: binRelOnS&lt;Stype&gt;)</p>
+how we compute it here.</p>
 <blockquote>
-<div>requires Valid();
+<div><dl class="docutils">
+<dt>method reflexiveClosure() returns (r: binRelOnS&lt;Stype&gt;)</dt>
+<dd>requires Valid();
 ensures r.Valid();
 ensures r.dom() == dom();
 ensures r.rel() == rel() + set x | x in dom() :: (x,x);
 ensures rel() &lt;= r.rel();
-ensures Valid();</div></blockquote>
+ensures Valid();</dd>
+</dl>
 <dl class="docutils">
 <dt>{</dt>
 <dd>var id := this.identity();
 r := relUnion(id);</dd>
 </dl>
 <p>}</p>
-<p>/*
-The symmetric closure is the smallest relation
-that contains this relation and is symmetric. In
-particular, it’s the union of this relation and
-the inverse relation on the same set. It can be
-derived from this relation by taking all pairs,
-(s, t), and making sure that all reversed pairs,
-(t, s), are also included.
-<a href="#id79"><span class="problematic" id="id80">*</span></a>/
-method symmetricClosure() returns (r: binRelOnS&lt;Stype&gt;)</p>
+</div></blockquote>
+</div>
+<div class="section" id="symmetric-closure">
+<h3>Symmetric Closure<a class="headerlink" href="#symmetric-closure" title="Permalink to this headline">¶</a></h3>
+<p>The symmetric closure is the smallest relation that contains this
+relation and is symmetric. In particular, it’s the union of this
+relation and the inverse relation on the same set. It can be derived
+from this relation by taking all pairs, (s, t), and making sure that
+all reversed pairs, (t, s), are also included.</p>
 <blockquote>
-<div><p>requires Valid();
+<div><dl class="docutils">
+<dt>method symmetricClosure() returns (r: binRelOnS&lt;Stype&gt;)</dt>
+<dd><p class="first">requires Valid();
 ensures r.Valid();
 ensures r.dom() == dom();
 ensures r.rel() == rel() + set x, y |</p>
 <blockquote>
 <div>x in dom() &amp;&amp; y in codom() &amp;&amp; (x, y) in rel():: (y, x);</div></blockquote>
-<p>ensures rel() &lt;= r.rel();
+<p class="last">ensures rel() &lt;= r.rel();
 ensures Valid();</p>
-</div></blockquote>
+</dd>
+</dl>
 <dl class="docutils">
 <dt>{</dt>
 <dd>var inv := this.inverse();
 r := relUnion(inv);</dd>
 </dl>
 <p>}</p>
-<p>/*
-The transitive closure of a binary relation, R,
-on a set, S, is the relation R plus all tuples,
-(x, y) when there is any “path” (a sequence of
-tuples) from x to y in R. In a finite relation.
-such as those modeled by this class, the length
-of a path is bounded by the size of the set, S,
-so we can always compute a transitive closure by
-following links and adding tuples enough times
-to have followed all maximum-length paths in R.
-That’s what we do, here.</p>
+</div></blockquote>
+</div>
+<div class="section" id="transitive-closure">
+<h3>Transitive Closure<a class="headerlink" href="#transitive-closure" title="Permalink to this headline">¶</a></h3>
+<p>The transitive closure of a binary relation, R, on a set, S, is the
+relation R plus all tuples, (x, y) when there is any “path” (a
+sequence of tuples) from x to y in R. In a finite relation.  such as
+those modeled by this class, the length of a path is bounded by the
+size of the set, S, so we can always compute a transitive closure by
+following links and adding tuples enough times to have followed all
+maximum-length paths in R.  That’s what we do, here.</p>
 <blockquote>
-<div><a href="#id81"><span class="problematic" id="id82">*</span></a>/</div></blockquote>
-<dl class="docutils">
+<div><dl class="docutils">
 <dt>method transitiveClosure() returns (r: binRelOnS&lt;Stype&gt;)</dt>
 <dd>requires Valid();
 ensures r.Valid();
@@ -1440,7 +1447,7 @@ ensures Valid();</dd>
 <dl class="docutils">
 <dt>{</dt>
 <dd><p class="first">var cl := rel();
-var n := <a href="#id93"><span class="problematic" id="id94">|dom()|</span></a>;
+var n := <a href="#id77"><span class="problematic" id="id78">|dom()|</span></a>;
 while (n &gt; 0)</p>
 <blockquote>
 <div><dl class="docutils">
@@ -1467,34 +1474,42 @@ r := new binRelOnS(dom(), cl);</p>
 </dd>
 </dl>
 <p>}</p>
-<p>/*
-The reflexive transitive closure is the smallest
-relation that contains this relation and is both
-reflexive and transitive.</p>
-<p>FIX: Under-informative specification!!!
-<a href="#id83"><span class="problematic" id="id84">*</span></a>/
-method reflexiveTransitiveClosure() returns (r: binRelOnS&lt;Stype&gt;)</p>
+</div></blockquote>
+</div>
+<div class="section" id="reflexive-transitive-closure">
+<h3>Reflexive Transitive Closure<a class="headerlink" href="#reflexive-transitive-closure" title="Permalink to this headline">¶</a></h3>
+<p>The reflexive transitive closure is the smallest relation that
+contains this relation and is both reflexive and transitive.  KS FIX:
+Under-informative specification.</p>
 <blockquote>
-<div>requires Valid();
+<div><dl class="docutils">
+<dt>method reflexiveTransitiveClosure() returns (r: binRelOnS&lt;Stype&gt;)</dt>
+<dd>requires Valid();
 ensures r.Valid();
 ensures r.dom() == dom();
 ensures rel() &lt;= r.rel();
-ensures Valid();</div></blockquote>
+ensures Valid();</dd>
+</dl>
 <dl class="docutils">
 <dt>{</dt>
 <dd>var refc := this.reflexiveClosure();
 r := refc.transitiveClosure();</dd>
 </dl>
 <p>}</p>
-<p>//Reflexive transitive symmetric closure
-method reflexiveSymmetricTransitiveClosure()</p>
+</div></blockquote>
+</div>
+<div class="section" id="reflexive-transitive-symmetric-closure">
+<h3>Reflexive Transitive Symmetric closure<a class="headerlink" href="#reflexive-transitive-symmetric-closure" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div>returns (r: binRelOnS&lt;Stype&gt;)
+<div><dl class="docutils">
+<dt>method reflexiveSymmetricTransitiveClosure()</dt>
+<dd>returns (r: binRelOnS&lt;Stype&gt;)
 requires Valid();
 ensures r.Valid();
 ensures r.dom() == dom();
 ensures rel() &lt;= r.rel();
-ensures Valid();</div></blockquote>
+ensures Valid();</dd>
+</dl>
 <dl class="docutils">
 <dt>{</dt>
 <dd>var refc := this.reflexiveClosure();
@@ -1502,19 +1517,23 @@ var symc := refc.symmetricClosure();
 r := symc.transitiveClosure();</dd>
 </dl>
 <p>}</p>
-<p>/*
-The reflexive reduction of a relation is the relation
+</div></blockquote>
+</div>
+<div class="section" id="reflexive-reduction">
+<h3>Reflexive Reduction<a class="headerlink" href="#reflexive-reduction" title="Permalink to this headline">¶</a></h3>
+<p>The reflexive reduction of a relation is the relation
 minus the idenitity relation on the same set. It is, to
 be formal about it, the smallest relation with the same
-reflexive closure as this (the given) relation.
-<a href="#id85"><span class="problematic" id="id86">*</span></a>/
-method reflexiveReduction() returns (r: binRelOnS&lt;Stype&gt;)</p>
+reflexive closure as this (the given) relation.</p>
 <blockquote>
-<div>requires Valid();
+<div><dl class="docutils">
+<dt>method reflexiveReduction() returns (r: binRelOnS&lt;Stype&gt;)</dt>
+<dd>requires Valid();
 ensures r.Valid();
 ensures r.dom() == dom();
 ensures r.rel() == rel() -  set x | x in dom() :: (x,x);
-ensures Valid();</div></blockquote>
+ensures Valid();</dd>
+</dl>
 <dl class="docutils">
 <dt>{</dt>
 <dd>var id := this.identity();
@@ -1522,27 +1541,31 @@ r := relDifference(id);</dd>
 </dl>
 <p>}</p>
 </div></blockquote>
-<dl class="docutils">
-<dt>/*</dt>
-<dd><p class="first">transitive reduction – TBD
-<a href="#id87"><span class="problematic" id="id88">*</span></a>/</p>
-<p>/*
-The “restriction” of a relation, R, on a set, S, to a
-subset, X, of S, is a relation X containing the pairs
-in R both of whose elements are in X. That X is a subset
-of S is a precondition for calling this method.
-<a href="#id89"><span class="problematic" id="id90">*</span></a>/
-method restriction(X: set&lt;Stype&gt;) returns (r: binRelOnS&lt;Stype&gt;)</p>
+</div>
+<div class="section" id="transitive-reduction">
+<h3>Transitive Reduction<a class="headerlink" href="#transitive-reduction" title="Permalink to this headline">¶</a></h3>
+<p>TBD</p>
+</div>
+</div>
+<div class="section" id="domain-and-range-restriction">
+<h2>Domain and Range Restriction<a class="headerlink" href="#domain-and-range-restriction" title="Permalink to this headline">¶</a></h2>
+<p>The “restriction” of a relation, R, on a set, S, to a subset, X, of S,
+is a relation X containing the pairs in R both of whose elements are
+in X. That X is a subset of S is a precondition for calling this
+method.</p>
 <blockquote>
-<div><p>requires Valid();
+<div><dl class="docutils">
+<dt>method restriction(X: set&lt;Stype&gt;) returns (r: binRelOnS&lt;Stype&gt;)</dt>
+<dd><p class="first">requires Valid();
 requires X &lt;= dom();
 ensures r.Valid();
 ensures r.dom() == X;
 ensures r.rel() == set x, y | x in dom() &amp;&amp; y in dom() &amp;&amp;</p>
 <blockquote>
 <div>(x, y) in rel() &amp;&amp; x in X &amp;&amp; y in X :: (x, y);</div></blockquote>
-<p>ensures Valid();</p>
-</div></blockquote>
+<p class="last">ensures Valid();</p>
+</dd>
+</dl>
 <dl class="docutils">
 <dt>{</dt>
 <dd><dl class="first last docutils">
@@ -1551,9 +1574,7 @@ ensures r.rel() == set x, y | x in dom() &amp;&amp; y in dom() &amp;&amp;</p>
 </dl>
 </dd>
 </dl>
-<p class="last">}</p>
-</dd>
-</dl>
+<p>}</p>
 </div></blockquote>
 </div>
 </div>
