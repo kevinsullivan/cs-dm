@@ -174,13 +174,13 @@ pTrue. That is, from an empty context (no previous assumptions) we can
 conclude that pTrue is true.</p>
 <p>In lean, “true” is the true proposition.  You can check that “true” is
 a proposition using #check.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>#check true</div></blockquote>
 <p>Note: the proposition, true, is different than the Boolean value,
 true. The Boolean value, true, written “tt” in Lean, is one of the two
 values of the bool datatype. It is not a proposition.  Chek it out.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>#check tt</div></blockquote>
 <p>In Lean and similar proof assistants, propositions, such as true in
@@ -192,7 +192,7 @@ defined by a list of contructors.</p>
 proofs of such propositions as values produced by constructors. The
 simplest example is the proposition, true, in Lean. It’s defined in
 Lean’s core library like so:</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>inductive true : Prop
 | intro : true</div></blockquote>
@@ -205,7 +205,7 @@ should how to assert that the proposition “true” is true (there’s a
 proof for it) by giving the one and only proof, namely “intro”.  To
 refer to a constructor of a type, use the type name dot constructor
 name.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>theorem proofOfTrue: true := true.intro</div></blockquote>
 <p>True introduction isn’t a very useful rule of natural deduction, as it
@@ -215,7 +215,7 @@ real-world proofs, but it’s good to know about.</p>
 <h3>The proposition, false<a class="headerlink" href="#the-proposition-false" title="Permalink to this headline">¶</a></h3>
 <p>In Lean, false is also a proposition. By contrast, the Boolean false
 value in Lean is written as ff.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>#check false    – proposition (Prop)
 #check ff       – Boolean value (bool)</div></blockquote>
@@ -226,7 +226,7 @@ to be an “uninhabited” type.</p>
 Prop, and as having exactly no constructors! It’s a proposition but
 there is no way to contruct a proof. Here’s the definition of false
 from the Lean core libraries:</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>inductive false : Prop</div></blockquote>
 <p>That’s it, there are no constructors.</p>
@@ -277,10 +277,10 @@ aspects are automated, and you’re not allowed to make mistakes.  -/</p>
 <p>So that we can play around with this idea, given that we already have
 a proof of 0=0 (zeqz), we now contruct a proof of 1=1 so that we have
 two propositions and proofs to play with.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>#check zeqz</div></blockquote>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>theorem oeqo : 1 = 1 := rfl</div></blockquote>
 <p>To start, let’s prove 0=0 ∧ 1=1. We already have a proof of 0=0,
@@ -292,7 +292,7 @@ of it), and if Q is true, then we can deduce (construct a proof!)
 that P ∧ Q is true. Here’s how you do that in Lean. (Note: we get the
 logical and symbol, ∧, by typing “and”, i.e., backslash-and, followed
 by a space.)</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem t2: 0=0 ∧ 1=1 :=  – proposition</dt>
@@ -317,7 +317,7 @@ are the two “smaller” proofs. Given such a proof/pair, the and
 example, from a proof of P ∧ Q, and.elim_left will return the
 contained proof of P, and the and.elim_right rule returns the proof of
 Q.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>theorem e1: 0=0 := and.elim_left t2</div></blockquote>
 <p>This says that a value, e1, of type 0=0, i.e., a proof of 0=0, can be
@@ -361,7 +361,7 @@ started.</p>
 <p>We can define functions in Lean almost as in Dafny. Here are two
 functions to play with: increment and square. Go back and look at the
 function.dfy file to see just how similar the syntax is.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>def inc(n: nat): nat := n + 1
 def sqr(n: nat): nat := n * n
@@ -403,12 +403,12 @@ would apply any other function.</p>
 <p>Don’t believe that sq3 is therefore of type nat? You can check the
 type of any term in Lean using its #check command.  Just hover your
 mouse over the #check.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>#check sq3</div></blockquote>
 <p>Do you want to evaluate the expression (aka, term) sq3 to see that it
 evaluates to 9? Hover your mouse over the #eval.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>#eval sq3</div></blockquote>
 <p>To give a proof (value) for a proposition in the form of an
@@ -430,7 +430,7 @@ written here a little differently than before, matches any value that
 is one more than some smaller argument, n, and returns that “one more
 than n” times the factorial of the samller number, n. Writing it this
 way allows Lean to prove to itself that the recursion terminates.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>def fac: ℕ → ℕ
 | 0 := 1
@@ -442,7 +442,7 @@ lean is automatically reducing (simplifying) the terms (fac 5) and 120
 before checking that the results are the same. fac 5 does in fact
 reduce to 120, so the terms, fac 5, and 120, are definitionally equal,
 and in this case, rfl constructs a proof of the equality.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>theorem fac5is120 : fac 5 = 120 := rfl</div></blockquote>
 </div>
@@ -486,7 +486,7 @@ the conjunction with the component proofs in the opposite order.</p>
 that 1=1 ∧ 0=0 it constructs and returns a proof of 0=0 ∧ 1=1. It does
 it just as we said: extract the component proofs then put them back
 together in the reverse order. Voila!</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>def and_swap(assumption: 1=1 ∧ 0=0): 0=0 ∧ 1=1 :=</dt>
@@ -509,7 +509,7 @@ shown. It’s used to signal that the goal to be proved has been proved.</p>
 <p>Here’s the same proof using a lambda. You can see here how lambda
 expressions (also know as anonymous functions) can make for cleaner
 code.  They’re also essential when you want to return a function.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><p>theorem and_commutes: 1=1 ∧ 0=0 → 0=0 ∧ 1=1 :=</p>
 <blockquote>
@@ -543,7 +543,7 @@ of the implication.  This is just modus ponens, and the way you get
 from the premises to the conclusion is by applying the implication
 (it’s a function) to the assumed proof of P, yielding a proof of Q!
 Modus ponens is function application!</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem modus_ponens’</dt>
@@ -571,7 +571,7 @@ that is polymorphic in the types/propositions, P and Q.  You can see
 that the propositions are arguments to the function, along with a P →
 Q function and a (value) proof of (type) P, finally producing a
 (value) proof of (type) Q.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem modus_ponens: ∀ P Q: Prop, (P → Q) → P → Q :=</dt>
@@ -579,7 +579,7 @@ Q function and a (value) proof of (type) P, finally producing a
 </dl>
 </div></blockquote>
 <p>We could of course have written that using ordinary function notation.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem modus_ponens2</dt>
@@ -595,7 +595,7 @@ Q function and a (value) proof of (type) P, finally producing a
 <h4>Optional material on using type inference<a class="headerlink" href="#optional-material-on-using-type-inference" title="Permalink to this headline">¶</a></h4>
 <p>As an advanced concept, putting arguments in curly braces tells Lean
 to use type inference <a href="#id6"><span class="problematic" id="id7">`</span></a>to infer their values.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem modus_ponens3</dt>
@@ -608,7 +608,7 @@ to use type inference <a href="#id6"><span class="problematic" id="id7">`</span>
 </div></blockquote>
 <p>Type inference can also be specified for lambdas by enclosing
 parameters to be inferred in braces.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem modus_ponens4: ∀ P Q: Prop, (P → Q) → P → Q :=</dt>
@@ -643,7 +643,7 @@ proposition.</p>
 <p>The or introduction rules in Lean are called or.inl (left) and or.inr
 (right).  Here then we construct a proof just as described above, but
 now checked by the tool.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem t3: 0=0 ∨ 1=0 :=</dt>
@@ -685,7 +685,7 @@ then you know that at least one of P or Q is true, and if you also
 know that both of them individually imply R, then you can validly
 deduce that R must be true. Here is an example of the use of Lean’s
 rule for or elimination.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><blockquote>
 <div><p>– shorthand, without all the explicit lambdas
@@ -705,7 +705,7 @@ theorem or_elim:</p>
 associativity in the propositon (and also in the corresponding
 function definition) clear.</p>
 </div></blockquote>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem or_elim’:</dt>
@@ -722,7 +722,7 @@ function definition) clear.</p>
 <p>#check or_elim</p>
 </div></blockquote>
 <p>If you prefer an ordinary function, here it is again.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>def or_elim’’ (P Q R: Prop) (pq: P ∨ Q) (pr: P → R) (qr: Q → R): R :=</dt>
@@ -793,7 +793,7 @@ must be no proof of P.</p>
 <p>Here’s a very simple example. We can prove the proposition ¬ false by
 giving a function that <em>if</em> given a proof of false, returns a proof of
 false. That’s easy: just return the argument itself.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem notFalse: ¬false :=</dt>
@@ -833,7 +833,7 @@ there’s no way to conver a proof of ¬¬P into a proof of P.</p>
 <p>One can however extend the logic of Lean to become a classical logic
 by adding the law of the excluded middle (that P ∨ ¬P is always true)
 to the environment as an axiom.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>axiom excludedMiddle: ∀ P, P ∨ ¬P</div></blockquote>
 <p>Note that the definition of ¬ is that if one starts with proof of P
@@ -877,7 +877,7 @@ function to the assumed proof of P to obtain the desired contradiction
 that (P ∧ ¬P) lets us build a proof of false, which is to say that
 there is a function from (P ∧ ¬P) to false, i.e., (P ∧ ¬P) → false,
 and that is what ¬(P ∧ ¬P) means. Thus we have our proof.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem noContra: ∀ P: Prop, ¬(P ∧ ¬P) :=</dt>
@@ -908,7 +908,7 @@ false elimination inference rule.</p>
 false implies that 0=1. Given a proof of false, we just apply the
 false.elim inference rule to it, and it “returns” a proof of
 0=1. False implies 0=1.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem fImpZeroEqOne: false → 0 = 1 :=</dt>
@@ -916,7 +916,7 @@ false.elim inference rule to it, and it “returns” a proof of
 </dl>
 </div></blockquote>
 <p>False elimination works to prove any proposition whatsoever.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem fImpAnyProp <span class="classifier-delimiter">:</span> <span class="classifier">∀ Q: Prop, false → Q :=</span></dt>
@@ -935,7 +935,7 @@ and.elim rules to get at the assumed proof of P and proof of ¬ P. The
 proof of ¬ P is a function from P → false, which we apply to the
 assumed proof of P to derive a proof of false. We then apply the false
 elimination rule (which from false proves anything) to prove Q.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem fromContraQ: ∀ P Q: Prop, (P ∧ ¬ P) -&gt; Q :=</dt>
@@ -959,7 +959,7 @@ true (there can be no proof) of Q, and we also know that P → Q (we
 have a function <em>if</em> given a proof of P returns a proof of Q), then we
 see that an assumption that P is true leads to a contradiction, which
 proves ¬P.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem notPbyContra:</dt>
@@ -980,7 +980,7 @@ definition, but where the parameters, P and Q, are to be inferred
 rather than given as explicit arguments in the λ. The curly braces
 around P and Q tell Lean to use type inference to infer the values of
 P and Q.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>def notPbyContra’ {P Q: Prop} (PimpQ: P → Q) (notQ: ¬ Q): ¬ P :=</dt>
@@ -1013,7 +1013,7 @@ we have a proof of P and a proof of Q, and we then apply the iff.intro
 inference rule to produce a proof of P ↔ Q. We first write the theorem
 as an ordinary function of the type we seek to prove: given
 propositions P and Q,</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>def biImpl (P Q: Prop) (PimpQ: P → Q) (QimpP: Q → P): P ↔ Q :=</dt>
@@ -1021,7 +1021,7 @@ propositions P and Q,</p>
 </dl>
 </div></blockquote>
 <p>Now we write it as an equivalent theorem …</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem biImpl’: forall P Q: Prop, (P → Q) → (Q → P) → (P ↔ Q) :=</dt>
@@ -1037,7 +1037,7 @@ that for arbitrary propositions, P and Q, P ∧ Q ↔ Q ∧ P. Remember,
 whenever you want to prove any bi-implication, the strategy is to
 prove the implication in each direction, at which you you can then
 appeal to the iff intro inference rule to complete the proof.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem PandQiffQandP: forall P Q: Prop, P ∧ Q ↔ Q ∧ P :=</dt>
@@ -1072,7 +1072,7 @@ mechanisms to ease the task of obtaining proofs.  Here we briefly
 review a few of them.</p>
 <p>First, the “sorry” keyword tells Lean to accept a theorem, value, or
 proof, by assumption, i.e., without proof, or “as an axiom.”</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>theorem oeqz: 1 = 0 := sorry</div></blockquote>
 <p>As you can see here, undisciplined use of sorry can be danger. It’s
@@ -1094,7 +1094,7 @@ current context that might be useful in constructive a proof. Hover
 your mouse over the underscore here. Then replace it with “and.intro _
 _” and hover your mouse over those underscores. You will see how this
 mechanism can help you to develop a proof “top down.”</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem test’ (p q <span class="classifier-delimiter">:</span> <span class="classifier">Prop) (hp</span> <span class="classifier-delimiter">:</span> <span class="classifier">p) (hq</span> <span class="classifier-delimiter">:</span> <span class="classifier">q)</span> <span class="classifier-delimiter">:</span> <span class="classifier">p ∧ q :=</span></dt>
@@ -1108,7 +1108,7 @@ program with a hole for the entire body, then you can “refine” the
 hole incrementally until you have a correct working program. The type
 of each hole pretty much tells you what to do at each step.  Give it a
 try.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>def swap(aPair: nat × string): (string × nat) :=</dt>
@@ -1116,7 +1116,7 @@ try.</p>
 </dl>
 </div></blockquote>
 <p>When the code is complete, this test will pass!</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>theorem swapTest1: swap (5, “hi”) = (“hi”, 5) := rfl</div></blockquote>
 <p>FYI, type “times” to get the × symbol. If S and T are types, S × T is
@@ -1141,7 +1141,7 @@ proofs of p and q, resp., and the goal is p ∧ q ∧ p. Applying the
 and.intro rule decomposes the original goal into two smaller goals:
 provide a proof of p, and provide a proof of q ∧ p. The exact hp says
 “take hp as a complete proof of p.” You can follow the rest yourself.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>theorem test’’ (p q : Prop) (hp : p) (hq : q) : p ∧ q ∧ p :=
 begin
@@ -1164,32 +1164,32 @@ the logic is now higher-order and constructive. So propositions are
 objects and so are proofs. As such, propositions must have types. Let’s
 write a few simple propositions and check to see what their types are.</p>
 <p>Zero equals zero is a proposition.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><p>#check 0=0</p>
 <p>#check Prop</p>
 </div></blockquote>
 <p>Every natural numbers is non-negative.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>#check ∀ n: nat, n &gt;= 0</div></blockquote>
 <p>Get the forall symbol by typing “forall”</p>
 <p>Every natural number has a successor.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><p>#check ∀ n: ℕ, (∃ m: ℕ, (m = n + 1))</p>
 <p>#check ∀ n: ℕ, n = 0</p>
 </div></blockquote>
 <p>Get the exists symbol by typing “exists”.</p>
 <p>Propositions are values, too!
-..code-block:: lean</p>
+../ code-block:: lean</p>
 <blockquote>
 <div><p>def aProp := ∀ n: ℕ, ∃ m: ℕ, m = n + 1</p>
 <p>#check aProp</p>
 </div></blockquote>
 <p>In each case, we see that the type of any proposition is Prop. What’s
 the type of Prop?</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>#check Prop</div></blockquote>
 <p>Ok, the type of Prop is also Type. So what we have here is a type
@@ -1230,7 +1230,7 @@ are built by what we can view as inference rules. The inference rule,
 rfl, builds a proof that anything is equal to itself, in this case
 that 0=0.  -/ def zeqz: 0 = 0 := rfl</p>
 <p>The rfl widget, whatever it is, works for any type, not just nat.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>def heqh: “hello” = “hello” := rfl</div></blockquote>
 <p>The proof is produced the rfl inference rule.  It is a “proof
@@ -1246,7 +1246,7 @@ it. The rule infers the type to be nat and the value, a, to be 0. The
 result is a proof of 0 = 0. The value of zeqz in this case is thus a
 <em>proof</em>, of its type, i.e., of the proposition, 0 = 0. Check the type
 of zeqz. Its type is the proposition that</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>#check zeqz</div></blockquote>
 <p>It helps to draw a picture. Draw a picture that includes “nodes” for
@@ -1259,11 +1259,11 @@ exactly the same thing to Lean, but they communicate different
 intentions to human readers. We add a tick mark to the name of the
 theorem here only to avoid giving multiple definitions of the same
 name, which is an error in Lean.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>theorem zeqz’: 0 = 0 := rfl</div></blockquote>
 <p>We could even have defined x := 1 as a theorem.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>theorem x’‘: nat := 1</div></blockquote>
 <p>While this means exactly the same thing as our original definition of
@@ -1282,32 +1282,32 @@ the logic is now higher-order and constructive. So propositions are
 objects and so are proofs. As such, propositions must have types. Let’s
 write a few simple propositions and check to see what their types are.</p>
 <p>Zero equals zero is a proposition.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><p>#check 0=0</p>
 <p>#check Prop</p>
 </div></blockquote>
 <p>Every natural numbers is non-negative.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>#check ∀ n: nat, n &gt;= 0</div></blockquote>
 <p>Get the forall symbol by typing “forall”</p>
 <p>Every natural number has a successor.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><p>#check ∀ n: ℕ, (∃ m: ℕ, (m = n + 1))</p>
 <p>#check ∀ n: ℕ, n = 0</p>
 </div></blockquote>
 <p>Get the exists symbol by typing “exists”.</p>
 <p>Propositions are values, too!</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><p>def aProp := ∀ n: ℕ, ∃ m: ℕ, m = n + 1</p>
 <p>#check aProp</p>
 </div></blockquote>
 <p>In each case, we see that the type of any proposition is Prop. What’s
 the type of Prop?</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>#check Prop</div></blockquote>
 <div class="section" id="the-type-hierarchy-universes-of-lean">
@@ -1339,7 +1339,7 @@ this type.</p>
 <h3>Binding Values to Variables<a class="headerlink" href="#binding-values-to-variables" title="Permalink to this headline">¶</a></h3>
 <p>Here’s a typical definition: in this case, of a variable, x, bound to
 the value, 1, of type, nat.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>def x: nat := 1
 def z: ℕ := 1
@@ -1349,20 +1349,20 @@ def y := 1</div></blockquote>
 <h3>Checking Types<a class="headerlink" href="#checking-types" title="Permalink to this headline">¶</a></h3>
 <p>You can check the type of a term by using the #check command. Then
 hover your mouse over the #check in VSCode to see the result.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>#check 1
 #check x</div></blockquote>
 <p>Lean tells you that the type of x is nat.  It uses the standard
 mathematical script N (ℕ) for nat. You can use it too by typing “nat”
 rather than just “nat” for the type.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>def x’: ℕ := 1</div></blockquote>
 <p>You can evaluate an expression in Lean using the #eval command. (There
 are other ways to do this, as well, which we’ll see later.) You hover
 your mouse over the command to see the result.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>#eval x</div></blockquote>
 <p>In Lean, definitions start with the keyword, def, followed by the name
@@ -1377,15 +1377,15 @@ on the left.</p>
 <h3>Types Are Values Too<a class="headerlink" href="#types-are-values-too" title="Permalink to this headline">¶</a></h3>
 <p>In Lean, every term has a type. A type is a term, too, so it, too, has
 a type. We’ve seen that the type of x is nat. What is the type of nat?</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>#check nat</div></blockquote>
 <p>What is the type of Type?</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>#check Type</div></blockquote>
 <p>What is the type of Type 1?</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>#check Type 1</div></blockquote>
 <p>You can guess where it goes from here!</p>
@@ -1401,13 +1401,13 @@ and R, or any other objects as “variables” in the “environment.”  We
 can then use them in follow-on definitions without having to introduce
 them each time by using a ∀. Lean figures out that that’s what we
 mean, and does it for us. Here are a few examples.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>variables P Q R: Prop</div></blockquote>
 <p>If we wanted to, we could also assume that we have proofs of one or
 more of these propositions by declaring variables to be of these
 types.  Here’s one example (which we won’t use futher in this code).</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>variable pf_P: P</div></blockquote>
 <p>Now we can write somewhat more interesting propositions, and prove
@@ -1418,7 +1418,7 @@ to its argument.</p>
 <p>Now, rather than writing propositons that use ∀ explicitly to define
 variables, we can just use P, Q, and R as if they were so defined. So,
 instead of this …</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem t6: ∀ P Q: Prop, P ∧ Q → P :=</dt>
@@ -1427,7 +1427,7 @@ instead of this …</p>
 </div></blockquote>
 <p>… we can write this. Note the absence of the ∀ P Q R: Prop. It’s not
 needed as these variables are already defined.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem t6’: P ∧ Q → P :=</dt>
@@ -1436,13 +1436,13 @@ needed as these variables are already defined.</p>
 </div></blockquote>
 <p>When you check the type of t6, you can see that Lean inserted the ∀ P
 Q: Prop for us.  Both t6 and t6’ have exactly the same type.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>#check t6
 #check t6’</div></blockquote>
 <p>Similarly we can prove that P ∧ Q → Q ∧ P without having to explicitly
 declare P and Q to be arbitrary objects of type Prop.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem t7: P ∧ Q → Q ∧ P :=</dt>
@@ -1459,7 +1459,7 @@ declare P and Q to be arbitrary objects of type Prop.</p>
 </dl>
 </div></blockquote>
 <p>And another example of arrow elimination.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem ae: (P → Q) -&gt; P -&gt; Q :=</dt>
@@ -1471,7 +1471,7 @@ those variables within a “section &lt;name&gt; …. …. end &lt;name&gt;” p
 limits the scope of the variables to that section. It’s a very useful
 device, but we don’t need to use it here, and so we’ll just leave it
 at that for now.  Here’s a tiny example.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>section nest
 variable v: nat
@@ -1481,7 +1481,7 @@ end nest</div></blockquote>
 it to see. On the other hand, veqv, a definition, is defined. If you
 check its type, you’ll see that the variable, v, is now introduced
 using a “∀ v: nat, …”“</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>#check veqv</div></blockquote>
 </div>
@@ -1553,7 +1553,7 @@ these arguments to complete the proof.</p>
 <p>(1) Write an implementation of comp (call it comp’), using a lambda
 expression rather than the usual function definition notation.  This
 problem gives practice writing function bodies as lambda expressions.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>def comp’: ℕ → ℕ :=</dt>
@@ -1562,7 +1562,7 @@ problem gives practice writing function bodies as lambda expressions.</p>
 </div></blockquote>
 <p>(2) Write three test cases for comp’ and generate proofs using the
 strategy of “simplication and the reflexive property of equality.”</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div>theorem test1: comp’ 0 = 1 := rfl
 theorem test2: comp’ 1 = 4 := rfl
@@ -1574,7 +1574,7 @@ cases. Hint: Write your cases in the definition of the function for 0,
 1, and n+2 (covering the cases from 2 up). Here you get practice
 writing recursive functions in Lean. The syntax is similar to that of
 the Haskell language.  -/</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><p>def fib: ℕ → ℕ
 | 0 := 0
@@ -1592,7 +1592,7 @@ This example introduces Lean’s string type, which
 you might want to use at some point. It also gives
 you an example showing that rfl works for diverse
 types. It’s polymorphic, as we said.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem hw <span class="classifier-delimiter">:</span> <span class="classifier">“Hello World” = string.append “Hello” ” World” :=</span></dt>
@@ -1604,7 +1604,7 @@ words, P ∧ Q ∧ R means P ∧ (Q ∧ R). A proof of this proposition will
 thus have a pair inside a pair.  Note that we’re using the fact that
 P, Q, and R have already been introduced as arbitrary
 propositions. See the “variables” declaration above.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem xyz: P ∧ (Q ∧ R) → R :=</dt>
@@ -1615,7 +1615,7 @@ propositions. See the “variables” declaration above.</p>
 local declarations using ∀. Note that the names of the variables used
 in the definition of the function need to be of the same type, but do
 not have to have the same names as those variables.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem xyz’: ∀ X Y Z: Prop, X ∧ Y ∧ Z → Z :=</dt>
@@ -1632,14 +1632,14 @@ takes a proof of P and returns … you guessed it, a
 function that takes a proof of Q and that returns a
 proof of P ∧ Q. The body of the outer lambda will thus
 use a lambda.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem PimpQimpPandQ: P → (Q → (P ∧ Q)) :=</dt>
 <dd>λ (pfP: P) (pfQ: Q), and.intro pfP pfQ</dd>
 </dl>
 </div></blockquote>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>def PimpQimpPandQ’(pfP: P) (pfQ: Q): P ∧ Q :=</dt>
@@ -1656,7 +1656,7 @@ answer. However, the form of the proposition to be proved here is an
 implication, so a proof will have to be in the form of be a
 function. It will take the disjunction as an argument. Then just apply
 the or elimination rule in Lean, which is written as or.elim.</p>
-<p>..code-block:: lean</p>
+<p>../ code-block:: lean</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>theorem orelim: (P ∨ Q) → (P → R) → (Q → R) -&gt; R :=</dt>
