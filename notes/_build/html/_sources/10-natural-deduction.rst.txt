@@ -157,12 +157,16 @@ conclude that pTrue is true.
 In lean, "true" is the true proposition.  You can check that "true" is
 a proposition using #check.
 
+..code-block:: lean
+
     #check true
 
 Note: the proposition, true, is different than the Boolean value,
 true. The Boolean value, true, written "tt" in Lean, is one of the two
 values of the bool datatype. It is not a proposition.  Chek it out.
 
+
+..code-block:: lean
 
     #check tt
 
@@ -178,6 +182,8 @@ proofs of such propositions as values produced by constructors. The
 simplest example is the proposition, true, in Lean. It's defined in
 Lean's core library like so:
 
+..code-block:: lean
+
     inductive true : Prop
     | intro : true
 
@@ -190,6 +196,8 @@ should how to assert that the proposition "true" is true (there's a
 proof for it) by giving the one and only proof, namely "intro".  To
 refer to a constructor of a type, use the type name dot constructor
 name.
+
+..code-block:: lean
 
     theorem proofOfTrue: true := true.intro
 
@@ -204,6 +212,8 @@ The proposition, false
 In Lean, false is also a proposition. By contrast, the Boolean false
 value in Lean is written as ff.
 
+..code-block:: lean
+
     #check false    -- proposition (Prop)
     #check ff       -- Boolean value (bool)
 
@@ -215,6 +225,8 @@ The false proposition/type is defined inductively as having type,
 Prop, and as having exactly no constructors! It's a proposition but
 there is no way to contruct a proof. Here's the definition of false
 from the Lean core libraries:
+
+..code-block:: lean
 
     inductive false : Prop 
 
@@ -256,9 +268,7 @@ proofs using the and introduction rule to reach the goal.
 Remember the and introduction rule from our work on propositional
 logic. We wrote it like this [P, Q] ⊢ P ∧ Q. Now that we've equated
 "being true" with "having a proof" we can write it with some more
-details, like this:
-
-[pfP: P, pfQ: Q] ⊢ (pfP, pfQ): P ∧ Q. 
+details, like this: [pfP: P, pfQ: Q] ⊢ (pfP, pfQ): P ∧ Q. 
 
 In other words, if I have a proof, pfP, of P (i.e., a value, pfP,
 type, P!), and a proof, pfQ, of Q, then I can build a proof of P ∧ Q,
@@ -281,7 +291,11 @@ a proof of 0=0 (zeqz), we now contruct a proof of 1=1 so that we have
 two propositions and proofs to play with.
 
 
+..code-block:: lean
+
     #check zeqz
+
+..code-block:: lean
 
     theorem oeqo : 1 = 1 := rfl
 
@@ -295,6 +309,8 @@ that P ∧ Q is true. Here's how you do that in Lean. (Note: we get the
 logical and symbol, ∧, by typing "\and", i.e., backslash-and, followed
 by a space.)
 
+
+..code-block:: lean
 
     theorem t2: 0=0 ∧ 1=1 :=  -- proposition
         and.intro zeqz oeqo   -- build proof
@@ -322,7 +338,9 @@ example, from a proof of P ∧ Q, and.elim_left will return the
 contained proof of P, and the and.elim_right rule returns the proof of
 Q.
 
-theorem e1: 0=0 := and.elim_left t2
+..code-block:: lean
+
+    theorem e1: 0=0 := and.elim_left t2
 
 This says that a value, e1, of type 0=0, i.e., a proof of 0=0, can be
 obtained by applying and.elim_left to t2, which is a proof of 0=0 ∧
@@ -373,10 +391,10 @@ We can define functions in Lean almost as in Dafny. Here are two
 functions to play with: increment and square. Go back and look at the
 function.dfy file to see just how similar the syntax is.
 
+..code-block:: lean
+
     def inc(n: nat): nat := n + 1
-    
     def sqr(n: nat): nat := n * n
-    
     def comp(n: nat): nat := sqr (inc n)
 
 
@@ -424,12 +442,16 @@ Don't believe that sq3 is therefore of type nat? You can check the
 type of any term in Lean using its #check command.  Just hover your
 mouse over the #check.
 
-#check sq3
+..code-block:: lean
+
+    #check sq3
 
 Do you want to evaluate the expression (aka, term) sq3 to see that it
 evaluates to 9? Hover your mouse over the #eval.
 
-#eval sq3
+..code-block:: lean
+
+    #eval sq3
 
 To give a proof (value) for a proposition in the form of an
 implication, we'll need to provide a function value, as discussed.
@@ -454,9 +476,11 @@ than n" times the factorial of the samller number, n. Writing it this
 way allows Lean to prove to itself that the recursion terminates.
 
 
-def fac: ℕ → ℕ 
-| 0 := 1
-| (n + 1) := (n + 1) * fac n
+..code-block:: lean
+
+    def fac: ℕ → ℕ 
+    | 0 := 1
+    | (n + 1) := (n + 1) * fac n
 
 We can now write some test cases for our function ... as little
 theorems! And we can check that they work by ... proving them! Here
@@ -466,7 +490,9 @@ before checking that the results are the same. fac 5 does in fact
 reduce to 120, so the terms, fac 5, and 120, are definitionally equal,
 and in this case, rfl constructs a proof of the equality.
 
-theorem fac5is120 : fac 5 = 120 := rfl
+..code-block:: lean
+
+    theorem fac5is120 : fac 5 = 120 := rfl
 
 
 
@@ -522,28 +548,28 @@ that 1=1 ∧ 0=0 it constructs and returns a proof of 0=0 ∧ 1=1. It does
 it just as we said: extract the component proofs then put them back
 together in the reverse order. Voila!
 
+..code-block:: lean
+
     def and_swap(assumption: 1=1 ∧ 0=0): 0=0 ∧ 1=1 :=
         and.intro 
             (and.elim_right assumption) 
             (and.elim_left assumption)
 
-A paper and pencil proof could be written like this.
-"Assume 0=0 ∧ 1=1. From this premise (using the and 
-elimination rule of natural deduction), we can deduce 
-immediately that both 0=0 and 1=1. Having shown that 
-these propositions are true, we can immediately (using
-the and introduction rule of natural deduction) deduce
-that 0=0 ∧ 1=1. QED."
+A paper and pencil proof could be written like this.  "Assume 0=0 ∧
+1=1. From this premise (using the and elimination rule of natural
+deduction), we can deduce immediately that both 0=0 and 1=1. Having
+shown that these propositions are true, we can immediately (using the
+and introduction rule of natural deduction) deduce that 0=0 ∧
+1=1. QED."
 
-The QED stands for the Latin, quod es demontratum, 
-so it is shown. It's used to signal that the goal
-to be proved has been proved.
+The QED stands for the Latin, quod es demontratum, so it is
+shown. It's used to signal that the goal to be proved has been proved.
 
-Here's the same proof using a lambda. You can
-see here how lambda expressions (also know as
-anonymous functions) can make for cleaner code.
-They're also essential when you want to return
-a function.
+Here's the same proof using a lambda. You can see here how lambda
+expressions (also know as anonymous functions) can make for cleaner
+code.  They're also essential when you want to return a function.
+
+..code-block:: lean
 
     theorem and_commutes: 1=1 ∧ 0=0 → 0=0 ∧ 1=1 :=
       
@@ -576,6 +602,8 @@ from the premises to the conclusion is by applying the implication
 (it's a function) to the assumed proof of P, yielding a proof of Q!
 Modus ponens is function application!
 
+..code-block:: lean
+
     theorem modus_ponens' 
       (hImp: 1=1 ∧ 0=0 → 0=0 ∧ 1=1) (hc: 1=1 ∧ 0=0): 0=0 ∧ 1=1 
         := hImp hc   -- apply function hImp to argument hc
@@ -594,11 +622,15 @@ that the propositions are arguments to the function, along with a P →
 Q function and a (value) proof of (type) P, finally producing a
 (value) proof of (type) Q.
 
+..code-block:: lean
+
     theorem modus_ponens: ∀ P Q: Prop, (P → Q) → P → Q :=
         λ (P Q: Prop) (funP2Q: P → Q) (pfP: P), funP2Q pfP
 
 
 We could of course have written that using ordinary function notation.
+
+..code-block:: lean
 
     theorem modus_ponens2 
         (P Q: Prop) (pfImp: (P → Q)) (pfP: P): Q :=
@@ -612,6 +644,8 @@ Optional material on using type inference
 As an advanced concept, putting arguments in curly braces tells Lean
 to use type inference `to infer their values.
 
+..code-block:: lean
+
     theorem modus_ponens3
         {P Q: Prop} (pfImp: (P → Q)) (pfP: P): Q :=
             (pfImp pfP)
@@ -619,6 +653,8 @@ to use type inference `to infer their values.
 	    
 Type inference can also be specified for lambdas by enclosing
 parameters to be inferred in braces.
+
+..code-block:: lean
 
     theorem modus_ponens4: ∀ P Q: Prop, (P → Q) → P → Q :=
         λ P Q: Prop, λ pfImp: P → Q, λ pfP: P, (pfImp pfP)
@@ -655,6 +691,8 @@ proposition.
 The or introduction rules in Lean are called or.inl (left) and or.inr
 (right).  Here then we construct a proof just as described above, but
 now checked by the tool.
+
+..code-block:: lean
 
     theorem t3: 0=0 ∨ 1=0 := 
         or.inl zeqz
@@ -699,6 +737,8 @@ deduce that R must be true. Here is an example of the use of Lean's
 rule for or elimination.
 
 
+..code-block:: lean
+
     -- shorthand, without all the explicit lambdas
     theorem or_elim: 
       forall P Q R: Prop, (P ∨ Q) → (P → R) → (Q → R) → R :=
@@ -709,6 +749,8 @@ rule for or elimination.
  associativity in the propositon (and also in the corresponding
  function definition) clear.
 
+..code-block:: lean
+
     theorem or_elim': 
       forall P Q R: Prop, (P ∨ Q) → ((P → R) → ((Q → R) → R)) :=
         λ (P Q R: Prop), (λ pfPorQ, (λ pfPimpR, (λ pfQimpR, 
@@ -717,6 +759,8 @@ rule for or elimination.
     #check or_elim
 
 If you prefer an ordinary function, here it is again.
+
+..code-block:: lean
 
     def or_elim'' (P Q R: Prop) (pq: P ∨ Q) (pr: P → R) (qr: Q → R): R :=
         or.elim pq pr qr
@@ -799,6 +843,8 @@ Here's a very simple example. We can prove the proposition ¬ false by
 giving a function that *if* given a proof of false, returns a proof of
 false. That's easy: just return the argument itself.
 
+..code-block:: lean
+
     theorem notFalse: ¬false := 
         λ pf: false, pf
 
@@ -840,6 +886,8 @@ there's no way to conver a proof of ¬¬P into a proof of P.
 One can however extend the logic of Lean to become a classical logic
 by adding the law of the excluded middle (that P ∨ ¬P is always true)
 to the environment as an axiom. 
+
+..code-block:: lean
 
     axiom excludedMiddle: ∀ P, P ∨ ¬P
 
@@ -888,6 +936,8 @@ that (P ∧ ¬P) lets us build a proof of false, which is to say that
 there is a function from (P ∧ ¬P) to false, i.e., (P ∧ ¬P) → false,
 and that is what ¬(P ∧ ¬P) means. Thus we have our proof.
 
+..code-block:: lean
+
     theorem noContra: ∀ P: Prop, ¬(P ∧ ¬P) :=
       λ (P: Prop) (pf: P ∧ ¬P),
         (and.elim_right pf) (and.elim_left pf)
@@ -919,11 +969,15 @@ false implies that 0=1. Given a proof of false, we just apply the
 false.elim inference rule to it, and it "returns" a proof of
 0=1. False implies 0=1.
 
+..code-block:: lean
+
     theorem fImpZeroEqOne: false → 0 = 1 := 
         λ f: false, false.elim f
 
 
 False elimination works to prove any proposition whatsoever.
+
+..code-block:: lean
 
     theorem fImpAnyProp : ∀ Q: Prop, false → Q :=
       λ (Q: Prop) (f: false), false.elim f
@@ -943,6 +997,8 @@ proof of ¬ P is a function from P → false, which we apply to the
 assumed proof of P to derive a proof of false. We then apply the false
 elimination rule (which from false proves anything) to prove Q.
 
+..code-block:: lean
+
     theorem fromContraQ: ∀ P Q: Prop, (P ∧ ¬ P) -> Q :=
         λ (P Q: Prop) (pf: P ∧ ¬ P),
             false.elim 
@@ -959,6 +1015,8 @@ see that an assumption that P is true leads to a contradiction, which
 proves ¬P.
 
 
+..code-block:: lean
+
     theorem notPbyContra: 
         ∀ P Q: Prop, ¬Q → (P → Q) → ¬P :=
         -- need to return proof of P → false
@@ -972,6 +1030,8 @@ definition, but where the parameters, P and Q, are to be inferred
 rather than given as explicit arguments in the λ. The curly braces
 around P and Q tell Lean to use type inference to infer the values of
 P and Q.
+
+..code-block:: lean
 
     def notPbyContra' {P Q: Prop} (PimpQ: P → Q) (notQ: ¬ Q): ¬ P :=
         λ pfP: P, notQ (PimpQ pfP) 
@@ -1011,10 +1071,14 @@ as an ordinary function of the type we seek to prove: given
 propositions P and Q,
 
 
+..code-block:: lean
+
     def biImpl (P Q: Prop) (PimpQ: P → Q) (QimpP: Q → P): P ↔ Q :=
       iff.intro PimpQ QimpP
 
 Now we write it as an equivalent theorem ...
+
+..code-block:: lean
 
     theorem biImpl': forall P Q: Prop, (P → Q) → (Q → P) → (P ↔ Q) :=
       λ (P Q: Prop) (PimpQ: P → Q) (QimpP: Q → P), 
@@ -1026,6 +1090,8 @@ whenever you want to prove any bi-implication, the strategy is to
 prove the implication in each direction, at which you you can then
 appeal to the iff intro inference rule to complete the proof.
 
+..code-block:: lean
+
     theorem PandQiffQandP: forall P Q: Prop, P ∧ Q ↔ Q ∧ P :=
       λ (P Q: Prop),
         iff.intro 
@@ -1036,132 +1102,117 @@ PandQiffQandP'.
 
 
 
+Proof Engineering
+=================
 
-Structuring Complex Proofs
-==========================
+There are two main use cases for Lean and for other tools like
+it. First, it can be used for research in pure mathematics. Second, it
+can be used to verify properties of software. The latter is the use
+case that most interests computer scientists and software engineers.
 
-/-
-There are two main use cases for Lean and for other
-tools like it. First, it can be used for research in
-pure mathematics. Second, it can be used to verify
-properties of software. The latter is the use case
-that most interests computer scientists and software
-engineers.
+To use Lean for verification, one first write code to be verified,
+then one writes propositions about that code, and finally one proves
+them. The result is code that is almost beyond any doubt guaranteed to
+have the property or properties so proved.
 
-To use Lean for verification, one first write code
-to be verified, then one writes propositions about
-that code, and finally one proves them. The result
-is code that is almost beyond any doubt guaranteed
-to have the property or properties so proved. 
-
-The problem is that such proofs can be complex 
-and hard to just write out as if you were just
-writing ordinary code. Lean provides numerous 
-mechanisms to ease the task of obtaining proofs. 
-Here we briefly review a few of them. 
--/
+The problem is that such proofs can be complex and hard to just write
+out as if you were just writing ordinary code. Lean provides numerous
+mechanisms to ease the task of obtaining proofs.  Here we briefly
+review a few of them.
 
 
-/-
-First, the "sorry" keyword tells Lean to accept 
-a theorem, value, or proof, by assumption, i.e.,
-without proof, or "as an axiom." 
--/
+First, the "sorry" keyword tells Lean to accept a theorem, value, or
+proof, by assumption, i.e., without proof, or "as an axiom."
 
-theorem oeqz: 1 = 0 := sorry
+..code-block:: lean
 
-/-
-As you can see here, undisciplined use of sorry
-can be danger. It's easy to introduce a new "fact" 
-that leads to a logical inconsistency, i.e., the 
-possibility of producing a proof of false. Taking
-1=0 as an axiom is an example. From it you can
-prove false, at which point you've ruined your
-logic. 
+    theorem oeqz: 1 = 0 := sorry
 
-On the other hand, using sorry can be helpful. In
-particular, it allow you to do what you can think
-of as top-down structured proof development. You 
-can use it to "stub out" parts of proofs to make 
-larger proofs "work", and then go back and replace
-the sorrys with real proofs.  When all sorrys are
-eliminated, you then have a verified proof. 
--/
+As you can see here, undisciplined use of sorry can be danger. It's
+easy to introduce a new "fact" that leads to a logical inconsistency,
+i.e., the possibility of producing a proof of false. Taking 1=0 as an
+axiom is an example. From it you can prove false, at which point
+you've ruined your logic.
 
-/-
-Using _ (underscore) in place of sorry asks Lean to 
-try to fill in a proof for you. In some cases it can
-do so automatically, which is nice, but in any case,
-if you hover the mouse over the "hole", Lean will 
-tell you what type of proof is needed and what you
-have in the current context that might be useful in
-constructive a proof. Hover your mouse over the
-underscore here. Then replace it with "and.intro _ _"
-and hover your mouse over those underscores. You 
-will see how this mechanism can help you to develop
-a proof "top down."
--/
-theorem test' (p q : Prop) (hp : p) (hq : q) : p ∧ q :=
-    _
+On the other hand, using sorry can be helpful. In particular, it allow
+you to do what you can think of as top-down structured proof
+development. You can use it to "stub out" parts of proofs to make
+larger proofs "work", and then go back and replace the sorrys with
+real proofs.  When all sorrys are eliminated, you then have a verified
+proof. 
 
-/-
-This mechanism also works for ordinary programming
-by the way. Suppose we want to develop a function
-that takes a nat/string pair and returns it in the
-reverse order, as a string/nat pair. You can write
-the program with a hole for the entire body, then
-you can "refine" the hole incrementally until you
-have a correct working program. The type of each 
-hole pretty much tells you what to do at each step.
-Give it a try.
--/
+Using _ (underscore) in place of sorry asks Lean to try to fill in a
+proof for you. In some cases it can do so automatically, which is
+nice, but in any case, if you hover the mouse over the "hole", Lean
+will tell you what type of proof is needed and what you have in the
+current context that might be useful in constructive a proof. Hover
+your mouse over the underscore here. Then replace it with "and.intro _
+_" and hover your mouse over those underscores. You will see how this
+mechanism can help you to develop a proof "top down."
 
-def swap(aPair: nat × string): (string × nat) := 
-    sorry //_
+..code-block:: lean
 
--- When the code is complete, this test will pass!
-theorem swapTest1: swap (5, "hi") = ("hi", 5) := rfl
+    theorem test' (p q : Prop) (hp : p) (hq : q) : p ∧ q :=
+        _
 
-/- 
-FYI, type "\times" to get the × symbol. If S and
-T are types, S × T is the type of S-T pairs. A
-value of this type is written as an ordered pair,
-(s, t), where s: S, and t: T.
--/
 
-/-
-THIS BRIEF INTRODUCTION TO TACTIC-BASED PROOFS IS
-COMPLETELY OPTIONAL. SKIP IT AT NO COST. READ IT IF
-YOU'RE INTERESTED. THIS MATERIAL WILL NOT BE ON THE
-TEST IN ANY FORM.
+This mechanism also works for ordinary programming by the way. Suppose
+we want to develop a function that takes a nat/string pair and returns
+it in the reverse order, as a string/nat pair. You can write the
+program with a hole for the entire body, then you can "refine" the
+hole incrementally until you have a correct working program. The type
+of each hole pretty much tells you what to do at each step.  Give it a
+try.
 
-Lean also supports what are called proof tactics.
-A tactic is a program that turns one context-goal
-structure (called a sequent) into another. The 
-context/assumptions you can use appear before the
-turnstile. The remaining "goal" to be proved is 
-after it=. Your job is to apply a sequence of 
-tactics to eliminate (satisfy) the goal/goals.
-Hover your mouse over the red line at the end and
-study the sequent, then uncomment each commented
-tactic in turn, seeing how it changes the sequent.
-To begin with, you have a context in which p and 
-q are assumed to be arbitrary propositions and hp
-and hq are assumed to be proofs of p and q, resp.,
-and the goal is p ∧ q ∧ p. Applying the and.intro
-rule decomposes the original goal into two smaller
-goals: provide a proof of p, and provide a proof
-of q ∧ p. The exact hp says "take hp as a complete
-proof of p." You can follow the rest yourself.
--/
-theorem test'' (p q : Prop) (hp : p) (hq : q) : p ∧ q ∧ p :=
-begin
---apply and.intro,
---exact hp,
---apply and.intro,
---exact hq,
---exact hp
-end
+..code-block:: lean
+
+    def swap(aPair: nat × string): (string × nat) := 
+        sorry //_
+
+When the code is complete, this test will pass!
+
+..code-block:: lean
+
+    theorem swapTest1: swap (5, "hi") = ("hi", 5) := rfl
+
+
+FYI, type "\times" to get the × symbol. If S and T are types, S × T is
+the type of S-T pairs. A value of this type is written as an ordered
+pair, (s, t), where s: S, and t: T.
+
+
+
+Proof Tactics
+=============
+
+THIS BRIEF INTRODUCTION TO TACTIC-BASED PROOFS IS COMPLETELY
+OPTIONAL. SKIP IT AT NO COST. READ IT IF YOU'RE INTERESTED. THIS
+MATERIAL WILL NOT BE ON THE TEST IN ANY FORM.
+
+Lean also supports what are called proof tactics.  A tactic is a
+program that turns one context-goal structure (called a sequent) into
+another. The context/assumptions you can use appear before the
+turnstile. The remaining "goal" to be proved is after it=. Your job is
+to apply a sequence of tactics to eliminate (satisfy) the goal/goals.
+Hover your mouse over the red line at the end and study the sequent,
+then uncomment each commented tactic in turn, seeing how it changes
+the sequent.  To begin with, you have a context in which p and q are
+assumed to be arbitrary propositions and hp and hq are assumed to be
+proofs of p and q, resp., and the goal is p ∧ q ∧ p. Applying the
+and.intro rule decomposes the original goal into two smaller goals:
+provide a proof of p, and provide a proof of q ∧ p. The exact hp says
+"take hp as a complete proof of p." You can follow the rest yourself.
+
+..code-block:: lean
+
+    theorem test'' (p q : Prop) (hp : p) (hq : q) : p ∧ q ∧ p :=
+    begin
+    --apply and.intro,
+    --exact hp,
+    --apply and.intro,
+    --exact hq,
+    --exact hp
+    end
 
 
 
@@ -1181,17 +1232,23 @@ write a few simple propositions and check to see what their types are.
 
 Zero equals zero is a proposition.
 
+..code-block:: lean
+
     #check 0=0
 
     #check Prop
 
 Every natural numbers is non-negative.
 
+..code-block:: lean
+
     #check ∀ n: nat, n >= 0
 
 Get the forall symbol by typing "\forall"
 
 Every natural number has a successor.
+
+..code-block:: lean
 
     #check ∀ n: ℕ, (∃ m: ℕ, (m = n + 1))
 
@@ -1200,6 +1257,7 @@ Every natural number has a successor.
 Get the exists symbol by typing "\exists".
 
 Propositions are values, too!
+..code-block:: lean
 
     def aProp := ∀ n: ℕ, ∃ m: ℕ, m = n + 1
 
@@ -1208,7 +1266,9 @@ Propositions are values, too!
 In each case, we see that the type of any proposition is Prop. What's
 the type of Prop?
 
-#check Prop
+..code-block:: lean
+
+    #check Prop
 
 
 Ok, the type of Prop is also Type. So what we have here is a type
@@ -1258,6 +1318,8 @@ that 0=0.  -/ def zeqz: 0 = 0 := rfl
 
 The rfl widget, whatever it is, works for any type, not just nat.
 
+..code-block:: lean
+
     def heqh: "hello" = "hello" := rfl
 
 The proof is produced the rfl inference rule.  It is a "proof
@@ -1276,6 +1338,8 @@ result is a proof of 0 = 0. The value of zeqz in this case is thus a
 *proof*, of its type, i.e., of the proposition, 0 = 0. Check the type
 of zeqz. Its type is the proposition that
 
+..code-block:: lean
+
     #check zeqz
 
 It helps to draw a picture. Draw a picture that includes "nodes" for
@@ -1291,9 +1355,13 @@ intentions to human readers. We add a tick mark to the name of the
 theorem here only to avoid giving multiple definitions of the same
 name, which is an error in Lean.
 
+..code-block:: lean
+
     theorem zeqz': 0 = 0 := rfl
 
 We could even have defined x := 1 as a theorem.
+
+..code-block:: lean
 
     theorem x'': nat := 1
 
@@ -1318,17 +1386,25 @@ write a few simple propositions and check to see what their types are.
 
 Zero equals zero is a proposition.
 
+
+..code-block:: lean
+
+
     #check 0=0
 
     #check Prop
 
 Every natural numbers is non-negative.
 
+..code-block:: lean
+
     #check ∀ n: nat, n >= 0
 
 Get the forall symbol by typing "\forall"
 
 Every natural number has a successor.
+
+..code-block:: lean
 
     #check ∀ n: ℕ, (∃ m: ℕ, (m = n + 1))
 
@@ -1338,6 +1414,8 @@ Get the exists symbol by typing "\exists".
 
 Propositions are values, too!
 
+..code-block:: lean
+
     def aProp := ∀ n: ℕ, ∃ m: ℕ, m = n + 1
 
     #check aProp
@@ -1345,7 +1423,9 @@ Propositions are values, too!
 In each case, we see that the type of any proposition is Prop. What's
 the type of Prop?
 
-#check Prop
+..code-block:: lean
+
+    #check Prop
 
 
 The Type Hierarchy (Universes) of Lean
@@ -1390,6 +1470,8 @@ Binding Values to Variables
 Here's a typical definition: in this case, of a variable, x, bound to
 the value, 1, of type, nat.
 
+..code-block:: lean
+
     def x: nat := 1
     def z: ℕ := 1
     def y := 1
@@ -1402,6 +1484,8 @@ You can check the type of a term by using the #check command. Then
 hover your mouse over the #check in VSCode to see the result.
 
 
+..code-block:: lean
+
     #check 1
     #check x
 
@@ -1409,12 +1493,16 @@ Lean tells you that the type of x is nat.  It uses the standard
 mathematical script N (ℕ) for nat. You can use it too by typing "\nat"
 rather than just "nat" for the type.
 
+..code-block:: lean
+
     def x': ℕ := 1
 
 
 You can evaluate an expression in Lean using the #eval command. (There
 are other ways to do this, as well, which we'll see later.) You hover
 your mouse over the command to see the result.
+
+..code-block:: lean
 
     #eval x
 
@@ -1435,14 +1523,19 @@ Types Are Values Too
 In Lean, every term has a type. A type is a term, too, so it, too, has
 a type. We've seen that the type of x is nat. What is the type of nat?
 
+..code-block:: lean
 
     #check nat
 
 What is the type of Type?
 
+..code-block:: lean
+
     #check Type
 
 What is the type of Type 1?
+
+..code-block:: lean
 
     #check Type 1
 
@@ -1463,12 +1556,16 @@ can then use them in follow-on definitions without having to introduce
 them each time by using a ∀. Lean figures out that that's what we
 mean, and does it for us. Here are a few examples. 
 
+..code-block:: lean
+
     variables P Q R: Prop
 
 
 If we wanted to, we could also assume that we have proofs of one or
 more of these propositions by declaring variables to be of these
 types.  Here's one example (which we won't use futher in this code).
+
+..code-block:: lean
 
     variable pf_P: P
 
@@ -1485,11 +1582,15 @@ instead of this ...
 
 
 
+..code-block:: lean
+
     theorem t6: ∀ P Q: Prop, P ∧ Q → P :=
       λ (P Q: Prop) (pfPandQ: P ∧ Q), and.elim_left pfPandQ
 
 ... we can write this. Note the absence of the ∀ P Q R: Prop. It's not
 needed as these variables are already defined.
+
+..code-block:: lean
 
     theorem t6': P ∧ Q → P :=
       λ pfPandQ: P ∧ Q, and.elim_left pfPandQ
@@ -1497,11 +1598,15 @@ needed as these variables are already defined.
 When you check the type of t6, you can see that Lean inserted the ∀ P
 Q: Prop for us.  Both t6 and t6' have exactly the same type.
 
+..code-block:: lean
+
     #check t6
     #check t6'
 
 Similarly we can prove that P ∧ Q → Q ∧ P without having to explicitly
 declare P and Q to be arbitrary objects of type Prop.
+
+..code-block:: lean
 
     theorem t7: P ∧ Q → Q ∧ P :=
       λ PandQ: P ∧ Q, 
@@ -1510,6 +1615,8 @@ declare P and Q to be arbitrary objects of type Prop.
             (and.elim_left PandQ)
 
 And another example of arrow elimination.
+
+..code-block:: lean
 
     theorem ae: (P → Q) -> P -> Q :=
         λ pf_impl: (P → Q), (λ pf_P: P, pf_impl pf_P)
@@ -1520,6 +1627,8 @@ limits the scope of the variables to that section. It's a very useful
 device, but we don't need to use it here, and so we'll just leave it
 at that for now.  Here's a tiny example.
 
+..code-block:: lean
+
     section nest
     variable v: nat
     theorem veqv: v = v := rfl
@@ -1529,6 +1638,8 @@ The variable, v, is not defined outside of the section. You can #check
 it to see. On the other hand, veqv, a definition, is defined. If you
 check its type, you'll see that the variable, v, is now introduced
 using a "∀ v: nat, ..."" 
+
+..code-block:: lean
 
     #check veqv
 
@@ -1622,6 +1733,8 @@ expression rather than the usual function definition notation.  This
 problem gives practice writing function bodies as lambda expressions.
 
 
+..code-block:: lean
+
     def comp': ℕ → ℕ := 
       λ n: nat, sqr(inc(n))
     
@@ -1629,6 +1742,8 @@ problem gives practice writing function bodies as lambda expressions.
 (2) Write three test cases for comp' and generate proofs using the
 strategy of "simplication and the reflexive property of equality."
 
+
+..code-block:: lean
 
     theorem test1: comp' 0 = 1 := rfl 
     theorem test2: comp' 1 = 4 := rfl
@@ -1642,6 +1757,8 @@ cases. Hint: Write your cases in the definition of the function for 0,
 1, and n+2 (covering the cases from 2 up). Here you get practice
 writing recursive functions in Lean. The syntax is similar to that of
 the Haskell language.  -/
+
+..code-block:: lean
 
     def fib: ℕ → ℕ
     | 0 := 0
@@ -1661,6 +1778,8 @@ you might want to use at some point. It also gives
 you an example showing that rfl works for diverse
 types. It's polymorphic, as we said.
 
+..code-block:: lean
+
     theorem hw : "Hello World" = string.append "Hello" " World" := 
         rfl
 
@@ -1671,6 +1790,8 @@ thus have a pair inside a pair.  Note that we're using the fact that
 P, Q, and R have already been introduced as arbitrary
 propositions. See the "variables" declaration above.
 
+..code-block:: lean
+
     theorem xyz: P ∧ (Q ∧ R) → R :=
       λ pf: P ∧ Q ∧ R, and.elim_right (and.elim_right pf)
 
@@ -1678,6 +1799,8 @@ If we didn't already have the variables declared, we would introduce
 local declarations using ∀. Note that the names of the variables used
 in the definition of the function need to be of the same type, but do
 not have to have the same names as those variables.
+
+..code-block:: lean
 
     theorem xyz': ∀ X Y Z: Prop, X ∧ Y ∧ Z → Z :=
       λ P Q R pf, and.elim_right (and.elim_right pf)
@@ -1694,10 +1817,14 @@ function that takes a proof of Q and that returns a
 proof of P ∧ Q. The body of the outer lambda will thus
 use a lambda.
 
+..code-block:: lean
+
     theorem PimpQimpPandQ: P → (Q → (P ∧ Q)) :=
         λ (pfP: P) (pfQ: Q), and.intro pfP pfQ
 
   
+..code-block:: lean
+
     def PimpQimpPandQ'(pfP: P) (pfQ: Q): P ∧ Q :=
       and.intro pfP pfQ
 
@@ -1712,6 +1839,8 @@ answer. However, the form of the proposition to be proved here is an
 implication, so a proof will have to be in the form of be a
 function. It will take the disjunction as an argument. Then just apply
 the or elimination rule in Lean, which is written as or.elim. 
+
+..code-block:: lean
 
     theorem orelim: (P ∨ Q) → (P → R) → (Q → R) -> R :=
         λ pq pr qr, or.elim pq pr qr
