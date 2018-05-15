@@ -725,17 +725,25 @@ used to construct the proof object: either or.inl or or.inr.
 Or Elimination
 --------------
 
-The or elimination inference rule of natural deduction, which we first
-saw, and validated, in the unit on propositional logic, is used to
-prove propositions of the form: P ∨ Q → R.  What's needed to make such
-a proof work are two additional proofs: one showing that if P is true,
-then R must be (i.e., that P → R), and one showing that if Q is true,
-then so is R (i.e., Q → R.) The idea is that if you know P ∨ Q is true
-then you know that at least one of P or Q is true, and if you also
-know that both of them individually imply R, then you can validly
-deduce that R must be true. Here is an example of the use of Lean's
-rule for or elimination.
+[Kevin: Consider section on partial evaluation. Students need it at
+this point to understand the different ways to parse statements and
+proofs of chained implications: currying and uncurrying.
 
+The or elimination inference rule, which we first saw and validated,
+in the unit on propositional logic, is used to prove propositions of
+the form: P ∨ Q → R.
+
+What's needed to construct this proof are proofs of (1) if P is true
+then so is R (i.e., P → R), and (2) if Q is true, then so is R (i.e.,
+Q → R.)
+
+Now if you assume or know that at least one of P or Q is true then you
+can show R by case analysis. Here's the reasoning. One or both of P or
+Q is true. Also, if P is true, so is R; and if Q is true, so is R. So,
+R must be true.
+
+Here is an example of the use of Lean's rule for or elimination. It is
+really just a statement and proof of the elimination rule for or.
 
 .. code-block:: lean
 
@@ -746,8 +754,8 @@ rule for or elimination.
             or.elim pq pr qr
 
  Version with all the lambdas explicit, and parentheses to make the
- associativity in the propositon (and also in the corresponding
- function definition) clear.
+ associativity in the propositon (and in the corresponding function
+ definition) clear.
 
 .. code-block:: lean
 
@@ -767,20 +775,13 @@ If you prefer an ordinary function, here it is again.
 
 In informal mathematical writing, you would write something like this.
 
-"We aim to prove that P ∨ Q implies R. We do this by *case
-analysis*. First we consider the case where P is true, and we show
-that P implies R. Then we consider the case were Q is true, and we
-show that Q implies R. From the combination of P ∨ Q, P → R, and Q →
-R, and by application of the natural deduction rule of or elimination,
-we deduce that R is true in either case, so P ∨ Q → R. QED."
-
-The proof of an or-eliminating proposition is thus generally by case
-analysis, where to complete the proof, you have to come up with
-(rather than just being given) the proofs of P → R and Q → R.
-
-Think of a proof of P ∨ Q → R as a pair of proofs, of of P → R and one
-of Q → R. These are the cases you need to prove P ∨ Q → R.  The proof
-strategy is thus "by case analysis."
+"We aim to prove if either P ∨ Q is true then R follows. We do this by
+*case analysis*. First we consider when P is true. For this case, we
+show that P implies R. Second we consider the case were Q is true. For
+this case, we show if Q is true then R follows. So in either case, R
+follows. In a context in which you have proofs of P ∨ Q, P → R, and Q
+→ R, you can thus apply or elimination to introduce a proof of R into
+the context.
 
 
 Falsity and Negation

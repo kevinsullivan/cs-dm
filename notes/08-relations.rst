@@ -66,16 +66,19 @@ as a relation. The tuples are again pairs of real numbers, but now the
 elements include tuples, *(4, 2)* and *(4, -2)*.
 
 
-====
 
-        /******************************************/
-        /***** METHODS FOR APPLYING RELATIONS *****/
-        /******************************************/
+Methods for Applying Relations
+==============================
 
 
-        /*
-        The image of a domain value under a relation
-        is the set of values to which the relation
+Like functions, relations can be applied to arguments. Rather than
+single element values, such applications return sets of elements,
+as relations are in general not single valued. The set of values
+returned when a relation is applied to an argument is called the
+*image* of that element under the given relation.
+
+The image of a domain value under a relation
+is the set of values to which the relation
         maps that domain element. This method provides
         this behavior. It computes and returns the 
         image of a domain element under this relation.
@@ -84,7 +87,9 @@ elements include tuples, *(4, 2)* and *(4, -2)*.
         is not defined for an element in its domain,
         the image of that value will simply be the
         empty set.
-        */
+
+.. code-block:: dafny
+
         function method image(k: Stype): (r: set<Stype>)
             reads this;
             reads r;
@@ -96,15 +101,12 @@ elements include tuples, *(4, 2)* and *(4, -2)*.
         }
 
 
-        /*
-        The image of a *set* of domain elements is just
-        the set of values that the relation maps those
-        elements to. It basically "looks up" each domain
-        element and returns the union of all the images
-        of those values. A precondition for calling this
-        function is that all argument values (in ks) be
-        in the domain of this relation.
-        */
+The image of a *set* of domain elements is the union of the images of
+the elements in that set. A precondition for calling this function is
+that all argument values (in ks) be in the domain of this relation.
+ 
+.. code-block:: dafny
+
         function method imageOfSet(ks: set<Stype>): (r: set<Stype>)
             reads this;
             reads r;
@@ -116,14 +118,13 @@ elements include tuples, *(4, 2)* and *(4, -2)*.
         }
 
 
-        /*
-        Given an element in the range of a relation, its
-        preimage is the set of elements in in the domain
-        that map to it. This function returns the preimage
-        of a given value in the range of this relation. It
-        is a precondition that v be in the codomain of this
-        relation.
-        */
+Given an element in the range of a relation, its preimage is the set
+of elements in in the domain that map to it. This function returns the
+preimage of a given value in the range of this relation. It is a
+precondition that v be in the codomain of this relation.
+
+.. code-block:: dafny
+
         function method preimage(v: Stype): (r: set<Stype>)
             reads this;
             reads r;
@@ -135,9 +136,10 @@ elements include tuples, *(4, 2)* and *(4, -2)*.
         }
 
 
-        /*
-        Compute image of a domain element under this relation.
-        */
+Compute image of a domain element under this relation.
+
+.. code-block:: dafny
+
         function method preimageOfSet(vs: set<Stype>): (r: set<Stype>)
             reads this;
             reads r;
@@ -149,11 +151,11 @@ elements include tuples, *(4, 2)* and *(4, -2)*.
         }
 
 
-        /*
-        A relation is said to be defined for a given
-        domain element, k, if the relation maps k to 
-        at least one value in the codomain. 
-        */
+A relation is said to be defined for a given domain element, k, if the
+relation maps k to at least one value in the codomain.
+
+.. code-block:: dafny
+
         predicate method isDefinedFor(k: Stype)
             reads this;
             reads r;
@@ -164,25 +166,23 @@ elements include tuples, *(4, 2)* and *(4, -2)*.
             r.isDefinedFor(k)
         }
 
-        /*
         If this relation is a function, then we can
         "apply" it to a single value, on which this
         function is defined, to get a single result. 
-        */
+
+.. code-block:: dafny
+
         method apply(k: Stype) returns (ret: Stype)
             requires Valid(); 
             requires k in dom();   // only ask about domain values
             requires isFunction(); // only ask if this is a function
             requires isTotal();   // that is defined for every value
             requires isDefinedFor(k);  // and that is non-empty
-//            ensures ret in image(k);  // want |image(k)| == 1, too
+	    //  ensures ret in image(k);  // want |image(k)| == 1, too
             ensures Valid();
         {
             ret := r.fimage(k);
         }
- ====
-
-
 
 Inverse
 -------
@@ -666,37 +666,46 @@ equivalence relation is being considered).
 
 
 
-NEW STUFF
-=========
+Basic Order Theory
+==================
+
+Ordering is a relational concept. When we say that one value is less
+than another, for example, we are saying how those values are related
+under some binary relation. For example, the less than relation on the
+integers is an ordering relation. We sometimes call such a relation as
+*an order*.
+
+There are many different kinds of orders. They include total orders,
+partial orders, pre-orders. In this section we precisely define what
+properties a binary relation must have to be considered as belonging
+to one or another of these categories. The study of such relations is
+called order theory.
 
 
-/*************************************/
-        /**** BASIC ORDER THEORY CONCEPTS ****/
-        /*************************************/
+Preorder
+--------
 
-        /*
-        A relation is said to be a "preorder" if it is
-        reflexive and transitive. That is, every element
-        is related to itself, and if e1 is related to e2
-        and e2 to e3, then e1 is also related to e3. 
+A relation is said to be a *preorder* if it is reflexive and
+transitive. That is, every element is related to itself, and if e1 is
+related to e2 and e2 to e3, then e1 is also related to e3.
         
-        A canonical example of a preorder is the
-        *reachability relation* for a directed graph: 
-        every element reaches itself and if there's 
-        a *path* from a to b then a is said to reach b. 
+A canonical example of a preorder is the *reachability relation* for a
+directed graph. If every element reaches itself and if there's also a
+direct or indirect *path* from a to b then a is said to reach b.
 
-        Subtyping relations are also often preorders.
-        Every type is a subtype of itself, and if A is
-        a subtype of B, B of C, C ..., of E, then A is
-        also a subtype of B, C, ..., E.
+Subtyping relations in object-oriented programming languages are also
+often preorders.  Every type is a subtype of itself, and if A is a
+subtype of B, B of C, then A is also a subtype of C.
 
-        Given any relation you can obtain a preorder
-        by taking its reflexive and transitive closure.
+Given any relation you can obtain a preorder by taking its reflexive
+and transitive closure.
  
-        Unlike a partial order, a preorder in general 
-        is not antisymmetric. And unlike an equivalence
-        relation, a preorder is not necesarily symmetric.
-        */
+Unlike a partial order (discussed below), a preorder in general 
+is not antisymmetric. And unlike an equivalence
+relation, a preorder is not necesarily symmetric.
+
+.. code-block:: dafny 
+
         predicate method isPreorder()
             reads this;
             reads r;
@@ -707,36 +716,30 @@ NEW STUFF
         }
 
 
-        /*
-        A binary relation is a partial order if it is
-        a preorder (reflexive and transitive) and also
-        anti-symmetric. Recall that anti-symmetry says
-        that the only way that both (x, y) and (y, x) 
-        can be in the relation at once is if x==y.
-        
-        A canonical example of a partial order is the 
-        "subset-of" relation on the powerset of a given
-        set. It's reflexive as every set is a subset of 
-        itself. It's anti-symmetric because if S is a
-        subset of T and T is a subset of S then T=S.
-        And it's transitive, because if S is a subset 
-        of T and T a subset of R then S must also be 
-        a subset of R. 
-        
-        This relation is a *partial* order in that not 
-        every pair of subsets of a set are "comparable," 
-        which is to say  it is possible that neither 
-        is a subset of the other. The sets, {1, 2} and 
-        {2, 3}, are both subsets of the set, {1, 2, 3},
-        for example, but neither is a subset of the
-        other, so they are not "comparable:" There is 
-        no pair of these two sets, in either order, in
-        the "subset-of" relation.
+Partial Order
+-------------
 
-        A partial order in order theory corresponds 
-        directly to a "directed acyclic graph" (DAG)
-        in graph theory.
-        */
+A binary relation is said to be a partial order if it is a preorder
+(reflexive and transitive) and also *anti-symmetric*. Recall that
+anti-symmetry says that the only way that both (x, y) and (y, x) can
+be in the relation at once is if x==y. The less-than-or-equal relation
+on the integers is anti-symmetric in this sense.
+        
+Another great example of a partial order is the "subset-of" relation
+on the powerset of a given set. It's reflexivem as every set is a
+subset of itself. It's anti-symmetric because if S is a subset of T
+and T is a subset of S then it must be that T=S.  And it's transitive,
+because if S is a subset of T and T a subset of R then S must also be
+a subset of R.
+        
+This relation is a *partial* order in that not every pair of subsets
+of a set are "comparable," which is to say it is possible that neither
+is a subset of the other. The sets, {1, 2} and {2, 3}, are both
+subsets of the set, {1, 2, 3}, for example, but neither is a subset of
+the other, so they are not *comparable* under this relation. 
+
+.. code-block:: dafny
+
         predicate method isPartialOrder()
             reads this;
             reads r;
@@ -748,26 +751,28 @@ NEW STUFF
         }
 
 
-        /*
-        The kind of order most familiar from elementary
-        mathematics is a "total" order. The natural and
-        real numbers are totally ordered under the less
-        than or equals relation, for example. Any pair 
-        of such numbers is "comparable." That is, given
-        any two numbers, x and y, either (x, y) or (y, x)
-        is (or both are) in the "less than or equal 
-        relation." 
+Total Order
+-----------
 
-        A total order, also known as a linear order, a simple order, 
-        or a chain, is a partial order with the additional property 
-        that any two elements, x and y, are comparable. This pair of
-        properties arranges the set into a fully ordered collection. 
+The kind of order most familiar from elementary mathematics is a
+"total" order. The natural and real numbers are totally ordered under
+the less than or equals relation, for example. Any pair of such
+numbers is "comparable." That is, given any two numbers, x and y,
+either (x, y) or (y, x) is (or both are) in the "less than or equal
+relation."
 
-        A good example is the integers under the less than or equal
-        operator. By contrast, subset inclusion is a partial order, 
-        as two sets, X and Y, can both be subsets of ("less than or 
-        equal to") a set Z, with neither being a subset of the other.
-        */
+A total order, also known as a linear order, a simple order, or a
+chain, is a partial order with the additional property that any two
+elements, x and y, are comparable. This pair of properties arranges
+the set into a fully ordered collection.
+
+A good example is the integers under the less than or equal
+operator. By contrast, subset inclusion is a partial order, as two
+sets, X and Y, can both be subsets of ("less than or equal to") a set
+Z, with neither being a subset of the other.
+
+.. code-block:: dafny
+
         predicate method isTotalOrder()
             reads this;
             reads r;
@@ -779,55 +784,46 @@ NEW STUFF
         }
 
 
+Additional Properties of Relations
+==================================
 
-        /********************************************/
-        /**** ADDITIONAL PROPERTIES OF RELATIONS ****/
-        /********************************************/
 
-        /*
-        We now define what it means for a binary relation 
-        to be "total," also called "complete." NOTE WELL!
-        The term, "total", means something different when
-        applied to binary relations, in general, than to 
-        functions, in particular. A function is total if 
-        for every x in S there is *SOME* y to which it is 
-        related (or mapped, as we say). We thus provide 
-        isTotalFunction and isPartialFunction predicates 
-        (with Function in the names) to capture this idea.
-        
-        By contrast, a binary relation (more generally) 
-        is said to be total, or "complete", if for *any* 
-        pair of values, x and y in S, either (or both) 
-        of (x, y) or (y, x) is in the relation.
+Total Relation
+--------------
 
-        A simple example of a total relation is the less
-        than or equals relation on integers. Given any 
-        two integers, x and y, it is always the case that
-        either x <= y or y <= x, or both if they're equal.
+We now define what it means for a binary relation to be "total," also
+called "complete." NOTE!  The term, "total", means something different
+when applied to binary relations, in general, than when it is applied
+to the special case of functions. A function is total if for every x
+in S there is some y to which it is related (or mapped, as we say). By
+contrast, a binary relation is said to be *total*, or *complete*, if
+for any* pair of values, x and y in S, either (or both) of (x, y) or
+(y, x) is in the relation. 
 
-        Anoather example of a total binary relation
-        is what economists call a preference relation. A
-        preference relation is a mathematical model of 
-        a consumer's preferences. It represents the idea
-        that given *any* two items, or outcomes, x and y,
-        one will always find one of them to be "at least 
-        as good as" the other. These ideas belong to the 
-        branch of economics called "utility theory." 
+A simple example of a total relation is the less than or equals
+relation on integers. Given any two integers, x and y, it is always
+the case that either x <= y or y <= x, or both if they're equal.
 
-        The broader point of this brief diversion into 
-        the field of economics is to make it clear that
-        what seem like very abstract concepts (here the
-        property of a binary relation being complete or
-        not) have deep importance in the real world: in
-        CS as well as in many other fields.
+Another example of a total binary relation is what economists call a
+preference relation. A preference relation is a mathematical model of
+a consumer's preferences. It represents the idea that given *any* two
+items, or outcomes, x and y, one will always find one of them to be
+"at least as good as" the other. These ideas belong to the branch of
+economics called "utility theory."
 
-        We can now formalize the property of being total.
-        A binary relation, R, on a set, S, is said to be 
-        "complete," "total" or to have the "comparability" 
-        property if *any* two elements, x and y in S, are 
-        related one way or the other by R, i.e., at least 
-        one of (x, y) and (y, x) is in R.
-        */
+The broader point of this brief diversion into the field of economics
+is to make it clear that what seem like very abstract concepts (here
+the property of a binary relation being complete or not) have deep
+importance in the real world: in CS as well as in many other fields.
+
+We can now formalize the property of being total.  A binary relation,
+R, on a set, S, is said to be "complete," "total" or to have the
+"comparability" property if *any* two elements, x and y in S, are
+related one way or the other by R, i.e., at least one of (x, y) and
+(y, x) is in R.
+
+.. code-block:: dafny
+		
         predicate method isTotal()
             reads this;
             reads r;
@@ -839,7 +835,6 @@ NEW STUFF
         }
 
         
-        // isComplete() is a synonym for isTotal()
         predicate method isComplete()
             reads this;
             reads r;
@@ -850,13 +845,17 @@ NEW STUFF
         }
 
 
-        /*
-        A relation on a set S is said to be irreflexive
-        if no element is related to, or maps, to itself.
-        As an example, the less than relation on natural
-        numbers is irreflexive: not natural number is less
-        than itself.
-        */
+Irreflexive
+-----------
+
+A relation on a set S is said to be irreflexive if no element is
+related to, or maps, to itself.  As an example, the less than relation
+on natural numbers is irreflexive: not natural number is less than
+itself.
+
+.. code-block:: dafny
+
+
         predicate method isIrreflexive()
             reads this;
             reads r;
@@ -868,14 +867,18 @@ NEW STUFF
         }
 
         
-        /*
+Antisymmetric
+-------------
+
         A binary relation is said to be antisymmetric
         if whenever both (x, y) and (y, x) are in the
         relation, it must be that x == y. A canonical
         example of an antisymmetric relation is <= on
         the natural numbers. If x <= y and y <= x (and
         that is possible) then it must be that x == y.
-        */
+
+.. code-block:: dafny
+
         predicate method isAntisymmetric()
             reads this;
             reads r;
@@ -886,28 +889,28 @@ NEW STUFF
             forall x, y ::     x in dom()   &&   y in dom() &&
                            (x,y) in rel() && (y,x) in rel() ==> 
                            x == y
-            // Note: equivalent to xRy ==> !yRx
         }
 
 
-        /*
-        A binary relation, R, is said to be asymmetric 
-        (as distinct from anti-symmetric) if it is both
-        anti-symmetric and also irreflexive. The latter
-        property rules out an element being related to
-        itself. Think of it as removing the possibility
-        of being "equal" in an otherwise anti-symmetric
-        (such as less than or equal) relation.
+Asymmetric
+----------
+
+A binary relation, R, is said to be asymmetric (as distinct from
+anti-symmetric) if it is both anti-symmetric and also irreflexive. The
+latter property rules out an element being related to itself. Think of
+it as removing the possibility of being "equal" in an otherwise
+anti-symmetric (such as less than or equal) relation.
         
-        More precisely, in an asymmetric relation, for 
-        all elements a and and b, if a is related to b 
-        in R, then b is not and cannot be related to a. 
+More precisely, in an asymmetric relation, for all elements a and and
+b, if a is related to b in R, then b is not and cannot be related
+to a.
         
-        The canonical example of an asymmetric relation
-        is less than on the integers. If a < b then it 
-        cannot also be that b < a. To be asymmetric is 
-        the same as being antisymmetric and irreflexive.
-        */
+The canonical example of an asymmetric relation is less than on the
+integers. If a < b then it cannot also be that b < a. To be asymmetric
+is the same as being antisymmetric and irreflexive.
+
+.. code-block:: dafny
+
         predicate method isAsymmetric()
             reads this;
             reads r;
@@ -918,22 +921,25 @@ NEW STUFF
             isAntisymmetric() && isIrreflexive()
         }
 
-        /*
-        A binary relation on a set, S, is said to be 
-        quasi-reflexive if every element that is related
-        to some other element is also related to itself.
 
-        Adapted from Wikipedia: An example is a relation 
-        "has the same limit as" on infinite sequences of 
-        real numbers. Recall that some such sequences do
-        converge on a limit. For example, the infinite
-        sequence, 1/n, for n = 1 to infinity, converges
-        on (has limit) zero. Not every sequence of real
-        numbers has such a limit, so the "has same limit
-        as" relation is not reflexive. But if on sequence 
-        has the same limit as some other sequence, then 
-        it has the same limit as itself.
-        */
+
+Quasi-reflexive
+---------------	
+
+A binary relation on a set, S, is said to be quasi-reflexive if every
+element that is related to some other element is also related to
+itself.
+
+Adapted from Wikipedia: An example is a relation "has the same limit
+as" on infinite sequences of real numbers. Recall that some such
+sequences do converge on a limit. For example, the infinite sequence,
+1/n, for n = 1 to infinity, converges on (has limit) zero. Not every
+sequence of real numbers has such a limit, so the "has same limit as"
+relation is not reflexive. But if one sequence has the same limit as
+some other sequence, then it has the same limit as itself.
+
+.. code-block:: dafny
+
         predicate method isQuasiReflexive()
              reads this;
             reads r;
@@ -947,18 +953,21 @@ NEW STUFF
         }
 
 
-        /*
-        A binary relation is said to be coreflexive is 
-        for all x and y in S it holds that if xRy then x = y. 
-        Every coreflexive relation is a subset of an identity 
-        relation (in which every element is related to and only
-        to itself). A relation is thus co-reflexive if it 
-        relates just some object to, and only to, themselves.
+Co-reflexive
+------------
+
+A binary relation is said to be coreflexive is for all x and y in S it
+holds that if xRy then x = y.  Every coreflexive relation is a subset
+of an identity relation (in which every element is related to and only
+to itself). A relation is thus co-reflexive if it relates just some
+objects to, and only to, themselves.
         
-        For example, if every odd number is related itself
-        under an admittedly "odd" version of equality, then
-        this relation is coreflexive.
-        */
+For example, if every odd number is related itself under an admittedly
+"odd" version of equality, then this relation is coreflexive.
+
+	
+.. code-block:: dafny
+
         predicate method isCoreflexive()
             reads this;
             reads r;
@@ -970,20 +979,20 @@ NEW STUFF
         }
 
 
-        /*********************************************/
-        /**** MORE ADVANCED ORDER THEORY CONCEPTS ****/
-        /*********************************************/
 
-        /*
-        A total preorder is preorder in which every
-        pair of elements is comparable, e.g., for every 
-        node a and b, either a reaches b or b reaches a. 
-        That is, there are no pairs of elements that are 
-        *incomparable*. 
+More Advanced Order Theory Concepts
+===================================
 
-        BETTER EXAMPLE NEEDED
+Total Preorder
+--------------
 
-        */
+A total preorder is preorder in which every pair of elements is
+comparable, e.g., for every node a and b, either a reaches b or b
+reaches a.  That is, there are no pairs of elements that are
+*incomparable*.
+
+.. code-block:: dafny
+
         predicate method isTotalPreorder()
             reads this;
             reads r;
@@ -994,13 +1003,17 @@ NEW STUFF
             }
 
 
-       /*
-        A relation R is a strict partial order if it's
-        irreflexive, antisymmetric, and transitive. A
-        canonical example is the less than (<) relation
-        on a set of natural numbers. 
-        */
-        predicate method isStrictPartialOrder()
+
+Strict Partial Order
+--------------------
+
+A relation R is a strict partial order if it's irreflexive,
+antisymmetric, and transitive. A canonical example is the less than
+(<) relation on a set of natural numbers.
+
+.. code-block:: dafny
+
+	predicate method isStrictPartialOrder()
             reads this;
             reads r;
             requires Valid();
@@ -1009,27 +1022,28 @@ NEW STUFF
             isIrreflexive() && isAntisymmetric() && isTransitive()
         }
 
-        /*
-        A relation R is said to be a quasi-order if it
-        is irreflexive and transitive. 
+
+Quasi-order
+-----------
+
+A relation R is said to be a quasi-order if it is irreflexive and
+transitive.
         
-        The less than and proper subset inclusion 
-        relations are quasi-orders but not partial 
-        orders, because partial orders are necessarily 
-        also reflexive. The less than or equal and 
-        subset inclusion relations are partial orders 
-        but not quasi-orders because they are reflexive.
+The less than and proper subset inclusion relations are quasi-orders
+but not partial orders, because partial orders are necessarily also
+reflexive. The less than or equal and subset inclusion relations are
+partial orders but not quasi-orders because they are reflexive.
 
-        Compare with strict partial ordering, which is 
-        a quasi-order that is also anti-symmetric.
+Compare with strict partial ordering, which is a quasi-order that is
+also anti-symmetric.
 
-        This definition of quasi order is from Stanat and 
-        McAllister, Discrete Mathematics in Computer Science, 
-        Prentice-Hall, 1977. Others define quasi-order as 
-        synonymous with preorder. See Rosen, Discrete 
-        Mathematicas and Its Applications, 4th ed., 
-        McGraw-Hill, 1999.
-        */
+This definition of quasi order is from Stanat and McAllister, Discrete
+Mathematics in Computer Science, Prentice-Hall, 1977. Others define
+quasi-order as synonymous with preorder. See Rosen, Discrete
+Mathematicas and Its Applications, 4th ed., McGraw-Hill, 1999.
+
+.. code-block:: dafny
+
         predicate method isQuasiOrder()
             reads this;
             reads r;
@@ -1040,8 +1054,8 @@ NEW STUFF
         }
 
 
-        /*
-        Weak ordering
+Weak Ordering
+-------------
 
         "There are several common ways of formalizing weak orderings, 
         that are different from each other but cryptomorphic 
@@ -1081,7 +1095,10 @@ NEW STUFF
         a strict weak ordering." --Wikipedia 
 
         We formalize the concept as "total preorder." 
-        */
+
+
+.. code-block:: dafny
+
         predicate method isWeakOrdering()
             reads this;
             reads r;
@@ -1092,28 +1109,57 @@ NEW STUFF
         }
 
  
-        /*
-        A strict weak ordering is a strict partial order in which the relation "neither a R b nor b R a" is transitive. That is, for
-        all x, y, z in S, if neither x R y nor y R x holds, and if neither y R z nor z R y holds, then neither x R z nor z R x holds.
+A strict weak ordering is a strict partial order in which the relation
+"neither a R b nor b R a" is transitive. That is, for all x, y, z in
+S, if neither x R y nor y R x holds, and if neither y R z nor z R y
+holds, then neither x R z nor z R x holds.
 
-        In the C++ Standard Template Library (STL), if you want to use
-        a standard sort routine or map data structure you have to define 
-        an overloaded < operator; and it has to imlpement a strict weak
-        ordering relation.
+In the C++ Standard Template Library (STL), if you want to use a
+standard sort routine or map data structure you have to define an
+overloaded < operator; and it has to imlpement a strict weak ordering
+relation.
 
-        From StackOverflow:
+From StackOverflow:
 
-        This notion, which sounds somewhat like an oxymoron, is not very commonly used in mathematics, but it is in programming. The "strict" just means it is the irreflexive form "<" of the comparison rather than the reflexive "≤". The "weak" means that the absence of both a<b and b<a do not imply that a=b. However as explained here, the relation that neither a<b nor b<a holds is required to be an equivalence relation. The strict weak ordering then induces a (strict) total ordering on the equivalence classes for this equivalence relation.
+This notion, which sounds somewhat like an oxymoron, is not very
+commonly used in mathematics, but it is in programming. The "strict"
+just means it is the irreflexive form "<" of the comparison rather
+than the reflexive "≤". The "weak" means that the absence of both a<b
+and b<a do not imply that a=b. However as explained here, the relation
+that neither a<b nor b<a holds is required to be an equivalence
+relation. The strict weak ordering then induces a (strict) total
+ordering on the equivalence classes for this equivalence relation.
 
-        This notion is typically used for relations that are in basically total orderings, but defined using only partial information about the identity of items. For instance if a<b between persons means that a has a name that (strictly) precedes the name of b alphabetically, then this defines a strict weak order, since different persons may have identical names; the relation of having identical names is an equivalence relation.
+This notion is typically used for relations that are in basically
+total orderings, but defined using only partial information about the
+identity of items. For instance if a<b between persons means that a
+has a name that (strictly) precedes the name of b alphabetically, then
+this defines a strict weak order, since different persons may have
+identical names; the relation of having identical names is an
+equivalence relation.
 
-        One can easily show that for a strict weak ordering "<", the relation a≮b is (reflexive and) transitive, so it is a pre-order,and the associated equivalence relation is the same as the one associated above to the strict weak ordering. In fact "a≮b" is a total pre-order which induces the same total ordering (or maybe it is better to say the opposite ordering, in view of the negation) on its equivalence classes as the strict weak ordering does. I think I just explained that the notions of strict weak ordering and total pre-order are equivalent. The WP article also does a reasonable job explaining this.
+One can easily show that for a strict weak ordering "<", the relation
+a≮b is (reflexive and) transitive, so it is a pre-order,and the
+associated equivalence relation is the same as the one associated
+above to the strict weak ordering. In fact "a≮b" is a total pre-order
+which induces the same total ordering (or maybe it is better to say
+the opposite ordering, in view of the negation) on its equivalence
+classes as the strict weak ordering does. I think I just explained
+that the notions of strict weak ordering and total pre-order are
+equivalent. The WP article also does a reasonable job explaining this.
 
-        Marc van Leeuwen:
-        If you are comparing strings, then you would often just define a total ordering (which is a special case of a strict weak ordering) like lexicographic ordering. However, it could be that you want to ignore upper case/lower case distinctions, which would make it into a true weak ordering (strings differing only by case distinctions would then form an equivalence class).
+Marc van Leeuwen: If you are comparing strings, then you would often
+just define a total ordering (which is a special case of a strict weak
+ordering) like lexicographic ordering. However, it could be that you
+want to ignore upper case/lower case distinctions, which would make it
+into a true weak ordering (strings differing only by case distinctions
+would then form an equivalence class).
 
-        Note: isStrictWeakOrdering <==> isTotalPreorder (should verify)
-        */
+Note: isStrictWeakOrdering <==> isTotalPreorder (should verify)
+
+
+.. code-block:: dafny
+
         predicate method isStrictWeakOrdering()
             reads this;
             reads r;
@@ -1127,33 +1173,32 @@ NEW STUFF
         }
 
 
-        /*
-        A relation R on a set, S, is said to be well-founded
-        if every non-empty subset, X, of S has a "minimum"
-        element, such that there is no other element, x, in
-        X, such that (x, min) is in X.
+Well-Founded
+------------
 
-        As an example, the the less than relation over the
-        infinite set of natural numbers is well founded 
-        because in any subset of the natural numbers there 
-        is because there is always a minimal element, m: an
-        element that is less than every other element in the
-        set. 
+A relation R on a set, S, is said to be well-founded if every
+non-empty subset, X, of S has a "minimum" element, such that there is
+no other element, x, in X, such that (x, min) is in X.
+
+As an example, the the less than relation over the infinite set of
+natural numbers is well founded because in any subset of the natural
+numbers there is because there is always a minimal element, m: an
+element that is less than every other element in the set.
         
-        The concept of being
-        well founded turns out to be important for
-        reasoning about when recursive definitions are valid.
-        In a nutshell, each recursive call has to be moving
-        "down" a finite chain to a minimum element. Another
-        way to explain being well-founded is that a relation
-        is not well founded if there's a way either to "go 
-        down" or to "go around in circles" forever. Here we
-        give a version of well foundedness only for finite 
-        relations (there can never be an infinite descending
-        chain); what this predicate basically rules out 
-        are cycles in a relation.
-        */
-        predicate method isWellFounded()
+The concept of being well founded is vitally important for reasoning
+about when recursive definitions are valid.  In a nutshell, each
+recursive call has to be moving "down" a finite chain to a minimum
+element. Another way to explain being well-founded is that a relation
+is not well founded if there's a way either to "go down" or to "go
+around in circles" forever. Here we give a version of well foundedness
+only for finite relations (there can never be an infinite descending
+chain); what this predicate basically rules out are cycles in a
+relation.
+
+
+.. code-block:: dafny
+
+	predicate method isWellFounded()
             reads this;
             reads r;
             requires Valid();
@@ -1166,17 +1211,22 @@ NEW STUFF
         }
 
 
-        /*************** END OF ORDER THEORY****************/
+Other Properties of Relations
+=============================
 
 
-        /*
-        A binary relation is said to be a dependency relation 
-        if it is finite, symmetric, and reflexive. That is, 
-        every element "depends on" itself, and if one depends
-        on another, then the other depends on the first. The
-        name, "mutual dependency" or "symmetric dependency"
-        relation would make sense here.
-        */
+Dependence Relation
+-------------------
+
+
+A binary relation is said to be a dependency relation if it is finite,
+symmetric, and reflexive. That is, every element "depends on" itself,
+and if one depends on another, then the other depends on the
+first. The name, "mutual dependency" or "symmetric dependency"
+relation would make sense here.
+
+.. code-block:: dafny
+
         predicate method isDependencyRelation()
             reads this;
             reads r;
@@ -1187,13 +1237,18 @@ NEW STUFF
         }
 
 
-        /*
-        Return the complement of the given dependency
-        relation on S. Such a relation is called an
-        independency relation. Elements are related in
-        such a relation if they are "independent" in
-        the given dependency relation.
-        */
+
+
+Independency Relation
+---------------------
+
+Return the complement of the given dependency relation on S. Such a
+relation is called an independency relation. Elements are related in
+such a relation if they are "independent" in the given dependency
+relation.
+
+.. code-block:: dafny
+
         method independencyRelationOnS(d: binRelOnS<Stype>) 
             returns (r: binRelOnS<Stype>)
             requires Valid();
@@ -1213,16 +1268,19 @@ NEW STUFF
 
 
 
-        /*
-        A binary relation is said to be trichotomous if
-        for any pair of values, x and y, either xRy or 
-        yRx or x==y. The < relation on natural numbers is
-        an example of a trichotomous relation: given any
-        two natural numbers, x and y, either x < y or
-        y < x, or, if neither condition holds, then it
-        must be that x = y.
-        */
-        predicate method isTrichotomous()
+Trichotomous
+------------
+
+A binary relation is said to be trichotomous if for any pair of
+values, x and y, either xRy or yRx or x==y. The < relation on natural
+numbers is an example of a trichotomous relation: given any two
+natural numbers, x and y, either x < y or y < x, or, if neither
+condition holds, then it must be that x = y.
+
+
+.. code-block:: dafny
+
+	predicate method isTrichotomous()
             reads this;
             reads r;
             requires Valid();
@@ -1234,9 +1292,14 @@ NEW STUFF
         }
 
 
-        /*
-        Right Euclidean: for all x, y and z in X it holds that if xRy and xRz, then yRz.
-        */
+Right Euclidean
+---------------
+
+Dor all x, y and z in X it holds that if xRy and xRz, then yRz.
+
+.. code-block:: dafny
+
+
         predicate method isRightEuclidean()
             reads this;
             reads r;
@@ -1248,9 +1311,14 @@ NEW STUFF
                 (x, y) in rel() && (x, z) in rel() ==> (y, z) in rel()
         }
 
-        /*
-        Left Euclidean: for all x, y and z in X it holds that if yRx and zRx, then yRz.
-        */
+
+Left Euclidean
+--------------
+
+For all x, y and z in X it holds that if yRx and zRx, then yRz.
+
+.. code-block:: dafny
+
         predicate method isLeftEuclidean()
             reads this;
             reads r;
@@ -1262,12 +1330,20 @@ NEW STUFF
                 (y, x) in rel() && (z, x) in rel() ==> (y, z) in rel()
         }
 
-        /*
-        Euclidean: A relation is said to be Euclidean if it 
-        is both left and right Euclidean. Equality is a Euclidean 
-        relation because if x=y and x=z, then y=z.
-        */
-        predicate method isEuclidean()
+
+
+Euclidean
+---------
+
+A relation is said to be Euclidean if it is both left and right
+Euclidean. Equality is a Euclidean relation because if x=y and x=z,
+then y=z.
+        
+
+
+.. code-block:: dafny
+
+	predicate method isEuclidean()
             reads this;
             reads r;
             requires Valid();
@@ -1278,11 +1354,6 @@ NEW STUFF
         }
 
 	
-END NEW STUFF
-=============
-
-
-
 Sequences
 =========
 
@@ -1341,6 +1412,8 @@ Composition of Relations
 Return the relation g composed with this relation, (g o this). The
 domains/codomains of g and this must be the same.
 
+.. code-block:: dafny
+
         method compose(g: binRelOnS<Stype>) 
             returns (c : binRelOnS<Stype>)
             requires Valid();
@@ -1358,12 +1431,6 @@ domains/codomains of g and this must be the same.
                     (s, t) in g.rel() ::
                     (r, t)
         {
-        /*
-            var f' := convertToBinRelOnST();
-            var g' := g.convertToBinRelOnST();
-            var h := composeRST(g',f');
-            c := new binRelOnS<T>(dom(),h.rel());
-        */
             var p := set r, s, t | 
                     r in dom() &&
                     s in codom() &&
@@ -1388,6 +1455,8 @@ particular, it's the union of this relation and
 the identity relation on the same set. That is
 how we compute it here.
 
+.. code-block:: dafny
+
         method reflexiveClosure() returns (r: binRelOnS<Stype>)
             requires Valid();
             ensures r.Valid();
@@ -1409,6 +1478,8 @@ relation and is symmetric. In particular, it's the union of this
 relation and the inverse relation on the same set. It can be derived
 from this relation by taking all pairs, (s, t), and making sure that
 all reversed pairs, (t, s), are also included.
+
+.. code-block:: dafny
 
         method symmetricClosure() returns (r: binRelOnS<Stype>)
             requires Valid();
@@ -1434,6 +1505,8 @@ those modeled by this class, the length of a path is bounded by the
 size of the set, S, so we can always compute a transitive closure by
 following links and adding tuples enough times to have followed all
 maximum-length paths in R.  That's what we do, here.
+
+.. code-block:: dafny
 
         method transitiveClosure() returns (r: binRelOnS<Stype>)
             requires Valid();
@@ -1469,6 +1542,8 @@ The reflexive transitive closure is the smallest relation that
 contains this relation and is both reflexive and transitive.  KS FIX:
 Under-informative specification.
 
+.. code-block:: dafny
+
         method reflexiveTransitiveClosure() returns (r: binRelOnS<Stype>)
             requires Valid();
             ensures r.Valid();
@@ -1482,6 +1557,8 @@ Under-informative specification.
  
 Reflexive Transitive Symmetric closure
 --------------------------------------
+
+.. code-block:: dafny
 
         method reflexiveSymmetricTransitiveClosure() 
             returns (r: binRelOnS<Stype>)
@@ -1504,6 +1581,8 @@ The reflexive reduction of a relation is the relation
 minus the idenitity relation on the same set. It is, to
 be formal about it, the smallest relation with the same
 reflexive closure as this (the given) relation.
+
+.. code-block:: dafny
 
         method reflexiveReduction() returns (r: binRelOnS<Stype>)
             requires Valid();
@@ -1532,6 +1611,8 @@ The "restriction" of a relation, R, on a set, S, to a subset, X, of S,
 is a relation X containing the pairs in R both of whose elements are
 in X. That X is a subset of S is a precondition for calling this
 method.
+
+.. code-block:: dafny
 
         method restriction(X: set<Stype>) returns (r: binRelOnS<Stype>)
             requires Valid();

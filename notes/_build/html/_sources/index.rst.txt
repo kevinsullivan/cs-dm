@@ -17,16 +17,16 @@ Welcome to Mathematical Logic in Software Development
    05-verifying-logical-specifications
    06-dafny-language
    07-set-theory
-   07a-relations
-   08-boolean-algebra
-   08a-formal-languages
-   09-propositional-logic
-   09a-satisfiability
-   09a-consequence
-   11-predicate-logic
-   10-natural-deduction
-   10a-equality
-   12-induction
+   08-relations
+   09-boolean-algebra
+   10-formal-languages
+   11-propositional-logic
+   12-satisfiability
+   13-consequence
+   14-predicate-logic
+   15-natural-deduction
+   16-equality
+   17-induction
 
 Indices and tables
 ==================

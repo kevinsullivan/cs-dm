@@ -1,0 +1,724 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>8. Boolean Algebra &#8212; Discrete Mathematics for Software Professionals 1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/sidebar.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="8. Formal Languages" href="10-formal-languages.html" />
+    <link rel="prev" title="07a. Relations" href="08-relations.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="10-formal-languages.html" title="8. Formal Languages"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="08-relations.html" title="07a. Relations"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="boolean-algebra">
+<h1>8. Boolean Algebra<a class="headerlink" href="#boolean-algebra" title="Permalink to this headline">¶</a></h1>
+<p>As a first stepping stone toward a deeper exploration of deductive
+logic, we explore the related notion of Boolean <em>algebra</em>. Boolean
+algebra is a mathematical framework for representing and reasoning
+about truth.</p>
+<p>This algebra is akin to ordinary high school algebra, and as such,
+deals with values, operators, and the syntax and the evaluation of
+expressions involving values and operators.  However, the values in
+Boolean algebra are limited to the two values in the set, <img class="math" src="_images/math/c3bf2190617c14aa5e4670318d73ea3106b19a8b.png" alt="bool
+= \{ 0, 1\}"/>. They are often written instead as <em>false</em> and <em>true</em>,
+respectively. And rather than arithmetic operators such as numeric
+negation, addition, and subtraction, Boolean algebra defines a set of
+<em>Boolean operators</em>. They are typically given names such as <em>and</em>,
+<em>or</em>, and <em>not</em>, and they both operate on and yield Boolean values.</p>
+<p>In this chapter, we first discuss Boolean algebra in programming, a
+setting with which the reader is already familar, baesd on a first
+course in programming. We then take a deeper look at the syntax and
+semantics of <em>expressions</em> in Boolean algebra. We do this by seeing
+how to use <em>inductive definitions</em> and <em>recursive functions</em> in the
+Dafny language to implement an <em>inductive data type</em> for representing
+Boolean expressions and a recursive <em>evaluation</em> function that when
+given any Boolean expression tells whether it is <em>true</em> or <em>false</em>.</p>
+<div class="section" id="boolean-algebra-in-dafny">
+<h2>Boolean Algebra in Dafny<a class="headerlink" href="#boolean-algebra-in-dafny" title="Permalink to this headline">¶</a></h2>
+<p>All general-purpose programming languages support Boolean
+algebra. Dafny does so through its <em>bool</em> data type and the
+<em>operators</em> associated with it. Having taking a programming course,
+you will already have been exposed to all of the important ideas.
+In Dafny, as in many languages, the Boolean values are called
+<em>true</em> and <em>false</em> (rather than <em>1</em> and <em>0</em>).</p>
+<p>The Boolean operators are also denoted not by words, such as <em>or</em> and
+<em>not</em> but by math-like operators. For example, <em>!</em> is the not operator
+and <em>||</em> is the <em>or</em> operator.</p>
+<p>Here’s a (useless) Dafny method that illustrates how Boolean values
+and operators can be used in Dafny. It presents a method, <em>BoolOps</em>,
+that takes a Boolean value and returns one. The commands within the
+method body illustrate the use of Boolean constant (literal) values
+and the unary and binary operators provided by the Dafny language.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method BoolOps(a: bool) returns (r: bool)
+{
+    var t: bool := true;    // explicit type declaration
+    var f := false;         // type inferred automatically
+    var not := !t;          // negation
+    var conj := t &amp;&amp; f;     // conjunction, short-circuit evaluation
+    var disj := t || f;     // disjunction, short-circuit (sc) evaluation
+    var impl := t ==&gt; f;    // implication, right associative, sc from left
+    var foll := t &lt;== f;    // follows, left associative, sc from right
+    var equv := t &lt;==&gt; t;   // iff, bi-implication
+    return true;            // returning a Boolean value
+ }
+</pre></div>
+</div>
+<p>The first line assigns the Boolean constant, <em>true</em>, to a Boolean
+variable, <em>t</em>, that is explicitly declared to be of type,, <em>bool</em>.
+The second line assigns the Boolean constant, <em>false</em>, to <em>f</em>, and
+allows Dafny to infer that the type of <em>f</em> must be <em>bool</em>, based on
+the type of value being assigned to it. The third line illustrates the
+use of the <em>negation</em> operator, denoted as <em>!</em> in Dafny. Here the
+negation of <em>t</em> is assigned to the new Boolean variable, <em>not</em>. The
+next line illustrates the use of the Boolean <em>and</em>, or <em>conjunction</em>
+operator (<em>&amp;&amp;</em>). Next is the Boolean <em>or</em>, or <em>disjunction</em>, operator,
+(<em>||</em>). These should all be familiar.</p>
+<p>Implication (<em>==&gt;</em>) is a binary operator (taking two Boolean values)
+that is read as <em>implies</em> and that evaluates to false only when the
+first argument is true and the second one is false, and that evaluates
+to true otherwise. The <em>follows</em> operator (<em>&lt;==</em>) swaps the order of
+the arguments, and evaluates to false if the first argument is false
+and the second is true, and evaluates to true otherwise. Finally, the
+<em>equivalence</em> operator evaluates to true if both arguments have the
+same Boolean value, and evaluates to false otherwise. These operators
+are especially useful in writing assertions in Dafny.</p>
+<p>The last line returns the Boolean value true as the result of running
+this method. Other operations built into Dafny also return Boolean
+values.  Arithmetic comparison operators, such as <em>&lt;</em>, are examples.
+The less than operator, for example, takes two numerical arguments and
+returns true if the first is strictly less than the second, otherwise
+it returns false.</p>
+</div>
+<div class="section" id="boolean-values">
+<h2>Boolean Values<a class="headerlink" href="#boolean-values" title="Permalink to this headline">¶</a></h2>
+<p>Boolean algebra is an algebra, which is a set of values and of
+operations that take and return these values. The set of values in
+Boolean algebra, is just the set containing <em>0</em> and <em>1</em>.</p>
+<div class="math">
+<p><img src="_images/math/8d3d066513b2e4345caff3ee64623604fd86df2a.png" alt="bool = \{ 0, 1 \}."/></p>
+</div><p>In English that expression just gave a name that we can use, <em>bool</em>,
+to the set containing the values, <em>0</em> and <em>1</em>. Although these values
+are written as if they were small natural numbers, you must think of
+them as elements of a different type. They aren’t natural numbers but
+simply the two values in this other, Boolean, algebra. We could use
+different symbols to represent these values. In fact, they are often
+written instead as <em>false</em> (for <em>0</em>) and <em>true</em> (for <em>1</em>).The exact
+symbols we use to represent these values don’t really matter. What
+really makes Boolean algebra what it is are the <em>operators</em> defined
+by Boolean algebra and how they behave.</p>
+</div>
+<div class="section" id="boolean-operators">
+<h2>Boolean Operators<a class="headerlink" href="#boolean-operators" title="Permalink to this headline">¶</a></h2>
+<p>An algebra, again, is a set of values of a particular kind and a set
+of operators involving that kind of value. Having introduced the set
+of two values of the Boolean type, let’s turn to the <em>operations</em> of
+Boolean algebra.</p>
+<div class="section" id="nullary-unary-binary-and-n-ary-operators">
+<h3>Nullary, Unary, Binary, and n-Ary Operators<a class="headerlink" href="#nullary-unary-binary-and-n-ary-operators" title="Permalink to this headline">¶</a></h3>
+<p>The operations of an algebra take zero or more values and return (or
+reduce to) values of the same kind. Boolean operators, for example,
+take zero or more Boolean values and reduce to Boolean values. An
+operator that takes no values (and nevertheless returns a value, as
+all operators do) is called a <em>constant</em>. Each value in the value set
+of an algebra can be though of as an operator that takes no values.</p>
+<p>Such an operator is also called <em>nullary</em>. An operator that takes one
+value is called <em>unary</em>; one that takes two, <em>binary</em>, and in general,
+one that takes <em>n</em> arguments is called <em>n-ary</em> (pronounced “EN-airy”).</p>
+<p>Having already introduced the constant (<em>nullary</em>) values of Boolean
+algebra, each of the type we have called <em>bool</em>, we now introduce the
+types and behaviors the unary and binary Boolean operators, including
+each of those supported in Dafny.</p>
+</div>
+<div class="section" id="the-unary-operators-of-boolean-algebra">
+<h3>The Unary Operators of Boolean Algebra<a class="headerlink" href="#the-unary-operators-of-boolean-algebra" title="Permalink to this headline">¶</a></h3>
+<p>While there are two constants in Boolean algebra, each of type <em>bool</em>,
+there are four unary operators, each of type <img class="math" src="_images/math/c992a950e9843dfd9d4dc371b2802cfbc56734fb.png" alt="bool \rightarrow
+bool"/>. This type, which contains an arrow, is a <em>function</em> type. It is
+the type of any function that first takes an argument of type <em>bool</em>
+then reduces to a value of type <em>bool</em>. It’s easier to read, write,
+and say in math than in English. In math, the type would be prounced
+as “bool to bool.”</p>
+<p>There is more than one value of this function type. For example one
+such function takes any <em>bool</em> argument and always returns the other
+one. This function is of type “bool to bool”, but it is not the same
+as the function that takes any bool argument and always returns the
+same value that it got. The type of each function is <img class="math" src="_images/math/5799348efb10880d80d88fd549bbb6073d3df0f2.png" alt="bool
+\rightarrow bool"/>, but the function <em>values</em> are different.</p>
+<p>In the programming field, the type of a function is given when it
+name, its arguments, and return values are declared. This part of a
+function definition is sometimes called the function <em>signature</em>, but
+it’s just as well to think of it as decaring the function <em>type</em>.  The
+<em>body</em> of the function, usually a sequence of commands enclosed in
+curly braces, describes its actual behavior, the particular function
+value associated with the given function name and type.</p>
+<p>We know that there is more than one unary Boolean function. So how
+many are there? To specify the behavior of an operator completely, we
+have to define what result it returns for each possible combination of
+its argument values. A unary operator takes only one argument (of the
+given type). In Boolean algebra, a unary function can thus take one of
+only two possible values; and it can return only one of two possible
+result values. The answer to the question is just the number of ways
+that a function can <em>map</em> two argument values to two result values.</p>
+<p>And the answer to this question is <em>four</em>. A function can map both <em>0</em>
+and <em>1</em> to <em>0</em>; both <em>0</em> and <em>1</em> to <em>1</em>; <em>0</em> to <em>0</em> and <em>1</em> to <em>1</em>;
+and <em>0</em> to <em>1</em> and <em>1</em> to <em>0</em>. There are no other possibilities. An
+easy-to-understand way to graphically represent the behavior of each
+of these operations is with a <em>truth table</em>.</p>
+<p>The rows of a truth table depict all possible combinations of argument
+values in the columns to the left, and in the last column on the right
+a truth tables presents the corresponding resulting value.  The column
+headers give names to the argument values and results column headers
+present expressions using mathematical logic notations that represent
+how the resulting values are computed.</p>
+<div class="section" id="constant-false">
+<h4>Constant False<a class="headerlink" href="#constant-false" title="Permalink to this headline">¶</a></h4>
+<p>Here then is a truth table for what we will call the <em>constant_false</em>
+operator, which takes a Boolean argument, either <em>true</em> or <em>false</em>,
+and always returns <em>false.</em> In our truth tables, we use the symbols,
+<em>true</em> and <em>false</em>, instead of <em>1</em> and <em>0</em>, for consistency with the
+symbols that most programming languages, including Dafny, use for the
+Boolean constants.</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/e8927e4b64da902a58ab82dfa5b13e03079ffc4a.png" alt="false"/></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>true</td>
+<td>false</td>
+</tr>
+<tr class="row-odd"><td>false</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="constant-true">
+<h4>Constant True<a class="headerlink" href="#constant-true" title="Permalink to this headline">¶</a></h4>
+<p>The <em>constant_true</em> operator always returns <em>true</em>.</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/60fc3cd0bc16d533c8b9ca8b0cba520ac546a83d.png" alt="true"/></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>true</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>false</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="identity-function-s">
+<h4>Identity Function(s)<a class="headerlink" href="#identity-function-s" title="Permalink to this headline">¶</a></h4>
+<p>The Boolean <em>identity</em> function takes one Boolean value as an argument
+and returns that value, whichever it was.</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>true</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>false</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<p>As an aside we will note that <em>identity functions</em> taking any type of
+value are functions that always return exactly the value they took as
+an argument. What we want to say is that “for any type, <em>T</em>, and any
+value, <em>t</em> of that type, the identity function for type <em>T</em> applied to
+<em>t</em> always returns <em>t</em> itself. In mathematical logical notation,
+<img class="math" src="_images/math/fdbc83fca85215a6a49af5e594eb66cb57cd2ebf.png" alt="\forall T: Type, \forall t: T, id_T(t) = t."/> It’s clearer in
+mathematical language than in English! Make sure that both make sense
+to you now. That is the end of our aside. Now back to Boolean algebra.</p>
+</div>
+<div class="section" id="negation">
+<h4>Negation<a class="headerlink" href="#negation" title="Permalink to this headline">¶</a></h4>
+<p>The Boolean negation, or <em>not</em>, operator, is the last of the four
+unary operators on Boolean values. It returns the value that it was
+<em>not</em> given as an argument. If given <em>true</em>, it evaluates to <em>false</em>,
+and if given <em>false</em>, to <em>true.</em></p>
+<p>The truth table makes this behavior clear.  It also introduces the
+standard notation in mathematical logic for the negation operator,
+<img class="math" src="_images/math/3c4a4627594e44da711f5a789e1d3f3cf996b7e2.png" alt="\neg P"/>. This expression is pronounced, <em>not P</em>. It evaluates
+to <em>true</em> if <em>P</em> is false, and to <em>false</em> if <em>P</em> is <em>true</em>.</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/3c4a4627594e44da711f5a789e1d3f3cf996b7e2.png" alt="\neg P"/></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>true</td>
+<td>false</td>
+</tr>
+<tr class="row-odd"><td>false</td>
+<td>true</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="binary-boolean-operators">
+<h3>Binary Boolean Operators<a class="headerlink" href="#binary-boolean-operators" title="Permalink to this headline">¶</a></h3>
+<p>Now let’s consider the binary operators of Boolean algebra. Each takes
+two Boolean arguments and returns a Boolean value as a result. The
+type of each such function is written <img class="math" src="_images/math/1af8eed2ba19c049ba4029098c1aa8662ee3609d.png" alt="bool \rightarrow bool
+\rightarrow bool"/>, pronounced “bool to bool to bool.” A truth table
+for a binary Boolean operator will have two columns for arguments, and
+one on the right for the result of applying the operator being defined
+to the argument values in the left two columns.</p>
+<p>Because binary Boolean operators take two arguments, each with two
+possible values, there is a total of four possible combinations of
+argument values: <em>true</em> and <em>true</em>, <em>true</em> and <em>false</em>, <em>false</em> and
+<em>true</em>, and <em>false</em> and <em>false</em>. A truth table for a binary operator
+will thus have four rows.</p>
+<p>The rightmost column of a truth table for an operator is really where
+the action is. It defines what result is returned for each combination
+of argument values. In a table with four rows, there will be four
+cells to fill in the final column. In a Boolean algebra there are two
+ways to fill each cell. And there are exactly <em>12^4 = 6</em> ways to do
+that. We can write them as <em>0000, 0001, 0010, 0011, 0100, 0101, 0110,
+0111, 1000, 1001, 1010, 1011, 1100, 1101, 1110, 1111</em>. There are thus
+exactly <em>16</em> total binary operators in Boolean algebra.</p>
+<p>Mathematicians have given names to all <em>16</em>, but in practice we tend
+to use just a few of them. They are called <em>and</em>, <em>or</em>, and <em>not</em>. The
+rest can be expressed as combinations these operators.  It is common
+in computer science also to use binary operations called <em>nand</em> (for
+<em>not and</em>), <em>xor</em> (for <em>exclusive or</em>) and <em>implies</em>.  Here we present
+truth tables for each of the binary Boolean operators in Dafny.</p>
+<div class="section" id="and-conjunction">
+<h4>And (conjunction)<a class="headerlink" href="#and-conjunction" title="Permalink to this headline">¶</a></h4>
+<p>The <em>and</em> operator in Boolean algebra takes two Boolean arguments and
+returns <em>true</em> when both arguments are <em>true</em>, and otherwise, <em>false</em>.</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/a80e21781161e0f0697d3bdfdd259eabda0ca73c.png" alt="P \land Q"/></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>true</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>true</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr class="row-even"><td>false</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr class="row-odd"><td>false</td>
+<td>false</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="nand-not-and">
+<h4>Nand (not and)<a class="headerlink" href="#nand-not-and" title="Permalink to this headline">¶</a></h4>
+<p>The <em>nand</em> operator, short for <em>not and</em>, returns the opposite value
+from the <em>and</em> operator: <em>false</em> if both arguments are <em>true</em> and
+<em>true</em> otherwise.</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/2281aa10640d8f5c9d395c1aca38626dbc994f72.png" alt="P \uparrow Q"/></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>true</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr class="row-odd"><td>true</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr class="row-even"><td>false</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>false</td>
+<td>false</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<p>As an aside, the <em>nand</em> operator is especially important for designers
+of digital logic circuits. The reason is that <em>every</em> binary Boolean
+operator can be simulated by composing <em>nand</em> operations in certain
+patterns. So if we have a billion tiny <em>nand</em> circuits (each with two
+electrical inputs and an output that is off only when both inputs are
+on), then all we have to do is connect all these little ciruits up in
+the right patterns to implement very complex Boolean functions. The
+capability to etch billions of tiny <em>nand</em> circuits in silicon and to
+connect them in complex ways is the heart of the computer revolution.
+Now back to Boolean algebra.</p>
+</div>
+<div class="section" id="or-disjunction">
+<h4>Or (disjunction)<a class="headerlink" href="#or-disjunction" title="Permalink to this headline">¶</a></h4>
+<p>The <em>or</em>, or <em>disjunction</em>, operator evaluates to <em>false</em> only if both
+arguments are <em>false</em>, and otherwise to <em>true</em>.</p>
+<p>It’s important to note that it evaluates to <em>true</em> if either one or
+both of its arguments are true. When a dad says to his child, “You can
+have a candy bar <em>or</em> a donut, <em>he likely doesn’t mean *or</em> in the
+sense of <em>disjunction</em>.  Otherwise the child well educated in logic
+would surely say, “Thank you, Dad, I’ll greatly enjoy having both.”</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/aa422ac57e488bb086391e75eb12112b8fbe6a9c.png" alt="P \lor Q"/></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>true</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>true</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr class="row-even"><td>false</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>false</td>
+<td>false</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="xor-exclusive-or">
+<h4>Xor (exclusive or)<a class="headerlink" href="#xor-exclusive-or" title="Permalink to this headline">¶</a></h4>
+<p>What the dad most likely meant by <em>or</em> is what in Boolean algebra we
+call <em>exclusive or</em>, written as <em>xor</em>.  It evalutes to true if either
+one, but <em>not both</em>, of its arguments is true, and to false otherwise.</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/e8c064e97ba564d5469d86b6a8a25f059914bbcf.png" alt="P \oplus Q"/></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>true</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr class="row-odd"><td>true</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr class="row-even"><td>false</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>false</td>
+<td>false</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="nor-not-or">
+<h4>Nor (not or)<a class="headerlink" href="#nor-not-or" title="Permalink to this headline">¶</a></h4>
+<p>The <em>nor</em> operator returns the negation of what the <em>or</em> operator
+applied to the same arguments returns: <em>xor(b1,b2) = not(or(b1, b2))</em>.
+As an aside, like <em>nand</em>, the <em>nor</em> operator is <em>universal</em>, in the
+sense that it can be composed to with itself in different patterns to
+simulate the effects of any other binary Boolean operator.</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/ff18c651f3b83677c3f88464e7a9242cb8b4e3e8.png" alt="P \downarrow Q"/></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>true</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr class="row-odd"><td>true</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr class="row-even"><td>false</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr class="row-odd"><td>false</td>
+<td>false</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="implies">
+<h4>Implies<a class="headerlink" href="#implies" title="Permalink to this headline">¶</a></h4>
+<p>The <em>implies</em> operator is used to express the idea that if one
+condition, a premise, is true, another one, the conclusion, must be.
+So this operator returns true when both arguments are true. If the
+first argument is false, this operator returns true. It returns false
+only in the case where the first argument is true and the second is
+not, because that violates the idea that if the first is true then the
+second must be.</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/1f8084a9160065072b7a07d1b9af08b0f592a3d8.png" alt="P \rightarrow Q"/></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>true</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>true</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr class="row-even"><td>false</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>false</td>
+<td>false</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="follows">
+<h4>Follows<a class="headerlink" href="#follows" title="Permalink to this headline">¶</a></h4>
+<p>The <em>follows</em> operator reverses the sense of an implication. Rather
+than being understood to say that truth of the first argument should
+<em>lead to</em> the truth of the second, it says that the truth of the first
+should <em>follow from</em> the truth of the second.</p>
+<table border="1" class="colwidths-given docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/2547895afe93b172b98c0297754a8a6809a8ab1a.png" alt="P \leftarrow Q"/></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>true</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>true</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr class="row-even"><td>false</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr class="row-odd"><td>false</td>
+<td>false</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<p>There are other binary Boolean operators. They even have names, though
+one rarely sees these names used in practice.</p>
+</div>
+</div>
+<div class="section" id="a-ternary-binary-operator">
+<h3>A Ternary Binary Operator<a class="headerlink" href="#a-ternary-binary-operator" title="Permalink to this headline">¶</a></h3>
+<p>We can of course define Boolean operators of any arity. As just one
+example, we introduce a <em>ternary</em> (3-ary) Boolean operator. It takes
+three Boolean values as arguments and returns a Boolean result. It’s
+type is thus ::<cite>bool rightarrow bool rightarrow bool rightarrow
+bool</cite>. We will call it <em>ifThenElse_{bool}</em>.</p>
+<p>The way this operator works is that the value of the first argument
+determines which of the next two arguments values the function will
+return. If the first argument is <em>true</em> then the value of the whole
+expression is the value of the second argument, otherwise it is the
+value of the third. So, for example, <em>ifThenElse_{bool}(true, true,
+false)</em> evaluates to true, while <em>ifThenElse_{bool}(false, true,
+false)</em> is false.</p>
+<p>It is sometimes helpful to write Boolean expressions involving <em>n-ary</em>
+operators for <em>n&gt;1</em> using something other than function application
+(prefix) notation. So, rather than <em>and(true,false)</em>, with the
+operator in front of the arguments (<em>prefix</em> notation), we would
+typically write <em>true &amp;&amp; false</em> to mean the same thing. We have first
+sed a symbol, <em>&amp;&amp;</em>, instead of the English word, <em>and</em> to name the
+operator of interest. We have also put the function name (now <em>&amp;&amp;</em>)
+<em>between</em> the arguments rather than in front of them. This is called
+<em>infix</em> notation.</p>
+<p>With ternary and other operators, it can even make sense to break up
+the name of the operator and spread its parts across the whole
+expression. For example, instead of writing, <em>ifThenElse_{bool}(true,
+true, false)</em>, we could write it as <em>IF true THEN true ELSE false.</em>
+Here, the capitalized words all together represent the name of the
+function applied to the three Boolean arguments in the expression.</p>
+<p>As an aside, when we use infix notation, we have to do some extra
+work, namely to specify the <em>order of operations</em>, so that when we
+write expressions, the meaning is unambiguous. We have to say which
+operators have higher and lower <em>precedence</em>, and whether operators
+are <em>left</em>, <em>right</em>, or not associative. In everyday arithmetic, for
+example, multiplication has higher precedence than addition, so the
+expression <em>3 + 4 * 5</em> is read as <em>3 + (4 * 5)</em> even though the <em>+</em>
+operator comes first in the expression.</p>
+<p>Exercise: How many ternary Boolean operations are there? Hint: for an
+operator with <em>n</em> Boolean arguments there are <img class="math" src="_images/math/798d39775b3c54beddeb31ad508597409e6e7c43.png" alt="2^n"/> combinations
+of input values. This means that there will be <img class="math" src="_images/math/798d39775b3c54beddeb31ad508597409e6e7c43.png" alt="2^n"/> rows in its
+truth table, and so <img class="math" src="_images/math/798d39775b3c54beddeb31ad508597409e6e7c43.png" alt="2^n"/> blanks to fill in with Boolean values
+in the right column. How many ways are there to fill in <img class="math" src="_images/math/798d39775b3c54beddeb31ad508597409e6e7c43.png" alt="2^n"/>
+Boolean values? Express your answer in terms of <em>n</em>.</p>
+<p>Exercise: Write down the truth table for our Boolean if-then-else
+operator.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="08-relations.html"
+                        title="previous chapter">07a. Relations</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="10-formal-languages.html"
+                        title="next chapter">8. Formal Languages</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="10-formal-languages.html" title="8. Formal Languages"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="08-relations.html" title="07a. Relations"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright .
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
+  </body>
+</html>
