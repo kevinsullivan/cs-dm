@@ -1,6 +1,6 @@
-*************************************
-12. Quantification: First-Order Logic
-*************************************
+*********************************
+Quantification: First-Order Logic
+*********************************
 
 We now address quantifiers with some care.  We've been seeing and
 using them all along, of course. What we do in this chapter is to

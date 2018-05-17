@@ -1,6 +1,6 @@
-*********************************************
-5. Formal Verification of Imperative Programs
-*********************************************
+******************************************
+Formal Verification of Imperative Programs
+******************************************
 
 In this chapter, we first elaborate on the idea that pure functional
 programming make for mathematically clear but potentially inefficient

@@ -1,6 +1,6 @@
-******************************************************
-4. Pure Functional Programming as Runnable Mathematics
-******************************************************
+***************************************************
+Pure Functional Programming as Runnable Mathematics
+***************************************************
 
 What we'd really like would be a language that gives us everything:
 the expressiveness and the *safety* of mathematical logic (there's no

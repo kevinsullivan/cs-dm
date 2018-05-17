@@ -1,6 +1,6 @@
-******************
-8. Boolean Algebra
-******************
+***************
+Boolean Algebra
+***************
 
 As a first stepping stone toward a deeper exploration of deductive
 logic, we explore the related notion of Boolean *algebra*. Boolean

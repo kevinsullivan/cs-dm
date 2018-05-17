@@ -1,6 +1,6 @@
-***************************************************
-1. Requirement, Specifications, and Implementations
-***************************************************
+************************************************
+Requirement, Specifications, and Implementations
+************************************************
 
 
 Software is an increasingly critical component of major societal

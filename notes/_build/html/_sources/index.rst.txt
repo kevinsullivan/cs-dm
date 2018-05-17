@@ -7,7 +7,7 @@ Welcome to Mathematical Logic in Software Development
 =====================================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
    01-reqs-specs-impls
@@ -24,9 +24,12 @@ Welcome to Mathematical Logic in Software Development
    12-satisfiability
    13-consequence
    14-predicate-logic
-   15-natural-deduction
+   15-proofs
    16-equality
-   17-induction
+   17-inequality
+   18-existence
+   19-univeral
+   20-termination
 
 Indices and tables
 ==================

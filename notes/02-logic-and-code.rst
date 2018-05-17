@@ -1,6 +1,6 @@
-*****************************************************
-2. Logical Specifications, Imperative Implementations
-*****************************************************
+**************************************************
+Logical Specifications, Imperative Implementations
+**************************************************
 
 We've discussed requirements, specifications, and implementations as
 distinct artifacts that serve distinct purposes. For good reasons,

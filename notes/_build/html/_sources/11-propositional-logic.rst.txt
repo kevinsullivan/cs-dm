@@ -1,6 +1,6 @@
-**********************
-9. Propositional Logic
-**********************
+*******************
+Propositional Logic
+*******************
 
 Here is a proposition: "Tom's mother is Mary." A proposition asserts
 that a particular *state of affairs* holds in some particular *domain

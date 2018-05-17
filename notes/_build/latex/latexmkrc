@@ -1,5 +1,5 @@
-$latex = 'latex ' . $ENV{'LATEXOPTS'} . ' %O %S';
-$pdflatex = 'pdflatex ' . $ENV{'LATEXOPTS'} . ' %O %S';
+$latex = 'xelatex --no-pdf ' . $ENV{'LATEXOPTS'} . ' %O %S';
+$pdflatex = 'xelatex ' . $ENV{'LATEXOPTS'} . ' %O %S';
 $lualatex = 'lualatex ' . $ENV{'LATEXOPTS'} . ' %O %S';
 $xelatex = 'xelatex --no-pdf ' . $ENV{'LATEXOPTS'} . ' %O %S';
 $makeindex = 'makeindex -s python.ist %O -o %D %S';

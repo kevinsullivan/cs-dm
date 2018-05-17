@@ -1,6 +1,6 @@
-*****************
-8. Satisfiability
-*****************
+******************
+12. Satisfiability
+******************
 
 We can now characterize the most important *open question* (unsolved
 mathematical problem) in computer science.  Is there an *efficient*
@@ -53,7 +53,7 @@ given proposition. It does it by getting a sequence of all the
 variables in the expression and by then calling a helper function,
 truth_table_inputs_for_vars, which does most of the work.
 
-
+.. code-block:: dafny
     
     method truth_table_inputs_for_prop(p: prop) 
         returns (result: seq<pInterpretation>)
@@ -77,6 +77,8 @@ variables to that variable's bool value under the given
 interpretation. In other words, this method returns the "input" parts
 of each row of a truth table for the given propositional variables.
 
+    
+.. code-block:: dafny
     
     method truth_table_inputs_for_vars(vs: seq<propVar>) 
         returns (result: seq<pInterpretation>)
@@ -111,11 +113,13 @@ The All-False Interpetation
 ===========================
 
 
-     /*
-        Return an interpretation for the variables in 
-        the sequence vs such that every variable maps 
-        to false.
-    */
+Return an interpretation for the variables in the sequence vs such
+that every variable maps to false.
+
+
+.. code-block:: dafny
+
+
     method all_false_interp(vs: seq<propVar>) 
         returns (result: pInterpretation)
         ensures forall v :: v in vs ==> v in result //kjs
@@ -135,6 +139,9 @@ The All-False Interpetation
 
 HuH???
 ======
+
+
+.. code-block:: dafny
 
 
     method truth_table_inputs_for_props(ps: seq<prop>) 
@@ -157,6 +164,9 @@ variables, computes a "next" interpretation.  Treat the sequence of
 values as a binary integer and increment it by one. Any variables in
 vs that are not in interp are ignored. Would be better to enforce a
 pre-condition to rule out this possibility.
+
+.. code-block:: dafny
+
 
     method next_interp(vs: seq<propVar>, interp: pInterpretation) 
         returns (result: pInterpretation)
@@ -188,6 +198,9 @@ pre-condition to rule out this possibility.
 Print Truth Table for a Propositional Logic Proposition
 =======================================================
 
+.. code-block:: dafny
+
+
     method show_truth_table_for_prop(p: prop, ord: seq<propVar>, labels: bool)
         requires forall v :: v in getVarsInProp(p) ==> v in ord; // kjs
     {
@@ -216,6 +229,9 @@ Utility Routine
 Compute and return 2^n given n.
 
 
+.. code-block:: dafny
+
+
     function method pow2(n: nat): (r: nat)
         ensures r >= 1
     { 
@@ -227,19 +243,18 @@ Compute and return 2^n given n.
 Models
 ------
 
-    /*
-    This important method returns a sequence 
-    containing all (and only) the models of the
-    given proposition. It works by generating a
-    sequence of all possible interpretations for
-    the variables in the proposition (this is the
-    purpose of truth_table_inputs), and by then
-    passing these interpretations, the proposition,
-    and an empty list of models to the helper
-    function, which augments that empty list with
-    each of the interpretations for which the
-    proposition evaluates to true.
-    */
+This important method returns a sequence containing all (and only) the
+models of the given proposition. It works by generating a sequence of
+all possible interpretations for the variables in the proposition
+(this is the purpose of truth_table_inputs), and by then passing these
+interpretations, the proposition, and an empty list of models to the
+helper function, which augments that empty list with each of the
+interpretations for which the proposition evaluates to true.  */
+
+
+.. code-block:: dafny
+
+
     method get_models(p: prop) returns 
         (r: seq<pInterpretation>)
     {
@@ -249,12 +264,13 @@ Models
         
     }
 
-    /*
-    This method iterates through a list of interpretations
-    and appends each one, for which the given proposition, 
-    e, evaluates to true, to the list, acc, which is then
-    returned.
-    */
+This method iterates through a list of interpretations and appends
+each one, for which the given proposition, e, evaluates to true, to
+the list, acc, which is then returned.
+
+
+.. code-block:: dafny
+
    method get_models_helper(tt_inputs: seq<pInterpretation>, p: prop, acc: seq<pInterpretation>) 
         returns (r: seq<pInterpretation>)
         requires forall v :: v in getVarsInProp(p) ==> 
@@ -279,12 +295,13 @@ Models
 Satisfiability, Unsatisfiability, Validity
 ------------------------------------------
 
-    /*
-    Return true (and an empty interpretation) if the given
-    Boolean expression is valid, otherwise return false with
-    a counter-example, i.e., an interpretation for which the
-    given expression is false
-    */
+Return true (and an empty interpretation) if the given Boolean
+expression is valid, otherwise return false with a counter-example,
+i.e., an interpretation for which the given expression is false.
+
+.. code-block:: dafny
+
+
     method satisfiable(e: prop) returns (result: bool, 
                                          models: seq<pInterpretation>)
     {
@@ -293,11 +310,12 @@ Satisfiability, Unsatisfiability, Validity
         return false, [];
     }
 
-    /*
-    Return true (and an empty interpretation) if e is unsatisfiable,
-    otherwise return false and a counterexample, i.e., a model, i.e.,
-    an interpretation, that makes the expression true.
-    */
+Return true (and an empty interpretation) if e is unsatisfiable,
+otherwise return false and a counterexample, i.e., a model, i.e., an
+interpretation, that makes the expression true.
+
+.. code-block:: dafny
+
     method unsatisfiable(e: prop) 
         returns (result: bool, 
                  counters: seq<pInterpretation>)
@@ -307,18 +325,17 @@ Satisfiability, Unsatisfiability, Validity
         return !hasModels, counters;
     }
 
-    /*
-    A proposition is valid if it's true under every
-    interpretation. If it's not valid, then there will
-    be some interpretation under which it's false. In
-    this case, the negation of the proposition will be
-    true under that interpretation, and it will thus be
-    a counterexample to the claim that the proposition 
-    is valid. If such a "witness" to the invalidity of
-    the original proposition is found, return false to
-    the question of validity, along with the witnesses
-    to invalidity.
-    */
+A proposition is valid if it's true under every interpretation. If
+it's not valid, then there will be some interpretation under which
+it's false. In this case, the negation of the proposition will be true
+under that interpretation, and it will thus be a counterexample to the
+claim that the proposition is valid. If such a "witness" to the
+invalidity of the original proposition is found, return false to the
+question of validity, along with the witnesses to invalidity.
+
+
+.. code-block:: dafny
+
     method valid(e: prop) returns (result: bool, 
                                    counters: seq<pInterpretation>)
     {
@@ -327,14 +344,14 @@ Satisfiability, Unsatisfiability, Validity
         return !negIsSat, counters;
     }
  
-    /*
-    Invalidity means there's a witness to the negation 
-    of the main propositions, i.e., that the negation 
-    is satisfiable. Try to satisfy it and return results
-    and counterexamples (models of the negated prop) 
-    accordingly.
+Invalidity means there's a witness to the negation of the main
+propositions, i.e., that the negation is satisfiable. Try to satisfy
+it and return results and counterexamples (models of the negated prop)
+accordingly.
 
-    */
+
+.. code-block:: dafny
+
     method invalid(e: prop) returns (result: bool, 
                              counters: seq<pInterpretation>)
     {

@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>07a. Relations &#8212; Discrete Mathematics for Software Professionals 1 documentation</title>
+    <title>Relations &#8212; Discrete Mathematics 1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -24,8 +24,8 @@
     <script type="text/javascript" src="_static/sidebar.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="8. Boolean Algebra" href="09-boolean-algebra.html" />
-    <link rel="prev" title="7. Set Theory" href="07-set-theory.html" /> 
+    <link rel="next" title="Boolean Algebra" href="09-boolean-algebra.html" />
+    <link rel="prev" title="Set Theory" href="07-set-theory.html" /> 
   </head>
   <body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -35,12 +35,12 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="09-boolean-algebra.html" title="8. Boolean Algebra"
+          <a href="09-boolean-algebra.html" title="Boolean Algebra"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="07-set-theory.html" title="7. Set Theory"
+          <a href="07-set-theory.html" title="Set Theory"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -49,8 +49,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="a-relations">
-<h1>07a. Relations<a class="headerlink" href="#a-relations" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="relations">
+<h1>Relations<a class="headerlink" href="#relations" title="Permalink to this headline">¶</a></h1>
 <p>A relation in nothing but a subset of (the tuples in) a product set. A
 table such as the one just described, will, in practice, usually not
 have a row with every possible combination of names, birthdays, and
@@ -205,8 +205,9 @@ function is defined, to get a single result.
 }
 </pre></div>
 </div>
-<div class="section" id="inverse">
-<h3>Inverse<a class="headerlink" href="#inverse" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="inverse-of-a-binary-relation">
+<h2>Inverse of a Binary Relation<a class="headerlink" href="#inverse-of-a-binary-relation" title="Permalink to this headline">¶</a></h2>
 <p>The inverse of a given binary relation is simply the set of tuples
 formed by reversing the order of all of the given tuples. To put this
 in mathematical notation, if <em>R</em> is a relation, its inverse, denoted
@@ -240,7 +241,6 @@ this sense. In fact, its inverse is itself.</p>
 <p>Exercise: Write a definition in mathematical logic of what precisely
 it means for a function to be invertible. Model your definition on our
 definition of what it means for a relation to be single valued.</p>
-</div>
 </div>
 <div class="section" id="functions-single-valued-relations">
 <h2>Functions: <em>Single-Valued</em> Relations<a class="headerlink" href="#functions-single-valued-relations" title="Permalink to this headline">¶</a></h2>
@@ -996,7 +996,7 @@ relation.</p>
 <p>This notion, which sounds somewhat like an oxymoron, is not very
 commonly used in mathematics, but it is in programming. The “strict”
 just means it is the irreflexive form “&lt;” of the comparison rather
-than the reflexive “≤”. The “weak” means that the absence of both a&lt;b
+than the reflexive “&lt;=”. The “weak” means that the absence of both a&lt;b
 and b&lt;a do not imply that a=b. However as explained here, the relation
 that neither a&lt;b nor b&lt;a holds is required to be an equivalence
 relation. The strict weak ordering then induces a (strict) total
@@ -1009,14 +1009,15 @@ this defines a strict weak order, since different persons may have
 identical names; the relation of having identical names is an
 equivalence relation.</p>
 <p>One can easily show that for a strict weak ordering “&lt;”, the relation
-a≮b is (reflexive and) transitive, so it is a pre-order,and the
-associated equivalence relation is the same as the one associated
-above to the strict weak ordering. In fact “a≮b” is a total pre-order
-which induces the same total ordering (or maybe it is better to say
-the opposite ordering, in view of the negation) on its equivalence
-classes as the strict weak ordering does. I think I just explained
-that the notions of strict weak ordering and total pre-order are
-equivalent. The WP article also does a reasonable job explaining this.</p>
+a !&lt; b (a not less than b) is (reflexive and) transitive, so it is a
+pre-order,and the associated equivalence relation is the same as the
+one associated above to the strict weak ordering. In fact “a !&lt; b” is
+a total pre-order which induces the same total ordering (or maybe it
+is better to say the opposite ordering, in view of the negation) on
+its equivalence classes as the strict weak ordering does. I think I
+just explained that the notions of strict weak ordering and total
+pre-order are equivalent. The WP article also does a reasonable job
+explaining this.</p>
 <p>Marc van Leeuwen: If you are comparing strings, then you would often
 just define a total ordering (which is a special case of a strict weak
 ordering) like lexicographic ordering. However, it could be that you
@@ -1186,48 +1187,6 @@ then y=z.</p>
 </div>
 </div>
 </div>
-<div class="section" id="sequences">
-<h2>Sequences<a class="headerlink" href="#sequences" title="Permalink to this headline">¶</a></h2>
-<p>A sequence of elements is an ordered collection in which elements can
-appear zero or more times. In both mathematical writing and in Dafny,
-sequences are often denoted as lists of elements enclosed in square
-brackets.  The same kinds of elisions (using elipses) can be used as
-shorthands in quasi-formal mathematical writing as with set notation.
-For example, in Dafny, a sequence <em>s := [1, 2, 3, 1]</em> is a sequence of
-integers, of length four, the elements of which can be referred to by
-subscripting. So <em>s[0]</em> is <em>1</em>, for example, as is <em>s[3]</em>.</p>
-<p>While at first a sequence might seem like an entirely different kind
-of thing than a set, in reality a sequence of length, <em>n</em>, is best
-understood, and is formalized, as a binary relation. The domain of the
-relation is the sequence of natural numbers from <em>0</em> to <em>n-1</em>.  These
-are the index values. The relation then associates each such index
-value with the value in that position in the sequence. So in reality,
-a sequence is a special case of a binary relation, and a binary
-relation is, as we’ve seen, just a special case of a set.  So here we
-are, at the end of this chapter, closing the loop with where we
-started. We have seen that the concept of sets really is a fundamental
-concept, and a great deal of other machinery is then built as using
-special cases, including relations, maps, and sequences.</p>
-<p>Tuples, too, are basically maps from indices to values. Whereas all
-the values in a sequence are necessarily of the same type, elements in
-a tuple can be of different types. Tuples also use the <em>.n</em> notation
-to apply projection functions to tuples. So, again, the value of, say,
-<em>(“hello”, 7).1</em> is <em>7</em> (of type <em>int</em>), while the value of
-<em>(“hello”, 7).0</em> is the string, “hello.”</p>
-<p>Sequences also support operations not supported for bare sets. These
-include sequence <em>concatenation</em> (addition, in which one sequence is
-appended to another to make a new sequence comprising the first one
-followed by the second. In Dafny, concatenation of sequences is done
-using the <em>+</em> operator. Dafny also has operations for accessing the
-individual elements of sequences, as well as subsequences. A given
-subsequence is obtained by taking a prefix of a suffix of a sequence.
-See the Dafny language summary for examples of these and other related
-operations on lists.</p>
-</div>
-<div class="section" id="maps">
-<h2>Maps<a class="headerlink" href="#maps" title="Permalink to this headline">¶</a></h2>
-<p>Fill in.</p>
-</div>
 <div class="section" id="composition-of-relations">
 <h2>Composition of Relations<a class="headerlink" href="#composition-of-relations" title="Permalink to this headline">¶</a></h2>
 <p>Return the relation g composed with this relation, (g o this). The
@@ -1379,6 +1338,9 @@ Under-informative specification.</p>
 </pre></div>
 </div>
 </div>
+</div>
+<div class="section" id="reductions">
+<h2>Reductions<a class="headerlink" href="#reductions" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="reflexive-reduction">
 <h3>Reflexive Reduction<a class="headerlink" href="#reflexive-reduction" title="Permalink to this headline">¶</a></h3>
 <p>The reflexive reduction of a relation is the relation
@@ -1424,6 +1386,48 @@ method.</p>
 </pre></div>
 </div>
 </div>
+<div class="section" id="sequences">
+<h2>Sequences<a class="headerlink" href="#sequences" title="Permalink to this headline">¶</a></h2>
+<p>A sequence of elements is an ordered collection in which elements can
+appear zero or more times. In both mathematical writing and in Dafny,
+sequences are often denoted as lists of elements enclosed in square
+brackets.  The same kinds of elisions (using elipses) can be used as
+shorthands in quasi-formal mathematical writing as with set notation.
+For example, in Dafny, a sequence <em>s := [1, 2, 3, 1]</em> is a sequence of
+integers, of length four, the elements of which can be referred to by
+subscripting. So <em>s[0]</em> is <em>1</em>, for example, as is <em>s[3]</em>.</p>
+<p>While at first a sequence might seem like an entirely different kind
+of thing than a set, in reality a sequence of length, <em>n</em>, is best
+understood, and is formalized, as a binary relation. The domain of the
+relation is the sequence of natural numbers from <em>0</em> to <em>n-1</em>.  These
+are the index values. The relation then associates each such index
+value with the value in that position in the sequence. So in reality,
+a sequence is a special case of a binary relation, and a binary
+relation is, as we’ve seen, just a special case of a set.  So here we
+are, at the end of this chapter, closing the loop with where we
+started. We have seen that the concept of sets really is a fundamental
+concept, and a great deal of other machinery is then built as using
+special cases, including relations, maps, and sequences.</p>
+<p>Tuples, too, are basically maps from indices to values. Whereas all
+the values in a sequence are necessarily of the same type, elements in
+a tuple can be of different types. Tuples also use the <em>.n</em> notation
+to apply projection functions to tuples. So, again, the value of, say,
+<em>(“hello”, 7).1</em> is <em>7</em> (of type <em>int</em>), while the value of
+<em>(“hello”, 7).0</em> is the string, “hello.”</p>
+<p>Sequences also support operations not supported for bare sets. These
+include sequence <em>concatenation</em> (addition, in which one sequence is
+appended to another to make a new sequence comprising the first one
+followed by the second. In Dafny, concatenation of sequences is done
+using the <em>+</em> operator. Dafny also has operations for accessing the
+individual elements of sequences, as well as subsequences. A given
+subsequence is obtained by taking a prefix of a suffix of a sequence.
+See the Dafny language summary for examples of these and other related
+operations on lists.</p>
+</div>
+<div class="section" id="maps">
+<h2>Maps<a class="headerlink" href="#maps" title="Permalink to this headline">¶</a></h2>
+<p>Fill in.</p>
+</div>
 </div>
 
 
@@ -1434,10 +1438,10 @@ method.</p>
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="07-set-theory.html"
-                        title="previous chapter">7. Set Theory</a></p>
+                        title="previous chapter">Set Theory</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="09-boolean-algebra.html"
-                        title="next chapter">8. Boolean Algebra</a></p>
+                        title="next chapter">Boolean Algebra</a></p>
         </div>
       </div>
       <div class="clearer"></div>
@@ -1449,12 +1453,12 @@ method.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="09-boolean-algebra.html" title="8. Boolean Algebra"
+          <a href="09-boolean-algebra.html" title="Boolean Algebra"
              >next</a> |</li>
         <li class="right" >
-          <a href="07-set-theory.html" title="7. Set Theory"
+          <a href="07-set-theory.html" title="Set Theory"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

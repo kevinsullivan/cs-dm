@@ -1,6 +1,6 @@
-********************************
-3. Problems with Imperative Code
-********************************
+*****************************
+Problems with Imperative Code
+*****************************
 
 There's no free lunch: One can have the expressiveness of mathematical
 logic, useful for specification, or one can have the ability to run

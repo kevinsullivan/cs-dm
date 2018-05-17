@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>&lt;no title&gt; &#8212; Discrete Mathematics for Software Professionals 1 documentation</title>
+    <title>Proofs of Existence &#8212; Discrete Mathematics 1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -23,8 +23,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/sidebar.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="PROOFS OF EQUALITY" href="16-equality.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
   </head>
   <body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -33,10 +32,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="16-equality.html" title="PROOFS OF EQUALITY"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -45,16 +41,31 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  
+  <div class="section" id="proofs-of-existence">
+<h1>Proofs of Existence<a class="headerlink" href="#proofs-of-existence" title="Permalink to this headline">¶</a></h1>
+<p>Predicate logic allows for existentially quantified propositions. For
+a simple example, one might claim that there exists a natural number,
+$n$, such that $n = 3 + 1$. That is <img class="math" src="_images/math/f022e09fd7aac07e725e603e3cbd19e666e220b8.png" alt="\exists n, n = 3 + 1"/>. In
+the constructive logic of Lean, and in type theory more generally, a
+proof of such a proposition is a basically pair. The first element of
+such a pair is a value that satisfies the given condition. We call a
+value of this kind a <em>witness</em>. The second element of the pair is a
+<em>proof</em> that that particular value satisifies the condition.</p>
+<p>There is a witness in this case. It’s the number, <em>4</em>. And there is a
+proof that $4 = 3 + 1$, namely $rfl$. The proof of the proposition,
+<img class="math" src="_images/math/f022e09fd7aac07e725e603e3cbd19e666e220b8.png" alt="\exists n, n = 3 + 1"/> is thus, in essence, the ordered pair,
+$(4, rfl)$. In this chapter we explain these ideas in more detail and
+show how to construct such proofs in Lean. We end with a discussion of
+differences in existence proofs in constructive and classical logic.</p>
+<p>More to come.</p>
+</div>
+
 
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="16-equality.html"
-                        title="previous chapter">PROOFS OF EQUALITY</a></p>
         </div>
       </div>
       <div class="clearer"></div>
@@ -65,10 +76,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
-        <li class="right" >
-          <a href="16-equality.html" title="PROOFS OF EQUALITY"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics for Software Professionals 1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

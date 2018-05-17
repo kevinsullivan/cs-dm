@@ -1,7 +1,6 @@
-**************
-07a. Relations
-**************
-
+*********
+Relations
+*********
 
 A relation in nothing but a subset of (the tuples in) a product set. A
 table such as the one just described, will, in practice, usually not
@@ -184,8 +183,8 @@ relation maps k to at least one value in the codomain.
             ret := r.fimage(k);
         }
 
-Inverse
--------
+Inverse of a Binary Relation
+============================
 
 The inverse of a given binary relation is simply the set of tuples
 formed by reversing the order of all of the given tuples. To put this
@@ -1124,7 +1123,7 @@ From StackOverflow:
 This notion, which sounds somewhat like an oxymoron, is not very
 commonly used in mathematics, but it is in programming. The "strict"
 just means it is the irreflexive form "<" of the comparison rather
-than the reflexive "≤". The "weak" means that the absence of both a<b
+than the reflexive "<=". The "weak" means that the absence of both a<b
 and b<a do not imply that a=b. However as explained here, the relation
 that neither a<b nor b<a holds is required to be an equivalence
 relation. The strict weak ordering then induces a (strict) total
@@ -1139,14 +1138,15 @@ identical names; the relation of having identical names is an
 equivalence relation.
 
 One can easily show that for a strict weak ordering "<", the relation
-a≮b is (reflexive and) transitive, so it is a pre-order,and the
-associated equivalence relation is the same as the one associated
-above to the strict weak ordering. In fact "a≮b" is a total pre-order
-which induces the same total ordering (or maybe it is better to say
-the opposite ordering, in view of the negation) on its equivalence
-classes as the strict weak ordering does. I think I just explained
-that the notions of strict weak ordering and total pre-order are
-equivalent. The WP article also does a reasonable job explaining this.
+a !< b (a not less than b) is (reflexive and) transitive, so it is a
+pre-order,and the associated equivalence relation is the same as the
+one associated above to the strict weak ordering. In fact "a !< b" is
+a total pre-order which induces the same total ordering (or maybe it
+is better to say the opposite ordering, in view of the negation) on
+its equivalence classes as the strict weak ordering does. I think I
+just explained that the notions of strict weak ordering and total
+pre-order are equivalent. The WP article also does a reasonable job
+explaining this.
 
 Marc van Leeuwen: If you are comparing strings, then you would often
 just define a total ordering (which is a special case of a strict weak
@@ -1354,58 +1354,6 @@ then y=z.
         }
 
 	
-Sequences
-=========
-
-A sequence of elements is an ordered collection in which elements can
-appear zero or more times. In both mathematical writing and in Dafny,
-sequences are often denoted as lists of elements enclosed in square
-brackets.  The same kinds of elisions (using elipses) can be used as
-shorthands in quasi-formal mathematical writing as with set notation.
-For example, in Dafny, a sequence *s := [1, 2, 3, 1]* is a sequence of
-integers, of length four, the elements of which can be referred to by
-subscripting. So *s[0]* is *1*, for example, as is *s[3]*.
-
-While at first a sequence might seem like an entirely different kind
-of thing than a set, in reality a sequence of length, *n*, is best
-understood, and is formalized, as a binary relation. The domain of the
-relation is the sequence of natural numbers from *0* to *n-1*.  These
-are the index values. The relation then associates each such index
-value with the value in that position in the sequence. So in reality,
-a sequence is a special case of a binary relation, and a binary
-relation is, as we've seen, just a special case of a set.  So here we
-are, at the end of this chapter, closing the loop with where we
-started. We have seen that the concept of sets really is a fundamental
-concept, and a great deal of other machinery is then built as using
-special cases, including relations, maps, and sequences.
-
-Tuples, too, are basically maps from indices to values. Whereas all
-the values in a sequence are necessarily of the same type, elements in
-a tuple can be of different types. Tuples also use the *.n* notation
-to apply projection functions to tuples. So, again, the value of, say,
-*("hello", 7).1* is *7* (of type *int*), while the value of
-*("hello", 7).0* is the string, "hello." 
-
-Sequences also support operations not supported for bare sets. These
-include sequence *concatenation* (addition, in which one sequence is
-appended to another to make a new sequence comprising the first one
-followed by the second. In Dafny, concatenation of sequences is done
-using the *+* operator. Dafny also has operations for accessing the
-individual elements of sequences, as well as subsequences. A given
-subsequence is obtained by taking a prefix of a suffix of a sequence.
-See the Dafny language summary for examples of these and other related
-operations on lists.
-
-
-
-Maps
-====
-
-
-Fill in.
-
-
-
 Composition of Relations
 ========================
 
@@ -1574,6 +1522,9 @@ Reflexive Transitive Symmetric closure
         }
  
 
+Reductions
+==========
+
 Reflexive Reduction
 -------------------
 
@@ -1626,4 +1577,56 @@ method.
             r := new binRelOnS(X, set x, y | x in dom() && y in dom() && 
                 (x, y) in rel() && x in X && y in X :: (x, y));
         }
+
+Sequences
+=========
+
+A sequence of elements is an ordered collection in which elements can
+appear zero or more times. In both mathematical writing and in Dafny,
+sequences are often denoted as lists of elements enclosed in square
+brackets.  The same kinds of elisions (using elipses) can be used as
+shorthands in quasi-formal mathematical writing as with set notation.
+For example, in Dafny, a sequence *s := [1, 2, 3, 1]* is a sequence of
+integers, of length four, the elements of which can be referred to by
+subscripting. So *s[0]* is *1*, for example, as is *s[3]*.
+
+While at first a sequence might seem like an entirely different kind
+of thing than a set, in reality a sequence of length, *n*, is best
+understood, and is formalized, as a binary relation. The domain of the
+relation is the sequence of natural numbers from *0* to *n-1*.  These
+are the index values. The relation then associates each such index
+value with the value in that position in the sequence. So in reality,
+a sequence is a special case of a binary relation, and a binary
+relation is, as we've seen, just a special case of a set.  So here we
+are, at the end of this chapter, closing the loop with where we
+started. We have seen that the concept of sets really is a fundamental
+concept, and a great deal of other machinery is then built as using
+special cases, including relations, maps, and sequences.
+
+Tuples, too, are basically maps from indices to values. Whereas all
+the values in a sequence are necessarily of the same type, elements in
+a tuple can be of different types. Tuples also use the *.n* notation
+to apply projection functions to tuples. So, again, the value of, say,
+*("hello", 7).1* is *7* (of type *int*), while the value of
+*("hello", 7).0* is the string, "hello." 
+
+Sequences also support operations not supported for bare sets. These
+include sequence *concatenation* (addition, in which one sequence is
+appended to another to make a new sequence comprising the first one
+followed by the second. In Dafny, concatenation of sequences is done
+using the *+* operator. Dafny also has operations for accessing the
+individual elements of sequences, as well as subsequences. A given
+subsequence is obtained by taking a prefix of a suffix of a sequence.
+See the Dafny language summary for examples of these and other related
+operations on lists.
+
+
+
+Maps
+====
+
+
+Fill in.
+
+
 

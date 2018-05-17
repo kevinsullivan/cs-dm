@@ -1,6 +1,6 @@
-===============
- 7. Set Theory
-===============
+============
+ Set Theory
+============
 
 Modern mathematics is largely founded on set theory: in particular, on
 what is called *Zermelo-Fraenkel set theory with the axiom of Choice*,

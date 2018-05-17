@@ -17,9 +17,9 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
+import os
+import sys
+sys.path.insert(0, os.path.abspath('.'))
 
 
 # -- General configuration ------------------------------------------------
@@ -35,6 +35,7 @@ extensions = [
                 'sphinx.ext.githubpages'
               , 'sphinx.ext.imgmath'
               , 'sphinx.ext.graphviz'
+              , 'lean_sphinx'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -50,7 +51,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'Discrete Mathematics for Software Professionals'
+project = 'Discrete Mathematics'
 ecopyright = '2018, Kevin Sullivan'
 author = 'Kevin Sullivan'
 
@@ -59,7 +60,7 @@ author = 'Kevin Sullivan'
 # built documents.
 #
 # The short X.Y version.
-version = '0.1'
+version = '0.2'
 # The full version, including alpha/beta/rc tags.
 release = '1'
 
@@ -131,6 +132,9 @@ htmlhelp_basename = 'MathematicalLogicinSoftwareDevelopmentdoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
+
+# sullivan
+latex_engine = 'xelatex'
 
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').

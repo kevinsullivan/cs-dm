@@ -2,44 +2,21 @@
 Natural Deduction
 *****************
 
-ABOVE IS RAW
-============
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Deductive logical reasoning involves arguments of a very specific
 form, based on the idea that: if one is in a context in which a set of
 propositions (called "premises") are true, then it is necessarily the
 case that another proposition, called a "conclusion", must also be
 true."
 
-
-Named Inference Rules and Syntactic Entailment
-==============================================
-
 We represent such an argument in the form of what we will call an
 inference rule. An inference rule asserts that if each premise in a
 given list of premises is true, then a given conclusion must also be
 true. We represent such an inference fule textually like this.
     
-    [ list of premises ]
-    --------------------  name_of_rule
-          conclusion
+.. math::
+
+   \prftree[r]{name-of-rule}{list\ of\ premises}{conclusion}
+
 
 Above the line is the context: a list of premises. Below the line is
 the conclusion. To the right of this context/conclusion pair is a name
@@ -51,10 +28,10 @@ proposition, P, is true, and we know that a proposition Q is true,
 then it must be that the proposition P /\ Q is also true. Here's how
 we'd write this rule.
 
-     P, Q
-    ------  and_intro
-    P /\ Q
-              
+.. math::
+
+   \prftree[r]{and-intro}{P}{Q}{P \land Q}
+
 Valid inference rules, such as and_intro, provide us with powerful
 means for logical reasoning. But not every proposed inference rule is
 valid. Here's an example. It's not that case in general that if P
@@ -63,11 +40,11 @@ Thus is such a classic example of an invalid form of reasoning that
 logicians have given it a name: denying the antecedent. (Antecedent is
 another name for premise.) Here's how we'd write this bad rule.
 
-     P -> Q
-    --------  deny_antecedent
-    ~P -> ~Q
+.. math::
 
-Consider sn example of this for of reasoning to understand that it's
+   \prftree[r]{deny-antecedent}{P \rightarrow Q}{{\neg P} \rightarrow {\neg Q}}
+
+Consider an example of this for of reasoning to understand that it's
 not valid. While it's true that "if it's raining outside the ground is
 wet", that doesn't mean that "if the ground is wet then it must be
 raining outside." There might be other reasons for wet ground, such as
@@ -104,9 +81,12 @@ Aristotle's Logic
 Among the valid rules, two important ones originated with Aristotle:
 syllogism and modus ponens. Here they are
 
-    P -> Q, Q -> R
-    --------------  syllogism
-        P -> R
+Syllogism
+---------
+
+.. math::
+
+   \prftree[r]{syllogism}{P \rightarrow Q}{Q \rightarrow R}{P \rightarrow R}
 
 This rule says that if from P you can deduce Q and if from Q you can
 deduce R, then from P you can deduce R directly. Another way to state
@@ -116,11 +96,14 @@ this rule using truth tables, we convert it into the implication, ((P
 and our validity checker will show it to be true under all
 interpretations.
 
+Modus Ponens
+------------
+
 And here's modus ponens, also known as -> (arrow) elimination. 
 
-    P -> Q, P
-    --------- modus ponens (-> elimination)
-        Q
+.. math::
+
+   \prftree[r]{modus\ ponens}{P \rightarrow Q}{P}{Q}
 
 It says that if you know it's true that from P you can deduce Q, and
 if you also know that P is true, then you can deuce that Q must be
@@ -147,8 +130,8 @@ needed for this unit was representing inference rules, converting them
 into propositional logic propositions, and formatting them for nice
 output. These functions are implemented in consequence.dfy. 
     
-Context
-=======
+Named Inference Rule
+====================
 
 In the field of logic and proof, the term "context" generally refers
 to a set of propositions that are already judged or assumed to be
@@ -164,11 +147,10 @@ logical reasoning system would represent context not as a list but as
 a multiset (bag) of propositions, but for our purposes here, a list is
 just fine.
 
-    type context = seq<prop>
+.. code-block:: dafny
 
+	type context = seq<prop>
 
-Named Inference Rule
-====================
 
 With a representation of a context in hand, we new specify a
 representation for an inference rule as a named context/conclusion
@@ -181,6 +163,7 @@ type alias (a shorthand) for this type. We then define nicely named
 functions for getting the values of the fields of objects of this
 type.
 
+.. code-block:: dafny
     
     type inference_rule = ((context, prop), string)
 
@@ -203,6 +186,8 @@ proposition; (2) forming an implication proposition stating that the
 "and" of all the premises implies the conclusion; (3) by then then
 checking to determine whether this implication is logically valid;
 and (4) returning the result as a bool.
+
+.. code-block:: dafny
 
     method isValid(r: inference_rule) returns (validity: bool)
     {
@@ -233,6 +218,8 @@ please review the Dafny programming notes on sequences. (It means the
 sublist starting from the second element, at index 1, to the end of
 the list).
 
+.. code-block:: dafny
+
     function method conjoinPremises(premises: seq<prop>): prop
     {
         if |premises|==0 then pTrue
@@ -241,8 +228,8 @@ the list).
 
 
 
-Natural Deduction Inference Rules
-=================================
+Syntactic Entailment and the Rules of Natural Deduction
+=======================================================
 
 Inference rules good for classical and constructive logic
 ---------------------------------------------------------
@@ -252,30 +239,76 @@ A few rules involving negation elimination are valid only
 in classical logic, but at the cost of extractability. KS:
 check and explain.
 
-True and False Introduction and Elimination Rules
-+++++++++++++++++++++++++++++++++++++++++++++++++
+True Introduction
++++++++++++++++++
+
+.. math::
+
+   \prftree[r]{true\ introduction}{true}
+
+.. code-block:: dafny
 
         // True Introduction
         var true_intro: inference_rule  := (([], pTrue), "true_intro");
         checkAndShowInferenceRule(true_intro);  
 
 
-	// note to kevin: check with jeremy on this one
-        var not_intro := (([pImpl(P,pFalse)],pNot(P)), "not__intro");
-        checkAndShowInferenceRule(false_intro);
+False Elimination
++++++++++++++++++
+
+.. math::
+
+   \prftree[r]{false\ elimination}{false}{P}
+
+.. code-block:: dafny
 
         var false_elim  := (([pFalse], P),              "false_elim");
         checkAndShowInferenceRule(false_elim);  
 
 
-And Introduction and Elimination Rules
-++++++++++++++++++++++++++++++++++++++
+Negation
+++++++++
+
+FIX THIS.
+
+.. math::
+
+   \prftree[r]{not\ introduction}{P \rightarrow false}{\neg P}
+
+.. code-block:: dafny
+
+	// note to kevin: check with jeremy on this one
+        var not_intro := (([pImpl(P,pFalse)],pNot(P)), "not_intro");
+        checkAndShowInferenceRule(false_intro);
+
+
+
+And Introduction and Elimination
+++++++++++++++++++++++++++++++++
+
+.. math::
+
+   \prftree[r]{and-intro}{P}{Q}{P \land Q}
+
+.. code-block:: dafny
 
         var and_intro   := (([P, Q], pAnd(P,Q)),        "and_intro");
         checkAndShowInferenceRule(and_intro);  
 
+.. math::
+
+   \prftree[r]{and-elimination-left}{P \land Q}{P}
+
+.. code-block:: dafny
+
         var and_elim_l  := (([pAnd(P, Q)], P),          "and_elim_l");
         checkAndShowInferenceRule(and_elim_l);  
+
+.. math::
+
+   \prftree[r]{and-elimination-right}{P \land Q}{Q}
+
+.. code-block:: dafny
 
         var and_elim_r  := (([pAnd(P, Q)], Q),          "and_elim_r");
         checkAndShowInferenceRule(and_elim_r);  
@@ -283,30 +316,74 @@ And Introduction and Elimination Rules
 Or Introduction and Elimination Rules
 +++++++++++++++++++++++++++++++++++++
 
+.. math::
+
+   \prftree[r]{or-introduction-left}{P}{P \lor Q}
+
+.. code-block:: dafny
+
         var or_intro_l  := (([P], pOr(P, Q)),           "or_intro_l");
         checkAndShowInferenceRule(or_intro_l);  
 
+.. math::
+
+   \prftree[r]{or-introduction-right}{Q}{P \lor Q}
+
+.. code-block:: dafny
+
         var or_intro_r  := (([Q], pOr(P, Q)),           "or_intro_r");
         checkAndShowInferenceRule(or_intro_r);  
+
+.. math::
+
+   \prftree[r]{or-elimination}{P \lor Q}{P \rightarrow R}{Q \rightarrow R}{R}
+
+.. code-block:: dafny
 
         var or_elim     := (([pOr(P,Q),pImpl(P,R), pImpl(Q,R)],R), "or_elim");
         checkAndShowInferenceRule(or_elim); 
  
 
-Implication Rules
-+++++++++++++++++
+Implication Introduction and Elimination Rules
+++++++++++++++++++++++++++++++++++++++++++++++
+
+.. math::
+
+   \prftree[r]{arrow-elimination}{P \rightarrow Q}{P}{Q}
+
+.. code-block:: dafny
 
         var impl_elim   := (([pImpl(P, Q), P], Q), "impl_elim");
         checkAndShowInferenceRule(impl_elim);
 
+.. math::
+
+   \prftree[r]{arrow-introduction}{FIX}{THIS}
+
+.. code-block:: dafny
+
         // impl_intro is a little harder to express: ([P] |= Q) |= (P -> Q)
 
-Resolution Rules
-++++++++++++++++
+
+
+Resolution
+++++++++++
+
+.. math::
+
+   \prftree[r]{resolution}{P \lor Q}{{\neg Q} \lor R}{P \lor R}
+
+.. code-block:: dafny
 
         // resolution rules of inference: used in many theorem provers
         var resolution   := (([pOr(P, Q), pOr(pNot(Q), R)], pOr(P, R)), "resolution");
         checkAndShowInferenceRule(resolution);
+
+.. math::
+
+   \prftree[r]{unit-resolution}{P \lor Q}{\neg Q}{P}
+
+.. code-block:: dafny
 
         var unit_resolution  := (([pOr(P,Q), pNot(Q)], P), "unit_resolution");
         checkAndShowInferenceRule(unit_resolution);
@@ -316,9 +393,21 @@ Aristotle's Rules
 +++++++++++++++++
 
 
+.. math::
+
+   \prftree[r]{syllogism}{P \rightarrow Q}{Q \rightarrow R}{P \rightarrow R}
+
+.. code-block:: dafny
+
         // a few more valid and classically recognized rules of inference
         var syllogism    := (([pImpl(P, Q), pImpl(Q, R)], pImpl(P, R)), "syllogism");
         checkAndShowInferenceRule(syllogism);
+
+.. math::
+
+   \prftree[r]{modus-tollens}{P \rightarrow Q}{\neg Q}
+
+.. code-block:: dafny
 
         var modusTollens := (([pImpl(P, Q), pNot(Q)], pNot(P)), "modusTollens");
         checkAndShowInferenceRule(modusTollens);
@@ -327,9 +416,21 @@ Aristotle's Rules
 Inference Rules Valid in Classical but Not in Constructive Logic
 ----------------------------------------------------------------
 
+.. math::
+
+   \prftree[r]{double-negation-elimination}{\neg{\neg P}}{P}
+
+.. code-block:: dafny
+
         // rules in classical but not intuitionistic (constructive) logic 
         var double_not_elim := (([pNot(pNot(P))], P), "double_not_elim");
         checkAndShowInferenceRule(double_not_elim); 
+
+.. math::
+
+   \prftree[r]{excluded-middle}{P \lor {\neg P}}
+
+.. code-block:: dafny
 
         var excluded_middle: inference_rule := (([],pOr(P, pNot(P))), "excluded_middle");
          checkAndShowInferenceRule(excluded_middle);          
@@ -338,14 +439,32 @@ Inference Rules Valid in Classical but Not in Constructive Logic
 
 Fallacious Inference Rules
 --------------------------
-    
 
-        // now for the refutation of some logical fallacies
+Now for the presentation and refutation of some logical fallacies.
+
+.. math::
+
+   \prftree[r]{affirm-consequence}{P \rightarrow Q}{Q}{P}
+
+.. code-block:: dafny
+
         var affirm_conseq  := (([pImpl(P, Q), Q], P), "affirm_consequence");
         checkAndShowInferenceRule(affirm_conseq);
 
+.. math::
+
+   \prftree[r]{affirm-disjunct}{P \lor Q}{P}{\neg Q}
+
+.. code-block:: dafny
+
         var affirm_disjunct := (([pOr(P,Q), P],pNot(Q)),"affirm_disjunct");
         checkAndShowInferenceRule(affirm_disjunct);  
+
+.. math::
+
+   \prftree[r]{deny-antecedent}{P \rightarrow Q}{{\neg P} \rightarrow {\neg Q}}
+
+.. code-block:: dafny
 
         var deny_antecedent := (([pImpl(P,Q)],pImpl(pNot(P),pNot(Q))),"deny antecedent");
         checkAndShowInferenceRule(deny_antecedent);
@@ -363,10 +482,25 @@ one can be assure that these properties hold no matter what P, Q, and
 are actually mean in the real world (e.g., maybe P means, "CS is
 massively awesome"; but it just doesn't matter).
 
-        var and_commutes_theorem  := (([], 
+.. math::
+
+   \prftree[r]{and-commutes}{P \land Q}{Q \land P}
+
+
+.. code-block:: dafny
+
+      var and_commutes_theorem  := (([], 
                                 pAnd(pImpl(pAnd(P,Q),pAnd(Q,P)),
                                      pImpl(pAnd(Q,P),pAnd(P,Q)))), 
                                 "P and Q is equivalent to Q and P\n");
+
+.. math::
+
+   \prftree[r]{or-commutes}{P \lor Q}{Q \lor P}
+
+
+.. code-block:: dafny
+
         // why is explicit type needed here?
         var or_commutes_theorem: named_sequent  := (([], 
                                 pAnd(pImpl(pOr(P,Q),pOr(Q,P)),

@@ -1,6 +1,18 @@
-*******************
-8. Formal Languages
-*******************
+*****************
+ Formal Languages
+*****************
+
+In this chapter, we introduce the concept of formal languages. A
+formal language is a set of expressions and corresponding meanings,
+where the permitted forms of the expressions and the meaning of each
+well formed expression is specified with mathematical precision.  The
+ideas are simple and beautiful. We introduce them with a case study of
+Boolean expressions, starting with a highly simplied language with
+only two literal value expressions; then extending to a language that
+adds the usualy Boolean connectives (and, or, not, etc).
+
+Boolean Algebra Revisited
+=========================
 
 Any introduction to programming will have made it clear that there is
 an infinite set of Boolean expressions. For example, in Dafny, *true*
@@ -26,16 +38,6 @@ sentence in the language. In the case of Boolean expressions, the
 meaning given to each valid "sentence" (expression) is simply the
 Boolean value that that expression *reduces to*.
 
-In the rest of this chapter, we use the case of Boolean expressions to
-introduce the concepts of the *syntax* and the *semantics* of *formal
-languages*. The syntax of a formal language precisely defines a set of
-*expressions* (sometimes called sentences or formulae). A *semantics*
-associates a *meaning*, in the form of a *value*, with each expression
-in the language.
-
-The Syntax of Boolean Expressions: Inductive Definitions
-========================================================
-
 As an example of syntax, the *true*, in the statement, *var b :=
 true;* is a valid expression in the language of Boolean expressions,
 as defined by the *syntaxt* of this language. The semantics of the
@@ -59,26 +61,39 @@ As computer scientists interested in languages and meaning, we can
 make these concepts of syntax and semantics not only precisely clear
 but also *runnable*. So let's get started.
 
-The Syntax and Semantics of *Simplified* Boolean Expression Language
---------------------------------------------------------------------
+In the rest of this chapter, we use the case of Boolean expressions to
+introduce the concepts of the *syntax* and the *semantics* of *formal
+languages*. The syntax of a formal language precisely defines a set of
+*expressions* (sometimes called sentences or formulae). A *semantics*
+associates a *meaning*, in the form of a *value*, with each expression
+in the language.
+
+A Very Simple Language of Boolean Expressions
+=============================================
 
 We start by considering a simplified language of Boolean expressions:
-one with only two literal expressions.  To make it clear that they are
-not Boolean values but expressions, we will call them not *true* and
+one with only two literal expressions, for *true* and *false* values,
+along with several of the usual logical connectives.  To make it clear
+that the literal expressions are not themselves Boolean values but
+expressions that we will eventually interpret as meaning Boolean
+values, we will call the literal values in our language not *true* and
 *false* but *bTrue* and *bFalse*.
 
-Syntax
-^^^^^^
+Syntax: Inductive Data Type Definitions
+---------------------------------------
 
 We can represent the syntax of this language in Dafny using what we
 call an *inductive data type definition.* A data type defines a set of
 values. So what we need to define is a data type whose values are all
 and only the valid expressions in the language. The data type defines
-the *syntax* of the language.
+the *syntax* of the language by specifying precisely the set of terms
+that encode syntactically correct expressions in the language. Here we
+see a key idea in computer science: programs (in this case simplified
+Boolean expressions) are just data values, too.
 
-In the current case, we need a type with only two values, each one of
-them representing a valid expression in our language. Here's how we'd
-write it in Dafny. 
+So here we go. We need a type with only two values, each one of them
+representing a valid expression in our language. Here's how we'd write
+it in Dafny.
 
 .. code-block:: dafny
 
@@ -101,18 +116,27 @@ the language we are specifying, namely *bTrue* and *bFalse*.  That is
 all there is to specifying the *syntax* of our simplified language of
 Boolean expressions.
 
-Semantics
-^^^^^^^^^
-To give a preview of what is coming, we now specify a semantics for
-this language. Speaking informally, we want to associate, to each of
-the expressions, a correponding meaning in the form of a Boolean
-value.  We do this by defining a *function* that takes an expression
-(a value of type *bExp*) as an argument and that returns the Boolean
-*value* that the semantics defines as the meaning of that expression.
-Here, we want a function that returns Dafny's Boolean value *true* for
-the expression, *bTrue*, and the Boolean value *false* for *bFalse*.
+Semantics: Pattern Matching on Terms
+------------------------------------
 
-Here's how we can write this function in Dafny.  
+We now specify a semantics for this language. Speaking informally, we
+want to associate, to each of the expressions in our simple two-term
+language, a correponding meaning in the form of a Boolean value.  We
+do this here by defining a function that takes an expression (a value
+of type *bExp*) as an argument and that returns the Boolean *value*:
+the *meaning* of that expression.  In particular, we want a function
+that returns Dafny's Boolean value *true* for the expression, *bTrue*,
+and the Boolean value *false* for *bFalse*.
+
+Our implementation of such a function uses a new programming mechanism
+that you probably haven't seen before, called *pattern matching*. The
+idea is that when given a term, a Boolean expression in this case, the
+code will look to see how that term was constructed, and it will
+behave in different ways depending on the result of that
+analysis. Here, the code matches on a given term to determine whether
+it was constructed by the *bTrue* or by the *bFalse* constructor, and
+it then returns what we want it to return as the corresponding Boolean
+value. Here's the code in Dafny.
 
 .. code-block:: dafny
 
@@ -151,8 +175,30 @@ expression, then determine if it was *bTrue* or *bFalse*. In the first
 case, return *true*. In the second case, return *false*. That is all
 there is to defining a semantics for this simple language.
 
-The Syntax of a Complete Boolean Expression Language
-----------------------------------------------------
+
+Extending the Language with Boolean Connectives
+===============================================
+
+So far our Boolean language is very uninteresting. There are only two
+expressions in our language, two literal expressions, and all they
+mean are their corresponding Boolean values. In this section of this
+chapter, we see how to explode the situation dramatically by allowing
+larger expressions to be built from smaller ones and the meanings of
+larger expressions to be defined in terms of the meanings of their
+parts. We see the use of true *inductive definitions* and *structural
+recursions* to define the syntax and semantics of a language with an
+infinite number of terms. 
+
+In this case, these terms are expressions such as *(bTrue and (not
+bFalse))*. In other words, we extend our language with the usual
+Boolean connectives. These connectives allow arbitrary expressions to
+be combined into ever larger expressions, without bound. Then the
+challenge is to specify a meaning for every such expression.  We do
+that by using recursion over the *structure* of any such term.
+
+
+Inductive Definitions: Building Bigger Expressions from Smaller Ones
+--------------------------------------------------------------------
 
 The real language of Boolean expressions has many more than two valid
 expressions, of course. In Dafny's Boolean expression sub-language,
@@ -221,8 +267,8 @@ code like this:
    var R       := bAnd ( P, Q );
 
 
-The Semantics of Boolean Expressions: Recursive Evaluation
-==========================================================
+Structural Recursion: The Meanings of Wholes from the Meanings of Parts
+-----------------------------------------------------------------------
 
 The remaining question, then, is how to give meanings to each of the
 expressions in the infinite set of expressions that can be built by
@@ -313,22 +359,60 @@ function. To compute the value of *R*, above, for example, we just run
 *bEval(R)*. For this *R*, this function will without any doubt return
 the intended result, *true*.
 
-The Syntax and Semantics of Programming Languages
-=================================================
+Formal Languages
+================
+
+Formal languages are sets of well formed expressions with precisely
+specified syntaxes and semantics.  Programming languages are formal
+languages. Expressions in these languages are programs. The syntax of
+a programming language specified what forms a program can take.  The
+semantics of a programming language defines the computation that any
+syntactically correct program describes. At the heart of a semantics
+for a programming language is the specification, possibly in the form
+of an implementation, of a *relation* associating programs, the input
+values they receive, and the output values they produce, if any, when
+given those inputs.
+
+Logics are formal languages, too. We have now seen how to precisely
+specify, and indeed implement, both the syntax and the semantics of
+one such logic, namely propositional logic. This logic is isomorphic
+in syntax and semantics to the language of Boolean expressions with
+variables. We used an *inductive definition* of a type to specify and
+implement the syntax, and a *structural recursion* to specify and to
+implement the semantics, of our version of propositional logic.
+
+In Dafny, we have also seen how to *use* first-order predicate logic
+to write specifications. Indeed Dafny brings together three formal
+languages in one: a language of pure functional programs, which can be
+use to write both specifications and implementations; a language of
+imperative programs, which can be used to write efficient code; and
+first-order predicate logic for writing specifications. This logic
+allows us to write propositions that constrain and relate the states
+of imperative programs: e.g., to specify that if a program is run in a
+state that satisfies a given pre-condition, and if it terminates, that
+it will terminate in a state that satisfies a given post-condition.
+
+In other words, the semantics of programs specify how programs define
+relations on states. A given state pair *(S, T)* is in the relation
+specified by a program *P* if whenever *S* satisfies the pre-condition
+for *P*, running *P* with the input *S* can produce *T* as a result.
 
 Syntax defines legal expressions. Semantics give each legal expression
-an associated meaning. The meanings of Boolean expressions are Boolean
-values. Using exactly the same ideas used here for Boolean expressions
-we could not only specify but compute with the syntax semantics of a
-language of arithmetic expressions.
+a meaning. Programming languages and logics are formal languages. The
+meaning of a program is a computation, understood (at least partly) in
+terms of a relation on states.
 
-Indeed, the same ideas apply to programming language. A programming
-language has a syntax. It defines the set of valid "programs" in that
-language. A programming language also has a semantics, It specifies
-what each such program means. However, th meaning of a program is not
-captured in a single value. Rather, it is expressed ina relation that
-explains how running the programs transforms any pre-execution state
-that satisfies the program preconditions into a post-execution state.
+The meaning of a logical proposition, on the other hand, is a mapping
+from interpretations to truth values. Given a proposition, and then
+given an interpretation, a proposition purports to describe a state of
+affairs that holds in that interpetation. If that state of affairs can
+be shown to hold, then the proposition can be judged to be true. There
+are many kinds of logic. We've implemented a syntax and semantics for
+proposition logic. We've used first-order predicate logic extensively
+to write specifications, which Dafny verifies (mostly) automatically.
+Going forward, we will take a deeper dive into first-order predicate
+logic, and then, ultimately, into the higher-order logic of a modern
+*proof assistant*. Even more interesting things are coming soon.
 
 
 
