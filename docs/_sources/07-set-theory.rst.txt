@@ -241,8 +241,8 @@ There are other way to define the same set using set comprehension
 notation. For example, we can define the set as the set of values of
 the expression *2\*n*, where *n* is in the range zero to twentyfive.
 Where it's readily inferred, mathematicians will usually also leave
-out explicit type information. Here's what it looks like: `T = \{ 2 *
-n | 0 <= n <= 25 \}. 
+out explicit type information. Here's what it looks like: :math:`T = \{ 2 *
+n | 0 <= n <= 25 \}.`
 
 In this expression one infers, based on one's mathematical intuition,
 that *n* is intended ranges over the integers or natural numbers. The
