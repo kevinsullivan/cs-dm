@@ -11,6 +11,7 @@ Discrete Mathematics: A Computational Approach
    :numbered:
    :caption: Contents:
 
+   00-preface
    01-reqs-specs-impls
    02-logic-and-code
    03-problems-with-imperative-code
