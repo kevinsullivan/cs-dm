@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>5. Formal Verification of Imperative Programs &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
+    <title>6. Formal Verification of Imperative Programs &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -23,8 +23,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="6. Dafny Language: Types, Statements, Expressions" href="06-dafny-language.html" />
-    <link rel="prev" title="4. Pure Functional Programming as Runnable Mathematics" href="04-runnable-math.html" />
+    <link rel="next" title="7. Dafny Language: Types, Statements, Expressions" href="06-dafny-language.html" />
+    <link rel="prev" title="5. Pure Functional Programming as Runnable Mathematics" href="04-runnable-math.html" />
 <!-- <link href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy" rel="stylesheet"> -->
 <!-- <link href="https://fonts.googleapis.com/css?family=Average" rel="stylesheet"> -->
 <!-- <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet"> -->
@@ -39,7 +39,7 @@
           <div class="body" role="main">
             
   <div class="section" id="formal-verification-of-imperative-programs">
-<h1>5. Formal Verification of Imperative Programs<a class="headerlink" href="#formal-verification-of-imperative-programs" title="Permalink to this headline">¶</a></h1>
+<h1>6. Formal Verification of Imperative Programs<a class="headerlink" href="#formal-verification-of-imperative-programs" title="Permalink to this headline">¶</a></h1>
 <p>In this chapter, we first elaborate on the idea that pure functional
 programming make for mathematically clear but potentially inefficient
 specifications, while imperative code makes for efficient code but is
@@ -49,7 +49,7 @@ parts of specifications for imperative code, and then we use tools or
 manual methods to <em>prove</em> that the imperative code does what such a
 speification requires.</p>
 <div class="section" id="performance-vs-understandability">
-<h2>5.1. Performance vs. Understandability<a class="headerlink" href="#performance-vs-understandability" title="Permalink to this headline">¶</a></h2>
+<h2>6.1. Performance vs. Understandability<a class="headerlink" href="#performance-vs-understandability" title="Permalink to this headline">¶</a></h2>
 <p>To get a clearer sense of the potential differences in performance
 between a pure functional program and an imperative program that
 compute the same function, and tradeoffs one makes between clarity of
@@ -171,7 +171,7 @@ ensure that it implements the same function that we expressed in our
 elegant mathematical definition?</p>
 </div>
 <div class="section" id="specification-implementation-and-verification">
-<h2>5.2. Specification, Implementation, and Verification<a class="headerlink" href="#specification-implementation-and-verification" title="Permalink to this headline">¶</a></h2>
+<h2>6.2. Specification, Implementation, and Verification<a class="headerlink" href="#specification-implementation-and-verification" title="Permalink to this headline">¶</a></h2>
 <p>We address such problems by combining a few ideas. First, we use
 logic, including mathematical specifications written in part using
 functional programming, to express <em>declarative</em> specifications.  Such
@@ -212,7 +212,7 @@ loops, and that giving it a little help enables it to reason about
 them for us.</p>
 </div>
 <div class="section" id="declarative-input-output-specifications">
-<h2>5.3. Declarative Input-Output Specifications<a class="headerlink" href="#declarative-input-output-specifications" title="Permalink to this headline">¶</a></h2>
+<h2>6.3. Declarative Input-Output Specifications<a class="headerlink" href="#declarative-input-output-specifications" title="Permalink to this headline">¶</a></h2>
 <p>First, we use mathematical logic to <em>declaratively specify</em> properties
 of the behaviors that we require of programs written in <em>imperative</em>
 languages. For example, we might require that, when given <em>any</em>
@@ -234,7 +234,7 @@ specification that we call a <em>precondition</em>), and (2) that as long as
 the precondition holds, then it must return the factorial of the given
 argument value (a <em>postcondition</em>).</p>
 <div class="section" id="input-output-relations">
-<h3>5.3.1. Input-Output Relations<a class="headerlink" href="#input-output-relations" title="Permalink to this headline">¶</a></h3>
+<h3>6.3.1. Input-Output Relations<a class="headerlink" href="#input-output-relations" title="Permalink to this headline">¶</a></h3>
 <p>In purely mathematical terms, a specification of this kind defines a
 <em>binary relation</em> between argument (input) and return (output) values,
 and imposes on the program a requirement that whenever it is given the
@@ -243,7 +243,7 @@ first value in such an <em>input-output</em> pair, it must compute a second
 specified relation.</p>
 </div>
 <div class="section" id="relations-and-functions">
-<h3>5.3.2. Relations and Functions<a class="headerlink" href="#relations-and-functions" title="Permalink to this headline">¶</a></h3>
+<h3>6.3.2. Relations and Functions<a class="headerlink" href="#relations-and-functions" title="Permalink to this headline">¶</a></h3>
 <p>A binary relation in ordinary mathematics is just a set of pairs of
 values. A function is a binary relation with at most one pair with a
 given first value. A function is a <em>single-valued</em> relation. What we
@@ -263,7 +263,7 @@ have same first element, are in the relation. That is so because both
 <em>2</em> and <em>-2</em> are square roots of <em>4</em>.</p>
 </div>
 <div class="section" id="total-and-partial-functions">
-<h3>5.3.3. Total and Partial Functions<a class="headerlink" href="#total-and-partial-functions" title="Permalink to this headline">¶</a></h3>
+<h3>6.3.3. Total and Partial Functions<a class="headerlink" href="#total-and-partial-functions" title="Permalink to this headline">¶</a></h3>
 <p>We also note that the square root relation <em>on the real numbers</em> is
 what we call <em>partial</em> rather than total: in that it is not defined
 for some real numbers. In particular, it is not defined for (i.e., it
@@ -271,7 +271,7 @@ does not have any pairs where the first element is) any negative real
 number.</p>
 </div>
 <div class="section" id="turning-partial-functions-into-total-functions">
-<h3>5.3.4. Turning Partial Functions into Total Functions<a class="headerlink" href="#turning-partial-functions-into-total-functions" title="Permalink to this headline">¶</a></h3>
+<h3>6.3.4. Turning Partial Functions into Total Functions<a class="headerlink" href="#turning-partial-functions-into-total-functions" title="Permalink to this headline">¶</a></h3>
 <p>Partial functions and non-function relations both present problems for
 programmers. Let’s first consider relations that sometimes have <em>more</em>
 than one value of a given type for a given argument. What value should
@@ -326,7 +326,7 @@ course.</p>
 </div>
 </div>
 <div class="section" id="imperative-implementation">
-<h2>5.4. Imperative Implementation<a class="headerlink" href="#imperative-implementation" title="Permalink to this headline">¶</a></h2>
+<h2>6.4. Imperative Implementation<a class="headerlink" href="#imperative-implementation" title="Permalink to this headline">¶</a></h2>
 <p>Having written a formal specification of the required <em>input-output</em>
 behavior of a program, we next write imperative code in a manner, and
 in a language, that supports the use of formal logic to <em>reason</em> about
@@ -346,7 +346,7 @@ from zero up to <em>n</em> or from <em>n</em> down to zero can affect the diffic
 of writing specification elements for a program.</p>
 </div>
 <div class="section" id="formal-verification">
-<h2>5.5. Formal Verification<a class="headerlink" href="#formal-verification" title="Permalink to this headline">¶</a></h2>
+<h2>6.5. Formal Verification<a class="headerlink" href="#formal-verification" title="Permalink to this headline">¶</a></h2>
 <p>The aim of formal verification is to deduce (to use deductive logic to
 <em>prove</em>) that, as written, a program satisfies its specification.  In
 more detail, if we’re given a program, <em>C</em> with a precondition, <em>P</em>,
@@ -383,11 +383,11 @@ desired properties, but formal validation of specifications is not
 our main concern at the moment.</p>
 </div>
 <div class="section" id="case-study-the-factorial-function">
-<h2>5.6. Case Study: The Factorial Function<a class="headerlink" href="#case-study-the-factorial-function" title="Permalink to this headline">¶</a></h2>
+<h2>6.6. Case Study: The Factorial Function<a class="headerlink" href="#case-study-the-factorial-function" title="Permalink to this headline">¶</a></h2>
 <p>So far the material in this chapter has been pretty abstract. Now
 we’ll see what it means in practice.</p>
 <div class="section" id="a-buggy-implementation">
-<h3>5.6.1. A Buggy Implementation<a class="headerlink" href="#a-buggy-implementation" title="Permalink to this headline">¶</a></h3>
+<h3>6.6.1. A Buggy Implementation<a class="headerlink" href="#a-buggy-implementation" title="Permalink to this headline">¶</a></h3>
 <p>To start, let’s consider an ordinary imperative program, as you might
 have written in Python or Java, for computing values of the factorial
 function. The name of the function is the only indication here of the
@@ -421,7 +421,7 @@ the right result? Where is the bug? What is wrong? And how could this
 logical error have been detected automatically?</p>
 </div>
 <div class="section" id="specifications-establish-correctness-criteria">
-<h3>5.6.2. Specifications Establish Correctness Criteria<a class="headerlink" href="#specifications-establish-correctness-criteria" title="Permalink to this headline">¶</a></h3>
+<h3>6.6.2. Specifications Establish Correctness Criteria<a class="headerlink" href="#specifications-establish-correctness-criteria" title="Permalink to this headline">¶</a></h3>
 <p>A key problem is that the program lacks a precise specification. The
 program does <em>something</em>, taking a nat and possibly returning a <em>nat</em>
 (unless it goes into an infinite loop) but there’s no way to analyze
@@ -480,7 +480,7 @@ that providing such extra information about while loops is where much
 of the difficulty lies.</p>
 </div>
 <div class="section" id="a-verified-implementation-of-the-factorial-function">
-<h3>5.6.3. A Verified Implementation of the Factorial Function<a class="headerlink" href="#a-verified-implementation-of-the-factorial-function" title="Permalink to this headline">¶</a></h3>
+<h3>6.6.3. A Verified Implementation of the Factorial Function<a class="headerlink" href="#a-verified-implementation-of-the-factorial-function" title="Permalink to this headline">¶</a></h3>
 <p>Here, then, is a verified imperative program for computing
 factorial. We start by documenting the overall program specification.
 The key element here is the ensures clause. This clause links our
@@ -647,7 +647,7 @@ semi-automated reasoning about and verification of real programs.</p>
 </div>
 </div>
 <div class="section" id="case-study-the-fibonacci-function">
-<h2>5.7. Case Study: The Fibonacci Function<a class="headerlink" href="#case-study-the-fibonacci-function" title="Permalink to this headline">¶</a></h2>
+<h2>6.7. Case Study: The Fibonacci Function<a class="headerlink" href="#case-study-the-fibonacci-function" title="Permalink to this headline">¶</a></h2>
 <p>Similarly, here is a verified imperative implementation of the
 Fibonacci function. We start by adding a specification in the
 form of an ensures clause, appealing to our functional program,
@@ -787,7 +787,7 @@ return fib1;
 </div>
 </div>
 <div class="section" id="what-is-dafny-again">
-<h2>5.8. What is Dafny, Again?<a class="headerlink" href="#what-is-dafny-again" title="Permalink to this headline">¶</a></h2>
+<h2>6.8. What is Dafny, Again?<a class="headerlink" href="#what-is-dafny-again" title="Permalink to this headline">¶</a></h2>
 <p>Dafny is a cutting-edge software language and toolset for verification
 of imperative code. It was developed at Microsoft Research—one of
 the top computer science research labs in the world. We are exploring
@@ -839,47 +839,48 @@ task of learning how to program.</p>
 <!-- <h3>Navigation</h3> -->
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="01-reqs-specs-impls.html">1. Requirement, Specifications, and Implementations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02-logic-and-code.html">2. Logical Specifications, Imperative Implementations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-problems-with-imperative-code.html">3. Problems with Imperative Code</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04-runnable-math.html">4. Pure Functional Programming as Runnable Mathematics</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">5. Formal Verification of Imperative Programs</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#performance-vs-understandability">5.1. Performance vs. Understandability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#specification-implementation-and-verification">5.2. Specification, Implementation, and Verification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#declarative-input-output-specifications">5.3. Declarative Input-Output Specifications</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#input-output-relations">5.3.1. Input-Output Relations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#relations-and-functions">5.3.2. Relations and Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#total-and-partial-functions">5.3.3. Total and Partial Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#turning-partial-functions-into-total-functions">5.3.4. Turning Partial Functions into Total Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="00-preface.html">1. Preface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01-reqs-specs-impls.html">2. Requirement, Specifications, and Implementations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-logic-and-code.html">3. Logical Specifications, Imperative Implementations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-problems-with-imperative-code.html">4. Problems with Imperative Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-runnable-math.html">5. Pure Functional Programming as Runnable Mathematics</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">6. Formal Verification of Imperative Programs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#performance-vs-understandability">6.1. Performance vs. Understandability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#specification-implementation-and-verification">6.2. Specification, Implementation, and Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#declarative-input-output-specifications">6.3. Declarative Input-Output Specifications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#input-output-relations">6.3.1. Input-Output Relations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#relations-and-functions">6.3.2. Relations and Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#total-and-partial-functions">6.3.3. Total and Partial Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#turning-partial-functions-into-total-functions">6.3.4. Turning Partial Functions into Total Functions</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#imperative-implementation">5.4. Imperative Implementation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#formal-verification">5.5. Formal Verification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#case-study-the-factorial-function">5.6. Case Study: The Factorial Function</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#a-buggy-implementation">5.6.1. A Buggy Implementation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#specifications-establish-correctness-criteria">5.6.2. Specifications Establish Correctness Criteria</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#a-verified-implementation-of-the-factorial-function">5.6.3. A Verified Implementation of the Factorial Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#imperative-implementation">6.4. Imperative Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#formal-verification">6.5. Formal Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#case-study-the-factorial-function">6.6. Case Study: The Factorial Function</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#a-buggy-implementation">6.6.1. A Buggy Implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#specifications-establish-correctness-criteria">6.6.2. Specifications Establish Correctness Criteria</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#a-verified-implementation-of-the-factorial-function">6.6.3. A Verified Implementation of the Factorial Function</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#case-study-the-fibonacci-function">5.7. Case Study: The Fibonacci Function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#what-is-dafny-again">5.8. What is Dafny, Again?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#case-study-the-fibonacci-function">6.7. Case Study: The Fibonacci Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-dafny-again">6.8. What is Dafny, Again?</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="06-dafny-language.html">6. Dafny Language: Types, Statements, Expressions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="07-set-theory.html">7. Set Theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="08-relations.html">8. Relations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="09-boolean-algebra.html">9. Boolean Algebra</a></li>
-<li class="toctree-l1"><a class="reference internal" href="10-formal-languages.html">10. Formal Languages</a></li>
-<li class="toctree-l1"><a class="reference internal" href="11-propositional-logic.html">11. Propositional Logic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="12-satisfiability.html">12. 12. Satisfiability</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13-consequence.html">13. Natural Deduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="14-predicate-logic.html">14. Predicate Logic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="15-proofs.html">15. Proofs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="16-equality.html">16. Proofs of Equalities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="17-inequality.html">17. Proofs of Inequality</a></li>
-<li class="toctree-l1"><a class="reference internal" href="18-existence.html">18. Proofs of Existence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="19-univeral.html">19. Proofs of Universality</a></li>
-<li class="toctree-l1"><a class="reference internal" href="20-termination.html">20. Termination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-dafny-language.html">7. Dafny Language: Types, Statements, Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-set-theory.html">8. Set Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-relations.html">9. Relations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-boolean-algebra.html">10. Boolean Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-formal-languages.html">11. Formal Languages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-propositional-logic.html">12. Propositional Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-satisfiability.html">13. 12. Satisfiability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-consequence.html">14. Natural Deduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-predicate-logic.html">15. Predicate Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-proofs.html">16. Proofs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-equality.html">17. Proofs of Equalities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-inequality.html">18. Proofs of Inequality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18-existence.html">19. Proofs of Existence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19-univeral.html">20. Proofs of Universality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20-termination.html">21. Termination</a></li>
 </ul>
 
 

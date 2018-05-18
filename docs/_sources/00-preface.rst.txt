@@ -1,8 +1,15 @@
+*******
+Preface
+*******
+
 This is a course, and a new kind of course, in discrete mathematics
 (DM) for early undergaduate students in computer science and related
 disciplines. The usual DM course at this level is a paper-and-pencil
 affair about proof techniques many CS students find hard to relate to
 their interests in computing.  This course charts a better way.
+
+Design Rationale
+================
 
 Several premises underlie the design of this course. First, students
 want to know up front why logical proposition and proofs are relevant,
@@ -62,6 +69,9 @@ an evolving landscape of deepening concepts. Having developed students'
 fluency in reading, writing, and *benefitting from* predicate logic, the
 course then asks and starts to answer the question, *what is a logic*?
 
+Progression
+===========
+
 This question leads directly to the notion of a formal language, which
 the course then addresses in the style of modern type theory. As an
 easy warm-up, students learn how to specify the *syntax* of a simple
@@ -83,7 +93,6 @@ of validity (for all models), and of unsatisfiability (there does not
 exist a model) all follow directly. The class works through a basic
 implementation of a SAT solver and validity/unsatisfiability checker
 using truth tables.
-
 
 Next, leveraging the same code base, students work through the concept
 and implementation of *named inference rules* for *natural deduction*
@@ -117,17 +126,41 @@ Chapters follow on proof techniques deriving from the various forms of
 propositions, ultimately reaching proofs by induction for universally
 quantified propositions. (Notes not yet in place: TBD).
 
+Tools
+=====
+
 The course used the Dafny and Lean languages, and used VS Code and the
-Dafny and Lean extensions for VS Code for all student work. The Dafny
-and Lean languages cased few complications. The VS Code extensions
-still need some work. Both the Dafny and Lean extensions sometimes
-fail to properly update error indications (red squiggly underlines),
-even when code is correct, which generally and understandably causes
-great consternation, frustration, anger, and sadness among early CS
-students, until they learn the work-arounds. Instructors considering
-using this curriculum should be aware of these issues. The author is
-happy to discuss them with other instructors and investigators who
-might be interested.
+Dafny and Lean extensions for VS Code for all student work. Students
+worked on code in almost every class, generally pulling updates to be
+discussed and worked on each day from the author's evolving GitHub
+repository. Startin in Fall 2018 the plan is to organize the repo as
+a set of branches, each introducing the additional material for each
+day of the course.
+
+The Dafny and Lean languages, per se, caused few complications. Dafny
+has incomplete heuristics that lead to mystifying results in a few
+cases. Notably, while it has heuristics that infer that intersections
+of finite sets are finite, the same is not true for unions, so Dafny
+rejects the obvious definition of set union as not well formed; and
+this is but one example of family of related inferencing deficiencies.
+In practice, students accepted that these are problems that could in
+principle be resolved but that haven't yet been addressed in this
+cutting-edge software.
+
+The VS Code extensions, on the other hand, worked, but had greater
+deficiencies. They still need some work. The Dafny extension sometimes
+produces voluminous error logging messages visible to the user. They
+confuse and annoy users, who just learn to ignore them. Both the Dafny
+and Lean extensions sometimes fail to update error indications (red
+squiggly underlines indicating errors in code), even when the code is
+corrected. This issue causes consternation, frustration, anger, even
+sadness among students, until they learn the work-arounds. Instructors
+considering using this curriculum should be aware of these issues with
+the VS Code extensions. The author is happy to discuss them with other
+instructors and investigators who might be interested.
+
+Exercises
+=========
 
 Exercises are currently provided in some but not all chapters. This is
 work that planned for completion by the start of Fall semester, 2018.
@@ -136,6 +169,9 @@ work that planned for completion by the start of Fall semester, 2018.
 .. todo
 
    Add missing chapters
+
+Acknowledgements
+================
 
 The design of this course owes a lot to many other researchers. It was
 inspired by pedagogical works organized around Coq, notably Benjamin
@@ -161,9 +197,9 @@ correspondence.
 The author gratefully acknowledges the support of Rustan Leino, the
 developer of Dafny, and several others who provided insight and help
 in the author's use of Dafny; of Leo de Moura, Tom Ball, and Jeremy
-Avigad for their help with Lean (and Jeremy for open source code that
-taught the author how to format this book using Sphinx); of Mattias
-Felleisen, Shriram Krishnamurthi, Gregor Kiczales, and others for many
+Avigad, for their help with Lean, and Jeremy for open source code that
+taught the author how to format this book using Sphinx; Mattias
+Felleisen, Shriram Krishnamurthi, Gregor Kiczales, and others for
 discussions about HTDP and related pedagogical strategies; and Ken
 Birman, who suggested that the author look at Dafny as a strong
 candidate for a first or early course for computer scientists. The
@@ -171,4 +207,15 @@ author also thanks the students in his CS2102 Spring 2018 class for
 their patience and enthusiasm for learning discrete math following
 this somewhat novel approach to teaching that class. Thanks y'all.
 
+Feedback and Corrections
+========================
+
+The author advises that this book in its current form is still a very
+rough draft. Corrections and other forms of feedback are welcomed. The
+author requests that corrections in particular be posted as *issues*
+on the author's GitHub repo, at http://github.com/kevinsullivan/cs-dm.
+Feel free to follow up with email to sullivan.kevinj at gmail. At some
+point soon the author will develop a protocol allowing members of the
+broader community to contribute to this effort, perhaps in the style
+of Pierce around Software Foundations. 
 

@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>13. Natural Deduction &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
+    <title>14. Natural Deduction &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -23,8 +23,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="14. Predicate Logic" href="14-predicate-logic.html" />
-    <link rel="prev" title="12. 12. Satisfiability" href="12-satisfiability.html" />
+    <link rel="next" title="15. Predicate Logic" href="14-predicate-logic.html" />
+    <link rel="prev" title="13. 12. Satisfiability" href="12-satisfiability.html" />
 <!-- <link href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy" rel="stylesheet"> -->
 <!-- <link href="https://fonts.googleapis.com/css?family=Average" rel="stylesheet"> -->
 <!-- <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet"> -->
@@ -39,7 +39,7 @@
           <div class="body" role="main">
             
   <div class="section" id="natural-deduction">
-<h1>13. Natural Deduction<a class="headerlink" href="#natural-deduction" title="Permalink to this headline">¶</a></h1>
+<h1>14. Natural Deduction<a class="headerlink" href="#natural-deduction" title="Permalink to this headline">¶</a></h1>
 <p>Deductive logical reasoning involves arguments of a very specific
 form, based on the idea that: if one is in a context in which a set of
 propositions (called “premises”) are true, then it is necessarily the
@@ -75,7 +75,8 @@ For additional information on amsmath, use the `?' option.
 (/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
 (/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
 (/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
+(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty)
+No file math.aux.
 (/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
 (/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
 (/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
@@ -227,11 +228,11 @@ proof, the topic of the next chapter of this course. A few of rules we
 propose will end up being not valid. These will capture common faulty
 forms of reasoning.</p>
 <div class="section" id="aristotle-s-logic">
-<h2>13.1. Aristotle’s Logic<a class="headerlink" href="#aristotle-s-logic" title="Permalink to this headline">¶</a></h2>
+<h2>14.1. Aristotle’s Logic<a class="headerlink" href="#aristotle-s-logic" title="Permalink to this headline">¶</a></h2>
 <p>Among the valid rules, two important ones originated with Aristotle:
 syllogism and modus ponens. Here they are</p>
 <div class="section" id="syllogism">
-<h3>13.1.1. Syllogism<a class="headerlink" href="#syllogism" title="Permalink to this headline">¶</a></h3>
+<h3>14.1.1. Syllogism<a class="headerlink" href="#syllogism" title="Permalink to this headline">¶</a></h3>
 <div class="system-message">
 <p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{syllogism}{P \rightarrow Q}{Q \rightarrow R}{P \rightarrow R}</tt>)</p>
 latex exited with error
@@ -286,7 +287,7 @@ and our validity checker will show it to be true under all
 interpretations.</p>
 </div>
 <div class="section" id="modus-ponens">
-<h3>13.1.2. Modus Ponens<a class="headerlink" href="#modus-ponens" title="Permalink to this headline">¶</a></h3>
+<h3>14.1.2. Modus Ponens<a class="headerlink" href="#modus-ponens" title="Permalink to this headline">¶</a></h3>
 <p>And here’s modus ponens, also known as -&gt; (arrow) elimination.</p>
 <div class="system-message">
 <p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{modus\ ponens}{P \rightarrow Q}{P}{Q}</tt>)</p>
@@ -357,7 +358,7 @@ output. These functions are implemented in consequence.dfy.</p>
 </div>
 </div>
 <div class="section" id="named-inference-rule">
-<h2>13.2. Named Inference Rule<a class="headerlink" href="#named-inference-rule" title="Permalink to this headline">¶</a></h2>
+<h2>14.2. Named Inference Rule<a class="headerlink" href="#named-inference-rule" title="Permalink to this headline">¶</a></h2>
 <p>In the field of logic and proof, the term “context” generally refers
 to a set of propositions that are already judged or assumed to be
 true. Such propositions, called “premises”, are then taken as a basis
@@ -394,7 +395,7 @@ r.0 is the context/conclusion pair within a rule pair, r; and r.0.0 is
 the context (list of propositions) in that inner pair.</p>
 </div>
 <div class="section" id="semantic-entailment">
-<h2>13.3. Semantic Entailment<a class="headerlink" href="#semantic-entailment" title="Permalink to this headline">¶</a></h2>
+<h2>14.3. Semantic Entailment<a class="headerlink" href="#semantic-entailment" title="Permalink to this headline">¶</a></h2>
 <p>This method returns a Boolean value indicating wether a given
 inference rule is semantically valid or not.  It does this by (1)
 conjoining all the premises (a list of propositions) into a single
@@ -440,15 +441,15 @@ the list).</p>
 </div>
 </div>
 <div class="section" id="syntactic-entailment-and-the-rules-of-natural-deduction">
-<h2>13.4. Syntactic Entailment and the Rules of Natural Deduction<a class="headerlink" href="#syntactic-entailment-and-the-rules-of-natural-deduction" title="Permalink to this headline">¶</a></h2>
+<h2>14.4. Syntactic Entailment and the Rules of Natural Deduction<a class="headerlink" href="#syntactic-entailment-and-the-rules-of-natural-deduction" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="inference-rules-good-for-classical-and-constructive-logic">
-<h3>13.4.1. Inference rules good for classical and constructive logic<a class="headerlink" href="#inference-rules-good-for-classical-and-constructive-logic" title="Permalink to this headline">¶</a></h3>
+<h3>14.4.1. Inference rules good for classical and constructive logic<a class="headerlink" href="#inference-rules-good-for-classical-and-constructive-logic" title="Permalink to this headline">¶</a></h3>
 <p>Most rules apply to both classical and constructive logic.
 A few rules involving negation elimination are valid only
 in classical logic, but at the cost of extractability. KS:
 check and explain.</p>
 <div class="section" id="true-introduction">
-<h4>13.4.1.1. True Introduction<a class="headerlink" href="#true-introduction" title="Permalink to this headline">¶</a></h4>
+<h4>14.4.1.1. True Introduction<a class="headerlink" href="#true-introduction" title="Permalink to this headline">¶</a></h4>
 <div class="system-message">
 <p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{true\ introduction}{true}</tt>)</p>
 latex exited with error
@@ -501,7 +502,7 @@ checkAndShowInferenceRule(true_intro);
 </div>
 </div>
 <div class="section" id="false-elimination">
-<h4>13.4.1.2. False Elimination<a class="headerlink" href="#false-elimination" title="Permalink to this headline">¶</a></h4>
+<h4>14.4.1.2. False Elimination<a class="headerlink" href="#false-elimination" title="Permalink to this headline">¶</a></h4>
 <div class="system-message">
 <p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{false\ elimination}{false}{P}</tt>)</p>
 latex exited with error
@@ -553,7 +554,7 @@ checkAndShowInferenceRule(false_elim);
 </div>
 </div>
 <div class="section" id="negation">
-<h4>13.4.1.3. Negation<a class="headerlink" href="#negation" title="Permalink to this headline">¶</a></h4>
+<h4>14.4.1.3. Negation<a class="headerlink" href="#negation" title="Permalink to this headline">¶</a></h4>
 <p>FIX THIS.</p>
 <div class="system-message">
 <p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{not\ introduction}{P \rightarrow false}{\neg P}</tt>)</p>
@@ -607,7 +608,7 @@ checkAndShowInferenceRule(false_intro);
 </div>
 </div>
 <div class="section" id="and-introduction-and-elimination">
-<h4>13.4.1.4. And Introduction and Elimination<a class="headerlink" href="#and-introduction-and-elimination" title="Permalink to this headline">¶</a></h4>
+<h4>14.4.1.4. And Introduction and Elimination<a class="headerlink" href="#and-introduction-and-elimination" title="Permalink to this headline">¶</a></h4>
 <div class="system-message">
 <p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{and-intro}{P}{Q}{P \land Q}</tt>)</p>
 latex exited with error
@@ -757,7 +758,7 @@ checkAndShowInferenceRule(and_elim_r);
 </div>
 </div>
 <div class="section" id="or-introduction-and-elimination-rules">
-<h4>13.4.1.5. Or Introduction and Elimination Rules<a class="headerlink" href="#or-introduction-and-elimination-rules" title="Permalink to this headline">¶</a></h4>
+<h4>14.4.1.5. Or Introduction and Elimination Rules<a class="headerlink" href="#or-introduction-and-elimination-rules" title="Permalink to this headline">¶</a></h4>
 <div class="system-message">
 <p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{or-introduction-left}{P}{P \lor Q}</tt>)</p>
 latex exited with error
@@ -907,7 +908,7 @@ checkAndShowInferenceRule(or_elim);
 </div>
 </div>
 <div class="section" id="implication-introduction-and-elimination-rules">
-<h4>13.4.1.6. Implication Introduction and Elimination Rules<a class="headerlink" href="#implication-introduction-and-elimination-rules" title="Permalink to this headline">¶</a></h4>
+<h4>14.4.1.6. Implication Introduction and Elimination Rules<a class="headerlink" href="#implication-introduction-and-elimination-rules" title="Permalink to this headline">¶</a></h4>
 <div class="system-message">
 <p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{arrow-elimination}{P \rightarrow Q}{P}{Q}</tt>)</p>
 latex exited with error
@@ -1007,7 +1008,7 @@ Transcript written on math.log.
 </div>
 </div>
 <div class="section" id="resolution">
-<h4>13.4.1.7. Resolution<a class="headerlink" href="#resolution" title="Permalink to this headline">¶</a></h4>
+<h4>14.4.1.7. Resolution<a class="headerlink" href="#resolution" title="Permalink to this headline">¶</a></h4>
 <div class="system-message">
 <p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{resolution}{P \lor Q}{{\neg Q} \lor R}{P \lor R}</tt>)</p>
 latex exited with error
@@ -1109,7 +1110,7 @@ checkAndShowInferenceRule(unit_resolution);
 </div>
 </div>
 <div class="section" id="aristotle-s-rules">
-<h4>13.4.1.8. Aristotle’s Rules<a class="headerlink" href="#aristotle-s-rules" title="Permalink to this headline">¶</a></h4>
+<h4>14.4.1.8. Aristotle’s Rules<a class="headerlink" href="#aristotle-s-rules" title="Permalink to this headline">¶</a></h4>
 <div class="system-message">
 <p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{syllogism}{P \rightarrow Q}{Q \rightarrow R}{P \rightarrow R}</tt>)</p>
 latex exited with error
@@ -1212,7 +1213,7 @@ checkAndShowInferenceRule(modusTollens);
 </div>
 </div>
 <div class="section" id="inference-rules-valid-in-classical-but-not-in-constructive-logic">
-<h3>13.4.2. Inference Rules Valid in Classical but Not in Constructive Logic<a class="headerlink" href="#inference-rules-valid-in-classical-but-not-in-constructive-logic" title="Permalink to this headline">¶</a></h3>
+<h3>14.4.2. Inference Rules Valid in Classical but Not in Constructive Logic<a class="headerlink" href="#inference-rules-valid-in-classical-but-not-in-constructive-logic" title="Permalink to this headline">¶</a></h3>
 <div class="system-message">
 <p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{double-negation-elimination}{\neg{\neg P}}{P}</tt>)</p>
 latex exited with error
@@ -1314,7 +1315,7 @@ Transcript written on math.log.
 </div>
 </div>
 <div class="section" id="fallacious-inference-rules">
-<h3>13.4.3. Fallacious Inference Rules<a class="headerlink" href="#fallacious-inference-rules" title="Permalink to this headline">¶</a></h3>
+<h3>14.4.3. Fallacious Inference Rules<a class="headerlink" href="#fallacious-inference-rules" title="Permalink to this headline">¶</a></h3>
 <p>Now for the presentation and refutation of some logical fallacies.</p>
 <div class="system-message">
 <p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{affirm-consequence}{P \rightarrow Q}{Q}{P}</tt>)</p>
@@ -1466,7 +1467,7 @@ checkAndShowInferenceRule(deny_antecedent);
 </div>
 </div>
 <div class="section" id="algebraic-properties-identities">
-<h2>13.5. Algebraic properties / identities<a class="headerlink" href="#algebraic-properties-identities" title="Permalink to this headline">¶</a></h2>
+<h2>14.5. Algebraic properties / identities<a class="headerlink" href="#algebraic-properties-identities" title="Permalink to this headline">¶</a></h2>
 <p>Now we assert and check major algebraic properties of our
 operators. Because we do this for arbitrary propositions, P, Q, and R,
 one can be assure that these properties hold no matter what P, Q, and
@@ -1577,7 +1578,7 @@ var or_commutes_theorem: named_sequent  := (([],
 </div>
 </div>
 <div class="section" id="exercises">
-<h2>13.6. Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<h2>14.6. Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
 <p>Represent and validate in Dafny:</p>
 <p>begin{enumerate}
 item associativity of and
@@ -1611,43 +1612,44 @@ end{enumerate}</p>
 <!-- <h3>Navigation</h3> -->
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="01-reqs-specs-impls.html">1. Requirement, Specifications, and Implementations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02-logic-and-code.html">2. Logical Specifications, Imperative Implementations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-problems-with-imperative-code.html">3. Problems with Imperative Code</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04-runnable-math.html">4. Pure Functional Programming as Runnable Mathematics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05-verifying-logical-specifications.html">5. Formal Verification of Imperative Programs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06-dafny-language.html">6. Dafny Language: Types, Statements, Expressions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="07-set-theory.html">7. Set Theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="08-relations.html">8. Relations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="09-boolean-algebra.html">9. Boolean Algebra</a></li>
-<li class="toctree-l1"><a class="reference internal" href="10-formal-languages.html">10. Formal Languages</a></li>
-<li class="toctree-l1"><a class="reference internal" href="11-propositional-logic.html">11. Propositional Logic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="12-satisfiability.html">12. 12. Satisfiability</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">13. Natural Deduction</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#aristotle-s-logic">13.1. Aristotle’s Logic</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#syllogism">13.1.1. Syllogism</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#modus-ponens">13.1.2. Modus Ponens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="00-preface.html">1. Preface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01-reqs-specs-impls.html">2. Requirement, Specifications, and Implementations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-logic-and-code.html">3. Logical Specifications, Imperative Implementations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-problems-with-imperative-code.html">4. Problems with Imperative Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-runnable-math.html">5. Pure Functional Programming as Runnable Mathematics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-verifying-logical-specifications.html">6. Formal Verification of Imperative Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-dafny-language.html">7. Dafny Language: Types, Statements, Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-set-theory.html">8. Set Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-relations.html">9. Relations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-boolean-algebra.html">10. Boolean Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-formal-languages.html">11. Formal Languages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-propositional-logic.html">12. Propositional Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-satisfiability.html">13. 12. Satisfiability</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">14. Natural Deduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#aristotle-s-logic">14.1. Aristotle’s Logic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#syllogism">14.1.1. Syllogism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modus-ponens">14.1.2. Modus Ponens</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#named-inference-rule">13.2. Named Inference Rule</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#semantic-entailment">13.3. Semantic Entailment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#syntactic-entailment-and-the-rules-of-natural-deduction">13.4. Syntactic Entailment and the Rules of Natural Deduction</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#inference-rules-good-for-classical-and-constructive-logic">13.4.1. Inference rules good for classical and constructive logic</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#inference-rules-valid-in-classical-but-not-in-constructive-logic">13.4.2. Inference Rules Valid in Classical but Not in Constructive Logic</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#fallacious-inference-rules">13.4.3. Fallacious Inference Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#named-inference-rule">14.2. Named Inference Rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#semantic-entailment">14.3. Semantic Entailment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#syntactic-entailment-and-the-rules-of-natural-deduction">14.4. Syntactic Entailment and the Rules of Natural Deduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#inference-rules-good-for-classical-and-constructive-logic">14.4.1. Inference rules good for classical and constructive logic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inference-rules-valid-in-classical-but-not-in-constructive-logic">14.4.2. Inference Rules Valid in Classical but Not in Constructive Logic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fallacious-inference-rules">14.4.3. Fallacious Inference Rules</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#algebraic-properties-identities">13.5. Algebraic properties / identities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#exercises">13.6. Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#algebraic-properties-identities">14.5. Algebraic properties / identities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises">14.6. Exercises</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="14-predicate-logic.html">14. Predicate Logic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="15-proofs.html">15. Proofs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="16-equality.html">16. Proofs of Equalities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="17-inequality.html">17. Proofs of Inequality</a></li>
-<li class="toctree-l1"><a class="reference internal" href="18-existence.html">18. Proofs of Existence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="19-univeral.html">19. Proofs of Universality</a></li>
-<li class="toctree-l1"><a class="reference internal" href="20-termination.html">20. Termination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-predicate-logic.html">15. Predicate Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-proofs.html">16. Proofs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-equality.html">17. Proofs of Equalities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-inequality.html">18. Proofs of Inequality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18-existence.html">19. Proofs of Existence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19-univeral.html">20. Proofs of Universality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20-termination.html">21. Termination</a></li>
 </ul>
 
 

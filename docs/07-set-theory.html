@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>7. Set Theory &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
+    <title>8. Set Theory &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -23,8 +23,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="8. Relations" href="08-relations.html" />
-    <link rel="prev" title="6. Dafny Language: Types, Statements, Expressions" href="06-dafny-language.html" />
+    <link rel="next" title="9. Relations" href="08-relations.html" />
+    <link rel="prev" title="7. Dafny Language: Types, Statements, Expressions" href="06-dafny-language.html" />
 <!-- <link href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy" rel="stylesheet"> -->
 <!-- <link href="https://fonts.googleapis.com/css?family=Average" rel="stylesheet"> -->
 <!-- <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet"> -->
@@ -39,7 +39,7 @@
           <div class="body" role="main">
             
   <div class="section" id="set-theory">
-<h1>7. Set Theory<a class="headerlink" href="#set-theory" title="Permalink to this headline">¶</a></h1>
+<h1>8. Set Theory<a class="headerlink" href="#set-theory" title="Permalink to this headline">¶</a></h1>
 <p>Modern mathematics is largely founded on set theory: in particular, on
 what is called <em>Zermelo-Fraenkel set theory with the axiom of Choice</em>,
 or <em>ZFC</em>. Every concept you have ever learned in mathematics can, in
@@ -54,7 +54,7 @@ concepts.  ZFC is a widely accepted <em>formal foundation</em> for modern
 mathematics: a set of axioms that describe properties of sets, from
 which all the rest of mathematics can be deduced.</p>
 <div class="section" id="naive-set-theory">
-<h2>7.1. Naive Set Theory<a class="headerlink" href="#naive-set-theory" title="Permalink to this headline">¶</a></h2>
+<h2>8.1. Naive Set Theory<a class="headerlink" href="#naive-set-theory" title="Permalink to this headline">¶</a></h2>
 <p>So what is a set? A <em>naive</em> definition (which will actually be good
 enough for our purposes and for most of practical computer science) is
 that a set is just an unordered collection of elements. In principle,
@@ -76,7 +76,7 @@ that define what precisely it means to be a set and what operations
 can be use to manipulate sets.</p>
 </div>
 <div class="section" id="overly-naive-set-theory">
-<h2>7.2. Overly Naive Set Theory<a class="headerlink" href="#overly-naive-set-theory" title="Permalink to this headline">¶</a></h2>
+<h2>8.2. Overly Naive Set Theory<a class="headerlink" href="#overly-naive-set-theory" title="Permalink to this headline">¶</a></h2>
 <p>Before we go on, however, we review a bit of history to understand
 that an overly naive view of sets can lead to logical contradictions
 that make such a theory useless as a foundation for mathematics.</p>
@@ -145,7 +145,7 @@ perspective or not, we are usually working in a set theory the logical
 basic of which is ZFC.</p>
 </div>
 <div class="section" id="sets">
-<h2>7.3. Sets<a class="headerlink" href="#sets" title="Permalink to this headline">¶</a></h2>
+<h2>8.3. Sets<a class="headerlink" href="#sets" title="Permalink to this headline">¶</a></h2>
 <p>For our purposes, the <em>naive</em> notion of sets will be good enough. We
 will take a <em>set</em> to be an unordered finite or infinite collection of
 <em>elements</em>. An element is either <em>in</em> or <em>not in</em> a set, and can be in
@@ -162,9 +162,9 @@ set theory, a first-order predicate logic with set and set operators
 built in.</p>
 </div>
 <div class="section" id="set-theory-notations">
-<h2>7.4. Set Theory Notations<a class="headerlink" href="#set-theory-notations" title="Permalink to this headline">¶</a></h2>
+<h2>8.4. Set Theory Notations<a class="headerlink" href="#set-theory-notations" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="display-notation">
-<h3>7.4.1. Display notation<a class="headerlink" href="#display-notation" title="Permalink to this headline">¶</a></h3>
+<h3>8.4.1. Display notation<a class="headerlink" href="#display-notation" title="Permalink to this headline">¶</a></h3>
 <p>In everyday mathematical writing, and in Dafny, we denote small sets by
 listing the elements of the set within curly brace. If <em>S</em> is the set
 containing the numbers, one, two, and three, for example, we can write
@@ -198,7 +198,7 @@ very concise ways, using what is called <em>set comprehension</em> or <em>set
 builder</em> notation.</p>
 </div>
 <div class="section" id="set-comprehension-notation">
-<h3>7.4.2. Set comprehension notation<a class="headerlink" href="#set-comprehension-notation" title="Permalink to this headline">¶</a></h3>
+<h3>8.4.2. Set comprehension notation<a class="headerlink" href="#set-comprehension-notation" title="Permalink to this headline">¶</a></h3>
 <p>Take the example of the set, <em>T</em>, of even numbers from zero to fifty,
 inclusive. We can denote this set precisely in mathematical writing as
 <img class="math" src="_images/math/4cf068c45b8ab150909db0b734b213c29a2e7c35.png" alt="T = \{ n: {\mathbb Z}~|~0 &lt;= n &lt;= 50 \land n~mod~2 = 0 \}."/>
@@ -293,16 +293,16 @@ elements, <em>s</em> and <em>t</em>,, such that <em>s</em> is in <em>S</em> and 
 forming the elements of the new set as tuples, <em>(s, t)</em>.</p>
 </div>
 <div class="section" id="the-empty-set">
-<h3>7.4.3. The Empty Set<a class="headerlink" href="#the-empty-set" title="Permalink to this headline">¶</a></h3>
+<h3>8.4.3. The Empty Set<a class="headerlink" href="#the-empty-set" title="Permalink to this headline">¶</a></h3>
 <p>The empty set (of elements of some type, <em>A</em>) is the set containing no
 elements. In mathematical writing and in Dafny, this set is denoted as
 <em>{}</em>.</p>
 </div>
 </div>
 <div class="section" id="set-operations">
-<h2>7.5. Set Operations<a class="headerlink" href="#set-operations" title="Permalink to this headline">¶</a></h2>
+<h2>8.5. Set Operations<a class="headerlink" href="#set-operations" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="cardinality">
-<h3>7.5.1. Cardinality<a class="headerlink" href="#cardinality" title="Permalink to this headline">¶</a></h3>
+<h3>8.5.1. Cardinality<a class="headerlink" href="#cardinality" title="Permalink to this headline">¶</a></h3>
 <p>By the cardinality of a set, <em>S</em>, we mean the number of elements
 in S. When <em>S</em> is finite, the cardinality of <em>S</em> is a natural number.
 The cardinarily of the empty set is zero, for example, because it has
@@ -323,7 +323,7 @@ cardinality operator is not defined for infinite sets (of type
 <em>iset&lt;T&gt;</em>).</p>
 </div>
 <div class="section" id="equality">
-<h3>7.5.2. Equality<a class="headerlink" href="#equality" title="Permalink to this headline">¶</a></h3>
+<h3>8.5.2. Equality<a class="headerlink" href="#equality" title="Permalink to this headline">¶</a></h3>
 <p>Two sets, <em>S</em> and <em>T</em> are said to be <em>equal</em> if and only if they
 contain exactly the same elements. That is, <img class="math" src="_images/math/bf9d5c5c7dacb29bfa2721e2d4951e7b335baca1.png" alt="S = T \iff \forall
 x, x \in S \iff x\in T."/> In mathematical English, you would say, “A
@@ -350,7 +350,7 @@ values for equality. The expression, <em>S == T</em> evalutes to true if and
 only if <em>S</em> and <em>T</em> are equal, as defined here.</p>
 </div>
 <div class="section" id="subset">
-<h3>7.5.3. Subset<a class="headerlink" href="#subset" title="Permalink to this headline">¶</a></h3>
+<h3>8.5.3. Subset<a class="headerlink" href="#subset" title="Permalink to this headline">¶</a></h3>
 <p>A set, <em>T</em>, can be said to be a subset of a set <em>S</em> if and only if
 every element in <em>S</em> is also in <em>T</em>. In this case, mathematicians
 write <img class="math" src="_images/math/7333b871ac1dabeb128b8e52fb3cf50f998ac2a9.png" alt="S \subseteq T"/>. The mathematical definition is that
@@ -374,7 +374,7 @@ the expression, <em>S &lt;= T</em>, it returns true if and only if <em>S</em> is
 subset of <em>T</em>.</p>
 </div>
 <div class="section" id="proper-subset">
-<h3>7.5.4. Proper Subset<a class="headerlink" href="#proper-subset" title="Permalink to this headline">¶</a></h3>
+<h3>8.5.4. Proper Subset<a class="headerlink" href="#proper-subset" title="Permalink to this headline">¶</a></h3>
 <p>A set <em>S</em>, is said to be a <em>proper</em> subset of <em>T</em>, if <em>S</em> is a subset
 of <em>T</em> but there is some element in <em>T</em> that is not in <em>S</em>. In our
 example, <em>S</em>, the set of even natural numbers less than <em>25</em>, is a
@@ -429,7 +429,7 @@ So, for example, <em>S &gt;= T</em> is the assertion that <em>S</em> is a supers
 superset of itself, and every set is a superset of the empty set.</p>
 </div>
 <div class="section" id="intersection">
-<h3>7.5.5. Intersection<a class="headerlink" href="#intersection" title="Permalink to this headline">¶</a></h3>
+<h3>8.5.5. Intersection<a class="headerlink" href="#intersection" title="Permalink to this headline">¶</a></h3>
 <p>The intersection of two sets, <em>S</em> and <em>T</em>, written as <img class="math" src="_images/math/6a6d61ecc809c85d65539fae9656f6ec1f767dc2.png" alt="S \cap
 T"/>, is the set of all elements that are in both sets. Mathematically
 speaking, <img class="math" src="_images/math/ffd81e4b2127bdf790dfdd92ea37f28124dd1cba.png" alt="S \cap T = \{ e~|~e \in S \land e \in T \}"/>.</p>
@@ -448,7 +448,7 @@ of <em>S</em> and <em>T</em> is written <em>S * T</em>. For example, the command
 it yourself.</p>
 </div>
 <div class="section" id="union">
-<h3>7.5.6. Union<a class="headerlink" href="#union" title="Permalink to this headline">¶</a></h3>
+<h3>8.5.6. Union<a class="headerlink" href="#union" title="Permalink to this headline">¶</a></h3>
 <p>The union of two sets, <em>S</em> and <em>T</em>, written as <img class="math" src="_images/math/2de920c1d2b76dfdac8638bf2aee04a1f86d4eef.png" alt="S \cup T"/>, is
 the set of elements that are in either (or both) <em>S</em> and <em>T</em>. That is,
 <img class="math" src="_images/math/1c42020e093dd95fe74495cba4d516420eaf4c11.png" alt="S \cup T = \{ e~|~e \in S \lor e \in T \}"/>.</p>
@@ -472,7 +472,7 @@ for computing set unions, namely <em>+</em>.  The union of sets, <em>S</em> and
 assigns the union of <em>S</em> and <em>T</em> as the new value of <em>V</em>. Try it!</p>
 </div>
 <div class="section" id="difference">
-<h3>7.5.7. Difference<a class="headerlink" href="#difference" title="Permalink to this headline">¶</a></h3>
+<h3>8.5.7. Difference<a class="headerlink" href="#difference" title="Permalink to this headline">¶</a></h3>
 <p>The difference of sets <em>T</em> and <em>S</em>, written <img class="math" src="_images/math/4992211065e43e7ec68c1363b8fb99d28bbece7b.png" alt="T \setminus S"/>, is
 the set of elements in <em>T</em> that are not in <em>S</em>. Thus, <img class="math" src="_images/math/f9f0d10780a702674a6d8ee8b49136ffa9f7e51f.png" alt="T
 \setminus S = \{e~|~e \in T \land e \notin S)"/>.</p>
@@ -490,7 +490,7 @@ example, <em>|T-S|</em> denotes the cardinality of <em>T-S</em>. Try evaluating 
 expression with <em>T</em> and <em>S</em> as defined in the previous section.</p>
 </div>
 <div class="section" id="product-set">
-<h3>7.5.8. Product Set<a class="headerlink" href="#product-set" title="Permalink to this headline">¶</a></h3>
+<h3>8.5.8. Product Set<a class="headerlink" href="#product-set" title="Permalink to this headline">¶</a></h3>
 <p>The product set, <img class="math" src="_images/math/1acb93609f9c3ced3ac62508151f822cee4b46bc.png" alt="S \times T"/>, of two sets, <em>S</em> and T*, is
 defined ot be set of all the ordered pairs, <em>(s,t)</em>, that can be
 formed by taking any element, <em>s</em>, from <em>S</em>, and any element, <em>t</em>,
@@ -518,7 +518,7 @@ set is the <em>tuple type</em>, <em>(A, B)</em>.</p>
 </div>
 </div>
 <div class="section" id="tuples">
-<h2>7.6. Tuples<a class="headerlink" href="#tuples" title="Permalink to this headline">¶</a></h2>
+<h2>8.6. Tuples<a class="headerlink" href="#tuples" title="Permalink to this headline">¶</a></h2>
 <p>A tuple is an ordered collection of elements. The type of elements in
 a tuple need not all be be the same. The number of elements in a tuple
 is called its <em>arity</em>. Ordered pairs are tuples of arity, <em>2</em>, for
@@ -595,7 +595,7 @@ and the table as a whole is what we call a <em>relation</em>. If you have
 heard of a <em>relational database</em>, you now know what kind of data such
 a system handles: tables, i.e., <em>relations</em>.</p>
 <div class="section" id="power-set">
-<h3>7.6.1. Power Set<a class="headerlink" href="#power-set" title="Permalink to this headline">¶</a></h3>
+<h3>8.6.1. Power Set<a class="headerlink" href="#power-set" title="Permalink to this headline">¶</a></h3>
 <p>The power set of a set, <em>S</em>, denoted <img class="math" src="_images/math/ecf87312a6f2328d7aaf2c7faa76bd847c4a630a.png" alt="{\mathbb P}(S),"/> is the
 set of all subsets of <em>S</em>, including both the set itself and the empty
 set. If <em>S = {1, 2}</em>, for example, then the powerset of <em>S</em> is the set
@@ -668,61 +668,62 @@ powerset. You have to figure out the return type: think “set of sets”.</p>
 <!-- <h3>Navigation</h3> -->
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="01-reqs-specs-impls.html">1. Requirement, Specifications, and Implementations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02-logic-and-code.html">2. Logical Specifications, Imperative Implementations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-problems-with-imperative-code.html">3. Problems with Imperative Code</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04-runnable-math.html">4. Pure Functional Programming as Runnable Mathematics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05-verifying-logical-specifications.html">5. Formal Verification of Imperative Programs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06-dafny-language.html">6. Dafny Language: Types, Statements, Expressions</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">7. Set Theory</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#naive-set-theory">7.1. Naive Set Theory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#overly-naive-set-theory">7.2. Overly Naive Set Theory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#sets">7.3. Sets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#set-theory-notations">7.4. Set Theory Notations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#display-notation">7.4.1. Display notation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#set-comprehension-notation">7.4.2. Set comprehension notation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#the-empty-set">7.4.3. The Empty Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="00-preface.html">1. Preface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01-reqs-specs-impls.html">2. Requirement, Specifications, and Implementations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-logic-and-code.html">3. Logical Specifications, Imperative Implementations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-problems-with-imperative-code.html">4. Problems with Imperative Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-runnable-math.html">5. Pure Functional Programming as Runnable Mathematics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-verifying-logical-specifications.html">6. Formal Verification of Imperative Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-dafny-language.html">7. Dafny Language: Types, Statements, Expressions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">8. Set Theory</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#naive-set-theory">8.1. Naive Set Theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overly-naive-set-theory">8.2. Overly Naive Set Theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sets">8.3. Sets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#set-theory-notations">8.4. Set Theory Notations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#display-notation">8.4.1. Display notation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-comprehension-notation">8.4.2. Set comprehension notation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-empty-set">8.4.3. The Empty Set</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#set-operations">7.5. Set Operations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#cardinality">7.5.1. Cardinality</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#equality">7.5.2. Equality</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#subset">7.5.3. Subset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#proper-subset">7.5.4. Proper Subset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#intersection">7.5.5. Intersection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#union">7.5.6. Union</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#difference">7.5.7. Difference</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#product-set">7.5.8. Product Set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#set-operations">8.5. Set Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cardinality">8.5.1. Cardinality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#equality">8.5.2. Equality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#subset">8.5.3. Subset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#proper-subset">8.5.4. Proper Subset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#intersection">8.5.5. Intersection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#union">8.5.6. Union</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#difference">8.5.7. Difference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#product-set">8.5.8. Product Set</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#tuples">7.6. Tuples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#power-set">7.6.1. Power Set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tuples">8.6. Tuples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#power-set">8.6.1. Power Set</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="08-relations.html">8. Relations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="09-boolean-algebra.html">9. Boolean Algebra</a></li>
-<li class="toctree-l1"><a class="reference internal" href="10-formal-languages.html">10. Formal Languages</a></li>
-<li class="toctree-l1"><a class="reference internal" href="11-propositional-logic.html">11. Propositional Logic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="12-satisfiability.html">12. 12. Satisfiability</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13-consequence.html">13. Natural Deduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="14-predicate-logic.html">14. Predicate Logic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="15-proofs.html">15. Proofs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="16-equality.html">16. Proofs of Equalities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="17-inequality.html">17. Proofs of Inequality</a></li>
-<li class="toctree-l1"><a class="reference internal" href="18-existence.html">18. Proofs of Existence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="19-univeral.html">19. Proofs of Universality</a></li>
-<li class="toctree-l1"><a class="reference internal" href="20-termination.html">20. Termination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-relations.html">9. Relations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-boolean-algebra.html">10. Boolean Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-formal-languages.html">11. Formal Languages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-propositional-logic.html">12. Propositional Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-satisfiability.html">13. 12. Satisfiability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-consequence.html">14. Natural Deduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-predicate-logic.html">15. Predicate Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-proofs.html">16. Proofs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-equality.html">17. Proofs of Equalities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-inequality.html">18. Proofs of Inequality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18-existence.html">19. Proofs of Existence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19-univeral.html">20. Proofs of Universality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20-termination.html">21. Termination</a></li>
 </ul>
 
 
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="https://kevinsullivan.github.io/cs-dm">Lean Home</a></li>
-    
     <li class="toctree-l1"><a href="discrete_mathematics.pdf">PDF version</a></li>
+    
+    <li class="toctree-l1"><a href="https://kevinsullivan.github.io/cs-dm">Lean Home</a></li>
     
 </ul>
 

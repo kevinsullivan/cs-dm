@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>&lt;no title&gt; &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
+    <title>1. Preface &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="1. Requirement, Specifications, and Implementations" href="01-reqs-specs-impls.html" />
+    <link rel="next" title="2. Requirement, Specifications, and Implementations" href="01-reqs-specs-impls.html" />
     <link rel="prev" title="Discrete Mathematics: A Computational Approach" href="index.html" />
 <!-- <link href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy" rel="stylesheet"> -->
 <!-- <link href="https://fonts.googleapis.com/css?family=Average" rel="stylesheet"> -->
@@ -38,11 +38,15 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <p>This is a course, and a new kind of course, in discrete mathematics
+  <div class="section" id="preface">
+<h1>1. Preface<a class="headerlink" href="#preface" title="Permalink to this headline">¶</a></h1>
+<p>This is a course, and a new kind of course, in discrete mathematics
 (DM) for early undergaduate students in computer science and related
 disciplines. The usual DM course at this level is a paper-and-pencil
 affair about proof techniques many CS students find hard to relate to
 their interests in computing.  This course charts a better way.</p>
+<div class="section" id="design-rationale">
+<h2>1.1. Design Rationale<a class="headerlink" href="#design-rationale" title="Permalink to this headline">¶</a></h2>
 <p>Several premises underlie the design of this course. First, students
 want to know up front why logical proposition and proofs are relevant,
 and how they are demonstrably and powerfully useful, for the practice
@@ -94,6 +98,9 @@ This course therefore takes students on an incremental journey through
 an evolving landscape of deepening concepts. Having developed students’
 fluency in reading, writing, and <em>benefitting from</em> predicate logic, the
 course then asks and starts to answer the question, <em>what is a logic</em>?</p>
+</div>
+<div class="section" id="progression">
+<h2>1.2. Progression<a class="headerlink" href="#progression" title="Permalink to this headline">¶</a></h2>
 <p>This question leads directly to the notion of a formal language, which
 the course then addresses in the style of modern type theory. As an
 easy warm-up, students learn how to specify the <em>syntax</em> of a simple
@@ -141,19 +148,44 @@ proofs: of their types.</p>
 <p>Chapters follow on proof techniques deriving from the various forms of
 propositions, ultimately reaching proofs by induction for universally
 quantified propositions. (Notes not yet in place: TBD).</p>
+</div>
+<div class="section" id="tools">
+<h2>1.3. Tools<a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h2>
 <p>The course used the Dafny and Lean languages, and used VS Code and the
-Dafny and Lean extensions for VS Code for all student work. The Dafny
-and Lean languages cased few complications. The VS Code extensions
-still need some work. Both the Dafny and Lean extensions sometimes
-fail to properly update error indications (red squiggly underlines),
-even when code is correct, which generally and understandably causes
-great consternation, frustration, anger, and sadness among early CS
-students, until they learn the work-arounds. Instructors considering
-using this curriculum should be aware of these issues. The author is
-happy to discuss them with other instructors and investigators who
-might be interested.</p>
+Dafny and Lean extensions for VS Code for all student work. Students
+worked on code in almost every class, generally pulling updates to be
+discussed and worked on each day from the author’s evolving GitHub
+repository. Startin in Fall 2018 the plan is to organize the repo as
+a set of branches, each introducing the additional material for each
+day of the course.</p>
+<p>The Dafny and Lean languages, per se, caused few complications. Dafny
+has incomplete heuristics that lead to mystifying results in a few
+cases. Notably, while it has heuristics that infer that intersections
+of finite sets are finite, the same is not true for unions, so Dafny
+rejects the obvious definition of set union as not well formed; and
+this is but one example of family of related inferencing deficiencies.
+In practice, students accepted that these are problems that could in
+principle be resolved but that haven’t yet been addressed in this
+cutting-edge software.</p>
+<p>The VS Code extensions, on the other hand, worked, but had greater
+deficiencies. They still need some work. The Dafny extension sometimes
+produces voluminous error logging messages visible to the user. They
+confuse and annoy users, who just learn to ignore them. Both the Dafny
+and Lean extensions sometimes fail to update error indications (red
+squiggly underlines indicating errors in code), even when the code is
+corrected. This issue causes consternation, frustration, anger, even
+sadness among students, until they learn the work-arounds. Instructors
+considering using this curriculum should be aware of these issues with
+the VS Code extensions. The author is happy to discuss them with other
+instructors and investigators who might be interested.</p>
+</div>
+<div class="section" id="exercises">
+<h2>1.4. Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
 <p>Exercises are currently provided in some but not all chapters. This is
 work that planned for completion by the start of Fall semester, 2018.</p>
+</div>
+<div class="section" id="acknowledgements">
+<h2>1.5. Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this headline">¶</a></h2>
 <p>The design of this course owes a lot to many other researchers. It was
 inspired by pedagogical works organized around Coq, notably Benjamin
 Pierce’s Software Foundations and Chlipala’s Certified Programming
@@ -176,15 +208,28 @@ correspondence.</p>
 <p>The author gratefully acknowledges the support of Rustan Leino, the
 developer of Dafny, and several others who provided insight and help
 in the author’s use of Dafny; of Leo de Moura, Tom Ball, and Jeremy
-Avigad for their help with Lean (and Jeremy for open source code that
-taught the author how to format this book using Sphinx); of Mattias
-Felleisen, Shriram Krishnamurthi, Gregor Kiczales, and others for many
+Avigad, for their help with Lean, and Jeremy for open source code that
+taught the author how to format this book using Sphinx; Mattias
+Felleisen, Shriram Krishnamurthi, Gregor Kiczales, and others for
 discussions about HTDP and related pedagogical strategies; and Ken
 Birman, who suggested that the author look at Dafny as a strong
 candidate for a first or early course for computer scientists. The
 author also thanks the students in his CS2102 Spring 2018 class for
 their patience and enthusiasm for learning discrete math following
 this somewhat novel approach to teaching that class. Thanks y’all.</p>
+</div>
+<div class="section" id="feedback-and-corrections">
+<h2>1.6. Feedback and Corrections<a class="headerlink" href="#feedback-and-corrections" title="Permalink to this headline">¶</a></h2>
+<p>The author advises that this book in its current form is still a very
+rough draft. Corrections and other forms of feedback are welcomed. The
+author requests that corrections in particular be posted as <em>issues</em>
+on the author’s GitHub repo, at <a class="reference external" href="http://github.com/kevinsullivan/cs-dm">http://github.com/kevinsullivan/cs-dm</a>.
+Feel free to follow up with email to sullivan.kevinj at gmail. At some
+point soon the author will develop a protocol allowing members of the
+broader community to contribute to this effort, perhaps in the style
+of Pierce around Software Foundations.</p>
+</div>
+</div>
 
 
           </div>
@@ -203,36 +248,45 @@ this somewhat novel approach to teaching that class. Thanks y’all.</p>
 
 <!-- <h3>Navigation</h3> -->
 <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="01-reqs-specs-impls.html">1. Requirement, Specifications, and Implementations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02-logic-and-code.html">2. Logical Specifications, Imperative Implementations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-problems-with-imperative-code.html">3. Problems with Imperative Code</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04-runnable-math.html">4. Pure Functional Programming as Runnable Mathematics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05-verifying-logical-specifications.html">5. Formal Verification of Imperative Programs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06-dafny-language.html">6. Dafny Language: Types, Statements, Expressions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="07-set-theory.html">7. Set Theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="08-relations.html">8. Relations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="09-boolean-algebra.html">9. Boolean Algebra</a></li>
-<li class="toctree-l1"><a class="reference internal" href="10-formal-languages.html">10. Formal Languages</a></li>
-<li class="toctree-l1"><a class="reference internal" href="11-propositional-logic.html">11. Propositional Logic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="12-satisfiability.html">12. 12. Satisfiability</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13-consequence.html">13. Natural Deduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="14-predicate-logic.html">14. Predicate Logic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="15-proofs.html">15. Proofs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="16-equality.html">16. Proofs of Equalities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="17-inequality.html">17. Proofs of Inequality</a></li>
-<li class="toctree-l1"><a class="reference internal" href="18-existence.html">18. Proofs of Existence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="19-univeral.html">19. Proofs of Universality</a></li>
-<li class="toctree-l1"><a class="reference internal" href="20-termination.html">20. Termination</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. Preface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#design-rationale">1.1. Design Rationale</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#progression">1.2. Progression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tools">1.3. Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises">1.4. Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#acknowledgements">1.5. Acknowledgements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#feedback-and-corrections">1.6. Feedback and Corrections</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="01-reqs-specs-impls.html">2. Requirement, Specifications, and Implementations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-logic-and-code.html">3. Logical Specifications, Imperative Implementations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-problems-with-imperative-code.html">4. Problems with Imperative Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-runnable-math.html">5. Pure Functional Programming as Runnable Mathematics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-verifying-logical-specifications.html">6. Formal Verification of Imperative Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-dafny-language.html">7. Dafny Language: Types, Statements, Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-set-theory.html">8. Set Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-relations.html">9. Relations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-boolean-algebra.html">10. Boolean Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-formal-languages.html">11. Formal Languages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-propositional-logic.html">12. Propositional Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-satisfiability.html">13. 12. Satisfiability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-consequence.html">14. Natural Deduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-predicate-logic.html">15. Predicate Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-proofs.html">16. Proofs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-equality.html">17. Proofs of Equalities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-inequality.html">18. Proofs of Inequality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18-existence.html">19. Proofs of Existence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19-univeral.html">20. Proofs of Universality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20-termination.html">21. Termination</a></li>
 </ul>
 
 
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="https://kevinsullivan.github.io/cs-dm">Lean Home</a></li>
-    
     <li class="toctree-l1"><a href="discrete_mathematics.pdf">PDF version</a></li>
+    
+    <li class="toctree-l1"><a href="https://kevinsullivan.github.io/cs-dm">Lean Home</a></li>
     
 </ul>
 
