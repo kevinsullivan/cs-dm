@@ -331,14 +331,12 @@ set <em>S</em> is equal to a set <em>T</em> if and only if for every possible va
 <em>x</em>, <em>x</em> is in S if and only if it is in <em>T</em>.</p>
 <p>In Dafny, you could define a
 polymorphic set equality operator like this:</p>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>predicate set_eq&lt;A(!new)&gt;(S: set&lt;A&gt;, T: set&lt;A&gt;)
+{
+    forall x :: x in S &lt;==&gt; x in T
+}
 </pre></div>
 </div>
-<p>predicate set_eq&lt;A(!new)&gt;(S: set&lt;A&gt;, T: set&lt;A&gt;)
-{</p>
-<blockquote>
-<div>forall x :: x in S &lt;==&gt; x in T</div></blockquote>
-<p>}</p>
 <p>This Dafny code defines a predicate, which is to say a proposition
 with two parameters, S and T, each sets containing elements of type A,
 where A is any Dafny type.  It looks like the mathematical definition
@@ -364,14 +362,12 @@ every value, <em>s</em>, if <em>s</em> is in <em>S</em> then <em>s</em> is also 
 this does not say that every element of S is in T, but only that <em>if</em>
 an element is in <em>S</em> then it is also in <em>T</em>.</p>
 <p>Here’s how this definition would be written in Dafny.</p>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>predicate set_subseteq&lt;A(!new)&gt;(S: set&lt;A&gt;, T: set&lt;A&gt;)
+{
+    forall s :: s in S ==&gt; s in T
+}
 </pre></div>
 </div>
-<p>predicate set_subseteq&lt;A(!new)&gt;(S: set&lt;A&gt;, T: set&lt;A&gt;)
-{</p>
-<blockquote>
-<div>forall s :: s in S ==&gt; s in T</div></blockquote>
-<p>}</p>
 <p>Dafny provides a built-in subset operator, <em>&lt;=</em>. It looks like the
 usual “less than or equals” operator, but when applied to sets, as in
 the expression, <em>S &lt;= T</em>, it returns true if and only if <em>S</em> is a
@@ -439,6 +435,12 @@ T"/>, is the set of all elements that are in both sets. Mathematically
 speaking, <img class="math" src="_images/math/ffd81e4b2127bdf790dfdd92ea37f28124dd1cba.png" alt="S \cap T = \{ e~|~e \in S \land e \in T \}"/>.</p>
 <p>In Dafny, we could define our own polymorphic set intersection
 function in only a superficially different way as follows:</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>function intersection&lt;A&gt;(S: set&lt;A&gt;, T: set&lt;A&gt;): set&lt;A&gt;
+{
+    set e | e in S &amp;&amp; e in T
+}
+</pre></div>
+</div>
 <p>Once again, we don’t have to write such code. Dafny’s built-in <em>*</em>
 operator applied to sets denotes set intersection.  The intersection
 of <em>S</em> and <em>T</em> is written <em>S * T</em>. For example, the command <em>Q := S

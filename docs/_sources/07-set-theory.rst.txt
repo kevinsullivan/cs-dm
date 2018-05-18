@@ -360,10 +360,10 @@ polymorphic set equality operator like this:
 
 .. code-block:: dafny
 
-predicate set_eq<A(!new)>(S: set<A>, T: set<A>)
-{
-    forall x :: x in S <==> x in T
-}
+    predicate set_eq<A(!new)>(S: set<A>, T: set<A>)
+    {
+        forall x :: x in S <==> x in T
+    }
 
 This Dafny code defines a predicate, which is to say a proposition
 with two parameters, S and T, each sets containing elements of type A,
@@ -401,10 +401,10 @@ Here's how this definition would be written in Dafny.
 
 .. code-block:: dafny
 
-predicate set_subseteq<A(!new)>(S: set<A>, T: set<A>)
-{
-    forall s :: s in S ==> s in T
-}
+    predicate set_subseteq<A(!new)>(S: set<A>, T: set<A>)
+    {
+        forall s :: s in S ==> s in T
+    }
 
 Dafny provides a built-in subset operator, *<=*. It looks like the
 usual "less than or equals" operator, but when applied to sets, as in
@@ -502,7 +502,7 @@ speaking, :math:`S \cap T = \{ e~|~e \in S \land e \in T \}`.
 In Dafny, we could define our own polymorphic set intersection
 function in only a superficially different way as follows:
 
-.. code-block
+.. code-block:: dafny
 
    function intersection<A>(S: set<A>, T: set<A>): set<A>
    {
