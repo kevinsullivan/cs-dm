@@ -1,0 +1,1700 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Proofs &#8212; Discrete Mathematics 1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/sidebar.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Proofs of Equalities" href="16-equality.html" />
+    <link rel="prev" title="Predicate Logic" href="14-predicate-logic.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="16-equality.html" title="Proofs of Equalities"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="14-predicate-logic.html" title="Predicate Logic"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="proofs">
+<h1>Proofs<a class="headerlink" href="#proofs" title="Permalink to this headline">¶</a></h1>
+<p>KS: Edit this intro.</p>
+<p>Finally, logic consequence. A set of logical propositions, premises,
+is said to entail another, a conclusion, if in every interpretation
+where all of the premises are true the conclusion is also true. See
+the file, consequence.dfy, for a consequence checker that works by
+exhaustive checking of all interpretations. &lt;More to come&gt;.</p>
+<p>KS: Transition here from sematic to syntactic entailment.</p>
+<p>Note to self: The next few chapters separate complexities on the way
+to full first-order logic. The first, addressed here, is the shift
+from a semantic to a syntactic approach to judging truth. Derivation
+vs. Evaluation.</p>
+<p>We will use the reasoning principles just validated semantically to
+formulate analogous syntactic rules: i.e., natural deduction. These
+rules provide a needed alternative to truth tables for ascertaining
+truth in propositional logic. Truth tables grow too large too fast.</p>
+<p>The next two chapters introduce, respectively, predicate logic without
+quantifiers but including interpretations over arbitrary sets; and then
+the introduction of quantifiers.
+[FIX BELOW: UNDER CONSTRUCTION.]</p>
+<p>One way to define a set of <em>inference</em> rules that define ways that one
+can transform one set of expressions (premises) into another (a
+conclusion) in such a manner that whenver all the premises are true,
+the conclusion will be, too.</p>
+<p>Why would anyone care about rules for transforming expressions in
+abstract languages? Well, it turns out that <em>syntactic</em> reasoning is
+pretty useful. The idea is that we represent a real-world phenomenon
+symbolically, in such a language, so the abstract sentence means
+something in the real world.</p>
+<p>Now comes the key idea: if we imbue mathematical expressions with
+real-world meanings and then transform these expression in accordance
+with valid rules for acceptable transformations of such expressions,
+then the resulting expressions will also be meaningful.</p>
+<p>A logic, then, is basically a formal language, one that defines a set
+of well formed expressions, and that provides a set of <em>inference</em>
+rules for taking a set of expressions as premises and deriving another
+one as a consequence. Mathematical logic allows us to replace human
+mental reasoning with the mechanical <em>transformation of symbolic
+expressions</em>.</p>
+<div class="section" id="unscalability-of-semantic-entailment">
+<h2>Unscalability of Semantic Entailment<a class="headerlink" href="#unscalability-of-semantic-entailment" title="Permalink to this headline">¶</a></h2>
+<p>At this point, we’ve proposed and validated (using truth tables) a set
+of fundamental inference rules. Unfortunately, using truth tables
+doesn’t scale well. We thus play an important game, now, where we
+simply accept the inference rules as valid transformation between sets
+of premises and conclusions. We view the Ps, Qs, Rs in the rules we
+validated as “standing for” arbitrary propositions, and we now apply
+these rules without having to go back and validate the results
+“semantically” (using truth tables). We thus transition from what we
+call “semantic entailment” to “syntactic entailment,” which finally
+moves us into the realm of logic and proof.</p>
+<p>We now also shift tools, from Dafny, which allows us to write logic,
+but which largely hides the proofs and their construction, to Lean,
+which is what we call a proof assistant.  Many propositions are too
+difficult for tools such as Dafny to prove automatically. If we still
+want the assurances of correctness (of software or even just in pure
+mathematics) provided by a strongly typed checker, then we have to use
+a tool in which we manipulate both propositions and proofs
+explicitly. We are now there.</p>
+<p>The purpose of this initial unit is to give you an introduction to the
+fundamental concepts of propositions and proofs, using a proof tool as
+an aid to learning: here the Lean Prover.</p>
+<p>A key point in this chapter is that different forms of propositions
+have different forms of proofs, and require you to use different proof
+“strategies” to construct such proofs. These ideas are fundmental to
+discrete mathematics whether or not you are using a proof tool.
+Benefits of using a tool like Lean include nearly absolute assurance
+that you haven’t made a mistake by accepting a proof that isn’t really
+valid.</p>
+</div>
+<div class="section" id="natural-deduction">
+<h2>Natural Deduction<a class="headerlink" href="#natural-deduction" title="Permalink to this headline">¶</a></h2>
+<p>Natural deduction, which is the proof system that we’re using here, is
+a set of functions (inference rules) for taking apart (elimination)
+and putting together (introduction) proofs of propositions to produce
+proofs of other propositions.</p>
+<p>This natural deduction proof systems was invented long before
+autoamted tools, and is one of the fundamental systems for precise
+logical reasoning. The Lean Prover and similar “proof assistants”
+automate natural deduction proof development, and and use strong,
+static type checking to make sure that you can never produce an
+incorrect proof: because you’re never allowed to pass arguments of the
+wrong types to the inference rules.</p>
+<p>Take-away: You’re learning the natural deduction style of producing
+proofs of mathematical conjectures; but unlike the students doing this
+with paper and pencil and no tool to help, you have the benefit of
+automation and a highly trustworthy correctness checker.</p>
+<p>The cost is that now you can’t be sloppy.  Inded, you have to be very
+precise about every step. Experienced mathematicians like to skip many
+steps in writing proofs, when they (think they) know that the details
+will all work out. The upside is that it’s easier to write proofs.
+The downside is that errors can easily go undetected. Many errors in
+proofs of important theorems have only been found years after the
+proofs were reviewed by mathematicians and accepted as true in the
+community. When lives depend on the correctness of proofs, it can be
+worth the trouble to make sure they’re right.  -/</p>
+</div>
+<div class="section" id="forms-of-propositions-forms-of-proofs">
+<h2>Forms of Propositions; Forms of Proofs<a class="headerlink" href="#forms-of-propositions-forms-of-proofs" title="Permalink to this headline">¶</a></h2>
+<p>With this background in hand, we can now use
+what we’ve learned to start to investigate the
+world of mathematical logic and proof at a high
+level of sophistication and automation!</p>
+<p>In particular, we now start to explore different
+<em>forms of propositions</em> and corresponding <em>proof
+strategies</em>. The first unit in the remainder of
+this introduction focuses on propositions that
+assert that two terms are equal. The strategy
+we see used here is “proof by simplification
+and by the reflexive property of equality”.</p>
+</div>
+<div class="section" id="introduction-and-elimination-rules">
+<h2>Introduction and Elimination Rules<a class="headerlink" href="#introduction-and-elimination-rules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="true-introduction">
+<h2>True Introduction<a class="headerlink" href="#true-introduction" title="Permalink to this headline">¶</a></h2>
+<p>Recall from our introduction to inference rules in propositional logic
+that the proposition, pTrue, is true without any preconditions. We
+wrote the rule like this: ([],pTrue), and we called it “true intro”.
+We proved the rule semantically valid, so we can write [] <a href="#id1"><span class="problematic" id="id2">|</span></a>=
+pTrue. That is, from an empty context (no previous assumptions) we can
+conclude that pTrue is true.</p>
+<p>In lean, “true” is the true proposition.  You can check that “true” is
+a proposition using #check.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=#check%20true" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="bp">#</span><span class="kn">check</span> <span class="n">true</span>
+</pre></div>
+</div>
+</div><p>Note: the proposition, true, is different than the Boolean value,
+true. The Boolean value, true, written “tt” in Lean, is one of the two
+values of the bool datatype. It is not a proposition.  Chek it out.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=#check%20tt" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="bp">#</span><span class="kn">check</span> <span class="n">tt</span>
+</pre></div>
+</div>
+</div><p>In Lean and similar proof assistants, propositions, such as true in
+Lean, can be defined inductively. The keyword for an inductive
+datatype in Dafny is just “datatype”. Recall the definition of our
+syntax for propositional logic, for example. The values of a type are
+defined by a list of contructors.</p>
+<p>As proofs are values of types, we can define propositions as types and
+proofs of such propositions as values produced by constructors. The
+simplest example is the proposition, true, in Lean. It’s defined in
+Lean’s core library like so:</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=inductive%20true%20:%20Prop%0A%7C%20intro%20:%20true" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">inductive</span> <span class="n">true</span> <span class="o">:</span> <span class="kt">Prop</span>
+<span class="bp">|</span> <span class="n">intro</span> <span class="o">:</span> <span class="n">true</span>
+</pre></div>
+</div>
+</div><p>This says that true is of type Prop, i.e., is a proposition, and it
+has just one value, proof, namely “intro”. The constructor says,
+“intro” is of type (i.e., is a proof of) true. The intro constructor
+takes no arguments and so is always available as a proof of true.  We
+thus have our true introduction: just use the constructor. Here we
+should how to assert that the proposition “true” is true (there’s a
+proof for it) by giving the one and only proof, namely “intro”.  To
+refer to a constructor of a type, use the type name dot constructor
+name.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20proofOfTrue:%20true%20:=%20true.intro" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">proofOfTrue</span><span class="o">:</span> <span class="n">true</span> <span class="o">:=</span> <span class="n">true</span><span class="bp">.</span><span class="n">intro</span>
+</pre></div>
+</div>
+</div><p>True introduction isn’t a very useful rule of natural deduction, as it
+doesn’t allow you to conclude anything new. It’s not used much in
+real-world proofs, but it’s good to know about.</p>
+<div class="section" id="the-proposition-false">
+<h3>The proposition, false<a class="headerlink" href="#the-proposition-false" title="Permalink to this headline">¶</a></h3>
+<p>In Lean, false is also a proposition. By contrast, the Boolean false
+value in Lean is written as ff.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=#check%20false%20%20%20%20--%20proposition%20(Prop)%0A#check%20ff%20%20%20%20%20%20%20--%20Boolean%20value%20(bool)" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="bp">#</span><span class="kn">check</span> <span class="n">false</span>    <span class="c1">-- proposition (Prop)</span>
+<span class="bp">#</span><span class="kn">check</span> <span class="n">ff</span>       <span class="c1">-- Boolean value (bool)</span>
+</pre></div>
+</div>
+</div><p>false is meant to be and is a proposition that is never true, i.e.,
+for which there is no proof. As a type, it has no values.  It is said
+to be an “uninhabited” type.</p>
+<p>The false proposition/type is defined inductively as having type,
+Prop, and as having exactly no constructors! It’s a proposition but
+there is no way to contruct a proof. Here’s the definition of false
+from the Lean core libraries:</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=inductive%20false%20:%20Prop" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">inductive</span> <span class="n">false</span> <span class="o">:</span> <span class="kt">Prop</span>
+</pre></div>
+</div>
+</div><p>That’s it, there are no constructors.</p>
+<p>There is no false introduction rule.  There is no way to introduce a
+proof of false because there is no proof of false.  We’ll discuss
+false elimination later.  -/</p>
+</div>
+<div class="section" id="proofs-involving-conjunctions">
+<h3>Proofs Involving Conjunctions<a class="headerlink" href="#proofs-involving-conjunctions" title="Permalink to this headline">¶</a></h3>
+<p>We now explore the use of the and introduction and elimination
+inference rules, whether doing paper-and-pencil mathematics or when
+using an automated proof assistant such as Lean. This section also
+serves as an introduction to the idea that you use different proof
+techniques to prove different kinds of propositions: e.g.,
+conjunctions, implications, disjuctions, etc.</p>
+<div class="section" id="and-introduction">
+<h4>And Introduction<a class="headerlink" href="#and-introduction" title="Permalink to this headline">¶</a></h4>
+<p>Whether in pencil-and-paper mathematics or when using a proof
+assistant such as Lean, to prove a conjunction, <img class="math" src="_images/math/a80e21781161e0f0697d3bdfdd259eabda0ca73c.png" alt="P \land Q"/>, you
+have to produce a proof of P and a proof of Q. You then use the “and
+introduction” inference rule to conclude that <img class="math" src="_images/math/a80e21781161e0f0697d3bdfdd259eabda0ca73c.png" alt="P \land Q"/> is
+true, where the proof is really just the ordered pair of the proofs of
+the individual conjuncts, P and Q, respectively.</p>
+<p>What we’re going to see as we move forward on the topics of proofs is
+that of different forms of propositions require different kinds of
+proof techniques, or “proof strategies.””  Learning to recognize what
+kind of proposition you’re looking at, and then to pick the right
+proof strategy, is critical. When the goal is to prove a conjunction,
+P ∧ Q, the strategy is to prove each individually then combine the
+proofs using the and introduction rule to reach the goal.</p>
+<p>Remember the and introduction rule from our work on propositional
+logic. We wrote it like this [P, Q] ⊢ P ∧ Q. Now that we’ve equated
+“being true” with “having a proof” we can write it with some more
+details, like this: [pfP: P, pfQ: Q] ⊢ (pfP, pfQ): P ∧ Q.</p>
+<p>In other words, if I have a proof, pfP, of P (i.e., a value, pfP,
+type, P!), and a proof, pfQ, of Q, then I can build a proof of P ∧ Q,
+in the form of the ordered pair (pfQ, pfQ).</p>
+<p>The and introduction rule can be understood as a function that takes
+two proof values, of types P and Q, respectively, and returns a new
+proof value, of type P ∧ Q in the form of an ordered pair of the
+“smaller” proofs.</p>
+<p>Whether using a proof assistant or just doing paper and pencil math,
+the strategy for proving a conjunction of propositions is to split the
+conjunction into its two component propositions, obtain proofs of them
+individually, and then combine/take the two proofs as a proof of the
+overall conjunction. The benefit of using a proof assistant is that
+aspects are automated, and you’re not allowed to make mistakes.  -/</p>
+<p>So that we can play around with this idea, given that we already have
+a proof of 0=0 (zeqz), we now contruct a proof of 1=1 so that we have
+two propositions and proofs to play with.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=#check%20zeqz" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="bp">#</span><span class="kn">check</span> <span class="n">zeqz</span>
+</pre></div>
+</div>
+</div><div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20oeqo%20:%201%20=%201%20:=%20rfl" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">oeqo</span> <span class="o">:</span> <span class="mi">1</span> <span class="bp">=</span> <span class="mi">1</span> <span class="o">:=</span> <span class="n">rfl</span>
+</pre></div>
+</div>
+</div><p>To start, let’s prove 0=0 ∧ 1=1. We already have a proof of 0=0,
+namely zeqz.  And we already have a proof of 1=1, namely oeqo. So we
+should be able to produce a proof of 0=0 ∧ 1=1 by using the “and
+introduction” inference rule. Remember that it says that if a
+proposition, P, is true (and now by that we mean that we have a proof
+of it), and if Q is true, then we can deduce (construct a proof!)
+that P ∧ Q is true. Here’s how you do that in Lean. (Note: we get the
+logical and symbol, ∧, by typing “and”, i.e., backslash-and, followed
+by a space.)</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20t2:%200=0%20%E2%88%A7%201=1%20:=%20%20--%20proposition%0A%20%20%20%20and.intro%20zeqz%20oeqo%20%20%20--%20build%20proof%0A%0A#check%20t2" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">t2</span><span class="o">:</span> <span class="mi">0</span><span class="bp">=</span><span class="mi">0</span> <span class="bp">∧</span> <span class="mi">1</span><span class="bp">=</span><span class="mi">1</span> <span class="o">:=</span>  <span class="c1">-- proposition</span>
+    <span class="n">and</span><span class="bp">.</span><span class="n">intro</span> <span class="n">zeqz</span> <span class="n">oeqo</span>   <span class="c1">-- build proof</span>
+
+<span class="bp">#</span><span class="kn">check</span> <span class="n">t2</span>
+</pre></div>
+</div>
+</div><p>NOTE!!! Whereas we typically define functions to take a single tuples
+of argument values, and thus write the arguments to functions as
+tuples (in parenthesis), e.g., inc(0), here we write arguments to
+proof constructors (inference rules) without parenthesis and without
+commas between values. So here for example, and below, we write
+“and.intro zeqz oeqo” rather than and.intro(zeqz, oeqo). Be careful
+when you get to the exercises to remember this point.</p>
+</div>
+<div class="section" id="and-elimination">
+<h4>And Elimination<a class="headerlink" href="#and-elimination" title="Permalink to this headline">¶</a></h4>
+<p>And introduction creates a proof of a conjunction from proofs of its
+parts (its “conjuncts”). Such a proof is a pair the elements of which
+are the two “smaller” proofs. Given such a proof/pair, the and
+<em>elimination</em> rules return one of the other the component proofs. For
+example, from a proof of P ∧ Q, and.elim_left will return the
+contained proof of P, and the and.elim_right rule returns the proof of
+Q.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20e1:%200=0%20:=%20and.elim_left%20t2" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">e1</span><span class="o">:</span> <span class="mi">0</span><span class="bp">=</span><span class="mi">0</span> <span class="o">:=</span> <span class="n">and</span><span class="bp">.</span><span class="n">elim_left</span> <span class="n">t2</span>
+</pre></div>
+</div>
+</div><p>This says that a value, e1, of type 0=0, i.e., a proof of 0=0, can be
+obtained by applying and.elim_left to t2, which is a proof of 0=0 ∧
+1=1. The and elimination rules are just “project operators” (getter
+functions) on pairs of proofs.</p>
+</div>
+</div>
+<div class="section" id="implications">
+<h3>Implications<a class="headerlink" href="#implications" title="Permalink to this headline">¶</a></h3>
+<p>Next we turn to proofs of propositions in the form of implications,
+such as P → Q.  Up until now, we’ve read this implication as a
+proposition that claims that “if P is true then Q must be true.”</p>
+<p>But now we’ve understood “truth” to mean that there is a proof. So we
+would view the proposition, P → Q, to be true if there’s a proof of P
+→ Q. And we have also seen that we can view propositions as types, and
+proofs as values. So what we need to conclude that P → Q is true is a
+proof, i.e., a value of type P → Q.</p>
+<p>What does such a value look like? Well, what does the type P → Q look
+like? We have seen such types before. It looks like a function type:
+for a function that when given any value of type, P, returns a value
+of type, Q. And indeed, that’s just what we want. We will view P → Q,
+the proposition, to be true, if and only if we can produce a
+<em>function</em> that, when given any proof of P, gives us back a proof
+of Q. If there is such a function, it means that if P is true (if you
+can produce a proof value for P) then Q is true (you can obtain a
+proof for Q) just by calling the given function. Note, proving P → Q
+doesn’t tell you anything about whether P is true, but only that <em>if</em>
+you can give a proof of P, then you can construct a proof of Q: if you
+“assume” that P is true, then you can deduce that Q is too.</p>
+<p>To make this idea clear, it will help to spend a little more time
+talking about functions and function types. In particular, we’ll
+introduce here a new notation for saying something that you already
+know how to say well: a way to represent function bodies without
+having to give them names. These are given the somewhat arcane name,
+lambda expressions, also written as λ expressions. So let’s get
+started.</p>
+</div>
+<div class="section" id="interlude-function-values">
+<h3>Interlude: Function Values<a class="headerlink" href="#interlude-function-values" title="Permalink to this headline">¶</a></h3>
+<p>We can define functions in Lean almost as in Dafny. Here are two
+functions to play with: increment and square. Go back and look at the
+function.dfy file to see just how similar the syntax is.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=def%20inc(n:%20nat):%20nat%20:=%20n%20+%201%0Adef%20sqr(n:%20nat):%20nat%20:=%20n%20*%20n%0Adef%20comp(n:%20nat):%20nat%20:=%20sqr%20(inc%20n)" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">inc</span><span class="o">(</span><span class="n">n</span><span class="o">:</span> <span class="n">nat</span><span class="o">):</span> <span class="n">nat</span> <span class="o">:=</span> <span class="n">n</span> <span class="bp">+</span> <span class="mi">1</span>
+<span class="n">def</span> <span class="n">sqr</span><span class="o">(</span><span class="n">n</span><span class="o">:</span> <span class="n">nat</span><span class="o">):</span> <span class="n">nat</span> <span class="o">:=</span> <span class="n">n</span> <span class="bp">*</span> <span class="n">n</span>
+<span class="n">def</span> <span class="n">comp</span><span class="o">(</span><span class="n">n</span><span class="o">:</span> <span class="n">nat</span><span class="o">):</span> <span class="n">nat</span> <span class="o">:=</span> <span class="n">sqr</span> <span class="o">(</span><span class="n">inc</span> <span class="n">n</span><span class="o">)</span>
+</pre></div>
+</div>
+</div><div class="section" id="functions-are-values-too-lambda-expressions">
+<h4>Functions are Values, Too: Lambda Expressions<a class="headerlink" href="#functions-are-values-too-lambda-expressions" title="Permalink to this headline">¶</a></h4>
+<p>Now’s a good time to make a point that should make sense: functions
+are values of function types. Our familiar notation doesn’t make
+function types explicit, but it shouldn’t be a stretch for you to
+accept that the type of inc is nat → nat.  Lean provides nice
+mathematical notation so if you type “nat” you’ll get ℕ. So, that
+type of inc is best written, ℕ → ℕ.</p>
+<p>We could thus have declared inc to be a value of type ℕ → ℕ, to which
+we would then assign a function value. That is a new concept: we need
+to write formally what we’d say informally as “the function that takes
+a nat, n, as an argument and that returns the nat, n + 1 as a result.”</p>
+<p>The way we write that in Lean (and in what we call the lambda calculus
+more generally) is “λ n, n + 1”. The greek letter, lambda (λ), says
+“the following variable is an argument to a function”.  Then comes a
+comma followed by the body of the function, usually using the name of
+the argument. Here then is the way we’d rewrite inc using this new
+notation.</p>
+<blockquote>
+<div><p>def inc’: ℕ → ℕ := λ n: nat, n + 1
+def inc’’ := λ n: nat, n + 1</p>
+<p>#check inc’ 1
+#eval inc’ 1</p>
+</div></blockquote>
+<p>As you might suspect, from the function value, Lean can infer its
+type, so you don’t have to write it explicitly. But you do have to
+write the type of n here, as Lean can’t figure out if you mean nat or
+int or some other type that supports a * operator.</p>
+<blockquote>
+<div>def sqr’ := λ n: nat, n * n</div></blockquote>
+<p>Given a function defined in this way, you can apply it just as you
+would apply any other function.</p>
+<blockquote>
+<div>def sq3 := sqr’ 3</div></blockquote>
+<p>Don’t believe that sq3 is therefore of type nat? You can check the
+type of any term in Lean using its #check command.  Just hover your
+mouse over the #check.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=#check%20sq3" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="bp">#</span><span class="kn">check</span> <span class="n">sq3</span>
+</pre></div>
+</div>
+</div><p>Do you want to evaluate the expression (aka, term) sq3 to see that it
+evaluates to 9? Hover your mouse over the #eval.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=#eval%20sq3" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="bp">#</span><span class="kn">eval</span> <span class="n">sq3</span>
+</pre></div>
+</div>
+</div><p>To give a proof (value) for a proposition in the form of an
+implication, we’ll need to provide a function value, as discussed.
+While we could write a named function using def and then give that
+name as a proof, it is often easier to give a lambda expression
+directly, as we’ll see shortly.</p>
+</div>
+<div class="section" id="recursive-function-definitions">
+<h4>Recursive Function Definitions<a class="headerlink" href="#recursive-function-definitions" title="Permalink to this headline">¶</a></h4>
+<p>We can also define recursive functions, such as factorial and
+fibonacci using Lean’s version of Dafny’s “match/case” construct (aka,
+“pattern matching”).</p>
+<p>Here’s how you write it. The first line declares the function name and
+type. The following lines, each starting with a bar character, define
+the cases. The first rule matches the case where the argument to fac
+is 0, and in that case the result is 1. The second case, which is
+written here a little differently than before, matches any value that
+is one more than some smaller argument, n, and returns that “one more
+than n” times the factorial of the samller number, n. Writing it this
+way allows Lean to prove to itself that the recursion terminates.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=def%20fac:%20%E2%84%95%20%E2%86%92%20%E2%84%95%0A%7C%200%20:=%201%0A%7C%20(n%20+%201)%20:=%20(n%20+%201)%20*%20fac%20n" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">fac</span><span class="o">:</span> <span class="bp">ℕ</span> <span class="bp">→</span> <span class="bp">ℕ</span>
+<span class="bp">|</span> <span class="mi">0</span> <span class="o">:=</span> <span class="mi">1</span>
+<span class="bp">|</span> <span class="o">(</span><span class="n">n</span> <span class="bp">+</span> <span class="mi">1</span><span class="o">)</span> <span class="o">:=</span> <span class="o">(</span><span class="n">n</span> <span class="bp">+</span> <span class="mi">1</span><span class="o">)</span> <span class="bp">*</span> <span class="n">fac</span> <span class="n">n</span>
+</pre></div>
+</div>
+</div><p>We can now write some test cases for our function … as little
+theorems! And we can check that they work by … proving them! Here
+once again our proof is by the reflexive property of equality, and
+lean is automatically reducing (simplifying) the terms (fac 5) and 120
+before checking that the results are the same. fac 5 does in fact
+reduce to 120, so the terms, fac 5, and 120, are definitionally equal,
+and in this case, rfl constructs a proof of the equality.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20fac5is120%20:%20fac%205%20=%20120%20:=%20rfl" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">fac5is120</span> <span class="o">:</span> <span class="n">fac</span> <span class="mi">5</span> <span class="bp">=</span> <span class="mi">120</span> <span class="o">:=</span> <span class="n">rfl</span>
+</pre></div>
+</div>
+</div></div>
+</div>
+<div class="section" id="rules-for-implication">
+<h3>Rules for Implication<a class="headerlink" href="#rules-for-implication" title="Permalink to this headline">¶</a></h3>
+<p>So far we’ve see how to build proofs of equality propositions (using
+simplification and reflexivity, i.e., rfl), of conjunctions (using
+and.intro), and of disjuctions (using one of the or introduction
+rules). What about implications?</p>
+<div class="section" id="arrow-introduction">
+<h4>Arrow Introduction<a class="headerlink" href="#arrow-introduction" title="Permalink to this headline">¶</a></h4>
+<p>Suppose we wanted to show, for example, that (1=1 ∧ 0=0() → (0=0 ∧
+1=1). Here the order of the conjuncts is reversed.</p>
+<p>How to think about this? First, remember that an implication, such as
+P → Q, doesn’t claim that the premise, P, is necessarily true, or that
+Q is. Rather, it only claims that <a href="#id3"><span class="problematic" id="id4">*</span></a>if the premise, P, is true, then
+the conclusion, Q, must be as well.</p>
+<p>Again, by “true”, we now mean that we have or can construct a
+proof. An implication is thus read as saying if you assume that the
+premise, P, is true, in other words if you assume that you are given a
+proof of P, then you can then derive (construct) a proof of Q.</p>
+<p>But proofs are just values, so a proposition in the form of an
+implication, P → Q is true when we have a way to convert any value
+(proof) of type P into a value (proof) of type Q. We call such a value
+converter a function!</p>
+<p>Think about this: the implication, P → Q is true if we can define a
+function (body) of type, P → Q.</p>
+<p>So now, think about how to write a function that takes an argument of
+type 1=1 ∧ 0=0 and that returns a result of type 0=0 ∧ 1=1 (the
+conjuncts are biw in the reverse order).</p>
+<p>Start by recalling that a proof of a conjunction, such as 0=0 ∧ 1=1,
+is a pair of proofs; the and elimination rules you a way to get at the
+individual values/proofs in such pairs; and the and introduction rule
+creates such a pair given arguments of the right types. The strategy
+for writing the function we need is thus: start with a proof of 1=1 ∧
+0=0, which is a pair, (proof of 1=1, proof of 0=0); then extract the
+component proofs, then build and return a pair constituting a proof of
+the conjunction with the component proofs in the opposite order.</p>
+<p>Here’s an ordinary function that does the trick.  From an assumption
+that 1=1 ∧ 0=0 it constructs and returns a proof of 0=0 ∧ 1=1. It does
+it just as we said: extract the component proofs then put them back
+together in the reverse order. Voila!</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=def%20and_swap(assumption:%201=1%20%E2%88%A7%200=0):%200=0%20%E2%88%A7%201=1%20:=%0A%20%20%20%20and.intro%0A%20%20%20%20%20%20%20%20(and.elim_right%20assumption)%0A%20%20%20%20%20%20%20%20(and.elim_left%20assumption)" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">and_swap</span><span class="o">(</span><span class="n">assumption</span><span class="o">:</span> <span class="mi">1</span><span class="bp">=</span><span class="mi">1</span> <span class="bp">∧</span> <span class="mi">0</span><span class="bp">=</span><span class="mi">0</span><span class="o">):</span> <span class="mi">0</span><span class="bp">=</span><span class="mi">0</span> <span class="bp">∧</span> <span class="mi">1</span><span class="bp">=</span><span class="mi">1</span> <span class="o">:=</span>
+    <span class="n">and</span><span class="bp">.</span><span class="n">intro</span>
+        <span class="o">(</span><span class="n">and</span><span class="bp">.</span><span class="n">elim_right</span> <span class="n">assumption</span><span class="o">)</span>
+        <span class="o">(</span><span class="n">and</span><span class="bp">.</span><span class="n">elim_left</span> <span class="n">assumption</span><span class="o">)</span>
+</pre></div>
+</div>
+</div><p>A paper and pencil proof could be written like this.  “Assume 0=0 ∧
+1=1. From this premise (using the and elimination rule of natural
+deduction), we can deduce immediately that both 0=0 and 1=1. Having
+shown that these propositions are true, we can immediately (using the
+and introduction rule of natural deduction) deduce that 0=0 ∧
+1=1. QED.”</p>
+<p>The QED stands for the Latin, quod es demontratum, so it is
+shown. It’s used to signal that the goal to be proved has been proved.</p>
+<p>Here’s the same proof using a lambda. You can see here how lambda
+expressions (also know as anonymous functions) can make for cleaner
+code.  They’re also essential when you want to return a function.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20and_commutes:%201=1%20%E2%88%A7%200=0%20%E2%86%92%200=0%20%E2%88%A7%201=1%20:=%0A%0A%20%20%CE%BB%20pf:%201=1%20%E2%88%A7%200=0,%20%20%20%20%20%20--%20given/assuming%20pf%0A%20%20%20%20and.intro%20%20%20%20%20%20%20%20%20%20%20--%20build%20desired%20proof%0A%20%20%20%20%20%20%20%20(and.elim_right%20pf)%0A%20%20%20%20%20%20%20%20(and.elim_left%20pf)" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">and_commutes</span><span class="o">:</span> <span class="mi">1</span><span class="bp">=</span><span class="mi">1</span> <span class="bp">∧</span> <span class="mi">0</span><span class="bp">=</span><span class="mi">0</span> <span class="bp">→</span> <span class="mi">0</span><span class="bp">=</span><span class="mi">0</span> <span class="bp">∧</span> <span class="mi">1</span><span class="bp">=</span><span class="mi">1</span> <span class="o">:=</span>
+
+  <span class="bp">λ</span> <span class="n">pf</span><span class="o">:</span> <span class="mi">1</span><span class="bp">=</span><span class="mi">1</span> <span class="bp">∧</span> <span class="mi">0</span><span class="bp">=</span><span class="mi">0</span><span class="o">,</span>      <span class="c1">-- given/assuming pf</span>
+    <span class="n">and</span><span class="bp">.</span><span class="n">intro</span>           <span class="c1">-- build desired proof</span>
+        <span class="o">(</span><span class="n">and</span><span class="bp">.</span><span class="n">elim_right</span> <span class="n">pf</span><span class="o">)</span>
+        <span class="o">(</span><span class="n">and</span><span class="bp">.</span><span class="n">elim_left</span> <span class="n">pf</span><span class="o">)</span>
+</pre></div>
+</div>
+</div><p>The bottom line here is that we introduce, which is to say that we
+prove a proposition that has, an “arrow,” by defining a function.</p>
+<p>Whereas the proof of a conjunction is pair of smaller proofs, the
+proof of an implication is a function from one type of proof to
+another.</p>
+<p>Whether using a proof assistant or writing paper and pencil proofs,
+they key to proving an implication is to show that if you <em>assume</em> you
+are given a proof of the premise, you can turn that into a proof of
+the conclusion. We thus have a second fundamental proof strategy.  -/</p>
+</div>
+<div class="section" id="arrow-elimination">
+<h4>Arrow Elimination<a class="headerlink" href="#arrow-elimination" title="Permalink to this headline">¶</a></h4>
+<p>The arrow elimination inference rule looks like this: [P -&gt; Q, P]
+⊢ Q. It starts with both an implication (aka, function), in the
+context, along with a proof of its premise, and derives the conclusion
+of the implication.  This is just modus ponens, and the way you get
+from the premises to the conclusion is by applying the implication
+(it’s a function) to the assumed proof of P, yielding a proof of Q!
+Modus ponens is function application!</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20modus_ponens'%0A%20%20(hImp:%201=1%20%E2%88%A7%200=0%20%E2%86%92%200=0%20%E2%88%A7%201=1)%20(hc:%201=1%20%E2%88%A7%200=0):%200=0%20%E2%88%A7%201=1%0A%20%20%20%20:=%20hImp%20hc%20%20%20--%20apply%20function%20hImp%20to%20argument%20hc%0A%0Atheorem%20modus_ponens'':%0A%20%20%20%20(1=1%20%E2%88%A7%200=0%20%E2%86%92%200=0%20%E2%88%A7%201=1)%20%E2%86%92%0A%20%20%20%20%20%20%20%201=1%20%E2%88%A7%200=0%20%E2%86%92%0A%20%20%20%20%20%20%20%20%20%20%20%200=0%20%E2%88%A7%201=1%20:=%0A%20%20%20%20%CE%BB%20hImp%20hc,%20(hImp%20hc)" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">modus_ponens&#39;</span>
+  <span class="o">(</span><span class="n">hImp</span><span class="o">:</span> <span class="mi">1</span><span class="bp">=</span><span class="mi">1</span> <span class="bp">∧</span> <span class="mi">0</span><span class="bp">=</span><span class="mi">0</span> <span class="bp">→</span> <span class="mi">0</span><span class="bp">=</span><span class="mi">0</span> <span class="bp">∧</span> <span class="mi">1</span><span class="bp">=</span><span class="mi">1</span><span class="o">)</span> <span class="o">(</span><span class="n">hc</span><span class="o">:</span> <span class="mi">1</span><span class="bp">=</span><span class="mi">1</span> <span class="bp">∧</span> <span class="mi">0</span><span class="bp">=</span><span class="mi">0</span><span class="o">):</span> <span class="mi">0</span><span class="bp">=</span><span class="mi">0</span> <span class="bp">∧</span> <span class="mi">1</span><span class="bp">=</span><span class="mi">1</span>
+    <span class="o">:=</span> <span class="n">hImp</span> <span class="n">hc</span>   <span class="c1">-- apply function hImp to argument hc</span>
+
+<span class="kn">theorem</span> <span class="n">modus_ponens&#39;&#39;</span><span class="o">:</span>
+    <span class="o">(</span><span class="mi">1</span><span class="bp">=</span><span class="mi">1</span> <span class="bp">∧</span> <span class="mi">0</span><span class="bp">=</span><span class="mi">0</span> <span class="bp">→</span> <span class="mi">0</span><span class="bp">=</span><span class="mi">0</span> <span class="bp">∧</span> <span class="mi">1</span><span class="bp">=</span><span class="mi">1</span><span class="o">)</span> <span class="bp">→</span>
+        <span class="mi">1</span><span class="bp">=</span><span class="mi">1</span> <span class="bp">∧</span> <span class="mi">0</span><span class="bp">=</span><span class="mi">0</span> <span class="bp">→</span>
+            <span class="mi">0</span><span class="bp">=</span><span class="mi">0</span> <span class="bp">∧</span> <span class="mi">1</span><span class="bp">=</span><span class="mi">1</span> <span class="o">:=</span>
+    <span class="bp">λ</span> <span class="n">hImp</span> <span class="n">hc</span><span class="o">,</span> <span class="o">(</span><span class="n">hImp</span> <span class="n">hc</span><span class="o">)</span>
+</pre></div>
+</div>
+</div><p>Arrow elimination is modus ponens is function application to an
+argument. Here’s the general statement of modus ponens as a function
+that is polymorphic in the types/propositions, P and Q.  You can see
+that the propositions are arguments to the function, along with a P →
+Q function and a (value) proof of (type) P, finally producing a
+(value) proof of (type) Q.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20modus_ponens:%20%E2%88%80%20P%20Q:%20Prop,%20(P%20%E2%86%92%20Q)%20%E2%86%92%20P%20%E2%86%92%20Q%20:=%0A%20%20%20%20%CE%BB%20(P%20Q:%20Prop)%20(funP2Q:%20P%20%E2%86%92%20Q)%20(pfP:%20P),%20funP2Q%20pfP" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">modus_ponens</span><span class="o">:</span> <span class="bp">∀</span> <span class="n">P</span> <span class="n">Q</span><span class="o">:</span> <span class="kt">Prop</span><span class="o">,</span> <span class="o">(</span><span class="n">P</span> <span class="bp">→</span> <span class="n">Q</span><span class="o">)</span> <span class="bp">→</span> <span class="n">P</span> <span class="bp">→</span> <span class="n">Q</span> <span class="o">:=</span>
+    <span class="bp">λ</span> <span class="o">(</span><span class="n">P</span> <span class="n">Q</span><span class="o">:</span> <span class="kt">Prop</span><span class="o">)</span> <span class="o">(</span><span class="n">funP2Q</span><span class="o">:</span> <span class="n">P</span> <span class="bp">→</span> <span class="n">Q</span><span class="o">)</span> <span class="o">(</span><span class="n">pfP</span><span class="o">:</span> <span class="n">P</span><span class="o">),</span> <span class="n">funP2Q</span> <span class="n">pfP</span>
+</pre></div>
+</div>
+</div><p>We could of course have written that using ordinary function notation.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20modus_ponens2%0A%20%20%20%20(P%20Q:%20Prop)%20(pfImp:%20(P%20%E2%86%92%20Q))%20(pfP:%20P):%20Q%20:=%0A%20%20%20%20%20%20%20%20(pfImp%20pfP)" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">modus_ponens2</span>
+    <span class="o">(</span><span class="n">P</span> <span class="n">Q</span><span class="o">:</span> <span class="kt">Prop</span><span class="o">)</span> <span class="o">(</span><span class="n">pfImp</span><span class="o">:</span> <span class="o">(</span><span class="n">P</span> <span class="bp">→</span> <span class="n">Q</span><span class="o">))</span> <span class="o">(</span><span class="n">pfP</span><span class="o">:</span> <span class="n">P</span><span class="o">):</span> <span class="n">Q</span> <span class="o">:=</span>
+        <span class="o">(</span><span class="n">pfImp</span> <span class="n">pfP</span><span class="o">)</span>
+</pre></div>
+</div>
+</div></div>
+<div class="section" id="optional-material-on-using-type-inference">
+<h4>Optional material on using type inference<a class="headerlink" href="#optional-material-on-using-type-inference" title="Permalink to this headline">¶</a></h4>
+<p>As an advanced concept, putting arguments in curly braces tells Lean
+to use type inference <a href="#id5"><span class="problematic" id="id6">`</span></a>to infer their values.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20modus_ponens3%0A%20%20%20%20%7BP%20Q:%20Prop%7D%20(pfImp:%20(P%20%E2%86%92%20Q))%20(pfP:%20P):%20Q%20:=%0A%20%20%20%20%20%20%20%20(pfImp%20pfP)" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">modus_ponens3</span>
+    <span class="o">{</span><span class="n">P</span> <span class="n">Q</span><span class="o">:</span> <span class="kt">Prop</span><span class="o">}</span> <span class="o">(</span><span class="n">pfImp</span><span class="o">:</span> <span class="o">(</span><span class="n">P</span> <span class="bp">→</span> <span class="n">Q</span><span class="o">))</span> <span class="o">(</span><span class="n">pfP</span><span class="o">:</span> <span class="n">P</span><span class="o">):</span> <span class="n">Q</span> <span class="o">:=</span>
+        <span class="o">(</span><span class="n">pfImp</span> <span class="n">pfP</span><span class="o">)</span>
+</pre></div>
+</div>
+</div><p>Type inference can also be specified for lambdas by enclosing
+parameters to be inferred in braces.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20modus_ponens4:%20%E2%88%80%20P%20Q:%20Prop,%20(P%20%E2%86%92%20Q)%20%E2%86%92%20P%20%E2%86%92%20Q%20:=%0A%20%20%20%20%CE%BB%20P%20Q:%20Prop,%20%CE%BB%20pfImp:%20P%20%E2%86%92%20Q,%20%CE%BB%20pfP:%20P,%20(pfImp%20pfP)" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">modus_ponens4</span><span class="o">:</span> <span class="bp">∀</span> <span class="n">P</span> <span class="n">Q</span><span class="o">:</span> <span class="kt">Prop</span><span class="o">,</span> <span class="o">(</span><span class="n">P</span> <span class="bp">→</span> <span class="n">Q</span><span class="o">)</span> <span class="bp">→</span> <span class="n">P</span> <span class="bp">→</span> <span class="n">Q</span> <span class="o">:=</span>
+    <span class="bp">λ</span> <span class="n">P</span> <span class="n">Q</span><span class="o">:</span> <span class="kt">Prop</span><span class="o">,</span> <span class="bp">λ</span> <span class="n">pfImp</span><span class="o">:</span> <span class="n">P</span> <span class="bp">→</span> <span class="n">Q</span><span class="o">,</span> <span class="bp">λ</span> <span class="n">pfP</span><span class="o">:</span> <span class="n">P</span><span class="o">,</span> <span class="o">(</span><span class="n">pfImp</span> <span class="n">pfP</span><span class="o">)</span>
+</pre></div>
+</div>
+</div><p>Compare the use of our modus_ponens function with modus_ponens3. In
+the latter case, Lean infers that the propositions (values of the
+first two parameters) are P and Q, Such uses of type inference improve
+code readaibility.</p>
+</div>
+</div>
+</div>
+<div class="section" id="proofs-involving-disjunctions">
+<h2>Proofs Involving Disjunctions<a class="headerlink" href="#proofs-involving-disjunctions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="or-introduction">
+<h3>Or Introduction<a class="headerlink" href="#or-introduction" title="Permalink to this headline">¶</a></h3>
+<p>To prove a conjunction, we saw that we need to construct a pair of
+proofs, one for each conject. To prove a disjunction, P ∨ Q, we just
+need a proof of P or a proof of Q. We thus have two inference rules to
+prove P ∨ Q, one takeing a proof of P and returning a proof of P ∨ Q,
+and one taking a proof of Q and returning a proof of P ∨ Q.  We thus
+have two or introduction rules in the natural deduction proof system,
+one taking a proof of the left disjunct (P), and one taking a proof of
+the right (Q).</p>
+<p>For example, we can prove the proposition, 0=0 ∨ 1=0 using an “or
+introduction” rule.  In general, you have to decide which rule will
+work. In this case, we won’t be able to build a proof of 1=0 (it’s not
+true!), but we can build a proof of 0=0, so we’ll do that and then use
+the left introduction rule to generate a proof of the overall
+proposition.</p>
+<p>The or introduction rules in Lean are called or.inl (left) and or.inr
+(right).  Here then we construct a proof just as described above, but
+now checked by the tool.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20t3:%200=0%20%E2%88%A8%201=0%20:=%0A%20%20%20%20or.inl%20zeqz%0A%0A#check%20zeqz%0A#eval%20zeqz%0A%0Atheorem%20t4:%201=0%20%E2%88%A8%201=1%20:=%0A%20%20%20%20or.inr%20oeqo" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">t3</span><span class="o">:</span> <span class="mi">0</span><span class="bp">=</span><span class="mi">0</span> <span class="bp">∨</span> <span class="mi">1</span><span class="bp">=</span><span class="mi">0</span> <span class="o">:=</span>
+    <span class="n">or</span><span class="bp">.</span><span class="n">inl</span> <span class="n">zeqz</span>
+
+<span class="bp">#</span><span class="kn">check</span> <span class="n">zeqz</span>
+<span class="bp">#</span><span class="kn">eval</span> <span class="n">zeqz</span>
+
+<span class="kn">theorem</span> <span class="n">t4</span><span class="o">:</span> <span class="mi">1</span><span class="bp">=</span><span class="mi">0</span> <span class="bp">∨</span> <span class="mi">1</span><span class="bp">=</span><span class="mi">1</span> <span class="o">:=</span>
+    <span class="n">or</span><span class="bp">.</span><span class="n">inr</span> <span class="n">oeqo</span>
+</pre></div>
+</div>
+</div><p>Once again, we emphasize that whether or not you’re using Lean or any
+other tool or no tool at all, the strategy for proving a disjunction
+is to prove at least one of its disjucts, and then to take that as
+enough to prove the overall disjunction. You see that each form of
+proposition has its own corresponding proof strategy (or at least one;
+there might be several that work). In the cases we’ve seen so far, you
+look at the constructor that was used to build the proposition and
+from that you select the appropriate inference rule / strategy to use
+to build the final proof. You then either have, or construct, the
+proofs that you need to apply that rule to construct the required
+proof.</p>
+<p>As a computational object, a proof of a disjunction is like a
+discriminated union in C or C++: an object containing one of two
+values along with a label that tells you what kind of value it
+contains. In this case, the label is given by the introduction rule
+used to construct the proof object: either or.inl or or.inr.</p>
+</div>
+<div class="section" id="or-elimination">
+<h3>Or Elimination<a class="headerlink" href="#or-elimination" title="Permalink to this headline">¶</a></h3>
+<p>[Kevin: Consider section on partial evaluation. Students need it at
+this point to understand the different ways to parse statements and
+proofs of chained implications: currying and uncurrying.</p>
+<p>The or elimination inference rule, which we first saw and validated,
+in the unit on propositional logic, is used to prove propositions of
+the form: P ∨ Q → R.</p>
+<p>What’s needed to construct this proof are proofs of (1) if P is true
+then so is R (i.e., P → R), and (2) if Q is true, then so is R (i.e.,
+Q → R.)</p>
+<p>Now if you assume or know that at least one of P or Q is true then you
+can show R by case analysis. Here’s the reasoning. One or both of P or
+Q is true. Also, if P is true, so is R; and if Q is true, so is R. So,
+R must be true.</p>
+<p>Here is an example of the use of Lean’s rule for or elimination. It is
+really just a statement and proof of the elimination rule for or.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=%20%20%20--%20shorthand,%20without%20all%20the%20explicit%20lambdas%0A%20%20%20theorem%20or_elim:%0A%20%20%20%20%20forall%20P%20Q%20R:%20Prop,%20(P%20%E2%88%A8%20Q)%20%E2%86%92%20(P%20%E2%86%92%20R)%20%E2%86%92%20(Q%20%E2%86%92%20R)%20%E2%86%92%20R%20:=%0A%20%20%20%20%20%20%20%CE%BB%20P%20Q%20R%20pq%20pr%20qr,%0A%20%20%20%20%20%20%20%20%20%20%20or.elim%20pq%20pr%20qr%0A%0AVersion%20with%20all%20the%20lambdas%20explicit,%20and%20parentheses%20to%20make%20the%0Aassociativity%20in%20the%20propositon%20(and%20in%20the%20corresponding%20function%0Adefinition)%20clear." target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span>   <span class="c1">-- shorthand, without all the explicit lambdas</span>
+   <span class="kn">theorem</span> <span class="n">or_elim</span><span class="o">:</span>
+     <span class="k">forall</span> <span class="n">P</span> <span class="n">Q</span> <span class="n">R</span><span class="o">:</span> <span class="kt">Prop</span><span class="o">,</span> <span class="o">(</span><span class="n">P</span> <span class="bp">∨</span> <span class="n">Q</span><span class="o">)</span> <span class="bp">→</span> <span class="o">(</span><span class="n">P</span> <span class="bp">→</span> <span class="n">R</span><span class="o">)</span> <span class="bp">→</span> <span class="o">(</span><span class="n">Q</span> <span class="bp">→</span> <span class="n">R</span><span class="o">)</span> <span class="bp">→</span> <span class="n">R</span> <span class="o">:=</span>
+       <span class="bp">λ</span> <span class="n">P</span> <span class="n">Q</span> <span class="n">R</span> <span class="n">pq</span> <span class="n">pr</span> <span class="n">qr</span><span class="o">,</span>
+           <span class="n">or</span><span class="bp">.</span><span class="n">elim</span> <span class="n">pq</span> <span class="n">pr</span> <span class="n">qr</span>
+
+<span class="n">Version</span> <span class="k">with</span> <span class="n">all</span> <span class="n">the</span> <span class="n">lambdas</span> <span class="n">explicit</span><span class="o">,</span> <span class="n">and</span> <span class="n">parentheses</span> <span class="n">to</span> <span class="n">make</span> <span class="n">the</span>
+<span class="n">associativity</span> <span class="k">in</span> <span class="n">the</span> <span class="n">propositon</span> <span class="o">(</span><span class="n">and</span> <span class="k">in</span> <span class="n">the</span> <span class="n">corresponding</span> <span class="n">function</span>
+<span class="kn">definition</span><span class="o">)</span> <span class="n">clear</span><span class="bp">.</span>
+</pre></div>
+</div>
+</div><div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20or_elim':%0A%20%20forall%20P%20Q%20R:%20Prop,%20(P%20%E2%88%A8%20Q)%20%E2%86%92%20((P%20%E2%86%92%20R)%20%E2%86%92%20((Q%20%E2%86%92%20R)%20%E2%86%92%20R))%20:=%0A%20%20%20%20%CE%BB%20(P%20Q%20R:%20Prop),%20(%CE%BB%20pfPorQ,%20(%CE%BB%20pfPimpR,%20(%CE%BB%20pfQimpR,%0A%20%20%20%20%20%20%20%20or.elim%20pfPorQ%20pfPimpR%20pfQimpR)))%0A%0A#check%20or_elim" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">or_elim&#39;</span><span class="o">:</span>
+  <span class="k">forall</span> <span class="n">P</span> <span class="n">Q</span> <span class="n">R</span><span class="o">:</span> <span class="kt">Prop</span><span class="o">,</span> <span class="o">(</span><span class="n">P</span> <span class="bp">∨</span> <span class="n">Q</span><span class="o">)</span> <span class="bp">→</span> <span class="o">((</span><span class="n">P</span> <span class="bp">→</span> <span class="n">R</span><span class="o">)</span> <span class="bp">→</span> <span class="o">((</span><span class="n">Q</span> <span class="bp">→</span> <span class="n">R</span><span class="o">)</span> <span class="bp">→</span> <span class="n">R</span><span class="o">))</span> <span class="o">:=</span>
+    <span class="bp">λ</span> <span class="o">(</span><span class="n">P</span> <span class="n">Q</span> <span class="n">R</span><span class="o">:</span> <span class="kt">Prop</span><span class="o">),</span> <span class="o">(</span><span class="bp">λ</span> <span class="n">pfPorQ</span><span class="o">,</span> <span class="o">(</span><span class="bp">λ</span> <span class="n">pfPimpR</span><span class="o">,</span> <span class="o">(</span><span class="bp">λ</span> <span class="n">pfQimpR</span><span class="o">,</span>
+        <span class="n">or</span><span class="bp">.</span><span class="n">elim</span> <span class="n">pfPorQ</span> <span class="n">pfPimpR</span> <span class="n">pfQimpR</span><span class="o">)))</span>
+
+<span class="bp">#</span><span class="kn">check</span> <span class="n">or_elim</span>
+</pre></div>
+</div>
+</div><p>If you prefer an ordinary function, here it is again.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=def%20or_elim''%20(P%20Q%20R:%20Prop)%20(pq:%20P%20%E2%88%A8%20Q)%20(pr:%20P%20%E2%86%92%20R)%20(qr:%20Q%20%E2%86%92%20R):%20R%20:=%0A%20%20%20%20or.elim%20pq%20pr%20qr" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">or_elim&#39;&#39;</span> <span class="o">(</span><span class="n">P</span> <span class="n">Q</span> <span class="n">R</span><span class="o">:</span> <span class="kt">Prop</span><span class="o">)</span> <span class="o">(</span><span class="n">pq</span><span class="o">:</span> <span class="n">P</span> <span class="bp">∨</span> <span class="n">Q</span><span class="o">)</span> <span class="o">(</span><span class="n">pr</span><span class="o">:</span> <span class="n">P</span> <span class="bp">→</span> <span class="n">R</span><span class="o">)</span> <span class="o">(</span><span class="n">qr</span><span class="o">:</span> <span class="n">Q</span> <span class="bp">→</span> <span class="n">R</span><span class="o">):</span> <span class="n">R</span> <span class="o">:=</span>
+    <span class="n">or</span><span class="bp">.</span><span class="n">elim</span> <span class="n">pq</span> <span class="n">pr</span> <span class="n">qr</span>
+</pre></div>
+</div>
+</div><p>In informal mathematical writing, you would write something like this.</p>
+<p>“We aim to prove if either P ∨ Q is true then R follows. We do this by
+<em>case analysis</em>. First we consider when P is true. For this case, we
+show that P implies R. Second we consider the case were Q is true. For
+this case, we show if Q is true then R follows. So in either case, R
+follows. In a context in which you have proofs of P ∨ Q, P → R, and Q
+→ R, you can thus apply or elimination to introduce a proof of R into
+the context.</p>
+</div>
+</div>
+<div class="section" id="falsity-and-negation">
+<h2>Falsity and Negation<a class="headerlink" href="#falsity-and-negation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="p">
+<h3>¬P<a class="headerlink" href="#p" title="Permalink to this headline">¶</a></h3>
+<p>The proposition, ¬P, is read “not P.”  It’s an assertion that P is
+false. One proves a proposition, ¬P, by showing that that an
+assumption that P is true leads to a contraction.</p>
+<p>We highlight an important point here.  This section is about proving
+¬P by showing that if you assume there is a proof of P then you can
+prove “false”, which is absurd. In classical logic, you can prove P by
+showing a proof of ¬P leads to a contradiction. This is the method of
+“proof by contradiction.”  It relies on the fact that ¬¬P → P, i.e.,
+on double-negative elimination.  In both propositional logic and in
+classical predicate logic, this is a valid inference rule. It’s not
+valid in the logic of lean unless one adds an axiom allowing it. You
+<em>should be</em></p>
+<p>familiar with (1) the concept of double negative elimination, (2) the
+idea that it can be used to prove a proposition, P, in classical logic
+by showing that the assumption of ¬P leads to a contradiction,
+therefore one can conclude ¬¬P, and then by double negative
+elimination, P. And you should be familiar with the fact that this
+form of reasoning is not valid in a constructive logic, such as that
+of Lean, without the addition of an extra “axiom” allowing it.</p>
+<p>So let’s get back to the point at hand: ¬P means P → false. You prove
+¬P by showing that assuming that there is a proof of P enables you to
+build a proof of false. That is, you show ¬P by showing that there is
+a function that, given a proof of P, constructs and returns a proof of
+false.</p>
+<p>In a paper and pencil proof, one would write, “We prove ¬P by showing
+that an assumption that P is true leads to a contradiction (a proof of
+false). There can be no such thing, so the assumption must have been
+wrong, and ¬P must be true. QED.” Then you present details proving the
+implication. That in turn is done by defining a function that, <em>if</em> it
+were ever given a proof of P, would in turn construct and return a
+proof of false.</p>
+<p>The key thing to remember is that the proposition (type) ¬P is defined
+to be exactly the proposition (function type) P → false. To prove ¬P
+you have to prove P → false, and this is done, as for any proof of an
+implication, by defining a function that converts an assumed proof of
+P into a proof of false.</p>
+<p>It’s not that you’d ever be able to call such a function: because if
+¬P really is true, you’ll never be able to give a proof of P as an
+argument.  Rather, the function serves to show that <em>if</em> you could be
+given a proof of P then you’d be able to return a proof of false, and
+because that’s not possible (as there are no proofs of false), there
+must be no proof of P.</p>
+<p>Here’s a very simple example. We can prove the proposition ¬ false by
+giving a function that <em>if</em> given a proof of false, returns a proof of
+false. That’s easy: just return the argument itself.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20notFalse:%20%C2%ACfalse%20:=%0A%20%20%20%20%CE%BB%20pf:%20false,%20pf" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">notFalse</span><span class="o">:</span> <span class="bp">¬</span><span class="n">false</span> <span class="o">:=</span>
+    <span class="bp">λ</span> <span class="n">pf</span><span class="o">:</span> <span class="n">false</span><span class="o">,</span> <span class="n">pf</span>
+</pre></div>
+</div>
+</div></div>
+<div class="section" id="law-of-excluded-middle">
+<h3>Law of Excluded Middle<a class="headerlink" href="#law-of-excluded-middle" title="Permalink to this headline">¶</a></h3>
+<p>Strangely, in constructive logic, which is the form of logic that Lean
+and other such provers implement, you cannot prove that ¬¬P -&gt; P. That
+is, double negatives can’t generally be eliminated.</p>
+<p>Double negative elimination is equivalent to having another rule of
+classical logic: that for any proposition, P, P ∨ ¬P is true.  But you
+will recall that to prove P ∨ ¬P, we have to apply an or.intro rule to
+either a proof of P or a proof of ¬ P. However, in mathematics, there
+are important unsolved problems: propositions for which we have
+neither a proof of the proposition or a proof of its negation. For
+such problems, we cannot prove either the proposition P or its
+negation, ¬P, so we can’t prove P ∨ ¬P!</p>
+</div>
+<div class="section" id="proof-by-contradiction">
+<h3>Proof by Contradiction<a class="headerlink" href="#proof-by-contradiction" title="Permalink to this headline">¶</a></h3>
+<p>This is a bit of a problem because it deprives us of an important
+proof strategy called proof by contradiction. In this strategy, we
+start by assuming ¬ P and derive a contraction, proving ¬ ¬ P. In
+classical logic, that is equivalent to P.  But in constructive logic,
+that’s not so.  Let’s see what happens if we try to prove the theorem,
+¬¬P -&gt; P.</p>
+<p>We start by observing that ¬¬P means ¬P → false, and that in turn
+means (P → false) → false. A proof of this would be a function that if
+given a proof of P → false would produce a proof of false. The
+argument, a proof of P → false, is itself a function that, if given a
+proof of P returns a proof of false. But nowhere here do we actually
+have a proof of P, and there’s nothing else to build one from, so
+there’s no way to conver a proof of ¬¬P into a proof of P.</p>
+<p>One can however extend the logic of Lean to become a classical logic
+by adding the law of the excluded middle (that P ∨ ¬P is always true)
+to the environment as an axiom.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=axiom%20excludedMiddle:%20%E2%88%80%20P,%20P%20%E2%88%A8%20%C2%ACP" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">axiom</span> <span class="n">excludedMiddle</span><span class="o">:</span> <span class="bp">∀</span> <span class="n">P</span><span class="o">,</span> <span class="n">P</span> <span class="bp">∨</span> <span class="bp">¬</span><span class="n">P</span>
+</pre></div>
+</div>
+</div><p>Note that the definition of ¬ is that if one starts with proof of P
+then one can conclude false. In double negative elimination one starts
+with a proof of ¬P and concludes false, and from that contradiction,
+one infers that P must be true. It’s that last step that isn’t
+available in constructive logic. If you want to use classical logic in
+Lean, you have to add the axiom above. Lean provides a standard way to
+do this.  The problem is that the logic is then no longer
+“constructive”, and that has real costs when it comes to being able to
+generate code. The details are beyond the scope of this class.</p>
+<p>There are two things to remember. One is that proof by contradiction
+proves P by showing that ¬P leads to a proof of false (a
+contradiction). This is a very common proof strategy in practice.  For
+example, it’s used to prove that the square root of two is irrational.
+The proof goes like this: Assume that it isn’t irrational (that is,
+that it’s rational). Then show that this leads to a conclusion that
+can’t be true. Conclude that the sequare root of two must therefore be
+irrational.</p>
+<p>The second thing to remember is that in constructive logic, this
+strategy is not available, but it can be enabled by accepting the law
+of the excluded middle as something that is assumed, not proven, to be
+true. It is known that this axiom can be added to the core
+constructive logic without causing the logic to become inconsistent.</p>
+</div>
+<div class="section" id="impossibility-of-contradiction">
+<h3>Impossibility of Contradiction<a class="headerlink" href="#impossibility-of-contradiction" title="Permalink to this headline">¶</a></h3>
+<p>Here’s something else that we can prove.  A slightly more interesting
+example is to prove that for any proposition P, we have ¬(P ∧ ¬P). In
+other words, it’s not possible for both P and ¬ P to be true.  We’ll
+write this as: ∀ P: Prop, ¬(P ∧ ¬P).  Remember that what this really
+means is ∀ P: Prop, (P ∧ ¬P) → false. A proof of this claim is a
+function that will take two arguments: an arbitrary proposition, P,
+and an assumed proof of (P ∧ ¬P). It will need to return a proof of
+false.  The key to seeing how this is going to work is to recognize
+that (P ∧ ¬P) in turn means (P ∧ (P → false)). That is, that we have
+both a proof of P and also a proof of P → false: a function that turns
+a proof of P into a proof of false.  We’ll just apply that assumed
+function to the assumed proof of P to obtain the desired contradiction
+(proof of false), and that will show that for any P, the assumption
+that (P ∧ ¬P) lets us build a proof of false, which is to say that
+there is a function from (P ∧ ¬P) to false, i.e., (P ∧ ¬P) → false,
+and that is what ¬(P ∧ ¬P) means. Thus we have our proof.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20noContra:%20%E2%88%80%20P:%20Prop,%20%C2%AC(P%20%E2%88%A7%20%C2%ACP)%20:=%0A%20%20%CE%BB%20(P:%20Prop)%20(pf:%20P%20%E2%88%A7%20%C2%ACP),%0A%20%20%20%20(and.elim_right%20pf)%20(and.elim_left%20pf)" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">noContra</span><span class="o">:</span> <span class="bp">∀</span> <span class="n">P</span><span class="o">:</span> <span class="kt">Prop</span><span class="o">,</span> <span class="bp">¬</span><span class="o">(</span><span class="n">P</span> <span class="bp">∧</span> <span class="bp">¬</span><span class="n">P</span><span class="o">)</span> <span class="o">:=</span>
+  <span class="bp">λ</span> <span class="o">(</span><span class="n">P</span><span class="o">:</span> <span class="kt">Prop</span><span class="o">)</span> <span class="o">(</span><span class="n">pf</span><span class="o">:</span> <span class="n">P</span> <span class="bp">∧</span> <span class="bp">¬</span><span class="n">P</span><span class="o">),</span>
+    <span class="o">(</span><span class="n">and</span><span class="bp">.</span><span class="n">elim_right</span> <span class="n">pf</span><span class="o">)</span> <span class="o">(</span><span class="n">and</span><span class="bp">.</span><span class="n">elim_left</span> <span class="n">pf</span><span class="o">)</span>
+</pre></div>
+</div>
+</div></div>
+<div class="section" id="false-introduction">
+<h3>False Introduction<a class="headerlink" href="#false-introduction" title="Permalink to this headline">¶</a></h3>
+<p>There is no false introduction rule in Lean.  If there were, we’d be
+able to introduce a proof of false, and that would be bad. Why?
+Because a logic that allows one to prove a contradiction allows one to
+prove anything at all, and so is useless for distinguishing between
+true and false statements.</p>
+<div class="section" id="false-elimination">
+<h4>False Elimination<a class="headerlink" href="#false-elimination" title="Permalink to this headline">¶</a></h4>
+<p>The phrase to remember is that “From false, anything follows.” Ex
+falso quodlibit is the latin phrase for this dear to logicians.</p>
+<p>In other words, if we can prove false, we can prove any proposition,
+Q, whatsoever.</p>
+<p>In Lean, the ability to prove any Q from false is enshrined in the
+false elimination inference rule.</p>
+<p>Here’s an example of how it’s used. Suppose we wanted to prove that
+false implies that 0=1. Given a proof of false, we just apply the
+false.elim inference rule to it, and it “returns” a proof of
+0=1. False implies 0=1.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20fImpZeroEqOne:%20false%20%E2%86%92%200%20=%201%20:=%0A%20%20%20%20%CE%BB%20f:%20false,%20false.elim%20f" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">fImpZeroEqOne</span><span class="o">:</span> <span class="n">false</span> <span class="bp">→</span> <span class="mi">0</span> <span class="bp">=</span> <span class="mi">1</span> <span class="o">:=</span>
+    <span class="bp">λ</span> <span class="n">f</span><span class="o">:</span> <span class="n">false</span><span class="o">,</span> <span class="n">false</span><span class="bp">.</span><span class="n">elim</span> <span class="n">f</span>
+</pre></div>
+</div>
+</div><p>False elimination works to prove any proposition whatsoever.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20fImpAnyProp%20:%20%E2%88%80%20Q:%20Prop,%20false%20%E2%86%92%20Q%20:=%0A%20%20%CE%BB%20(Q:%20Prop)%20(f:%20false),%20false.elim%20f" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">fImpAnyProp</span> <span class="o">:</span> <span class="bp">∀</span> <span class="n">Q</span><span class="o">:</span> <span class="kt">Prop</span><span class="o">,</span> <span class="n">false</span> <span class="bp">→</span> <span class="n">Q</span> <span class="o">:=</span>
+  <span class="bp">λ</span> <span class="o">(</span><span class="n">Q</span><span class="o">:</span> <span class="kt">Prop</span><span class="o">)</span> <span class="o">(</span><span class="n">f</span><span class="o">:</span> <span class="n">false</span><span class="o">),</span> <span class="n">false</span><span class="bp">.</span><span class="n">elim</span> <span class="n">f</span>
+</pre></div>
+</div>
+</div><p>The way to read the lambda expression is as a function that if given a
+proof of false applies false.elim to it to produce a proof of 0=1,
+or Q. The conclusion is an implicit argument to false.elim, which
+makes this notation less than completely transparent; but that’s
+what’s going on.</p>
+<p>Here’s a proof that shows that if you have a proof of a any
+proposition P and of its negation, then you can prove any proposition
+Q whatsoever.  This prove combines the idea we’ve seen before.  We use
+and.elim rules to get at the assumed proof of P and proof of ¬ P. The
+proof of ¬ P is a function from P → false, which we apply to the
+assumed proof of P to derive a proof of false. We then apply the false
+elimination rule (which from false proves anything) to prove Q.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20fromContraQ:%20%E2%88%80%20P%20Q:%20Prop,%20(P%20%E2%88%A7%20%C2%AC%20P)%20-%3E%20Q%20:=%0A%20%20%20%20%CE%BB%20(P%20Q:%20Prop)%20(pf:%20P%20%E2%88%A7%20%C2%AC%20P),%0A%20%20%20%20%20%20%20%20false.elim%0A%20%20%20%20%20%20%20%20%20%20%20%20((and.elim_right%20pf)%20(and.elim_left%20pf))" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">fromContraQ</span><span class="o">:</span> <span class="bp">∀</span> <span class="n">P</span> <span class="n">Q</span><span class="o">:</span> <span class="kt">Prop</span><span class="o">,</span> <span class="o">(</span><span class="n">P</span> <span class="bp">∧</span> <span class="bp">¬</span> <span class="n">P</span><span class="o">)</span> <span class="bp">-&gt;</span> <span class="n">Q</span> <span class="o">:=</span>
+    <span class="bp">λ</span> <span class="o">(</span><span class="n">P</span> <span class="n">Q</span><span class="o">:</span> <span class="kt">Prop</span><span class="o">)</span> <span class="o">(</span><span class="n">pf</span><span class="o">:</span> <span class="n">P</span> <span class="bp">∧</span> <span class="bp">¬</span> <span class="n">P</span><span class="o">),</span>
+        <span class="n">false</span><span class="bp">.</span><span class="n">elim</span>
+            <span class="o">((</span><span class="n">and</span><span class="bp">.</span><span class="n">elim_right</span> <span class="n">pf</span><span class="o">)</span> <span class="o">(</span><span class="n">and</span><span class="bp">.</span><span class="n">elim_left</span> <span class="n">pf</span><span class="o">))</span>
+</pre></div>
+</div>
+</div></div>
+</div>
+<div class="section" id="not-introduction">
+<h3>Not Introduction<a class="headerlink" href="#not-introduction" title="Permalink to this headline">¶</a></h3>
+<p>Here’s another form of proof by contradiction.  If know that ¬Q is
+true (there can be no proof) of Q, and we also know that P → Q (we
+have a function <em>if</em> given a proof of P returns a proof of Q), then we
+see that an assumption that P is true leads to a contradiction, which
+proves ¬P.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20notPbyContra:%0A%20%20%20%20%E2%88%80%20P%20Q:%20Prop,%20%C2%ACQ%20%E2%86%92%20(P%20%E2%86%92%20Q)%20%E2%86%92%20%C2%ACP%20:=%0A%20%20%20%20--%20need%20to%20return%20proof%20of%20P%20%E2%86%92%20false%0A%20%20%20%20--%20that%20will%20be%20a%20function%20of%20this%20type%0A%20%20%20%20%20%20%20%20%CE%BB%20(P%20Q:%20Prop)%20notQ%20PimpQ,%0A%20%20%20%20%20%20%20%20%20%20%20%20%CE%BB%20pfP:%20P,%20(notQ%20(PimpQ%20pfP))" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">notPbyContra</span><span class="o">:</span>
+    <span class="bp">∀</span> <span class="n">P</span> <span class="n">Q</span><span class="o">:</span> <span class="kt">Prop</span><span class="o">,</span> <span class="bp">¬</span><span class="n">Q</span> <span class="bp">→</span> <span class="o">(</span><span class="n">P</span> <span class="bp">→</span> <span class="n">Q</span><span class="o">)</span> <span class="bp">→</span> <span class="bp">¬</span><span class="n">P</span> <span class="o">:=</span>
+    <span class="c1">-- need to return proof of P → false</span>
+    <span class="c1">-- that will be a function of this type</span>
+        <span class="bp">λ</span> <span class="o">(</span><span class="n">P</span> <span class="n">Q</span><span class="o">:</span> <span class="kt">Prop</span><span class="o">)</span> <span class="n">notQ</span> <span class="n">PimpQ</span><span class="o">,</span>
+            <span class="bp">λ</span> <span class="n">pfP</span><span class="o">:</span> <span class="n">P</span><span class="o">,</span> <span class="o">(</span><span class="n">notQ</span> <span class="o">(</span><span class="n">PimpQ</span> <span class="n">pfP</span><span class="o">))</span>
+</pre></div>
+</div>
+</div><p>Here’s essentially the same proof, written as an ordinary function
+definition, but where the parameters, P and Q, are to be inferred
+rather than given as explicit arguments in the λ. The curly braces
+around P and Q tell Lean to use type inference to infer the values of
+P and Q.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=def%20notPbyContra'%20%7BP%20Q:%20Prop%7D%20(PimpQ:%20P%20%E2%86%92%20Q)%20(notQ:%20%C2%AC%20Q):%20%C2%AC%20P%20:=%0A%20%20%20%20%CE%BB%20pfP:%20P,%20notQ%20(PimpQ%20pfP)" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">notPbyContra&#39;</span> <span class="o">{</span><span class="n">P</span> <span class="n">Q</span><span class="o">:</span> <span class="kt">Prop</span><span class="o">}</span> <span class="o">(</span><span class="n">PimpQ</span><span class="o">:</span> <span class="n">P</span> <span class="bp">→</span> <span class="n">Q</span><span class="o">)</span> <span class="o">(</span><span class="n">notQ</span><span class="o">:</span> <span class="bp">¬</span> <span class="n">Q</span><span class="o">):</span> <span class="bp">¬</span> <span class="n">P</span> <span class="o">:=</span>
+    <span class="bp">λ</span> <span class="n">pfP</span><span class="o">:</span> <span class="n">P</span><span class="o">,</span> <span class="n">notQ</span> <span class="o">(</span><span class="n">PimpQ</span> <span class="n">pfP</span><span class="o">)</span>
+</pre></div>
+</div>
+</div></div>
+</div>
+<div class="section" id="bi-implication-iff">
+<h2>Bi-Implication (Iff)<a class="headerlink" href="#bi-implication-iff" title="Permalink to this headline">¶</a></h2>
+<p>A proposition of the form P ↔ Q is read as P (is true) if and only if
+Q (is true). It is defined as (P → Q) ∧ (Q → P). The phrase “if and
+only if” is often written as “iff” in mathematics. To obtain the ↔
+symbol in Lean, just type “iff”. P ↔ Q is known as a bi-implication
+or a logical equivalence.</p>
+<div class="section" id="iff-introduction">
+<h3>Iff Introduction<a class="headerlink" href="#iff-introduction" title="Permalink to this headline">¶</a></h3>
+<p>A proof of a bi-implication requires that you prove both conjuncts: P
+→ Q and Q → P. Given such proofs, you can use the iff introduction
+inference rule to construct a proof of P ↔ Q.  In Lean, iff.intro is
+the name of this rule.  It takes proofs of P → Q and Q → P and gives
+you back a proof of P ↔ Q.</p>
+<p>A proof of P ↔ Q is thus, in essence, a proof of (P → Q) ∧ (Q →
+P). And this is a pair of proofs, one of P → Q and one of Q → P. Each
+of these proofs, in turn, being a proof of an implication, is a
+function, taking either a proof of P and constructing a proof of Q, or
+taking a proof of Q and constructing one of P.</p>
+<p>We we illustrate by assuming that for arbitrary propositions P and Q,
+we have a proof of P and a proof of Q, and we then apply the iff.intro
+inference rule to produce a proof of P ↔ Q. We first write the theorem
+as an ordinary function of the type we seek to prove: given
+propositions P and Q,</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=def%20biImpl%20(P%20Q:%20Prop)%20(PimpQ:%20P%20%E2%86%92%20Q)%20(QimpP:%20Q%20%E2%86%92%20P):%20P%20%E2%86%94%20Q%20:=%0A%20%20iff.intro%20PimpQ%20QimpP" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">biImpl</span> <span class="o">(</span><span class="n">P</span> <span class="n">Q</span><span class="o">:</span> <span class="kt">Prop</span><span class="o">)</span> <span class="o">(</span><span class="n">PimpQ</span><span class="o">:</span> <span class="n">P</span> <span class="bp">→</span> <span class="n">Q</span><span class="o">)</span> <span class="o">(</span><span class="n">QimpP</span><span class="o">:</span> <span class="n">Q</span> <span class="bp">→</span> <span class="n">P</span><span class="o">):</span> <span class="n">P</span> <span class="bp">↔</span> <span class="n">Q</span> <span class="o">:=</span>
+  <span class="n">iff</span><span class="bp">.</span><span class="n">intro</span> <span class="n">PimpQ</span> <span class="n">QimpP</span>
+</pre></div>
+</div>
+</div><p>Now we write it as an equivalent theorem …</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20biImpl':%20forall%20P%20Q:%20Prop,%20(P%20%E2%86%92%20Q)%20%E2%86%92%20(Q%20%E2%86%92%20P)%20%E2%86%92%20(P%20%E2%86%94%20Q)%20:=%0A%20%20%CE%BB%20(P%20Q:%20Prop)%20(PimpQ:%20P%20%E2%86%92%20Q)%20(QimpP:%20Q%20%E2%86%92%20P),%0A%20%20%20%20iff.intro%20PimpQ%20QimpP" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">biImpl&#39;</span><span class="o">:</span> <span class="k">forall</span> <span class="n">P</span> <span class="n">Q</span><span class="o">:</span> <span class="kt">Prop</span><span class="o">,</span> <span class="o">(</span><span class="n">P</span> <span class="bp">→</span> <span class="n">Q</span><span class="o">)</span> <span class="bp">→</span> <span class="o">(</span><span class="n">Q</span> <span class="bp">→</span> <span class="n">P</span><span class="o">)</span> <span class="bp">→</span> <span class="o">(</span><span class="n">P</span> <span class="bp">↔</span> <span class="n">Q</span><span class="o">)</span> <span class="o">:=</span>
+  <span class="bp">λ</span> <span class="o">(</span><span class="n">P</span> <span class="n">Q</span><span class="o">:</span> <span class="kt">Prop</span><span class="o">)</span> <span class="o">(</span><span class="n">PimpQ</span><span class="o">:</span> <span class="n">P</span> <span class="bp">→</span> <span class="n">Q</span><span class="o">)</span> <span class="o">(</span><span class="n">QimpP</span><span class="o">:</span> <span class="n">Q</span> <span class="bp">→</span> <span class="n">P</span><span class="o">),</span>
+    <span class="n">iff</span><span class="bp">.</span><span class="n">intro</span> <span class="n">PimpQ</span> <span class="n">QimpP</span>
+</pre></div>
+</div>
+</div><p>Here’s a slightly more interesting application of the idea: we show
+that for arbitrary propositions, P and Q, P ∧ Q ↔ Q ∧ P. Remember,
+whenever you want to prove any bi-implication, the strategy is to
+prove the implication in each direction, at which you you can then
+appeal to the iff intro inference rule to complete the proof.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20PandQiffQandP:%20forall%20P%20Q:%20Prop,%20P%20%E2%88%A7%20Q%20%E2%86%94%20Q%20%E2%88%A7%20P%20:=%0A%20%20%CE%BB%20(P%20Q:%20Prop),%0A%20%20%20%20iff.intro%0A%20%20%20%20%20%20(%CE%BB%20pf:%20P%20%E2%88%A7%20Q,%20and.intro%20(and.elim_right%20pf)%20(and.elim_left%20pf))(%CE%BB%20pf:%20Q%20%E2%88%A7%20P,%20and.intro%20(and.elim_right%20pf)%20(and.elim_left%20pf))" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">PandQiffQandP</span><span class="o">:</span> <span class="k">forall</span> <span class="n">P</span> <span class="n">Q</span><span class="o">:</span> <span class="kt">Prop</span><span class="o">,</span> <span class="n">P</span> <span class="bp">∧</span> <span class="n">Q</span> <span class="bp">↔</span> <span class="n">Q</span> <span class="bp">∧</span> <span class="n">P</span> <span class="o">:=</span>
+  <span class="bp">λ</span> <span class="o">(</span><span class="n">P</span> <span class="n">Q</span><span class="o">:</span> <span class="kt">Prop</span><span class="o">),</span>
+    <span class="n">iff</span><span class="bp">.</span><span class="n">intro</span>
+      <span class="o">(</span><span class="bp">λ</span> <span class="n">pf</span><span class="o">:</span> <span class="n">P</span> <span class="bp">∧</span> <span class="n">Q</span><span class="o">,</span> <span class="n">and</span><span class="bp">.</span><span class="n">intro</span> <span class="o">(</span><span class="n">and</span><span class="bp">.</span><span class="n">elim_right</span> <span class="n">pf</span><span class="o">)</span> <span class="o">(</span><span class="n">and</span><span class="bp">.</span><span class="n">elim_left</span> <span class="n">pf</span><span class="o">))(</span><span class="bp">λ</span> <span class="n">pf</span><span class="o">:</span> <span class="n">Q</span> <span class="bp">∧</span> <span class="n">P</span><span class="o">,</span> <span class="n">and</span><span class="bp">.</span><span class="n">intro</span> <span class="o">(</span><span class="n">and</span><span class="bp">.</span><span class="n">elim_right</span> <span class="n">pf</span><span class="o">)</span> <span class="o">(</span><span class="n">and</span><span class="bp">.</span><span class="n">elim_left</span> <span class="n">pf</span><span class="o">))</span>
+</pre></div>
+</div>
+</div><p>Exercise: Write this theorem as an ordinary function, called
+PandQiffQandP’.</p>
+</div>
+</div>
+<div class="section" id="proof-engineering">
+<h2>Proof Engineering<a class="headerlink" href="#proof-engineering" title="Permalink to this headline">¶</a></h2>
+<p>There are two main use cases for Lean and for other tools like
+it. First, it can be used for research in pure mathematics. Second, it
+can be used to verify properties of software. The latter is the use
+case that most interests computer scientists and software engineers.</p>
+<p>To use Lean for verification, one first write code to be verified,
+then one writes propositions about that code, and finally one proves
+them. The result is code that is almost beyond any doubt guaranteed to
+have the property or properties so proved.</p>
+<p>The problem is that such proofs can be complex and hard to just write
+out as if you were just writing ordinary code. Lean provides numerous
+mechanisms to ease the task of obtaining proofs.  Here we briefly
+review a few of them.</p>
+<p>First, the “sorry” keyword tells Lean to accept a theorem, value, or
+proof, by assumption, i.e., without proof, or “as an axiom.”</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20oeqz:%201%20=%200%20:=%20sorry" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">oeqz</span><span class="o">:</span> <span class="mi">1</span> <span class="bp">=</span> <span class="mi">0</span> <span class="o">:=</span> <span class="n">sorry</span>
+</pre></div>
+</div>
+</div><p>As you can see here, undisciplined use of sorry can be danger. It’s
+easy to introduce a new “fact” that leads to a logical inconsistency,
+i.e., the possibility of producing a proof of false. Taking 1=0 as an
+axiom is an example. From it you can prove false, at which point
+you’ve ruined your logic.</p>
+<p>On the other hand, using sorry can be helpful. In particular, it allow
+you to do what you can think of as top-down structured proof
+development. You can use it to “stub out” parts of proofs to make
+larger proofs “work”, and then go back and replace the sorrys with
+real proofs.  When all sorrys are eliminated, you then have a verified
+proof.</p>
+<p>Using _ (underscore) in place of sorry asks Lean to try to fill in a
+proof for you. In some cases it can do so automatically, which is
+nice, but in any case, if you hover the mouse over the “hole”, Lean
+will tell you what type of proof is needed and what you have in the
+current context that might be useful in constructive a proof. Hover
+your mouse over the underscore here. Then replace it with “and.intro _
+_” and hover your mouse over those underscores. You will see how this
+mechanism can help you to develop a proof “top down.”</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20test'%20(p%20q%20:%20Prop)%20(hp%20:%20p)%20(hq%20:%20q)%20:%20p%20%E2%88%A7%20q%20:=%0A%20%20%20%20_" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">test&#39;</span> <span class="o">(</span><span class="n">p</span> <span class="n">q</span> <span class="o">:</span> <span class="kt">Prop</span><span class="o">)</span> <span class="o">(</span><span class="n">hp</span> <span class="o">:</span> <span class="n">p</span><span class="o">)</span> <span class="o">(</span><span class="n">hq</span> <span class="o">:</span> <span class="n">q</span><span class="o">)</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">∧</span> <span class="n">q</span> <span class="o">:=</span>
+    <span class="bp">_</span>
+</pre></div>
+</div>
+</div><p>This mechanism also works for ordinary programming by the way. Suppose
+we want to develop a function that takes a nat/string pair and returns
+it in the reverse order, as a string/nat pair. You can write the
+program with a hole for the entire body, then you can “refine” the
+hole incrementally until you have a correct working program. The type
+of each hole pretty much tells you what to do at each step.  Give it a
+try.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=def%20swap(aPair:%20nat%20%C3%97%20string):%20(string%20%C3%97%20nat)%20:=%0A%20%20%20%20sorry%20//_" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">swap</span><span class="o">(</span><span class="n">aPair</span><span class="o">:</span> <span class="n">nat</span> <span class="bp">×</span> <span class="n">string</span><span class="o">):</span> <span class="o">(</span><span class="n">string</span> <span class="bp">×</span> <span class="n">nat</span><span class="o">)</span> <span class="o">:=</span>
+    <span class="n">sorry</span> <span class="bp">//_</span>
+</pre></div>
+</div>
+</div><p>When the code is complete, this test will pass!</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20swapTest1:%20swap%20(5,%20%22hi%22)%20=%20(%22hi%22,%205)%20:=%20rfl" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">swapTest1</span><span class="o">:</span> <span class="n">swap</span> <span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="s2">&quot;hi&quot;</span><span class="o">)</span> <span class="bp">=</span> <span class="o">(</span><span class="s2">&quot;hi&quot;</span><span class="o">,</span> <span class="mi">5</span><span class="o">)</span> <span class="o">:=</span> <span class="n">rfl</span>
+</pre></div>
+</div>
+</div><p>FYI, type “times” to get the × symbol. If S and T are types, S × T is
+the type of S-T pairs. A value of this type is written as an ordered
+pair, (s, t), where s: S, and t: T.</p>
+</div>
+<div class="section" id="proof-tactics">
+<h2>Proof Tactics<a class="headerlink" href="#proof-tactics" title="Permalink to this headline">¶</a></h2>
+<p>THIS BRIEF INTRODUCTION TO TACTIC-BASED PROOFS IS COMPLETELY
+OPTIONAL. SKIP IT AT NO COST. READ IT IF YOU’RE INTERESTED. THIS
+MATERIAL WILL NOT BE ON THE TEST IN ANY FORM.</p>
+<p>Lean also supports what are called proof tactics.  A tactic is a
+program that turns one context-goal structure (called a sequent) into
+another. The context/assumptions you can use appear before the
+turnstile. The remaining “goal” to be proved is after it=. Your job is
+to apply a sequence of tactics to eliminate (satisfy) the goal/goals.
+Hover your mouse over the red line at the end and study the sequent,
+then uncomment each commented tactic in turn, seeing how it changes
+the sequent.  To begin with, you have a context in which p and q are
+assumed to be arbitrary propositions and hp and hq are assumed to be
+proofs of p and q, resp., and the goal is p ∧ q ∧ p. Applying the
+and.intro rule decomposes the original goal into two smaller goals:
+provide a proof of p, and provide a proof of q ∧ p. The exact hp says
+“take hp as a complete proof of p.” You can follow the rest yourself.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20test''%20(p%20q%20:%20Prop)%20(hp%20:%20p)%20(hq%20:%20q)%20:%20p%20%E2%88%A7%20q%20%E2%88%A7%20p%20:=%0Abegin%0A--apply%20and.intro,%0A--exact%20hp,%0A--apply%20and.intro,%0A--exact%20hq,%0A--exact%20hp%0Aend" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">test&#39;&#39;</span> <span class="o">(</span><span class="n">p</span> <span class="n">q</span> <span class="o">:</span> <span class="kt">Prop</span><span class="o">)</span> <span class="o">(</span><span class="n">hp</span> <span class="o">:</span> <span class="n">p</span><span class="o">)</span> <span class="o">(</span><span class="n">hq</span> <span class="o">:</span> <span class="n">q</span><span class="o">)</span> <span class="o">:</span> <span class="n">p</span> <span class="bp">∧</span> <span class="n">q</span> <span class="bp">∧</span> <span class="n">p</span> <span class="o">:=</span>
+<span class="k">begin</span>
+<span class="c1">--apply and.intro,</span>
+<span class="c1">--exact hp,</span>
+<span class="c1">--apply and.intro,</span>
+<span class="c1">--exact hq,</span>
+<span class="c1">--exact hp</span>
+<span class="kn">end</span>
+</pre></div>
+</div>
+</div></div>
+<div class="section" id="moved-stuff">
+<h2>MOVED STUFF<a class="headerlink" href="#moved-stuff" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="propositions-in-the-higher-order-logic-of-lean">
+<h2>Propositions in the Higher Order Logic of Lean<a class="headerlink" href="#propositions-in-the-higher-order-logic-of-lean" title="Permalink to this headline">¶</a></h2>
+<p>KS: This is where it the course is realized.</p>
+<p>Lean and related proof assistants unify mathematical logic and
+computation, enabling us once again to mix code and logic, but where
+the logic is now higher-order and constructive. So propositions are
+objects and so are proofs. As such, propositions must have types. Let’s
+write a few simple propositions and check to see what their types are.</p>
+<p>Zero equals zero is a proposition.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=#check%200=0%0A%0A#check%20Prop" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="bp">#</span><span class="kn">check</span> <span class="mi">0</span><span class="bp">=</span><span class="mi">0</span>
+
+<span class="bp">#</span><span class="kn">check</span> <span class="kt">Prop</span>
+</pre></div>
+</div>
+</div><p>Every natural numbers is non-negative.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=#check%20%E2%88%80%20n:%20nat,%20n%20%3E=%200" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="bp">#</span><span class="kn">check</span> <span class="bp">∀</span> <span class="n">n</span><span class="o">:</span> <span class="n">nat</span><span class="o">,</span> <span class="n">n</span> <span class="bp">&gt;=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div><p>Get the forall symbol by typing “forall”</p>
+<p>Every natural number has a successor.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=#check%20%E2%88%80%20n:%20%E2%84%95,%20(%E2%88%83%20m:%20%E2%84%95,%20(m%20=%20n%20+%201))%0A%0A#check%20%E2%88%80%20n:%20%E2%84%95,%20n%20=%200" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="bp">#</span><span class="kn">check</span> <span class="bp">∀</span> <span class="n">n</span><span class="o">:</span> <span class="bp">ℕ</span><span class="o">,</span> <span class="o">(</span><span class="bp">∃</span> <span class="n">m</span><span class="o">:</span> <span class="bp">ℕ</span><span class="o">,</span> <span class="o">(</span><span class="n">m</span> <span class="bp">=</span> <span class="n">n</span> <span class="bp">+</span> <span class="mi">1</span><span class="o">))</span>
+
+<span class="bp">#</span><span class="kn">check</span> <span class="bp">∀</span> <span class="n">n</span><span class="o">:</span> <span class="bp">ℕ</span><span class="o">,</span> <span class="n">n</span> <span class="bp">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div><p>Get the exists symbol by typing “exists”.</p>
+<p>Propositions are values, too!
+.. code-block:: lean</p>
+<blockquote>
+<div><p>def aProp := ∀ n: ℕ, ∃ m: ℕ, m = n + 1</p>
+<p>#check aProp</p>
+</div></blockquote>
+<p>In each case, we see that the type of any proposition is Prop. What’s
+the type of Prop?</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=#check%20Prop" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="bp">#</span><span class="kn">check</span> <span class="kt">Prop</span>
+</pre></div>
+</div>
+</div><p>Ok, the type of Prop is also Type. So what we have here is a type
+hierarchy in which the familiar types, such as nat, have the type,
+Type, but where there’s also a type, called Prop, that is also of
+type, Type, and it, in turn, is the type of all propositions.</p>
+<p>So let’s start again with x := 1. The value of x is 1. The type of the
+value, 1, is nat.  The type of nat is Type. From there the type of
+each type is just the next bigger “Type n.””  We’ve also seen that a
+proposition, such as 0=0, is of type, Prop, which in turn has the
+type, Type. But what about proofs?</p>
+</div>
+<div class="section" id="proof-and-truth">
+<h2>PROOF AND TRUTH<a class="headerlink" href="#proof-and-truth" title="Permalink to this headline">¶</a></h2>
+<p>What does it mean for a proposition to be true in Lean? It means
+exactly that there is a proof, which is to say that it means that
+there is some value of that type. A proposition that is false is a
+good proposition, and a good type, but it is a type that has no
+proofs, no values! It is an “empty,” or “uninhabited” type. The type,
+1=0, has no values (no proofs). There is no way to produce a value of
+this type.</p>
+<p>So what about proofs? They crazy idea that Lean and similar systems
+are built on is that propositions can themselves be viewed as types,
+and proofs as values of these types! In this analogy, a proof is a
+value of a type, namely of the proposition that it proves, viewed as a
+type. So just as 1 is a value of type nat, and nat in turn is a value
+of type, Type, so a proof of 0=0 is a value of type 0=0! The
+proposition is the type. The proof, if there is one, is a value of
+such a type, and its type is Prop. To see this more clearly, we need
+to build some proofs/values.</p>
+<p>Here (following this comment) is a new definition, of the variable,
+zeqz. But whereas before we defined x to be of the type, nat, with
+value 1, now we define zeqz to be of the type, 0=0, with a value given
+by that strange terms, “rfl.”</p>
+<p>We’re using the proposition, 0=0, as a type! To this variable we then
+assign a value, which we will understand to be a proof. Proof values
+are built by what we can view as inference rules. The inference rule,
+rfl, builds a proof that anything is equal to itself, in this case
+that 0=0.  -/ def zeqz: 0 = 0 := rfl</p>
+<p>The rfl widget, whatever it is, works for any type, not just nat.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=def%20heqh:%20%22hello%22%20=%20%22hello%22%20:=%20rfl" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">heqh</span><span class="o">:</span> <span class="s2">&quot;hello&quot;</span> <span class="bp">=</span> <span class="s2">&quot;hello&quot;</span> <span class="o">:=</span> <span class="n">rfl</span>
+</pre></div>
+</div>
+</div><p>The proof is produced the rfl inference rule.  It is a “proof
+constructor” (that is what an inference rule is, after all), is
+polymorphic, uses type inference, takes a single argument, a, and
+yields a proof of a = a.</p>
+<p>The value in this case is 0 and the type is nat. What the rule says
+more formally is that, without any premises you can always conclude
+that for any type, A, and for any value, a, of that type, there is a
+proof of a = a.</p>
+<p>For example, if you need a proof of 0=0, you use this rule to build
+it. The rule infers the type to be nat and the value, a, to be 0. The
+result is a proof of 0 = 0. The value of zeqz in this case is thus a
+<em>proof</em>, of its type, i.e., of the proposition, 0 = 0. Check the type
+of zeqz. Its type is the proposition that</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=#check%20zeqz" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="bp">#</span><span class="kn">check</span> <span class="n">zeqz</span>
+</pre></div>
+</div>
+</div><p>It helps to draw a picture. Draw a picture that includes “nodes” for
+all of the values we’ve used or defined so far, with arrows depicting
+the “hasType” relation. There are nodes for 1, x, zeqz, nat, Prop,
+Type, Type 1, Type 2, etc. KS: DRAW THE GRAPHIC</p>
+<p>When we’re building values that are proofs of propositions, we
+generally use the keyword, “theorem”, instead of “def”. They mean
+exactly the same thing to Lean, but they communicate different
+intentions to human readers. We add a tick mark to the name of the
+theorem here only to avoid giving multiple definitions of the same
+name, which is an error in Lean.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20zeqz':%200%20=%200%20:=%20rfl" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">zeqz&#39;</span><span class="o">:</span> <span class="mi">0</span> <span class="bp">=</span> <span class="mi">0</span> <span class="o">:=</span> <span class="n">rfl</span>
+</pre></div>
+</div>
+</div><p>We could even have defined x := 1 as a theorem.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20x'':%20nat%20:=%201" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">x&#39;&#39;</span><span class="o">:</span> <span class="n">nat</span> <span class="o">:=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div><p>While this means exactly the same thing as our original definition of
+x, it gives us an entirely new view: a value is a proof of its type. 1
+is thus a proof of the type nat. Our ability to provide any value for
+a type gives us a proof of that type. The type checker in Lean ensures
+that we never assign a value to a variable that is not of its
+type. Thus it ensures that we never accept a proof that is not a valid
+proof of its type/proposition.</p>
+</div>
+<div class="section" id="propositions">
+<h2>Propositions<a class="headerlink" href="#propositions" title="Permalink to this headline">¶</a></h2>
+<p>Lean and related proof assistants unify mathematical logic and
+computation, enabling us once again to mix code and logic, but where
+the logic is now higher-order and constructive. So propositions are
+objects and so are proofs. As such, propositions must have types. Let’s
+write a few simple propositions and check to see what their types are.</p>
+<p>Zero equals zero is a proposition.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=#check%200=0%0A%0A#check%20Prop" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="bp">#</span><span class="kn">check</span> <span class="mi">0</span><span class="bp">=</span><span class="mi">0</span>
+
+<span class="bp">#</span><span class="kn">check</span> <span class="kt">Prop</span>
+</pre></div>
+</div>
+</div><p>Every natural numbers is non-negative.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=#check%20%E2%88%80%20n:%20nat,%20n%20%3E=%200" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="bp">#</span><span class="kn">check</span> <span class="bp">∀</span> <span class="n">n</span><span class="o">:</span> <span class="n">nat</span><span class="o">,</span> <span class="n">n</span> <span class="bp">&gt;=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div><p>Get the forall symbol by typing “forall”</p>
+<p>Every natural number has a successor.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=#check%20%E2%88%80%20n:%20%E2%84%95,%20(%E2%88%83%20m:%20%E2%84%95,%20(m%20=%20n%20+%201))%0A%0A#check%20%E2%88%80%20n:%20%E2%84%95,%20n%20=%200" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="bp">#</span><span class="kn">check</span> <span class="bp">∀</span> <span class="n">n</span><span class="o">:</span> <span class="bp">ℕ</span><span class="o">,</span> <span class="o">(</span><span class="bp">∃</span> <span class="n">m</span><span class="o">:</span> <span class="bp">ℕ</span><span class="o">,</span> <span class="o">(</span><span class="n">m</span> <span class="bp">=</span> <span class="n">n</span> <span class="bp">+</span> <span class="mi">1</span><span class="o">))</span>
+
+<span class="bp">#</span><span class="kn">check</span> <span class="bp">∀</span> <span class="n">n</span><span class="o">:</span> <span class="bp">ℕ</span><span class="o">,</span> <span class="n">n</span> <span class="bp">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div><p>Get the exists symbol by typing “exists”.</p>
+<p>Propositions are values, too!</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=def%20aProp%20:=%20%E2%88%80%20n:%20%E2%84%95,%20%E2%88%83%20m:%20%E2%84%95,%20m%20=%20n%20+%201%0A%0A#check%20aProp" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">aProp</span> <span class="o">:=</span> <span class="bp">∀</span> <span class="n">n</span><span class="o">:</span> <span class="bp">ℕ</span><span class="o">,</span> <span class="bp">∃</span> <span class="n">m</span><span class="o">:</span> <span class="bp">ℕ</span><span class="o">,</span> <span class="n">m</span> <span class="bp">=</span> <span class="n">n</span> <span class="bp">+</span> <span class="mi">1</span>
+
+<span class="bp">#</span><span class="kn">check</span> <span class="n">aProp</span>
+</pre></div>
+</div>
+</div><p>In each case, we see that the type of any proposition is Prop. What’s
+the type of Prop?</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=#check%20Prop" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="bp">#</span><span class="kn">check</span> <span class="kt">Prop</span>
+</pre></div>
+</div>
+</div><div class="section" id="the-type-hierarchy-universes-of-lean">
+<h3>The Type Hierarchy (Universes) of Lean<a class="headerlink" href="#the-type-hierarchy-universes-of-lean" title="Permalink to this headline">¶</a></h3>
+<p>Ok, the type of Prop is also Type. So what we have here is a type
+hierarchy in which the familiar types, such as nat, have the type,
+Type, but where there’s also a type, called Prop, that is also of
+type, Type, and it, in turn, is the type of all propositions.</p>
+<p>So let’s start again with x := 1. The value of x is 1. The type of the
+value, 1, is nat.  The type of nat is Type. From there the type of
+each type is just the next bigger “Type n.””  We’ve also seen that a
+proposition, such as 0=0, is of type, Prop, which in turn has the
+type, Type. But what about proofs?</p>
+</div>
+<div class="section" id="proof-is-truth">
+<h3>Proof is Truth<a class="headerlink" href="#proof-is-truth" title="Permalink to this headline">¶</a></h3>
+<p>What does it mean for a proposition to be true in Lean? It means
+exactly that there is a proof, which is to say that it means that
+there is some value of that type. A proposition that is false is a
+good proposition, and a good type, but it is a type that has no
+proofs, no values! It is an “empty,” or “uninhabited” type. The type,
+1=0, has no values (no proofs). There is no way to produce a value of
+this type.</p>
+</div>
+</div>
+<div class="section" id="using-lean">
+<h2>Using Lean<a class="headerlink" href="#using-lean" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="binding-values-to-variables">
+<h3>Binding Values to Variables<a class="headerlink" href="#binding-values-to-variables" title="Permalink to this headline">¶</a></h3>
+<p>Here’s a typical definition: in this case, of a variable, x, bound to
+the value, 1, of type, nat.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=def%20x:%20nat%20:=%201%0Adef%20z:%20%E2%84%95%20:=%201%0Adef%20y%20:=%201" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">x</span><span class="o">:</span> <span class="n">nat</span> <span class="o">:=</span> <span class="mi">1</span>
+<span class="n">def</span> <span class="n">z</span><span class="o">:</span> <span class="bp">ℕ</span> <span class="o">:=</span> <span class="mi">1</span>
+<span class="n">def</span> <span class="n">y</span> <span class="o">:=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div></div>
+<div class="section" id="checking-types">
+<h3>Checking Types<a class="headerlink" href="#checking-types" title="Permalink to this headline">¶</a></h3>
+<p>You can check the type of a term by using the #check command. Then
+hover your mouse over the #check in VSCode to see the result.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=#check%201%0A#check%20x" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="bp">#</span><span class="kn">check</span> <span class="mi">1</span>
+<span class="bp">#</span><span class="kn">check</span> <span class="n">x</span>
+</pre></div>
+</div>
+</div><p>Lean tells you that the type of x is nat.  It uses the standard
+mathematical script N (ℕ) for nat. You can use it too by typing “nat”
+rather than just “nat” for the type.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=def%20x':%20%E2%84%95%20:=%201" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">x&#39;</span><span class="o">:</span> <span class="bp">ℕ</span> <span class="o">:=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div><p>You can evaluate an expression in Lean using the #eval command. (There
+are other ways to do this, as well, which we’ll see later.) You hover
+your mouse over the command to see the result.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=#eval%20x" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="bp">#</span><span class="kn">eval</span> <span class="n">x</span>
+</pre></div>
+</div>
+</div><p>In Lean, definitions start with the keyword, def, followed by the name
+of a variable, here x; a colon; then the declared type of the
+variable, here nat; then :=; and finally an expression of the right
+type, here simply the literal expression, 1, of type ℕ. Lean
+type-checks the assignment and gives and error if the term on the
+right doesn’t have the same type declared or inferror for the variable
+on the left.</p>
+</div>
+<div class="section" id="types-are-values-too">
+<h3>Types Are Values Too<a class="headerlink" href="#types-are-values-too" title="Permalink to this headline">¶</a></h3>
+<p>In Lean, every term has a type. A type is a term, too, so it, too, has
+a type. We’ve seen that the type of x is nat. What is the type of nat?</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=#check%20nat" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="bp">#</span><span class="kn">check</span> <span class="n">nat</span>
+</pre></div>
+</div>
+</div><p>What is the type of Type?</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=#check%20Type" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="bp">#</span><span class="kn">check</span> <span class="kt">Type</span>
+</pre></div>
+</div>
+</div><p>What is the type of Type 1?</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=#check%20Type%201" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="bp">#</span><span class="kn">check</span> <span class="kt">Type</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div><p>You can guess where it goes from here!</p>
+</div>
+</div>
+<div class="section" id="propositional-logic-and-nd-proofs-in-lean">
+<h2>Propositional Logic and ND Proofs in Lean<a class="headerlink" href="#propositional-logic-and-nd-proofs-in-lean" title="Permalink to this headline">¶</a></h2>
+<p>Up until now, when we want to write a theorem about arbitrary
+propositions, we’ve used the ∀ connective to declare them as
+propositions. So we’ve written “∀ P Q R: Prop, …” for example.</p>
+<p>We can avoid having to do this over an over again by declaring P, Q,
+and R, or any other objects as “variables” in the “environment.”  We
+can then use them in follow-on definitions without having to introduce
+them each time by using a ∀. Lean figures out that that’s what we
+mean, and does it for us. Here are a few examples.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=variables%20P%20Q%20R:%20Prop" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">variables</span> <span class="n">P</span> <span class="n">Q</span> <span class="n">R</span><span class="o">:</span> <span class="kt">Prop</span>
+</pre></div>
+</div>
+</div><p>If we wanted to, we could also assume that we have proofs of one or
+more of these propositions by declaring variables to be of these
+types.  Here’s one example (which we won’t use futher in this code).</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=variable%20pf_P:%20P" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">variable</span> <span class="n">pf_P</span><span class="o">:</span> <span class="n">P</span>
+</pre></div>
+</div>
+</div><p>Now we can write somewhat more interesting propositions, and prove
+them. Here’s an example in which we prove that if P ∧ Q is true then
+we P is true. The proof is by the provisioning of a function that
+given a proof of P ∧ Q returns a proof of P by applying and.elim_left
+to its argument.</p>
+<p>Now, rather than writing propositons that use ∀ explicitly to define
+variables, we can just use P, Q, and R as if they were so defined. So,
+instead of this …</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20t6:%20%E2%88%80%20P%20Q:%20Prop,%20P%20%E2%88%A7%20Q%20%E2%86%92%20P%20:=%0A%20%20%CE%BB%20(P%20Q:%20Prop)%20(pfPandQ:%20P%20%E2%88%A7%20Q),%20and.elim_left%20pfPandQ" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">t6</span><span class="o">:</span> <span class="bp">∀</span> <span class="n">P</span> <span class="n">Q</span><span class="o">:</span> <span class="kt">Prop</span><span class="o">,</span> <span class="n">P</span> <span class="bp">∧</span> <span class="n">Q</span> <span class="bp">→</span> <span class="n">P</span> <span class="o">:=</span>
+  <span class="bp">λ</span> <span class="o">(</span><span class="n">P</span> <span class="n">Q</span><span class="o">:</span> <span class="kt">Prop</span><span class="o">)</span> <span class="o">(</span><span class="n">pfPandQ</span><span class="o">:</span> <span class="n">P</span> <span class="bp">∧</span> <span class="n">Q</span><span class="o">),</span> <span class="n">and</span><span class="bp">.</span><span class="n">elim_left</span> <span class="n">pfPandQ</span>
+</pre></div>
+</div>
+</div><p>… we can write this. Note the absence of the ∀ P Q R: Prop. It’s not
+needed as these variables are already defined.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20t6':%20P%20%E2%88%A7%20Q%20%E2%86%92%20P%20:=%0A%20%20%CE%BB%20pfPandQ:%20P%20%E2%88%A7%20Q,%20and.elim_left%20pfPandQ" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">t6&#39;</span><span class="o">:</span> <span class="n">P</span> <span class="bp">∧</span> <span class="n">Q</span> <span class="bp">→</span> <span class="n">P</span> <span class="o">:=</span>
+  <span class="bp">λ</span> <span class="n">pfPandQ</span><span class="o">:</span> <span class="n">P</span> <span class="bp">∧</span> <span class="n">Q</span><span class="o">,</span> <span class="n">and</span><span class="bp">.</span><span class="n">elim_left</span> <span class="n">pfPandQ</span>
+</pre></div>
+</div>
+</div><p>When you check the type of t6, you can see that Lean inserted the ∀ P
+Q: Prop for us.  Both t6 and t6’ have exactly the same type.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=#check%20t6%0A#check%20t6'" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="bp">#</span><span class="kn">check</span> <span class="n">t6</span>
+<span class="bp">#</span><span class="kn">check</span> <span class="n">t6&#39;</span>
+</pre></div>
+</div>
+</div><p>Similarly we can prove that P ∧ Q → Q ∧ P without having to explicitly
+declare P and Q to be arbitrary objects of type Prop.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20t7:%20P%20%E2%88%A7%20Q%20%E2%86%92%20Q%20%E2%88%A7%20P%20:=%0A%20%20%CE%BB%20PandQ:%20P%20%E2%88%A7%20Q,%0A%20%20%20%20and.intro%0A%20%20%20%20%20%20%20%20(and.elim_right%20PandQ)%0A%20%20%20%20%20%20%20%20(and.elim_left%20PandQ)" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">t7</span><span class="o">:</span> <span class="n">P</span> <span class="bp">∧</span> <span class="n">Q</span> <span class="bp">→</span> <span class="n">Q</span> <span class="bp">∧</span> <span class="n">P</span> <span class="o">:=</span>
+  <span class="bp">λ</span> <span class="n">PandQ</span><span class="o">:</span> <span class="n">P</span> <span class="bp">∧</span> <span class="n">Q</span><span class="o">,</span>
+    <span class="n">and</span><span class="bp">.</span><span class="n">intro</span>
+        <span class="o">(</span><span class="n">and</span><span class="bp">.</span><span class="n">elim_right</span> <span class="n">PandQ</span><span class="o">)</span>
+        <span class="o">(</span><span class="n">and</span><span class="bp">.</span><span class="n">elim_left</span> <span class="n">PandQ</span><span class="o">)</span>
+</pre></div>
+</div>
+</div><p>And another example of arrow elimination.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20ae:%20(P%20%E2%86%92%20Q)%20-%3E%20P%20-%3E%20Q%20:=%0A%20%20%20%20%CE%BB%20pf_impl:%20(P%20%E2%86%92%20Q),%20(%CE%BB%20pf_P:%20P,%20pf_impl%20pf_P)" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">ae</span><span class="o">:</span> <span class="o">(</span><span class="n">P</span> <span class="bp">→</span> <span class="n">Q</span><span class="o">)</span> <span class="bp">-&gt;</span> <span class="n">P</span> <span class="bp">-&gt;</span> <span class="n">Q</span> <span class="o">:=</span>
+    <span class="bp">λ</span> <span class="n">pf_impl</span><span class="o">:</span> <span class="o">(</span><span class="n">P</span> <span class="bp">→</span> <span class="n">Q</span><span class="o">),</span> <span class="o">(</span><span class="bp">λ</span> <span class="n">pf_P</span><span class="o">:</span> <span class="n">P</span><span class="o">,</span> <span class="n">pf_impl</span> <span class="n">pf_P</span><span class="o">)</span>
+</pre></div>
+</div>
+</div><p>Enclosing the declaration of variables and of definitions that use
+those variables within a “section &lt;name&gt; …. …. end &lt;name&gt;” pair
+limits the scope of the variables to that section. It’s a very useful
+device, but we don’t need to use it here, and so we’ll just leave it
+at that for now.  Here’s a tiny example.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=section%20nest%0Avariable%20v:%20nat%0Atheorem%20veqv:%20v%20=%20v%20:=%20rfl%0Aend%20nest" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">section</span> <span class="n">nest</span>
+<span class="kn">variable</span> <span class="n">v</span><span class="o">:</span> <span class="n">nat</span>
+<span class="kn">theorem</span> <span class="n">veqv</span><span class="o">:</span> <span class="n">v</span> <span class="bp">=</span> <span class="n">v</span> <span class="o">:=</span> <span class="n">rfl</span>
+<span class="kn">end</span> <span class="n">nest</span>
+</pre></div>
+</div>
+</div><p>The variable, v, is not defined outside of the section. You can #check
+it to see. On the other hand, veqv, a definition, is defined. If you
+check its type, you’ll see that the variable, v, is now introduced
+using a “∀ v: nat, …”“</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=#check%20veqv" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="bp">#</span><span class="kn">check</span> <span class="n">veqv</span>
+</pre></div>
+</div>
+</div></div>
+<div class="section" id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
+<p>As mathematicians and computer scientists, we’re often the goal of
+proving some putative (unproven) theorem (aka conjecture). A key
+question in such a case is what proof strategy to use to produce a
+proof. The rules of natural deduction can help.  First, look at the
+form of the proposition. Then ask what inference rule could be used to
+deduce it. That rule tells you what you need to already have proved to
+apply the rule. In some cases, no further proofs are needed, in which
+case you can just apply the inference rule directly. Otherwise you
+construct proofs of the premises of the rule, and then apply it to
+contruct the desired proof.</p>
+<p>If you want to prove an equality, simplify and then apply the axiom
+that says that identical terms can be considered equal without any
+other proofs at all. The rfl inference rule is what you need in this
+case.</p>
+<p>If you want to prove a conjunction, you need to have (or construct)
+proofs of the conjuncts then use the “and introduction” inference
+rule.</p>
+<p>If you have a proof of a conjunction and you need a proof of one of
+its conjuncts, use one of the and elimination rules.</p>
+<p>If you want to prove an implication, P → Q, you need to write (and
+have the type checker agree that you’ve written) a function of type P
+→ Q. Such a function promises to return a value of type Q (a proof,
+when Q is in Prop), whenever you give it a value of type (a proof
+of) P.</p>
+<p>If you have such a function/implication and you need a proof of Q,
+first get yourself a proof of P, then apply the P → Q “function” to it
+to produce a proof of Q. This is the way to do → elimination.</p>
+<p>If you need a proof of P ∨ Q, you first need a proof of P or a proof
+of Q, then you use the or introduction inference rule.</p>
+<p>If from a proof of P ∨ Q you need to deduce a proof of R, then you
+need in addition to the proof of P ∨ Q both a proof of P → R and a
+proof of Q → R. Then you can use the or elimination inference rule to
+prove R (i.e., to construct and return a proof of R).</p>
+<p>To obtain a proof of P ↔ Q, you need both a proof of P → Q and a proof
+of Q → P. You can then use the iff introduction rule to get the proof
+you want. Think of P ↔ Q as equivalent to P → Q ∧ Q → P. You need
+proofs of both of the conjuncts to construct a proof of the
+conjunction. The iff elimination rules are basically the same as the
+and elimination rules: from a proof of P ↔ Q, you can get a proof of
+either P → Q or Q → P as you might need.</p>
+<p>To prove ¬P, realize that it means P → false, so just implement a
+function that when given a proof of P, it constructs and returns a
+proof of false. Of couse it will never be able to do that because if
+¬P is true, then no proof of P can ever be given as an argument.</p>
+<p>In the other direction, if you have a proof of ¬P and you need a proof
+of false (so as to prove some other arbitrary proposition), just apply
+the proof of ¬P to an proof of P to get the false input you need to
+pass to the false elmination inference rule (which proves any
+proposition whatsoever).</p>
+<p>If you need a proof of true, it’s always available, in Lean as
+true.intro. We already explained how to get a proof of false. There
+are other ways. For example, if you have a proof of P and a proof of ¬
+P (which is just a function), apply the function to the proof and
+you’re done.</p>
+<p>From the form of a proposition to be proved, identify the inference
+rule (or a theorem) otherwise already proved that can be applied to
+prove your proposition.  Now look at what premises/arguments/proofs
+are needed to apply it. Either find such proofs, or construct them by
+recursive application of the same ideas, and finally apply the rule to
+these arguments to complete the proof.</p>
+</div>
+<div class="section" id="exercises">
+<h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<p>(1) Write an implementation of comp (call it comp’), using a lambda
+expression rather than the usual function definition notation.  This
+problem gives practice writing function bodies as lambda expressions.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=def%20comp':%20%E2%84%95%20%E2%86%92%20%E2%84%95%20:=%0A%20%20%CE%BB%20n:%20nat,%20sqr(inc(n))" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">comp&#39;</span><span class="o">:</span> <span class="bp">ℕ</span> <span class="bp">→</span> <span class="bp">ℕ</span> <span class="o">:=</span>
+  <span class="bp">λ</span> <span class="n">n</span><span class="o">:</span> <span class="n">nat</span><span class="o">,</span> <span class="n">sqr</span><span class="o">(</span><span class="n">inc</span><span class="o">(</span><span class="n">n</span><span class="o">))</span>
+</pre></div>
+</div>
+</div><p>(2) Write three test cases for comp’ and generate proofs using the
+strategy of “simplication and the reflexive property of equality.”</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20test1:%20comp'%200%20=%201%20:=%20rfl%0Atheorem%20test2:%20comp'%201%20=%204%20:=%20rfl%0Atheorem%20test3:%20comp'%202%20=%209%20:=%20rfl" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">test1</span><span class="o">:</span> <span class="n">comp&#39;</span> <span class="mi">0</span> <span class="bp">=</span> <span class="mi">1</span> <span class="o">:=</span> <span class="n">rfl</span>
+<span class="kn">theorem</span> <span class="n">test2</span><span class="o">:</span> <span class="n">comp&#39;</span> <span class="mi">1</span> <span class="bp">=</span> <span class="mi">4</span> <span class="o">:=</span> <span class="n">rfl</span>
+<span class="kn">theorem</span> <span class="n">test3</span><span class="o">:</span> <span class="n">comp&#39;</span> <span class="mi">2</span> <span class="bp">=</span> <span class="mi">9</span> <span class="o">:=</span> <span class="n">rfl</span>
+</pre></div>
+</div>
+</div><p>(3) Implement the Fibonacci function, fib, using the usual recursive
+definition. Test it for n = 0, n = 1, and n = 10, by writing and
+proving theorems about what it computes (or should compute) in these
+cases. Hint: Write your cases in the definition of the function for 0,
+1, and n+2 (covering the cases from 2 up). Here you get practice
+writing recursive functions in Lean. The syntax is similar to that of
+the Haskell language.  -/</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=def%20fib:%20%E2%84%95%20%E2%86%92%20%E2%84%95%0A%7C%200%20:=%200%0A%7C%201%20:=%201%0A%7C%20(n+2)%20:=%20fib%20n%20+%20fib%20(n+1)%0A%0Atheorem%20fibtest1:%20fib%200%20=%200%20:=%20rfl%0Atheorem%20fibtest2:%20fib%201%20=%201%20:=%20rfl%0Atheorem%20fibtest10:%20fib%2010%20=%2055%20:=%20rfl" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">fib</span><span class="o">:</span> <span class="bp">ℕ</span> <span class="bp">→</span> <span class="bp">ℕ</span>
+<span class="bp">|</span> <span class="mi">0</span> <span class="o">:=</span> <span class="mi">0</span>
+<span class="bp">|</span> <span class="mi">1</span> <span class="o">:=</span> <span class="mi">1</span>
+<span class="bp">|</span> <span class="o">(</span><span class="n">n</span><span class="bp">+</span><span class="mi">2</span><span class="o">)</span> <span class="o">:=</span> <span class="n">fib</span> <span class="n">n</span> <span class="bp">+</span> <span class="n">fib</span> <span class="o">(</span><span class="n">n</span><span class="bp">+</span><span class="mi">1</span><span class="o">)</span>
+
+<span class="kn">theorem</span> <span class="n">fibtest1</span><span class="o">:</span> <span class="n">fib</span> <span class="mi">0</span> <span class="bp">=</span> <span class="mi">0</span> <span class="o">:=</span> <span class="n">rfl</span>
+<span class="kn">theorem</span> <span class="n">fibtest2</span><span class="o">:</span> <span class="n">fib</span> <span class="mi">1</span> <span class="bp">=</span> <span class="mi">1</span> <span class="o">:=</span> <span class="n">rfl</span>
+<span class="kn">theorem</span> <span class="n">fibtest10</span><span class="o">:</span> <span class="n">fib</span> <span class="mi">10</span> <span class="bp">=</span> <span class="mi">55</span> <span class="o">:=</span> <span class="n">rfl</span>
+</pre></div>
+</div>
+</div><p>(4) Uncomment then complete this proof of the
+proposition, “Hello World” = “Hello” + ” World”
+(which we write using the string.append function).
+Put your anwer in place of the &lt;answer&gt; string.
+This example introduces Lean’s string type, which
+you might want to use at some point. It also gives
+you an example showing that rfl works for diverse
+types. It’s polymorphic, as we said.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20hw%20:%20%22Hello%20World%22%20=%20string.append%20%22Hello%22%20%22%20World%22%20:=%0A%20%20%20%20rfl" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">hw</span> <span class="o">:</span> <span class="s2">&quot;Hello World&quot;</span> <span class="bp">=</span> <span class="n">string</span><span class="bp">.</span><span class="n">append</span> <span class="s2">&quot;Hello&quot;</span> <span class="s2">&quot; World&quot;</span> <span class="o">:=</span>
+    <span class="n">rfl</span>
+</pre></div>
+</div>
+</div><p>(5) Prove P ∧ Q ∧ R → R . Hint: ∧ is right-associative.  In other
+words, P ∧ Q ∧ R means P ∧ (Q ∧ R). A proof of this proposition will
+thus have a pair inside a pair.  Note that we’re using the fact that
+P, Q, and R have already been introduced as arbitrary
+propositions. See the “variables” declaration above.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20xyz:%20P%20%E2%88%A7%20(Q%20%E2%88%A7%20R)%20%E2%86%92%20R%20:=%0A%20%20%CE%BB%20pf:%20P%20%E2%88%A7%20Q%20%E2%88%A7%20R,%20and.elim_right%20(and.elim_right%20pf)" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">xyz</span><span class="o">:</span> <span class="n">P</span> <span class="bp">∧</span> <span class="o">(</span><span class="n">Q</span> <span class="bp">∧</span> <span class="n">R</span><span class="o">)</span> <span class="bp">→</span> <span class="n">R</span> <span class="o">:=</span>
+  <span class="bp">λ</span> <span class="n">pf</span><span class="o">:</span> <span class="n">P</span> <span class="bp">∧</span> <span class="n">Q</span> <span class="bp">∧</span> <span class="n">R</span><span class="o">,</span> <span class="n">and</span><span class="bp">.</span><span class="n">elim_right</span> <span class="o">(</span><span class="n">and</span><span class="bp">.</span><span class="n">elim_right</span> <span class="n">pf</span><span class="o">)</span>
+</pre></div>
+</div>
+</div><p>If we didn’t already have the variables declared, we would introduce
+local declarations using ∀. Note that the names of the variables used
+in the definition of the function need to be of the same type, but do
+not have to have the same names as those variables.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20xyz':%20%E2%88%80%20X%20Y%20Z:%20Prop,%20X%20%E2%88%A7%20Y%20%E2%88%A7%20Z%20%E2%86%92%20Z%20:=%0A%20%20%CE%BB%20P%20Q%20R%20pf,%20and.elim_right%20(and.elim_right%20pf)" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">xyz&#39;</span><span class="o">:</span> <span class="bp">∀</span> <span class="n">X</span> <span class="n">Y</span> <span class="n">Z</span><span class="o">:</span> <span class="kt">Prop</span><span class="o">,</span> <span class="n">X</span> <span class="bp">∧</span> <span class="n">Y</span> <span class="bp">∧</span> <span class="n">Z</span> <span class="bp">→</span> <span class="n">Z</span> <span class="o">:=</span>
+  <span class="bp">λ</span> <span class="n">P</span> <span class="n">Q</span> <span class="n">R</span> <span class="n">pf</span><span class="o">,</span> <span class="n">and</span><span class="bp">.</span><span class="n">elim_right</span> <span class="o">(</span><span class="n">and</span><span class="bp">.</span><span class="n">elim_right</span> <span class="n">pf</span><span class="o">)</span>
+</pre></div>
+</div>
+</div><p>(6)
+Prove P → (Q → (P ∧ Q)). You can read this as saying
+that if you have a proof of P, then if you (also) have
+a proof of Q ,then you can produce a proof of P and Q.
+Hint: → is right associative, so P → Q → (P ∧ Q) means
+P → (Q → (P ∧ Q)). A proof will be a function that
+takes a proof of P and returns … you guessed it, a
+function that takes a proof of Q and that returns a
+proof of P ∧ Q. The body of the outer lambda will thus
+use a lambda.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20PimpQimpPandQ:%20P%20%E2%86%92%20(Q%20%E2%86%92%20(P%20%E2%88%A7%20Q))%20:=%0A%20%20%20%20%CE%BB%20(pfP:%20P)%20(pfQ:%20Q),%20and.intro%20pfP%20pfQ" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">PimpQimpPandQ</span><span class="o">:</span> <span class="n">P</span> <span class="bp">→</span> <span class="o">(</span><span class="n">Q</span> <span class="bp">→</span> <span class="o">(</span><span class="n">P</span> <span class="bp">∧</span> <span class="n">Q</span><span class="o">))</span> <span class="o">:=</span>
+    <span class="bp">λ</span> <span class="o">(</span><span class="n">pfP</span><span class="o">:</span> <span class="n">P</span><span class="o">)</span> <span class="o">(</span><span class="n">pfQ</span><span class="o">:</span> <span class="n">Q</span><span class="o">),</span> <span class="n">and</span><span class="bp">.</span><span class="n">intro</span> <span class="n">pfP</span> <span class="n">pfQ</span>
+</pre></div>
+</div>
+</div><div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=def%20PimpQimpPandQ'(pfP:%20P)%20(pfQ:%20Q):%20P%20%E2%88%A7%20Q%20:=%0A%20%20and.intro%20pfP%20pfQ" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="n">def</span> <span class="n">PimpQimpPandQ&#39;</span><span class="o">(</span><span class="n">pfP</span><span class="o">:</span> <span class="n">P</span><span class="o">)</span> <span class="o">(</span><span class="n">pfQ</span><span class="o">:</span> <span class="n">Q</span><span class="o">):</span> <span class="n">P</span> <span class="bp">∧</span> <span class="n">Q</span> <span class="o">:=</span>
+  <span class="n">and</span><span class="bp">.</span><span class="n">intro</span> <span class="n">pfP</span> <span class="n">pfQ</span>
+</pre></div>
+</div>
+</div><p>Extra Credit: Prove (P ∨ Q) → (P → R) → (Q → R) -&gt; R. This looks
+scary, but think about it in the context of material you’ve already
+learned about. It say that if you have a proof of (P ∨ Q), then if you
+also have a proof of (P → R), then if you also have a proof of (Q →
+R), then you can derivea proof of R. The “or elimination” rule looked
+like this. You’ll want to use that rule as part of your
+answer. However, the form of the proposition to be proved here is an
+implication, so a proof will have to be in the form of be a
+function. It will take the disjunction as an argument. Then just apply
+the or elimination rule in Lean, which is written as or.elim.</p>
+<div style="position: relative">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover.github.io/live/3.3.0/#code=theorem%20orelim:%20(P%20%E2%88%A8%20Q)%20%E2%86%92%20(P%20%E2%86%92%20R)%20%E2%86%92%20(Q%20%E2%86%92%20R)%20-%3E%20R%20:=%0A%20%20%20%20%CE%BB%20pq%20pr%20qr,%20or.elim%20pq%20pr%20qr" target="_blank">
+try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span></span><span class="kn">theorem</span> <span class="n">orelim</span><span class="o">:</span> <span class="o">(</span><span class="n">P</span> <span class="bp">∨</span> <span class="n">Q</span><span class="o">)</span> <span class="bp">→</span> <span class="o">(</span><span class="n">P</span> <span class="bp">→</span> <span class="n">R</span><span class="o">)</span> <span class="bp">→</span> <span class="o">(</span><span class="n">Q</span> <span class="bp">→</span> <span class="n">R</span><span class="o">)</span> <span class="bp">-&gt;</span> <span class="n">R</span> <span class="o">:=</span>
+    <span class="bp">λ</span> <span class="n">pq</span> <span class="n">pr</span> <span class="n">qr</span><span class="o">,</span> <span class="n">or</span><span class="bp">.</span><span class="n">elim</span> <span class="n">pq</span> <span class="n">pr</span> <span class="n">qr</span>
+</pre></div>
+</div>
+</div></div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="14-predicate-logic.html"
+                        title="previous chapter">Predicate Logic</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="16-equality.html"
+                        title="next chapter">Proofs of Equalities</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="16-equality.html" title="Proofs of Equalities"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="14-predicate-logic.html" title="Predicate Logic"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright .
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
+  </body>
+</html>

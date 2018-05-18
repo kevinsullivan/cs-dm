@@ -1,0 +1,118 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Setting Up to Use Git &#8212; Discrete Mathematics 1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/sidebar.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="setting-up-to-use-git">
+<h1>Setting Up to Use Git<a class="headerlink" href="#setting-up-to-use-git" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="git-and-distributed-software-development">
+<h2>Git and Distributed Software Development<a class="headerlink" href="#git-and-distributed-software-development" title="Permalink to this headline">¶</a></h2>
+<p>Large systems built by hundreds or thousands of developers around the world</p>
+<ul class="simple">
+<li>Challenge is to coordinate many changes being made around the globe</li>
+<li>Often have a shared, reference copy that everyone shares (e.g., on GitHub)</li>
+<li>Can’t really have thousand of people making uncontrolled changes</li>
+<li>Rather, everyone has entire history of whole project on local machine</li>
+<li>Anyone can edit their own copy</li>
+<li>Anyone with privileges can push local changes back to central version</li>
+<li>Anyone can ask central developers to “pull” local changes into central repo</li>
+<li>Anyone can register an “issue” with main developers</li>
+<li>Updates made to central repo can then be “pulled” down to local versions</li>
+<li>But git won’t overwrite local changes – it will say “there’s a conflict”</li>
+</ul>
+</div>
+<div class="section" id="setting-up">
+<h2>Setting Up<a class="headerlink" href="#setting-up" title="Permalink to this headline">¶</a></h2>
+<p>Let’s make sure everyone is set up with git and up-to-date copy of cs-dm repo</p>
+<ul class="simple">
+<li>Open a terminal window [check; if not, install MSYS2 per instructions]</li>
+<li>Run “git” command – does it run? [check; if not, install git]</li>
+<li>Change into directory you’re using for this class [advice, no spaces; check?]</li>
+<li>List files in this directory; ls.</li>
+<li>Rename any current cs-dm directory to cs-dm.old</li>
+<li>Clone current cs-dm directory</li>
+<li>Rename to cs-dm-reference; you will NOT make local changes here</li>
+<li>Clone current cs-dm directory again; rename to cs-dm-hw3</li>
+<li>Open cs-dm-hw3/dafny folder in VS Code; you’re set to do next HW</li>
+</ul>
+</div>
+<div class="section" id="a-demo">
+<h2>A Demo<a class="headerlink" href="#a-demo" title="Permalink to this headline">¶</a></h2>
+<p>Let’s see how git works; I will fix errors in code; I will push; you will pull; that’s it!</p>
+<ul class="simple">
+<li>Point browser at cs-dm-reference/notes/_build/html/index.html</li>
+<li>Open separate browser window on GitHub repo</li>
+<li>Let’s look at the issues; and fix them!</li>
+<li>In notes, let’s find mistake</li>
+<li>Now I will fix it, rebuild the HTML and PDF files, and push an update to GitHub</li>
+<li>Now you should cd into cs-dm-reference directory (the one you won’t edit)</li>
+<li>Do a git pull to pull the changes now on GitHub into your local repo</li>
+<li>And refresh browser to display the now updated HTML files!</li>
+<li>Note: You should do a git pull in each copy of the repo needing an update</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright .
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,742 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Dafny can’t prove everything that’s provable (without help) &#8212; Discrete Mathematics 1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/sidebar.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="dafny-can-t-prove-everything-that-s-provable-without-help">
+<h1>Dafny can’t prove everything that’s provable (without help)<a class="headerlink" href="#dafny-can-t-prove-everything-that-s-provable-without-help" title="Permalink to this headline">¶</a></h1>
+<p>If we had a machine that could prove any provable statement in
+mathematics, we would no longer need mathematicians. Kurt Godel, whose
+20th century results in mathematical logic were as profound as those
+of Einstein in physics, proved once and for all that there is no such
+algorithm.</p>
+<p>It should not be surprising to learn, then, that Dafny can’t prove
+every provable proposition about programs. In fact, Dafny, and all
+program verifiers, are fundamentally limited in what they can prove.
+Sometimes what they need is some help.</p>
+<p>// Using nat instead of int doesn’t work here
+//
+function method fact’(n: nat): nat
+{</p>
+<blockquote>
+<div>if n==0 then 1 else n * fact(n-1)</div></blockquote>
+<p>}
+// (n-1) violates the non-negativity of the nat
+// type when n is 0 (a valid nat value). Dafny
+// often catches subtle problems of this kind,
+// that might escape the notice of a mere human
+// programmer.
+<a href="#id1"><span class="problematic" id="id2">*</span></a>/</p>
+<p>/*
+Here’s an imperative program for computing factorial.
+<a href="#id3"><span class="problematic" id="id4">*</span></a>/</p>
+<dl class="docutils">
+<dt>method factorial(n: int) returns (f: int)</dt>
+<dd>requires n &gt;= 0
+ensures f == fact(n)</dd>
+</dl>
+<dl class="docutils">
+<dt>{</dt>
+<dd><p class="first">if (n==0)
+{</p>
+<blockquote>
+<div>f:= 1;
+return;</div></blockquote>
+<p>}
+var t := n;
+var a := 1;
+while (t !=  0)</p>
+<blockquote>
+<div>invariant a * fact(t) == fact(n)</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>a := a * t;
+t := t - 1;</dd>
+</dl>
+<p class="last">}
+f := a;</p>
+</dd>
+</dl>
+<p>}</p>
+<p>/*
+Computes the sum of all of the integers from
+zero up to given non-negative integer, n.
+<a href="#id5"><span class="problematic" id="id6">*</span></a>/
+function method sum(n: int): int</p>
+<blockquote>
+<div>requires n &gt;= 0</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>if (n == 0) then 0 else n + sum(n-1)</dd>
+</dl>
+<p>}</p>
+<p>/*
+Implements addition using recursive application
+of increment-by-one. To add x and y, this function
+applies the increment (inc) function x times to y.
+The value of x is restricted to non-negative values
+so that the recursion is guaranteed to terminate.
+Be sure you really understand this example.
+<a href="#id7"><span class="problematic" id="id8">*</span></a>/
+function method add(x:int, y: int): int</p>
+<blockquote>
+<div>requires x &gt;= 0</div></blockquote>
+<dl class="docutils">
+<dt>{</dt>
+<dd>if (x==0) then y else inc(add(x-1, y))</dd>
+</dl>
+<p>}</p>
+<p>/*
+Finally, here’s a Main method written in imperative
+style. It applies the functions we developed above
+to arguments to perform simple “smoke tests” to see
+if each function produces the expected results for
+at least one set of arguments.
+<a href="#id9"><span class="problematic" id="id10">*</span></a>/
+method Main()
+{</p>
+<blockquote>
+<div>print “The value of id_int(3) is “, id_int(3), “n”;
+print “The value of square(3) is “, square(3), “n”;
+print “The value of inc(3) is “, inc(3), “n”;
+print “The value of fact(5) is “, fact(5), “n”;
+print “The value of sum(5) is “, sum(5), “n”;
+print “The value of add(4,5) is “, add(4,5), “n”;
+var fac5 := factorial(5);
+print “The value of factorial(5) is “, fac5, “n”;</div></blockquote>
+<p>}</p>
+</div>
+<div class="section" id="bar">
+<h1>Bar<a class="headerlink" href="#bar" title="Permalink to this headline">¶</a></h1>
+<p>definitions, consider the factorial function and an implementation of
+this function in the functional <em>sub-language</em> of Dafny. (Dafny
+provides sub-languages for specification and for both functional and
+imperative programming.)</p>
+<p>The factorial function is defined recursively. For any natural
+(non-negative whole) number, <em>n, factorial(n)</em> is defined by two
+cases: one for when <em>n</em> is zero, and one for any other value of
+<em>n</em>.</p>
+<div class="math">
+<p><img src="_images/math/414dc4542e5b8c1f42d7fe32cfecfd1d4526d4e3.png" alt="f(x)= \begin{cases} 1, &amp; \text{if $x&lt;0$}.\\ 0, &amp; \text{otherwise}.\end{cases}"/></p>
+</div><p>First, if <em>n = 0</em> (called the <em>base case</em>) then <em>factorial(n)</em> is
+defined to be 1. Otherwise, for any <em>n</em> where <em>n &gt; 0)</em>, <em>factorial(n)</em>
+is defined recursively as <em>n * factorial(n-1)</em>. This is what we call
+the <em>recursive</em> case. By recursive, we mean that the function is used
+in its own definition.</p>
+<p>Recursive definitions are ubiquitous in mathematics. In fact, if you
+get right down to it, most every function you’ve ever thought about is
+defined recursively. For example, the addition of two natural
+(non-negative) numbers <em>m</em> and <em>n</em> is defined recursively. If <em>m = 0</em>,
+the base case, then the answer is <em>n</em>. If (m&gt;0), the recursive case,
+then there is some natural number <em>m’</em>, the <em>predecessor</em> of <em>m</em>, and
+in this case the result is one more than (the successor of) the sum of
+<em>m’</em> and <em>n</em>. such that <em>m = m’+1</em>. Recursion is thus fundamentally a
+mathematical and not (just) a computational concept.</p>
+<p>The reason that such definitions makes sense, and are not just endless
+self loops, is that they are <em>well-founded</em>.  What this means is that
+for any given <em>n</em> (a natural number), no matter how large, the looping
+eventually ends. For example, <em>fact(3)</em> is defined to be <em>3 *
+fact(2).</em> Expanding the definition of the recursive call to the
+<em>fact This is *3 * (2 * fact(1)).  This in turn is *3
+* 2 * 1 * fact(0).</em> Because <em>fact(0)</em> is a base case,
+defined to be just <em>1</em> without any further recursion, the recursion
+terminates, and the end result is <em>3 * 2 * 1 * 1</em>, which finally
+evalutes to <em>6</em>. o matter how large <em>n</em> is, eventually (in a finite
+number of steps), the recursion will bottom out at the base case, and
+a result will be produced.</p>
+<p>Our functional program to compute the factorial function mirrors the
+abstract mathematical definition. The program, like the definition, is
+recursive: it is defined in terms of (by calling)  itself. Here’s the code
+in Dafny’s functional programming sub-language.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>function fact(n: int): int
+  requires n &gt;= 0 // for recursion to be well founded
+{
+  if (n==0)
+  then 1
+  else n * fact(n-1)
+}
+</pre></div>
+</div>
+<p>The program takes a value, <em>n</em>, of type int (any integer). Then the
+requires <em>predicate</em> (a piece of logical specification) restricts the
+value of <em>n</em> to be non-negative. Finally you have the recursive rules
+for computing the value of the function. If <em>n</em> is zero the result is
+one otherwise it’s <em>n</em> times the function itself applied to <em>n-1</em>.</p>
+<p>So here you have something very interesting. First, the code is just
+like the mathematics. Functional programming languages are not nearly
+as expressive as predicate logic (as we’ll see when we really get to
+logic and proofs), but they are much closer to mathematics, in many
+cases, than imperative code. Programs in pure functional languages are
+more expressive and easier (for humans and machines) to reason about
+than programs written in imperative languages.</p>
+<p>Second, we now see the integration of logic and code, The <em>requires</em>
+predicate is a logical proposition <em>about</em> the value of the parameter,
+<em>n</em>, expressed not as a comment but as a formal and machine-checkable
+part of the program.</p>
+<p>Although you can’t see it here in this document, Dafny checks to
+ensure that no code ever calls this function with a value of <em>n</em> that
+is less than zero, <em>and</em> it proves to itself that the recursion is
+well founded.  That is a lot more than you could ever expect to get
+programming in an imperative language like Python.</p>
+<p>Pure functional programming languages thus provide a way to program
+functions almost as if in pure mathematics. At the same time, such
+programs can be run reasonably efficiently and analyzed by human and
+machanized checkers.</p>
+<p>So what’s the downside? Why not always program in such languages?  One
+reason is efficiency. It’s a challenge to get programs in such
+languages to execute efficiency precisely because there is no notion
+of a mutable memory. There’s thus not way (conceptually) to update a
+part of a large data structure; rather one must write a function that
+takes a given data structure and that computes and builds a whole new
+one, even if it differs from a given data structure only a little.</p>
+<p>A second, even more fundamental limitation, is that there is no
+concept of interacting with an external environment in the realm of
+pure functions. You’ve got data values and functions that transform
+given values into new values, and that’s it. You simply cannot do I/O
+in a pure functional language! There are functional languages that are
+meant for practical programming (such as Haskell), in which you can of
+course do I/O, but the capabilities to do I/O are non-functional. They
+are in a sense <em>bolted on</em>. They are bolted on in clever, clean ways,
+but the fact remains that I/O is just not a functional concept.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="to-integrate">
+<h1>To integrate<a class="headerlink" href="#to-integrate" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="fitting-it-all-together">
+<h1>Fitting it All Together<a class="headerlink" href="#fitting-it-all-together" title="Permalink to this headline">¶</a></h1>
+<p>So as we go forward, here’s what we’ll see. Ultimately, for purposes
+of efficiency and interactivity (I/O), we will write imperative code
+to implement software systems. That said, we can often use functional
+code to implement subroutines that perform computations that do not
+require mutable storage or I/O. We will <em>also</em> use pure functional
+programs as parts of <em>specifications</em>.</p>
+<p>For example, we might specify that an <em>imperative</em> implementation of
+the factorial function must take any natural number <em>n</em> as an argument
+and return the value of <em>fact(n),</em> our <em>functional</em> program for the
+factorial function. The logical specification of the imperative
+program will be an <em>implication</em> stating that if a proper argument is
+presented, a correct result <em>as defined by a functional program</em> will
+be produced.</p>
+<p>We can thus use pure functional programs both for computation <em>when
+appropriate</em>, yielding certain benefits in terms of understandability
+and safety, and as elements in logical specifications of imperative
+code. In Dafny, a pure functional program that is intended only for
+use in specifications is declared as a <em>function</em>. A pure functional
+program intended to be called from imperative code is declared as a
+<em>function method.</em> Imperative programs are simply declared as methods.</p>
+<hr class="docutils" />
+<p>We’ll see some of what’s involved as we go forward in this class. We
+will also eventually dive in to understand what proofs even are, and
+why in general they are hard to construct.  Before we go there,
+though, let’s have some fun and learn how to write imperative code in
+Dafny.</p>
+<p>==</p>
+<hr class="docutils" />
+<blockquote>
+<div>include “functional.dfy”
+module imperative {
+import opened functional</div></blockquote>
+<p>We start by prepending the function.dfy file to this one, as the
+compiler needs the definitions in both files to work. We enclose the
+definitions in this file in a module called <em>imperative</em>. And we
+import and open the functional module in the functional.dfy file.  To
+import them makes them available in this file. Opening the module
+means we don’t need to use the module name as a prefix to use them.</p>
+<p>Now we give a typical imperative program for computing the factorial
+function. The program takes any natural number, <em>n</em>, and returns an
+answer in <em>f</em>. The value of <em>f</em> is computed first by case analysis.
+If <em>n</em> is zero, the correct result, <em>1</em>, is returned. Otherwise, in
+the case where <em>n &gt; 0</em>, we <em>loop</em> to compute the factorial of <em>n</em>.</p>
+<p>We set a variable, <em>a</em> (for <em>accumulator</em>) to <em>1</em>. Each time through
+the loop we will multiply a by a value, $i$, that decreases from n to
+1 as the loop runs. The loop is guaranteed to terminate in a finite
+number of steps because one can only decrement a natural number value,
+<em>i</em>, a finite number of times before it reaches <em>0</em>, at which point
+the loop stops.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method factorial(n: nat) returns (f: nat)
+// For any n, return the factorial of n
+{
+    if (n == 0)
+    {
+        return 1;
+    }
+    var i: nat := n;
+    var a: nat := 1;
+    while (i !=  0)
+    {
+        a := a * n;
+        i := i - 1;
+    }
+    return a;
+}
+</pre></div>
+</div>
+<p>We have documented the specification informally in a comment akin to
+the “doc strings” one uses to document Python program specifications.
+The problem with this approach is that there’s no practical way to
+check the code against the specification expressed in the comment.
+The problem with this <em>code</em> is that actually has an error, bug. Read
+it carefull to see if you can find the bug before you go on. You can
+see that there’s a major error jst smoke testing the program. Give it
+a try.</p>
+<hr class="docutils" />
+<p>Indeed, natural science is based to a considerable extent on inductive
+reasoning. Observations in the form of tests of hypotheses are taken
+as evidence in support of hypotheses about how the world works. When
+there is a sufficient body of evidence, a hypothesis is elevated to a
+theory.  Statistical techniques are often used to quanitfy remaining
+doubt.  Theories are always subject to falsification in principle,
+though in practice the evidence for some theories is so strong that
+for all intents and purposes, some questions are all but settled, and
+acting on alternative hypotheses would be irrational.</p>
+<blockquote>
+<div>A Syntax for Boolean Expressions</div></blockquote>
+<hr class="docutils" />
+<p>How can we precisely and concisely specify the entire (infinite) set
+of well formed Boolean expressions? In this section, we will find an
+answer in the concept of <em>inductive definitions</em>, which are closely
+related to recursive functions.</p>
+<p>We’ll define what it means to be a Boolean expression using several
+cases, some of which will explain how to form larger such expressions
+from smaller ones, ad infinitum. So here we go.</p>
+<p>Case #1: Literal Expressions. For each Boolean value, <em>b</em> (<em>0 or 1</em>)
+we have a corresponding Boolean expression, <em>Lit(b)</em>. So far, then, we
+have just two Boolean expressions: <em>Lit(true)</em> and <em>Lit(false)</em>. We
+can think of <em>Lit</em> as a kind of function that takes a Boolean value
+and that constructs a Boolean expression from it.</p>
+<p>Case #2: Boolean Variables. We will assume that we have some set of
+<em>Boolean variables</em>. For simplicity, let’s assume that this set is
+<img class="math" src="_images/math/d3e24597e650be52a06c04034ccdfd94b5b0eb59.png" alt="\{ P, Q, R \}"/>. For each variable, $V$, we have a corresponding
+Boolean expression, $BVar(V)$. Now we have three more expressions,
+<em>BVar(P)$, *BVar(Q)</em> and <em>BVar(R)</em>.</p>
+<p>First, we will
+define two <em>literal</em> expressions, one for each of the two Boolean
+values. We will call them <em>BLit(0)</em> and <em>BLit(1)</em>.
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+For each kind of expression we will also need a way to <em>evaluate</em> it:
+to say what Boolean value it evaluates to. For this, we will define a
+function that (for now) takes a Boolean <em>expression</em> as an argument
+and that returns a Boolean <em>value</em> as a result. We will call this
+evaluation function for Boolean expressions <em>beval</em>.</p>
+<p>Now we need to explain how this function behaves for each of the kinds
+of Boolean expressions we have defined do far. This is an easy one. We
+will define <em>beval(BLit(0))</em> to evaluate to <em>0</em>, and <em>beval(BLit(1))</em>
+to evaluate to <em>1</em>.</p>
+<p>Boolean logic is named after its inventor, George Boole,
+the British philosopher, mathematician, and logician.</p>
+<p>Dafny supports a range of abstract data types akin to those found in
+widely used, industrial imperative programming languages and systems,
+such as Python and Java. In this chapter, we introduce and briefly
+illustrate the use of these types. The types we discuss are as follow:</p>
+<ul class="simple">
+<li>bool, supporting Boolean algebra</li>
+<li>int, nat, and real types, supporting <em>exact</em> arithmetic (unlike
+the numerical types found in most industrial languages</li>
+<li>char, supporting character types</li>
+<li>set&lt;T&gt; and iset&lt;T&gt;, polymorphic set theory for finite and infinite sets</li>
+<li>seq&lt;T&gt; and iseq&lt;T&gt;, polymorphic finite and infinite sequences</li>
+<li>string, supporting character sequences (with addtional helpful functions)</li>
+<li>map&lt;K,V&gt; and imap&lt;K,V&gt;, polymorphic finite and infinite partial functions</li>
+<li>array&lt;T&gt;, polymorphic 1- and multi-dimensional arrays</li>
+</ul>
+</div>
+<div class="section" id="boolean-algebra">
+<h1>Boolean Algebra<a class="headerlink" href="#boolean-algebra" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p>The bool abstract data type (ADT) in Dafny provides a bool data type
+with values, <em>true</em> and <em>false</em>, along with the Boolean operators that
+are supported by most programming langauges, along with a few that are
+not commonly supported by industrial programming languages and
+systems.</p>
+<p>Here’s a method that computes nothing useful and returns no values,
+but that illustrates the range of Boolean operators in Dafny. We also
+use the examples in this chapter to discuss a few other aspects of the
+Dafny language.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method BoolOps(a: bool) returns (r: bool)  // bool -&gt; bool
+{
+    var t: bool := true;    // explicit type declaration
+    var f := false;         // type inferred automatically
+    var not := !t;          // negation
+    var conj := t &amp;&amp; f;     // conjunction, short-circuit evaluation
+    var disj := t || f;     // disjunction, short-circuit (sc) evaluation
+    var impl := t ==&gt; f;    // implication, right associative, sc from left
+    var foll := t &lt;== f;    // follows, left associative, sc from right
+    var equv := t &lt;==&gt; t;   // iff, bi-implication
+    return true;            // returning a Boolean value
+ }
+</pre></div>
+</div>
+</div>
+<div class="section" id="arithmetic">
+<h1>Arithmetic<a class="headerlink" href="#arithmetic" title="Permalink to this headline">¶</a></h1>
+<p>Methods aren’t required to return results. Such methods do their jobs
+by having side effects, e.g., doing output or writing data into global
+variables (usually a bad idea).  Here’s a method that doesn’t return a
+value. It illustrates numerical types, syntax, and operations.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method NumOps()
+{
+    var r1: real := 1000000.0;
+    var i1: int := 1000000;
+    var i2: int := 1_000_000;   // underscores for readiability
+    var i3 := 1_000;            // Dafny can often infer types
+    var b1 := (10 &lt; 20) &amp;&amp; (20 &lt;= 30); // a boolean expression
+    var b2 := 10 &lt; 20 &lt;= 30;    // equivalent, with &quot;chaining&quot;
+    var i4: int := (5.5).Floor; // 5
+    var i5 := (-2.5).Floor;     // -3
+    var i6 := -2.5.Floor;        // -2 = -(2.5.Floor); binding!
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="characters">
+<h1>Characters<a class="headerlink" href="#characters" title="Permalink to this headline">¶</a></h1>
+<p>Characters (char) are handled sort of as they are in C, etc.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method CharFun()
+{
+    var c1: char := &#39;a&#39;;
+    var c2 := &#39;b&#39;;
+    // var i1 := c2 - c1;
+    var i1 := (c2 as int) - (c1 as int);    // type conversion
+    var b1 := c1 &lt; c2;  // ordering operators defined for char
+    var c3 := &#39;\n&#39;;     // c-style escape for non-printing chars
+    var c4 := &#39;\u265B&#39;; // unicode, hex, &quot;chess king&quot; character
+}
+</pre></div>
+</div>
+<p>To return a value from a method, assign to the return parameter
+Note: functions have colon then return type, whereas methods
+use the “returns” keyword with a return parameter list</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method ReturnExample() returns (retval: int)
+{
+    retval := 10;
+}
+</pre></div>
+</div>
+<p>Methods can return multiple values.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method ReturnExample2() returns (x: int, y:int)
+{
+    x := 10;
+    y := 20;
+</pre></div>
+</div>
+<p>}</p>
+<p>The return keyword can be used to return immediatey</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method ReturnExample3() returns (x: int)
+{
+    x := 5;     // don&#39;t &quot;var&quot; decare return variable
+    return;     // return immediately
+    x := 6;     // never gets executed
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="set-theory">
+<h1>Set Theory<a class="headerlink" href="#set-theory" title="Permalink to this headline">¶</a></h1>
+<p>Polymorphic finite and infinite set types:
+set&lt;T&gt; and iset&lt;T&gt;. T must support equality.
+Values of these types are immutable.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method SetPlay()
+{
+    var empty: set&lt;int&gt; := {};
+    var primes := {2, 3, 5, 7, 11};
+    var squares := {1, 4, 9, 16, 25};
+    var b1 := empty &lt; primes;    // strict subset
+    var b2 := primes &lt;= primes;   // subset
+    var b3: bool := primes !! squares; // disjoint
+    var union := primes + squares;
+    var intersection := primes * squares;
+    var difference := primes - {3, 5};
+    var b4 := primes == squares;    // false
+    var i1 := | primes |;   // cardinality (5)
+    var b5 := 4 in primes;  // membership (false)
+    var b6 := 4 !in primes; // non-membership
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="sequences">
+<h1>Sequences<a class="headerlink" href="#sequences" title="Permalink to this headline">¶</a></h1>
+<p>Polymorphic sequences (often called “lists”): seq&lt;T&gt;. These can be
+understood as functions from indices to values. Some of the operations
+require that T support equality. Values of this type are immutable.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method SequencePlay()
+{
+    var empty_seq: seq&lt;char&gt; := [];
+    var hi_seq: seq&lt;char&gt; := [&#39;h&#39;, &#39;i&#39;];
+    var b1 := hi_seq == empty_seq; // equality; !=
+    var hchar := hi_seq[0];        // indexing
+    var b2 := [&#39;h&#39;] &lt; hi_seq;   // proper prefix
+    var b3 := hi_seq &lt; hi_seq;  // this is false
+    var b4 := hi_seq &lt;= hi_seq; // prefix, true
+    var sum := hi_seq + hi_seq; // concatenation
+    var len := | hi_seq |;
+    var Hi_seq := hi_seq[0 := &#39;H&#39;]; // update
+    var b5 := &#39;h&#39; in hi_seq; // member, true, !in
+    var s := [0,1,2,3,4,5];
+    var s1 := s[0..2];  // subseqence
+    var s2 := s[1..];   // &quot;drop&quot; prefix of len 1
+    var s3 := s[..2];   // &quot;take&quot; prefix of len 2
+    // there&#39;s a slice operator, too; later
+ }
+</pre></div>
+</div>
+</div>
+<div class="section" id="character-strings">
+<h1>Character Strings<a class="headerlink" href="#character-strings" title="Permalink to this headline">¶</a></h1>
+<p>Dafny has strings. Strings are literally just sequences of characters
+(of type seq&lt;char&gt;), so you can use all the sequence operations on
+strings.  Dafny provides additional helpful syntax for strings.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method StringPlay()
+ {
+     var s1: string := &quot;Hello CS2102!&quot;;
+     var s2 := &quot;Hello CS2102!\n&quot;;   // return
+     var s3 := &quot;\&quot;Hello CS2102!\&quot;&quot;; // quotes
+ }
+</pre></div>
+</div>
+</div>
+<div class="section" id="partial-functions-maps">
+<h1>Partial Functions (Maps)<a class="headerlink" href="#partial-functions-maps" title="Permalink to this headline">¶</a></h1>
+<p>Dafny also supports polymorphic maps, both finite (map&lt;K,V&gt;) and
+infinite (imap&lt;K,V&gt;).  The key type, K, must support equality (==).
+In mathematical terms, a map really represents a binary relation,
+i.e., a set of &lt;K,V&gt; pairs, which is to say a subset of the product
+set, K * V, where we view the types K and V as defining sets of
+values.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method MapPlay()
+{
+    // A map literal is keyword map + a list of maplets.
+    // A maplet is just a single &lt;K,V&gt; pair (or &quot;tuple&quot;).
+    // Here&#39;s an empty map from strings to ints
+    var emptyMap: map&lt;string,int&gt; := map[];
+
+    // Here&#39;s non empty map from strings to ints
+    // A maplet is &quot;k := v,&quot; k and v being of types K and V
+    var aMap: map&lt;string,int&gt;  := map[&quot;Hi&quot; := 1, &quot;There&quot; := 2];
+
+    // Map domain (key) membership
+    var isIn: bool := &quot;There&quot; in aMap; // true
+    var isntIn := &quot;Their&quot; !in aMap;    // true
+
+    // Finite map cardinality (number of maplets in a map)
+    var card := |aMap|;
+
+    //Map lookup
+    var image1 := aMap[&quot;There&quot;];
+    // var image2 := aMap[&quot;Their&quot;]; // error! some kind of magic
+    var image2: int;
+    if (&quot;Their&quot; in aMap) { image2 := aMap[&quot;Their&quot;]; }
+
+    // map update, maplet override and maplet addition
+    aMap := aMap[&quot;There&quot; := 3];
+    aMap := aMap[&quot;Their&quot; := 10];
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="arrays">
+<h1>Arrays<a class="headerlink" href="#arrays" title="Permalink to this headline">¶</a></h1>
+<p>Dafny supports arrays. Here’s we’ll see simple 1-d arrays.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>method ArrayPlay()
+{
+    var a := new int[10]; // in general: a: array&lt;T&gt; := new T[n];
+    var a&#39; := new int[10];   // type inference naturally works here
+    var i1 := a.Length;      // Immutable &quot;Length&quot; member holds length of array
+    a[3] := 3;           // array update
+    var i2 := a[3];          // array access
+    var seq1 := a[3..8];    // take first 8, drop first 3, return as sequence
+    var b := 3 in seq1;     // true! (see sequence operations)
+    var seq2 := a[..8];     // take first 8, return rest as sequence
+    var seq3 := a[3..];     // drop first 3, return rest as sequence
+    var seq4 := a[..];      // return entire array as a sequence
+}
+</pre></div>
+</div>
+<p>Arrays, objects (class instances), and traits (to be discussed) are of
+“reference” types, which is to say, values of these types are stored
+on the heap. Values of other types, including sets and sequences, are
+of “value types,” which is to say values of these types are stored on
+the stack; and they’re thus always treated as “local” variables. They
+are passed by value, not reference, when passed as arguments to
+functions and methods. Value types include the basic scalar types
+(bool, char, nat, int, real), built-in collection types (set,
+multiset, seq, string, map, imap), tuple, inductive, and co-inductive
+types (to be discussed).  Reference type values are allocated
+dynamically on the heap, are passed by reference, and therefore can be
+“side effected” (mofified) by methods to which they are passed.</p>
+<hr class="docutils" />
+<p>The problem of deciding <em>efficiently</em> whether there is a combination
+of Boolean variable values that makes any given Boolean expression
+true is the most important unsolved problem in computer science. We
+currently do not know of a solution that with runtime complexity that
+is better than exponential the number of variables in an expression.
+It’s easy to determine whether an assignment of values to variables
+does the trick: just evaluate the expression with those values for the
+variables. But <em>finding</em> such a combination today requires, for the
+hardest of these problems, trying all :math:<code class="docutils literal"><span class="pre">2^n</span></code> combinations of
+Boolean values for <em>n</em> variables.</p>
+<p>At the same time, we do not know that there is <em>not</em> a more efficient
+algorithm. Many experts would bet that there isn’t one, but until we
+know for sure, there is a tantalizing possibility that someone someday
+will find an <em>efficient decision procedure</em> for Boolean satisfiability.</p>
+<p>To close this exploration of computational complexity theory, we’ll
+just note that we solved an instances of another related problem: not
+only to determine whether there is at least one (whether <em>there
+exists</em>) at least one combination of variable values that makes the
+expression true, but further determining how many different ways there
+are to do it.</p>
+<p>Researchers and advanced practitioners of logic and computation
+sometimes use the word <em>model</em> to refer to a combination of variable
+values that makes an expression true. The problem of finding a Boolean
+expression that <em>satisfies</em> a Boolean formula is thus somtetimes
+called the <em>model finding</em> problem. By contrast, the problem of
+determining how many ways there are to satisfy a Boolean expression is
+called the <em>model counting</em> problem.</p>
+<p>Solutions to these problems have a vast array of practical uses.  As
+one still example, many logic puzzles can be represented as Boolean
+expressions, and a model finder can be used to determine whether there
+are any “solutions”, if so, what one solution is.</p>
+<hr class="docutils" />
+<p>How hard is the model finding problem? Is it even <em>decidable</em> in
+theory?  That is, is there an algorithm that can solve any instance of
+the problem? Given any Boolean expressions, such an algorithm in a
+finite number of steps would either find a model or determine and
+report that there is no model that the expression is <em>unsatisfiable</em>.</p>
+<p>The problem is actually decidable. To see this one need only note that
+there is a finite number of interpretations for a Boolean expression
+with a finite number, <em>n</em>, namely <img class="math" src="_images/math/798d39775b3c54beddeb31ad508597409e6e7c43.png" alt="2^n"/>. That is, the number of
+interpretations is <em>exponential in the number of variables</em>. To see
+that this is so, consider that there are two interpretation if there
+is one variable (the first sets the variable to true, the second, to
+false). For each of those two, there are then two values for a second
+variable, for a total of four interpretations. For each of those four,
+there are two values of a third variable, making eight interpretations
+for three variables. Each time one adds one more variable, the number
+of interpretations <em>doubles</em>. This is an example of exponential
+growth.</p>
+<p>In computer science, we often use Boolean expressions, with variables,
+to specify properties that we require hold for certain objects. For a
+property to hold, the negation of the property must not hold. But if
+there is a model of the negation of a property, then there is a case
+in which the property does <em>not</em> hold. The problem of checking to see
+if there is a model of the negation of a desired property is called
+the <em>model checking</em> problem. Model checking is a vitally important
+process in many areas of computer science.</p>
+<p>The formulation of these problems is simple, but the problems are not
+computationally simple at all. They remain foci of intense research
+and are central the most important unresolved mystery in all computer
+science: whether there is an <em>efficient</em> algorithm the model finding
+problem.</p>
+<p>In the rest of this chapter, we will make these idea precise by
+actually implementing them in Dafny.</p>
+<p>, we will present a Dafny function that
+when given a Boolean expression in our little language returns the
+set of variables that appear in that expression.</p>
+<hr class="docutils" />
+<p>Here we are focused on constructors. To make the distinction clear,
+we will use the names <em>and</em>, <em>or</em>, <em>not</em>, and so forth for Boolean
+operators, and the related names, <em>bNotExp, bAndExp, bOrExp</em>, etc.,
+for the corresponding expression constructors.</p>
+<p>Again, each constructor takes one or more Boolean expressions as its
+arguments and yields a larger expression as a result. For example, the
+<em>bNotExp</em> constructor takes one expression (such as <em>litFalse</em>) and
+yields larger expression, here, <em>bNotExp(litFalse)</em>. The <em>bOrExp</em>
+constructor takes two expression as arguments, e.g., <em>litTrue</em> and
+<em>litFalse</em>, yielding the term, <em>bOrExp(litTrue,litFalse)</em>. Finally,
+the <em>bAndExp</em> constructor take two expressions, such as the two we
+just constructed, and yields the term, <em>bAndExp(bOrExp(litTrue,
+litFalse), bNotExp(listFalse))</em>. This expression could in turn be an
+argument to a constructor that would build an ever larger one.</p>
+<p>However, we’re not limited to building larger expressions only from
+<em>literal</em> expressions. Given any two expressions, no matter how big
+they already are, we can use them to build a larger expression.  So,
+for example, we can also build the expression, <em>(true || false) &amp;&amp;
+(!false)</em>. All inductive definitions work this way. One provides a set
+of base cases for the type of expression being considered, along with
+ways of combining any smaller <em>expressions</em> into larger ones of the
+same kind.</p>
+<hr class="docutils" />
+<p>Now it should be clear when we say colloquially that a program
+<em>computes a function or a relation</em>. Whenever it is given a valid
+argument representing the <em>first</em> value of a pair in the relation, it
+computes a <em>second</em> value such that the pair, <img class="math" src="_images/math/f740fbbb0fac5ec5c0233d4402773184a07ddd90.png" alt="(first, second)"/>
+is in the given relation. When we say, for example, that a program
+<em>computes the factorial function</em>, we mean that if we give it a
+non-negative number, <em>n</em>, it returns a number <em>m</em> such that the pair
+<em>(n,m)</em> is <em>in</em> the relation. And for <em>(n,m)</em> to be in the relation it
+must be that <img class="math" src="_images/math/ecefb159f55afb2d10579e24bafdc9448c0a0090.png" alt="m = fact(n)"/>. Given, <em>n</em>, such a program thus has
+to return <img class="math" src="_images/math/81d4171a788af9ec16c0d560ce8574dbc60fd5da.png" alt="fact(n)"/>. A program that computes a <em>function</em> is
+deterministic, in the sense that it can return at most one result:
+because there is at most one result.</p>
+<p>A method or a function promises to return a value for any
+argument of the type that the method is declared to take. But if the
+function being implemented is not defined for that value then there is
+a problem: what should the method or function return? For example, if
+one five a negative number to a function meant to real-valued square
+roots, there simply is no right answer.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright .
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
+  </body>
+</html>
