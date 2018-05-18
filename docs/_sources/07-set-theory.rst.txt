@@ -226,7 +226,7 @@ written as follows:
 Note that this expression evaluates to a value of type "set of int*.
 You could assign this value to a variable in a Dafny method by writing
 
-..code-block:: dafny
+.. code-block:: dafny
 
     T := set t: int | 0 <= t <= 50 && t % 2 == 0;
 

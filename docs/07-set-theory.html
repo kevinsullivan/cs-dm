@@ -226,9 +226,9 @@ written as follows:</p>
 </div>
 <p>Note that this expression evaluates to a value of type “set of int*.
 You could assign this value to a variable in a Dafny method by writing</p>
-<p>..code-block:: dafny</p>
-<blockquote>
-<div>T := set t: int | 0 &lt;= t &lt;= 50 &amp;&amp; t % 2 == 0;</div></blockquote>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>T := set t: int | 0 &lt;= t &lt;= 50 &amp;&amp; t % 2 == 0;
+</pre></div>
+</div>
 <p>You can think of this expression as either pure mathematics, or as a
 program that <em>loops</em> over the integers, selects those that make the
 given predicate evaluate to <em>true</em>, and includes all and only the
@@ -718,9 +718,9 @@ powerset. You have to figure out the return type: think “set of sets”.</p>
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="discrete_mathematics.pdf">PDF version</a></li>
-    
     <li class="toctree-l1"><a href="https://kevinsullivan.github.io/cs-dm">Lean Home</a></li>
+    
+    <li class="toctree-l1"><a href="discrete_mathematics.pdf">PDF version</a></li>
     
 </ul>
 
