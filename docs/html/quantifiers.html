@@ -1,0 +1,105 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Quantification: First-Order Logic &#8212; Discrete Mathematics 1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/sidebar.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="quantification-first-order-logic">
+<h1>Quantification: First-Order Logic<a class="headerlink" href="#quantification-first-order-logic" title="Permalink to this headline">¶</a></h1>
+<p>We now address quantifiers with some care.  We’ve been seeing and
+using them all along, of course. What we do in this chapter is to
+address them more rigirously. We discuss elimination and induction
+rules, and the fundamental concepts of induction principles and their
+use to build proofs by induction We’ll then address quantification in
+practice: e.g., in Dafny and maybe SQL. Quantifiers also complicate
+automated verification systems because they allow for the expression
+of very complex specifications. We will briefly address ways in which
+programmers can think about helping Dafny when it needs guidance about
+where to look, e.g., for witnesses needed to prove existentials.</p>
+</div>
+<div class="section" id="universal-and-existential-quantification">
+<h1>Universal and Existential Quantification<a class="headerlink" href="#universal-and-existential-quantification" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="introduction-and-elimination-rules-for-exists">
+<h1>Introduction and Elimination Rules for Exists<a class="headerlink" href="#introduction-and-elimination-rules-for-exists" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="introduction-and-elimination-rules-for-forall">
+<h1>Introduction and Elimination Rules for Forall<a class="headerlink" href="#introduction-and-elimination-rules-for-forall" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="induction-principles-and-algebraic-data-types">
+<h1>Induction Principles and Algebraic Data Types<a class="headerlink" href="#induction-principles-and-algebraic-data-types" title="Permalink to this headline">¶</a></h1>
+<p>This takes us in particular to induction principles and proofs (where
+we redeem our earlier aside on the injectivity of constructors). This
+is how we introduce truth claims with <em>for alls</em> elements in a given
+domain (or type), particularly in cases where the domain quanitified
+over is infinite.</p>
+<p>As an example, we’d like to be able to deduce (prove) that every
+program written in some new language either type checks and is
+accepted by the type checker, and in this case no runtime errors can
+occur, or that it is expressly rejected by the checker, and that the
+checker will never <em>get stuck</em>.</p>
+<p>How might we every prove something about all programs in a language?</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright .
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
+  </body>
+</html>

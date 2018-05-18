@@ -1,0 +1,418 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Discrete Mathematics: A Computational Approach &#8212; Discrete Mathematics 1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/sidebar.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Requirement, Specifications, and Implementations" href="01-reqs-specs-impls.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="01-reqs-specs-impls.html" title="Requirement, Specifications, and Implementations"
+             accesskey="N">next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">Discrete Mathematics 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="discrete-mathematics-a-computational-approach">
+<h1>Discrete Mathematics: A Computational Approach<a class="headerlink" href="#discrete-mathematics-a-computational-approach" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="01-reqs-specs-impls.html">Requirement, Specifications, and Implementations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-logic-and-code.html">Logical Specifications, Imperative Implementations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="02-logic-and-code.html#imperative-languages-for-implementations">Imperative Languages for Implementations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02-logic-and-code.html#declarative-languages-for-specifications">Declarative Languages for Specifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02-logic-and-code.html#refining-declarative-specifications-into-imperative-implementations">Refining Declarative Specifications into Imperative Implementations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02-logic-and-code.html#why-not-a-single-language-for-programming-and-specification">Why Not a Single Language for Programming and Specification?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="03-problems-with-imperative-code.html">Problems with Imperative Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-runnable-math.html">Pure Functional Programming as Runnable Mathematics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="04-runnable-math.html#the-identify-function-for-integers">The identify function (for integers)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04-runnable-math.html#data-and-function-types">Data and function types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04-runnable-math.html#other-function-values-of-the-same-type">Other function values of the same type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04-runnable-math.html#dafny-is-a-program-verifier">Dafny is a Program Verifier</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="05-verifying-logical-specifications.html">Formal Verification of Imperative Programs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="05-verifying-logical-specifications.html#performance-vs-understandability">Performance vs. Understandability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05-verifying-logical-specifications.html#specification-implementation-and-verification">Specification, Implementation, and Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05-verifying-logical-specifications.html#declarative-input-output-specifications">Declarative Input-Output Specifications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="05-verifying-logical-specifications.html#input-output-relations">Input-Output Relations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="05-verifying-logical-specifications.html#relations-and-functions">Relations and Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="05-verifying-logical-specifications.html#total-and-partial-functions">Total and Partial Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="05-verifying-logical-specifications.html#turning-partial-functions-into-total-functions">Turning Partial Functions into Total Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="05-verifying-logical-specifications.html#imperative-implementation">Imperative Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05-verifying-logical-specifications.html#formal-verification">Formal Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05-verifying-logical-specifications.html#case-study-the-factorial-function">Case Study: The Factorial Function</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="05-verifying-logical-specifications.html#a-buggy-implementation">A Buggy Implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="05-verifying-logical-specifications.html#specifications-establish-correctness-criteria">Specifications Establish Correctness Criteria</a></li>
+<li class="toctree-l3"><a class="reference internal" href="05-verifying-logical-specifications.html#a-verified-implementation-of-the-factorial-function">A Verified Implementation of the Factorial Function</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="05-verifying-logical-specifications.html#case-study-the-fibonacci-function">Case Study: The Fibonacci Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05-verifying-logical-specifications.html#what-is-dafny-again">What is Dafny, Again?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="06-dafny-language.html">Dafny Language: Types, Statements, Expressions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="06-dafny-language.html#built-in-types">Built-In Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="06-dafny-language.html#booleans">Booleans</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06-dafny-language.html#numbers">Numbers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06-dafny-language.html#characters">Characters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06-dafny-language.html#sets">Sets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06-dafny-language.html#sequences">Sequences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06-dafny-language.html#strings">Strings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06-dafny-language.html#maps-partial-functions">Maps (Partial Functions)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06-dafny-language.html#arrays">Arrays</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="06-dafny-language.html#statements">Statements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="06-dafny-language.html#block">Block</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06-dafny-language.html#break">Break</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06-dafny-language.html#update-assignment">Update (Assignment)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06-dafny-language.html#var-variable-declaration">Var (variable declaration)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06-dafny-language.html#if-conditional">If (conditional)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06-dafny-language.html#while-iteration">While (iteration)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06-dafny-language.html#assert-assert-a-proposition-about-the-state-of-the-program">Assert (assert a proposition about the state of the program)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06-dafny-language.html#print-produce-output-on-console">Print (produce output on console)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06-dafny-language.html#return">Return</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="06-dafny-language.html#expressions">Expressions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="06-dafny-language.html#literals-expressions">Literals Expressions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06-dafny-language.html#if-conditional-expressions">If (Conditional) Expressions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06-dafny-language.html#conjunction-and-disjunction-expressions">Conjunction and Disjunction Expressions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06-dafny-language.html#sequence-set-multiset-and-map-expressions">Sequence, Set, Multiset, and Map Expressions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06-dafny-language.html#relational-expressions">Relational Expressions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06-dafny-language.html#array-allocation-expressions">Array Allocation Expressions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06-dafny-language.html#old-expressions">Old Expressions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06-dafny-language.html#cardinality-expressions">Cardinality Expressions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06-dafny-language.html#let-expressions">Let Expressions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="07-set-theory.html">Set Theory</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="07-set-theory.html#naive-set-theory">Naive Set Theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07-set-theory.html#overly-naive-set-theory">Overly Naive Set Theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07-set-theory.html#sets">Sets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07-set-theory.html#set-theory-notations">Set Theory Notations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="07-set-theory.html#display-notation">Display notation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="07-set-theory.html#set-comprehension-notation">Set comprehension notation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="07-set-theory.html#set-operations">Set Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="07-set-theory.html#cardinality">Cardinality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="07-set-theory.html#equality">Equality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="07-set-theory.html#subset">Subset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="07-set-theory.html#intersection">Intersection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="07-set-theory.html#union">Union</a></li>
+<li class="toctree-l3"><a class="reference internal" href="07-set-theory.html#difference">Difference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="07-set-theory.html#product-set">Product Set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="07-set-theory.html#power-set">Power Set</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="07-set-theory.html#tuples">Tuples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="08-relations.html">Relations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="08-relations.html#binary-relations">Binary Relations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08-relations.html#methods-for-applying-relations">Methods for Applying Relations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08-relations.html#inverse-of-a-binary-relation">Inverse of a Binary Relation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08-relations.html#functions-single-valued-relations">Functions: <em>Single-Valued</em> Relations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08-relations.html#properties-of-functions">Properties of Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#total-vs-partial">Total vs Partial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#injective">Injective</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#surjective">Surjective</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#bijective">Bijective</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="08-relations.html#properties-of-relations">Properties of Relations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#reflexive">Reflexive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#symmetric">Symmetric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#transitive">Transitive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#equivalence">Equivalence</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="08-relations.html#basic-order-theory">Basic Order Theory</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#preorder">Preorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#partial-order">Partial Order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#total-order">Total Order</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="08-relations.html#additional-properties-of-relations">Additional Properties of Relations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#total-relation">Total Relation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#irreflexive">Irreflexive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#antisymmetric">Antisymmetric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#asymmetric">Asymmetric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#quasi-reflexive">Quasi-reflexive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#co-reflexive">Co-reflexive</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="08-relations.html#more-advanced-order-theory-concepts">More Advanced Order Theory Concepts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#total-preorder">Total Preorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#strict-partial-order">Strict Partial Order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#quasi-order">Quasi-order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#weak-ordering">Weak Ordering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#well-founded">Well-Founded</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="08-relations.html#other-properties-of-relations">Other Properties of Relations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#dependence-relation">Dependence Relation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#independency-relation">Independency Relation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#trichotomous">Trichotomous</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#right-euclidean">Right Euclidean</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#left-euclidean">Left Euclidean</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#euclidean">Euclidean</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="08-relations.html#composition-of-relations">Composition of Relations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08-relations.html#closure-operations">Closure Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#reflexive-closure">Reflexive Closure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#symmetric-closure">Symmetric Closure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#transitive-closure">Transitive Closure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#reflexive-transitive-closure">Reflexive Transitive Closure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#reflexive-transitive-symmetric-closure">Reflexive Transitive Symmetric closure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="08-relations.html#reductions">Reductions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#reflexive-reduction">Reflexive Reduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08-relations.html#transitive-reduction">Transitive Reduction</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="08-relations.html#domain-and-range-restriction">Domain and Range Restriction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08-relations.html#sequences">Sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08-relations.html#maps">Maps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="09-boolean-algebra.html">Boolean Algebra</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="09-boolean-algebra.html#boolean-algebra-in-dafny">Boolean Algebra in Dafny</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09-boolean-algebra.html#boolean-values">Boolean Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09-boolean-algebra.html#boolean-operators">Boolean Operators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="09-boolean-algebra.html#nullary-unary-binary-and-n-ary-operators">Nullary, Unary, Binary, and n-Ary Operators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="09-boolean-algebra.html#the-unary-operators-of-boolean-algebra">The Unary Operators of Boolean Algebra</a></li>
+<li class="toctree-l3"><a class="reference internal" href="09-boolean-algebra.html#binary-boolean-operators">Binary Boolean Operators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="09-boolean-algebra.html#a-ternary-binary-operator">A Ternary Binary Operator</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="10-formal-languages.html">Formal Languages</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="10-formal-languages.html#boolean-algebra-revisited">Boolean Algebra Revisited</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10-formal-languages.html#a-very-simple-language-of-boolean-expressions">A Very Simple Language of Boolean Expressions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="10-formal-languages.html#syntax-inductive-data-type-definitions">Syntax: Inductive Data Type Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="10-formal-languages.html#semantics-pattern-matching-on-terms">Semantics: Pattern Matching on Terms</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="10-formal-languages.html#extending-the-language-with-boolean-connectives">Extending the Language with Boolean Connectives</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="10-formal-languages.html#inductive-definitions-building-bigger-expressions-from-smaller-ones">Inductive Definitions: Building Bigger Expressions from Smaller Ones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="10-formal-languages.html#structural-recursion-the-meanings-of-wholes-from-the-meanings-of-parts">Structural Recursion: The Meanings of Wholes from the Meanings of Parts</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="10-formal-languages.html#id1">Formal Languages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="11-propositional-logic.html">Propositional Logic</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="11-propositional-logic.html#propositional-and-predicate-logic">Propositional and Predicate Logic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="11-propositional-logic.html#what-is-a-logic">What is a Logic?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="11-propositional-logic.html#id1">Propositional Logic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="11-propositional-logic.html#syntax">Syntax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="11-propositional-logic.html#semantics-of-propositional-logic">Semantics of Propositional Logic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="11-propositional-logic.html#inference-rules-for-propositional-logic">Inference Rules for Propositional Logic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="11-propositional-logic.html#using-logic-in-practice">Using Logic in Practice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="11-propositional-logic.html#implementing-propositional-logic">Implementing Propositional Logic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="11-propositional-logic.html#id4">Syntax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="11-propositional-logic.html#interpretation">Interpretation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="11-propositional-logic.html#semantics">Semantics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="11-propositional-logic.html#models">Models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="12-satisfiability.html">12. Satisfiability</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="12-satisfiability.html#interpretations-for-a-proposition">Interpretations for a Proposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12-satisfiability.html#interpretations-for-a-sequence-of-propositions">Interpretations for a Sequence of Propositions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12-satisfiability.html#the-all-false-interpetation">The All-False Interpetation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12-satisfiability.html#huh">HuH???</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12-satisfiability.html#increment-interpretation">Increment Interpretation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12-satisfiability.html#print-truth-table-for-a-propositional-logic-proposition">Print Truth Table for a Propositional Logic Proposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12-satisfiability.html#utility-routine">Utility Routine</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="12-satisfiability.html#models">Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="12-satisfiability.html#satisfiability-unsatisfiability-validity">Satisfiability, Unsatisfiability, Validity</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="13-consequence.html">Natural Deduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="13-consequence.html#aristotle-s-logic">Aristotle’s Logic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="13-consequence.html#syllogism">Syllogism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="13-consequence.html#modus-ponens">Modus Ponens</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="13-consequence.html#named-inference-rule">Named Inference Rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="13-consequence.html#semantic-entailment">Semantic Entailment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="13-consequence.html#syntactic-entailment-and-the-rules-of-natural-deduction">Syntactic Entailment and the Rules of Natural Deduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="13-consequence.html#inference-rules-good-for-classical-and-constructive-logic">Inference rules good for classical and constructive logic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="13-consequence.html#inference-rules-valid-in-classical-but-not-in-constructive-logic">Inference Rules Valid in Classical but Not in Constructive Logic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="13-consequence.html#fallacious-inference-rules">Fallacious Inference Rules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="13-consequence.html#algebraic-properties-identities">Algebraic properties / identities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="13-consequence.html#exercises">Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="14-predicate-logic.html">Predicate Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-proofs.html">Proofs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="15-proofs.html#unscalability-of-semantic-entailment">Unscalability of Semantic Entailment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="15-proofs.html#natural-deduction">Natural Deduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="15-proofs.html#forms-of-propositions-forms-of-proofs">Forms of Propositions; Forms of Proofs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="15-proofs.html#introduction-and-elimination-rules">Introduction and Elimination Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="15-proofs.html#true-introduction">True Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="15-proofs.html#the-proposition-false">The proposition, false</a></li>
+<li class="toctree-l3"><a class="reference internal" href="15-proofs.html#proofs-involving-conjunctions">Proofs Involving Conjunctions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="15-proofs.html#implications">Implications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="15-proofs.html#interlude-function-values">Interlude: Function Values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="15-proofs.html#rules-for-implication">Rules for Implication</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="15-proofs.html#proofs-involving-disjunctions">Proofs Involving Disjunctions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="15-proofs.html#or-introduction">Or Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="15-proofs.html#or-elimination">Or Elimination</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="15-proofs.html#falsity-and-negation">Falsity and Negation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="15-proofs.html#p">¬P</a></li>
+<li class="toctree-l3"><a class="reference internal" href="15-proofs.html#law-of-excluded-middle">Law of Excluded Middle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="15-proofs.html#proof-by-contradiction">Proof by Contradiction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="15-proofs.html#impossibility-of-contradiction">Impossibility of Contradiction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="15-proofs.html#false-introduction">False Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="15-proofs.html#not-introduction">Not Introduction</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="15-proofs.html#bi-implication-iff">Bi-Implication (Iff)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="15-proofs.html#iff-introduction">Iff Introduction</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="15-proofs.html#proof-engineering">Proof Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="15-proofs.html#proof-tactics">Proof Tactics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="15-proofs.html#moved-stuff">MOVED STUFF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="15-proofs.html#propositions-in-the-higher-order-logic-of-lean">Propositions in the Higher Order Logic of Lean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="15-proofs.html#proof-and-truth">PROOF AND TRUTH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="15-proofs.html#propositions">Propositions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="15-proofs.html#the-type-hierarchy-universes-of-lean">The Type Hierarchy (Universes) of Lean</a></li>
+<li class="toctree-l3"><a class="reference internal" href="15-proofs.html#proof-is-truth">Proof is Truth</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="15-proofs.html#using-lean">Using Lean</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="15-proofs.html#binding-values-to-variables">Binding Values to Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="15-proofs.html#checking-types">Checking Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="15-proofs.html#types-are-values-too">Types Are Values Too</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="15-proofs.html#propositional-logic-and-nd-proofs-in-lean">Propositional Logic and ND Proofs in Lean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="15-proofs.html#conclusion">Conclusion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="15-proofs.html#exercises">Exercises</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="16-equality.html">Proofs of Equalities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="16-equality.html#proofs-based-on-properties-of-equality">Proofs Based on Properties of Equality</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="16-equality.html#by-the-reflexive-property-of-equality">By The Reflexive Property of Equality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="16-equality.html#by-the-symmetric-property-of-equality">By the Symmetric Property of Equality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="16-equality.html#by-the-transitive-property-of-equality">By the Transitive Property of Equality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="16-equality.html#optional-substitutability-of-equals">Optional: Substitutability of Equals</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="17-inequality.html">Proofs of Inequality</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="17-inequality.html#peano-s-princples">Peano’s Princples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="17-inequality.html#why-zero-isn-t-one">Why Zero Isn’t One</a></li>
+<li class="toctree-l2"><a class="reference internal" href="17-inequality.html#proofs-of-inequality-in-lean">Proofs of Inequality in Lean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="17-inequality.html#more-to-come">More to come</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="18-existence.html">Proofs of Existence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19-univeral.html">Proofs of Universality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20-termination.html">Termination</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="20-termination.html#structural-recursion">Structural recursion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="20-termination.html#well-founded-recursion">Well-founded recursion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="20-termination.html#fuel">Fuel</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Next topic</h4>
+  <p class="topless"><a href="01-reqs-specs-impls.html"
+                        title="next chapter">Requirement, Specifications, and Implementations</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="01-reqs-specs-impls.html" title="Requirement, Specifications, and Implementations"
+             >next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">Discrete Mathematics 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright .
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
+  </body>
+</html>
