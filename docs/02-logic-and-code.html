@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Logical Specifications, Imperative Implementations &#8212; Discrete Mathematics 1 documentation</title>
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <title>2. Logical Specifications, Imperative Implementations &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1',
+        VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -21,28 +21,17 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/sidebar.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Problems with Imperative Code" href="03-problems-with-imperative-code.html" />
-    <link rel="prev" title="Requirement, Specifications, and Implementations" href="01-reqs-specs-impls.html" /> 
+    <link rel="next" title="3. Problems with Imperative Code" href="03-problems-with-imperative-code.html" />
+    <link rel="prev" title="1. Requirement, Specifications, and Implementations" href="01-reqs-specs-impls.html" />
+<!-- <link href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy" rel="stylesheet"> -->
+<!-- <link href="https://fonts.googleapis.com/css?family=Average" rel="stylesheet"> -->
+<!-- <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet"> -->
+
   </head>
   <body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="03-problems-with-imperative-code.html" title="Problems with Imperative Code"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="01-reqs-specs-impls.html" title="Requirement, Specifications, and Implementations"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -50,7 +39,7 @@
           <div class="body" role="main">
             
   <div class="section" id="logical-specifications-imperative-implementations">
-<h1>Logical Specifications, Imperative Implementations<a class="headerlink" href="#logical-specifications-imperative-implementations" title="Permalink to this headline">¶</a></h1>
+<h1>2. Logical Specifications, Imperative Implementations<a class="headerlink" href="#logical-specifications-imperative-implementations" title="Permalink to this headline">¶</a></h1>
 <p>We’ve discussed requirements, specifications, and implementations as
 distinct artifacts that serve distinct purposes. For good reasons,
 these artifacts are usually written in different languages. Software
@@ -66,7 +55,7 @@ handling artifacts written in multiple such languages. In particular,
 the educated computer scientist and the capable software developer
 must be fluent in the language of mathematical logic.</p>
 <div class="section" id="imperative-languages-for-implementations">
-<h2>Imperative Languages for Implementations<a class="headerlink" href="#imperative-languages-for-implementations" title="Permalink to this headline">¶</a></h2>
+<h2>2.1. Imperative Languages for Implementations<a class="headerlink" href="#imperative-languages-for-implementations" title="Permalink to this headline">¶</a></h2>
 <p>The language of implementations is code, usually written in what we
 call an <em>imperative</em> programming language. Examples of such languages
 include Python, Java, C++, and Javascript.</p>
@@ -115,7 +104,7 @@ of an updateable memory is at the very heart of the imperative model
 of computation.</p>
 </div>
 <div class="section" id="declarative-languages-for-specifications">
-<h2>Declarative Languages for Specifications<a class="headerlink" href="#declarative-languages-for-specifications" title="Permalink to this headline">¶</a></h2>
+<h2>2.2. Declarative Languages for Specifications<a class="headerlink" href="#declarative-languages-for-specifications" title="Permalink to this headline">¶</a></h2>
 <p>The language of formal requirements and specifications, on the other
 hand, is not imperative code but <em>declarative</em> logic.  Expressions in
 such logic will state <em>what</em> properties or relationships must hold in
@@ -126,9 +115,9 @@ description clear, consider the problem of computing the positive
 square root of any given non-negative number, <em>x</em>. We can <em>specify</em>
 the result we seek in a clear and precise logical style by saying
 that, for any given non-negative number <em>x</em>, we require a value, <em>y</em>,
-such that <img class="math" src="_images/math/6efc6b8d5ee4907bdc637280c889d914c80e876b.png" alt="y^2 = x"/>. Such a <em>y</em>, squared, gives <em>x</em>, and this
+such that <img class="math" src="_images/math/c3d86109762e246d4b7b0479886163a5ae8042a1.png" alt="y^2 = x"/>. Such a <em>y</em>, squared, gives <em>x</em>, and this
 makes <em>y</em> a square root.</p>
-<p>We would write this mathematically as <img class="math" src="_images/math/5e01721cb0addd14492bb97628ef1a0b5386a9d5.png" alt="\forall x \in {\mathbb R}
+<p>We would write this mathematically as <img class="math" src="_images/math/a79b86d456466e030f9cecf6ccdc96610b33dffc.png" alt="\forall x \in {\mathbb R}
 \mid x &gt;= 0, y \in {\mathbb R} | y &gt;= 0 \land y^2 = x"/>. In English,
 we’d pronounce this expression as, “for any value, <em>x</em>, in the real
 numbers, where <em>x</em> is greater than or equal to zero, the result is a
@@ -138,13 +127,13 @@ here is also often pronounced as <em>such that</em>. Repeat it to yourself
 both ways until it feels natural to translate the math into spoken
 English.)</p>
 <p>Let’s look at this expression with care. First, the symbol,
-<img class="math" src="_images/math/ebd95d6fe2eb407c57a5cc341daa811cfafb2cf6.png" alt="\forall"/>, is read as <em>for all</em> or <em>for any</em>. Second, the symbol
-<img class="math" src="_images/math/20f7f4b2fcb4983a6488f37828c9f03b1823bb33.png" alt="{\mathbb R}"/>, is used in mathematical writing to denote the set
+<img class="math" src="_images/math/6c01a2beef1f6414b7a81bf54ed833ef7de2b17d.png" alt="\forall"/>, is read as <em>for all</em> or <em>for any</em>. Second, the symbol
+<img class="math" src="_images/math/fd01a37ab7c229943102319420b75f8ccb44175a.png" alt="{\mathbb R}"/>, is used in mathematical writing to denote the set
 of the <em>real numbers</em>, which includes the <em>integers</em> (whole numbers,
-such as <em>-1</em>, <em>0</em>, and <em>2</em>), the rational numbers (such as <img class="math" src="_images/math/e9dbd5558ce57d7595a5d9c726ffd1156253124b.png" alt="2/3"/>
+such as <em>-1</em>, <em>0</em>, and <em>2</em>), the rational numbers (such as <img class="math" src="_images/math/6202b482db0cd56d3eef110fe6b48ebe0c8c945e.png" alt="2/3"/>
 and <em>1.5</em>), and the irrational numbers (such as <em>pi</em> and <em>e</em>). The
-symbol, <img class="math" src="_images/math/d23d737cd2edc84060c5983759a705ec03c7d263.png" alt="\in"/>, pronounced as <em>in</em>, represents membership of a
-value, here <em>x</em>, in a given set. The expression, <img class="math" src="_images/math/c83afd51142920efde0fd2c4ad8825e92dc79dad.png" alt="\forall x \in
+symbol, <img class="math" src="_images/math/13c683b3c914de67399ef3412009afe5cae5988b.png" alt="\in"/>, pronounced as <em>in</em>, represents membership of a
+value, here <em>x</em>, in a given set. The expression, <img class="math" src="_images/math/1844b5d7eb2f820d9f17b11586ddc7c32613e50f.png" alt="\forall x \in
 {\mathbb R}"/> thus means “for any value, <em>x</em>, in the real numbers,” or
 just “for any real number, <em>x</em>”.</p>
 <p>The vertical bar followed by the statement of the property, <em>x &gt;= 0</em>,
@@ -162,8 +151,8 @@ the <em>body</em> of the function. Here it says, assuming that <em>x</em> is any
 non-negative real numner, that the associated value, sometimes called
 the <em>image</em> of <em>x</em> under the function, is a value, <em>y</em>, also in the
 real numbers (the <em>co-domain</em> of the function), such that <em>y</em> is both
-greater than or equal to zero equal <em>and</em> <img class="math" src="_images/math/6efc6b8d5ee4907bdc637280c889d914c80e876b.png" alt="y^2 = x"/>. The symbol,
-<img class="math" src="_images/math/493a01ca652e687ba188f86da3fc3a2715d179b5.png" alt="\land"/> is the logical symbol for <em>conjunction</em>, which is the
+greater than or equal to zero equal <em>and</em> <img class="math" src="_images/math/c3d86109762e246d4b7b0479886163a5ae8042a1.png" alt="y^2 = x"/>. The symbol,
+<img class="math" src="_images/math/80cc4fd492154010d08c96792acd7597a3136e93.png" alt="\land"/> is the logical symbol for <em>conjunction</em>, which is the
 operation that composes two smaller propositions or properties into a
 larger one that is true or satisfied if and only if both constituent
 propositions or properties are. The formula to the right of the comma
@@ -186,7 +175,7 @@ value of the square root of any <em>x</em>. You can’t run a specification in
 the language of mathematical logic (at least not in a practical way).</p>
 </div>
 <div class="section" id="refining-declarative-specifications-into-imperative-implementations">
-<h2>Refining Declarative Specifications into Imperative Implementations<a class="headerlink" href="#refining-declarative-specifications-into-imperative-implementations" title="Permalink to this headline">¶</a></h2>
+<h2>2.3. Refining Declarative Specifications into Imperative Implementations<a class="headerlink" href="#refining-declarative-specifications-into-imperative-implementations" title="Permalink to this headline">¶</a></h2>
 <p>The solution is to <em>refine</em> our declarative specification, written in
 the language of mathematical logic, into a computer program, written
 in an imperative language: one that computes <em>exactly</em> the function we
@@ -280,7 +269,7 @@ Floating-Point Arithmetic.</em> It was published in the March, 1991 issue
 of Computing Surveys. You can find it online.</p>
 </div>
 <div class="section" id="why-not-a-single-language-for-programming-and-specification">
-<h2>Why Not a Single Language for Programming and Specification?<a class="headerlink" href="#why-not-a-single-language-for-programming-and-specification" title="Permalink to this headline">¶</a></h2>
+<h2>2.4. Why Not a Single Language for Programming and Specification?<a class="headerlink" href="#why-not-a-single-language-for-programming-and-specification" title="Permalink to this headline">¶</a></h2>
 <p>The dichotomy between specification logic and implementation code
 raises an important question? Why not just design a single language
 that’s good for both?</p>
@@ -308,7 +297,7 @@ to see if it produces the specified outputs for <em>some</em> elements of the
 input domain, but in general it’s infeasible to test <em>all</em> inputs. So
 how can we know that we have <em>built a program</em> right, where right is
 defined precisely by a formal (mathematical logic) specification) that
-requires that a program work correctly for all (<img class="math" src="_images/math/ebd95d6fe2eb407c57a5cc341daa811cfafb2cf6.png" alt="\forall"/>) inputs?</p>
+requires that a program work correctly for all (<img class="math" src="_images/math/6c01a2beef1f6414b7a81bf54ed833ef7de2b17d.png" alt="\forall"/>) inputs?</p>
 </div>
 </div>
 
@@ -318,34 +307,84 @@ requires that a program work correctly for all (<img class="math" src="_images/m
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="01-reqs-specs-impls.html"
-                        title="previous chapter">Requirement, Specifications, and Implementations</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="03-problems-with-imperative-code.html"
-                        title="next chapter">Problems with Imperative Code</a></p>
+<h1 class="logo"><a href="index.html">Discrete Mathematics: A Computational Approach</a></h1>
+
+
+
+
+
+
+
+
+<!-- <h3>Navigation</h3> -->
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="01-reqs-specs-impls.html">1. Requirement, Specifications, and Implementations</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Logical Specifications, Imperative Implementations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#imperative-languages-for-implementations">2.1. Imperative Languages for Implementations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#declarative-languages-for-specifications">2.2. Declarative Languages for Specifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#refining-declarative-specifications-into-imperative-implementations">2.3. Refining Declarative Specifications into Imperative Implementations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#why-not-a-single-language-for-programming-and-specification">2.4. Why Not a Single Language for Programming and Specification?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="03-problems-with-imperative-code.html">3. Problems with Imperative Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-runnable-math.html">4. Pure Functional Programming as Runnable Mathematics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-verifying-logical-specifications.html">5. Formal Verification of Imperative Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-dafny-language.html">6. Dafny Language: Types, Statements, Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-set-theory.html">7. Set Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-relations.html">8. Relations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-boolean-algebra.html">9. Boolean Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-formal-languages.html">10. Formal Languages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-propositional-logic.html">11. Propositional Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-satisfiability.html">12. 12. Satisfiability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-consequence.html">13. Natural Deduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-predicate-logic.html">14. Predicate Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-proofs.html">15. Proofs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-equality.html">16. Proofs of Equalities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-inequality.html">17. Proofs of Inequality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18-existence.html">18. Proofs of Existence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19-univeral.html">19. Proofs of Universality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20-termination.html">20. Termination</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="discrete_mathematics.pdf">PDF version</a></li>
+    
+    <li class="toctree-l1"><a href="https://kevinsullivan.github.io/cs-dm">Lean Home</a></li>
+    
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="03-problems-with-imperative-code.html" title="Problems with Imperative Code"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="01-reqs-specs-impls.html" title="Requirement, Specifications, and Implementations"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
-      </ul>
+    <div class="footer">
+      &copy;2018, Kevin Sullivan.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/02-logic-and-code.rst.txt"
+          rel="nofollow">Page source</a>
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright .
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
-    </div>
+
+    
+
+    
   </body>
 </html>

@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Propositional Logic &#8212; Discrete Mathematics 1 documentation</title>
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <title>11. Propositional Logic &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1',
+        VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -21,28 +21,17 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/sidebar.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="12. Satisfiability" href="12-satisfiability.html" />
-    <link rel="prev" title="Formal Languages" href="10-formal-languages.html" /> 
+    <link rel="next" title="12. 12. Satisfiability" href="12-satisfiability.html" />
+    <link rel="prev" title="10. Formal Languages" href="10-formal-languages.html" />
+<!-- <link href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy" rel="stylesheet"> -->
+<!-- <link href="https://fonts.googleapis.com/css?family=Average" rel="stylesheet"> -->
+<!-- <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet"> -->
+
   </head>
   <body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="12-satisfiability.html" title="12. Satisfiability"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="10-formal-languages.html" title="Formal Languages"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -50,7 +39,7 @@
           <div class="body" role="main">
             
   <div class="section" id="propositional-logic">
-<h1>Propositional Logic<a class="headerlink" href="#propositional-logic" title="Permalink to this headline">¶</a></h1>
+<h1>11. Propositional Logic<a class="headerlink" href="#propositional-logic" title="Permalink to this headline">¶</a></h1>
 <p>Here is a proposition: “Tom’s mother is Mary.” A proposition asserts
 that a particular <em>state of affairs</em> holds in some particular <em>domain
 of discourse</em>. The domain in this case would be some family unit; and
@@ -79,7 +68,7 @@ but useful logic that is very closely related to Boolean algebra. If
 you understood the material on Boolean algebra, the transition to this
 chapter should be very easy.</p>
 <div class="section" id="propositional-and-predicate-logic">
-<h2>Propositional and Predicate Logic<a class="headerlink" href="#propositional-and-predicate-logic" title="Permalink to this headline">¶</a></h2>
+<h2>11.1. Propositional and Predicate Logic<a class="headerlink" href="#propositional-and-predicate-logic" title="Permalink to this headline">¶</a></h2>
 <p>The proposition, <em>Tom’s mother is Mary</em>, is simple. It could even be
 represented as a single variable, let’s call it <em>M</em>.  In what we call
 propositional logic, we generally represent propositions as variables
@@ -89,7 +78,7 @@ larger proposition by composing these two propositions into a larger
 one under the logical connective called <em>and</em>. The result would be the
 proposition, <em>Toms’ mother is Mary and Tom’s father is Ernst</em>. We
 could of course write this more concisely as <em>M and F</em>, or, in a more
-mathematical notation, <img class="math" src="_images/math/b6a03bb07b16c653ebfb0058c38d66c7ab234a17.png" alt="M \land F"/>.</p>
+mathematical notation, <img class="math" src="_images/math/dbf922877b75b4cfb04d9dcb97339d25c20b9b26.png" alt="M \land F"/>.</p>
 <p>Now we ask, what is the truth value of this larger proposition? To
 determine the answer, we conjoin the truth values of the constituent
 propositions.  The meaning of the larger proposition is determined by
@@ -102,7 +91,7 @@ larger propositions using connectives such as <em>and</em>, <em>or</em>, and <em
 and this compositional way of determining the truth of propositions,
 is called <em>propositional logic</em>.</p>
 <p>By contrast, the proposition, “every person has a mother” (or to put
-it more formally, <img class="math" src="_images/math/3a2c24211ae54a244f8ed095bd7dd699d5641206.png" alt="\forall p \in Persons, \exists m \in Persons,
+it more formally, <img class="math" src="_images/math/bdf99e6cd30a149e88f686d4893683d3f7100b96.png" alt="\forall p \in Persons, \exists m \in Persons,
 motherOf(p,m)"/>), belongs to a richer logic.  Here, <em>motherOf(p, m)</em> is
 a <em>predicate on two values</em>. It stands for the family of propositions,
 <em>the mother of p is m</em>, where <em>p</em> and <em>m</em> are variables that range
@@ -139,7 +128,7 @@ result is a proposition about those value.</p>
 science. It is, among other things, the logic Dafny provides for
 writing specifications.  As an example, consider our specification of
 what it means for a function, <em>R</em>, with domain, <em>D</em>, and codomain,
-<em>C</em>, to be surjective: <img class="math" src="_images/math/3762eed26c64f9e03b53e9fec19df2bce642d03d.png" alt="\forall c \in C, \exists d \in D, (d,c)
+<em>C</em>, to be surjective: <img class="math" src="_images/math/93b717664c3680a00bc5152d47607be3476627ca.png" alt="\forall c \in C, \exists d \in D, (d,c)
 \in R"/>. In Dafny, we would (and did) write this as, <em>forall c :: c in
 codom() ==&gt; exists d :: d in dom() &amp;&amp; (d,c) in rel().</em> Dafny is thus a
 specification and verification system based on <em>predicate
@@ -164,7 +153,7 @@ simpler case of <em>propositional</em> logic.  To begin, in the next section,
 we address the basic question, what is <em>a logic</em>, in the first place?</p>
 </div>
 <div class="section" id="what-is-a-logic">
-<h2>What is a Logic?<a class="headerlink" href="#what-is-a-logic" title="Permalink to this headline">¶</a></h2>
+<h2>11.2. What is a Logic?<a class="headerlink" href="#what-is-a-logic" title="Permalink to this headline">¶</a></h2>
 <p>A logic is (1) a <em>formal language</em> of <em>propositions</em> along with (2)
 principles for reasoning about whether any given proposition can be
 judged to be <em>true</em> or not. A logic has a <em>syntax</em>, which is a set of
@@ -193,7 +182,7 @@ that was used to compose them. The recursive structure of semantic
 evaluation exactly mirrors the inductive definition of the syntax.</p>
 </div>
 <div class="section" id="id1">
-<h2>Propositional Logic<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>11.3. Propositional Logic<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>We now introduce propositional logic. The syntax of propositional
 logic is basically that of our Boolean expression language with the
 crucial addition of propositional <em>variable expressions</em>. Examples of
@@ -223,7 +212,7 @@ just look up its value in the given intepretation and will otherwise
 proceed as in the last chapter.</p>
 </div>
 <div class="section" id="syntax">
-<h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<h2>11.4. Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
 <p>A logic provides a <em>formal language</em> in which propositions (truth
 statements) are expressed. By a formal language, we mean a (usually
 infinite) set of valid expressions in the language. For example, the
@@ -320,7 +309,7 @@ easy to represent an interpretation as a map from variables (of type
 <em>propVar</em>) to Boolean values.</p>
 </div>
 <div class="section" id="semantics-of-propositional-logic">
-<h2>Semantics of Propositional Logic<a class="headerlink" href="#semantics-of-propositional-logic" title="Permalink to this headline">¶</a></h2>
+<h2>11.5. Semantics of Propositional Logic<a class="headerlink" href="#semantics-of-propositional-logic" title="Permalink to this headline">¶</a></h2>
 <p>Second, a logic defines a of what is required for a proposition to be
 judged true. This definition constitutes what we call the <em>semantics</em>
 of the language. The semantics of a logic given <em>meaning</em> to what are
@@ -379,7 +368,7 @@ and express the proposition from the previous exercise using it. (Okay,
 the code already implements it, so this exercise is obsolete.)</p>
 </div>
 <div class="section" id="inference-rules-for-propositional-logic">
-<h2>Inference Rules for Propositional Logic<a class="headerlink" href="#inference-rules-for-propositional-logic" title="Permalink to this headline">¶</a></h2>
+<h2>11.6. Inference Rules for Propositional Logic<a class="headerlink" href="#inference-rules-for-propositional-logic" title="Permalink to this headline">¶</a></h2>
 <p>Finally, a logic provides a set of <em>inference rules</em> for deriving new
 propositions (conclusions) from given propositions (premises) in ways
 that guarantee that if the premises are true, the conclusions will be,
@@ -421,7 +410,7 @@ elaborated by Russel, Peano, and others as a language in which, in
 turn, to establish completely formal foundations for mathematics.</p>
 </div>
 <div class="section" id="using-logic-in-practice">
-<h2>Using Logic in Practice<a class="headerlink" href="#using-logic-in-practice" title="Permalink to this headline">¶</a></h2>
+<h2>11.7. Using Logic in Practice<a class="headerlink" href="#using-logic-in-practice" title="Permalink to this headline">¶</a></h2>
 <p>To use a logic for practical purposes, one must (1) understand how to
 represent states of affairs in the domain of discourse of interest as
 expressions in the logical language of the logic, and (2) havee some
@@ -457,7 +446,7 @@ finally, are there <em>efficient</em> algorithms for <em>deciding</em> whether o
 not the answer to any such question is yes or no.</p>
 </div>
 <div class="section" id="implementing-propositional-logic">
-<h2>Implementing Propositional Logic<a class="headerlink" href="#implementing-propositional-logic" title="Permalink to this headline">¶</a></h2>
+<h2>11.8. Implementing Propositional Logic<a class="headerlink" href="#implementing-propositional-logic" title="Permalink to this headline">¶</a></h2>
 <p>The rest of this chapter illustrates and further develops these ideas
 using Boolean algebra, and a language of Boolean expressions, as a
 case study in precise definition of the syntax (expression structure)
@@ -472,10 +461,10 @@ ask where there is an assignment of <em>true</em> and <em>false</em> values to t
 variables in the expression to make the overall expression evaluate to
 <em>true</em>.</p>
 <p>Here’s an example. Suppose you’re given the Boolean expression,
-<img class="math" src="_images/math/d2134fca2cb0c27ee5426a41d9e7f422f2f28f85.png" alt="(P \lor Q) \land (\lnot R)"/>. The top-level operator is
+<img class="math" src="_images/math/19a99c99caddc9f2e709823dafaf0e5946a92dbe.png" alt="(P \lor Q) \land (\lnot R)"/>. The top-level operator is
 <em>and</em>. The whole expression thus evaluates to <em>true</em> if and only if
-both subexpressions do: <img class="math" src="_images/math/8ccab6e3d02d6250b96a915c819fbc55f4973b76.png" alt="(P \lor Q)"/> and <img class="math" src="_images/math/6524fd438167cf39571cb8b03f192e7d1a3cccac.png" alt="\land (\lnot
-R)"/>, respectively. The first, <img class="math" src="_images/math/8ccab6e3d02d6250b96a915c819fbc55f4973b76.png" alt="(P \lor Q)"/>, evaluates to <em>true</em>
+both subexpressions do: <img class="math" src="_images/math/483e0c0813d2de5991981bf4cf6d566ec3aabed2.png" alt="(P \lor Q)"/> and <img class="math" src="_images/math/9e01d16082ea5cfb45d90002ca9dbbe769ffa6db.png" alt="\land (\lnot
+R)"/>, respectively. The first, <img class="math" src="_images/math/483e0c0813d2de5991981bf4cf6d566ec3aabed2.png" alt="(P \lor Q)"/>, evaluates to <em>true</em>
 if either of the variables, <em>P</em> and <em>Q</em>, are set to true. The second
 evaluates to true if and only if the variable <em>R</em> is false. There are
 thus settings of the variables that make the formula true. In each of
@@ -496,8 +485,8 @@ problem.</p>
 Boolean expression, to determine whether it is <em>satisfiable</em>. That is,
 is there at least one interpretation (assignment of truth values to
 the variables in the expression that makes the expression evaluate to
-<em>true</em>?  We saw, for example, that the expression, <img class="math" src="_images/math/1811e5e86af3b503fed59dffdb7cd69d32066edd.png" alt="(P \lor Q)
-\land (\lnot R)"/> is satifiable, and, moreover, that <img class="math" src="_images/math/bee5c4be08fb08dd5dfd00e92e9aa5a8f6ff4b30.png" alt="\{ (P,
+<em>true</em>?  We saw, for example, that the expression, <img class="math" src="_images/math/8721a30d1c0697b886172095fe9fc1b09e8e24cf.png" alt="(P \lor Q)
+\land (\lnot R)"/> is satifiable, and, moreover, that <img class="math" src="_images/math/3d951ad8e3b835a2aad59599767acb127ec4f552.png" alt="\{ (P,
 true), (Q, false), (R, false) \}"/> is a (one of three) interpretations
 that makes the expression true.</p>
 <p>Such an interpretation is called a <em>model</em>. The problem of finding a
@@ -505,21 +494,21 @@ model (if there is one), and thereby showing that an expression is
 satisfiable, is naturally enough called the* model finding* problem.</p>
 <p>A second problem is to determine whether a Boolean expression is
 <em>valid</em>. An expression is valid if <em>every</em> interpretation makes the
-expression true. For example, the Boolean expression <img class="math" src="_images/math/e0ae6d7224d00dafd9d3e53ab47570a2ed0406e8.png" alt="P \lor
+expression true. For example, the Boolean expression <img class="math" src="_images/math/9da056f4cba712521c37a0eabbcf56b52ff2c276.png" alt="P \lor
 \neg P"/> is always true. If <em>P</em> is set to true, the formula becomes
-<img class="math" src="_images/math/8a5469c0c0dd09859bf67a983b3b58a7bc12ebf0.png" alt="true \lor false"/>. If <em>P</em> is set to false, the formula is then
-<img class="math" src="_images/math/8a5469c0c0dd09859bf67a983b3b58a7bc12ebf0.png" alt="true \lor false"/>. Those are the only two interpretations and
+<img class="math" src="_images/math/942cf1f6b9f1880446a1a2720f8bb14275ecea22.png" alt="true \lor false"/>. If <em>P</em> is set to false, the formula is then
+<img class="math" src="_images/math/942cf1f6b9f1880446a1a2720f8bb14275ecea22.png" alt="true \lor false"/>. Those are the only two interpretations and
 under either of them, the resulting expression evaluates to true.</p>
 <p>A third related problem is to determine whether a Boolean expression
 is it <em>unsatisfiable</em>? This case occurs when there is <em>no</em> combination
-of variable values makes the expression true. The expression <img class="math" src="_images/math/11c06d2d7a184be52638dd0a726b38ec0ab135b9.png" alt="P
+of variable values makes the expression true. The expression <img class="math" src="_images/math/73e8eee4235d618de5fd79123debb2462b75fc0d.png" alt="P
 \land \neg P"/> is unsatisfiable, for example. There is no value of $P$
 (either <em>true</em> or <em>false</em>) that makes the resulting formula true.</p>
 <p>These decision problems are all solvable. There are algorithms that in
 a finite number of steps can determine answers to all of them. In the
 worst case, one need only look at all possible combinations of true
 and false values for each of the (finite number of) variables in an
-expression. If there are <em>n</em> variables, that is at most <img class="math" src="_images/math/798d39775b3c54beddeb31ad508597409e6e7c43.png" alt="2^n"/>
+expression. If there are <em>n</em> variables, that is at most <img class="math" src="_images/math/bc3842c422f55f3c3625d00cdb478d653523ee55.png" alt="2^n"/>
 combinations of such values. Checking the value of an expression for
 each of these interpretations will determine whether it’s satisfiable,
 unsatisfiable, or valid. In this chapter, we will see how these ideas
@@ -548,7 +537,7 @@ values of inductively defined types. We will also see uses of several
 of Dafny’s built-in abstract data types, including sets, sequences,
 and maps. So let’s get going.</p>
 <div class="section" id="id4">
-<h3>Syntax<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3>11.8.1. Syntax<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>Any basic introduction to programming will have made it clear that
 there is an infinite set of Boolean expressions. First, we can take
 the Boolean values, <em>true</em> and <em>false</em>, as <em>literal</em> expressions.
@@ -560,7 +549,7 @@ or more smaller <em>Boolean expressions</em> as arguments.</p>
 larger Boolean expressions out of smaller ones. We are thus defining
 the set of all Boolean expressions <em>inductively</em>. For example, if <em>P</em>
 is a Boolean variable expression, then we can construct a valid larger
-expression, <img class="math" src="_images/math/09aad34152247adcbd0eb29387e536cc8b02149f.png" alt="P \land true"/> to express the conjunction of the
+expression, <img class="math" src="_images/math/8b011a199e51a06c6c7c7a5e9f08250445b9bee3.png" alt="P \land true"/> to express the conjunction of the
 value of <em>P</em> (whatever it might be( with the value, <em>true</em>. From here
 we could build the larger expression, <em>P lor (P land true)</em>, and so
 on, ad infinitum.</p>
@@ -585,7 +574,7 @@ assign them <em>true</em> and <em>false</em> values, the overall proposition mig
 rendered true or false.</p>
 </div>
 <div class="section" id="interpretation">
-<h3>Interpretation<a class="headerlink" href="#interpretation" title="Permalink to this headline">¶</a></h3>
+<h3>11.8.2. Interpretation<a class="headerlink" href="#interpretation" title="Permalink to this headline">¶</a></h3>
 <p>Evaluate a Boolean expression in a given environment.  The recursive
 structure of this algorithm reflects the inductive structure of the
 expressions we’ve defined.</p>
@@ -594,7 +583,7 @@ expressions we’ve defined.</p>
 </div>
 </div>
 <div class="section" id="semantics">
-<h3>Semantics<a class="headerlink" href="#semantics" title="Permalink to this headline">¶</a></h3>
+<h3>11.8.3. Semantics<a class="headerlink" href="#semantics" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>function method Beval(e: Bexp, i: interp): (r: bool)
 {
     match e
@@ -633,7 +622,7 @@ expressions by transforming it repeatedly into simpler forms but in
 ways that preserve its meaning until we reach a single Boolean value.</p>
 </div>
 <div class="section" id="models">
-<h3>Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h3>
+<h3>11.8.4. Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 </div>
@@ -644,34 +633,94 @@ ways that preserve its meaning until we reach a single Boolean value.</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="10-formal-languages.html"
-                        title="previous chapter">Formal Languages</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="12-satisfiability.html"
-                        title="next chapter">12. Satisfiability</a></p>
+<h1 class="logo"><a href="index.html">Discrete Mathematics: A Computational Approach</a></h1>
+
+
+
+
+
+
+
+
+<!-- <h3>Navigation</h3> -->
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="01-reqs-specs-impls.html">1. Requirement, Specifications, and Implementations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-logic-and-code.html">2. Logical Specifications, Imperative Implementations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-problems-with-imperative-code.html">3. Problems with Imperative Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-runnable-math.html">4. Pure Functional Programming as Runnable Mathematics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-verifying-logical-specifications.html">5. Formal Verification of Imperative Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-dafny-language.html">6. Dafny Language: Types, Statements, Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-set-theory.html">7. Set Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-relations.html">8. Relations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-boolean-algebra.html">9. Boolean Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-formal-languages.html">10. Formal Languages</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">11. Propositional Logic</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#propositional-and-predicate-logic">11.1. Propositional and Predicate Logic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-a-logic">11.2. What is a Logic?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">11.3. Propositional Logic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#syntax">11.4. Syntax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#semantics-of-propositional-logic">11.5. Semantics of Propositional Logic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inference-rules-for-propositional-logic">11.6. Inference Rules for Propositional Logic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-logic-in-practice">11.7. Using Logic in Practice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#implementing-propositional-logic">11.8. Implementing Propositional Logic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">11.8.1. Syntax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#interpretation">11.8.2. Interpretation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#semantics">11.8.3. Semantics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#models">11.8.4. Models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="12-satisfiability.html">12. 12. Satisfiability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-consequence.html">13. Natural Deduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-predicate-logic.html">14. Predicate Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-proofs.html">15. Proofs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-equality.html">16. Proofs of Equalities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-inequality.html">17. Proofs of Inequality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18-existence.html">18. Proofs of Existence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19-univeral.html">19. Proofs of Universality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20-termination.html">20. Termination</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="discrete_mathematics.pdf">PDF version</a></li>
+    
+    <li class="toctree-l1"><a href="https://kevinsullivan.github.io/cs-dm">Lean Home</a></li>
+    
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="12-satisfiability.html" title="12. Satisfiability"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="10-formal-languages.html" title="Formal Languages"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
-      </ul>
+    <div class="footer">
+      &copy;2018, Kevin Sullivan.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/11-propositional-logic.rst.txt"
+          rel="nofollow">Page source</a>
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright .
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
-    </div>
+
+    
+
+    
   </body>
 </html>

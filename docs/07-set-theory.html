@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Set Theory &#8212; Discrete Mathematics 1 documentation</title>
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <title>7. Set Theory &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1',
+        VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -21,28 +21,17 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/sidebar.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Relations" href="08-relations.html" />
-    <link rel="prev" title="Dafny Language: Types, Statements, Expressions" href="06-dafny-language.html" /> 
+    <link rel="next" title="8. Relations" href="08-relations.html" />
+    <link rel="prev" title="6. Dafny Language: Types, Statements, Expressions" href="06-dafny-language.html" />
+<!-- <link href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy" rel="stylesheet"> -->
+<!-- <link href="https://fonts.googleapis.com/css?family=Average" rel="stylesheet"> -->
+<!-- <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet"> -->
+
   </head>
   <body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="08-relations.html" title="Relations"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="06-dafny-language.html" title="Dafny Language: Types, Statements, Expressions"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -50,7 +39,7 @@
           <div class="body" role="main">
             
   <div class="section" id="set-theory">
-<h1>Set Theory<a class="headerlink" href="#set-theory" title="Permalink to this headline">¶</a></h1>
+<h1>7. Set Theory<a class="headerlink" href="#set-theory" title="Permalink to this headline">¶</a></h1>
 <p>Modern mathematics is largely founded on set theory: in particular, on
 what is called <em>Zermelo-Fraenkel set theory with the axiom of Choice</em>,
 or <em>ZFC</em>. Every concept you have ever learned in mathematics can, in
@@ -65,7 +54,7 @@ concepts.  ZFC is a widely accepted <em>formal foundation</em> for modern
 mathematics: a set of axioms that describe properties of sets, from
 which all the rest of mathematics can be deduced.</p>
 <div class="section" id="naive-set-theory">
-<h2>Naive Set Theory<a class="headerlink" href="#naive-set-theory" title="Permalink to this headline">¶</a></h2>
+<h2>7.1. Naive Set Theory<a class="headerlink" href="#naive-set-theory" title="Permalink to this headline">¶</a></h2>
 <p>So what is a set? A <em>naive</em> definition (which will actually be good
 enough for our purposes and for most of practical computer science) is
 that a set is just an unordered collection of elements. In principle,
@@ -87,7 +76,7 @@ that define what precisely it means to be a set and what operations
 can be use to manipulate sets.</p>
 </div>
 <div class="section" id="overly-naive-set-theory">
-<h2>Overly Naive Set Theory<a class="headerlink" href="#overly-naive-set-theory" title="Permalink to this headline">¶</a></h2>
+<h2>7.2. Overly Naive Set Theory<a class="headerlink" href="#overly-naive-set-theory" title="Permalink to this headline">¶</a></h2>
 <p>Before we go on, however, we review a bit of history to understand
 that an overly naive view of sets can lead to logical contradictions
 that make such a theory useless as a foundation for mathematics.</p>
@@ -107,7 +96,7 @@ would be <em>inconsistent</em> (self-contradicting) and there useless as a
 foundation for mathematics.</p>
 <p>To see the problem, one consider the set, <em>S</em>, of all sets that do not
 contain themselves. In <em>set comprehension</em> notation, we would write
-this set as <img class="math" src="_images/math/5fd8e13bfdfe8ceff488029c124be7e2e32abe0b.png" alt="S = \{ a: set | a \notin a \}."/> That is, <em>S</em> is the
+this set as <img class="math" src="_images/math/534ac8167c1ad579645a52bc3e324dc570331e10.png" alt="S = \{ a: set | a \notin a \}."/> That is, <em>S</em> is the
 set of elements, <em>a</em>, each a set, such that <em>a</em> is not a member of
 itself.</p>
 <p>Now ask the decisive question: Does <em>S</em> contain itself?</p>
@@ -117,11 +106,11 @@ contain itself. In this case, <em>S</em>, being a set that contains itself,
 cannot be a member of <em>S</em>, because we just defined <em>S</em> to be the set
 of sets that do <em>not</em> contain themselves. So, the assumption that <em>S</em>
 contains itself leads to the conclusion that <em>S</em> does not contain
-itself. In logical terms, <img class="math" src="_images/math/88fed86576b69c7f57881ccfe1f506808ec16b07.png" alt="C(S) \rightarrow \neg C(S)."/> This is
+itself. In logical terms, <img class="math" src="_images/math/adf9ac46080e857699cc8f5aa7c10e46bcc228fb.png" alt="C(S) \rightarrow \neg C(S)."/> This is
 a contradiction and thus a logical impossibility.</p>
-<p>Now suppose <em>S</em> does not contain itself: <img class="math" src="_images/math/4a4e43a13b62324114a4b955a446319f03c21fac.png" alt="\neg C(S)."/>. Being
+<p>Now suppose <em>S</em> does not contain itself: <img class="math" src="_images/math/6a1221ea92c335e5d9a0d4b0911c0857bd57ae1f.png" alt="\neg C(S)."/>. Being
 such a set, and given that <em>S</em> is the set of sets that do not contain
-themselves, it must now be in <em>S</em>. So <img class="math" src="_images/math/2bf28ffcfdbea32d11c7145b71a2883546e258a6.png" alt="\neg C(S) \rightarrow
+themselves, it must now be in <em>S</em>. So <img class="math" src="_images/math/17d93e6cf711e6d241441881dac0a10853d97bc8.png" alt="\neg C(S) \rightarrow
 C(S)."/> The assumption that it does <em>not</em> contain itself leads right
 back to the conclusion that it <em>does</em> contain itself. Either the set
 does or does not contain itself, but assuming either case leads to a
@@ -156,7 +145,7 @@ perspective or not, we are usually working in a set theory the logical
 basic of which is ZFC.</p>
 </div>
 <div class="section" id="sets">
-<h2>Sets<a class="headerlink" href="#sets" title="Permalink to this headline">¶</a></h2>
+<h2>7.3. Sets<a class="headerlink" href="#sets" title="Permalink to this headline">¶</a></h2>
 <p>For our purposes, the <em>naive</em> notion of sets will be good enough. We
 will take a <em>set</em> to be an unordered finite or infinite collection of
 <em>elements</em>. An element is either <em>in</em> or <em>not in</em> a set, and can be in
@@ -173,20 +162,20 @@ theory, a first-order logic with sets and set-related operations as
 built-in concepts.</p>
 </div>
 <div class="section" id="set-theory-notations">
-<h2>Set Theory Notations<a class="headerlink" href="#set-theory-notations" title="Permalink to this headline">¶</a></h2>
+<h2>7.4. Set Theory Notations<a class="headerlink" href="#set-theory-notations" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="display-notation">
-<h3>Display notation<a class="headerlink" href="#display-notation" title="Permalink to this headline">¶</a></h3>
+<h3>7.4.1. Display notation<a class="headerlink" href="#display-notation" title="Permalink to this headline">¶</a></h3>
 <p>In everyday mathematical writing, and in Dafny, we denote small sets by
 listing the elements of the set within curly brace. If <em>S</em> is the set
 containing the numbers, one, two, and three, for example, we can write
-<em>S</em> as <img class="math" src="_images/math/681866a8f518adc2b652c8a583e1b642e424b55b.png" alt="\{ 1, 2, 3 \}."/></p>
+<em>S</em> as <img class="math" src="_images/math/4c31e27b476d112a8019c414ff007f63004cf595.png" alt="\{ 1, 2, 3 \}."/></p>
 <p>In Dafny, we would write almost the same thing.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>var S:set&lt;int&gt; := { 1, 2, 3 };
 </pre></div>
 </div>
 <p>This code introduces the variable, <em>S</em>, declares that its type is
 <em>finite set of integer</em> (<em>iset&lt;T&gt;</em> being the type of <em>infinite</em> sets
-of elements of tyep <em>T</em>), and assigns to <em>S</em> the set value, <img class="math" src="_images/math/b7d2529464caa57ee93b6344aa404e3030bb115a.png" alt="\{
+of elements of tyep <em>T</em>), and assigns to <em>S</em> the set value, <img class="math" src="_images/math/1977eef35e1a05310c2317c2675f929c82acd383.png" alt="\{
 1, 2, 3 \}."/> Because the value on the right side of the assignment
 operator, is evidently a set of integers, Dafny will infer the type of
 <em>S</em>, and the explicit type declaration can therefore be omitted.</p>
@@ -197,7 +186,7 @@ operator, is evidently a set of integers, Dafny will infer the type of
 elements, but when it has a regular structure, mathematicians often
 denote such a set using an elipsis. For example, a set, <em>S</em>, of even
 natural numbers from zero to one hundred could be written like this:
-<img class="math" src="_images/math/9a00b3fe8646fb985d914bf4e01ecb01aec599d2.png" alt="S = \{ 0, 2, 4, \ldots, 100 \}."/> This expression is a kind of
+<img class="math" src="_images/math/8127c272b758ea605ff9ed29db2545e371210812.png" alt="S = \{ 0, 2, 4, \ldots, 100 \}."/> This expression is a kind of
 quasi-formal mathematics. It’s mostly formal but leaves details that
 an educated person should be able to infer to the human reader.</p>
 <p>It is not (currently) possible to write such expressions in Dafny.
@@ -209,10 +198,10 @@ very concise ways, using what is called <em>set comprehension</em> or <em>set
 builder</em> notation.</p>
 </div>
 <div class="section" id="set-comprehension-notation">
-<h3>Set comprehension notation<a class="headerlink" href="#set-comprehension-notation" title="Permalink to this headline">¶</a></h3>
+<h3>7.4.2. Set comprehension notation<a class="headerlink" href="#set-comprehension-notation" title="Permalink to this headline">¶</a></h3>
 <p>Take the example of the set, <em>S</em>, of even numbers from zero to one
 hundred, inclusive. We can denote this set precisely in mathematical
-writing as <img class="math" src="_images/math/87faf1ea63943abec666b096763f6edc923017c0.png" alt="S = \{ n: {\mathbb Z}~|~0 &lt;= n &lt;= 100 \land n~mod~2
+writing as <img class="math" src="_images/math/cb82dd1500e8a235380e16253adda1dd992514ee.png" alt="S = \{ n: {\mathbb Z}~|~0 &lt;= n &lt;= 100 \land n~mod~2
 = 0 \}."/> Let’s pull this expression apart.</p>
 <p>The set expression (to the right of the first equals sign) can be read
 in three parts. The vertical bar is read <em>such that</em>. To the left of
@@ -263,7 +252,7 @@ be another programmer-defined set. Given that <em>S</em> is the set
 of even numbers from zero to one hundred, we can define the
 subset of <em>S</em> of elements that are less than <em>25</em> by writing
 a richer set comprehension. In pure mathematical writing, we
-could write <img class="math" src="_images/math/9cc14614aedd949a467fd052edd0f4f2e3862dd0.png" alt="T = \{ t | t \in S \land t &lt; 25\}."/> That is,
+could write <img class="math" src="_images/math/828199ecc02b52793530492574dda59a384f5e98.png" alt="T = \{ t | t \in S \land t &lt; 25\}."/> That is,
 <em>T</em> is the set of elements that are in <em>S</em> and less than <em>25</em>.
 The Dafny notation is a little different, but not too much:</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>var T := set t | t in S &amp;&amp; t &lt; 25;
@@ -276,7 +265,7 @@ the set <em>S</em> (that we just defined) and <em>t</em> is also less than <em>2
 all ordered pairs whose first elements are from <em>S</em> and whose second
 elements are from <em>T</em>, as we’ve defined them here. For example, the
 pair <em>(76,24)</em> would be in this set, but not <em>(24 76)</em>. In ordinary
-mathematical writing, this would be <img class="math" src="_images/math/6e93c4191ebb0fdc2a5106f5991ef00a0665e9f8.png" alt="\{ (s,t) | s \in S \land t
+mathematical writing, this would be <img class="math" src="_images/math/59def0a588f13dc3fe843d8b6e1846aea33ca832.png" alt="\{ (s,t) | s \in S \land t
 \in T\}."/> This set is, as we’ll learn more about shortly, called the
 <em>product set</em> of the sets, <em>S</em> and <em>T</em>.</p>
 <p>In Danfy, this would be written like this:</p>
@@ -297,14 +286,14 @@ than the usual square bracket subscripting used with sequences.</p>
 </div>
 </div>
 <div class="section" id="set-operations">
-<h2>Set Operations<a class="headerlink" href="#set-operations" title="Permalink to this headline">¶</a></h2>
+<h2>7.5. Set Operations<a class="headerlink" href="#set-operations" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="cardinality">
-<h3>Cardinality<a class="headerlink" href="#cardinality" title="Permalink to this headline">¶</a></h3>
+<h3>7.5.1. Cardinality<a class="headerlink" href="#cardinality" title="Permalink to this headline">¶</a></h3>
 <p>By the cardinality of a set, <em>S</em>, we mean the number of elements
 in S. When <em>S</em> is finite, the cardinality of <em>S</em> is a natural number.
 The cardinarily of the empty set is zero, for example, because it has
 no (zero) elements. In ordinary mathematics, if <em>S</em> is a finite set,
-then its cardinality is denoted <img class="math" src="_images/math/bca4eb7c95f7b9bb9f0b55ab74fb48501c374794.png" alt="|S|"/>. With <em>S</em> defined as in
+then its cardinality is denoted <img class="math" src="_images/math/de6d264d4d835f6a281e7f724a7ad5d11935904e.png" alt="|S|"/>. With <em>S</em> defined as in
 the preceding section, the cardinality of <em>S</em> is <em>50</em>. (There are
 <em>50</em> numbers between <em>0</em> and <em>49</em>, inclusive.)</p>
 <p>The Dafny notation for set cardinality is just the same. The following
@@ -320,27 +309,27 @@ might expect, the cardinality operator is not defined for infinite
 sets (of type <em>iset&lt;T&gt;</em>).</p>
 </div>
 <div class="section" id="equality">
-<h3>Equality<a class="headerlink" href="#equality" title="Permalink to this headline">¶</a></h3>
+<h3>7.5.2. Equality<a class="headerlink" href="#equality" title="Permalink to this headline">¶</a></h3>
 <p>Two sets are considered equal if and only if they contain exactly
 the same elements. To assert that sets <em>S</em> and <em>T</em> are equal in
 mathematical writing, we would write <em>S = T</em>. In Dafny, such an
 assertion would be written, <em>S == T</em>.</p>
 </div>
 <div class="section" id="subset">
-<h3>Subset<a class="headerlink" href="#subset" title="Permalink to this headline">¶</a></h3>
+<h3>7.5.3. Subset<a class="headerlink" href="#subset" title="Permalink to this headline">¶</a></h3>
 <p>A set, <em>T</em>, can be said to be a subset of a set <em>S</em> if and only if
 every element in <em>T</em> is also in <em>S</em>. In this case, mathematicians
-write <img class="math" src="_images/math/006926e4a2b3b3a55129b93b7ab1fedf68da96eb.png" alt="T \subseteq S"/>. In mathematical logic notation, we would
-write, <img class="math" src="_images/math/0e4eb07fe9d633c95c2e21bf6f6f70df946e43f6.png" alt="T \subseteq S \iff \forall t \in T, t \in S"/>. That is,
+write <img class="math" src="_images/math/8192336cb1ce458674b5ab8217890b12a224c891.png" alt="T \subseteq S"/>. In mathematical logic notation, we would
+write, <img class="math" src="_images/math/26b884742748aba39b6b62f99f74efb0f54a7417.png" alt="T \subseteq S \iff \forall t \in T, t \in S"/>. That is,
 <em>T</em> is a subset of <em>S</em> if and only if every element in <em>T</em> is also in
 <em>S</em>.</p>
 <p>A set <em>T</em>, is said to be a <em>proper</em> subset of <em>S</em>, if <em>T</em> is a subset
 of <em>S</em> but <em>T</em> is not equal to <em>S</em>. In our example, <em>T</em> (the set of
 even natural numbers less than <em>25</em>) is a proper subset of <em>S</em> (the
 set of even natural numbers less than or equal to <em>100</em>).</p>
-<p>This is written in mathematics as <img class="math" src="_images/math/5e1985f6ce3ef221173377903e0f65930b9412aa.png" alt="T \subset S"/>. In other words,
+<p>This is written in mathematics as <img class="math" src="_images/math/300ab9d3bf5ddccd29b8d5467c2a8d12ed350a57.png" alt="T \subset S"/>. In other words,
 every element of <em>T</em> is in <em>S</em> but there is at least one element of
-<em>S</em> that is not in <em>T</em>. Mathematically, <img class="math" src="_images/math/bf151b36ad97d9a191db89e96fefaf66e90ba2b3.png" alt="T \subset S \iff
+<em>S</em> that is not in <em>T</em>. Mathematically, <img class="math" src="_images/math/b45e96026a4b1fae926bba3813867f7c86dd5230.png" alt="T \subset S \iff
 \forall t \in T, t \in S \land \exists s \in S, s \notin T"/>.</p>
 <p>The backwards <em>E</em> is the <em>existential quantifier</em> in first-order
 logic, and is read as, and means, <em>there exists.</em> So this expression
@@ -372,8 +361,8 @@ because there are none. In logic-speak, we’d say <em>a universally
 quantified proposition over an empty set is trivially true.</em></p>
 <p>If we reverse the operator, we get the notion of supersets and proper
 supersets. If <em>T</em> is a subset of <em>S</em>, then <em>S</em> is a superset of <em>T</em>,
-written, <img class="math" src="_images/math/545f54f8cb60943285b183ae5bc52fb0fc87ad16.png" alt="S \supseteq T"/>. If <em>T</em> is a proper subset of <em>S</em> then
-<em>S</em> is a proper superset of <em>T</em>, written <img class="math" src="_images/math/65e6f407c7dfce0fa7d0f9e6db27595235e657f2.png" alt="S \supset T"/>. In
+written, <img class="math" src="_images/math/ebf153b4466e3e383efe1ff8204420d907956bf9.png" alt="S \supseteq T"/>. If <em>T</em> is a proper subset of <em>S</em> then
+<em>S</em> is a proper superset of <em>T</em>, written <img class="math" src="_images/math/9aa51b324975554da11bbc719bbd1f0064694aa3.png" alt="S \supset T"/>. In
 Dafny, the greater than and greater than or equals operator are used
 to denote proper superset and superset relationships between sets.
 So, for example, <em>S &gt;= T</em> is the assertion that <em>S</em> is a superset of
@@ -381,39 +370,39 @@ So, for example, <em>S &gt;= T</em> is the assertion that <em>S</em> is a supers
 superset of itself, and every set is a superset of the empty set.</p>
 </div>
 <div class="section" id="intersection">
-<h3>Intersection<a class="headerlink" href="#intersection" title="Permalink to this headline">¶</a></h3>
-<p>The intersection, <img class="math" src="_images/math/5391bb4cd9797217ba8e85da016c08f73cf66ba9.png" alt="S \cap T"/>, of two sets, <em>S</em> and <em>T</em>, is the
+<h3>7.5.4. Intersection<a class="headerlink" href="#intersection" title="Permalink to this headline">¶</a></h3>
+<p>The intersection, <img class="math" src="_images/math/17b7b98f460d810be3d2671b4a193060c401b0cb.png" alt="S \cap T"/>, of two sets, <em>S</em> and <em>T</em>, is the
 set of elements that are in both <em>S</em> and <em>T</em>. Mathematically speaking,
-<img class="math" src="_images/math/b93e4637c8680497c56648862807d1a3965cacd8.png" alt="S \cap T = \{ e~|~e \in S \land e \in T \}"/>.</p>
+<img class="math" src="_images/math/ffd81e4b2127bdf790dfdd92ea37f28124dd1cba.png" alt="S \cap T = \{ e~|~e \in S \land e \in T \}"/>.</p>
 <p>In Dafny, the <em>*</em> operator is used for set intersection.  The
 intersection of <em>S</em> and <em>T</em> is thus written <em>S * T</em>. For example, the
 command <em>Q := S * T</em> assigns the intersection of <em>S</em> and <em>T</em> as the
 new value of <em>Q</em>.</p>
 </div>
 <div class="section" id="union">
-<h3>Union<a class="headerlink" href="#union" title="Permalink to this headline">¶</a></h3>
-<p>The union, <img class="math" src="_images/math/10bb12eb90bac33ab070fa2ff9405b721df1230e.png" alt="S \cup T"/>, of two sets, <em>S</em> and <em>T</em>, is the set of
+<h3>7.5.5. Union<a class="headerlink" href="#union" title="Permalink to this headline">¶</a></h3>
+<p>The union, <img class="math" src="_images/math/2de920c1d2b76dfdac8638bf2aee04a1f86d4eef.png" alt="S \cup T"/>, of two sets, <em>S</em> and <em>T</em>, is the set of
 elements that are in either (including both) <em>S</em> and <em>T</em>. That is,
-<img class="math" src="_images/math/58bdb243ed3b6853a683d0c0d2bfe955008a1865.png" alt="S \cup T = \{ e~|~e \in S \lor e \in T \}"/>.</p>
+<img class="math" src="_images/math/1c42020e093dd95fe74495cba4d516420eaf4c11.png" alt="S \cup T = \{ e~|~e \in S \lor e \in T \}"/>.</p>
 <p>In Dafny, the <em>+</em> operator is used for set union.  The union of <em>S</em>
 and <em>T</em> is thus written <em>S + T</em>. For example, the command <em>V := S +
 T</em> assigns the union of <em>S</em> and <em>T</em> as the new value of <em>V</em>.</p>
 </div>
 <div class="section" id="difference">
-<h3>Difference<a class="headerlink" href="#difference" title="Permalink to this headline">¶</a></h3>
-<p>The difference, <img class="math" src="_images/math/455ad52d8d5f1358ba3b36231f49b853407b6bdd.png" alt="S \setminus T"/> (<em>S</em> minus <em>T</em>), of sets <em>S</em> and
+<h3>7.5.6. Difference<a class="headerlink" href="#difference" title="Permalink to this headline">¶</a></h3>
+<p>The difference, <img class="math" src="_images/math/d3c4d01da4bbb1da5c21db3016b18ffbe3c672ca.png" alt="S \setminus T"/> (<em>S</em> minus <em>T</em>), of sets <em>S</em> and
 <em>T</em> is the set of elements in <em>S</em> that are not also in <em>T</em>. Thus,
-<img class="math" src="_images/math/c6eba5a43c93c906cd86061a64da8032b690d1bd.png" alt="S \setminus T = \{e~|~e \in S \land e \notin T)"/>. In Dafny, the
+<img class="math" src="_images/math/94c0dc4a6ce2d8263cdda42a149011d78705ea28.png" alt="S \setminus T = \{e~|~e \in S \land e \notin T)"/>. In Dafny, the
 minus sign is used to denote set difference, as in the expression,
 <em>S - T</em>. Operators in Dafny can be applied to sets to make up more
 complex expressions. So, for example, <em>|S-T|</em> denotes the cardinality
 of <em>S-T</em>.</p>
 </div>
 <div class="section" id="product-set">
-<h3>Product Set<a class="headerlink" href="#product-set" title="Permalink to this headline">¶</a></h3>
-<p>The product set, <img class="math" src="_images/math/64a6eff94bb737b50c491df7ab889fd0c11ecb02.png" alt="S \times T"/>, is the set of all the ordered
+<h3>7.5.7. Product Set<a class="headerlink" href="#product-set" title="Permalink to this headline">¶</a></h3>
+<p>The product set, <img class="math" src="_images/math/1acb93609f9c3ced3ac62508151f822cee4b46bc.png" alt="S \times T"/>, is the set of all the ordered
 pairs, <em>(s,t)</em>, that can be formed by taking one element, <em>s</em>, from
-<em>S</em>, and one element, <em>t</em>, from <em>T</em>. That is, <img class="math" src="_images/math/66db47fecf99101ab90735c11092ae3be332839a.png" alt="S \times T = \{
+<em>S</em>, and one element, <em>t</em>, from <em>T</em>. That is, <img class="math" src="_images/math/795080d01db51c63e7c19ef07c9e6c5518a717d3.png" alt="S \times T = \{
 (s, t) | s \in S \land t \in T \}"/>. The cardinality of a product set
 is the product of the cardinalities of the individual sets.</p>
 <p>There is no product set operator, per se, in Dafny, but given sets,
@@ -427,12 +416,12 @@ finally an expression using the local variables that states how each
 value of the resulting set will be formed.</p>
 </div>
 <div class="section" id="power-set">
-<h3>Power Set<a class="headerlink" href="#power-set" title="Permalink to this headline">¶</a></h3>
-<p>The power set of a set, <em>S</em>, denoted <img class="math" src="_images/math/13c471ff6a4226c1aeff17f10d4693215420d207.png" alt="{\mathbb P}(S),"/> is the
+<h3>7.5.8. Power Set<a class="headerlink" href="#power-set" title="Permalink to this headline">¶</a></h3>
+<p>The power set of a set, <em>S</em>, denoted <img class="math" src="_images/math/ecf87312a6f2328d7aaf2c7faa76bd847c4a630a.png" alt="{\mathbb P}(S),"/> is the
 set of all subsets of <em>S</em>. If <em>S = {1, 2 }</em>, for example, the powerset
 of <em>S</em> is the set containing the proper and improper subsets of <em>S</em>,
 namely <em>{}, { 1 }, { 2 },</em> and <em>{ 1, 2}</em>.</p>
-<p>The powerset of a set with <em>n</em> element will have <img class="math" src="_images/math/798d39775b3c54beddeb31ad508597409e6e7c43.png" alt="2^n"/> elements.
+<p>The powerset of a set with <em>n</em> element will have <img class="math" src="_images/math/bc3842c422f55f3c3625d00cdb478d653523ee55.png" alt="2^n"/> elements.
 Consider the powerset of the empty set. The only subset of the empty
 set is the empty set itself, so the powerset of the empty set is the
 set containing only the empty set. This set has just <em>1</em> element. It’s
@@ -450,13 +439,13 @@ twice that number, is <em>2</em> to the <em>n + 1</em>.</p>
 <p>Now because the rule holds for sets of size zero, and whenver it holds
 for sets of size <em>n</em> it also holds for sets of size <em>n + 1</em>, it must
 hold for sets of every (finite) size. So what we have is an informal
-<em>proof by induction</em> of a theorem: <img class="math" src="_images/math/6286656ea11925e78858a3878bc9be8a2866eeb9.png" alt="\forall S, |{\mathbb P}(S)|
+<em>proof by induction</em> of a theorem: <img class="math" src="_images/math/95ad68b814d37c69f9d6160356f57bed14348fbc.png" alt="\forall S, |{\mathbb P}(S)|
 = 2^{|S|}"/>.</p>
 <p>In Dafny, there is no explicit powerset operator, one that would take
 a set and returning its powerset, but the concept can be expressed in
 an elegant form using a set comprehension. The solution is simply to
 say <em>the set of all sets that are subsets of a given set, *</em>. In pure
-mathematical notation this would be <img class="math" src="_images/math/e81fbf5e8d1ab6627d0ef257362d2d412eedc562.png" alt="{ R | R \subseteq S }."/> In
+mathematical notation this would be <img class="math" src="_images/math/9d87addc195f5182ea66aeb7d08e8152eaa7ca5e.png" alt="{ R | R \subseteq S }."/> In
 Dafny it’s basically the same expression.  The follwing three-line
 program computes and prints out the powerset of <em>S = { 1, 2, 3 }</em>.
 The key expression is to the right of the assignment operator on the
@@ -472,7 +461,7 @@ it powerset&lt;T&gt;.</p>
 </div>
 </div>
 <div class="section" id="tuples">
-<h2>Tuples<a class="headerlink" href="#tuples" title="Permalink to this headline">¶</a></h2>
+<h2>7.6. Tuples<a class="headerlink" href="#tuples" title="Permalink to this headline">¶</a></h2>
 <p>A tuple is an ordered collection of elements. The type of elements in
 a tuple need not all be be the same. The number of elements in a tuple
 is called its <em>arity</em>. Ordered pairs are tuples of arity, <em>2</em>, for
@@ -486,19 +475,19 @@ and last, a function.</p>
 <p>An <em>n</em>-tuples should be understood as values taken from a product of
 <em>n</em> sets.  If <em>S</em> and <em>T</em> are our sets of even numbers between zero
 and one hundred, and zero and twenty four, for example, then the
-ordered pair, <em>(60,24)</em> is an element of the product set <img class="math" src="_images/math/fd4532a7c98d7c47b7d54737789d6d190f8a7858.png" alt="S
+ordered pair, <em>(60,24)</em> is an element of the product set <img class="math" src="_images/math/8e4b485a20a84b7f2ec8231dc0a35dc4c5100c7d.png" alt="S
 \times T"/>.  The preceding <em>4</em>-tuple would have come from a product of
 four sets: one of integers, one of variables, one of strings, and one
 of functions.</p>
 <p>The <em>type</em> of a tuple is the tuple of the types of its elements. In
 mathematical writing, we’d say that the tuple, <em>(-3,4)</em> is al element
-of the set <img class="math" src="_images/math/d525dd73f25737324d2d392212dacd850ef44d6e.png" alt="{\mathbb Z} \times {\mathbb Z},"/> and if asked about
+of the set <img class="math" src="_images/math/7968e821678c1ff446e8287d09112436b3680edf.png" alt="{\mathbb Z} \times {\mathbb Z},"/> and if asked about
 its type, most mathematicians would say <em>pair of integers</em>. In Dafny,
 where types are more explicit than they usually are in quasi-formal
 mathematical discourse, the type of this tuple is <em>(int, int)</em>. In
 general, in both math and in Dafny, in particular, the type of a tuple
 in a set product, ::<cite>S_1 times S_2 times ldots time S_n</cite>, where
-the types of these sets are <img class="math" src="_images/math/a25f27eaf855f40709db99b90e3b307f237b9c35.png" alt="T_1, \ldots, T_n"/> is <img class="math" src="_images/math/74d9c0565f0b3fbb6fd97c1dd34039045be28627.png" alt="(T_1,
+the types of these sets are <img class="math" src="_images/math/3eccb40a18247a3afb7fd0a856d29c0efc279393.png" alt="T_1, \ldots, T_n"/> is <img class="math" src="_images/math/60d74cdd3e9179c740d4f155e323527982941707.png" alt="(T_1,
 \ldots, T_n)"/>.</p>
 <p>The elements of a tuple are sometimes called <em>fields of that tuple.
 Given an *n</em>-tuple, <em>t</em>, we are often interested in working with the
@@ -509,13 +498,13 @@ as coming with <em>n</em> projection functions, one for each field.</p>
 ::<cite>pi</cite>, with a natural number subscript indicating which field a
 given projection function ” projects”. Given a <em>4</em>-tuple, <em>t = (7, X,
 “house”, square_func)</em>, we would have math::<cite>pi_0(t) = 7</cite> and
-<img class="math" src="_images/math/0832133408abb0b5c9d45e6b0fbffe3dd705bd45.png" alt="\pi_3(t) = square_func."/></p>
+<img class="math" src="_images/math/f5dae668608a8337e4c6c132b504a7acc3c92f0b.png" alt="\pi_3(t) = square_func."/></p>
 <p>The type of a projection funcion is <em>function from tuple type to field
 type</em>. In general, because tuples have fields of different types, they
 will also have projection functions of different types. For example,
-<img class="math" src="_images/math/f96bb02fb7101e0965f5d94b111888cbe1914724.png" alt="pi_0"/> here is of type (in Dafny) <img class="math" src="_images/math/312b0afa59f8001e7eda18a2d5eebd4787b37d11.png" alt="(int, variable, string,
-int \rightarrow int) \rightarrow {\mathbb Z}"/> while <img class="math" src="_images/math/0dab7d9572fb05154c9fa626fbe6bdaaeccf8fa4.png" alt="pi_3"/> is of
-type <img class="math" src="_images/math/2630939c0e41b2205905b6b6ec364d3e0222b2bf.png" alt="(int, variable, string, int \rightarrow int) \rightarrow
+<img class="math" src="_images/math/cfbe6151259e39775abc71d3c9405e717c6d2303.png" alt="pi_0"/> here is of type (in Dafny) <img class="math" src="_images/math/1e87ccf973ff9a9c10bbeb1ce92487edb37b972b.png" alt="(int, variable, string,
+int \rightarrow int) \rightarrow {\mathbb Z}"/> while <img class="math" src="_images/math/a466c2939441e38dc2f8f1ac96f1f87da7ff9967.png" alt="pi_3"/> is of
+type <img class="math" src="_images/math/b346c5b20b3cbae9a0e9e8fdf5e327618f771868.png" alt="(int, variable, string, int \rightarrow int) \rightarrow
 (int \rightarrow int)."/></p>
 <p>In Dafny, tuples are written as they are in mathematics, as lists of
 field values separated by commas and enclosed in parentheses.  For
@@ -557,34 +546,100 @@ a system handles: tables, i.e., <em>relations</em>.</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="06-dafny-language.html"
-                        title="previous chapter">Dafny Language: Types, Statements, Expressions</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="08-relations.html"
-                        title="next chapter">Relations</a></p>
+<h1 class="logo"><a href="index.html">Discrete Mathematics: A Computational Approach</a></h1>
+
+
+
+
+
+
+
+
+<!-- <h3>Navigation</h3> -->
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="01-reqs-specs-impls.html">1. Requirement, Specifications, and Implementations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-logic-and-code.html">2. Logical Specifications, Imperative Implementations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-problems-with-imperative-code.html">3. Problems with Imperative Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-runnable-math.html">4. Pure Functional Programming as Runnable Mathematics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-verifying-logical-specifications.html">5. Formal Verification of Imperative Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-dafny-language.html">6. Dafny Language: Types, Statements, Expressions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">7. Set Theory</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#naive-set-theory">7.1. Naive Set Theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overly-naive-set-theory">7.2. Overly Naive Set Theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sets">7.3. Sets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#set-theory-notations">7.4. Set Theory Notations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#display-notation">7.4.1. Display notation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-comprehension-notation">7.4.2. Set comprehension notation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#set-operations">7.5. Set Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cardinality">7.5.1. Cardinality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#equality">7.5.2. Equality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#subset">7.5.3. Subset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#intersection">7.5.4. Intersection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#union">7.5.5. Union</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#difference">7.5.6. Difference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#product-set">7.5.7. Product Set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#power-set">7.5.8. Power Set</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tuples">7.6. Tuples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="08-relations.html">8. Relations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-boolean-algebra.html">9. Boolean Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-formal-languages.html">10. Formal Languages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-propositional-logic.html">11. Propositional Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-satisfiability.html">12. 12. Satisfiability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-consequence.html">13. Natural Deduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-predicate-logic.html">14. Predicate Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-proofs.html">15. Proofs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-equality.html">16. Proofs of Equalities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-inequality.html">17. Proofs of Inequality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18-existence.html">18. Proofs of Existence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19-univeral.html">19. Proofs of Universality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20-termination.html">20. Termination</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="discrete_mathematics.pdf">PDF version</a></li>
+    
+    <li class="toctree-l1"><a href="https://kevinsullivan.github.io/cs-dm">Lean Home</a></li>
+    
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="08-relations.html" title="Relations"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="06-dafny-language.html" title="Dafny Language: Types, Statements, Expressions"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
-      </ul>
+    <div class="footer">
+      &copy;2018, Kevin Sullivan.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/07-set-theory.rst.txt"
+          rel="nofollow">Page source</a>
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright .
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
-    </div>
+
+    
+
+    
   </body>
 </html>

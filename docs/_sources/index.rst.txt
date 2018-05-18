@@ -8,6 +8,7 @@ Discrete Mathematics: A Computational Approach
 
 .. toctree::
    :maxdepth: 3
+   :numbered:
    :caption: Contents:
 
    01-reqs-specs-impls

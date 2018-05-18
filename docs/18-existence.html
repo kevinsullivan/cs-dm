@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Proofs of Existence &#8212; Discrete Mathematics 1 documentation</title>
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <title>18. Proofs of Existence &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1',
+        VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -21,28 +21,17 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/sidebar.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Proofs of Universality" href="19-univeral.html" />
-    <link rel="prev" title="Proofs of Inequality" href="17-inequality.html" /> 
+    <link rel="next" title="19. Proofs of Universality" href="19-univeral.html" />
+    <link rel="prev" title="17. Proofs of Inequality" href="17-inequality.html" />
+<!-- <link href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy" rel="stylesheet"> -->
+<!-- <link href="https://fonts.googleapis.com/css?family=Average" rel="stylesheet"> -->
+<!-- <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet"> -->
+
   </head>
   <body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="19-univeral.html" title="Proofs of Universality"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="17-inequality.html" title="Proofs of Inequality"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -50,10 +39,10 @@
           <div class="body" role="main">
             
   <div class="section" id="proofs-of-existence">
-<h1>Proofs of Existence<a class="headerlink" href="#proofs-of-existence" title="Permalink to this headline">¶</a></h1>
+<h1>18. Proofs of Existence<a class="headerlink" href="#proofs-of-existence" title="Permalink to this headline">¶</a></h1>
 <p>Predicate logic allows for existentially quantified propositions. For
 a simple example, one might claim that there exists a natural number,
-$n$, such that $n = 3 + 1$. That is <img class="math" src="_images/math/f022e09fd7aac07e725e603e3cbd19e666e220b8.png" alt="\exists n, n = 3 + 1"/>. In
+$n$, such that $n = 3 + 1$. That is <img class="math" src="_images/math/2a38e4d03f82264bec0b9a679231d3292399d40e.png" alt="\exists n, n = 3 + 1"/>. In
 the constructive logic of Lean, and in type theory more generally, a
 proof of such a proposition is a basically pair. The first element of
 such a pair is a value that satisfies the given condition. We call a
@@ -61,7 +50,7 @@ value of this kind a <em>witness</em>. The second element of the pair is a
 <em>proof</em> that that particular value satisifies the condition.</p>
 <p>There is a witness in this case. It’s the number, <em>4</em>. And there is a
 proof that $4 = 3 + 1$, namely $rfl$. The proof of the proposition,
-<img class="math" src="_images/math/f022e09fd7aac07e725e603e3cbd19e666e220b8.png" alt="\exists n, n = 3 + 1"/> is thus, in essence, the ordered pair,
+<img class="math" src="_images/math/2a38e4d03f82264bec0b9a679231d3292399d40e.png" alt="\exists n, n = 3 + 1"/> is thus, in essence, the ordered pair,
 $(4, rfl)$. In this chapter we explain these ideas in more detail and
 show how to construct such proofs in Lean. We end with a discussion of
 differences in existence proofs in constructive and classical logic.</p>
@@ -74,34 +63,78 @@ differences in existence proofs in constructive and classical logic.</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="17-inequality.html"
-                        title="previous chapter">Proofs of Inequality</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="19-univeral.html"
-                        title="next chapter">Proofs of Universality</a></p>
+<h1 class="logo"><a href="index.html">Discrete Mathematics: A Computational Approach</a></h1>
+
+
+
+
+
+
+
+
+<!-- <h3>Navigation</h3> -->
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="01-reqs-specs-impls.html">1. Requirement, Specifications, and Implementations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-logic-and-code.html">2. Logical Specifications, Imperative Implementations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-problems-with-imperative-code.html">3. Problems with Imperative Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-runnable-math.html">4. Pure Functional Programming as Runnable Mathematics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-verifying-logical-specifications.html">5. Formal Verification of Imperative Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-dafny-language.html">6. Dafny Language: Types, Statements, Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-set-theory.html">7. Set Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-relations.html">8. Relations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-boolean-algebra.html">9. Boolean Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-formal-languages.html">10. Formal Languages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-propositional-logic.html">11. Propositional Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-satisfiability.html">12. 12. Satisfiability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-consequence.html">13. Natural Deduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-predicate-logic.html">14. Predicate Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-proofs.html">15. Proofs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-equality.html">16. Proofs of Equalities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-inequality.html">17. Proofs of Inequality</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">18. Proofs of Existence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19-univeral.html">19. Proofs of Universality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20-termination.html">20. Termination</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="discrete_mathematics.pdf">PDF version</a></li>
+    
+    <li class="toctree-l1"><a href="https://kevinsullivan.github.io/cs-dm">Lean Home</a></li>
+    
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="19-univeral.html" title="Proofs of Universality"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="17-inequality.html" title="Proofs of Inequality"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
-      </ul>
+    <div class="footer">
+      &copy;2018, Kevin Sullivan.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/18-existence.rst.txt"
+          rel="nofollow">Page source</a>
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright .
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
-    </div>
+
+    
+
+    
   </body>
 </html>

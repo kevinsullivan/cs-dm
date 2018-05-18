@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Formal Verification of Imperative Programs &#8212; Discrete Mathematics 1 documentation</title>
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <title>5. Formal Verification of Imperative Programs &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1',
+        VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -21,28 +21,17 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/sidebar.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Dafny Language: Types, Statements, Expressions" href="06-dafny-language.html" />
-    <link rel="prev" title="Pure Functional Programming as Runnable Mathematics" href="04-runnable-math.html" /> 
+    <link rel="next" title="6. Dafny Language: Types, Statements, Expressions" href="06-dafny-language.html" />
+    <link rel="prev" title="4. Pure Functional Programming as Runnable Mathematics" href="04-runnable-math.html" />
+<!-- <link href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy" rel="stylesheet"> -->
+<!-- <link href="https://fonts.googleapis.com/css?family=Average" rel="stylesheet"> -->
+<!-- <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet"> -->
+
   </head>
   <body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="06-dafny-language.html" title="Dafny Language: Types, Statements, Expressions"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="04-runnable-math.html" title="Pure Functional Programming as Runnable Mathematics"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -50,7 +39,7 @@
           <div class="body" role="main">
             
   <div class="section" id="formal-verification-of-imperative-programs">
-<h1>Formal Verification of Imperative Programs<a class="headerlink" href="#formal-verification-of-imperative-programs" title="Permalink to this headline">¶</a></h1>
+<h1>5. Formal Verification of Imperative Programs<a class="headerlink" href="#formal-verification-of-imperative-programs" title="Permalink to this headline">¶</a></h1>
 <p>In this chapter, we first elaborate on the idea that pure functional
 programming make for mathematically clear but potentially inefficient
 specifications, while imperative code makes for efficient code but is
@@ -60,7 +49,7 @@ parts of specifications for imperative code, and then we use tools or
 manual methods to <em>prove</em> that the imperative code does what such a
 speification requires.</p>
 <div class="section" id="performance-vs-understandability">
-<h2>Performance vs. Understandability<a class="headerlink" href="#performance-vs-understandability" title="Permalink to this headline">¶</a></h2>
+<h2>5.1. Performance vs. Understandability<a class="headerlink" href="#performance-vs-understandability" title="Permalink to this headline">¶</a></h2>
 <p>To get a clearer sense of the potential differences in performance
 between a pure functional program and an imperative program that
 compute the same function, and tradeoffs one makes between clarity of
@@ -69,7 +58,7 @@ Fibonacci function.</p>
 <p>We start off knowing that if the argument to the function, <em>n</em>, is <em>0</em>
 or <em>1</em>, the value of the function for that <em>n</em> is just <em>n</em> itself.  In
 other words, the sequence, <em>fib(i)</em> of <em>Fibonacci numbers indexed by
-i</em>, starts with, <img class="math" src="_images/math/d6d348c9fec97ea8bbe7cf69259bfbeda3f0a86d.png" alt="[0, 1, \ldots ]"/>.  For any <em>n &gt;= 2</em>, <em>fib(n)</em>,
+i</em>, starts with, <img class="math" src="_images/math/144c3c89b8fcee7fcb73371c66e0cc0d4620389e.png" alt="[0, 1, \ldots ]"/>.  For any <em>n &gt;= 2</em>, <em>fib(n)</em>,
 is the sum of the previous two values.  To compute the <em>n’th (n &gt;= 2)</em>
 Fibonacci number, we can thus start with the first two, sum them up to
 get the next one, then iterate this process, computing the next value
@@ -118,7 +107,7 @@ requiring no further recursion. To compute <em>fib(2)</em> however requires
 <em>3</em> evalations of <em>fib</em>: one for each of <em>fib(1)</em> and <em>fib(0)</em> plus
 the evaluation of the top-level function. The relationship between <em>n</em>
 and the number of function evaluations currently looks like this:
-<img class="math" src="_images/math/4be24e711a64e67912a041b077bec55122aa69cc.png" alt="\{ (0,1), (1,1), (2,3), ... \}."/> The first element of each pair
+<img class="math" src="_images/math/190280c4de29e6c58c87fd032eb694334cc66056.png" alt="\{ (0,1), (1,1), (2,3), ... \}."/> The first element of each pair
 is <em>n</em> and the second element is the cost to compute <em>fib(n)</em>.</p>
 <p>What about when <em>n</em> is <em>3</em>?  Computing this requires answers for
 <em>fib(2)</em>, which by the resuts we just computed costs <em>3</em> evaluations,
@@ -127,12 +116,12 @@ including the top-level evaluation. Computing <em>fib(4)</em> requires that
 we compute <em>fib(3)</em> and <em>fib(2)</em>, costing <em>5 + 3</em>, or <em>8</em> evaluations,
 plus the original, top-level call, for a total of 9. For <em>fib(5)</em> we
 need <em>9</em> + <em>5</em>, or <em>14</em> plus one more, making <em>15</em> evaluations.  The
-relation of cost to <em>n</em> (the problem size) is now like this: <img class="math" src="_images/math/885d0a047df304051a1baadee9f89870d86db99a.png" alt="\{
+relation of cost to <em>n</em> (the problem size) is now like this: <img class="math" src="_images/math/1ce126457da154fc58d99ddeaceb271942b2bc3b.png" alt="\{
 (0,1), (1,1), (2,3), (3,5), (4,9), (5, 15), ... \}."/></p>
 <p>In general, the number of evaluations needed to evaluate <em>fib(i+1)</em> is
 the sum of the numbers required to evaluate <em>fib(i)</em> plus the number
 to evaluate <em>fib(i-1)</em> plus <em>1.</em> If we use <em>C</em> to represent the cost
-function, then we could say, <img class="math" src="_images/math/e49ab712522c24e69d5c1c91f3b5fcdecd6d2b36.png" alt="C(n) = C(n-1) + C(n-2) + 1"/>. This
+function, then we could say, <img class="math" src="_images/math/de3bd0a9d77af2e52fde2ce41fa590bb3affd890.png" alt="C(n) = C(n-1) + C(n-2) + 1"/>. This
 kind of function is called a recurrence relation, and there are clever
 ways to solve such functions to determine what function <em>C</em> may be. Of
 course we can also write a recursive function to compute <em>C(n)</em>, if
@@ -182,7 +171,7 @@ ensure that it implements the same function that we expressed in our
 elegant mathematical definition?</p>
 </div>
 <div class="section" id="specification-implementation-and-verification">
-<h2>Specification, Implementation, and Verification<a class="headerlink" href="#specification-implementation-and-verification" title="Permalink to this headline">¶</a></h2>
+<h2>5.2. Specification, Implementation, and Verification<a class="headerlink" href="#specification-implementation-and-verification" title="Permalink to this headline">¶</a></h2>
 <p>We address such problems by combining a few ideas. First, we use
 logic, including mathematical specifications written in part using
 functional programming, to express <em>declarative</em> specifications.  Such
@@ -223,7 +212,7 @@ loops, and that giving it a little help enables it to reason about
 them for us.</p>
 </div>
 <div class="section" id="declarative-input-output-specifications">
-<h2>Declarative Input-Output Specifications<a class="headerlink" href="#declarative-input-output-specifications" title="Permalink to this headline">¶</a></h2>
+<h2>5.3. Declarative Input-Output Specifications<a class="headerlink" href="#declarative-input-output-specifications" title="Permalink to this headline">¶</a></h2>
 <p>First, we use mathematical logic to <em>declaratively specify</em> properties
 of the behaviors that we require of programs written in <em>imperative</em>
 languages. For example, we might require that, when given <em>any</em>
@@ -245,36 +234,36 @@ specification that we call a <em>precondition</em>), and (2) that as long as
 the precondition holds, then it must return the factorial of the given
 argument value (a <em>postcondition</em>).</p>
 <div class="section" id="input-output-relations">
-<h3>Input-Output Relations<a class="headerlink" href="#input-output-relations" title="Permalink to this headline">¶</a></h3>
+<h3>5.3.1. Input-Output Relations<a class="headerlink" href="#input-output-relations" title="Permalink to this headline">¶</a></h3>
 <p>In purely mathematical terms, a specification of this kind defines a
 <em>binary relation</em> between argument (input) and return (output) values,
 and imposes on the program a requirement that whenever it is given the
 first value in such an <em>input-output</em> pair, it must compute a second
-(output) value so that the pair, <img class="math" src="_images/math/9e7007b18642212aa4d9de61039343b1b9b87423.png" alt="(input, output)"/>, is in the
+(output) value so that the pair, <img class="math" src="_images/math/ddfe90d79960ada38ae2f58b9e59bdb449a60286.png" alt="(input, output)"/>, is in the
 specified relation.</p>
 </div>
 <div class="section" id="relations-and-functions">
-<h3>Relations and Functions<a class="headerlink" href="#relations-and-functions" title="Permalink to this headline">¶</a></h3>
+<h3>5.3.2. Relations and Functions<a class="headerlink" href="#relations-and-functions" title="Permalink to this headline">¶</a></h3>
 <p>A binary relation in ordinary mathematics is just a set of pairs of
 values. A function is a binary relation with at most one pair with a
 given first value. A function is a <em>single-valued</em> relation. What we
 often need to specify, in particular, is an input-output <em>function</em>.</p>
-<p>For example, pairs in the factorial relation include <img class="math" src="_images/math/8d5089934a4e6dafe42a3a178647872ce0e7ae39.png" alt="(0,1),
-(1,1), (2,2), (3,6), (4,24)"/> and <img class="math" src="_images/math/0f4f7855d834c15ad6f85cc5827f03a4962d7578.png" alt="(5,120)"/>, but not the pair
-<img class="math" src="_images/math/c2f82a5bbb7c3901dbbe16f0095f1d4f5a18ded8.png" alt="(5,25)"/>. Some of the pairs in the Fibonacci relation include
-<img class="math" src="_images/math/dd98235f46a359bfedc58a2654909fde09c0f099.png" alt="\{ (0,0), (1,1), (2,1), (3,2), (5,3)"/> and <em>(6,5)</em>. These
+<p>For example, pairs in the factorial relation include <img class="math" src="_images/math/2f3bd2d582ccab7f85d643c478a180c50620b487.png" alt="(0,1),
+(1,1), (2,2), (3,6), (4,24)"/> and <img class="math" src="_images/math/66c042db18a8b877012d4537ed30ba1ecce204c8.png" alt="(5,120)"/>, but not the pair
+<img class="math" src="_images/math/d9b97cafff055b9346a7b26ad0ba45966cb54b22.png" alt="(5,25)"/>. Some of the pairs in the Fibonacci relation include
+<img class="math" src="_images/math/fe9d3986690b8fd2c014ca531aecb11ca934620a.png" alt="\{ (0,0), (1,1), (2,1), (3,2), (5,3)"/> and <em>(6,5)</em>. These
 relations are also <em>functions</em> because there is <em>at most</em> one pair
 with a given first element. Finally, these functions are also said to
 be <em>total</em> because for <em>every</em> natural number, there is a pair with
 that number as its first element.</p>
 <p>On the other hand, square root is a <em>relation</em>, a set of pairs of real
 numbers, but not a <em>function</em>, because it is not singled valued. Both
-of the pairs, <img class="math" src="_images/math/1b7acb805a656ce4ef94682e2801da6877ec5377.png" alt="(4,2)"/> and <img class="math" src="_images/math/d07699891d863d384e38bd636bdd5b9acbb15e7a.png" alt="(4,-2)"/>, which are distinct but
+of the pairs, <img class="math" src="_images/math/81d6b9641ed69bb57f5518b3607a12b6750bcf1e.png" alt="(4,2)"/> and <img class="math" src="_images/math/2a9751a9ee4259cba70925d4a5da881970a82f9a.png" alt="(4,-2)"/>, which are distinct but
 have same first element, are in the relation. That is so because both
 <em>2</em> and <em>-2</em> are square roots of <em>4</em>.</p>
 </div>
 <div class="section" id="total-and-partial-functions">
-<h3>Total and Partial Functions<a class="headerlink" href="#total-and-partial-functions" title="Permalink to this headline">¶</a></h3>
+<h3>5.3.3. Total and Partial Functions<a class="headerlink" href="#total-and-partial-functions" title="Permalink to this headline">¶</a></h3>
 <p>We also note that the square root relation <em>on the real numbers</em> is
 what we call <em>partial</em> rather than total: in that it is not defined
 for some real numbers. In particular, it is not defined for (i.e., it
@@ -282,7 +271,7 @@ does not have any pairs where the first element is) any negative real
 number.</p>
 </div>
 <div class="section" id="turning-partial-functions-into-total-functions">
-<h3>Turning Partial Functions into Total Functions<a class="headerlink" href="#turning-partial-functions-into-total-functions" title="Permalink to this headline">¶</a></h3>
+<h3>5.3.4. Turning Partial Functions into Total Functions<a class="headerlink" href="#turning-partial-functions-into-total-functions" title="Permalink to this headline">¶</a></h3>
 <p>Partial functions and non-function relations both present problems for
 programmers. Let’s first consider relations that sometimes have <em>more</em>
 than one value of a given type for a given argument. What value should
@@ -302,7 +291,7 @@ also a function.</p>
 <p>A different way to re-formulate the square root <em>relation</em> as a
 <em>function</em> would be to view it as returning a single <em>set</em> of values
 as a result: a set containing all of the square roots of a given
-argument.  The pair <img class="math" src="_images/math/2e0e4c11bbc8d7da988b640b0dcf2a3fbc1a3242.png" alt="(4, \{2, -2\})"/> is in this relation, for
+argument.  The pair <img class="math" src="_images/math/0c777af71feffef3154146bfb28d5a002b196533.png" alt="(4, \{2, -2\})"/> is in this relation, for
 example, and the relation is also a function in that there is only one
 such pair with any given first element.</p>
 <p>So far we have dealt with the situation where a relation holds more
@@ -337,7 +326,7 @@ course.</p>
 </div>
 </div>
 <div class="section" id="imperative-implementation">
-<h2>Imperative Implementation<a class="headerlink" href="#imperative-implementation" title="Permalink to this headline">¶</a></h2>
+<h2>5.4. Imperative Implementation<a class="headerlink" href="#imperative-implementation" title="Permalink to this headline">¶</a></h2>
 <p>Having written a formal specification of the required <em>input-output</em>
 behavior of a program, we next write imperative code in a manner, and
 in a language, that supports the use of formal logic to <em>reason</em> about
@@ -357,7 +346,7 @@ from zero up to <em>n</em> or from <em>n</em> down to zero can affect the diffic
 of writing specification elements for a program.</p>
 </div>
 <div class="section" id="formal-verification">
-<h2>Formal Verification<a class="headerlink" href="#formal-verification" title="Permalink to this headline">¶</a></h2>
+<h2>5.5. Formal Verification<a class="headerlink" href="#formal-verification" title="Permalink to this headline">¶</a></h2>
 <p>The aim of formal verification is to deduce (to use deductive logic to
 <em>prove</em>) that, as written, a program satisfies its specification.  In
 more detail, if we’re given a program, <em>C</em> with a precondition, <em>P</em>,
@@ -368,7 +357,7 @@ call this property <em>partial correctness</em>.</p>
 <p>We write the proposition that <em>C</em> is partially correct (that if it’s
 started in a state that satisfies the assertion, <em>P</em>, and that if it
 terminates, then it will do so in a state that satisfies assertion
-<em>Q</em>) as <img class="math" src="_images/math/b063dc477da14b0ac5629361a924239a6d21680f.png" alt="P \{ C \} Q."/> This is a so-called <em>Hoare triple</em>, named
+<em>Q</em>) as <img class="math" src="_images/math/e88ec6d4d7212b1adf2aabe6e5f5bf5b2ebb7dda.png" alt="P \{ C \} Q."/> This is a so-called <em>Hoare triple</em>, named
 after the famous computer scientist, Sir Anthony (Tony) Hoare. It is
 nothing other than a proposition that claims that <em>C</em> satisfies its
 <em>pre-condition/post-condition</em> specification. Another way to read it
@@ -377,7 +366,7 @@ and the the program being run implies that the post-condition will be
 satisfied.</p>
 <p>In addition to a proof of partial correctness, we usually do want to
 know that a program also does always terminate. When we have a proof
-of both <img class="math" src="_images/math/9ac7caaeb39aaac009f4b0ce25410310e640f332.png" alt="P \{ C \} Q"/> and that the program always terminates,
+of both <img class="math" src="_images/math/bfc2e79a86ca594cea4c18d2ae84d805afb4df5d.png" alt="P \{ C \} Q"/> and that the program always terminates,
 then we have a proof of <em>total correctness</em>. Dafny is a programming
 system that allows us to specify <em>P</em> and <em>Q</em> and it then formally, and
 to a considerable extent automatically, verifies both <cite>P { C } Q</cite>
@@ -394,11 +383,11 @@ desired properties, but formal validation of specifications is not
 our main concern at the moment.</p>
 </div>
 <div class="section" id="case-study-the-factorial-function">
-<h2>Case Study: The Factorial Function<a class="headerlink" href="#case-study-the-factorial-function" title="Permalink to this headline">¶</a></h2>
+<h2>5.6. Case Study: The Factorial Function<a class="headerlink" href="#case-study-the-factorial-function" title="Permalink to this headline">¶</a></h2>
 <p>So far the material in this chapter has been pretty abstract. Now
 we’ll see what it means in practice.</p>
 <div class="section" id="a-buggy-implementation">
-<h3>A Buggy Implementation<a class="headerlink" href="#a-buggy-implementation" title="Permalink to this headline">¶</a></h3>
+<h3>5.6.1. A Buggy Implementation<a class="headerlink" href="#a-buggy-implementation" title="Permalink to this headline">¶</a></h3>
 <p>To start, let’s consider an ordinary imperative program, as you might
 have written in Python or Java, for computing values of the factorial
 function. The name of the function is the only indication here of the
@@ -432,7 +421,7 @@ the right result? Where is the bug? What is wrong? And how could this
 logical error have been detected automatically?</p>
 </div>
 <div class="section" id="specifications-establish-correctness-criteria">
-<h3>Specifications Establish Correctness Criteria<a class="headerlink" href="#specifications-establish-correctness-criteria" title="Permalink to this headline">¶</a></h3>
+<h3>5.6.2. Specifications Establish Correctness Criteria<a class="headerlink" href="#specifications-establish-correctness-criteria" title="Permalink to this headline">¶</a></h3>
 <p>A key problem is that the program lacks a precise specification. The
 program does <em>something</em>, taking a nat and possibly returning a <em>nat</em>
 (unless it goes into an infinite loop) but there’s no way to analyze
@@ -491,7 +480,7 @@ that providing such extra information about while loops is where much
 of the difficulty lies.</p>
 </div>
 <div class="section" id="a-verified-implementation-of-the-factorial-function">
-<h3>A Verified Implementation of the Factorial Function<a class="headerlink" href="#a-verified-implementation-of-the-factorial-function" title="Permalink to this headline">¶</a></h3>
+<h3>5.6.3. A Verified Implementation of the Factorial Function<a class="headerlink" href="#a-verified-implementation-of-the-factorial-function" title="Permalink to this headline">¶</a></h3>
 <p>Here, then, is a verified imperative program for computing
 factorial. We start by documenting the overall program specification.
 The key element here is the ensures clause. This clause links our
@@ -637,8 +626,8 @@ and check it using the Dafny verifier.</p>
 </pre></div>
 </div>
 <p>Now it’s easy to see. No matter what value <em>i</em> has, we know that the
-loop invariant holds: <img class="math" src="_images/math/ad82ca55b2161087ebbfa94fcea97fb5a09997cb.png" alt="a * fact(i) == fact(n),"/> and we also know
-that <em>i == 0</em>. So it must be that <img class="math" src="_images/math/3c66b73cf306943edbe6de7b4d4f81b086bc6af3.png" alt="a * fact(0) == fact(n)."/> And
+loop invariant holds: <img class="math" src="_images/math/b50bcd14e7804f8730a62bbfc8925196e55e2f5c.png" alt="a * fact(i) == fact(n),"/> and we also know
+that <em>i == 0</em>. So it must be that <img class="math" src="_images/math/987bc0e4e511c87435fd555014c424bf8aaba1c9.png" alt="a * fact(0) == fact(n)."/> And
 fact(0) is <em>1</em> (from its mathematical definition). So it must be that
 <em>a == fact(n)</em>. And Dafny confirms it!</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>assert a == fact(n);
@@ -658,7 +647,7 @@ semi-automated reasoning about and verification of real programs.</p>
 </div>
 </div>
 <div class="section" id="case-study-the-fibonacci-function">
-<h2>Case Study: The Fibonacci Function<a class="headerlink" href="#case-study-the-fibonacci-function" title="Permalink to this headline">¶</a></h2>
+<h2>5.7. Case Study: The Fibonacci Function<a class="headerlink" href="#case-study-the-fibonacci-function" title="Permalink to this headline">¶</a></h2>
 <p>Similarly, here is a verified imperative implementation of the
 Fibonacci function. We start by adding a specification in the
 form of an ensures clause, appealing to our functional program,
@@ -798,7 +787,7 @@ return fib1;
 </div>
 </div>
 <div class="section" id="what-is-dafny-again">
-<h2>What is Dafny, Again?<a class="headerlink" href="#what-is-dafny-again" title="Permalink to this headline">¶</a></h2>
+<h2>5.8. What is Dafny, Again?<a class="headerlink" href="#what-is-dafny-again" title="Permalink to this headline">¶</a></h2>
 <p>Dafny is a cutting-edge software language and toolset for verification
 of imperative code. It was developed at Microsoft Research—one of
 the top computer science research labs in the world. We are exploring
@@ -838,34 +827,99 @@ task of learning how to program.</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="04-runnable-math.html"
-                        title="previous chapter">Pure Functional Programming as Runnable Mathematics</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="06-dafny-language.html"
-                        title="next chapter">Dafny Language: Types, Statements, Expressions</a></p>
+<h1 class="logo"><a href="index.html">Discrete Mathematics: A Computational Approach</a></h1>
+
+
+
+
+
+
+
+
+<!-- <h3>Navigation</h3> -->
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="01-reqs-specs-impls.html">1. Requirement, Specifications, and Implementations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-logic-and-code.html">2. Logical Specifications, Imperative Implementations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-problems-with-imperative-code.html">3. Problems with Imperative Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-runnable-math.html">4. Pure Functional Programming as Runnable Mathematics</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">5. Formal Verification of Imperative Programs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#performance-vs-understandability">5.1. Performance vs. Understandability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#specification-implementation-and-verification">5.2. Specification, Implementation, and Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#declarative-input-output-specifications">5.3. Declarative Input-Output Specifications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#input-output-relations">5.3.1. Input-Output Relations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#relations-and-functions">5.3.2. Relations and Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#total-and-partial-functions">5.3.3. Total and Partial Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#turning-partial-functions-into-total-functions">5.3.4. Turning Partial Functions into Total Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#imperative-implementation">5.4. Imperative Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#formal-verification">5.5. Formal Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#case-study-the-factorial-function">5.6. Case Study: The Factorial Function</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#a-buggy-implementation">5.6.1. A Buggy Implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#specifications-establish-correctness-criteria">5.6.2. Specifications Establish Correctness Criteria</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#a-verified-implementation-of-the-factorial-function">5.6.3. A Verified Implementation of the Factorial Function</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#case-study-the-fibonacci-function">5.7. Case Study: The Fibonacci Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-dafny-again">5.8. What is Dafny, Again?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="06-dafny-language.html">6. Dafny Language: Types, Statements, Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-set-theory.html">7. Set Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-relations.html">8. Relations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-boolean-algebra.html">9. Boolean Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-formal-languages.html">10. Formal Languages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-propositional-logic.html">11. Propositional Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-satisfiability.html">12. 12. Satisfiability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-consequence.html">13. Natural Deduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-predicate-logic.html">14. Predicate Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-proofs.html">15. Proofs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-equality.html">16. Proofs of Equalities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-inequality.html">17. Proofs of Inequality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18-existence.html">18. Proofs of Existence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19-univeral.html">19. Proofs of Universality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20-termination.html">20. Termination</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="discrete_mathematics.pdf">PDF version</a></li>
+    
+    <li class="toctree-l1"><a href="https://kevinsullivan.github.io/cs-dm">Lean Home</a></li>
+    
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="06-dafny-language.html" title="Dafny Language: Types, Statements, Expressions"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="04-runnable-math.html" title="Pure Functional Programming as Runnable Mathematics"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
-      </ul>
+    <div class="footer">
+      &copy;2018, Kevin Sullivan.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/05-verifying-logical-specifications.rst.txt"
+          rel="nofollow">Page source</a>
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright .
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
-    </div>
+
+    
+
+    
   </body>
 </html>

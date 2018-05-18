@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>12. Satisfiability &#8212; Discrete Mathematics 1 documentation</title>
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <title>12. 12. Satisfiability &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1',
+        VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -21,28 +21,17 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/sidebar.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Natural Deduction" href="13-consequence.html" />
-    <link rel="prev" title="Propositional Logic" href="11-propositional-logic.html" /> 
+    <link rel="next" title="13. Natural Deduction" href="13-consequence.html" />
+    <link rel="prev" title="11. Propositional Logic" href="11-propositional-logic.html" />
+<!-- <link href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy" rel="stylesheet"> -->
+<!-- <link href="https://fonts.googleapis.com/css?family=Average" rel="stylesheet"> -->
+<!-- <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet"> -->
+
   </head>
   <body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="13-consequence.html" title="Natural Deduction"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="11-propositional-logic.html" title="Propositional Logic"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -50,7 +39,7 @@
           <div class="body" role="main">
             
   <div class="section" id="satisfiability">
-<h1>12. Satisfiability<a class="headerlink" href="#satisfiability" title="Permalink to this headline">¶</a></h1>
+<h1>12. 12. Satisfiability<a class="headerlink" href="#satisfiability" title="Permalink to this headline">¶</a></h1>
 <p>We can now characterize the most important <em>open question</em> (unsolved
 mathematical problem) in computer science.  Is there an <em>efficient</em>
 algorithm for determining whether any given Boolean formula is
@@ -87,7 +76,7 @@ one still example, many logic puzzles can be represented as Boolean
 expressions, and a model finder can be used to determine whether there
 are any “solutions”, if so, what one solution is.</p>
 <div class="section" id="interpretations-for-a-proposition">
-<h2>Interpretations for a Proposition<a class="headerlink" href="#interpretations-for-a-proposition" title="Permalink to this headline">¶</a></h2>
+<h2>12.1. Interpretations for a Proposition<a class="headerlink" href="#interpretations-for-a-proposition" title="Permalink to this headline">¶</a></h2>
 <p>This method returns a sequence of all possible interpretations for a
 given proposition. It does it by getting a sequence of all the
 variables in the expression and by then calling a helper function,
@@ -105,7 +94,7 @@ truth_table_inputs_for_vars, which does most of the work.</p>
 </div>
 </div>
 <div class="section" id="interpretations-for-a-sequence-of-propositions">
-<h2>Interpretations for a Sequence of Propositions<a class="headerlink" href="#interpretations-for-a-sequence-of-propositions" title="Permalink to this headline">¶</a></h2>
+<h2>12.2. Interpretations for a Sequence of Propositions<a class="headerlink" href="#interpretations-for-a-sequence-of-propositions" title="Permalink to this headline">¶</a></h2>
 <p>This method returns a sequence of all possible interpretations for a
 given sequence of Boolean variables, in increasing order from all
 false to all true. Each interpretation is a map from each of the
@@ -141,7 +130,7 @@ of each row of a truth table for the given propositional variables.</p>
 </div>
 </div>
 <div class="section" id="the-all-false-interpetation">
-<h2>The All-False Interpetation<a class="headerlink" href="#the-all-false-interpetation" title="Permalink to this headline">¶</a></h2>
+<h2>12.3. The All-False Interpetation<a class="headerlink" href="#the-all-false-interpetation" title="Permalink to this headline">¶</a></h2>
 <p>Return an interpretation for the variables in the sequence vs such
 that every variable maps to false.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>method all_false_interp(vs: seq&lt;propVar&gt;)
@@ -162,7 +151,7 @@ that every variable maps to false.</p>
 </div>
 </div>
 <div class="section" id="huh">
-<h2>HuH???<a class="headerlink" href="#huh" title="Permalink to this headline">¶</a></h2>
+<h2>12.4. HuH???<a class="headerlink" href="#huh" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>method truth_table_inputs_for_props(ps: seq&lt;prop&gt;)
     returns (result: seq&lt;pInterpretation&gt;)
 {
@@ -174,7 +163,7 @@ that every variable maps to false.</p>
 </div>
 </div>
 <div class="section" id="increment-interpretation">
-<h2>Increment Interpretation<a class="headerlink" href="#increment-interpretation" title="Permalink to this headline">¶</a></h2>
+<h2>12.5. Increment Interpretation<a class="headerlink" href="#increment-interpretation" title="Permalink to this headline">¶</a></h2>
 <p>Given a sequence of variables and an interpretation for those
 variables, computes a “next” interpretation.  Treat the sequence of
 values as a binary integer and increment it by one. Any variables in
@@ -206,7 +195,7 @@ pre-condition to rule out this possibility.</p>
 </div>
 </div>
 <div class="section" id="print-truth-table-for-a-propositional-logic-proposition">
-<h2>Print Truth Table for a Propositional Logic Proposition<a class="headerlink" href="#print-truth-table-for-a-propositional-logic-proposition" title="Permalink to this headline">¶</a></h2>
+<h2>12.6. Print Truth Table for a Propositional Logic Proposition<a class="headerlink" href="#print-truth-table-for-a-propositional-logic-proposition" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>method show_truth_table_for_prop(p: prop, ord: seq&lt;propVar&gt;, labels: bool)
     requires forall v :: v in getVarsInProp(p) ==&gt; v in ord; // kjs
 {
@@ -230,7 +219,7 @@ pre-condition to rule out this possibility.</p>
 <p>}</p>
 </div>
 <div class="section" id="utility-routine">
-<h2>Utility Routine<a class="headerlink" href="#utility-routine" title="Permalink to this headline">¶</a></h2>
+<h2>12.7. Utility Routine<a class="headerlink" href="#utility-routine" title="Permalink to this headline">¶</a></h2>
 <p>Compute and return 2^n given n.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>function method pow2(n: nat): (r: nat)
     ensures r &gt;= 1
@@ -240,7 +229,7 @@ pre-condition to rule out this possibility.</p>
 </pre></div>
 </div>
 <div class="section" id="models">
-<h3>Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h3>
+<h3>12.7.1. Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h3>
 <p>This important method returns a sequence containing all (and only) the
 models of the given proposition. It works by generating a sequence of
 all possible interpretations for the variables in the proposition
@@ -282,7 +271,7 @@ the list, acc, which is then returned.</p>
 <p>}</p>
 </div>
 <div class="section" id="satisfiability-unsatisfiability-validity">
-<h3>Satisfiability, Unsatisfiability, Validity<a class="headerlink" href="#satisfiability-unsatisfiability-validity" title="Permalink to this headline">¶</a></h3>
+<h3>12.7.2. Satisfiability, Unsatisfiability, Validity<a class="headerlink" href="#satisfiability-unsatisfiability-validity" title="Permalink to this headline">¶</a></h3>
 <p>Return true (and an empty interpretation) if the given Boolean
 expression is valid, otherwise return false with a counter-example,
 i.e., an interpretation for which the given expression is false.</p>
@@ -348,34 +337,91 @@ accordingly.</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="11-propositional-logic.html"
-                        title="previous chapter">Propositional Logic</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="13-consequence.html"
-                        title="next chapter">Natural Deduction</a></p>
+<h1 class="logo"><a href="index.html">Discrete Mathematics: A Computational Approach</a></h1>
+
+
+
+
+
+
+
+
+<!-- <h3>Navigation</h3> -->
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="01-reqs-specs-impls.html">1. Requirement, Specifications, and Implementations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-logic-and-code.html">2. Logical Specifications, Imperative Implementations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-problems-with-imperative-code.html">3. Problems with Imperative Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-runnable-math.html">4. Pure Functional Programming as Runnable Mathematics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-verifying-logical-specifications.html">5. Formal Verification of Imperative Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-dafny-language.html">6. Dafny Language: Types, Statements, Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-set-theory.html">7. Set Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-relations.html">8. Relations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-boolean-algebra.html">9. Boolean Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-formal-languages.html">10. Formal Languages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-propositional-logic.html">11. Propositional Logic</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">12. 12. Satisfiability</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#interpretations-for-a-proposition">12.1. Interpretations for a Proposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#interpretations-for-a-sequence-of-propositions">12.2. Interpretations for a Sequence of Propositions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-all-false-interpetation">12.3. The All-False Interpetation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#huh">12.4. HuH???</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#increment-interpretation">12.5. Increment Interpretation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#print-truth-table-for-a-propositional-logic-proposition">12.6. Print Truth Table for a Propositional Logic Proposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#utility-routine">12.7. Utility Routine</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#models">12.7.1. Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#satisfiability-unsatisfiability-validity">12.7.2. Satisfiability, Unsatisfiability, Validity</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="13-consequence.html">13. Natural Deduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-predicate-logic.html">14. Predicate Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-proofs.html">15. Proofs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-equality.html">16. Proofs of Equalities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-inequality.html">17. Proofs of Inequality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18-existence.html">18. Proofs of Existence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19-univeral.html">19. Proofs of Universality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20-termination.html">20. Termination</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="discrete_mathematics.pdf">PDF version</a></li>
+    
+    <li class="toctree-l1"><a href="https://kevinsullivan.github.io/cs-dm">Lean Home</a></li>
+    
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="13-consequence.html" title="Natural Deduction"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="11-propositional-logic.html" title="Propositional Logic"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
-      </ul>
+    <div class="footer">
+      &copy;2018, Kevin Sullivan.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/12-satisfiability.rst.txt"
+          rel="nofollow">Page source</a>
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright .
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
-    </div>
+
+    
+
+    
   </body>
 </html>

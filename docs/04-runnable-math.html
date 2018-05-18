@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Pure Functional Programming as Runnable Mathematics &#8212; Discrete Mathematics 1 documentation</title>
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <title>4. Pure Functional Programming as Runnable Mathematics &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1',
+        VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -21,28 +21,17 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/sidebar.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Formal Verification of Imperative Programs" href="05-verifying-logical-specifications.html" />
-    <link rel="prev" title="Problems with Imperative Code" href="03-problems-with-imperative-code.html" /> 
+    <link rel="next" title="5. Formal Verification of Imperative Programs" href="05-verifying-logical-specifications.html" />
+    <link rel="prev" title="3. Problems with Imperative Code" href="03-problems-with-imperative-code.html" />
+<!-- <link href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy" rel="stylesheet"> -->
+<!-- <link href="https://fonts.googleapis.com/css?family=Average" rel="stylesheet"> -->
+<!-- <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet"> -->
+
   </head>
   <body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="05-verifying-logical-specifications.html" title="Formal Verification of Imperative Programs"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="03-problems-with-imperative-code.html" title="Problems with Imperative Code"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -50,7 +39,7 @@
           <div class="body" role="main">
             
   <div class="section" id="pure-functional-programming-as-runnable-mathematics">
-<h1>Pure Functional Programming as Runnable Mathematics<a class="headerlink" href="#pure-functional-programming-as-runnable-mathematics" title="Permalink to this headline">¶</a></h1>
+<h1>4. Pure Functional Programming as Runnable Mathematics<a class="headerlink" href="#pure-functional-programming-as-runnable-mathematics" title="Permalink to this headline">¶</a></h1>
 <p>What we’d really like would be a language that gives us everything:
 the expressiveness and the <em>safety</em> of mathematical logic (there’s no
 concept of a memory in logic, and thus no possibility for unexpected
@@ -74,17 +63,17 @@ the same efficiency as in, say, C++.</p>
 implement runnable programs that closely mirror the mathematical
 definitions of the functions that they implement.</p>
 <div class="section" id="the-identify-function-for-integers">
-<h2>The identify function (for integers)<a class="headerlink" href="#the-identify-function-for-integers" title="Permalink to this headline">¶</a></h2>
+<h2>4.1. The identify function (for integers)<a class="headerlink" href="#the-identify-function-for-integers" title="Permalink to this headline">¶</a></h2>
 <p>An <em>identity function</em> is a function whose values is simply the value
 of the argument to which it is applied. For example, the identify
 function applied to an integer value, <em>x</em>, just evaluates to the value
 of <em>x</em>, itself. In the language of mathematical logic, the definition
 of the function would be written like this.</p>
 <div class="math">
-<p><img src="_images/math/07cba1ad343ff6a4740c62449fbf2df113bb763c.png" alt="\forall x \in \mathbb{Z}, x."/></p>
-</div><p>In English, this would be pronounced, “for all (<img class="math" src="_images/math/ebd95d6fe2eb407c57a5cc341daa811cfafb2cf6.png" alt="\forall"/>)
-values, <em>x</em>, in (<img class="math" src="_images/math/d23d737cd2edc84060c5983759a705ec03c7d263.png" alt="\in"/>) the set of integers
-(<img class="math" src="_images/math/2ce48f081d097f662de466bbb0aacedc045aeec5.png" alt="\mathbb{Z}"/>), the function simply reduces to value of <em>x</em>,
+<p><img src="_images/math/d56ea288c815fc113c0623764b20fe5eb3133779.png" alt="\forall x \in \mathbb{Z}, x."/></p>
+</div><p>In English, this would be pronounced, “for all (<img class="math" src="_images/math/6c01a2beef1f6414b7a81bf54ed833ef7de2b17d.png" alt="\forall"/>)
+values, <em>x</em>, in (<img class="math" src="_images/math/13c683b3c914de67399ef3412009afe5cae5988b.png" alt="\in"/>) the set of integers
+(<img class="math" src="_images/math/9453efc277eff96d798f925a83263ddb340142c1.png" alt="\mathbb{Z}"/>), the function simply reduces to value of <em>x</em>,
 itself. The infinite set of integers is usually denoted in
 mathematical writing by a script or bold Z. We will use that
 convention in these notes.</p>
@@ -106,7 +95,7 @@ defined to be <em>id</em>. Second, the function is defined to take just one
 argument, <em>x</em>, declared of type <em>int</em>.  The is the Dafny type whose
 values represent integers (negative, zero, and positive whole number)
 of any size. The Dafny type <em>int</em> thus represents (or <em>implements</em>)
-the mathematical set, <img class="math" src="_images/math/c5fe1da7163f7137cd10500051a3775eb4bbd68c.png" alt="{\mathbb Z}"/>, of all integers. The <em>int</em>
+the mathematical set, <img class="math" src="_images/math/9a12c5da3c9c89c3d9708e79a7d3c49a5d28e77f.png" alt="{\mathbb Z}"/>, of all integers. The <em>int</em>
 after the argument list and colon then indicates that, when applied to
 an int, the function returns (or <em>reduces to</em>) a value of type <em>int</em>.
 Finally, within the curly braces, the expression <em>x</em>, which we call
@@ -129,7 +118,7 @@ for the <em>x</em> in the body, yielding the literal expression, <em>4</em>, whi
 when evaluated, yeilds the value <em>4</em>, and that’s the result.</p>
 </div>
 <div class="section" id="data-and-function-types">
-<h2>Data and function types<a class="headerlink" href="#data-and-function-types" title="Permalink to this headline">¶</a></h2>
+<h2>4.2. Data and function types<a class="headerlink" href="#data-and-function-types" title="Permalink to this headline">¶</a></h2>
 <p>Before moving on to more interesting functions, we must mention the
 concepts of <em>types</em> and <em>values</em> as they pertain to both <em>data</em> and
 <em>functions</em>. Two types appear in the example of the <em>id</em> function. The
@@ -138,14 +127,14 @@ first, obvious, one is the type <em>int</em>. The <em>values</em> of this type a
 which is less visible in the example, is the type of the the function,
 <em>id</em>, itself. As the function takes an argument of type <em>int</em> and also
 returns a value of type <em>int</em>, we say that the type of <em>id</em> is
-<img class="math" src="_images/math/d3d219c1cd22d241f910083e5f1e4da0008bff92.png" alt="int \rightarrow int"/>. You can pronounce this type as <em>int to
+<img class="math" src="_images/math/60e1fe9b3891d60ebd22d4d9f7db57d962b34f6e.png" alt="int \rightarrow int"/>. You can pronounce this type as <em>int to
 int</em>.</p>
 </div>
 <div class="section" id="other-function-values-of-the-same-type">
-<h2>Other function values of the same type<a class="headerlink" href="#other-function-values-of-the-same-type" title="Permalink to this headline">¶</a></h2>
+<h2>4.3. Other function values of the same type<a class="headerlink" href="#other-function-values-of-the-same-type" title="Permalink to this headline">¶</a></h2>
 <p>There are many (indeed an uncountable infinity of) functions that
 convert integer values to other integer values. All such functions
-have the same type, namely <img class="math" src="_images/math/d3d219c1cd22d241f910083e5f1e4da0008bff92.png" alt="int \rightarrow int"/>, but they
+have the same type, namely <img class="math" src="_images/math/60e1fe9b3891d60ebd22d4d9f7db57d962b34f6e.png" alt="int \rightarrow int"/>, but they
 constitute different function <em>values</em>. While the type of a function
 is specified in the declaration of the function argument and return
 types, a function <em>value</em> is defined by the expression comprising the
@@ -153,7 +142,7 @@ types, a function <em>value</em> is defined by the expression comprising the
 <p>An example of a different function of the same type is what we will
 call <em>inc</em>, short for <em>increment</em>. When applied to an integer value,
 it reduces to (or <em>returns</em>) that value plus one. Mathematically, it
-is defined as <img class="math" src="_images/math/528e7cc14105684051327c98c72317b5740e1b9f.png" alt="\forall x \in {\mathbb Z}, x + 1"/>. For example,
+is defined as <img class="math" src="_images/math/53aa3cc9665e6d3ff27c1290534b1ea87a9f647b.png" alt="\forall x \in {\mathbb Z}, x + 1"/>. For example,
 <em>inc(2)</em> reduces to <em>3</em>, and <em>inc(-2)</em>, to <em>-1</em>.</p>
 <p>Here’s a Dafny functional program that implements this function. You
 should be able to understand this program with ease. Once again, take
@@ -165,7 +154,7 @@ pure functional programmer is writing <em>runnable mathematics</em>.</p>
 </div>
 <p>Another example of a function of the same type is, <em>square</em>, defined
 as returing the square of its integer argument. Mathematically it is
-the function, <img class="math" src="_images/math/12304ca0fc47b3ae39d3e63d8a1ab38a975347d3.png" alt="\forall x \in {\mathbb Z}, x * x"/>. And here is
+the function, <img class="math" src="_images/math/86f800177968de615481ec0a71934708dc62551b.png" alt="\forall x \in {\mathbb Z}, x * x"/>. And here is
 a Dafny implementation.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>function method h (x: int): int { x * x }
 </pre></div>
@@ -199,7 +188,7 @@ larger than zero that we might have multiplied together to produce the
 result. The trick is to write a mathematical definition of factorial
 in two cases: one for the value zero, and one for any other number.</p>
 <div class="math">
-<p><img src="_images/math/8b55f235536fb859ae0c89c6f795579e5f0f68d9.png" alt="factorial(n) := \forall n \in {\mathbb Z} \mid n &gt;= 0, \begin{cases}
+<p><img src="_images/math/8b9b2081755361560a0ae0ec31171163403bbabd.png" alt="factorial(n) := \forall n \in {\mathbb Z} \mid n &gt;= 0, \begin{cases}
 \text{if n=0}, &amp; 1,\\ \text{otherwise}, &amp; n *
 factorial(n-1).\end{cases}"/></p>
 </div><p>To pronounce this mathematical definition in English, one would say
@@ -216,10 +205,10 @@ defined, we call the definition <em>recursive.</em></p>
 say the set of values for which it is defined, to the non-negative
 integers only, the set known as the <em>natural numbers</em>. The function
 simply isn’t defined for negative numbers.  Mathematicians usually use
-the symbol, <img class="math" src="_images/math/c8f55b4d0816bb06f543ad34702b2642a045ba47.png" alt="{\mathbb N}"/> for this set. We could have written
+the symbol, <img class="math" src="_images/math/06bdb22cf6b002b1c5843789eda19fa5c3accff8.png" alt="{\mathbb N}"/> for this set. We could have written
 the definition a little more concisely using this notation, like this:</p>
 <div class="math">
-<p><img src="_images/math/3081dfa3fd8990ac82194e376df873a44ef80af9.png" alt="factorial(n) := \forall n \in {\mathbb N}, \begin{cases}
+<p><img src="_images/math/13be5cf3ad234a2b1cc93dfbe8f24917f69bc2cd.png" alt="factorial(n) := \forall n \in {\mathbb N}, \begin{cases}
 \text{if n=0}, &amp; 1,\\ \text{otherwise}, &amp; n *
 factorial(n-1).\end{cases}"/></p>
 </div><p>Here, then, is a Dafny implementation of the factorial function.</p>
@@ -236,7 +225,7 @@ restriction on the domain is expressed in the <em>requires</em> clause of the
 program. This clause is not runnable code. It’s a specification: a
 <em>predicate</em> (a proposition with a parameter) that must hold for the
 program to be used. Dafny will insist that this function only ever be
-applied to values of <em>n</em> that have the <em>property</em> of being <img class="math" src="_images/math/cc875bc38a43f3d76b1d106c825e09cabd853ff2.png" alt="&gt;=
+applied to values of <em>n</em> that have the <em>property</em> of being <img class="math" src="_images/math/ef9742414824817552502676b6d73e6836cdeef5.png" alt="&gt;=
 0"/>. A predicate that must be true for a program to be run is called a
 <em>pre-condition</em>.</p>
 <p>To see how the recursion works, consider the application of
@@ -249,7 +238,7 @@ body of the function; then you evaluate the resulting expression
 leads through a sequence of intermediate expressions as follows (leaving
 out a few details that should be easy to infer):</p>
 <div class="math">
-<p><img src="_images/math/96edc6c1dd06eb66d7dc5a26bd427b76aa5af5c3.png" alt="factorial\ (3) &amp; \text{ ; a function application expression}
+<p><img src="_images/math/5261b0511d8e6a62ea5487c8c72731308867df69.png" alt="factorial\ (3) &amp; \text{ ; a function application expression}
 
 if\ (3 == 0)\ then\ 1\ else\ (3 * factorial\ (3-1)) &amp; \text{ ; expand body with  parameter/argument substitution}
 
@@ -308,7 +297,7 @@ the mathematical definition, is indispensible. It makes the definition
 sound and it makes the code correct!</p>
 </div>
 <div class="section" id="dafny-is-a-program-verifier">
-<h2>Dafny is a Program Verifier<a class="headerlink" href="#dafny-is-a-program-verifier" title="Permalink to this headline">¶</a></h2>
+<h2>4.4. Dafny is a Program Verifier<a class="headerlink" href="#dafny-is-a-program-verifier" title="Permalink to this headline">¶</a></h2>
 <p>Restricting the domain of factorial to non-negative integers is
 critical. Combining the non-negative property of ever value to which
 the function is applied with the fact that every recursive application
@@ -351,34 +340,84 @@ are expressed and verified.</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="03-problems-with-imperative-code.html"
-                        title="previous chapter">Problems with Imperative Code</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="05-verifying-logical-specifications.html"
-                        title="next chapter">Formal Verification of Imperative Programs</a></p>
+<h1 class="logo"><a href="index.html">Discrete Mathematics: A Computational Approach</a></h1>
+
+
+
+
+
+
+
+
+<!-- <h3>Navigation</h3> -->
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="01-reqs-specs-impls.html">1. Requirement, Specifications, and Implementations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-logic-and-code.html">2. Logical Specifications, Imperative Implementations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-problems-with-imperative-code.html">3. Problems with Imperative Code</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">4. Pure Functional Programming as Runnable Mathematics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-identify-function-for-integers">4.1. The identify function (for integers)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-and-function-types">4.2. Data and function types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#other-function-values-of-the-same-type">4.3. Other function values of the same type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dafny-is-a-program-verifier">4.4. Dafny is a Program Verifier</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="05-verifying-logical-specifications.html">5. Formal Verification of Imperative Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-dafny-language.html">6. Dafny Language: Types, Statements, Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-set-theory.html">7. Set Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-relations.html">8. Relations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09-boolean-algebra.html">9. Boolean Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-formal-languages.html">10. Formal Languages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-propositional-logic.html">11. Propositional Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-satisfiability.html">12. 12. Satisfiability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-consequence.html">13. Natural Deduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-predicate-logic.html">14. Predicate Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-proofs.html">15. Proofs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-equality.html">16. Proofs of Equalities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-inequality.html">17. Proofs of Inequality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18-existence.html">18. Proofs of Existence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19-univeral.html">19. Proofs of Universality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20-termination.html">20. Termination</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="discrete_mathematics.pdf">PDF version</a></li>
+    
+    <li class="toctree-l1"><a href="https://kevinsullivan.github.io/cs-dm">Lean Home</a></li>
+    
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="05-verifying-logical-specifications.html" title="Formal Verification of Imperative Programs"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="03-problems-with-imperative-code.html" title="Problems with Imperative Code"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
-      </ul>
+    <div class="footer">
+      &copy;2018, Kevin Sullivan.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/04-runnable-math.rst.txt"
+          rel="nofollow">Page source</a>
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright .
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
-    </div>
+
+    
+
+    
   </body>
 </html>

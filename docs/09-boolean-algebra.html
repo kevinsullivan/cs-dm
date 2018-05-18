@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Boolean Algebra &#8212; Discrete Mathematics 1 documentation</title>
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <title>9. Boolean Algebra &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1',
+        VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -21,28 +21,17 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/sidebar.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Formal Languages" href="10-formal-languages.html" />
-    <link rel="prev" title="Relations" href="08-relations.html" /> 
+    <link rel="next" title="10. Formal Languages" href="10-formal-languages.html" />
+    <link rel="prev" title="8. Relations" href="08-relations.html" />
+<!-- <link href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy" rel="stylesheet"> -->
+<!-- <link href="https://fonts.googleapis.com/css?family=Average" rel="stylesheet"> -->
+<!-- <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet"> -->
+
   </head>
   <body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="10-formal-languages.html" title="Formal Languages"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="08-relations.html" title="Relations"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -50,7 +39,7 @@
           <div class="body" role="main">
             
   <div class="section" id="boolean-algebra">
-<h1>Boolean Algebra<a class="headerlink" href="#boolean-algebra" title="Permalink to this headline">¶</a></h1>
+<h1>9. Boolean Algebra<a class="headerlink" href="#boolean-algebra" title="Permalink to this headline">¶</a></h1>
 <p>As a first stepping stone toward a deeper exploration of deductive
 logic, we explore the related notion of Boolean <em>algebra</em>. Boolean
 algebra is a mathematical framework for representing and reasoning
@@ -58,7 +47,7 @@ about truth.</p>
 <p>This algebra is akin to ordinary high school algebra, and as such,
 deals with values, operators, and the syntax and the evaluation of
 expressions involving values and operators.  However, the values in
-Boolean algebra are limited to the two values in the set, <img class="math" src="_images/math/c3bf2190617c14aa5e4670318d73ea3106b19a8b.png" alt="bool
+Boolean algebra are limited to the two values in the set, <img class="math" src="_images/math/c60fd93baa59aa8958d4554db1bce472c885155f.png" alt="bool
 = \{ 0, 1\}"/>. They are often written instead as <em>false</em> and <em>true</em>,
 respectively. And rather than arithmetic operators such as numeric
 negation, addition, and subtraction, Boolean algebra defines a set of
@@ -73,7 +62,7 @@ Dafny language to implement an <em>inductive data type</em> for representing
 Boolean expressions and a recursive <em>evaluation</em> function that when
 given any Boolean expression tells whether it is <em>true</em> or <em>false</em>.</p>
 <div class="section" id="boolean-algebra-in-dafny">
-<h2>Boolean Algebra in Dafny<a class="headerlink" href="#boolean-algebra-in-dafny" title="Permalink to this headline">¶</a></h2>
+<h2>9.1. Boolean Algebra in Dafny<a class="headerlink" href="#boolean-algebra-in-dafny" title="Permalink to this headline">¶</a></h2>
 <p>All general-purpose programming languages support Boolean
 algebra. Dafny does so through its <em>bool</em> data type and the
 <em>operators</em> associated with it. Having taking a programming course,
@@ -129,12 +118,12 @@ returns true if the first is strictly less than the second, otherwise
 it returns false.</p>
 </div>
 <div class="section" id="boolean-values">
-<h2>Boolean Values<a class="headerlink" href="#boolean-values" title="Permalink to this headline">¶</a></h2>
+<h2>9.2. Boolean Values<a class="headerlink" href="#boolean-values" title="Permalink to this headline">¶</a></h2>
 <p>Boolean algebra is an algebra, which is a set of values and of
 operations that take and return these values. The set of values in
 Boolean algebra, is just the set containing <em>0</em> and <em>1</em>.</p>
 <div class="math">
-<p><img src="_images/math/8d3d066513b2e4345caff3ee64623604fd86df2a.png" alt="bool = \{ 0, 1 \}."/></p>
+<p><img src="_images/math/bf913843232d901f89b8e428c36afda24d7fd897.png" alt="bool = \{ 0, 1 \}."/></p>
 </div><p>In English that expression just gave a name that we can use, <em>bool</em>,
 to the set containing the values, <em>0</em> and <em>1</em>. Although these values
 are written as if they were small natural numbers, you must think of
@@ -147,13 +136,13 @@ really makes Boolean algebra what it is are the <em>operators</em> defined
 by Boolean algebra and how they behave.</p>
 </div>
 <div class="section" id="boolean-operators">
-<h2>Boolean Operators<a class="headerlink" href="#boolean-operators" title="Permalink to this headline">¶</a></h2>
+<h2>9.3. Boolean Operators<a class="headerlink" href="#boolean-operators" title="Permalink to this headline">¶</a></h2>
 <p>An algebra, again, is a set of values of a particular kind and a set
 of operators involving that kind of value. Having introduced the set
 of two values of the Boolean type, let’s turn to the <em>operations</em> of
 Boolean algebra.</p>
 <div class="section" id="nullary-unary-binary-and-n-ary-operators">
-<h3>Nullary, Unary, Binary, and n-Ary Operators<a class="headerlink" href="#nullary-unary-binary-and-n-ary-operators" title="Permalink to this headline">¶</a></h3>
+<h3>9.3.1. Nullary, Unary, Binary, and n-Ary Operators<a class="headerlink" href="#nullary-unary-binary-and-n-ary-operators" title="Permalink to this headline">¶</a></h3>
 <p>The operations of an algebra take zero or more values and return (or
 reduce to) values of the same kind. Boolean operators, for example,
 take zero or more Boolean values and reduce to Boolean values. An
@@ -169,9 +158,9 @@ types and behaviors the unary and binary Boolean operators, including
 each of those supported in Dafny.</p>
 </div>
 <div class="section" id="the-unary-operators-of-boolean-algebra">
-<h3>The Unary Operators of Boolean Algebra<a class="headerlink" href="#the-unary-operators-of-boolean-algebra" title="Permalink to this headline">¶</a></h3>
+<h3>9.3.2. The Unary Operators of Boolean Algebra<a class="headerlink" href="#the-unary-operators-of-boolean-algebra" title="Permalink to this headline">¶</a></h3>
 <p>While there are two constants in Boolean algebra, each of type <em>bool</em>,
-there are four unary operators, each of type <img class="math" src="_images/math/c992a950e9843dfd9d4dc371b2802cfbc56734fb.png" alt="bool \rightarrow
+there are four unary operators, each of type <img class="math" src="_images/math/7ee5bc5e5a8871848d61a291ba5cd6d107780e07.png" alt="bool \rightarrow
 bool"/>. This type, which contains an arrow, is a <em>function</em> type. It is
 the type of any function that first takes an argument of type <em>bool</em>
 then reduces to a value of type <em>bool</em>. It’s easier to read, write,
@@ -181,7 +170,7 @@ as “bool to bool.”</p>
 such function takes any <em>bool</em> argument and always returns the other
 one. This function is of type “bool to bool”, but it is not the same
 as the function that takes any bool argument and always returns the
-same value that it got. The type of each function is <img class="math" src="_images/math/5799348efb10880d80d88fd549bbb6073d3df0f2.png" alt="bool
+same value that it got. The type of each function is <img class="math" src="_images/math/ca55edf2f1cf1320b5e64d870240555c592e0172.png" alt="bool
 \rightarrow bool"/>, but the function <em>values</em> are different.</p>
 <p>In the programming field, the type of a function is given when it
 name, its arguments, and return values are declared. This part of a
@@ -210,7 +199,7 @@ headers give names to the argument values and results column headers
 present expressions using mathematical logic notations that represent
 how the resulting values are computed.</p>
 <div class="section" id="constant-false">
-<h4>Constant False<a class="headerlink" href="#constant-false" title="Permalink to this headline">¶</a></h4>
+<h4>9.3.2.1. Constant False<a class="headerlink" href="#constant-false" title="Permalink to this headline">¶</a></h4>
 <p>Here then is a truth table for what we will call the <em>constant_false</em>
 operator, which takes a Boolean argument, either <em>true</em> or <em>false</em>,
 and always returns <em>false.</em> In our truth tables, we use the symbols,
@@ -223,8 +212,8 @@ Boolean constants.</p>
 <col width="50%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
-<th class="head"><img class="math" src="_images/math/e8927e4b64da902a58ab82dfa5b13e03079ffc4a.png" alt="false"/></th>
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/9dcbbef8e0f76051d388013b90a95bec3069e484.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/af62f85342e6f733f9bcd985b474583319e4a9ba.png" alt="false"/></th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -238,7 +227,7 @@ Boolean constants.</p>
 </table>
 </div>
 <div class="section" id="constant-true">
-<h4>Constant True<a class="headerlink" href="#constant-true" title="Permalink to this headline">¶</a></h4>
+<h4>9.3.2.2. Constant True<a class="headerlink" href="#constant-true" title="Permalink to this headline">¶</a></h4>
 <p>The <em>constant_true</em> operator always returns <em>true</em>.</p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
@@ -246,8 +235,8 @@ Boolean constants.</p>
 <col width="50%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
-<th class="head"><img class="math" src="_images/math/60fc3cd0bc16d533c8b9ca8b0cba520ac546a83d.png" alt="true"/></th>
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/9dcbbef8e0f76051d388013b90a95bec3069e484.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/08d446f1798e33577c59869225b8790de4e469fc.png" alt="true"/></th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -261,7 +250,7 @@ Boolean constants.</p>
 </table>
 </div>
 <div class="section" id="identity-function-s">
-<h4>Identity Function(s)<a class="headerlink" href="#identity-function-s" title="Permalink to this headline">¶</a></h4>
+<h4>9.3.2.3. Identity Function(s)<a class="headerlink" href="#identity-function-s" title="Permalink to this headline">¶</a></h4>
 <p>The Boolean <em>identity</em> function takes one Boolean value as an argument
 and returns that value, whichever it was.</p>
 <table border="1" class="colwidths-given docutils">
@@ -270,8 +259,8 @@ and returns that value, whichever it was.</p>
 <col width="50%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
-<th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/9dcbbef8e0f76051d388013b90a95bec3069e484.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/9dcbbef8e0f76051d388013b90a95bec3069e484.png" alt="P"/></th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -288,19 +277,19 @@ value are functions that always return exactly the value they took as
 an argument. What we want to say is that “for any type, <em>T</em>, and any
 value, <em>t</em> of that type, the identity function for type <em>T</em> applied to
 <em>t</em> always returns <em>t</em> itself. In mathematical logical notation,
-<img class="math" src="_images/math/fdbc83fca85215a6a49af5e594eb66cb57cd2ebf.png" alt="\forall T: Type, \forall t: T, id_T(t) = t."/> It’s clearer in
+<img class="math" src="_images/math/d0bf1edd86e4e2d24bf7a64e7a86239566df72b8.png" alt="\forall T: Type, \forall t: T, id_T(t) = t."/> It’s clearer in
 mathematical language than in English! Make sure that both make sense
 to you now. That is the end of our aside. Now back to Boolean algebra.</p>
 </div>
 <div class="section" id="negation">
-<h4>Negation<a class="headerlink" href="#negation" title="Permalink to this headline">¶</a></h4>
+<h4>9.3.2.4. Negation<a class="headerlink" href="#negation" title="Permalink to this headline">¶</a></h4>
 <p>The Boolean negation, or <em>not</em>, operator, is the last of the four
 unary operators on Boolean values. It returns the value that it was
 <em>not</em> given as an argument. If given <em>true</em>, it evaluates to <em>false</em>,
 and if given <em>false</em>, to <em>true.</em></p>
 <p>The truth table makes this behavior clear.  It also introduces the
 standard notation in mathematical logic for the negation operator,
-<img class="math" src="_images/math/3c4a4627594e44da711f5a789e1d3f3cf996b7e2.png" alt="\neg P"/>. This expression is pronounced, <em>not P</em>. It evaluates
+<img class="math" src="_images/math/32300c5eafb362266aa9d2a50dc01a7b62d06b6b.png" alt="\neg P"/>. This expression is pronounced, <em>not P</em>. It evaluates
 to <em>true</em> if <em>P</em> is false, and to <em>false</em> if <em>P</em> is <em>true</em>.</p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
@@ -308,8 +297,8 @@ to <em>true</em> if <em>P</em> is false, and to <em>false</em> if <em>P</em> is 
 <col width="50%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
-<th class="head"><img class="math" src="_images/math/3c4a4627594e44da711f5a789e1d3f3cf996b7e2.png" alt="\neg P"/></th>
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/9dcbbef8e0f76051d388013b90a95bec3069e484.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/32300c5eafb362266aa9d2a50dc01a7b62d06b6b.png" alt="\neg P"/></th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -327,10 +316,10 @@ to <em>true</em> if <em>P</em> is false, and to <em>false</em> if <em>P</em> is 
 </div>
 </div>
 <div class="section" id="binary-boolean-operators">
-<h3>Binary Boolean Operators<a class="headerlink" href="#binary-boolean-operators" title="Permalink to this headline">¶</a></h3>
+<h3>9.3.3. Binary Boolean Operators<a class="headerlink" href="#binary-boolean-operators" title="Permalink to this headline">¶</a></h3>
 <p>Now let’s consider the binary operators of Boolean algebra. Each takes
 two Boolean arguments and returns a Boolean value as a result. The
-type of each such function is written <img class="math" src="_images/math/1af8eed2ba19c049ba4029098c1aa8662ee3609d.png" alt="bool \rightarrow bool
+type of each such function is written <img class="math" src="_images/math/7a8a276f64b28870c2540721731efa37d2942945.png" alt="bool \rightarrow bool
 \rightarrow bool"/>, pronounced “bool to bool to bool.” A truth table
 for a binary Boolean operator will have two columns for arguments, and
 one on the right for the result of applying the operator being defined
@@ -355,7 +344,7 @@ in computer science also to use binary operations called <em>nand</em> (for
 <em>not and</em>), <em>xor</em> (for <em>exclusive or</em>) and <em>implies</em>.  Here we present
 truth tables for each of the binary Boolean operators in Dafny.</p>
 <div class="section" id="and-conjunction">
-<h4>And (conjunction)<a class="headerlink" href="#and-conjunction" title="Permalink to this headline">¶</a></h4>
+<h4>9.3.3.1. And (conjunction)<a class="headerlink" href="#and-conjunction" title="Permalink to this headline">¶</a></h4>
 <p>The <em>and</em> operator in Boolean algebra takes two Boolean arguments and
 returns <em>true</em> when both arguments are <em>true</em>, and otherwise, <em>false</em>.</p>
 <table border="1" class="colwidths-given docutils">
@@ -365,9 +354,9 @@ returns <em>true</em> when both arguments are <em>true</em>, and otherwise, <em>
 <col width="33%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
-<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
-<th class="head"><img class="math" src="_images/math/a80e21781161e0f0697d3bdfdd259eabda0ca73c.png" alt="P \land Q"/></th>
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/9dcbbef8e0f76051d388013b90a95bec3069e484.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/331157c6afbd113256867fd408d80277d1a24756.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/a192f296d646d16b6cd1a138cf19fdca8ead3f29.png" alt="P \land Q"/></th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -391,7 +380,7 @@ returns <em>true</em> when both arguments are <em>true</em>, and otherwise, <em>
 </table>
 </div>
 <div class="section" id="nand-not-and">
-<h4>Nand (not and)<a class="headerlink" href="#nand-not-and" title="Permalink to this headline">¶</a></h4>
+<h4>9.3.3.2. Nand (not and)<a class="headerlink" href="#nand-not-and" title="Permalink to this headline">¶</a></h4>
 <p>The <em>nand</em> operator, short for <em>not and</em>, returns the opposite value
 from the <em>and</em> operator: <em>false</em> if both arguments are <em>true</em> and
 <em>true</em> otherwise.</p>
@@ -402,9 +391,9 @@ from the <em>and</em> operator: <em>false</em> if both arguments are <em>true</e
 <col width="33%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
-<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
-<th class="head"><img class="math" src="_images/math/2281aa10640d8f5c9d395c1aca38626dbc994f72.png" alt="P \uparrow Q"/></th>
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/9dcbbef8e0f76051d388013b90a95bec3069e484.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/331157c6afbd113256867fd408d80277d1a24756.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/4302437ea1f2cee75a2739ec9b26823bc70099d9.png" alt="P \uparrow Q"/></th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -438,7 +427,7 @@ connect them in complex ways is the heart of the computer revolution.
 Now back to Boolean algebra.</p>
 </div>
 <div class="section" id="or-disjunction">
-<h4>Or (disjunction)<a class="headerlink" href="#or-disjunction" title="Permalink to this headline">¶</a></h4>
+<h4>9.3.3.3. Or (disjunction)<a class="headerlink" href="#or-disjunction" title="Permalink to this headline">¶</a></h4>
 <p>The <em>or</em>, or <em>disjunction</em>, operator evaluates to <em>false</em> only if both
 arguments are <em>false</em>, and otherwise to <em>true</em>.</p>
 <p>It’s important to note that it evaluates to <em>true</em> if either one or
@@ -453,9 +442,9 @@ would surely say, “Thank you, Dad, I’ll greatly enjoy having both.”</p>
 <col width="33%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
-<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
-<th class="head"><img class="math" src="_images/math/aa422ac57e488bb086391e75eb12112b8fbe6a9c.png" alt="P \lor Q"/></th>
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/9dcbbef8e0f76051d388013b90a95bec3069e484.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/331157c6afbd113256867fd408d80277d1a24756.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/c6ace21e49b3d66cf785aa8d82190b94849386ca.png" alt="P \lor Q"/></th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -479,7 +468,7 @@ would surely say, “Thank you, Dad, I’ll greatly enjoy having both.”</p>
 </table>
 </div>
 <div class="section" id="xor-exclusive-or">
-<h4>Xor (exclusive or)<a class="headerlink" href="#xor-exclusive-or" title="Permalink to this headline">¶</a></h4>
+<h4>9.3.3.4. Xor (exclusive or)<a class="headerlink" href="#xor-exclusive-or" title="Permalink to this headline">¶</a></h4>
 <p>What the dad most likely meant by <em>or</em> is what in Boolean algebra we
 call <em>exclusive or</em>, written as <em>xor</em>.  It evalutes to true if either
 one, but <em>not both</em>, of its arguments is true, and to false otherwise.</p>
@@ -490,9 +479,9 @@ one, but <em>not both</em>, of its arguments is true, and to false otherwise.</p
 <col width="33%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
-<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
-<th class="head"><img class="math" src="_images/math/e8c064e97ba564d5469d86b6a8a25f059914bbcf.png" alt="P \oplus Q"/></th>
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/9dcbbef8e0f76051d388013b90a95bec3069e484.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/331157c6afbd113256867fd408d80277d1a24756.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/827f0ac85e1f45ffb00ff39b05070d98b3e00cb6.png" alt="P \oplus Q"/></th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -516,7 +505,7 @@ one, but <em>not both</em>, of its arguments is true, and to false otherwise.</p
 </table>
 </div>
 <div class="section" id="nor-not-or">
-<h4>Nor (not or)<a class="headerlink" href="#nor-not-or" title="Permalink to this headline">¶</a></h4>
+<h4>9.3.3.5. Nor (not or)<a class="headerlink" href="#nor-not-or" title="Permalink to this headline">¶</a></h4>
 <p>The <em>nor</em> operator returns the negation of what the <em>or</em> operator
 applied to the same arguments returns: <em>xor(b1,b2) = not(or(b1, b2))</em>.
 As an aside, like <em>nand</em>, the <em>nor</em> operator is <em>universal</em>, in the
@@ -529,9 +518,9 @@ simulate the effects of any other binary Boolean operator.</p>
 <col width="33%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
-<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
-<th class="head"><img class="math" src="_images/math/ff18c651f3b83677c3f88464e7a9242cb8b4e3e8.png" alt="P \downarrow Q"/></th>
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/9dcbbef8e0f76051d388013b90a95bec3069e484.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/331157c6afbd113256867fd408d80277d1a24756.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/0f2211500bfb64b0985d2dc52b274cf1109d3d0d.png" alt="P \downarrow Q"/></th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -555,7 +544,7 @@ simulate the effects of any other binary Boolean operator.</p>
 </table>
 </div>
 <div class="section" id="implies">
-<h4>Implies<a class="headerlink" href="#implies" title="Permalink to this headline">¶</a></h4>
+<h4>9.3.3.6. Implies<a class="headerlink" href="#implies" title="Permalink to this headline">¶</a></h4>
 <p>The <em>implies</em> operator is used to express the idea that if one
 condition, a premise, is true, another one, the conclusion, must be.
 So this operator returns true when both arguments are true. If the
@@ -570,9 +559,9 @@ second must be.</p>
 <col width="33%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
-<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
-<th class="head"><img class="math" src="_images/math/1f8084a9160065072b7a07d1b9af08b0f592a3d8.png" alt="P \rightarrow Q"/></th>
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/9dcbbef8e0f76051d388013b90a95bec3069e484.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/331157c6afbd113256867fd408d80277d1a24756.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/c0ae76d1c88138682abbb9b43829250b0d6e03c8.png" alt="P \rightarrow Q"/></th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -596,7 +585,7 @@ second must be.</p>
 </table>
 </div>
 <div class="section" id="follows">
-<h4>Follows<a class="headerlink" href="#follows" title="Permalink to this headline">¶</a></h4>
+<h4>9.3.3.7. Follows<a class="headerlink" href="#follows" title="Permalink to this headline">¶</a></h4>
 <p>The <em>follows</em> operator reverses the sense of an implication. Rather
 than being understood to say that truth of the first argument should
 <em>lead to</em> the truth of the second, it says that the truth of the first
@@ -608,9 +597,9 @@ should <em>follow from</em> the truth of the second.</p>
 <col width="33%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
-<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
-<th class="head"><img class="math" src="_images/math/2547895afe93b172b98c0297754a8a6809a8ab1a.png" alt="P \leftarrow Q"/></th>
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/9dcbbef8e0f76051d388013b90a95bec3069e484.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/331157c6afbd113256867fd408d80277d1a24756.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/8e775812f1cbbd2ec4652d5c7e21f4c9808c2156.png" alt="P \leftarrow Q"/></th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -637,7 +626,7 @@ one rarely sees these names used in practice.</p>
 </div>
 </div>
 <div class="section" id="a-ternary-binary-operator">
-<h3>A Ternary Binary Operator<a class="headerlink" href="#a-ternary-binary-operator" title="Permalink to this headline">¶</a></h3>
+<h3>9.3.4. A Ternary Binary Operator<a class="headerlink" href="#a-ternary-binary-operator" title="Permalink to this headline">¶</a></h3>
 <p>We can of course define Boolean operators of any arity. As just one
 example, we introduce a <em>ternary</em> (3-ary) Boolean operator. It takes
 three Boolean values as arguments and returns a Boolean result. It’s
@@ -674,10 +663,10 @@ example, multiplication has higher precedence than addition, so the
 expression <em>3 + 4 * 5</em> is read as <em>3 + (4 * 5)</em> even though the <em>+</em>
 operator comes first in the expression.</p>
 <p>Exercise: How many ternary Boolean operations are there? Hint: for an
-operator with <em>n</em> Boolean arguments there are <img class="math" src="_images/math/798d39775b3c54beddeb31ad508597409e6e7c43.png" alt="2^n"/> combinations
-of input values. This means that there will be <img class="math" src="_images/math/798d39775b3c54beddeb31ad508597409e6e7c43.png" alt="2^n"/> rows in its
-truth table, and so <img class="math" src="_images/math/798d39775b3c54beddeb31ad508597409e6e7c43.png" alt="2^n"/> blanks to fill in with Boolean values
-in the right column. How many ways are there to fill in <img class="math" src="_images/math/798d39775b3c54beddeb31ad508597409e6e7c43.png" alt="2^n"/>
+operator with <em>n</em> Boolean arguments there are <img class="math" src="_images/math/bc3842c422f55f3c3625d00cdb478d653523ee55.png" alt="2^n"/> combinations
+of input values. This means that there will be <img class="math" src="_images/math/bc3842c422f55f3c3625d00cdb478d653523ee55.png" alt="2^n"/> rows in its
+truth table, and so <img class="math" src="_images/math/bc3842c422f55f3c3625d00cdb478d653523ee55.png" alt="2^n"/> blanks to fill in with Boolean values
+in the right column. How many ways are there to fill in <img class="math" src="_images/math/bc3842c422f55f3c3625d00cdb478d653523ee55.png" alt="2^n"/>
 Boolean values? Express your answer in terms of <em>n</em>.</p>
 <p>Exercise: Write down the truth table for our Boolean if-then-else
 operator.</p>
@@ -691,34 +680,89 @@ operator.</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="08-relations.html"
-                        title="previous chapter">Relations</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="10-formal-languages.html"
-                        title="next chapter">Formal Languages</a></p>
+<h1 class="logo"><a href="index.html">Discrete Mathematics: A Computational Approach</a></h1>
+
+
+
+
+
+
+
+
+<!-- <h3>Navigation</h3> -->
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="01-reqs-specs-impls.html">1. Requirement, Specifications, and Implementations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-logic-and-code.html">2. Logical Specifications, Imperative Implementations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-problems-with-imperative-code.html">3. Problems with Imperative Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-runnable-math.html">4. Pure Functional Programming as Runnable Mathematics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-verifying-logical-specifications.html">5. Formal Verification of Imperative Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-dafny-language.html">6. Dafny Language: Types, Statements, Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-set-theory.html">7. Set Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-relations.html">8. Relations</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">9. Boolean Algebra</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#boolean-algebra-in-dafny">9.1. Boolean Algebra in Dafny</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#boolean-values">9.2. Boolean Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#boolean-operators">9.3. Boolean Operators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nullary-unary-binary-and-n-ary-operators">9.3.1. Nullary, Unary, Binary, and n-Ary Operators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-unary-operators-of-boolean-algebra">9.3.2. The Unary Operators of Boolean Algebra</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#binary-boolean-operators">9.3.3. Binary Boolean Operators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#a-ternary-binary-operator">9.3.4. A Ternary Binary Operator</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="10-formal-languages.html">10. Formal Languages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-propositional-logic.html">11. Propositional Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12-satisfiability.html">12. 12. Satisfiability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-consequence.html">13. Natural Deduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-predicate-logic.html">14. Predicate Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-proofs.html">15. Proofs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-equality.html">16. Proofs of Equalities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-inequality.html">17. Proofs of Inequality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18-existence.html">18. Proofs of Existence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19-univeral.html">19. Proofs of Universality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20-termination.html">20. Termination</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="discrete_mathematics.pdf">PDF version</a></li>
+    
+    <li class="toctree-l1"><a href="https://kevinsullivan.github.io/cs-dm">Lean Home</a></li>
+    
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="10-formal-languages.html" title="Formal Languages"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="08-relations.html" title="Relations"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Discrete Mathematics 1 documentation</a> &#187;</li> 
-      </ul>
+    <div class="footer">
+      &copy;2018, Kevin Sullivan.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/09-boolean-algebra.rst.txt"
+          rel="nofollow">Page source</a>
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright .
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
-    </div>
+
+    
+
+    
   </body>
 </html>
