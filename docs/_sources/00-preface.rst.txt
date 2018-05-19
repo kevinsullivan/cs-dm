@@ -35,9 +35,7 @@ Concepts covered in this course notably include the following:
 * Explore satisfiability and the related concept of validity
 * Get on the on-ramp to natural deduction
   - Meet, and for propositional logic, implement and validate, a catalog of proposed inference rules as principles of reasoning
-  - Understand and implement, using our propositional logic validity
-    checker, the notion of the *semantic* validity of such rules (by
-    way of truth tables)
+  - Understand and implement, using our propositional logic validity checker, the notion of the *semantic* validity of such rules (by way of truth tables)
   - develop and implement a suite of classical valid and invalid
     inference rules, for all the non-quantifier-related introduction
     and elimination rules of natural deduction
