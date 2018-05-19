@@ -37,9 +37,7 @@ Concepts covered in this course notably include the following:
   - Meet, and for propositional logic, implement and validate, a catalog of proposed inference rules as principles of reasoning
   - Understand and implement, using our propositional logic validity checker, the notion of the *semantic* validity of such rules (by way of truth tables)
   - develop and implement a suite of classical valid and invalid inference rules, for all the non-quantifier-related introduction and elimination rules of natural deduction
-  - Understand the concept of *semantic* entailment, why it can't
-    scale, and that modern logic replaces semantic entailment with
-    syntactic entailment
+  - Understand the concept of *semantic* entailment, why it can't scale, and that modern logic replaces semantic entailment with syntactic entailment
 * Understand proofs as substitutes for semantic entailment checks
   - As compositions of inference rules grounded in the rules of natural deduction
   - Organized in layers of abstractions, where new rules are validated by proofs constructed using previously established results, again grounded in the core introduction and elimination rules of natural deduction
