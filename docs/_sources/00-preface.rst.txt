@@ -2,11 +2,73 @@
 Preface
 *******
 
-This is a course, and a new kind of course, in discrete mathematics
-(DM) for early undergaduate students in computer science and related
-disciplines. The usual DM course at this level is a paper-and-pencil
-affair about proof techniques many CS students find hard to relate to
-their interests in computing.  This course charts a better way.
+This is a course in discrete mathematics (DM), particularly focused on
+concepts of propositions and proofs, both in general and as they
+relate to computing and software, in particular. The course is aimed
+at early undergaduate students taking their second semester courses in
+computer science, in preparation for majors in computer science or in
+other disciplines that benefit from advanced skills in computing and
+software development.
+
+The usual DM course at this level is a paper-and-pencil affair about
+proofs in classical first-order predicate logic. It teaches concepts
+and methods that, anecdotally at least, many CS students find hard to
+connect with their interests in computing.
+
+This course introduces discrete math first through its application to
+the specification of programs and automated formal verification using
+classical first-order predicate logic, and then in more general terms,
+turning to higher-order constructive logic. All aspects of the course
+involve the use of software tools that bring the notions of logic and
+proof to life: Dafny for first-order predicate logic for specification
+and verification, and Lean for explicit construction of proof objects
+for Lean's higher-order constructive logic.
+
+Concepts covered in this course notably include the following:
+
+* Read, write, and use classical first-order predicate logic to
+  specify programs in Dafny use Dafny to verify them automatically
+* Learn set theory, diving into relations, as a case study in FOPL
+* Learn language theory including specification and implementation of
+  both language syntax and operational semantics, first for Boolean
+  expressions, then bridging to propositional logic
+* Explore satisfiability and the related concept of validity
+* Get on the on-ramp to natural deduction
+  - Meet, and for propositional logic, implement and validate, a
+    catalog of proposed inference rules as principles of reasoning
+  - Understand and implement, using our propositional logic validity
+    checker, the notion of the *semantic* validity of such rules (by
+    way of truth tables)
+  - develop and implement a suite of classical valid and invalid
+    inference rules, for all the non-quantifier-related introduction
+    and elimination rules of natural deduction
+  - Understand the concept of *semantic* entailment, why it can't
+    scale, and that modern logic replaces semantic entailment with
+    syntactic entailment
+* Understand proofs as substitutes for semantic entailment checks
+  - As compositions of inference rules grounded in the rules of
+    natural deduction
+  - Organized in layers of abstractions, where new rules are validated
+    by proofs constructed using previously established results, again
+    grounded in the core introduction and elimination rules of natural
+    deduction
+  - Learning to write code (in Lean) that construct proofs that are
+    then typechecked for correctness
+  - Learning how to apply type-guided top-down structured development
+    to incrementally elaborate incomplete proofs initially with holes
+  - Seeing that different kinds of propositions require corresponding
+    kinds of proofs, and understanding how to select proof strategies
+    at each level of a type-guided, top-down, structured development
+* Introduction and elimination rules for the two basic quantifiers
+  - dependent pairs for introducing/eliminating existential quantifiers
+  - induction principles for introducing universal quantifiers
+  - modus ponens as the elimination for for universal quantifiers
+* Proof by induction
+* Well founded recursion
+  - structural recursion
+  - co-induction
+  - well-founded recursion
+
 
 Design Rationale
 ================
@@ -183,29 +245,30 @@ fundamental constructs of imperative programming.
 
 This course was also inspired and influenced by the *How to Design
 Programs* curricula by Felleisen, Krishnamurthi, et al., and realized
-perhaps most fully in the *MOOC* courses by Kiczales at UBC.  Unlike
-those courses, however, this one take a strong stand on the absolute
-necessity of using strongly typed languages. The HTDP's basis in the
-untyped language of Scheme (Racket) leaves the type-driven ideas that
-underpin the curriculum unsupported by the language and tools that the
-students actually use to learn programming. This course necessarily
-makes an absolyte commitment to the *pedagogical* value of strong
-typing, as enforced by Dafny, and as realized in the Lean language's
-full embrace of higher-order constructive logic and the Curry-Howard
-correspondence.
+beautifully in the *MOOC* courses by Kiczales.  Unlike those courses,
+this course is deeply committed to the use of strongly, statically
+typed languages that support both code and logic. HTDP's commitment to
+the untyped Scheme-like language, Racket, leaves the type-theoretical
+ideas that underpin the curriculum implicit, to be realized informally
+by students, if at all, in the form of un-machine-checked
+comments. This course, by contrast, starts with verification of Dafny
+programs, which are strongly typed, and ends with students competently
+and confidently construting proofs in the logic of the Lean Prover.
+This tool beautifully supports type-driven development not only of
+code but of proofs through incremental refinement of typed holes in
+typed terms.
 
 The author gratefully acknowledges the support of Rustan Leino, the
 developer of Dafny, and several others who provided insight and help
-in the author's use of Dafny; of Leo de Moura, Tom Ball, and Jeremy
-Avigad, for their help with Lean, and Jeremy for open source code that
-taught the author how to format this book using Sphinx; Mattias
-Felleisen, Shriram Krishnamurthi, Gregor Kiczales, and others for
-discussions about HTDP and related pedagogical strategies; and Ken
-Birman, who suggested that the author look at Dafny as a strong
-candidate for a first or early course for computer scientists. The
-author also thanks the students in his CS2102 Spring 2018 class for
-their patience and enthusiasm for learning discrete math following
-this somewhat novel approach to teaching that class. Thanks y'all.
+in its use; of Leo de Moura, Tom Ball, and Jeremy Avigad, for their
+help with Lean, and Jeremy for open source code that taught the author
+how to format this book using Sphinx; of Mattias Felleisen, Shriram
+Krishnamurthi, Gregor Kiczales, and others for discussions about HTDP
+and related pedagogical strategies; and Ken Birman, who suggested that
+the author look at Dafny as a strong candidate for a first or early
+course for computer scientists. The author also thanks the students in
+his CS2102 Spring 2018 class for their patience and attention learning
+discrete math in the style described here. 
 
 Feedback and Corrections
 ========================
