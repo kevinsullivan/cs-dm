@@ -59,7 +59,7 @@ involve the use of software tools that bring the notions of logic and
 proof to life: Dafny for first-order predicate logic for specification
 and verification, and Lean for explicit construction of proof objects
 for Lean’s higher-order constructive logic.</p>
-<p>Concepts covered in this course notably include the following:</p>
+<p>Concepts covered in this course include the following:</p>
 <ul class="simple">
 <li>Read, write, and use classical first-order predicate logic to
 specify programs in Dafny use Dafny to verify them automatically</li>
@@ -115,10 +115,9 @@ students with the language and uses of first-order predicate logic by
 teaching them how to write pre-/post-condition specifications, logical
 assertions, and loop invariants for code that can then be verified by
 a tool. The first part of the course thus relieves them of the need to
-understand proofs. This course thus teaches imperative and functional
-programming and specification using Dafny, and uses Dafny’s SMT-based
-program verification engine to provide students immediate feedback on
-their specifications and programs.</p>
+understand proofs while showing the benefits of proof automation using
+Dafny’s SMT-based program verification engine and real-time checking in
+the VS Code plugin for Dafny.</p>
 <p>Third, the effective study of set theory, relational logic, order
 theory, and related concepts relies on a reasonable degree of fluency
 in first-order predicate logic. The study of these topics should thus
@@ -128,37 +127,39 @@ related concepts will provide significant additional practice with and
 will deepen students’ understanding of this language and its uses.</p>
 <p>Furthermore, while the set and relational abstraction provided by most
 industrial programming languages are conceptually compromised (what on
-earth is a <em>hashmap</em>, for example), the libraries of carefully defined
-modern verifications systems are almost idea for teaching <em>automated</em>
-set theory. Dafny’s finite <em>set</em> and infinite <em>iset</em> types provide
-operations and notations that directly reflect the corresponding set
-theory, for example. One write cardinalities, unions, comprehensions,
-etc. with very natural syntax and semantics. Rather than learning set
-theory as an arcane paper-and-pencil exercise, students can now learn
-it by writing beautiful code that they can play with and run.</p>
-<p>Third, the on-ramp to learning proof techniques is complex and should
-be taught through a step-by-step development of underlying principles.
-This course therefore takes students on an incremental journey through
-an evolving landscape of deepening concepts. Having developed students’
-fluency in reading, writing, and <em>benefitting from</em> predicate logic, the
-course then asks and starts to answer the question, <em>what is a logic</em>?</p>
+earth is a <em>hashmap</em>, for example), the Dafny libraries are very well
+suited for teaching set theory. Dafny’s finite <em>set</em> and infinite
+<em>iset</em> types provide operations and notations that directly reflect
+the corresponding mathematics. One write cardinalities, unions, set
+comprehensions, quantified expressions, etc. with natural syntax and
+semantics. Rather than learning set theory by paper-and-pencil,
+students can now learn it through expressive code and the immediate
+feedback produced by Dafny.</p>
+<p>Third, the on-ramp to learning proof techniques is complex and often
+under-taught. This course takes the view that students will benefit
+from a step-by-step development of underlying principles.  This course
+thus takes students through an evolving landscape of concepts that
+follow one from another. For example, only after developeing fluency
+in reading, writing, and using predicate logic, only then are students
+asked what is a logic?</p>
 </div>
-<div class="section" id="progression">
-<h2>1.2. Progression<a class="headerlink" href="#progression" title="Permalink to this headline">¶</a></h2>
-<p>This question leads directly to the notion of a formal language, which
-the course then addresses in the style of modern type theory. As an
-easy warm-up, students learn how to specify the <em>syntax</em> of a simple
+<div class="section" id="further-progression">
+<h2>1.2. Further Progression<a class="headerlink" href="#further-progression" title="Permalink to this headline">¶</a></h2>
+<p>This question leads to the notion of a formal language, with a syntax
+and semantics, and the idea that logics are such formal languages. As
+an easy warm-up, students learn how to specify the syntax of a simple
 variant of the language of Boolean expressions (with both literals and
 connectives but no variables) using <em>inductive type definitions</em>; and
-they learn how to specify and implement the <em>semantics</em> of a language
-using <em>pattern matching</em> and <em>structural recursion</em> over terms of the
-language.</p>
-<p>In the next chapter, students first extend this language to support
-Boolean variables, leading to the core concept of an environment or
-interpretation: or to a <em>state</em> in which an expression that includes
-variables is evaluated. From there it’s a simple observation that the
-students have constructed a language fully isomorphic to propositional
-logic!</p>
+to specify and implement the semantics of a language using <em>pattern
+matching</em> and <em>structural recursion</em> over terms of the language.</p>
+<p>In the next chapter, students extend this language to support Boolean
+variables, leading to the concept of an environment or interpretation:
+a <em>state</em> in which an expression with variables is evaluated.</p>
+<p>From there it’s just a simple observation that the students have
+actually constructed a language isomorphic to propositional logic.</p>
+</div>
+<div class="section" id="satisfiability-and-validity">
+<h2>1.3. Satisfiability and Validity<a class="headerlink" href="#satisfiability-and-validity" title="Permalink to this headline">¶</a></h2>
 <p>The concepts of models and of satisfiability (there exists a model),
 of validity (for all models), and of unsatisfiability (there does not
 exist a model) all follow directly. The class works through a basic
@@ -173,14 +174,20 @@ see that it cannot scale because truth tables are exponential in the
 number of variables in a given proposition. Incidentally, the coding
 of these capabilities provides students with more and deeper examples
 of the uses of specifications to write and check clean, correct code.</p>
-<p>Finally, students are led to the notions of <em>syntactic entailment</em>,
-and thus of <em>derivations</em> and <em>proofs</em>. At this point, the course
-finally “surfaces” proof objects, and does so by changing tools from
-Dafny to Lean, a new constructive logic proof assistant that, like
-Dafny, was (and continues to be) developed at Microsoft Research (by
-Leo de Moura). The introduction and elimination rules of natural
-deduction are now recapitulated, but now in the context and language
-of higher-order constructive logic.</p>
+</div>
+<div class="section" id="syntactic-entailment">
+<h2>1.4. Syntactic Entailment<a class="headerlink" href="#syntactic-entailment" title="Permalink to this headline">¶</a></h2>
+<p>Next, students are led to the notions of <em>syntactic entailment</em>, and
+thus of <em>derivations</em> and <em>proofs</em>. At this point, the course finally
+“surfaces” proof objects, and does so by changing tools from Dafny to
+Lean, a new constructive logic proof assistant that, like Dafny, was
+(and continues to be) developed at Microsoft Research (by Leo de
+Moura). The introduction and elimination rules of natural deduction
+are now recapitulated, but now in the context and language of
+higher-order constructive logic.</p>
+</div>
+<div class="section" id="proof-strategies-a-type-driven-approach">
+<h2>1.5. Proof Strategies: A Type-Driven Approach<a class="headerlink" href="#proof-strategies-a-type-driven-approach" title="Permalink to this headline">¶</a></h2>
 <p>From there, proof strategies are taught as following in many cases
 from the form of the proposition to be proved. Rather than initially
 learning proofs as informal paper-and-pencil constructions, they see
@@ -189,19 +196,23 @@ system of Lean, which includes typed <em>holes</em> provides very beautiful
 support for top-down structured development of proof objects, and,
 indeed of programs, since programs are, of course, ultimately, also
 proofs: of their types.</p>
-<p>Chapters follow on proof techniques deriving from the various forms of
-propositions, ultimately reaching proofs by induction for universally
-quantified propositions. (Notes not yet in place: TBD).</p>
+</div>
+<div class="section" id="theorems-and-proofs">
+<h2>1.6. Theorems and Proofs<a class="headerlink" href="#theorems-and-proofs" title="Permalink to this headline">¶</a></h2>
+<p>Chapters follow on proof construction methods corresponding to the
+various forms of propositions, eventually reaching dependent pairs for
+existentially quantified propositions and proofs by induction for
+universally quantified propositions. (Notes not yet in place: TBD).</p>
 </div>
 <div class="section" id="tools">
-<h2>1.3. Tools<a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h2>
+<h2>1.7. Tools<a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h2>
 <p>The course used the Dafny and Lean languages, and used VS Code and the
-Dafny and Lean extensions for VS Code for all student work. Students
-worked on code in almost every class, generally pulling updates to be
-discussed and worked on each day from the author’s evolving GitHub
-repository. Startin in Fall 2018 the plan is to organize the repo as
-a set of branches, each introducing the additional material for each
-day of the course.</p>
+Dafny and Lean extensions for VS Code for essentially all student
+work. Students worked on code in almost every class, generally pulling
+updates to be discussed and worked on each day from the author’s
+evolving GitHub repository. Startin in Fall 2018 the plan is to
+organize the repo as a set of branches, each introducing the
+additional material for each day of the course.</p>
 <p>The Dafny and Lean languages, per se, caused few complications. Dafny
 has incomplete heuristics that lead to mystifying results in a few
 cases. Notably, while it has heuristics that infer that intersections
@@ -224,49 +235,41 @@ the VS Code extensions. The author is happy to discuss them with other
 instructors and investigators who might be interested.</p>
 </div>
 <div class="section" id="exercises">
-<h2>1.4. Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<h2>1.8. Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
 <p>Exercises are currently provided in some but not all chapters. This is
 work that planned for completion by the start of Fall semester, 2018.</p>
 </div>
 <div class="section" id="acknowledgements">
-<h2>1.5. Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this headline">¶</a></h2>
+<h2>1.9. Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this headline">¶</a></h2>
 <p>The design of this course owes a lot to many other researchers. It was
-inspired by pedagogical works organized around Coq, notably Benjamin
-Pierce’s Software Foundations and Chlipala’s Certified Programming
-with Dependent Types. Unlike those works, this course is geared to the
-beginning undergraduate students in computer science, and so it aims
-to make no assumptions about prior knowledge except of the most
-fundamental constructs of imperative programming.</p>
+indirectly inspired by pedagogical works around Coq: Pierce’s Software
+Foundations and Chlipala’s book, Certified Programming with Dependent
+Types. Unlike those works, this course is geared to the beginning
+undergraduate students. It aims to make no assumptions about prior
+knowledge except of the basic constructs of imperative programming.</p>
 <p>This course was also inspired and influenced by the <em>How to Design
 Programs</em> curricula by Felleisen, Krishnamurthi, et al., as realized
 in the <em>MOOC</em> courses by Kiczales.  Unlike those courses, this course
-relies on strongly, statically typed languages that support both code
-and logic and proof. HTDP’s use of the untyped Scheme-like language,
-Racket, leaves the underlying type-theoretical principles unenforced,
-to be realized informally by students, if at all, in design heuristics
-and un-checked comments.</p>
-<p>This course, by contrast, starts with Dafny, a system that integrates
-ordinary imperative programming with a modern functional language that
-supports inductive data types and pattern matching, along with first
-order predicate logic. Strong, static typing is central. The course
-then moves on to having students competently and confidently building
-proofs in the type theory of the Lean Prover.  This tool beautifully
-supports type-driven development not only of code but of proofs as
-well, through incremental refinement of typed holes in typed terms.</p>
+relies on strongly, statically typed languages that provide unified
+support for code, logic, proof, and structured, top-down, type-driven
+development of all of the above, through the incremental refinement of
+typed holes in typed terms.</p>
 <p>The author gratefully acknowledges the support of Rustan Leino, the
 developer of Dafny, and several others who provided insight and help
-in its use; of Leo de Moura, Tom Ball, and Jeremy Avigad, for their
-help with Lean, and Jeremy for open source code that taught the author
-how to format this book using Sphinx; of Mattias Felleisen, Shriram
-Krishnamurthi, Gregor Kiczales, and others for discussions about HTDP
-and related pedagogical strategies; and Ken Birman, who suggested that
-the author look at Dafny as a strong candidate for a first or early
-course for computer scientists. The author also thanks the students in
-his CS2102 Spring 2018 class for their patience and attention learning
-discrete math in the style described here.</p>
+in its use; Farhad Mehta, two of whose former undergraduate students
+developed the VS Code extension; Leo de Moura, Tom Ball, and Jeremy
+Avigad, for their help with Lean, and Jeremy for open source code that
+taught the author how to format this book using Sphinx; Ken Birman for
+suggesting that the author look at Dafny as a candidate for an early
+course for computer science with formal underpinnings. The author also
+thanks the students in his CS2102 Spring 2018 class for their patience
+and attention learning discrete math in the style described here. For
+many relevant conversations over the years, the author also thanks
+Mattias Felleisen, Shriram Krishnamurthi, Gregor Kiczales, Mark
+Guzdial and others for discussions about software-related pedagogy.</p>
 </div>
 <div class="section" id="feedback-and-corrections">
-<h2>1.6. Feedback and Corrections<a class="headerlink" href="#feedback-and-corrections" title="Permalink to this headline">¶</a></h2>
+<h2>1.10. Feedback and Corrections<a class="headerlink" href="#feedback-and-corrections" title="Permalink to this headline">¶</a></h2>
 <p>The author advises that this book in its current form is still a very
 rough draft. Corrections and other forms of feedback are welcomed. The
 author requests that corrections in particular be posted as <em>issues</em>
@@ -298,11 +301,15 @@ of Pierce around Software Foundations.</p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">1. Preface</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#design-rationale">1.1. Design Rationale</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#progression">1.2. Progression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#tools">1.3. Tools</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#exercises">1.4. Exercises</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#acknowledgements">1.5. Acknowledgements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#feedback-and-corrections">1.6. Feedback and Corrections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#further-progression">1.2. Further Progression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#satisfiability-and-validity">1.3. Satisfiability and Validity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#syntactic-entailment">1.4. Syntactic Entailment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#proof-strategies-a-type-driven-approach">1.5. Proof Strategies: A Type-Driven Approach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#theorems-and-proofs">1.6. Theorems and Proofs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tools">1.7. Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises">1.8. Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#acknowledgements">1.9. Acknowledgements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#feedback-and-corrections">1.10. Feedback and Corrections</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="01-reqs-specs-impls.html">2. Requirement, Specifications, and Implementations</a></li>
@@ -331,9 +338,9 @@ of Pierce around Software Foundations.</p>
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="https://kevinsullivan.github.io/cs-dm">Lean Home</a></li>
-    
     <li class="toctree-l1"><a href="discrete_mathematics.pdf">PDF version</a></li>
+    
+    <li class="toctree-l1"><a href="https://kevinsullivan.github.io/cs-dm">Lean Home</a></li>
     
 </ul>
 
