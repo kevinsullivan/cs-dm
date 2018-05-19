@@ -73,14 +73,13 @@ expressions, then bridging to propositional logic</p>
 <li><p class="first">Explore satisfiability and the related concept of validity</p>
 </li>
 <li><p class="first">Get on the on-ramp to natural deduction
-- Meet, and for propositional logic, implement and validate, a</p>
+- Meet, and for propositional logic, implement and validate, a catalog of proposed inference rules as principles of reasoning
+- Understand and implement, using our propositional logic validity</p>
 <blockquote>
-<div><p>catalog of proposed inference rules as principles of reasoning</p>
+<div><p>checker, the notion of the <em>semantic</em> validity of such rules (by
+way of truth tables)</p>
 </div></blockquote>
 <ul class="simple">
-<li>Understand and implement, using our propositional logic validity
-checker, the notion of the <em>semantic</em> validity of such rules (by
-way of truth tables)</li>
 <li>develop and implement a suite of classical valid and invalid
 inference rules, for all the non-quantifier-related introduction
 and elimination rules of natural deduction</li>
@@ -90,23 +89,11 @@ syntactic entailment</li>
 </ul>
 </li>
 <li><p class="first">Understand proofs as substitutes for semantic entailment checks
-- As compositions of inference rules grounded in the rules of</p>
-<blockquote>
-<div><p>natural deduction</p>
-</div></blockquote>
-<ul class="simple">
-<li>Organized in layers of abstractions, where new rules are validated
-by proofs constructed using previously established results, again
-grounded in the core introduction and elimination rules of natural
-deduction</li>
-<li>Learning to write code (in Lean) that construct proofs that are
-then typechecked for correctness</li>
-<li>Learning how to apply type-guided top-down structured development
-to incrementally elaborate incomplete proofs initially with holes</li>
-<li>Seeing that different kinds of propositions require corresponding
-kinds of proofs, and understanding how to select proof strategies
-at each level of a type-guided, top-down, structured development</li>
-</ul>
+- As compositions of inference rules grounded in the rules of natural deduction
+- Organized in layers of abstractions, where new rules are validated by proofs constructed using previously established results, again grounded in the core introduction and elimination rules of natural deduction
+- Learning to write code (in Lean) that construct proofs that are then typechecked for correctness
+- Learning how to apply type-guided top-down structured development to incrementally elaborate incomplete proofs initially with holes
+- Seeing that different kinds of propositions require corresponding kinds of proofs, and understanding how to select proof strategies at each level of a type-guided, top-down, structured development</p>
 </li>
 <li><p class="first">Introduction and elimination rules for the two basic quantifiers
 - dependent pairs for introducing/eliminating existential quantifiers
@@ -270,19 +257,21 @@ beginning undergraduate students in computer science, and so it aims
 to make no assumptions about prior knowledge except of the most
 fundamental constructs of imperative programming.</p>
 <p>This course was also inspired and influenced by the <em>How to Design
-Programs</em> curricula by Felleisen, Krishnamurthi, et al., and realized
-beautifully in the <em>MOOC</em> courses by Kiczales.  Unlike those courses,
-this course is deeply committed to the use of strongly, statically
-typed languages that support both code and logic. HTDP’s commitment to
-the untyped Scheme-like language, Racket, leaves the type-theoretical
-ideas that underpin the curriculum implicit, to be realized informally
-by students, if at all, in the form of un-machine-checked
-comments. This course, by contrast, starts with verification of Dafny
-programs, which are strongly typed, and ends with students competently
-and confidently construting proofs in the logic of the Lean Prover.
-This tool beautifully supports type-driven development not only of
-code but of proofs through incremental refinement of typed holes in
-typed terms.</p>
+Programs</em> curricula by Felleisen, Krishnamurthi, et al., as realized
+in the <em>MOOC</em> courses by Kiczales.  Unlike those courses, this course
+relies on strongly, statically typed languages that support both code
+and logic and proof. HTDP’s use of the untyped Scheme-like language,
+Racket, leaves the underlying type-theoretical principles unenforced,
+to be realized informally by students, if at all, in design heuristics
+and un-checked comments.</p>
+<p>This course, by contrast, starts with Dafny, a system that integrates
+ordinary imperative programming with a modern functional language that
+supports inductive data types and pattern matching, along with first
+order predicate logic. Strong, static typing is central. The course
+then moves on to having students competently and confidently building
+proofs in the type theory of the Lean Prover.  This tool beautifully
+supports type-driven development not only of code but of proofs as
+well, through incremental refinement of typed holes in typed terms.</p>
 <p>The author gratefully acknowledges the support of Rustan Leino, the
 developer of Dafny, and several others who provided insight and help
 in its use; of Leo de Moura, Tom Ball, and Jeremy Avigad, for their
