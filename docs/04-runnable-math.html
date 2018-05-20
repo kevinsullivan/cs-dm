@@ -70,10 +70,10 @@ function applied to an integer value, <em>x</em>, just evaluates to the value
 of <em>x</em>, itself. In the language of mathematical logic, the definition
 of the function would be written like this.</p>
 <div class="math">
-<p><img src="_images/math/5912c565f1e6a0a37d8fbd80e3ad0524ed8e668c.png" alt="\forall x \in \mathbb{Z}, x."/></p>
-</div><p>In English, this would be pronounced, “for all (<img class="math" src="_images/math/0ec82a7c57f48dcf60e39bd00f853774ac9e6265.png" alt="\forall"/>)
-values, <em>x</em>, in (<img class="math" src="_images/math/f7e0424b4220d96fcb9cc0347450bbd19ee34975.png" alt="\in"/>) the set of integers
-(<img class="math" src="_images/math/7666c2aa5a8bac393085a72790121886cae42a9d.png" alt="\mathbb{Z}"/>), the function simply reduces to value of <em>x</em>,
+<p><img src="_images/math/07cba1ad343ff6a4740c62449fbf2df113bb763c.png" alt="\forall x \in \mathbb{Z}, x."/></p>
+</div><p>In English, this would be pronounced, “for all (<img class="math" src="_images/math/ebd95d6fe2eb407c57a5cc341daa811cfafb2cf6.png" alt="\forall"/>)
+values, <em>x</em>, in (<img class="math" src="_images/math/d23d737cd2edc84060c5983759a705ec03c7d263.png" alt="\in"/>) the set of integers
+(<img class="math" src="_images/math/2ce48f081d097f662de466bbb0aacedc045aeec5.png" alt="\mathbb{Z}"/>), the function simply reduces to value of <em>x</em>,
 itself. The infinite set of integers is usually denoted in
 mathematical writing by a script or bold Z. We will use that
 convention in these notes.</p>
@@ -95,7 +95,7 @@ defined to be <em>id</em>. Second, the function is defined to take just one
 argument, <em>x</em>, declared of type <em>int</em>.  The is the Dafny type whose
 values represent integers (negative, zero, and positive whole number)
 of any size. The Dafny type <em>int</em> thus represents (or <em>implements</em>)
-the mathematical set, <img class="math" src="_images/math/91f413ac3b72373af86149a149a5918db6006353.png" alt="{\mathbb Z}"/>, of all integers. The <em>int</em>
+the mathematical set, <img class="math" src="_images/math/c5fe1da7163f7137cd10500051a3775eb4bbd68c.png" alt="{\mathbb Z}"/>, of all integers. The <em>int</em>
 after the argument list and colon then indicates that, when applied to
 an int, the function returns (or <em>reduces to</em>) a value of type <em>int</em>.
 Finally, within the curly braces, the expression <em>x</em>, which we call
@@ -127,14 +127,14 @@ first, obvious, one is the type <em>int</em>. The <em>values</em> of this type a
 which is less visible in the example, is the type of the the function,
 <em>id</em>, itself. As the function takes an argument of type <em>int</em> and also
 returns a value of type <em>int</em>, we say that the type of <em>id</em> is
-<img class="math" src="_images/math/ed810a291f691901fd674e28363f82cc9b206142.png" alt="int \rightarrow int"/>. You can pronounce this type as <em>int to
+<img class="math" src="_images/math/d3d219c1cd22d241f910083e5f1e4da0008bff92.png" alt="int \rightarrow int"/>. You can pronounce this type as <em>int to
 int</em>.</p>
 </div>
 <div class="section" id="other-function-values-of-the-same-type">
 <h2>5.3. Other function values of the same type<a class="headerlink" href="#other-function-values-of-the-same-type" title="Permalink to this headline">¶</a></h2>
 <p>There are many (indeed an uncountable infinity of) functions that
 convert integer values to other integer values. All such functions
-have the same type, namely <img class="math" src="_images/math/ed810a291f691901fd674e28363f82cc9b206142.png" alt="int \rightarrow int"/>, but they
+have the same type, namely <img class="math" src="_images/math/d3d219c1cd22d241f910083e5f1e4da0008bff92.png" alt="int \rightarrow int"/>, but they
 constitute different function <em>values</em>. While the type of a function
 is specified in the declaration of the function argument and return
 types, a function <em>value</em> is defined by the expression comprising the
@@ -142,7 +142,7 @@ types, a function <em>value</em> is defined by the expression comprising the
 <p>An example of a different function of the same type is what we will
 call <em>inc</em>, short for <em>increment</em>. When applied to an integer value,
 it reduces to (or <em>returns</em>) that value plus one. Mathematically, it
-is defined as <img class="math" src="_images/math/43e701514e5c2bb7571635a6d3a64c53b3e3a7a0.png" alt="\forall x \in {\mathbb Z}, x + 1"/>. For example,
+is defined as <img class="math" src="_images/math/528e7cc14105684051327c98c72317b5740e1b9f.png" alt="\forall x \in {\mathbb Z}, x + 1"/>. For example,
 <em>inc(2)</em> reduces to <em>3</em>, and <em>inc(-2)</em>, to <em>-1</em>.</p>
 <p>Here’s a Dafny functional program that implements this function. You
 should be able to understand this program with ease. Once again, take
@@ -154,7 +154,7 @@ pure functional programmer is writing <em>runnable mathematics</em>.</p>
 </div>
 <p>Another example of a function of the same type is, <em>square</em>, defined
 as returing the square of its integer argument. Mathematically it is
-the function, <img class="math" src="_images/math/a13091454a1ec05542a65217d985a5686646da44.png" alt="\forall x \in {\mathbb Z}, x * x"/>. And here is
+the function, <img class="math" src="_images/math/12304ca0fc47b3ae39d3e63d8a1ab38a975347d3.png" alt="\forall x \in {\mathbb Z}, x * x"/>. And here is
 a Dafny implementation.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>function method h (x: int): int { x * x }
 </pre></div>
@@ -188,7 +188,7 @@ larger than zero that we might have multiplied together to produce the
 result. The trick is to write a mathematical definition of factorial
 in two cases: one for the value zero, and one for any other number.</p>
 <div class="math">
-<p><img src="_images/math/18ac6a3c8df9e274956b71502b760dcdc35ef554.png" alt="factorial(n) := \forall n \in {\mathbb Z} \mid n &gt;= 0, \begin{cases}
+<p><img src="_images/math/8b55f235536fb859ae0c89c6f795579e5f0f68d9.png" alt="factorial(n) := \forall n \in {\mathbb Z} \mid n &gt;= 0, \begin{cases}
 \text{if n=0}, &amp; 1,\\ \text{otherwise}, &amp; n *
 factorial(n-1).\end{cases}"/></p>
 </div><p>To pronounce this mathematical definition in English, one would say
@@ -205,10 +205,10 @@ defined, we call the definition <em>recursive.</em></p>
 say the set of values for which it is defined, to the non-negative
 integers only, the set known as the <em>natural numbers</em>. The function
 simply isn’t defined for negative numbers.  Mathematicians usually use
-the symbol, <img class="math" src="_images/math/149724014200579b9db8a3e1b902df6df348b5ef.png" alt="{\mathbb N}"/> for this set. We could have written
+the symbol, <img class="math" src="_images/math/c8f55b4d0816bb06f543ad34702b2642a045ba47.png" alt="{\mathbb N}"/> for this set. We could have written
 the definition a little more concisely using this notation, like this:</p>
 <div class="math">
-<p><img src="_images/math/a429a43b29ee1eb8d4cd64a8d30883f4189b1774.png" alt="factorial(n) := \forall n \in {\mathbb N}, \begin{cases}
+<p><img src="_images/math/3081dfa3fd8990ac82194e376df873a44ef80af9.png" alt="factorial(n) := \forall n \in {\mathbb N}, \begin{cases}
 \text{if n=0}, &amp; 1,\\ \text{otherwise}, &amp; n *
 factorial(n-1).\end{cases}"/></p>
 </div><p>Here, then, is a Dafny implementation of the factorial function.</p>
@@ -225,7 +225,7 @@ restriction on the domain is expressed in the <em>requires</em> clause of the
 program. This clause is not runnable code. It’s a specification: a
 <em>predicate</em> (a proposition with a parameter) that must hold for the
 program to be used. Dafny will insist that this function only ever be
-applied to values of <em>n</em> that have the <em>property</em> of being <img class="math" src="_images/math/786f23192333474fbceb9c5defaad72516db5551.png" alt="&gt;=
+applied to values of <em>n</em> that have the <em>property</em> of being <img class="math" src="_images/math/cc875bc38a43f3d76b1d106c825e09cabd853ff2.png" alt="&gt;=
 0"/>. A predicate that must be true for a program to be run is called a
 <em>pre-condition</em>.</p>
 <p>To see how the recursion works, consider the application of
@@ -238,7 +238,7 @@ body of the function; then you evaluate the resulting expression
 leads through a sequence of intermediate expressions as follows (leaving
 out a few details that should be easy to infer):</p>
 <div class="math">
-<p><img src="_images/math/22a9192341253fe8ae25ad408a72aa8ca57d5592.png" alt="factorial\ (3) &amp; \text{ ; a function application expression}
+<p><img src="_images/math/96edc6c1dd06eb66d7dc5a26bd427b76aa5af5c3.png" alt="factorial\ (3) &amp; \text{ ; a function application expression}
 
 if\ (3 == 0)\ then\ 1\ else\ (3 * factorial\ (3-1)) &amp; \text{ ; expand body with  parameter/argument substitution}
 

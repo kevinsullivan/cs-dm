@@ -78,7 +78,7 @@ larger proposition by composing these two propositions into a larger
 one under the logical connective called <em>and</em>. The result would be the
 proposition, <em>Toms’ mother is Mary and Tom’s father is Ernst</em>. We
 could of course write this more concisely as <em>M and F</em>, or, in a more
-mathematical notation, <img class="math" src="_images/math/61e415f9ee405cbbaabb2fe642fcfeb3472c4845.png" alt="M \land F"/>.</p>
+mathematical notation, <img class="math" src="_images/math/b6a03bb07b16c653ebfb0058c38d66c7ab234a17.png" alt="M \land F"/>.</p>
 <p>Now we ask, what is the truth value of this larger proposition? To
 determine the answer, we conjoin the truth values of the constituent
 propositions.  The meaning of the larger proposition is determined by
@@ -91,7 +91,7 @@ larger propositions using connectives such as <em>and</em>, <em>or</em>, and <em
 and this compositional way of determining the truth of propositions,
 is called <em>propositional logic</em>.</p>
 <p>By contrast, the proposition, “every person has a mother” (or to put
-it more formally, <img class="math" src="_images/math/206148e26a460cecf24a3eac56fd50ec871e006e.png" alt="\forall p \in Persons, \exists m \in Persons,
+it more formally, <img class="math" src="_images/math/3a2c24211ae54a244f8ed095bd7dd699d5641206.png" alt="\forall p \in Persons, \exists m \in Persons,
 motherOf(p,m)"/>), belongs to a richer logic.  Here, <em>motherOf(p, m)</em> is
 a <em>predicate on two values</em>. It stands for the family of propositions,
 <em>the mother of p is m</em>, where <em>p</em> and <em>m</em> are variables that range
@@ -128,7 +128,7 @@ result is a proposition about those value.</p>
 science. It is, among other things, the logic Dafny provides for
 writing specifications.  As an example, consider our specification of
 what it means for a function, <em>R</em>, with domain, <em>D</em>, and codomain,
-<em>C</em>, to be surjective: <img class="math" src="_images/math/c414e9dc9df9d4d75f445a2887ad40660033cda1.png" alt="\forall c \in C, \exists d \in D, (d,c)
+<em>C</em>, to be surjective: <img class="math" src="_images/math/3762eed26c64f9e03b53e9fec19df2bce642d03d.png" alt="\forall c \in C, \exists d \in D, (d,c)
 \in R"/>. In Dafny, we would (and did) write this as, <em>forall c :: c in
 codom() ==&gt; exists d :: d in dom() &amp;&amp; (d,c) in rel().</em> Dafny is thus a
 specification and verification system based on <em>predicate
@@ -461,10 +461,10 @@ ask where there is an assignment of <em>true</em> and <em>false</em> values to t
 variables in the expression to make the overall expression evaluate to
 <em>true</em>.</p>
 <p>Here’s an example. Suppose you’re given the Boolean expression,
-<img class="math" src="_images/math/ed91e233ac59f309023a17de725c6fceb4d14735.png" alt="(P \lor Q) \land (\lnot R)"/>. The top-level operator is
+<img class="math" src="_images/math/d2134fca2cb0c27ee5426a41d9e7f422f2f28f85.png" alt="(P \lor Q) \land (\lnot R)"/>. The top-level operator is
 <em>and</em>. The whole expression thus evaluates to <em>true</em> if and only if
-both subexpressions do: <img class="math" src="_images/math/fcb2e6e735e297278e1c2bff003e03c38ab9ae29.png" alt="(P \lor Q)"/> and <img class="math" src="_images/math/bdfb00eb58d680cccbda727792f74168664bf509.png" alt="\land (\lnot
-R)"/>, respectively. The first, <img class="math" src="_images/math/fcb2e6e735e297278e1c2bff003e03c38ab9ae29.png" alt="(P \lor Q)"/>, evaluates to <em>true</em>
+both subexpressions do: <img class="math" src="_images/math/8ccab6e3d02d6250b96a915c819fbc55f4973b76.png" alt="(P \lor Q)"/> and <img class="math" src="_images/math/6524fd438167cf39571cb8b03f192e7d1a3cccac.png" alt="\land (\lnot
+R)"/>, respectively. The first, <img class="math" src="_images/math/8ccab6e3d02d6250b96a915c819fbc55f4973b76.png" alt="(P \lor Q)"/>, evaluates to <em>true</em>
 if either of the variables, <em>P</em> and <em>Q</em>, are set to true. The second
 evaluates to true if and only if the variable <em>R</em> is false. There are
 thus settings of the variables that make the formula true. In each of
@@ -485,8 +485,8 @@ problem.</p>
 Boolean expression, to determine whether it is <em>satisfiable</em>. That is,
 is there at least one interpretation (assignment of truth values to
 the variables in the expression that makes the expression evaluate to
-<em>true</em>?  We saw, for example, that the expression, <img class="math" src="_images/math/9a281c31a145435f002b391d325da8675c271f4c.png" alt="(P \lor Q)
-\land (\lnot R)"/> is satifiable, and, moreover, that <img class="math" src="_images/math/30bbf8141d7b4fc62246293d328b318f24d32856.png" alt="\{ (P,
+<em>true</em>?  We saw, for example, that the expression, <img class="math" src="_images/math/1811e5e86af3b503fed59dffdb7cd69d32066edd.png" alt="(P \lor Q)
+\land (\lnot R)"/> is satifiable, and, moreover, that <img class="math" src="_images/math/bee5c4be08fb08dd5dfd00e92e9aa5a8f6ff4b30.png" alt="\{ (P,
 true), (Q, false), (R, false) \}"/> is a (one of three) interpretations
 that makes the expression true.</p>
 <p>Such an interpretation is called a <em>model</em>. The problem of finding a
@@ -494,21 +494,21 @@ model (if there is one), and thereby showing that an expression is
 satisfiable, is naturally enough called the* model finding* problem.</p>
 <p>A second problem is to determine whether a Boolean expression is
 <em>valid</em>. An expression is valid if <em>every</em> interpretation makes the
-expression true. For example, the Boolean expression <img class="math" src="_images/math/0f0752a85d207a161954f1203fa1adbab99a6afb.png" alt="P \lor
+expression true. For example, the Boolean expression <img class="math" src="_images/math/e0ae6d7224d00dafd9d3e53ab47570a2ed0406e8.png" alt="P \lor
 \neg P"/> is always true. If <em>P</em> is set to true, the formula becomes
-<img class="math" src="_images/math/65a34f7707e42d18a96981b666c8191b02d97778.png" alt="true \lor false"/>. If <em>P</em> is set to false, the formula is then
-<img class="math" src="_images/math/65a34f7707e42d18a96981b666c8191b02d97778.png" alt="true \lor false"/>. Those are the only two interpretations and
+<img class="math" src="_images/math/8a5469c0c0dd09859bf67a983b3b58a7bc12ebf0.png" alt="true \lor false"/>. If <em>P</em> is set to false, the formula is then
+<img class="math" src="_images/math/8a5469c0c0dd09859bf67a983b3b58a7bc12ebf0.png" alt="true \lor false"/>. Those are the only two interpretations and
 under either of them, the resulting expression evaluates to true.</p>
 <p>A third related problem is to determine whether a Boolean expression
 is it <em>unsatisfiable</em>? This case occurs when there is <em>no</em> combination
-of variable values makes the expression true. The expression <img class="math" src="_images/math/ded8a65af166d3f1b2527ee00002419b0f316e23.png" alt="P
+of variable values makes the expression true. The expression <img class="math" src="_images/math/11c06d2d7a184be52638dd0a726b38ec0ab135b9.png" alt="P
 \land \neg P"/> is unsatisfiable, for example. There is no value of $P$
 (either <em>true</em> or <em>false</em>) that makes the resulting formula true.</p>
 <p>These decision problems are all solvable. There are algorithms that in
 a finite number of steps can determine answers to all of them. In the
 worst case, one need only look at all possible combinations of true
 and false values for each of the (finite number of) variables in an
-expression. If there are <em>n</em> variables, that is at most <img class="math" src="_images/math/765e78a51ed297b5fcd72c223d6d93daa98362e3.png" alt="2^n"/>
+expression. If there are <em>n</em> variables, that is at most <img class="math" src="_images/math/798d39775b3c54beddeb31ad508597409e6e7c43.png" alt="2^n"/>
 combinations of such values. Checking the value of an expression for
 each of these interpretations will determine whether it’s satisfiable,
 unsatisfiable, or valid. In this chapter, we will see how these ideas
@@ -549,7 +549,7 @@ or more smaller <em>Boolean expressions</em> as arguments.</p>
 larger Boolean expressions out of smaller ones. We are thus defining
 the set of all Boolean expressions <em>inductively</em>. For example, if <em>P</em>
 is a Boolean variable expression, then we can construct a valid larger
-expression, <img class="math" src="_images/math/efd12690c6af59a997b0ae2eff298ea1835cef28.png" alt="P \land true"/> to express the conjunction of the
+expression, <img class="math" src="_images/math/09aad34152247adcbd0eb29387e536cc8b02149f.png" alt="P \land true"/> to express the conjunction of the
 value of <em>P</em> (whatever it might be( with the value, <em>true</em>. From here
 we could build the larger expression, <em>P lor (P land true)</em>, and so
 on, ad infinitum.</p>

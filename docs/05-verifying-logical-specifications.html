@@ -58,7 +58,7 @@ Fibonacci function.</p>
 <p>We start off knowing that if the argument to the function, <em>n</em>, is <em>0</em>
 or <em>1</em>, the value of the function for that <em>n</em> is just <em>n</em> itself.  In
 other words, the sequence, <em>fib(i)</em> of <em>Fibonacci numbers indexed by
-i</em>, starts with, <img class="math" src="_images/math/da1ff06c17ec19094c6ecb6faa1e52b9031c5076.png" alt="[0, 1, \ldots ]"/>.  For any <em>n &gt;= 2</em>, <em>fib(n)</em>,
+i</em>, starts with, <img class="math" src="_images/math/d6d348c9fec97ea8bbe7cf69259bfbeda3f0a86d.png" alt="[0, 1, \ldots ]"/>.  For any <em>n &gt;= 2</em>, <em>fib(n)</em>,
 is the sum of the previous two values.  To compute the <em>n’th (n &gt;= 2)</em>
 Fibonacci number, we can thus start with the first two, sum them up to
 get the next one, then iterate this process, computing the next value
@@ -107,7 +107,7 @@ requiring no further recursion. To compute <em>fib(2)</em> however requires
 <em>3</em> evalations of <em>fib</em>: one for each of <em>fib(1)</em> and <em>fib(0)</em> plus
 the evaluation of the top-level function. The relationship between <em>n</em>
 and the number of function evaluations currently looks like this:
-<img class="math" src="_images/math/e0f851cbfb7c6ff8a99cf69349c9a840112132a5.png" alt="\{ (0,1), (1,1), (2,3), ... \}."/> The first element of each pair
+<img class="math" src="_images/math/4be24e711a64e67912a041b077bec55122aa69cc.png" alt="\{ (0,1), (1,1), (2,3), ... \}."/> The first element of each pair
 is <em>n</em> and the second element is the cost to compute <em>fib(n)</em>.</p>
 <p>What about when <em>n</em> is <em>3</em>?  Computing this requires answers for
 <em>fib(2)</em>, which by the resuts we just computed costs <em>3</em> evaluations,
@@ -116,12 +116,12 @@ including the top-level evaluation. Computing <em>fib(4)</em> requires that
 we compute <em>fib(3)</em> and <em>fib(2)</em>, costing <em>5 + 3</em>, or <em>8</em> evaluations,
 plus the original, top-level call, for a total of 9. For <em>fib(5)</em> we
 need <em>9</em> + <em>5</em>, or <em>14</em> plus one more, making <em>15</em> evaluations.  The
-relation of cost to <em>n</em> (the problem size) is now like this: <img class="math" src="_images/math/0cc42481fac71da82cc03a08294408dd01688cef.png" alt="\{
+relation of cost to <em>n</em> (the problem size) is now like this: <img class="math" src="_images/math/885d0a047df304051a1baadee9f89870d86db99a.png" alt="\{
 (0,1), (1,1), (2,3), (3,5), (4,9), (5, 15), ... \}."/></p>
 <p>In general, the number of evaluations needed to evaluate <em>fib(i+1)</em> is
 the sum of the numbers required to evaluate <em>fib(i)</em> plus the number
 to evaluate <em>fib(i-1)</em> plus <em>1.</em> If we use <em>C</em> to represent the cost
-function, then we could say, <img class="math" src="_images/math/e21a7b9bb5e446ef06c573b508c852c5dcebfa14.png" alt="C(n) = C(n-1) + C(n-2) + 1"/>. This
+function, then we could say, <img class="math" src="_images/math/e49ab712522c24e69d5c1c91f3b5fcdecd6d2b36.png" alt="C(n) = C(n-1) + C(n-2) + 1"/>. This
 kind of function is called a recurrence relation, and there are clever
 ways to solve such functions to determine what function <em>C</em> may be. Of
 course we can also write a recursive function to compute <em>C(n)</em>, if
@@ -239,7 +239,7 @@ argument value (a <em>postcondition</em>).</p>
 <em>binary relation</em> between argument (input) and return (output) values,
 and imposes on the program a requirement that whenever it is given the
 first value in such an <em>input-output</em> pair, it must compute a second
-(output) value so that the pair, <img class="math" src="_images/math/04bfda2ffcd4d12ae8e30e43494d2c6b5bf2c2fc.png" alt="(input, output)"/>, is in the
+(output) value so that the pair, <img class="math" src="_images/math/9e7007b18642212aa4d9de61039343b1b9b87423.png" alt="(input, output)"/>, is in the
 specified relation.</p>
 </div>
 <div class="section" id="relations-and-functions">
@@ -248,17 +248,17 @@ specified relation.</p>
 values. A function is a binary relation with at most one pair with a
 given first value. A function is a <em>single-valued</em> relation. What we
 often need to specify, in particular, is an input-output <em>function</em>.</p>
-<p>For example, pairs in the factorial relation include <img class="math" src="_images/math/5c4eba565069b24afd31f4c2e7a72beecf8a03a2.png" alt="(0,1),
-(1,1), (2,2), (3,6), (4,24)"/> and <img class="math" src="_images/math/2a74b92ec1c8c1537abf41b78a4cf15422cb1fcb.png" alt="(5,120)"/>, but not the pair
-<img class="math" src="_images/math/4e04c7ae4b654d6289a272bb63fddd7953087625.png" alt="(5,25)"/>. Some of the pairs in the Fibonacci relation include
-<img class="math" src="_images/math/0385cf48d511175d99af305db2b8d8b5e031df10.png" alt="\{ (0,0), (1,1), (2,1), (3,2), (5,3)"/> and <em>(6,5)</em>. These
+<p>For example, pairs in the factorial relation include <img class="math" src="_images/math/8d5089934a4e6dafe42a3a178647872ce0e7ae39.png" alt="(0,1),
+(1,1), (2,2), (3,6), (4,24)"/> and <img class="math" src="_images/math/0f4f7855d834c15ad6f85cc5827f03a4962d7578.png" alt="(5,120)"/>, but not the pair
+<img class="math" src="_images/math/c2f82a5bbb7c3901dbbe16f0095f1d4f5a18ded8.png" alt="(5,25)"/>. Some of the pairs in the Fibonacci relation include
+<img class="math" src="_images/math/dd98235f46a359bfedc58a2654909fde09c0f099.png" alt="\{ (0,0), (1,1), (2,1), (3,2), (5,3)"/> and <em>(6,5)</em>. These
 relations are also <em>functions</em> because there is <em>at most</em> one pair
 with a given first element. Finally, these functions are also said to
 be <em>total</em> because for <em>every</em> natural number, there is a pair with
 that number as its first element.</p>
 <p>On the other hand, square root is a <em>relation</em>, a set of pairs of real
 numbers, but not a <em>function</em>, because it is not singled valued. Both
-of the pairs, <img class="math" src="_images/math/70e8e0ec65c0e1eab0de2d576f3fc99d4c0581c8.png" alt="(4,2)"/> and <img class="math" src="_images/math/9f2684a393e29f67b577bb61289e839033b60288.png" alt="(4,-2)"/>, which are distinct but
+of the pairs, <img class="math" src="_images/math/1b7acb805a656ce4ef94682e2801da6877ec5377.png" alt="(4,2)"/> and <img class="math" src="_images/math/d07699891d863d384e38bd636bdd5b9acbb15e7a.png" alt="(4,-2)"/>, which are distinct but
 have same first element, are in the relation. That is so because both
 <em>2</em> and <em>-2</em> are square roots of <em>4</em>.</p>
 </div>
@@ -291,7 +291,7 @@ also a function.</p>
 <p>A different way to re-formulate the square root <em>relation</em> as a
 <em>function</em> would be to view it as returning a single <em>set</em> of values
 as a result: a set containing all of the square roots of a given
-argument.  The pair <img class="math" src="_images/math/6cda9c30c7a2b4d40a2a5f28c80383f7885d423c.png" alt="(4, \{2, -2\})"/> is in this relation, for
+argument.  The pair <img class="math" src="_images/math/2e0e4c11bbc8d7da988b640b0dcf2a3fbc1a3242.png" alt="(4, \{2, -2\})"/> is in this relation, for
 example, and the relation is also a function in that there is only one
 such pair with any given first element.</p>
 <p>So far we have dealt with the situation where a relation holds more
@@ -357,7 +357,7 @@ call this property <em>partial correctness</em>.</p>
 <p>We write the proposition that <em>C</em> is partially correct (that if it’s
 started in a state that satisfies the assertion, <em>P</em>, and that if it
 terminates, then it will do so in a state that satisfies assertion
-<em>Q</em>) as <img class="math" src="_images/math/8e5732db6b13b55f64e41efb755f73d113c5feea.png" alt="P \{ C \} Q."/> This is a so-called <em>Hoare triple</em>, named
+<em>Q</em>) as <img class="math" src="_images/math/b063dc477da14b0ac5629361a924239a6d21680f.png" alt="P \{ C \} Q."/> This is a so-called <em>Hoare triple</em>, named
 after the famous computer scientist, Sir Anthony (Tony) Hoare. It is
 nothing other than a proposition that claims that <em>C</em> satisfies its
 <em>pre-condition/post-condition</em> specification. Another way to read it
@@ -366,7 +366,7 @@ and the the program being run implies that the post-condition will be
 satisfied.</p>
 <p>In addition to a proof of partial correctness, we usually do want to
 know that a program also does always terminate. When we have a proof
-of both <img class="math" src="_images/math/56df3df8aa6617325b774f22e1d373d00035d550.png" alt="P \{ C \} Q"/> and that the program always terminates,
+of both <img class="math" src="_images/math/9ac7caaeb39aaac009f4b0ce25410310e640f332.png" alt="P \{ C \} Q"/> and that the program always terminates,
 then we have a proof of <em>total correctness</em>. Dafny is a programming
 system that allows us to specify <em>P</em> and <em>Q</em> and it then formally, and
 to a considerable extent automatically, verifies both <cite>P { C } Q</cite>
@@ -626,8 +626,8 @@ and check it using the Dafny verifier.</p>
 </pre></div>
 </div>
 <p>Now it’s easy to see. No matter what value <em>i</em> has, we know that the
-loop invariant holds: <img class="math" src="_images/math/a9055683a984dfe3fddc1d35375f449bad73fe3d.png" alt="a * fact(i) == fact(n),"/> and we also know
-that <em>i == 0</em>. So it must be that <img class="math" src="_images/math/6281479661a1b5b21f66536cf2679caf987ed263.png" alt="a * fact(0) == fact(n)."/> And
+loop invariant holds: <img class="math" src="_images/math/ad82ca55b2161087ebbfa94fcea97fb5a09997cb.png" alt="a * fact(i) == fact(n),"/> and we also know
+that <em>i == 0</em>. So it must be that <img class="math" src="_images/math/3c66b73cf306943edbe6de7b4d4f81b086bc6af3.png" alt="a * fact(0) == fact(n)."/> And
 fact(0) is <em>1</em> (from its mathematical definition). So it must be that
 <em>a == fact(n)</em>. And Dafny confirms it!</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>assert a == fact(n);

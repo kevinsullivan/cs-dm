@@ -50,7 +50,7 @@ inference rule. An inference rule asserts that if each premise in a
 given list of premises is true, then a given conclusion must also be
 true. We represent such an inference fule textually like this.</p>
 <div class="math">
-<p><img src="_images/math/fdffc1f15bc93901e30561091565989ca55f60bd.png" alt="\prftree[r]{name-of-rule}{list\ of\ premises}{conclusion}"/></p>
+<p><img src="_images/math/458e2e9ebf1cf30d548a641a5d957510f1e4357d.png" alt="\prftree[r]{name-of-rule}{list\ of\ premises}{conclusion}"/></p>
 </div><p>Above the line is the context: a list of premises. Below the line is
 the conclusion. To the right of this context/conclusion pair is a name
 for the rule.</p>
@@ -60,7 +60,7 @@ proposition, P, is true, and we know that a proposition Q is true,
 then it must be that the proposition P /Q is also true. Here’s how
 we’d write this rule.</p>
 <div class="math">
-<p><img src="_images/math/1171973f1558696949be34775f779b668fbbf050.png" alt="\prftree[r]{and-intro}{P}{Q}{P \land Q}"/></p>
+<p><img src="_images/math/6bcca2d52ff167e4fa34028c66d03039dcfd6429.png" alt="\prftree[r]{and-intro}{P}{Q}{P \land Q}"/></p>
 </div><p>Valid inference rules, such as and_intro, provide us with powerful
 means for logical reasoning. But not every proposed inference rule is
 valid. Here’s an example. It’s not that case in general that if P
@@ -69,7 +69,7 @@ Thus is such a classic example of an invalid form of reasoning that
 logicians have given it a name: denying the antecedent. (Antecedent is
 another name for premise.) Here’s how we’d write this bad rule.</p>
 <div class="math">
-<p><img src="_images/math/a5565125dbab6d2b326920347bf3d9117944ae4d.png" alt="\prftree[r]{deny-antecedent}{P \rightarrow Q}{{\neg P} \rightarrow {\neg Q}}"/></p>
+<p><img src="_images/math/5a459f682b5c155091b75aa5d3e4c595c6ccda20.png" alt="\prftree[r]{deny-antecedent}{P \rightarrow Q}{{\neg P} \rightarrow {\neg Q}}"/></p>
 </div><p>Consider an example of this for of reasoning to understand that it’s
 not valid. While it’s true that “if it’s raining outside the ground is
 wet”, that doesn’t mean that “if the ground is wet then it must be
@@ -104,7 +104,7 @@ syllogism and modus ponens. Here they are</p>
 <div class="section" id="syllogism">
 <h3>14.1.1. Syllogism<a class="headerlink" href="#syllogism" title="Permalink to this headline">¶</a></h3>
 <div class="math">
-<p><img src="_images/math/e617495bb58960445a5caaa9fa41bbb01a9d3460.png" alt="\prftree[r]{syllogism}{P \rightarrow Q}{Q \rightarrow R}{P \rightarrow R}"/></p>
+<p><img src="_images/math/e68b32390570c83c79d9c689024b0f597d4b4c79.png" alt="\prftree[r]{syllogism}{P \rightarrow Q}{Q \rightarrow R}{P \rightarrow R}"/></p>
 </div><p>This rule says that if from P you can deduce Q and if from Q you can
 deduce R, then from P you can deduce R directly. Another way to state
 this rule is that implication is transitive! To check the validity of
@@ -117,7 +117,7 @@ interpretations.</p>
 <h3>14.1.2. Modus Ponens<a class="headerlink" href="#modus-ponens" title="Permalink to this headline">¶</a></h3>
 <p>And here’s modus ponens, also known as -&gt; (arrow) elimination.</p>
 <div class="math">
-<p><img src="_images/math/fa6945520c761ed9b500fa81074ea07adb946dfe.png" alt="\prftree[r]{modus\ ponens}{P \rightarrow Q}{P}{Q}"/></p>
+<p><img src="_images/math/c6c4c0bf22daea3cccfccb544cfc9ca49ffe3efe.png" alt="\prftree[r]{modus\ ponens}{P \rightarrow Q}{P}{Q}"/></p>
 </div><p>It says that if you know it’s true that from P you can deduce Q, and
 if you also know that P is true, then you can deuce that Q must be
 true. To check it’s validity, we’d convert this inference rule into
@@ -235,7 +235,7 @@ check and explain.</p>
 <div class="section" id="true-introduction">
 <h4>14.4.1.1. True Introduction<a class="headerlink" href="#true-introduction" title="Permalink to this headline">¶</a></h4>
 <div class="math">
-<p><img src="_images/math/8604cd2cc6ab3b4387ba79978480628055d59880.png" alt="\prftree[r]{true\ introduction}{true}"/></p>
+<p><img src="_images/math/d72c993e61dfff18ab674b4ae6991abde994f73b.png" alt="\prftree[r]{true\ introduction}{true}"/></p>
 </div><div class="highlight-dafny"><div class="highlight"><pre><span></span>// True Introduction
 var true_intro: inference_rule  := (([], pTrue), &quot;true_intro&quot;);
 checkAndShowInferenceRule(true_intro);
@@ -245,7 +245,7 @@ checkAndShowInferenceRule(true_intro);
 <div class="section" id="false-elimination">
 <h4>14.4.1.2. False Elimination<a class="headerlink" href="#false-elimination" title="Permalink to this headline">¶</a></h4>
 <div class="math">
-<p><img src="_images/math/6c674b59e9907beccb589c95aef165fe75e604ae.png" alt="\prftree[r]{false\ elimination}{false}{P}"/></p>
+<p><img src="_images/math/18ffa9627675c7e588b8c8bc26d4a10f58284dcd.png" alt="\prftree[r]{false\ elimination}{false}{P}"/></p>
 </div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var false_elim  := (([pFalse], P),              &quot;false_elim&quot;);
 checkAndShowInferenceRule(false_elim);
 </pre></div>
@@ -255,7 +255,7 @@ checkAndShowInferenceRule(false_elim);
 <h4>14.4.1.3. Negation<a class="headerlink" href="#negation" title="Permalink to this headline">¶</a></h4>
 <p>FIX THIS.</p>
 <div class="math">
-<p><img src="_images/math/d9f1c73d1fe12f256150ee74061acc1eb51d271e.png" alt="\prftree[r]{not\ introduction}{P \rightarrow false}{\neg P}"/></p>
+<p><img src="_images/math/0aa5d93238a8bca000fe5679d9ff8e753001eba5.png" alt="\prftree[r]{not\ introduction}{P \rightarrow false}{\neg P}"/></p>
 </div><div class="highlight-dafny"><div class="highlight"><pre><span></span>// note to kevin: check with jeremy on this one
 var not_intro := (([pImpl(P,pFalse)],pNot(P)), &quot;not_intro&quot;);
 checkAndShowInferenceRule(false_intro);
@@ -265,19 +265,19 @@ checkAndShowInferenceRule(false_intro);
 <div class="section" id="and-introduction-and-elimination">
 <h4>14.4.1.4. And Introduction and Elimination<a class="headerlink" href="#and-introduction-and-elimination" title="Permalink to this headline">¶</a></h4>
 <div class="math">
-<p><img src="_images/math/1171973f1558696949be34775f779b668fbbf050.png" alt="\prftree[r]{and-intro}{P}{Q}{P \land Q}"/></p>
+<p><img src="_images/math/6bcca2d52ff167e4fa34028c66d03039dcfd6429.png" alt="\prftree[r]{and-intro}{P}{Q}{P \land Q}"/></p>
 </div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var and_intro   := (([P, Q], pAnd(P,Q)),        &quot;and_intro&quot;);
 checkAndShowInferenceRule(and_intro);
 </pre></div>
 </div>
 <div class="math">
-<p><img src="_images/math/3c571f08dca73485e9fc8028526cc616cdf01647.png" alt="\prftree[r]{and-elimination-left}{P \land Q}{P}"/></p>
+<p><img src="_images/math/66e759a006bef302fd9942a445c6b49ccf127e2a.png" alt="\prftree[r]{and-elimination-left}{P \land Q}{P}"/></p>
 </div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var and_elim_l  := (([pAnd(P, Q)], P),          &quot;and_elim_l&quot;);
 checkAndShowInferenceRule(and_elim_l);
 </pre></div>
 </div>
 <div class="math">
-<p><img src="_images/math/323e0b6fdd324e8e23ecf16cc6626b0d13edd504.png" alt="\prftree[r]{and-elimination-right}{P \land Q}{Q}"/></p>
+<p><img src="_images/math/2cf3ab727b9af725e3eabce011e9721ad422cbaa.png" alt="\prftree[r]{and-elimination-right}{P \land Q}{Q}"/></p>
 </div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var and_elim_r  := (([pAnd(P, Q)], Q),          &quot;and_elim_r&quot;);
 checkAndShowInferenceRule(and_elim_r);
 </pre></div>
@@ -286,19 +286,19 @@ checkAndShowInferenceRule(and_elim_r);
 <div class="section" id="or-introduction-and-elimination-rules">
 <h4>14.4.1.5. Or Introduction and Elimination Rules<a class="headerlink" href="#or-introduction-and-elimination-rules" title="Permalink to this headline">¶</a></h4>
 <div class="math">
-<p><img src="_images/math/f9ade131175e4a037bb9b7338eea88f28f80ee5a.png" alt="\prftree[r]{or-introduction-left}{P}{P \lor Q}"/></p>
+<p><img src="_images/math/45b72cad814acd5f7bc970078a5712117f626872.png" alt="\prftree[r]{or-introduction-left}{P}{P \lor Q}"/></p>
 </div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var or_intro_l  := (([P], pOr(P, Q)),           &quot;or_intro_l&quot;);
 checkAndShowInferenceRule(or_intro_l);
 </pre></div>
 </div>
 <div class="math">
-<p><img src="_images/math/1305e2f67176f80f27b879112a39d4907b7cc878.png" alt="\prftree[r]{or-introduction-right}{Q}{P \lor Q}"/></p>
+<p><img src="_images/math/8b61f9d420234cd62603a30ed71c5e7321ba05f6.png" alt="\prftree[r]{or-introduction-right}{Q}{P \lor Q}"/></p>
 </div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var or_intro_r  := (([Q], pOr(P, Q)),           &quot;or_intro_r&quot;);
 checkAndShowInferenceRule(or_intro_r);
 </pre></div>
 </div>
 <div class="math">
-<p><img src="_images/math/3fd13bf9d95d8e0a959a4cf819431fc48d3a423a.png" alt="\prftree[r]{or-elimination}{P \lor Q}{P \rightarrow R}{Q \rightarrow R}{R}"/></p>
+<p><img src="_images/math/5adba2c1ad062bdaa19a7a518a4f697c6fd45f6b.png" alt="\prftree[r]{or-elimination}{P \lor Q}{P \rightarrow R}{Q \rightarrow R}{R}"/></p>
 </div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var or_elim     := (([pOr(P,Q),pImpl(P,R), pImpl(Q,R)],R), &quot;or_elim&quot;);
 checkAndShowInferenceRule(or_elim);
 </pre></div>
@@ -307,13 +307,13 @@ checkAndShowInferenceRule(or_elim);
 <div class="section" id="implication-introduction-and-elimination-rules">
 <h4>14.4.1.6. Implication Introduction and Elimination Rules<a class="headerlink" href="#implication-introduction-and-elimination-rules" title="Permalink to this headline">¶</a></h4>
 <div class="math">
-<p><img src="_images/math/576941e37131a12f651bc1523874a78a0a7efc02.png" alt="\prftree[r]{arrow-elimination}{P \rightarrow Q}{P}{Q}"/></p>
+<p><img src="_images/math/c223af380e6de8200f93e9e9011b160667cf453e.png" alt="\prftree[r]{arrow-elimination}{P \rightarrow Q}{P}{Q}"/></p>
 </div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var impl_elim   := (([pImpl(P, Q), P], Q), &quot;impl_elim&quot;);
 checkAndShowInferenceRule(impl_elim);
 </pre></div>
 </div>
 <div class="math">
-<p><img src="_images/math/595d6e4f29be36d6d3ab44c1bdbfd29910881161.png" alt="\prftree[r]{arrow-introduction}{FIX}{THIS}"/></p>
+<p><img src="_images/math/16712ddcc45a7ed7493e145a67daada7ccd9166d.png" alt="\prftree[r]{arrow-introduction}{FIX}{THIS}"/></p>
 </div><div class="highlight-dafny"><div class="highlight"><pre><span></span>// impl_intro is a little harder to express: ([P] |= Q) |= (P -&gt; Q)
 </pre></div>
 </div>
@@ -321,14 +321,14 @@ checkAndShowInferenceRule(impl_elim);
 <div class="section" id="resolution">
 <h4>14.4.1.7. Resolution<a class="headerlink" href="#resolution" title="Permalink to this headline">¶</a></h4>
 <div class="math">
-<p><img src="_images/math/8225fc4db6a0ad4445541d9e6d7f8d20409085f4.png" alt="\prftree[r]{resolution}{P \lor Q}{{\neg Q} \lor R}{P \lor R}"/></p>
+<p><img src="_images/math/74d251202e0e5dbab7a2b6f8de6909f5e210ae0a.png" alt="\prftree[r]{resolution}{P \lor Q}{{\neg Q} \lor R}{P \lor R}"/></p>
 </div><div class="highlight-dafny"><div class="highlight"><pre><span></span>// resolution rules of inference: used in many theorem provers
 var resolution   := (([pOr(P, Q), pOr(pNot(Q), R)], pOr(P, R)), &quot;resolution&quot;);
 checkAndShowInferenceRule(resolution);
 </pre></div>
 </div>
 <div class="math">
-<p><img src="_images/math/3bdf4655a1280658e6c2a186ff619efec30e887a.png" alt="\prftree[r]{unit-resolution}{P \lor Q}{\neg Q}{P}"/></p>
+<p><img src="_images/math/fce92779349e0628b5932a33c3fe7d3386ebf1bc.png" alt="\prftree[r]{unit-resolution}{P \lor Q}{\neg Q}{P}"/></p>
 </div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var unit_resolution  := (([pOr(P,Q), pNot(Q)], P), &quot;unit_resolution&quot;);
 checkAndShowInferenceRule(unit_resolution);
 </pre></div>
@@ -337,14 +337,14 @@ checkAndShowInferenceRule(unit_resolution);
 <div class="section" id="aristotle-s-rules">
 <h4>14.4.1.8. Aristotle’s Rules<a class="headerlink" href="#aristotle-s-rules" title="Permalink to this headline">¶</a></h4>
 <div class="math">
-<p><img src="_images/math/e617495bb58960445a5caaa9fa41bbb01a9d3460.png" alt="\prftree[r]{syllogism}{P \rightarrow Q}{Q \rightarrow R}{P \rightarrow R}"/></p>
+<p><img src="_images/math/e68b32390570c83c79d9c689024b0f597d4b4c79.png" alt="\prftree[r]{syllogism}{P \rightarrow Q}{Q \rightarrow R}{P \rightarrow R}"/></p>
 </div><div class="highlight-dafny"><div class="highlight"><pre><span></span>// a few more valid and classically recognized rules of inference
 var syllogism    := (([pImpl(P, Q), pImpl(Q, R)], pImpl(P, R)), &quot;syllogism&quot;);
 checkAndShowInferenceRule(syllogism);
 </pre></div>
 </div>
 <div class="math">
-<p><img src="_images/math/de0c310c9c43a0a0ba6a9d6d042548fb6359da74.png" alt="\prftree[r]{modus-tollens}{P \rightarrow Q}{\neg Q}"/></p>
+<p><img src="_images/math/c3646ebf26fb4178302d290a62b396d47e83c2d0.png" alt="\prftree[r]{modus-tollens}{P \rightarrow Q}{\neg Q}"/></p>
 </div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var modusTollens := (([pImpl(P, Q), pNot(Q)], pNot(P)), &quot;modusTollens&quot;);
 checkAndShowInferenceRule(modusTollens);
 </pre></div>
@@ -354,14 +354,14 @@ checkAndShowInferenceRule(modusTollens);
 <div class="section" id="inference-rules-valid-in-classical-but-not-in-constructive-logic">
 <h3>14.4.2. Inference Rules Valid in Classical but Not in Constructive Logic<a class="headerlink" href="#inference-rules-valid-in-classical-but-not-in-constructive-logic" title="Permalink to this headline">¶</a></h3>
 <div class="math">
-<p><img src="_images/math/69334a70ec5d8596eb0a6d52c927341ffad0d2d8.png" alt="\prftree[r]{double-negation-elimination}{\neg{\neg P}}{P}"/></p>
+<p><img src="_images/math/c0844160d3b10c7d27ff7db6f2e9bd66e1514201.png" alt="\prftree[r]{double-negation-elimination}{\neg{\neg P}}{P}"/></p>
 </div><div class="highlight-dafny"><div class="highlight"><pre><span></span>// rules in classical but not intuitionistic (constructive) logic
 var double_not_elim := (([pNot(pNot(P))], P), &quot;double_not_elim&quot;);
 checkAndShowInferenceRule(double_not_elim);
 </pre></div>
 </div>
 <div class="math">
-<p><img src="_images/math/5d0b88bced269804ef9916eb4ff018b045555fdc.png" alt="\prftree[r]{excluded-middle}{P \lor {\neg P}}"/></p>
+<p><img src="_images/math/d36e65ed489759f7e76e7153f9ceab38e1e1ecde.png" alt="\prftree[r]{excluded-middle}{P \lor {\neg P}}"/></p>
 </div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var excluded_middle: inference_rule := (([],pOr(P, pNot(P))), &quot;excluded_middle&quot;);
  checkAndShowInferenceRule(excluded_middle);
 </pre></div>
@@ -371,19 +371,19 @@ checkAndShowInferenceRule(double_not_elim);
 <h3>14.4.3. Fallacious Inference Rules<a class="headerlink" href="#fallacious-inference-rules" title="Permalink to this headline">¶</a></h3>
 <p>Now for the presentation and refutation of some logical fallacies.</p>
 <div class="math">
-<p><img src="_images/math/53357fd886ca64241b32ac4f6dc16c0cb8e0c834.png" alt="\prftree[r]{affirm-consequence}{P \rightarrow Q}{Q}{P}"/></p>
+<p><img src="_images/math/b37339943515b18a36f4ec8524658015c79a65e9.png" alt="\prftree[r]{affirm-consequence}{P \rightarrow Q}{Q}{P}"/></p>
 </div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var affirm_conseq  := (([pImpl(P, Q), Q], P), &quot;affirm_consequence&quot;);
 checkAndShowInferenceRule(affirm_conseq);
 </pre></div>
 </div>
 <div class="math">
-<p><img src="_images/math/ce8acb6b5d4490c16d9b7890ba2a3183aeca5b18.png" alt="\prftree[r]{affirm-disjunct}{P \lor Q}{P}{\neg Q}"/></p>
+<p><img src="_images/math/073e451a6e28a244170d7eb6f11f1ccc83ebb7a7.png" alt="\prftree[r]{affirm-disjunct}{P \lor Q}{P}{\neg Q}"/></p>
 </div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var affirm_disjunct := (([pOr(P,Q), P],pNot(Q)),&quot;affirm_disjunct&quot;);
 checkAndShowInferenceRule(affirm_disjunct);
 </pre></div>
 </div>
 <div class="math">
-<p><img src="_images/math/a5565125dbab6d2b326920347bf3d9117944ae4d.png" alt="\prftree[r]{deny-antecedent}{P \rightarrow Q}{{\neg P} \rightarrow {\neg Q}}"/></p>
+<p><img src="_images/math/5a459f682b5c155091b75aa5d3e4c595c6ccda20.png" alt="\prftree[r]{deny-antecedent}{P \rightarrow Q}{{\neg P} \rightarrow {\neg Q}}"/></p>
 </div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var deny_antecedent := (([pImpl(P,Q)],pImpl(pNot(P),pNot(Q))),&quot;deny antecedent&quot;);
 checkAndShowInferenceRule(deny_antecedent);
 </pre></div>
@@ -398,7 +398,7 @@ one can be assure that these properties hold no matter what P, Q, and
 are actually mean in the real world (e.g., maybe P means, “CS is
 massively awesome”; but it just doesn’t matter).</p>
 <div class="math">
-<p><img src="_images/math/3377ed70e71bd102d03fc0bdd2efd261e2fc26df.png" alt="\prftree[r]{and-commutes}{P \land Q}{Q \land P}"/></p>
+<p><img src="_images/math/6d11dee9093c6f3e346d582c5fd3d403f45f5079.png" alt="\prftree[r]{and-commutes}{P \land Q}{Q \land P}"/></p>
 </div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var and_commutes_theorem  := (([],
                           pAnd(pImpl(pAnd(P,Q),pAnd(Q,P)),
                                pImpl(pAnd(Q,P),pAnd(P,Q)))),
@@ -406,7 +406,7 @@ massively awesome”; but it just doesn’t matter).</p>
 </pre></div>
 </div>
 <div class="math">
-<p><img src="_images/math/36b3cc5c7b54137d78f39499a7b83af3324f5903.png" alt="\prftree[r]{or-commutes}{P \lor Q}{Q \lor P}"/></p>
+<p><img src="_images/math/db0fe50a3939364e53ff4c872f624de80f0875e2.png" alt="\prftree[r]{or-commutes}{P \lor Q}{Q \lor P}"/></p>
 </div><div class="highlight-dafny"><div class="highlight"><pre><span></span>// why is explicit type needed here?
 var or_commutes_theorem: named_sequent  := (([],
                         pAnd(pImpl(pOr(P,Q),pOr(Q,P)),

@@ -47,7 +47,7 @@ about truth.</p>
 <p>This algebra is akin to ordinary high school algebra, and as such,
 deals with values, operators, and the syntax and the evaluation of
 expressions involving values and operators.  However, the values in
-Boolean algebra are limited to the two values in the set, <img class="math" src="_images/math/4572c85e3d0eba26df4a677941a736c43afdc1a6.png" alt="bool
+Boolean algebra are limited to the two values in the set, <img class="math" src="_images/math/c3bf2190617c14aa5e4670318d73ea3106b19a8b.png" alt="bool
 = \{ 0, 1\}"/>. They are often written instead as <em>false</em> and <em>true</em>,
 respectively. And rather than arithmetic operators such as numeric
 negation, addition, and subtraction, Boolean algebra defines a set of
@@ -123,7 +123,7 @@ it returns false.</p>
 operations that take and return these values. The set of values in
 Boolean algebra, is just the set containing <em>0</em> and <em>1</em>.</p>
 <div class="math">
-<p><img src="_images/math/b76cba1c3f8fb4bff4155a4237d362c4f972d8de.png" alt="bool = \{ 0, 1 \}."/></p>
+<p><img src="_images/math/8d3d066513b2e4345caff3ee64623604fd86df2a.png" alt="bool = \{ 0, 1 \}."/></p>
 </div><p>In English that expression just gave a name that we can use, <em>bool</em>,
 to the set containing the values, <em>0</em> and <em>1</em>. Although these values
 are written as if they were small natural numbers, you must think of
@@ -160,7 +160,7 @@ each of those supported in Dafny.</p>
 <div class="section" id="the-unary-operators-of-boolean-algebra">
 <h3>10.3.2. The Unary Operators of Boolean Algebra<a class="headerlink" href="#the-unary-operators-of-boolean-algebra" title="Permalink to this headline">¶</a></h3>
 <p>While there are two constants in Boolean algebra, each of type <em>bool</em>,
-there are four unary operators, each of type <img class="math" src="_images/math/d49e6eead0bf817d572adcf0b275bf05830ffde1.png" alt="bool \rightarrow
+there are four unary operators, each of type <img class="math" src="_images/math/c992a950e9843dfd9d4dc371b2802cfbc56734fb.png" alt="bool \rightarrow
 bool"/>. This type, which contains an arrow, is a <em>function</em> type. It is
 the type of any function that first takes an argument of type <em>bool</em>
 then reduces to a value of type <em>bool</em>. It’s easier to read, write,
@@ -170,7 +170,7 @@ as “bool to bool.”</p>
 such function takes any <em>bool</em> argument and always returns the other
 one. This function is of type “bool to bool”, but it is not the same
 as the function that takes any bool argument and always returns the
-same value that it got. The type of each function is <img class="math" src="_images/math/a3ff228832a281115b2c6987461ef745d0e48443.png" alt="bool
+same value that it got. The type of each function is <img class="math" src="_images/math/5799348efb10880d80d88fd549bbb6073d3df0f2.png" alt="bool
 \rightarrow bool"/>, but the function <em>values</em> are different.</p>
 <p>In the programming field, the type of a function is given when it
 name, its arguments, and return values are declared. This part of a
@@ -212,8 +212,8 @@ Boolean constants.</p>
 <col width="50%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head"><img class="math" src="_images/math/2d4f8dfc0a3653ad7980b86e064eb72c31e47ffb.png" alt="P"/></th>
-<th class="head"><img class="math" src="_images/math/ec5994a1aa15d83faaaa60b426352121dae74497.png" alt="false"/></th>
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/e8927e4b64da902a58ab82dfa5b13e03079ffc4a.png" alt="false"/></th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -235,8 +235,8 @@ Boolean constants.</p>
 <col width="50%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head"><img class="math" src="_images/math/2d4f8dfc0a3653ad7980b86e064eb72c31e47ffb.png" alt="P"/></th>
-<th class="head"><img class="math" src="_images/math/1a569bc0ffc9580a174f93f1ff0558130f99ca96.png" alt="true"/></th>
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/60fc3cd0bc16d533c8b9ca8b0cba520ac546a83d.png" alt="true"/></th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -259,8 +259,8 @@ and returns that value, whichever it was.</p>
 <col width="50%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head"><img class="math" src="_images/math/2d4f8dfc0a3653ad7980b86e064eb72c31e47ffb.png" alt="P"/></th>
-<th class="head"><img class="math" src="_images/math/2d4f8dfc0a3653ad7980b86e064eb72c31e47ffb.png" alt="P"/></th>
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -277,7 +277,7 @@ value are functions that always return exactly the value they took as
 an argument. What we want to say is that “for any type, <em>T</em>, and any
 value, <em>t</em> of that type, the identity function for type <em>T</em> applied to
 <em>t</em> always returns <em>t</em> itself. In mathematical logical notation,
-<img class="math" src="_images/math/17092a9cdf03eacccf93c45e3224e1d79412b350.png" alt="\forall T: Type, \forall t: T, id_T(t) = t."/> It’s clearer in
+<img class="math" src="_images/math/fdbc83fca85215a6a49af5e594eb66cb57cd2ebf.png" alt="\forall T: Type, \forall t: T, id_T(t) = t."/> It’s clearer in
 mathematical language than in English! Make sure that both make sense
 to you now. That is the end of our aside. Now back to Boolean algebra.</p>
 </div>
@@ -289,7 +289,7 @@ unary operators on Boolean values. It returns the value that it was
 and if given <em>false</em>, to <em>true.</em></p>
 <p>The truth table makes this behavior clear.  It also introduces the
 standard notation in mathematical logic for the negation operator,
-<img class="math" src="_images/math/73f22d75887a6394a0becdcfb9d5c49fffaa9989.png" alt="\neg P"/>. This expression is pronounced, <em>not P</em>. It evaluates
+<img class="math" src="_images/math/3c4a4627594e44da711f5a789e1d3f3cf996b7e2.png" alt="\neg P"/>. This expression is pronounced, <em>not P</em>. It evaluates
 to <em>true</em> if <em>P</em> is false, and to <em>false</em> if <em>P</em> is <em>true</em>.</p>
 <table border="1" class="colwidths-given docutils">
 <colgroup>
@@ -297,8 +297,8 @@ to <em>true</em> if <em>P</em> is false, and to <em>false</em> if <em>P</em> is 
 <col width="50%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head"><img class="math" src="_images/math/2d4f8dfc0a3653ad7980b86e064eb72c31e47ffb.png" alt="P"/></th>
-<th class="head"><img class="math" src="_images/math/73f22d75887a6394a0becdcfb9d5c49fffaa9989.png" alt="\neg P"/></th>
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/3c4a4627594e44da711f5a789e1d3f3cf996b7e2.png" alt="\neg P"/></th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -319,7 +319,7 @@ to <em>true</em> if <em>P</em> is false, and to <em>false</em> if <em>P</em> is 
 <h3>10.3.3. Binary Boolean Operators<a class="headerlink" href="#binary-boolean-operators" title="Permalink to this headline">¶</a></h3>
 <p>Now let’s consider the binary operators of Boolean algebra. Each takes
 two Boolean arguments and returns a Boolean value as a result. The
-type of each such function is written <img class="math" src="_images/math/ad8e1c8677a932c7fba4329099d18ce5e5a7cb06.png" alt="bool \rightarrow bool
+type of each such function is written <img class="math" src="_images/math/1af8eed2ba19c049ba4029098c1aa8662ee3609d.png" alt="bool \rightarrow bool
 \rightarrow bool"/>, pronounced “bool to bool to bool.” A truth table
 for a binary Boolean operator will have two columns for arguments, and
 one on the right for the result of applying the operator being defined
@@ -354,9 +354,9 @@ returns <em>true</em> when both arguments are <em>true</em>, and otherwise, <em>
 <col width="33%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head"><img class="math" src="_images/math/2d4f8dfc0a3653ad7980b86e064eb72c31e47ffb.png" alt="P"/></th>
-<th class="head"><img class="math" src="_images/math/c0f4636a2c3ca311779180b75f68e450d8cbedb8.png" alt="Q"/></th>
-<th class="head"><img class="math" src="_images/math/c9a124859a0ace63cb4dbb9e785a0c18a9239d20.png" alt="P \land Q"/></th>
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/a80e21781161e0f0697d3bdfdd259eabda0ca73c.png" alt="P \land Q"/></th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -391,9 +391,9 @@ from the <em>and</em> operator: <em>false</em> if both arguments are <em>true</e
 <col width="33%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head"><img class="math" src="_images/math/2d4f8dfc0a3653ad7980b86e064eb72c31e47ffb.png" alt="P"/></th>
-<th class="head"><img class="math" src="_images/math/c0f4636a2c3ca311779180b75f68e450d8cbedb8.png" alt="Q"/></th>
-<th class="head"><img class="math" src="_images/math/e0d1ba7780e8de9a74b2cd4e530fbf0a0d284c21.png" alt="P \uparrow Q"/></th>
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/2281aa10640d8f5c9d395c1aca38626dbc994f72.png" alt="P \uparrow Q"/></th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -442,9 +442,9 @@ would surely say, “Thank you, Dad, I’ll greatly enjoy having both.”</p>
 <col width="33%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head"><img class="math" src="_images/math/2d4f8dfc0a3653ad7980b86e064eb72c31e47ffb.png" alt="P"/></th>
-<th class="head"><img class="math" src="_images/math/c0f4636a2c3ca311779180b75f68e450d8cbedb8.png" alt="Q"/></th>
-<th class="head"><img class="math" src="_images/math/aca3a268797585cc8a32a96f7705bf75a60d30b2.png" alt="P \lor Q"/></th>
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/aa422ac57e488bb086391e75eb12112b8fbe6a9c.png" alt="P \lor Q"/></th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -479,9 +479,9 @@ one, but <em>not both</em>, of its arguments is true, and to false otherwise.</p
 <col width="33%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head"><img class="math" src="_images/math/2d4f8dfc0a3653ad7980b86e064eb72c31e47ffb.png" alt="P"/></th>
-<th class="head"><img class="math" src="_images/math/c0f4636a2c3ca311779180b75f68e450d8cbedb8.png" alt="Q"/></th>
-<th class="head"><img class="math" src="_images/math/00b81c708e810da7bd6e4aeb26fcd13c6bcc6966.png" alt="P \oplus Q"/></th>
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/e8c064e97ba564d5469d86b6a8a25f059914bbcf.png" alt="P \oplus Q"/></th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -518,9 +518,9 @@ simulate the effects of any other binary Boolean operator.</p>
 <col width="33%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head"><img class="math" src="_images/math/2d4f8dfc0a3653ad7980b86e064eb72c31e47ffb.png" alt="P"/></th>
-<th class="head"><img class="math" src="_images/math/c0f4636a2c3ca311779180b75f68e450d8cbedb8.png" alt="Q"/></th>
-<th class="head"><img class="math" src="_images/math/a5f8709bf08dcc16028dbeb663316d7693f85e14.png" alt="P \downarrow Q"/></th>
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/ff18c651f3b83677c3f88464e7a9242cb8b4e3e8.png" alt="P \downarrow Q"/></th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -559,9 +559,9 @@ second must be.</p>
 <col width="33%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head"><img class="math" src="_images/math/2d4f8dfc0a3653ad7980b86e064eb72c31e47ffb.png" alt="P"/></th>
-<th class="head"><img class="math" src="_images/math/c0f4636a2c3ca311779180b75f68e450d8cbedb8.png" alt="Q"/></th>
-<th class="head"><img class="math" src="_images/math/6a274af386b4ceca415d5cfef81a6493b74ae3f5.png" alt="P \rightarrow Q"/></th>
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/1f8084a9160065072b7a07d1b9af08b0f592a3d8.png" alt="P \rightarrow Q"/></th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -597,9 +597,9 @@ should <em>follow from</em> the truth of the second.</p>
 <col width="33%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head"><img class="math" src="_images/math/2d4f8dfc0a3653ad7980b86e064eb72c31e47ffb.png" alt="P"/></th>
-<th class="head"><img class="math" src="_images/math/c0f4636a2c3ca311779180b75f68e450d8cbedb8.png" alt="Q"/></th>
-<th class="head"><img class="math" src="_images/math/7f070d62ccaffa204fa8aeaa7033910cff47366f.png" alt="P \leftarrow Q"/></th>
+<tr class="row-odd"><th class="head"><img class="math" src="_images/math/58fbc1beb370caeae9b7da485cc27165ee1ef34b.png" alt="P"/></th>
+<th class="head"><img class="math" src="_images/math/99af98f285de0dc7895c760cf0c754603b4b0f69.png" alt="Q"/></th>
+<th class="head"><img class="math" src="_images/math/2547895afe93b172b98c0297754a8a6809a8ab1a.png" alt="P \leftarrow Q"/></th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -663,10 +663,10 @@ example, multiplication has higher precedence than addition, so the
 expression <em>3 + 4 * 5</em> is read as <em>3 + (4 * 5)</em> even though the <em>+</em>
 operator comes first in the expression.</p>
 <p>Exercise: How many ternary Boolean operations are there? Hint: for an
-operator with <em>n</em> Boolean arguments there are <img class="math" src="_images/math/765e78a51ed297b5fcd72c223d6d93daa98362e3.png" alt="2^n"/> combinations
-of input values. This means that there will be <img class="math" src="_images/math/765e78a51ed297b5fcd72c223d6d93daa98362e3.png" alt="2^n"/> rows in its
-truth table, and so <img class="math" src="_images/math/765e78a51ed297b5fcd72c223d6d93daa98362e3.png" alt="2^n"/> blanks to fill in with Boolean values
-in the right column. How many ways are there to fill in <img class="math" src="_images/math/765e78a51ed297b5fcd72c223d6d93daa98362e3.png" alt="2^n"/>
+operator with <em>n</em> Boolean arguments there are <img class="math" src="_images/math/798d39775b3c54beddeb31ad508597409e6e7c43.png" alt="2^n"/> combinations
+of input values. This means that there will be <img class="math" src="_images/math/798d39775b3c54beddeb31ad508597409e6e7c43.png" alt="2^n"/> rows in its
+truth table, and so <img class="math" src="_images/math/798d39775b3c54beddeb31ad508597409e6e7c43.png" alt="2^n"/> blanks to fill in with Boolean values
+in the right column. How many ways are there to fill in <img class="math" src="_images/math/798d39775b3c54beddeb31ad508597409e6e7c43.png" alt="2^n"/>
 Boolean values? Express your answer in terms of <em>n</em>.</p>
 <p>Exercise: Write down the truth table for our Boolean if-then-else
 operator.</p>
