@@ -89,14 +89,13 @@ is the set of values to which the relation
 
 .. code-block:: dafny
 
-        function method image(k: Stype): (r: set<Stype>)
+        function method image(x: Stype): set<Ttype>
             reads this;
-            reads r;
             requires Valid(); 
-            requires k in dom();
+            requires inDomain(x);
             ensures Valid();
         {
-            r.image(k)
+            set y | y in codom() && (x, y) in r
         }
 
 
@@ -106,14 +105,20 @@ that all argument values (in ks) be in the domain of this relation.
  
 .. code-block:: dafny
 
-        function method imageOfSet(ks: set<Stype>): (r: set<Stype>)
+        /*
+        Compute image set of a set of values under this relation
+        */
+        function method imageOfSet(xs: set<Stype>): set<Ttype>
             reads this;
-            reads r;
             requires Valid(); 
-            requires forall k :: k in ks ==> k in dom();  
+            requires forall x :: x in xs ==> inDomain(x)
             ensures Valid();
         {
-            r.imageOfSet(ks)
+            /*
+            For each x in the given set of x values (xs) find all
+            the (x, y) pairs; return the set of all such y values
+            */
+            set x, y | x in xs && y in codom() && (x, y) in r :: y
         }
 
 
@@ -124,29 +129,34 @@ precondition that v be in the codomain of this relation.
 
 .. code-block:: dafny
 
-        function method preimage(v: Stype): (r: set<Stype>)
+        /*
+        Compute preimage set of a value under this relation
+        */
+        function method preimage(y: Ttype): set<Stype>
             reads this;
-            reads r;
             requires Valid(); 
-            requires v in codom();
+            requires inCodomain(y);
             ensures Valid();
         {
-            r.preimage(v)
+            set x | x in dom() && (x, y) in rel()
         }
+
 
 
 Compute image of a domain element under this relation.
 
 .. code-block:: dafny
 
-        function method preimageOfSet(vs: set<Stype>): (r: set<Stype>)
+        /*
+        Compute preimage set of a set of values under this relation.
+        */
+        function method preimageOfSet(ys: set<Ttype>): set<Stype>
             reads this;
-            reads r;
             requires Valid(); 
-            requires forall v :: v in vs ==> v in codom();
+            requires forall y :: y in ys ==> inCodomain(y);
             ensures Valid();
         {
-            r.preimageOfSet(vs)
+            set x, y |  y in ys && x in dom() && (x, y) in r :: x 
         }
 
 
@@ -155,14 +165,20 @@ relation maps k to at least one value in the codomain.
 
 .. code-block:: dafny
 
-        predicate method isDefinedFor(k: Stype)
+        /*
+        Return true iff this relation is defined 
+        for the given value. In some mathematical 
+        writing, the term "domain" is often used 
+        to refer to the set of values on which 
+        a relation is defined. Our usage of the 
+        term differs.
+        */
+        predicate method isDefinedFor(x: Stype)
+            requires Valid()
+            requires inDomain(x);
             reads this;
-            reads r;
-            requires Valid();
-            requires k in dom();
-            ensures Valid();
         {
-            r.isDefinedFor(k)
+            exists y :: y in codom() && (x, y) in rel()
         }
 
         If this relation is a function, then we can
@@ -171,17 +187,30 @@ relation maps k to at least one value in the codomain.
 
 .. code-block:: dafny
 
-        method apply(k: Stype) returns (ret: Stype)
+        /*
+        Compute image of a domain element under this relation.
+        This code assumes there is exactly one element in the 
+        set from which the value is drawn (but this assumption
+        is not yet verified).
+        */
+        method fimage(x: Stype) returns (y: Ttype)
             requires Valid(); 
-            requires k in dom();   // only ask about domain values
-            requires isFunction(); // only ask if this is a function
-            requires isTotal();   // that is defined for every value
-            requires isDefinedFor(k);  // and that is non-empty
-	    //  ensures ret in image(k);  // want |image(k)| == 1, too
+            requires isFunction();  // ensures single-valuedness
+            requires inDomain(x);   // ensures function is non-empty
+            requires isDefinedFor(x);
             ensures Valid();
+            ensures y in set y' | y' in codom() && (x, y') in r
         {
-            ret := r.fimage(k);
+            /* 
+            Assign to y the one value in the image of x. This
+            code depends on the fact that there is exactly one
+            element in the image set, because the relation is
+            both defined for x and is single-valued (a function).
+            However, we haven't verified this assumption.
+            */
+            y :| y in image(x);
         }
+
 
 Inverse of a Binary Relation
 ============================
@@ -220,6 +249,35 @@ A function whose inverse is a function is said to be *invertible*.
 The function, *f(x) = x* (or *y = x* if you prefer) is invertible in
 this sense. In fact, its inverse is itself.
 
+.. code-block:: dafny
+
+        /*
+        Helper function: given a set of pairs, return the set
+        of inverted (reversed) pairs.
+        */
+        static function method invert<S(==),T(==)>(ps: set<(S,T)>): 
+            set<(T,S)>
+        {
+            set x, y, p | p in ps && x == p.0 && y == p.1 :: (y, x)
+        }
+
+
+        /*
+        Construct and return the inverse of this relation.
+        */
+        method inverse() returns (r: binRelOnST<Ttype,Stype>)
+            requires Valid();
+            ensures r.Valid();
+            ensures r.dom() == codom();
+            ensures r.codom() == dom();
+            ensures r.rel() == invert(rel());
+        {
+            r := new binRelOnST(codom(), dom(), invert(rel()));
+        }
+
+
+		
+
 Exercise: Is the cube root function invertible? Prove it informally.
 
 Exercise: Write a definition in mathematical logic of what precisely
@@ -240,6 +298,23 @@ precise, then, if :math:`R \subseteq S \times T`, is single valued
 relation, then :math:`(x, y) \in R \land (x, z) \in R \rightarrow y =
 z`.
 
+
+.. code-block:: dafny
+
+        /*
+        Return true iff the relation is single-valued (a function)
+        */
+        predicate method isFunction()
+            reads this;
+            requires Valid();
+            ensures Valid();
+        {
+            forall x, y, z :: x in d && y in c && z in c &&
+                            (x, y) in r && 
+                            (x, z) in r ==> 
+                            y == z  
+        }
+		
 As an example of a single-valued relation, i.e., a function, consider
 the *square*. For any given natural number (in the domain) under this
 function there is just a *single* associated value in the range (the
@@ -305,12 +380,47 @@ Total vs Partial
 
 A function is said to be *total* if every element of its domain
 appears as the first element in at least one tuple, i.e., its
-*support* is its entire *domain*.  A function that is not total is
-said to be *partial*. For example, the square function on the real
-numbers is total, in that it is defined on its entire real number
-domain. By contrast, the square root function is not total (if it
-domain is taken to be the real numbers) because it is not defined for
-real numbers that are less than zero.
+*support* is its entire *domain*.
+
+.. code-block:: dafny
+
+		       /*
+        Return true iff the relation is total function
+        */
+        predicate method isTotal()
+            reads this;
+            requires Valid();
+            requires isFunction();
+            ensures Valid();
+        {
+            /*
+            A function is total if for every x in the 
+            domain, there is some y in the codomain with 
+            (x,y) in r
+            */
+            forall x :: x in dom() ==> 
+                exists y :: y in codom() && (x,y) in rel()
+        }
+
+
+The term, *partial function*, is used with two slightly different
+meanings in mathematics. In one reading, partial functions are all
+relations on two sets that are not *required* to be total. This set
+includes but is not limited to total functions. In the second reading,
+partial functions are functions on two sets that are not total. In the
+second reading, the total functions are excluded. Here we will adopt
+the second definition: the partial functions on two sets is the subset
+of functions that are not total.
+
+For example, the square function on the real numbers is total, in that
+it is defined on its entire real number domain. By contrast, the
+square root function is not total if it domain is taken to be the real
+numbers because it is not defined for real numbers that are less than
+zero.
+
+.. todo::
+
+   clarify domain vs domain of definition, use a figure
 
 Note that if one considers a slightly different function, the square
 root function on the *non-negative* real numbers the only difference
@@ -351,6 +461,8 @@ either a good value or an error flag; and to get a good value out of
 such a box, one must explicitly check to see whether the box has a
 good value in it or, alternatively, and error flag.
 
+
+
 Injective
 ---------
 
@@ -358,6 +470,24 @@ A function is said to be *injective* if no two elements of the domain
 are associated with the same element in the co-domain. (Note that we
 are limiting the concept of injectivity to functions.) An injective
 function is also said to be *one-one-one*, rather than *many-to-one*.
+
+.. code-block:: dafny
+
+		        /*
+        Return true iff the relation is an injective function
+        */
+        predicate method isInjective()
+            reads this;
+            requires Valid();
+            requires isFunction();
+            ensures Valid();
+        {
+            forall x, y, z :: x in d && y in d && z in c &&
+                            (x, z) in r && 
+                            (y, z) in r ==> 
+                            x == y  
+        }
+
 
 Take a moment to think about the difference between being injective
 and single valued. Single-valued means no *one* element of the domain
@@ -444,6 +574,25 @@ is its whole co-domain. Mathematically, a relation :math:`R \subseteq
 S \times T` is surjective if :math:`\forall t \in T, \exists s \in
 S~|~(s,t) \in R`.
 
+.. code-block:: dafny
+
+        /*
+        Return true iff the relation is a surjective function  
+        */
+        predicate method isSurjective()
+            reads this;
+            requires Valid();
+            requires isFunction();
+            ensures Valid();
+        {
+            /*
+            A function, r, is surjective iff for every y in the codomain, there is some x in the domain such that the pair (x, y) is in r.
+            */ 
+            forall y :: y in codom() ==> 
+                exists x :: x in dom() && (x,y) in rel()
+        }
+		
+
 In the intuitive terms of high school algebra, a function involving
 *x* and *y* is surjective if for any given *y* value there is always
 some *x* that "leads to" that *y*. The *square* function on the real
@@ -468,6 +617,21 @@ Bijective
 
 A function is said to be *bjective* if it is also both injective and
 surjective. Such a function is also often called a *bijection*.
+
+.. code-block:: dafny
+
+        /*
+        Return true iff the relation a bijective function
+        */
+        predicate method isBijective()
+            reads this;
+            requires Valid();
+            requires isFunction();
+            ensures Valid();
+        {
+            this.isInjective() && this.isSurjective()    
+        }
+		
 
 Take a moment to think about the implications of being a bijection.
 Consider a bijective relation, :math:`R \subseteq S \times T.` *R* is

@@ -112,28 +112,33 @@ in the domain set. Note that if the relation
 is not defined for an element in its domain,
 the image of that value will simply be the
 empty set.</div></blockquote>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>function method image(k: Stype): (r: set&lt;Stype&gt;)
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>function method image(x: Stype): set&lt;Ttype&gt;
     reads this;
-    reads r;
     requires Valid();
-    requires k in dom();
+    requires inDomain(x);
     ensures Valid();
 {
-    r.image(k)
+    set y | y in codom() &amp;&amp; (x, y) in r
 }
 </pre></div>
 </div>
 <p>The image of a <em>set</em> of domain elements is the union of the images of
 the elements in that set. A precondition for calling this function is
 that all argument values (in ks) be in the domain of this relation.</p>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>function method imageOfSet(ks: set&lt;Stype&gt;): (r: set&lt;Stype&gt;)
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>/*
+Compute image set of a set of values under this relation
+*/
+function method imageOfSet(xs: set&lt;Stype&gt;): set&lt;Ttype&gt;
     reads this;
-    reads r;
     requires Valid();
-    requires forall k :: k in ks ==&gt; k in dom();
+    requires forall x :: x in xs ==&gt; inDomain(x)
     ensures Valid();
 {
-    r.imageOfSet(ks)
+    /*
+    For each x in the given set of x values (xs) find all
+    the (x, y) pairs; return the set of all such y values
+    */
+    set x, y | x in xs &amp;&amp; y in codom() &amp;&amp; (x, y) in r :: y
 }
 </pre></div>
 </div>
@@ -141,39 +146,49 @@ that all argument values (in ks) be in the domain of this relation.</p>
 of elements in in the domain that map to it. This function returns the
 preimage of a given value in the range of this relation. It is a
 precondition that v be in the codomain of this relation.</p>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>function method preimage(v: Stype): (r: set&lt;Stype&gt;)
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>/*
+Compute preimage set of a value under this relation
+*/
+function method preimage(y: Ttype): set&lt;Stype&gt;
     reads this;
-    reads r;
     requires Valid();
-    requires v in codom();
+    requires inCodomain(y);
     ensures Valid();
 {
-    r.preimage(v)
+    set x | x in dom() &amp;&amp; (x, y) in rel()
 }
 </pre></div>
 </div>
 <p>Compute image of a domain element under this relation.</p>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>function method preimageOfSet(vs: set&lt;Stype&gt;): (r: set&lt;Stype&gt;)
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>/*
+Compute preimage set of a set of values under this relation.
+*/
+function method preimageOfSet(ys: set&lt;Ttype&gt;): set&lt;Stype&gt;
     reads this;
-    reads r;
     requires Valid();
-    requires forall v :: v in vs ==&gt; v in codom();
+    requires forall y :: y in ys ==&gt; inCodomain(y);
     ensures Valid();
 {
-    r.preimageOfSet(vs)
+    set x, y |  y in ys &amp;&amp; x in dom() &amp;&amp; (x, y) in r :: x
 }
 </pre></div>
 </div>
 <p>A relation is said to be defined for a given domain element, k, if the
 relation maps k to at least one value in the codomain.</p>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>predicate method isDefinedFor(k: Stype)
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>/*
+Return true iff this relation is defined
+for the given value. In some mathematical
+writing, the term &quot;domain&quot; is often used
+to refer to the set of values on which
+a relation is defined. Our usage of the
+term differs.
+*/
+predicate method isDefinedFor(x: Stype)
+    requires Valid()
+    requires inDomain(x);
     reads this;
-    reads r;
-    requires Valid();
-    requires k in dom();
-    ensures Valid();
 {
-    r.isDefinedFor(k)
+    exists y :: y in codom() &amp;&amp; (x, y) in rel()
 }
 
 If this relation is a function, then we can
@@ -181,16 +196,28 @@ If this relation is a function, then we can
 function is defined, to get a single result.
 </pre></div>
 </div>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>method apply(k: Stype) returns (ret: Stype)
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>/*
+Compute image of a domain element under this relation.
+This code assumes there is exactly one element in the
+set from which the value is drawn (but this assumption
+is not yet verified).
+*/
+method fimage(x: Stype) returns (y: Ttype)
     requires Valid();
-    requires k in dom();   // only ask about domain values
-    requires isFunction(); // only ask if this is a function
-    requires isTotal();   // that is defined for every value
-    requires isDefinedFor(k);  // and that is non-empty
-    //  ensures ret in image(k);  // want |image(k)| == 1, too
+    requires isFunction();  // ensures single-valuedness
+    requires inDomain(x);   // ensures function is non-empty
+    requires isDefinedFor(x);
     ensures Valid();
+    ensures y in set y&#39; | y&#39; in codom() &amp;&amp; (x, y&#39;) in r
 {
-    ret := r.fimage(k);
+    /*
+    Assign to y the one value in the image of x. This
+    code depends on the fact that there is exactly one
+    element in the image set, because the relation is
+    both defined for x and is single-valued (a function).
+    However, we haven&#39;t verified this assumption.
+    */
+    y :| y in image(x);
 }
 </pre></div>
 </div>
@@ -226,6 +253,31 @@ set twice.)</p>
 <p>A function whose inverse is a function is said to be <em>invertible</em>.
 The function, <em>f(x) = x</em> (or <em>y = x</em> if you prefer) is invertible in
 this sense. In fact, its inverse is itself.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>/*
+Helper function: given a set of pairs, return the set
+of inverted (reversed) pairs.
+*/
+static function method invert&lt;S(==),T(==)&gt;(ps: set&lt;(S,T)&gt;):
+    set&lt;(T,S)&gt;
+{
+    set x, y, p | p in ps &amp;&amp; x == p.0 &amp;&amp; y == p.1 :: (y, x)
+}
+
+
+/*
+Construct and return the inverse of this relation.
+*/
+method inverse() returns (r: binRelOnST&lt;Ttype,Stype&gt;)
+    requires Valid();
+    ensures r.Valid();
+    ensures r.dom() == codom();
+    ensures r.codom() == dom();
+    ensures r.rel() == invert(rel());
+{
+    r := new binRelOnST(codom(), dom(), invert(rel()));
+}
+</pre></div>
+</div>
 <p>Exercise: Is the cube root function invertible? Prove it informally.</p>
 <p>Exercise: Write a definition in mathematical logic of what precisely
 it means for a function to be invertible. Model your definition on our
@@ -242,6 +294,21 @@ value. Otherwise the relation would not be single-valued! To be more
 precise, then, if <img class="math" src="_images/math/8976c2854fcacf02af1366971f1c7b69eb0420e4.png" alt="R \subseteq S \times T"/>, is single valued
 relation, then <img class="math" src="_images/math/a891d93912f06167bde2b4af6ef72b276625e48e.png" alt="(x, y) \in R \land (x, z) \in R \rightarrow y =
 z"/>.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>/*
+Return true iff the relation is single-valued (a function)
+*/
+predicate method isFunction()
+    reads this;
+    requires Valid();
+    ensures Valid();
+{
+    forall x, y, z :: x in d &amp;&amp; y in c &amp;&amp; z in c &amp;&amp;
+                    (x, y) in r &amp;&amp;
+                    (x, z) in r ==&gt;
+                    y == z
+}
+</pre></div>
+</div>
 <p>As an example of a single-valued relation, i.e., a function, consider
 the <em>square</em>. For any given natural number (in the domain) under this
 function there is just a <em>single</em> associated value in the range (the
@@ -296,12 +363,39 @@ distinguishing essential properties and special cases of functions.</p>
 <h3>9.5.1. Total vs Partial<a class="headerlink" href="#total-vs-partial" title="Permalink to this headline">¶</a></h3>
 <p>A function is said to be <em>total</em> if every element of its domain
 appears as the first element in at least one tuple, i.e., its
-<em>support</em> is its entire <em>domain</em>.  A function that is not total is
-said to be <em>partial</em>. For example, the square function on the real
-numbers is total, in that it is defined on its entire real number
-domain. By contrast, the square root function is not total (if it
-domain is taken to be the real numbers) because it is not defined for
-real numbers that are less than zero.</p>
+<em>support</em> is its entire <em>domain</em>.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>               /*
+Return true iff the relation is total function
+*/
+predicate method isTotal()
+    reads this;
+    requires Valid();
+    requires isFunction();
+    ensures Valid();
+{
+    /*
+    A function is total if for every x in the
+    domain, there is some y in the codomain with
+    (x,y) in r
+    */
+    forall x :: x in dom() ==&gt;
+        exists y :: y in codom() &amp;&amp; (x,y) in rel()
+}
+</pre></div>
+</div>
+<p>The term, <em>partial function</em>, is used with two slightly different
+meanings in mathematics. In one reading, partial functions are all
+relations on two sets that are not <em>required</em> to be total. This set
+includes but is not limited to total functions. In the second reading,
+partial functions are functions on two sets that are not total. In the
+second reading, the total functions are excluded. Here we will adopt
+the second definition: the partial functions on two sets is the subset
+of functions that are not total.</p>
+<p>For example, the square function on the real numbers is total, in that
+it is defined on its entire real number domain. By contrast, the
+square root function is not total if it domain is taken to be the real
+numbers because it is not defined for real numbers that are less than
+zero.</p>
 <p>Note that if one considers a slightly different function, the square
 root function on the <em>non-negative</em> real numbers the only difference
 being in the domainm then this function <em>is</em> total. Totality is thus
@@ -343,6 +437,22 @@ good value in it or, alternatively, and error flag.</p>
 are associated with the same element in the co-domain. (Note that we
 are limiting the concept of injectivity to functions.) An injective
 function is also said to be <em>one-one-one</em>, rather than <em>many-to-one</em>.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>                /*
+Return true iff the relation is an injective function
+*/
+predicate method isInjective()
+    reads this;
+    requires Valid();
+    requires isFunction();
+    ensures Valid();
+{
+    forall x, y, z :: x in d &amp;&amp; y in d &amp;&amp; z in c &amp;&amp;
+                    (x, z) in r &amp;&amp;
+                    (y, z) in r ==&gt;
+                    x == y
+}
+</pre></div>
+</div>
 <p>Take a moment to think about the difference between being injective
 and single valued. Single-valued means no <em>one</em> element of the domain
 “goes to” <a href="#id3"><span class="problematic" id="id4">*</span></a>more than one” value in the range. Injective means that “no
@@ -416,6 +526,23 @@ the co-domain there is some element, <em>s</em> in the domain such that
 is its whole co-domain. Mathematically, a relation <img class="math" src="_images/math/9c670927970f7a233ba136fdb7cc5a3351511e82.png" alt="R \subseteq
 S \times T"/> is surjective if <img class="math" src="_images/math/7052e4c4e009cdd2bf3befda4a6176bc8b539fce.png" alt="\forall t \in T, \exists s \in
 S~|~(s,t) \in R"/>.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>/*
+Return true iff the relation is a surjective function
+*/
+predicate method isSurjective()
+    reads this;
+    requires Valid();
+    requires isFunction();
+    ensures Valid();
+{
+    /*
+    A function, r, is surjective iff for every y in the codomain, there is some x in the domain such that the pair (x, y) is in r.
+    */
+    forall y :: y in codom() ==&gt;
+        exists x :: x in dom() &amp;&amp; (x,y) in rel()
+}
+</pre></div>
+</div>
 <p>In the intuitive terms of high school algebra, a function involving
 <em>x</em> and <em>y</em> is surjective if for any given <em>y</em> value there is always
 some <em>x</em> that “leads to” that <em>y</em>. The <em>square</em> function on the real
@@ -436,6 +563,19 @@ right?</p>
 <h3>9.5.4. Bijective<a class="headerlink" href="#bijective" title="Permalink to this headline">¶</a></h3>
 <p>A function is said to be <em>bjective</em> if it is also both injective and
 surjective. Such a function is also often called a <em>bijection</em>.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>/*
+Return true iff the relation a bijective function
+*/
+predicate method isBijective()
+    reads this;
+    requires Valid();
+    requires isFunction();
+    ensures Valid();
+{
+    this.isInjective() &amp;&amp; this.isSurjective()
+}
+</pre></div>
+</div>
 <p>Take a moment to think about the implications of being a bijection.
 Consider a bijective relation, <img class="math" src="_images/math/cdb76e3e99672f56cabfad2588fe14c9fdb2e2a9.png" alt="R \subseteq S \times T."/> <em>R</em> is
 total, so there is an <em>arrow</em> from every <em>s</em> in <em>S</em> to some <em>t</em> in
