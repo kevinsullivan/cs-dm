@@ -145,7 +145,7 @@ tennis*).
 
 We note briefly, here, that, like functions, propositions can have
 multiple parameters. For example, we can generalize from *Tennys plays
-Tennis **and** Tennys is from Tennessee* to *P plays tennis and P is
+Tennis and Tennys is from Tennessee* to *P plays tennis and P is
 from L,* where the variable, *P*, ranges over people and the variable,
 *L* ranges over locations.
 
@@ -160,7 +160,7 @@ of individuals for which corresponding propositions are true.
 For example, the *pair* (Tennys, Tennessee) is in the relation picked
 out by this parameterized proposition, but (Kevin, Tennessee), is not,
 because Kevin is from New Hampshire, so the proposition *Kevin plays
-tennis **and** Kevin is from Tennessee* is not true. 
+tennis and Kevin is from Tennessee* is not true. 
 
 
 Logic and Code
