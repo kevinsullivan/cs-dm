@@ -150,7 +150,7 @@ imperative programming.)</p>
 cases: one for when <em>n</em> is zero, and one for any other value of
 <em>n</em>.</p>
 <div class="math">
-<p><img src="_images/math/e59e82ac8fac51e2319c4f852410ff2b027c294c.png" alt="f(x)= \begin{cases} 1, &amp; \text{if $x&lt;0$}.\\ 0, &amp; \text{otherwise}.\end{cases}"/></p>
+<p><img src="_images/math/9cd3c9c50427dee8ba372cd28f3c2f6647190c18.png" alt="f(x)= \begin{cases} 1, &amp; \text{if $x&lt;0$}.\\ 0, &amp; \text{otherwise}.\end{cases}"/></p>
 </div><p>First, if <em>n = 0</em> (called the <em>base case</em>) then <em>factorial(n)</em> is
 defined to be 1. Otherwise, for any <em>n</em> where <em>n &gt; 0)</em>, <em>factorial(n)</em>
 is defined recursively as <em>n * factorial(n-1)</em>. This is what we call
@@ -340,7 +340,7 @@ can think of <em>Lit</em> as a kind of function that takes a Boolean value
 and that constructs a Boolean expression from it.</p>
 <p>Case #2: Boolean Variables. We will assume that we have some set of
 <em>Boolean variables</em>. For simplicity, let’s assume that this set is
-<img class="math" src="_images/math/c7bd9e7c761121b35187713d6ba3496e92d145d5.png" alt="\{ P, Q, R \}"/>. For each variable, $V$, we have a corresponding
+<img class="math" src="_images/math/29343d324b780b2081243d5fb74ae6e4918ad2bd.png" alt="\{ P, Q, R \}"/>. For each variable, $V$, we have a corresponding
 Boolean expression, $BVar(V)$. Now we have three more expressions,
 <em>BVar(P)$, *BVar(Q)</em> and <em>BVar(R)</em>.</p>
 <p>First, we will
@@ -638,7 +638,7 @@ finite number of steps would either find a model or determine and
 report that there is no model that the expression is <em>unsatisfiable</em>.</p>
 <p>The problem is actually decidable. To see this one need only note that
 there is a finite number of interpretations for a Boolean expression
-with a finite number, <em>n</em>, namely <img class="math" src="_images/math/bc3842c422f55f3c3625d00cdb478d653523ee55.png" alt="2^n"/>. That is, the number of
+with a finite number, <em>n</em>, namely <img class="math" src="_images/math/765e78a51ed297b5fcd72c223d6d93daa98362e3.png" alt="2^n"/>. That is, the number of
 interpretations is <em>exponential in the number of variables</em>. To see
 that this is so, consider that there are two interpretation if there
 is one variable (the first sets the variable to true, the second, to
@@ -693,13 +693,13 @@ same kind.</p>
 <p>Now it should be clear when we say colloquially that a program
 <em>computes a function or a relation</em>. Whenever it is given a valid
 argument representing the <em>first</em> value of a pair in the relation, it
-computes a <em>second</em> value such that the pair, <img class="math" src="_images/math/7dc3247e6153c077962bcd1edcd021af860cc88a.png" alt="(first, second)"/>
+computes a <em>second</em> value such that the pair, <img class="math" src="_images/math/17c243986e0dc26496dd3c4c8ae86cae63c8055f.png" alt="(first, second)"/>
 is in the given relation. When we say, for example, that a program
 <em>computes the factorial function</em>, we mean that if we give it a
 non-negative number, <em>n</em>, it returns a number <em>m</em> such that the pair
 <em>(n,m)</em> is <em>in</em> the relation. And for <em>(n,m)</em> to be in the relation it
-must be that <img class="math" src="_images/math/cbd41062810779bf0e79c7d889d6ce2d8d2875a8.png" alt="m = fact(n)"/>. Given, <em>n</em>, such a program thus has
-to return <img class="math" src="_images/math/8cc37b8f8efc8714172be7b6c0886c10259d3774.png" alt="fact(n)"/>. A program that computes a <em>function</em> is
+must be that <img class="math" src="_images/math/5ec661651c02f51b5a611162f568a807d3b1cb4e.png" alt="m = fact(n)"/>. Given, <em>n</em>, such a program thus has
+to return <img class="math" src="_images/math/273b67460cab1f637715bdd682a669e24c7f2b7a.png" alt="fact(n)"/>. A program that computes a <em>function</em> is
 deterministic, in the sense that it can return at most one result:
 because there is at most one result.</p>
 <p>A method or a function promises to return a value for any
@@ -755,9 +755,9 @@ roots, there simply is no right answer.</p>
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="discrete_mathematics.pdf">PDF version</a></li>
-    
     <li class="toctree-l1"><a href="https://kevinsullivan.github.io/cs-dm">Lean Home</a></li>
+    
+    <li class="toctree-l1"><a href="discrete_mathematics.pdf">PDF version</a></li>
     
 </ul>
 

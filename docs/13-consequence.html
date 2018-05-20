@@ -49,52 +49,9 @@ true.”</p>
 inference rule. An inference rule asserts that if each premise in a
 given list of premises is true, then a given conclusion must also be
 true. We represent such an inference fule textually like this.</p>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{name-of-rule}{list\ of\ premises}{conclusion}</tt>)</p>
-latex exited with error
-[stdout]
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500)
-entering extended mode
-(math.tex
-LaTeX2e &lt;2017-04-15&gt;
-Babel &lt;3.12&gt; and hyphenation patterns for 1 language(s) loaded.
-(/usr/local/share/miktex-texmf/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/share/miktex-texmf/tex/latex/base/size12.clo))
-(/usr/local/share/miktex-texmf/tex/latex/base/inputenc.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/utf8x.def))
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucs.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/uni-global.def))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amstext.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsgen.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsopn.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amscls/amsthm.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
-(/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{name-of-rule}{list\ of\ pre...
-l.14 ...list\ of\ premises}{conclusion}\end{split}
-                                                  
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{name-of-rule}{list\ of\ pre...
-l.14 ...list\ of\ premises}{conclusion}\end{split}
-                                                  
-[1] (math.aux) )
-(see the transcript file for additional information)
-Output written on math.dvi (1 page, 412 bytes).
-Transcript written on math.log.
-</div>
-<p>Above the line is the context: a list of premises. Below the line is
+<div class="math">
+<p><img src="_images/math/fdffc1f15bc93901e30561091565989ca55f60bd.png" alt="\prftree[r]{name-of-rule}{list\ of\ premises}{conclusion}"/></p>
+</div><p>Above the line is the context: a list of premises. Below the line is
 the conclusion. To the right of this context/conclusion pair is a name
 for the rule.</p>
 <p>For example, the inference rule that we generally call “and
@@ -102,104 +59,18 @@ introduction” (or “and_intro” for short) asserts this: if we know a
 proposition, P, is true, and we know that a proposition Q is true,
 then it must be that the proposition P /Q is also true. Here’s how
 we’d write this rule.</p>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{and-intro}{P}{Q}{P \land Q}</tt>)</p>
-latex exited with error
-[stdout]
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500)
-entering extended mode
-(math.tex
-LaTeX2e &lt;2017-04-15&gt;
-Babel &lt;3.12&gt; and hyphenation patterns for 1 language(s) loaded.
-(/usr/local/share/miktex-texmf/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/share/miktex-texmf/tex/latex/base/size12.clo))
-(/usr/local/share/miktex-texmf/tex/latex/base/inputenc.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/utf8x.def))
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucs.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/uni-global.def))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amstext.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsgen.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsopn.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amscls/amsthm.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
-(/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{and-intro}{P}{Q}{P \land Q}...
-l.14 ...[r]{and-intro}{P}{Q}{P \land Q}\end{split}
-                                                  
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{and-intro}{P}{Q}{P \land Q}...
-l.14 ...[r]{and-intro}{P}{Q}{P \land Q}\end{split}
-                                                  
-[1] (math.aux) )
-(see the transcript file for additional information)
-Output written on math.dvi (1 page, 376 bytes).
-Transcript written on math.log.
-</div>
-<p>Valid inference rules, such as and_intro, provide us with powerful
+<div class="math">
+<p><img src="_images/math/1171973f1558696949be34775f779b668fbbf050.png" alt="\prftree[r]{and-intro}{P}{Q}{P \land Q}"/></p>
+</div><p>Valid inference rules, such as and_intro, provide us with powerful
 means for logical reasoning. But not every proposed inference rule is
 valid. Here’s an example. It’s not that case in general that if P
 implies Q (the context) then not P implies not Q, the conclusion.
 Thus is such a classic example of an invalid form of reasoning that
 logicians have given it a name: denying the antecedent. (Antecedent is
 another name for premise.) Here’s how we’d write this bad rule.</p>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{deny-antecedent}{P \rightarrow Q}{{\neg P} \rightarrow {\neg Q}}</tt>)</p>
-latex exited with error
-[stdout]
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500)
-entering extended mode
-(math.tex
-LaTeX2e &lt;2017-04-15&gt;
-Babel &lt;3.12&gt; and hyphenation patterns for 1 language(s) loaded.
-(/usr/local/share/miktex-texmf/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/share/miktex-texmf/tex/latex/base/size12.clo))
-(/usr/local/share/miktex-texmf/tex/latex/base/inputenc.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/utf8x.def))
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucs.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/uni-global.def))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amstext.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsgen.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsopn.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amscls/amsthm.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
-(/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{deny-antecedent}{P \rightar...
-l.14 ...{{\neg P} \rightarrow {\neg Q}}\end{split}
-                                                  
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{deny-antecedent}{P \rightar...
-l.14 ...{{\neg P} \rightarrow {\neg Q}}\end{split}
-                                                  
-[1] (math.aux) )
-(see the transcript file for additional information)
-Output written on math.dvi (1 page, 404 bytes).
-Transcript written on math.log.
-</div>
-<p>Consider an example of this for of reasoning to understand that it’s
+<div class="math">
+<p><img src="_images/math/a5565125dbab6d2b326920347bf3d9117944ae4d.png" alt="\prftree[r]{deny-antecedent}{P \rightarrow Q}{{\neg P} \rightarrow {\neg Q}}"/></p>
+</div><p>Consider an example of this for of reasoning to understand that it’s
 not valid. While it’s true that “if it’s raining outside the ground is
 wet”, that doesn’t mean that “if the ground is wet then it must be
 raining outside.” There might be other reasons for wet ground, such as
@@ -232,52 +103,9 @@ forms of reasoning.</p>
 syllogism and modus ponens. Here they are</p>
 <div class="section" id="syllogism">
 <h3>14.1.1. Syllogism<a class="headerlink" href="#syllogism" title="Permalink to this headline">¶</a></h3>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{syllogism}{P \rightarrow Q}{Q \rightarrow R}{P \rightarrow R}</tt>)</p>
-latex exited with error
-[stdout]
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500)
-entering extended mode
-(math.tex
-LaTeX2e &lt;2017-04-15&gt;
-Babel &lt;3.12&gt; and hyphenation patterns for 1 language(s) loaded.
-(/usr/local/share/miktex-texmf/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/share/miktex-texmf/tex/latex/base/size12.clo))
-(/usr/local/share/miktex-texmf/tex/latex/base/inputenc.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/utf8x.def))
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucs.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/uni-global.def))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amstext.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsgen.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsopn.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amscls/amsthm.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
-(/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{syllogism}{P \rightarrow Q}...
-l.14 ...\rightarrow R}{P \rightarrow R}\end{split}
-                                                  
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{syllogism}{P \rightarrow Q}...
-l.14 ...\rightarrow R}{P \rightarrow R}\end{split}
-                                                  
-[1] (math.aux) )
-(see the transcript file for additional information)
-Output written on math.dvi (1 page, 404 bytes).
-Transcript written on math.log.
-</div>
-<p>This rule says that if from P you can deduce Q and if from Q you can
+<div class="math">
+<p><img src="_images/math/e617495bb58960445a5caaa9fa41bbb01a9d3460.png" alt="\prftree[r]{syllogism}{P \rightarrow Q}{Q \rightarrow R}{P \rightarrow R}"/></p>
+</div><p>This rule says that if from P you can deduce Q and if from Q you can
 deduce R, then from P you can deduce R directly. Another way to state
 this rule is that implication is transitive! To check the validity of
 this rule using truth tables, we convert it into the implication, ((P
@@ -288,52 +116,9 @@ interpretations.</p>
 <div class="section" id="modus-ponens">
 <h3>14.1.2. Modus Ponens<a class="headerlink" href="#modus-ponens" title="Permalink to this headline">¶</a></h3>
 <p>And here’s modus ponens, also known as -&gt; (arrow) elimination.</p>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{modus\ ponens}{P \rightarrow Q}{P}{Q}</tt>)</p>
-latex exited with error
-[stdout]
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500)
-entering extended mode
-(math.tex
-LaTeX2e &lt;2017-04-15&gt;
-Babel &lt;3.12&gt; and hyphenation patterns for 1 language(s) loaded.
-(/usr/local/share/miktex-texmf/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/share/miktex-texmf/tex/latex/base/size12.clo))
-(/usr/local/share/miktex-texmf/tex/latex/base/inputenc.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/utf8x.def))
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucs.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/uni-global.def))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amstext.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsgen.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsopn.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amscls/amsthm.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
-(/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{modus\ ponens}{P \rightarro...
-l.14 ... ponens}{P \rightarrow Q}{P}{Q}\end{split}
-                                                  
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{modus\ ponens}{P \rightarro...
-l.14 ... ponens}{P \rightarrow Q}{P}{Q}\end{split}
-                                                  
-[1] (math.aux) )
-(see the transcript file for additional information)
-Output written on math.dvi (1 page, 376 bytes).
-Transcript written on math.log.
-</div>
-<p>It says that if you know it’s true that from P you can deduce Q, and
+<div class="math">
+<p><img src="_images/math/fa6945520c761ed9b500fa81074ea07adb946dfe.png" alt="\prftree[r]{modus\ ponens}{P \rightarrow Q}{P}{Q}"/></p>
+</div><p>It says that if you know it’s true that from P you can deduce Q, and
 if you also know that P is true, then you can deuce that Q must be
 true. To check it’s validity, we’d convert this inference rule into
 the proposition ((P -&gt; Q) /P) -&gt; Q), and submit this proposition to
@@ -449,52 +234,9 @@ in classical logic, but at the cost of extractability. KS:
 check and explain.</p>
 <div class="section" id="true-introduction">
 <h4>14.4.1.1. True Introduction<a class="headerlink" href="#true-introduction" title="Permalink to this headline">¶</a></h4>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{true\ introduction}{true}</tt>)</p>
-latex exited with error
-[stdout]
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500)
-entering extended mode
-(math.tex
-LaTeX2e &lt;2017-04-15&gt;
-Babel &lt;3.12&gt; and hyphenation patterns for 1 language(s) loaded.
-(/usr/local/share/miktex-texmf/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/share/miktex-texmf/tex/latex/base/size12.clo))
-(/usr/local/share/miktex-texmf/tex/latex/base/inputenc.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/utf8x.def))
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucs.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/uni-global.def))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amstext.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsgen.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsopn.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amscls/amsthm.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
-(/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{true\ introduction}{true}\e...
-l.14 ...ee[r]{true\ introduction}{true}\end{split}
-                                                  
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{true\ introduction}{true}\e...
-l.14 ...ee[r]{true\ introduction}{true}\end{split}
-                                                  
-[1] (math.aux) )
-(see the transcript file for additional information)
-Output written on math.dvi (1 page, 320 bytes).
-Transcript written on math.log.
-</div>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>// True Introduction
+<div class="math">
+<p><img src="_images/math/8604cd2cc6ab3b4387ba79978480628055d59880.png" alt="\prftree[r]{true\ introduction}{true}"/></p>
+</div><div class="highlight-dafny"><div class="highlight"><pre><span></span>// True Introduction
 var true_intro: inference_rule  := (([], pTrue), &quot;true_intro&quot;);
 checkAndShowInferenceRule(true_intro);
 </pre></div>
@@ -502,52 +244,9 @@ checkAndShowInferenceRule(true_intro);
 </div>
 <div class="section" id="false-elimination">
 <h4>14.4.1.2. False Elimination<a class="headerlink" href="#false-elimination" title="Permalink to this headline">¶</a></h4>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{false\ elimination}{false}{P}</tt>)</p>
-latex exited with error
-[stdout]
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500)
-entering extended mode
-(math.tex
-LaTeX2e &lt;2017-04-15&gt;
-Babel &lt;3.12&gt; and hyphenation patterns for 1 language(s) loaded.
-(/usr/local/share/miktex-texmf/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/share/miktex-texmf/tex/latex/base/size12.clo))
-(/usr/local/share/miktex-texmf/tex/latex/base/inputenc.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/utf8x.def))
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucs.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/uni-global.def))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amstext.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsgen.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsopn.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amscls/amsthm.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
-(/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{false\ elimination}{false}{...
-l.14 ...]{false\ elimination}{false}{P}\end{split}
-                                                  
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{false\ elimination}{false}{...
-l.14 ...]{false\ elimination}{false}{P}\end{split}
-                                                  
-[1] (math.aux) )
-(see the transcript file for additional information)
-Output written on math.dvi (1 page, 340 bytes).
-Transcript written on math.log.
-</div>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>var false_elim  := (([pFalse], P),              &quot;false_elim&quot;);
+<div class="math">
+<p><img src="_images/math/6c674b59e9907beccb589c95aef165fe75e604ae.png" alt="\prftree[r]{false\ elimination}{false}{P}"/></p>
+</div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var false_elim  := (([pFalse], P),              &quot;false_elim&quot;);
 checkAndShowInferenceRule(false_elim);
 </pre></div>
 </div>
@@ -555,52 +254,9 @@ checkAndShowInferenceRule(false_elim);
 <div class="section" id="negation">
 <h4>14.4.1.3. Negation<a class="headerlink" href="#negation" title="Permalink to this headline">¶</a></h4>
 <p>FIX THIS.</p>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{not\ introduction}{P \rightarrow false}{\neg P}</tt>)</p>
-latex exited with error
-[stdout]
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500)
-entering extended mode
-(math.tex
-LaTeX2e &lt;2017-04-15&gt;
-Babel &lt;3.12&gt; and hyphenation patterns for 1 language(s) loaded.
-(/usr/local/share/miktex-texmf/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/share/miktex-texmf/tex/latex/base/size12.clo))
-(/usr/local/share/miktex-texmf/tex/latex/base/inputenc.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/utf8x.def))
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucs.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/uni-global.def))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amstext.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsgen.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsopn.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amscls/amsthm.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
-(/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{not\ introduction}{P \right...
-l.14 ...n}{P \rightarrow false}{\neg P}\end{split}
-                                                  
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{not\ introduction}{P \right...
-l.14 ...n}{P \rightarrow false}{\neg P}\end{split}
-                                                  
-[1] (math.aux) )
-(see the transcript file for additional information)
-Output written on math.dvi (1 page, 392 bytes).
-Transcript written on math.log.
-</div>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>// note to kevin: check with jeremy on this one
+<div class="math">
+<p><img src="_images/math/d9f1c73d1fe12f256150ee74061acc1eb51d271e.png" alt="\prftree[r]{not\ introduction}{P \rightarrow false}{\neg P}"/></p>
+</div><div class="highlight-dafny"><div class="highlight"><pre><span></span>// note to kevin: check with jeremy on this one
 var not_intro := (([pImpl(P,pFalse)],pNot(P)), &quot;not_intro&quot;);
 checkAndShowInferenceRule(false_intro);
 </pre></div>
@@ -608,604 +264,88 @@ checkAndShowInferenceRule(false_intro);
 </div>
 <div class="section" id="and-introduction-and-elimination">
 <h4>14.4.1.4. And Introduction and Elimination<a class="headerlink" href="#and-introduction-and-elimination" title="Permalink to this headline">¶</a></h4>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{and-intro}{P}{Q}{P \land Q}</tt>)</p>
-latex exited with error
-[stdout]
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500)
-entering extended mode
-(math.tex
-LaTeX2e &lt;2017-04-15&gt;
-Babel &lt;3.12&gt; and hyphenation patterns for 1 language(s) loaded.
-(/usr/local/share/miktex-texmf/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/share/miktex-texmf/tex/latex/base/size12.clo))
-(/usr/local/share/miktex-texmf/tex/latex/base/inputenc.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/utf8x.def))
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucs.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/uni-global.def))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amstext.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsgen.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsopn.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amscls/amsthm.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
-(/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{and-intro}{P}{Q}{P \land Q}...
-l.14 ...[r]{and-intro}{P}{Q}{P \land Q}\end{split}
-                                                  
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{and-intro}{P}{Q}{P \land Q}...
-l.14 ...[r]{and-intro}{P}{Q}{P \land Q}\end{split}
-                                                  
-[1] (math.aux) )
-(see the transcript file for additional information)
-Output written on math.dvi (1 page, 376 bytes).
-Transcript written on math.log.
-</div>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>var and_intro   := (([P, Q], pAnd(P,Q)),        &quot;and_intro&quot;);
+<div class="math">
+<p><img src="_images/math/1171973f1558696949be34775f779b668fbbf050.png" alt="\prftree[r]{and-intro}{P}{Q}{P \land Q}"/></p>
+</div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var and_intro   := (([P, Q], pAnd(P,Q)),        &quot;and_intro&quot;);
 checkAndShowInferenceRule(and_intro);
 </pre></div>
 </div>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{and-elimination-left}{P \land Q}{P}</tt>)</p>
-latex exited with error
-[stdout]
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500)
-entering extended mode
-(math.tex
-LaTeX2e &lt;2017-04-15&gt;
-Babel &lt;3.12&gt; and hyphenation patterns for 1 language(s) loaded.
-(/usr/local/share/miktex-texmf/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/share/miktex-texmf/tex/latex/base/size12.clo))
-(/usr/local/share/miktex-texmf/tex/latex/base/inputenc.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/utf8x.def))
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucs.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/uni-global.def))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amstext.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsgen.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsopn.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amscls/amsthm.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
-(/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{and-elimination-left}{P \la...
-l.14 ...elimination-left}{P \land Q}{P}\end{split}
-                                                  
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{and-elimination-left}{P \la...
-l.14 ...elimination-left}{P \land Q}{P}\end{split}
-                                                  
-[1] (math.aux) )
-(see the transcript file for additional information)
-Output written on math.dvi (1 page, 396 bytes).
-Transcript written on math.log.
-</div>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>var and_elim_l  := (([pAnd(P, Q)], P),          &quot;and_elim_l&quot;);
+<div class="math">
+<p><img src="_images/math/3c571f08dca73485e9fc8028526cc616cdf01647.png" alt="\prftree[r]{and-elimination-left}{P \land Q}{P}"/></p>
+</div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var and_elim_l  := (([pAnd(P, Q)], P),          &quot;and_elim_l&quot;);
 checkAndShowInferenceRule(and_elim_l);
 </pre></div>
 </div>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{and-elimination-right}{P \land Q}{Q}</tt>)</p>
-latex exited with error
-[stdout]
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500)
-entering extended mode
-(math.tex
-LaTeX2e &lt;2017-04-15&gt;
-Babel &lt;3.12&gt; and hyphenation patterns for 1 language(s) loaded.
-(/usr/local/share/miktex-texmf/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/share/miktex-texmf/tex/latex/base/size12.clo))
-(/usr/local/share/miktex-texmf/tex/latex/base/inputenc.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/utf8x.def))
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucs.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/uni-global.def))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amstext.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsgen.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsopn.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amscls/amsthm.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
-(/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{and-elimination-right}{P \l...
-l.14 ...limination-right}{P \land Q}{Q}\end{split}
-                                                  
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{and-elimination-right}{P \l...
-l.14 ...limination-right}{P \land Q}{Q}\end{split}
-                                                  
-[1] (math.aux) )
-(see the transcript file for additional information)
-Output written on math.dvi (1 page, 396 bytes).
-Transcript written on math.log.
-</div>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>var and_elim_r  := (([pAnd(P, Q)], Q),          &quot;and_elim_r&quot;);
+<div class="math">
+<p><img src="_images/math/323e0b6fdd324e8e23ecf16cc6626b0d13edd504.png" alt="\prftree[r]{and-elimination-right}{P \land Q}{Q}"/></p>
+</div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var and_elim_r  := (([pAnd(P, Q)], Q),          &quot;and_elim_r&quot;);
 checkAndShowInferenceRule(and_elim_r);
 </pre></div>
 </div>
 </div>
 <div class="section" id="or-introduction-and-elimination-rules">
 <h4>14.4.1.5. Or Introduction and Elimination Rules<a class="headerlink" href="#or-introduction-and-elimination-rules" title="Permalink to this headline">¶</a></h4>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{or-introduction-left}{P}{P \lor Q}</tt>)</p>
-latex exited with error
-[stdout]
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500)
-entering extended mode
-(math.tex
-LaTeX2e &lt;2017-04-15&gt;
-Babel &lt;3.12&gt; and hyphenation patterns for 1 language(s) loaded.
-(/usr/local/share/miktex-texmf/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/share/miktex-texmf/tex/latex/base/size12.clo))
-(/usr/local/share/miktex-texmf/tex/latex/base/inputenc.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/utf8x.def))
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucs.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/uni-global.def))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amstext.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsgen.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsopn.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amscls/amsthm.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
-(/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{or-introduction-left}{P}{P ...
-l.14 ...introduction-left}{P}{P \lor Q}\end{split}
-                                                  
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{or-introduction-left}{P}{P ...
-l.14 ...introduction-left}{P}{P \lor Q}\end{split}
-                                                  
-[1] (math.aux) )
-(see the transcript file for additional information)
-Output written on math.dvi (1 page, 400 bytes).
-Transcript written on math.log.
-</div>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>var or_intro_l  := (([P], pOr(P, Q)),           &quot;or_intro_l&quot;);
+<div class="math">
+<p><img src="_images/math/f9ade131175e4a037bb9b7338eea88f28f80ee5a.png" alt="\prftree[r]{or-introduction-left}{P}{P \lor Q}"/></p>
+</div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var or_intro_l  := (([P], pOr(P, Q)),           &quot;or_intro_l&quot;);
 checkAndShowInferenceRule(or_intro_l);
 </pre></div>
 </div>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{or-introduction-right}{Q}{P \lor Q}</tt>)</p>
-latex exited with error
-[stdout]
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500)
-entering extended mode
-(math.tex
-LaTeX2e &lt;2017-04-15&gt;
-Babel &lt;3.12&gt; and hyphenation patterns for 1 language(s) loaded.
-(/usr/local/share/miktex-texmf/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/share/miktex-texmf/tex/latex/base/size12.clo))
-(/usr/local/share/miktex-texmf/tex/latex/base/inputenc.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/utf8x.def))
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucs.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/uni-global.def))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amstext.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsgen.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsopn.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amscls/amsthm.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
-(/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{or-introduction-right}{Q}{P...
-l.14 ...ntroduction-right}{Q}{P \lor Q}\end{split}
-                                                  
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{or-introduction-right}{Q}{P...
-l.14 ...ntroduction-right}{Q}{P \lor Q}\end{split}
-                                                  
-[1] (math.aux) )
-(see the transcript file for additional information)
-Output written on math.dvi (1 page, 392 bytes).
-Transcript written on math.log.
-</div>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>var or_intro_r  := (([Q], pOr(P, Q)),           &quot;or_intro_r&quot;);
+<div class="math">
+<p><img src="_images/math/1305e2f67176f80f27b879112a39d4907b7cc878.png" alt="\prftree[r]{or-introduction-right}{Q}{P \lor Q}"/></p>
+</div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var or_intro_r  := (([Q], pOr(P, Q)),           &quot;or_intro_r&quot;);
 checkAndShowInferenceRule(or_intro_r);
 </pre></div>
 </div>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{or-elimination}{P \lor Q}{P \rightarrow R}{Q \rightarrow R}{R}</tt>)</p>
-latex exited with error
-[stdout]
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500)
-entering extended mode
-(math.tex
-LaTeX2e &lt;2017-04-15&gt;
-Babel &lt;3.12&gt; and hyphenation patterns for 1 language(s) loaded.
-(/usr/local/share/miktex-texmf/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/share/miktex-texmf/tex/latex/base/size12.clo))
-(/usr/local/share/miktex-texmf/tex/latex/base/inputenc.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/utf8x.def))
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucs.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/uni-global.def))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amstext.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsgen.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsopn.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amscls/amsthm.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
-(/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{or-elimination}{P \lor Q}{P...
-l.14 ...ghtarrow R}{Q \rightarrow R}{R}\end{split}
-                                                  
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{or-elimination}{P \lor Q}{P...
-l.14 ...ghtarrow R}{Q \rightarrow R}{R}\end{split}
-                                                  
-[1] (math.aux) )
-(see the transcript file for additional information)
-Output written on math.dvi (1 page, 420 bytes).
-Transcript written on math.log.
-</div>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>var or_elim     := (([pOr(P,Q),pImpl(P,R), pImpl(Q,R)],R), &quot;or_elim&quot;);
+<div class="math">
+<p><img src="_images/math/3fd13bf9d95d8e0a959a4cf819431fc48d3a423a.png" alt="\prftree[r]{or-elimination}{P \lor Q}{P \rightarrow R}{Q \rightarrow R}{R}"/></p>
+</div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var or_elim     := (([pOr(P,Q),pImpl(P,R), pImpl(Q,R)],R), &quot;or_elim&quot;);
 checkAndShowInferenceRule(or_elim);
 </pre></div>
 </div>
 </div>
 <div class="section" id="implication-introduction-and-elimination-rules">
 <h4>14.4.1.6. Implication Introduction and Elimination Rules<a class="headerlink" href="#implication-introduction-and-elimination-rules" title="Permalink to this headline">¶</a></h4>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{arrow-elimination}{P \rightarrow Q}{P}{Q}</tt>)</p>
-latex exited with error
-[stdout]
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500)
-entering extended mode
-(math.tex
-LaTeX2e &lt;2017-04-15&gt;
-Babel &lt;3.12&gt; and hyphenation patterns for 1 language(s) loaded.
-(/usr/local/share/miktex-texmf/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/share/miktex-texmf/tex/latex/base/size12.clo))
-(/usr/local/share/miktex-texmf/tex/latex/base/inputenc.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/utf8x.def))
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucs.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/uni-global.def))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amstext.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsgen.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsopn.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amscls/amsthm.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
-(/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{arrow-elimination}{P \right...
-l.14 ...ination}{P \rightarrow Q}{P}{Q}\end{split}
-                                                  
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{arrow-elimination}{P \right...
-l.14 ...ination}{P \rightarrow Q}{P}{Q}\end{split}
-                                                  
-[1] (math.aux) )
-(see the transcript file for additional information)
-Output written on math.dvi (1 page, 396 bytes).
-Transcript written on math.log.
-</div>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>var impl_elim   := (([pImpl(P, Q), P], Q), &quot;impl_elim&quot;);
+<div class="math">
+<p><img src="_images/math/576941e37131a12f651bc1523874a78a0a7efc02.png" alt="\prftree[r]{arrow-elimination}{P \rightarrow Q}{P}{Q}"/></p>
+</div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var impl_elim   := (([pImpl(P, Q), P], Q), &quot;impl_elim&quot;);
 checkAndShowInferenceRule(impl_elim);
 </pre></div>
 </div>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{arrow-introduction}{FIX}{THIS}</tt>)</p>
-latex exited with error
-[stdout]
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500)
-entering extended mode
-(math.tex
-LaTeX2e &lt;2017-04-15&gt;
-Babel &lt;3.12&gt; and hyphenation patterns for 1 language(s) loaded.
-(/usr/local/share/miktex-texmf/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/share/miktex-texmf/tex/latex/base/size12.clo))
-(/usr/local/share/miktex-texmf/tex/latex/base/inputenc.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/utf8x.def))
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucs.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/uni-global.def))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amstext.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsgen.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsopn.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amscls/amsthm.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
-(/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{arrow-introduction}{FIX}{TH...
-l.14 ...{arrow-introduction}{FIX}{THIS}\end{split}
-                                                  
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{arrow-introduction}{FIX}{TH...
-l.14 ...{arrow-introduction}{FIX}{THIS}\end{split}
-                                                  
-[1] (math.aux) )
-(see the transcript file for additional information)
-Output written on math.dvi (1 page, 404 bytes).
-Transcript written on math.log.
-</div>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>// impl_intro is a little harder to express: ([P] |= Q) |= (P -&gt; Q)
+<div class="math">
+<p><img src="_images/math/595d6e4f29be36d6d3ab44c1bdbfd29910881161.png" alt="\prftree[r]{arrow-introduction}{FIX}{THIS}"/></p>
+</div><div class="highlight-dafny"><div class="highlight"><pre><span></span>// impl_intro is a little harder to express: ([P] |= Q) |= (P -&gt; Q)
 </pre></div>
 </div>
 </div>
 <div class="section" id="resolution">
 <h4>14.4.1.7. Resolution<a class="headerlink" href="#resolution" title="Permalink to this headline">¶</a></h4>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{resolution}{P \lor Q}{{\neg Q} \lor R}{P \lor R}</tt>)</p>
-latex exited with error
-[stdout]
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500)
-entering extended mode
-(math.tex
-LaTeX2e &lt;2017-04-15&gt;
-Babel &lt;3.12&gt; and hyphenation patterns for 1 language(s) loaded.
-(/usr/local/share/miktex-texmf/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/share/miktex-texmf/tex/latex/base/size12.clo))
-(/usr/local/share/miktex-texmf/tex/latex/base/inputenc.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/utf8x.def))
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucs.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/uni-global.def))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amstext.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsgen.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsopn.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amscls/amsthm.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
-(/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{resolution}{P \lor Q}{{\neg...
-l.14 ...r Q}{{\neg Q} \lor R}{P \lor R}\end{split}
-                                                  
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{resolution}{P \lor Q}{{\neg...
-l.14 ...r Q}{{\neg Q} \lor R}{P \lor R}\end{split}
-                                                  
-[1] (math.aux) )
-(see the transcript file for additional information)
-Output written on math.dvi (1 page, 408 bytes).
-Transcript written on math.log.
-</div>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>// resolution rules of inference: used in many theorem provers
+<div class="math">
+<p><img src="_images/math/8225fc4db6a0ad4445541d9e6d7f8d20409085f4.png" alt="\prftree[r]{resolution}{P \lor Q}{{\neg Q} \lor R}{P \lor R}"/></p>
+</div><div class="highlight-dafny"><div class="highlight"><pre><span></span>// resolution rules of inference: used in many theorem provers
 var resolution   := (([pOr(P, Q), pOr(pNot(Q), R)], pOr(P, R)), &quot;resolution&quot;);
 checkAndShowInferenceRule(resolution);
 </pre></div>
 </div>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{unit-resolution}{P \lor Q}{\neg Q}{P}</tt>)</p>
-latex exited with error
-[stdout]
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500)
-entering extended mode
-(math.tex
-LaTeX2e &lt;2017-04-15&gt;
-Babel &lt;3.12&gt; and hyphenation patterns for 1 language(s) loaded.
-(/usr/local/share/miktex-texmf/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/share/miktex-texmf/tex/latex/base/size12.clo))
-(/usr/local/share/miktex-texmf/tex/latex/base/inputenc.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/utf8x.def))
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucs.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/uni-global.def))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amstext.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsgen.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsopn.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amscls/amsthm.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
-(/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{unit-resolution}{P \lor Q}{...
-l.14 ...esolution}{P \lor Q}{\neg Q}{P}\end{split}
-                                                  
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{unit-resolution}{P \lor Q}{...
-l.14 ...esolution}{P \lor Q}{\neg Q}{P}\end{split}
-                                                  
-[1] (math.aux) )
-(see the transcript file for additional information)
-Output written on math.dvi (1 page, 392 bytes).
-Transcript written on math.log.
-</div>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>var unit_resolution  := (([pOr(P,Q), pNot(Q)], P), &quot;unit_resolution&quot;);
+<div class="math">
+<p><img src="_images/math/3bdf4655a1280658e6c2a186ff619efec30e887a.png" alt="\prftree[r]{unit-resolution}{P \lor Q}{\neg Q}{P}"/></p>
+</div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var unit_resolution  := (([pOr(P,Q), pNot(Q)], P), &quot;unit_resolution&quot;);
 checkAndShowInferenceRule(unit_resolution);
 </pre></div>
 </div>
 </div>
 <div class="section" id="aristotle-s-rules">
 <h4>14.4.1.8. Aristotle’s Rules<a class="headerlink" href="#aristotle-s-rules" title="Permalink to this headline">¶</a></h4>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{syllogism}{P \rightarrow Q}{Q \rightarrow R}{P \rightarrow R}</tt>)</p>
-latex exited with error
-[stdout]
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500)
-entering extended mode
-(math.tex
-LaTeX2e &lt;2017-04-15&gt;
-Babel &lt;3.12&gt; and hyphenation patterns for 1 language(s) loaded.
-(/usr/local/share/miktex-texmf/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/share/miktex-texmf/tex/latex/base/size12.clo))
-(/usr/local/share/miktex-texmf/tex/latex/base/inputenc.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/utf8x.def))
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucs.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/uni-global.def))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amstext.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsgen.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsopn.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amscls/amsthm.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
-(/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{syllogism}{P \rightarrow Q}...
-l.14 ...\rightarrow R}{P \rightarrow R}\end{split}
-                                                  
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{syllogism}{P \rightarrow Q}...
-l.14 ...\rightarrow R}{P \rightarrow R}\end{split}
-                                                  
-[1] (math.aux) )
-(see the transcript file for additional information)
-Output written on math.dvi (1 page, 404 bytes).
-Transcript written on math.log.
-</div>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>// a few more valid and classically recognized rules of inference
+<div class="math">
+<p><img src="_images/math/e617495bb58960445a5caaa9fa41bbb01a9d3460.png" alt="\prftree[r]{syllogism}{P \rightarrow Q}{Q \rightarrow R}{P \rightarrow R}"/></p>
+</div><div class="highlight-dafny"><div class="highlight"><pre><span></span>// a few more valid and classically recognized rules of inference
 var syllogism    := (([pImpl(P, Q), pImpl(Q, R)], pImpl(P, R)), &quot;syllogism&quot;);
 checkAndShowInferenceRule(syllogism);
 </pre></div>
 </div>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{modus-tollens}{P \rightarrow Q}{\neg Q}</tt>)</p>
-latex exited with error
-[stdout]
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500)
-entering extended mode
-(math.tex
-LaTeX2e &lt;2017-04-15&gt;
-Babel &lt;3.12&gt; and hyphenation patterns for 1 language(s) loaded.
-(/usr/local/share/miktex-texmf/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/share/miktex-texmf/tex/latex/base/size12.clo))
-(/usr/local/share/miktex-texmf/tex/latex/base/inputenc.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/utf8x.def))
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucs.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/uni-global.def))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amstext.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsgen.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsopn.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amscls/amsthm.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
-(/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{modus-tollens}{P \rightarro...
-l.14 ...llens}{P \rightarrow Q}{\neg Q}\end{split}
-                                                  
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{modus-tollens}{P \rightarro...
-l.14 ...llens}{P \rightarrow Q}{\neg Q}\end{split}
-                                                  
-[1] (math.aux) )
-(see the transcript file for additional information)
-Output written on math.dvi (1 page, 384 bytes).
-Transcript written on math.log.
-</div>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>var modusTollens := (([pImpl(P, Q), pNot(Q)], pNot(P)), &quot;modusTollens&quot;);
+<div class="math">
+<p><img src="_images/math/de0c310c9c43a0a0ba6a9d6d042548fb6359da74.png" alt="\prftree[r]{modus-tollens}{P \rightarrow Q}{\neg Q}"/></p>
+</div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var modusTollens := (([pImpl(P, Q), pNot(Q)], pNot(P)), &quot;modusTollens&quot;);
 checkAndShowInferenceRule(modusTollens);
 </pre></div>
 </div>
@@ -1213,102 +353,16 @@ checkAndShowInferenceRule(modusTollens);
 </div>
 <div class="section" id="inference-rules-valid-in-classical-but-not-in-constructive-logic">
 <h3>14.4.2. Inference Rules Valid in Classical but Not in Constructive Logic<a class="headerlink" href="#inference-rules-valid-in-classical-but-not-in-constructive-logic" title="Permalink to this headline">¶</a></h3>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{double-negation-elimination}{\neg{\neg P}}{P}</tt>)</p>
-latex exited with error
-[stdout]
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500)
-entering extended mode
-(math.tex
-LaTeX2e &lt;2017-04-15&gt;
-Babel &lt;3.12&gt; and hyphenation patterns for 1 language(s) loaded.
-(/usr/local/share/miktex-texmf/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/share/miktex-texmf/tex/latex/base/size12.clo))
-(/usr/local/share/miktex-texmf/tex/latex/base/inputenc.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/utf8x.def))
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucs.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/uni-global.def))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amstext.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsgen.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsopn.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amscls/amsthm.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
-(/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{double-negation-elimination...
-l.14 ...n-elimination}{\neg{\neg P}}{P}\end{split}
-                                                  
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{double-negation-elimination...
-l.14 ...n-elimination}{\neg{\neg P}}{P}\end{split}
-                                                  
-[1] (math.aux) )
-(see the transcript file for additional information)
-Output written on math.dvi (1 page, 396 bytes).
-Transcript written on math.log.
-</div>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>// rules in classical but not intuitionistic (constructive) logic
+<div class="math">
+<p><img src="_images/math/69334a70ec5d8596eb0a6d52c927341ffad0d2d8.png" alt="\prftree[r]{double-negation-elimination}{\neg{\neg P}}{P}"/></p>
+</div><div class="highlight-dafny"><div class="highlight"><pre><span></span>// rules in classical but not intuitionistic (constructive) logic
 var double_not_elim := (([pNot(pNot(P))], P), &quot;double_not_elim&quot;);
 checkAndShowInferenceRule(double_not_elim);
 </pre></div>
 </div>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{excluded-middle}{P \lor {\neg P}}</tt>)</p>
-latex exited with error
-[stdout]
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500)
-entering extended mode
-(math.tex
-LaTeX2e &lt;2017-04-15&gt;
-Babel &lt;3.12&gt; and hyphenation patterns for 1 language(s) loaded.
-(/usr/local/share/miktex-texmf/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/share/miktex-texmf/tex/latex/base/size12.clo))
-(/usr/local/share/miktex-texmf/tex/latex/base/inputenc.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/utf8x.def))
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucs.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/uni-global.def))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amstext.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsgen.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsopn.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amscls/amsthm.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
-(/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{excluded-middle}{P \lor {\n...
-l.14 ...cluded-middle}{P \lor {\neg P}}\end{split}
-                                                  
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{excluded-middle}{P \lor {\n...
-l.14 ...cluded-middle}{P \lor {\neg P}}\end{split}
-                                                  
-[1] (math.aux) )
-(see the transcript file for additional information)
-Output written on math.dvi (1 page, 380 bytes).
-Transcript written on math.log.
-</div>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>var excluded_middle: inference_rule := (([],pOr(P, pNot(P))), &quot;excluded_middle&quot;);
+<div class="math">
+<p><img src="_images/math/5d0b88bced269804ef9916eb4ff018b045555fdc.png" alt="\prftree[r]{excluded-middle}{P \lor {\neg P}}"/></p>
+</div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var excluded_middle: inference_rule := (([],pOr(P, pNot(P))), &quot;excluded_middle&quot;);
  checkAndShowInferenceRule(excluded_middle);
 </pre></div>
 </div>
@@ -1316,150 +370,21 @@ Transcript written on math.log.
 <div class="section" id="fallacious-inference-rules">
 <h3>14.4.3. Fallacious Inference Rules<a class="headerlink" href="#fallacious-inference-rules" title="Permalink to this headline">¶</a></h3>
 <p>Now for the presentation and refutation of some logical fallacies.</p>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{affirm-consequence}{P \rightarrow Q}{Q}{P}</tt>)</p>
-latex exited with error
-[stdout]
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500)
-entering extended mode
-(math.tex
-LaTeX2e &lt;2017-04-15&gt;
-Babel &lt;3.12&gt; and hyphenation patterns for 1 language(s) loaded.
-(/usr/local/share/miktex-texmf/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/share/miktex-texmf/tex/latex/base/size12.clo))
-(/usr/local/share/miktex-texmf/tex/latex/base/inputenc.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/utf8x.def))
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucs.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/uni-global.def))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amstext.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsgen.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsopn.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amscls/amsthm.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
-(/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{affirm-consequence}{P \righ...
-l.14 ...equence}{P \rightarrow Q}{Q}{P}\end{split}
-                                                  
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{affirm-consequence}{P \righ...
-l.14 ...equence}{P \rightarrow Q}{Q}{P}\end{split}
-                                                  
-[1] (math.aux) )
-(see the transcript file for additional information)
-Output written on math.dvi (1 page, 392 bytes).
-Transcript written on math.log.
-</div>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>var affirm_conseq  := (([pImpl(P, Q), Q], P), &quot;affirm_consequence&quot;);
+<div class="math">
+<p><img src="_images/math/53357fd886ca64241b32ac4f6dc16c0cb8e0c834.png" alt="\prftree[r]{affirm-consequence}{P \rightarrow Q}{Q}{P}"/></p>
+</div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var affirm_conseq  := (([pImpl(P, Q), Q], P), &quot;affirm_consequence&quot;);
 checkAndShowInferenceRule(affirm_conseq);
 </pre></div>
 </div>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{affirm-disjunct}{P \lor Q}{P}{\neg Q}</tt>)</p>
-latex exited with error
-[stdout]
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500)
-entering extended mode
-(math.tex
-LaTeX2e &lt;2017-04-15&gt;
-Babel &lt;3.12&gt; and hyphenation patterns for 1 language(s) loaded.
-(/usr/local/share/miktex-texmf/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/share/miktex-texmf/tex/latex/base/size12.clo))
-(/usr/local/share/miktex-texmf/tex/latex/base/inputenc.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/utf8x.def))
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucs.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/uni-global.def))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amstext.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsgen.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsopn.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amscls/amsthm.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
-(/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{affirm-disjunct}{P \lor Q}{...
-l.14 ...-disjunct}{P \lor Q}{P}{\neg Q}\end{split}
-                                                  
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{affirm-disjunct}{P \lor Q}{...
-l.14 ...-disjunct}{P \lor Q}{P}{\neg Q}\end{split}
-                                                  
-[1] (math.aux) )
-(see the transcript file for additional information)
-Output written on math.dvi (1 page, 400 bytes).
-Transcript written on math.log.
-</div>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>var affirm_disjunct := (([pOr(P,Q), P],pNot(Q)),&quot;affirm_disjunct&quot;);
+<div class="math">
+<p><img src="_images/math/ce8acb6b5d4490c16d9b7890ba2a3183aeca5b18.png" alt="\prftree[r]{affirm-disjunct}{P \lor Q}{P}{\neg Q}"/></p>
+</div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var affirm_disjunct := (([pOr(P,Q), P],pNot(Q)),&quot;affirm_disjunct&quot;);
 checkAndShowInferenceRule(affirm_disjunct);
 </pre></div>
 </div>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{deny-antecedent}{P \rightarrow Q}{{\neg P} \rightarrow {\neg Q}}</tt>)</p>
-latex exited with error
-[stdout]
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500)
-entering extended mode
-(math.tex
-LaTeX2e &lt;2017-04-15&gt;
-Babel &lt;3.12&gt; and hyphenation patterns for 1 language(s) loaded.
-(/usr/local/share/miktex-texmf/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/share/miktex-texmf/tex/latex/base/size12.clo))
-(/usr/local/share/miktex-texmf/tex/latex/base/inputenc.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/utf8x.def))
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucs.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/uni-global.def))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amstext.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsgen.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsopn.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amscls/amsthm.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
-(/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{deny-antecedent}{P \rightar...
-l.14 ...{{\neg P} \rightarrow {\neg Q}}\end{split}
-                                                  
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{deny-antecedent}{P \rightar...
-l.14 ...{{\neg P} \rightarrow {\neg Q}}\end{split}
-                                                  
-[1] (math.aux) )
-(see the transcript file for additional information)
-Output written on math.dvi (1 page, 404 bytes).
-Transcript written on math.log.
-</div>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>var deny_antecedent := (([pImpl(P,Q)],pImpl(pNot(P),pNot(Q))),&quot;deny antecedent&quot;);
+<div class="math">
+<p><img src="_images/math/a5565125dbab6d2b326920347bf3d9117944ae4d.png" alt="\prftree[r]{deny-antecedent}{P \rightarrow Q}{{\neg P} \rightarrow {\neg Q}}"/></p>
+</div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var deny_antecedent := (([pImpl(P,Q)],pImpl(pNot(P),pNot(Q))),&quot;deny antecedent&quot;);
 checkAndShowInferenceRule(deny_antecedent);
 </pre></div>
 </div>
@@ -1472,103 +397,17 @@ operators. Because we do this for arbitrary propositions, P, Q, and R,
 one can be assure that these properties hold no matter what P, Q, and
 are actually mean in the real world (e.g., maybe P means, “CS is
 massively awesome”; but it just doesn’t matter).</p>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{and-commutes}{P \land Q}{Q \land P}</tt>)</p>
-latex exited with error
-[stdout]
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500)
-entering extended mode
-(math.tex
-LaTeX2e &lt;2017-04-15&gt;
-Babel &lt;3.12&gt; and hyphenation patterns for 1 language(s) loaded.
-(/usr/local/share/miktex-texmf/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/share/miktex-texmf/tex/latex/base/size12.clo))
-(/usr/local/share/miktex-texmf/tex/latex/base/inputenc.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/utf8x.def))
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucs.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/uni-global.def))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amstext.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsgen.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsopn.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amscls/amsthm.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
-(/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{and-commutes}{P \land Q}{Q ...
-l.14 ...commutes}{P \land Q}{Q \land P}\end{split}
-                                                  
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{and-commutes}{P \land Q}{Q ...
-l.14 ...commutes}{P \land Q}{Q \land P}\end{split}
-                                                  
-[1] (math.aux) )
-(see the transcript file for additional information)
-Output written on math.dvi (1 page, 388 bytes).
-Transcript written on math.log.
-</div>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>var and_commutes_theorem  := (([],
+<div class="math">
+<p><img src="_images/math/3377ed70e71bd102d03fc0bdd2efd261e2fc26df.png" alt="\prftree[r]{and-commutes}{P \land Q}{Q \land P}"/></p>
+</div><div class="highlight-dafny"><div class="highlight"><pre><span></span>var and_commutes_theorem  := (([],
                           pAnd(pImpl(pAnd(P,Q),pAnd(Q,P)),
                                pImpl(pAnd(Q,P),pAnd(P,Q)))),
                           &quot;P and Q is equivalent to Q and P\n&quot;);
 </pre></div>
 </div>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">\prftree[r]{or-commutes}{P \lor Q}{Q \lor P}</tt>)</p>
-latex exited with error
-[stdout]
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500)
-entering extended mode
-(math.tex
-LaTeX2e &lt;2017-04-15&gt;
-Babel &lt;3.12&gt; and hyphenation patterns for 1 language(s) loaded.
-(/usr/local/share/miktex-texmf/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/share/miktex-texmf/tex/latex/base/size12.clo))
-(/usr/local/share/miktex-texmf/tex/latex/base/inputenc.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/utf8x.def))
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucs.sty
-(/usr/local/share/miktex-texmf/tex/latex/ucs/uni-global.def))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsmath.sty
-For additional information on amsmath, use the `?' option.
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amstext.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsgen.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsbsy.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsmath/amsopn.sty))
-(/usr/local/share/miktex-texmf/tex/latex/amscls/amsthm.sty)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amssymb.sty
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/amsfonts.sty))
-(/usr/local/share/miktex-texmf/tex/latex/anyfontsize/anyfontsize.sty)
-(/usr/local/share/miktex-texmf/tex/latex/tools/bm.sty) (math.aux)
-(/usr/local/share/miktex-texmf/tex/latex/ucs/ucsencs.def)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsa.fd)
-(/usr/local/share/miktex-texmf/tex/latex/amsfonts/umsb.fd)
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{or-commutes}{P \lor Q}{Q \l...
-l.14 ...r-commutes}{P \lor Q}{Q \lor P}\end{split}
-                                                  
-! Undefined control sequence.
-&lt;argument&gt; \split&#64;tag \begin {split}\prftree 
-                                             [r]{or-commutes}{P \lor Q}{Q \l...
-l.14 ...r-commutes}{P \lor Q}{Q \lor P}\end{split}
-                                                  
-[1] (math.aux) )
-(see the transcript file for additional information)
-Output written on math.dvi (1 page, 388 bytes).
-Transcript written on math.log.
-</div>
-<div class="highlight-dafny"><div class="highlight"><pre><span></span>// why is explicit type needed here?
+<div class="math">
+<p><img src="_images/math/36b3cc5c7b54137d78f39499a7b83af3324f5903.png" alt="\prftree[r]{or-commutes}{P \lor Q}{Q \lor P}"/></p>
+</div><div class="highlight-dafny"><div class="highlight"><pre><span></span>// why is explicit type needed here?
 var or_commutes_theorem: named_sequent  := (([],
                         pAnd(pImpl(pOr(P,Q),pOr(Q,P)),
                              pImpl(pOr(Q,P),pOr(P,Q)))),
@@ -1655,9 +494,9 @@ end{enumerate}</p>
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="discrete_mathematics.pdf">PDF version</a></li>
-    
     <li class="toctree-l1"><a href="https://kevinsullivan.github.io/cs-dm">Lean Home</a></li>
+    
+    <li class="toctree-l1"><a href="discrete_mathematics.pdf">PDF version</a></li>
     
 </ul>
 

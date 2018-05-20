@@ -47,7 +47,7 @@ SSNs. In other words, it won’t be the entire product of the sets from
 which the field values drawn. Rather, it will usually contain a small
 subset of the product set.</p>
 <p>In mathematical writing, we will thus often see a sentence of the
-form, Let <img class="math" src="_images/math/a549d0ee5e7b16c9441171ada8df4f1920c27070.png" alt="R \subseteq S \times T"/> be a (binary) relation on <em>S</em>
+form, Let <img class="math" src="_images/math/d66f77baa0102262e61ae1d4b3bc9add19f9970e.png" alt="R \subseteq S \times T"/> be a (binary) relation on <em>S</em>
 and <em>T</em>. All this says is that <em>R</em> is some subset of the set of all
 tuples in the product set of <em>S</em> and <em>T</em>. If <em>S = { hot, cold }</em> and
 <em>T = { cat, dog }</em>, then the product set is <em>{ (hot, cat), (hot, dog),
@@ -68,7 +68,7 @@ cases where the given sets contain only a few elements each.</p>
 <h2>9.1. Binary Relations<a class="headerlink" href="#binary-relations" title="Permalink to this headline">¶</a></h2>
 <p>Binary relations, which play an especially important role in
 mathematics and computer science, are relations over just <em>2</em>
-sets. Suppose <img class="math" src="_images/math/a549d0ee5e7b16c9441171ada8df4f1920c27070.png" alt="R \subseteq S \times T"/> is a binary relation on
+sets. Suppose <img class="math" src="_images/math/d66f77baa0102262e61ae1d4b3bc9add19f9970e.png" alt="R \subseteq S \times T"/> is a binary relation on
 <em>S</em> and <em>T</em>. Then <em>S</em> is called the <em>domain</em> of the relation, and <em>T</em>
 is called its <em>co-domain</em>. That is, a binary relation is a subset of
 the ordered pairs in a product of the given domain and codomain sets.</p>
@@ -200,7 +200,7 @@ function is defined, to get a single result.
 <p>The inverse of a given binary relation is simply the set of tuples
 formed by reversing the order of all of the given tuples. To put this
 in mathematical notation, if <em>R</em> is a relation, its inverse, denoted
-<img class="math" src="_images/math/83faed67703cd3fa0ab66fd8dfff5450feeb240c.png" alt="R^{-1}"/>, is <img class="math" src="_images/math/4c1626f8b6e20bfa5f35e096bef604f88fffb636.png" alt="\{ (y, x) | (x, y) \in R \}"/>. You can see this
+<img class="math" src="_images/math/d0380a911871bcc6df3ce6bb23e8d448105c64cf.png" alt="R^{-1}"/>, is <img class="math" src="_images/math/da01c3026e49ba9bccaf13f8538b7e42a8c2a4fe.png" alt="\{ (y, x) | (x, y) \in R \}"/>. You can see this
 immediately in our example of squares and square roots. Each of these
 relations is the inverse of the other. One contains the tuples, <em>(-2,
 4), (2, 4)</em>, while the other contains <em>(4, 2), (4, -2)</em>.</p>
@@ -239,8 +239,8 @@ single-valued binary relation is also called a <em>function</em>.  Another
 way to say that <em>R</em> is single valued is to say that if <em>(x, y)</em> and
 <em>(x, z)</em> are both in <em>R</em> then it must be that <em>y</em> and <em>z</em> are the same
 value. Otherwise the relation would not be single-valued! To be more
-precise, then, if <img class="math" src="_images/math/a549d0ee5e7b16c9441171ada8df4f1920c27070.png" alt="R \subseteq S \times T"/>, is single valued
-relation, then <img class="math" src="_images/math/37c64e74034e38a7b275ad583564bef9fbccb7b3.png" alt="(x, y) \in R \land (x, z) \in R \rightarrow y =
+precise, then, if <img class="math" src="_images/math/d66f77baa0102262e61ae1d4b3bc9add19f9970e.png" alt="R \subseteq S \times T"/>, is single valued
+relation, then <img class="math" src="_images/math/1065e6ffc38d3df0ce77ee87af6e2d25c4ffabcf.png" alt="(x, y) \in R \land (x, z) \in R \rightarrow y =
 z"/>.</p>
 <p>As an example of a single-valued relation, i.e., a function, consider
 the <em>square</em>. For any given natural number (in the domain) under this
@@ -413,8 +413,8 @@ about programs using type theory. But more on this later.</p>
 <p>A function is said to be <em>surjective</em> if for every element, <em>t</em>, in
 the co-domain there is some element, <em>s</em> in the domain such that
 <em>(s,t)</em> is in the relation. That is, the range <em>range</em> of the function
-is its whole co-domain. Mathematically, a relation <img class="math" src="_images/math/c1e9a90461192a1e2b981c7a989edabbcf2026aa.png" alt="R \subseteq
-S \times T"/> is surjective if <img class="math" src="_images/math/2f32893bb7c77f1ce7ae354640039fd9fe0b5d1c.png" alt="\forall t \in T, \exists s \in
+is its whole co-domain. Mathematically, a relation <img class="math" src="_images/math/42d6e1747d4da63851b38e3811aee6407c14d8f6.png" alt="R \subseteq
+S \times T"/> is surjective if <img class="math" src="_images/math/fa652d5450de64933e76102911a1d1c3ec821bd7.png" alt="\forall t \in T, \exists s \in
 S~|~(s,t) \in R"/>.</p>
 <p>In the intuitive terms of high school algebra, a function involving
 <em>x</em> and <em>y</em> is surjective if for any given <em>y</em> value there is always
@@ -437,7 +437,7 @@ right?</p>
 <p>A function is said to be <em>bjective</em> if it is also both injective and
 surjective. Such a function is also often called a <em>bijection</em>.</p>
 <p>Take a moment to think about the implications of being a bijection.
-Consider a bijective relation, <img class="math" src="_images/math/b01d76d1c4404830b3b83aef39d42c61dc57d309.png" alt="R \subseteq S \times T."/> <em>R</em> is
+Consider a bijective relation, <img class="math" src="_images/math/c455a9eef1e79654f4dcd055ed07542611186d29.png" alt="R \subseteq S \times T."/> <em>R</em> is
 total, so there is an <em>arrow</em> from every <em>s</em> in <em>S</em> to some <em>t</em> in
 <em>T</em>.  <em>R</em> is injective, so no two arrows from any <em>s</em> in <em>s</em> ever hit
 the same <em>t</em> in <em>T</em>. An injection is one-to-one. So there is exactly
@@ -447,7 +447,7 @@ to be exactly one element in <em>t</em> for each element in <em>s</em>. So the s
 are of the same size, and there is a one-to-one correspondence between
 their elements.</p>
 <p>Now consider some <em>t</em> in <em>T</em>. It must be hit by exactly one arrow from
-<em>S</em>, so the <em>inverse</em> relation, <img class="math" src="_images/math/83faed67703cd3fa0ab66fd8dfff5450feeb240c.png" alt="R^{-1}"/>, from <em>T</em> to <em>S</em>, must
+<em>S</em>, so the <em>inverse</em> relation, <img class="math" src="_images/math/d0380a911871bcc6df3ce6bb23e8d448105c64cf.png" alt="R^{-1}"/>, from <em>T</em> to <em>S</em>, must
 also single-valued (a function). Moreover, because <em>R</em> is surjective,
 every <em>t</em> in <em>T</em> is hit by some <em>s</em> in <em>S</em>, so the inverse relation is
 defined for every <em>t</em> in <em>T</em>. It, too, is total. Now every arrow from
@@ -470,8 +470,8 @@ bijection between the two sets. That is, one simply shows that there
 is some function that covers each element in each set with arrows
 connecting them, one-to-one in both directions.</p>
 <p>Exercise: Prove that the number of non-negative integers (the
-cardinality of <img class="math" src="_images/math/06bdb22cf6b002b1c5843789eda19fa5c3accff8.png" alt="{\mathbb N}"/>), is the same as the number of
-non-negative fractions (the cardinality of <img class="math" src="_images/math/ed998112fdb202d00dbb4cf158526e398087099d.png" alt="{\mathbb Q^{+}}"/>).</p>
+cardinality of <img class="math" src="_images/math/149724014200579b9db8a3e1b902df6df348b5ef.png" alt="{\mathbb N}"/>), is the same as the number of
+non-negative fractions (the cardinality of <img class="math" src="_images/math/c4338e7c39cc8632736079d3bda2632ce7cd6f44.png" alt="{\mathbb Q^{+}}"/>).</p>
 <p>Exercise: How many bijective relations are there between two sets of
 cardinality <em>k</em>? Hint: Pick a first element in the first set. There
 are <em>n</em> ways to map it to some element in the second set. Now for the
@@ -523,7 +523,7 @@ generally.</p>
 <h3>9.6.1. Reflexive<a class="headerlink" href="#reflexive" title="Permalink to this headline">¶</a></h3>
 <p>Consider a binary relation on a set with itself.  That is, the domain
 and the co-domain are the same sets. A relation that maps real numbers
-to real numbers is an example. It is a subset of <img class="math" src="_images/math/b4ab7d2dd4568acf5deaaa4c4981f157aa9003fa.png" alt="{\mathbb R}
+to real numbers is an example. It is a subset of <img class="math" src="_images/math/1f39d1af6fc89700697bb202b2b9c58daaf9284a.png" alt="{\mathbb R}
 \times {\mathbb R}"/>. The <em>friends</em> relation on a social network site
 that associates people with people is another example.</p>
 <p>Such a relation is said to be <em>reflexive</em> if it associates every
@@ -533,10 +533,10 @@ number with itself and with no other number. The tuples of the
 equality relation on real numbers thus includes <em>(2.5, 2.5)</em> and
 (-3.0, -3.0)* but not <em>(2.5, -3.0)</em>.</p>
 <p>In more mathematical terms, consider a set <em>S</em> and a bindary relation,
-<em>R</em>, on S*S, <img class="math" src="_images/math/bf001ac56db74d8a5cce9d4c0d5a7c776a62c2df.png" alt="R \subseteq S \times S."/> <em>R</em> is reflexive, which
+<em>R</em>, on S*S, <img class="math" src="_images/math/27972ec28a4db77c691275d643232564ab35384f.png" alt="R \subseteq S \times S."/> <em>R</em> is reflexive, which
 we can write as <em>Reflexive(R)</em>, if and only if for every <em>e</em> in <em>S</em>,
 the tuple <em>(e,e)</em> is in R. Or to be rigorous about it,
-<img class="math" src="_images/math/8a14a88b0d373b0cac0f0254798a0489e4d44bf5.png" alt="Reflexive(R) \iff \forall e \in S, (e,e) \in R."/></p>
+<img class="math" src="_images/math/3cde62ee52c77878dbaa4592b97e281d70a361dc.png" alt="Reflexive(R) \iff \forall e \in S, (e,e) \in R."/></p>
 <p>Exercise: Is the function, <em>y = x</em>, reflexive? If every person loves
 themself, is the <em>loves</em> relation reflexive? Is the <em>less than or
 equals</em> relation reflexive? Hint: the tuples <em>(2,3)</em> and <em>(3,3)</em> are
@@ -552,7 +552,7 @@ well. On Facebook, for example, if Joe is “friends” with “Tom” then
 “Tom” is necessarily also friends with “Joe.” The Facebook friends
 relation is thus symmetric in this sense.</p>
 <p>More formally, if <em>R</em> is a binary relation on a set <em>S</em>, i.e., given
-<img class="math" src="_images/math/a90e199d3deb21c2d903a056347df254383b99cd.png" alt="R \subseteq S \times S"/>, then <img class="math" src="_images/math/f0efb7a224ffa5af2dc16976f7a83a5cb90bf64b.png" alt="Symmetric(R) \iff \forall
+<img class="math" src="_images/math/27bff40a9f3316b1ddc89c9a97984ae39798f27c.png" alt="R \subseteq S \times S"/>, then <img class="math" src="_images/math/e5b40b662eafa3909db402e6952319f2a08973b3.png" alt="Symmetric(R) \iff \forall
 (x,y) \in R, (y,x) \in R"/>.</p>
 <p>Question: is the function <em>y = x</em> symmetric? How about the <em>square</em>
 function? In an electric circuit, if a conducting wire connects
@@ -564,9 +564,9 @@ symmetric? In the real work is the <em>has-crush-on</em> relation symmetric?</p>
 </div>
 <div class="section" id="transitive">
 <h3>9.6.3. Transitive<a class="headerlink" href="#transitive" title="Permalink to this headline">¶</a></h3>
-<p>Given a binary relation <img class="math" src="_images/math/a90e199d3deb21c2d903a056347df254383b99cd.png" alt="R \subseteq S \times S"/>, <em>R</em> is said to
+<p>Given a binary relation <img class="math" src="_images/math/27bff40a9f3316b1ddc89c9a97984ae39798f27c.png" alt="R \subseteq S \times S"/>, <em>R</em> is said to
 be transitive if whenever <em>(x,y)</em> is in <em>R</em> and <em>(y,z)</em> is in <em>R</em>,
-then <em>(x,z)</em> is also in <em>R</em>. Formally, <img class="math" src="_images/math/f13fb6dbad2e2812fbc525eb8f9de1f59e7bd219.png" alt="Transitive(R) \iff
+then <em>(x,z)</em> is also in <em>R</em>. Formally, <img class="math" src="_images/math/b87cd1b8a1c8a383cfd41a317bf30c5efa73ef55.png" alt="Transitive(R) \iff
 forall (x,y) in R, \forall (y,z) \in R, (x,z) \in R"/>.</p>
 <p>Exercise: Is equality transitive? That is, if <em>a = b</em> and <em>b = c</em> it
 is also necessarily the case that <em>a = c</em>? Answer: Sure, any sensible
@@ -585,7 +585,7 @@ cause of many a tragedy.)</p>
 <p>Finally (for now), a relation is said to be an <em>equivalence relation</em>
 if it is reflexive, transitive, and symmetric. Formally, we can write
 this property as a conjunction of the three individual properties:
-<img class="math" src="_images/math/3653f84da0b5843dcaad8c6488f02b1fab89989c.png" alt="Equivalence(R) \iff Symmetric(R) \land Reflexive(R) \land
+<img class="math" src="_images/math/1eba3a5d3d1ad6d2a2dc37bf4aa81da5f6096c6b.png" alt="Equivalence(R) \iff Symmetric(R) \land Reflexive(R) \land
 Transitive(R)"/>. Equality is the canonical example of an equivalence
 relation: it is reflexive (<em>x = x</em>), symmetric (if <em>x = y</em> then <em>y =
 x</em>) and transitive (if <em>x = y</em> and <em>y = z</em> then <em>x = z</em>.).</p>
@@ -1533,9 +1533,9 @@ operations on lists.</p>
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="discrete_mathematics.pdf">PDF version</a></li>
-    
     <li class="toctree-l1"><a href="https://kevinsullivan.github.io/cs-dm">Lean Home</a></li>
+    
+    <li class="toctree-l1"><a href="discrete_mathematics.pdf">PDF version</a></li>
     
 </ul>
 

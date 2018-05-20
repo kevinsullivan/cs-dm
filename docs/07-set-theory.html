@@ -96,7 +96,7 @@ would be <em>inconsistent</em> (self-contradicting) and there useless as a
 foundation for mathematics.</p>
 <p>To see the problem, one consider the set, <em>S</em>, of all sets that do not
 contain themselves. In <em>set comprehension</em> notation, we would write
-this set as <img class="math" src="_images/math/534ac8167c1ad579645a52bc3e324dc570331e10.png" alt="S = \{ a: set | a \notin a \}."/> That is, <em>S</em> is the
+this set as <img class="math" src="_images/math/323e416717bb9f11e787ac0657ce638e41185adf.png" alt="S = \{ a: set | a \notin a \}."/> That is, <em>S</em> is the
 set of elements, <em>a</em>, each a set, such that <em>a</em> is not a member of
 itself.</p>
 <p>Now ask the decisive question: Does <em>S</em> contain itself?</p>
@@ -106,11 +106,11 @@ contain itself. In this case, <em>S</em>, being a set that contains itself,
 cannot be a member of <em>S</em>, because we just defined <em>S</em> to be the set
 of sets that do <em>not</em> contain themselves. So, the assumption that <em>S</em>
 contains itself leads to the conclusion that <em>S</em> does not contain
-itself. In logical terms, <img class="math" src="_images/math/adf9ac46080e857699cc8f5aa7c10e46bcc228fb.png" alt="C(S) \rightarrow \neg C(S)."/> This is
+itself. In logical terms, <img class="math" src="_images/math/3d6311d8460af64293eb70ae9868c0e69f5e76e2.png" alt="C(S) \rightarrow \neg C(S)."/> This is
 a contradiction and thus a logical impossibility.</p>
-<p>Now suppose <em>S</em> does not contain itself: <img class="math" src="_images/math/6a1221ea92c335e5d9a0d4b0911c0857bd57ae1f.png" alt="\neg C(S)."/>. Being
+<p>Now suppose <em>S</em> does not contain itself: <img class="math" src="_images/math/8f820691ebca07237eede15fd7cbe4e106f790d5.png" alt="\neg C(S)."/>. Being
 such a set, and given that <em>S</em> is the set of sets that do not contain
-themselves, it must now be in <em>S</em>. So <img class="math" src="_images/math/17d93e6cf711e6d241441881dac0a10853d97bc8.png" alt="\neg C(S) \rightarrow
+themselves, it must now be in <em>S</em>. So <img class="math" src="_images/math/de7267b485423c962313f6141c59eb8b85baca5f.png" alt="\neg C(S) \rightarrow
 C(S)."/> The assumption that it does <em>not</em> contain itself leads right
 back to the conclusion that it <em>does</em> contain itself. Either the set
 does or does not contain itself, but assuming either case leads to a
@@ -168,14 +168,14 @@ built in.</p>
 <p>In everyday mathematical writing, and in Dafny, we denote small sets by
 listing the elements of the set within curly brace. If <em>S</em> is the set
 containing the numbers, one, two, and three, for example, we can write
-<em>S</em> as <img class="math" src="_images/math/4c31e27b476d112a8019c414ff007f63004cf595.png" alt="\{ 1, 2, 3 \}."/></p>
+<em>S</em> as <img class="math" src="_images/math/3a8f9ec15b0c9f9fcebfaf69a66b338478b34531.png" alt="\{ 1, 2, 3 \}."/></p>
 <p>In Dafny, we would write almost the same thing.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>var S:set&lt;int&gt; := { 1, 2, 3 };
 </pre></div>
 </div>
 <p>This code introduces the variable, <em>S</em>, declares that its type is
 <em>finite set of integer</em> (<em>iset&lt;T&gt;</em> being the type of <em>infinite</em> sets
-of elements of tyep <em>T</em>), and assigns to <em>S</em> the set value, <img class="math" src="_images/math/1977eef35e1a05310c2317c2675f929c82acd383.png" alt="\{
+of elements of tyep <em>T</em>), and assigns to <em>S</em> the set value, <img class="math" src="_images/math/d226121d63c9210a60bbc4783c123bcecea26b8f.png" alt="\{
 1, 2, 3 \}."/> Because the value on the right side of the assignment
 operator, is evidently a set of integers, Dafny will infer the type of
 <em>S</em>, and the explicit type declaration can therefore be omitted.</p>
@@ -186,7 +186,7 @@ operator, is evidently a set of integers, Dafny will infer the type of
 elements, but when it has a regular structure, mathematicians often
 denote such a set using an elipsis. For example, a set, <em>S</em>, of even
 natural numbers from zero to one hundred could be written like this:
-<img class="math" src="_images/math/8127c272b758ea605ff9ed29db2545e371210812.png" alt="S = \{ 0, 2, 4, \ldots, 100 \}."/> This expression is a kind of
+<img class="math" src="_images/math/1451d9eef855954ae93188e34d955e4f83f939f0.png" alt="S = \{ 0, 2, 4, \ldots, 100 \}."/> This expression is a kind of
 quasi-formal mathematics. It’s mostly formal but leaves details that
 an educated person should be able to infer to the human reader.</p>
 <p>It is not (currently) possible to write such expressions in Dafny.
@@ -201,7 +201,7 @@ builder</em> notation.</p>
 <h3>8.4.2. Set comprehension notation<a class="headerlink" href="#set-comprehension-notation" title="Permalink to this headline">¶</a></h3>
 <p>Take the example of the set, <em>T</em>, of even numbers from zero to fifty,
 inclusive. We can denote this set precisely in mathematical writing as
-<img class="math" src="_images/math/4cf068c45b8ab150909db0b734b213c29a2e7c35.png" alt="T = \{ n: {\mathbb Z}~|~0 &lt;= n &lt;= 50 \land n~mod~2 = 0 \}."/>
+<img class="math" src="_images/math/99eb57e640954545503cabd9b665a9f4bba73484.png" alt="T = \{ n: {\mathbb Z}~|~0 &lt;= n &lt;= 50 \land n~mod~2 = 0 \}."/>
 Let’s pull this expression apart.</p>
 <p>The set expression, to the right of the first equals sign, can be read
 in three parts. The vertical bar in the middle is pronounced, <em>such
@@ -239,7 +239,7 @@ is as if this is what’s happening “under the hood.”</p>
 notation. For example, we can define the set as the set of values of
 the expression <em>2*n</em>, where <em>n</em> is in the range zero to twentyfive.
 Where it’s readily inferred, mathematicians will usually also leave
-out explicit type information. Here’s what it looks like: <img class="math" src="_images/math/12ef2de404c0841ad1e72ef51989d14766714b5c.png" alt="T = \{ 2 *
+out explicit type information. Here’s what it looks like: <img class="math" src="_images/math/b729803d818203f6a03bdd498f643eed78036395.png" alt="T = \{ 2 *
 n | 0 &lt;= n &lt;= 25 \}."/></p>
 <p>In this expression one infers, based on one’s mathematical intuition,
 that <em>n</em> is intended ranges over the integers or natural numbers. The
@@ -265,7 +265,7 @@ twentyfive any by then multiplying each such <em>t</em> value by 2.”</p>
 <p>The source set need not be a built-in type. Given that <em>T</em> is the set
 of even numbers from zero to fifty, we can define the subset of <em>T</em> of
 elements that are less than <em>25</em> using a set comprehension. In pure
-mathematical writing, we could write <img class="math" src="_images/math/7ff4763ec2ebade377f3d127417577b6c7ab6d17.png" alt="S = \{ t | t \in T \land t
+mathematical writing, we could write <img class="math" src="_images/math/253c2dae84444acdadbf62be35c1225f00d34a2b.png" alt="S = \{ t | t \in T \land t
 &lt; 25\}."/> That is, <em>S</em> is the set of elements that are in <em>T</em> (the set
 of even numbers from zero to fifty) and that are less than <em>25</em>.  Here
 is a Dafny command assigning this set to the variable, <em>S</em>.</p>
@@ -281,7 +281,7 @@ all ordered pairs whose first elements are from <em>S</em> and whose second
 elements are from <em>T</em>, as we’ve defined them here. For example, the
 pair <em>(24,76)</em> would be in this set, but not <em>(76,24)</em>. In ordinary
 mathematical writing, we’d write a set builder expression like this
-<img class="math" src="_images/math/3ec746aaf53e5f892c870a2e80ee49769be91a93.png" alt="\{ (s,t) | s \in S \land t \in T\}."/> This is read, “the set of
+<img class="math" src="_images/math/75b2c2ec3acfdbfbc561e99452a65fa19aae0aff.png" alt="\{ (s,t) | s \in S \land t \in T\}."/> This is read, “the set of
 ordered pairs, <em>(s,t)</em>, where <em>s</em> is any element of <em>S</em> and <em>t</em> is any
 element of <em>T</em>.</p>
 <p>In Danfy, this would be written using set builder notation, like this:</p>
@@ -307,7 +307,7 @@ elements. In mathematical writing and in Dafny, this set is denoted as
 in S. When <em>S</em> is finite, the cardinality of <em>S</em> is a natural number.
 The cardinarily of the empty set is zero, for example, because it has
 no (zero) elements. In ordinary mathematics, if <em>S</em> is a finite set,
-then its cardinality is denoted as <img class="math" src="_images/math/de6d264d4d835f6a281e7f724a7ad5d11935904e.png" alt="|S|"/>. With <em>S</em> defined as in
+then its cardinality is denoted as <img class="math" src="_images/math/07ee3d72710199db75b039bb99f31cd84ec5f412.png" alt="|S|"/>. With <em>S</em> defined as in
 the preceding section, the cardinality of <em>S</em> is <em>13</em>, in that there
 are thirteen even numbers between <em>0</em> and <em>25</em>.</p>
 <p>The Dafny notation for set cardinality is just the same. The following
@@ -325,7 +325,7 @@ cardinality operator is not defined for infinite sets (of type
 <div class="section" id="equality">
 <h3>8.5.2. Equality<a class="headerlink" href="#equality" title="Permalink to this headline">¶</a></h3>
 <p>Two sets, <em>S</em> and <em>T</em> are said to be <em>equal</em> if and only if they
-contain exactly the same elements. That is, <img class="math" src="_images/math/bf9d5c5c7dacb29bfa2721e2d4951e7b335baca1.png" alt="S = T \iff \forall
+contain exactly the same elements. That is, <img class="math" src="_images/math/dbbda456985012ba5a0f3098e19eb54e5321afc9.png" alt="S = T \iff \forall
 x, x \in S \iff x\in T."/> In mathematical English, you would say, “A
 set <em>S</em> is equal to a set <em>T</em> if and only if for every possible value,
 <em>x</em>, <em>x</em> is in S if and only if it is in <em>T</em>.</p>
@@ -353,10 +353,10 @@ only if <em>S</em> and <em>T</em> are equal, as defined here.</p>
 <h3>8.5.3. Subset<a class="headerlink" href="#subset" title="Permalink to this headline">¶</a></h3>
 <p>A set, <em>T</em>, can be said to be a subset of a set <em>S</em> if and only if
 every element in <em>S</em> is also in <em>T</em>. In this case, mathematicians
-write <img class="math" src="_images/math/7333b871ac1dabeb128b8e52fb3cf50f998ac2a9.png" alt="S \subseteq T"/>. The mathematical definition is that
-<img class="math" src="_images/math/2583eb91bb0510d3bada17257f0b2db36c1339a2.png" alt="S \subseteq T \iff \forall s \in S, s \in T"/>. That is, <em>S</em> is a
+write <img class="math" src="_images/math/d06687e19ce6f27d39e38d632fc09f1b6e108726.png" alt="S \subseteq T"/>. The mathematical definition is that
+<img class="math" src="_images/math/a3890293b93bddd5d3b72802cab576dc13484359.png" alt="S \subseteq T \iff \forall s \in S, s \in T"/>. That is, <em>S</em> is a
 subset of <em>T</em> if and only if every element in <em>S</em> is also in <em>T</em>.  An
-equivalent way to write it is, <img class="math" src="_images/math/ce29d951568bcb8e6cc4fac7e05713777b679c30.png" alt="S \subseteq T \iff \forall s, s
+equivalent way to write it is, <img class="math" src="_images/math/70e6518e6739067f1db1b7920175676c76b00c3c.png" alt="S \subseteq T \iff \forall s, s
 \in S \rightarrow s \in T"/>. That is, <em>S</em> is a subset of <em>T</em> if for
 every value, <em>s</em>, if <em>s</em> is in <em>S</em> then <em>s</em> is also in <em>T</em>, Note that
 this does not say that every element of S is in T, but only that <em>if</em>
@@ -380,14 +380,14 @@ of <em>T</em> but there is some element in <em>T</em> that is not in <em>S</em>.
 example, <em>S</em>, the set of even natural numbers less than <em>25</em>, is a
 proper subset of <em>T</em>, the set of even natural numbers less than or
 equal to <em>100</em>.</p>
-<p>In the language of mathematical logic, we would write, <img class="math" src="_images/math/2ea6e8f256a2b9dc720be2dea52614247d2949df.png" alt="S
+<p>In the language of mathematical logic, we would write, <img class="math" src="_images/math/858033377a90088a6d6de54bfe49d8379d10f538.png" alt="S
 \subset T"/> or, to emphasize the non-equality of <em>S</em> and <em>T</em>, as,
-<img class="math" src="_images/math/6efaa7de11dee81a9211f43b5d150191e513edb5.png" alt="S \subsetneq T"/>.</p>
+<img class="math" src="_images/math/a4079362295d601df4dba7ac86f8f2a6c9ffefb0.png" alt="S \subsetneq T"/>.</p>
 <p>To futher clarify, <em>S</em> is said to be a <em>proper</em> subset of <em>T</em> if <em>S</em>
 is a subset of <em>T</em> and there is at least one element in <em>T</em> that is
-not in <em>S</em>.  In mathematical language, <img class="math" src="_images/math/e8ad5ed2c2ce89fed56a8b618bc5c4acf16b7b74.png" alt="S \subset T \iff \forall
+not in <em>S</em>.  In mathematical language, <img class="math" src="_images/math/ed5c7fbf5fa911acbaf86e8fcd5401e5df3913ed.png" alt="S \subset T \iff \forall
 s \in S, s \in T \land \exists t \in T, t \notin S"/>. The backwards
-<em>E</em>, <img class="math" src="_images/math/4b5ad24000adcb52f2505ea60d39407831962012.png" alt="exists"/>, is the <em>existential quantifier</em> in predicate
+<em>E</em>, <img class="math" src="_images/math/0d6cdcfb2f1cffa1d36cabf734870939e580b22b.png" alt="exists"/>, is the <em>existential quantifier</em> in predicate
 logic, and is read as, and means, <em>there exists.</em> You this pronounce
 this sentence as, “<em>S</em> is a proper subset of <em>T</em> if and only if every
 element in <em>S</em> is in <em>T</em> and there <em>exists</em> some element in <em>T</em> that
@@ -420,8 +420,8 @@ because there are none. In logic-speak, we’d say <em>a universally
 quantified proposition over an empty set is trivially true.</em></p>
 <p>If we reverse the operator, we get the notion of supersets and proper
 supersets. If <em>T</em> is a subset of <em>S</em>, then <em>S</em> is a superset of <em>T</em>,
-written, <img class="math" src="_images/math/ebf153b4466e3e383efe1ff8204420d907956bf9.png" alt="S \supseteq T"/>. If <em>T</em> is a proper subset of <em>S</em> then
-<em>S</em> is a proper superset of <em>T</em>, written <img class="math" src="_images/math/9aa51b324975554da11bbc719bbd1f0064694aa3.png" alt="S \supset T"/>. In
+written, <img class="math" src="_images/math/b7d4595120ddcb3d02e11bcb4d8726e110f49964.png" alt="S \supseteq T"/>. If <em>T</em> is a proper subset of <em>S</em> then
+<em>S</em> is a proper superset of <em>T</em>, written <img class="math" src="_images/math/a6cd30a240e6ebd3679669ee49621bea50f8d444.png" alt="S \supset T"/>. In
 Dafny, the greater than and greater than or equals operator are used
 to denote proper superset and superset relationships between sets.
 So, for example, <em>S &gt;= T</em> is the assertion that <em>S</em> is a superset of
@@ -430,9 +430,9 @@ superset of itself, and every set is a superset of the empty set.</p>
 </div>
 <div class="section" id="intersection">
 <h3>8.5.5. Intersection<a class="headerlink" href="#intersection" title="Permalink to this headline">¶</a></h3>
-<p>The intersection of two sets, <em>S</em> and <em>T</em>, written as <img class="math" src="_images/math/6a6d61ecc809c85d65539fae9656f6ec1f767dc2.png" alt="S \cap
+<p>The intersection of two sets, <em>S</em> and <em>T</em>, written as <img class="math" src="_images/math/0fbc4ae57ec76f0e9beff59ee8ff048eee95f11e.png" alt="S \cap
 T"/>, is the set of all elements that are in both sets. Mathematically
-speaking, <img class="math" src="_images/math/ffd81e4b2127bdf790dfdd92ea37f28124dd1cba.png" alt="S \cap T = \{ e~|~e \in S \land e \in T \}"/>.</p>
+speaking, <img class="math" src="_images/math/397331f04cb900f179a99607a65bd54686b8591d.png" alt="S \cap T = \{ e~|~e \in S \land e \in T \}"/>.</p>
 <p>In Dafny, we could define our own polymorphic set intersection
 function in only a superficially different way as follows:</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>function intersection&lt;A&gt;(S: set&lt;A&gt;, T: set&lt;A&gt;): set&lt;A&gt;
@@ -449,9 +449,9 @@ it yourself.</p>
 </div>
 <div class="section" id="union">
 <h3>8.5.6. Union<a class="headerlink" href="#union" title="Permalink to this headline">¶</a></h3>
-<p>The union of two sets, <em>S</em> and <em>T</em>, written as <img class="math" src="_images/math/2de920c1d2b76dfdac8638bf2aee04a1f86d4eef.png" alt="S \cup T"/>, is
+<p>The union of two sets, <em>S</em> and <em>T</em>, written as <img class="math" src="_images/math/5e63c670193d1e1ed4c10775d5d3f56f1fdc9f09.png" alt="S \cup T"/>, is
 the set of elements that are in either (or both) <em>S</em> and <em>T</em>. That is,
-<img class="math" src="_images/math/1c42020e093dd95fe74495cba4d516420eaf4c11.png" alt="S \cup T = \{ e~|~e \in S \lor e \in T \}"/>.</p>
+<img class="math" src="_images/math/e1dae5c271672a4b1d6712bf5b78083535df531e.png" alt="S \cup T = \{ e~|~e \in S \lor e \in T \}"/>.</p>
 <p>In Dafny, we would hope to write this as follows:</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span> function union&lt;A&gt;(S: set&lt;A&gt;, T: set&lt;A&gt;): set&lt;A&gt;
 {
@@ -473,8 +473,8 @@ assigns the union of <em>S</em> and <em>T</em> as the new value of <em>V</em>. T
 </div>
 <div class="section" id="difference">
 <h3>8.5.7. Difference<a class="headerlink" href="#difference" title="Permalink to this headline">¶</a></h3>
-<p>The difference of sets <em>T</em> and <em>S</em>, written <img class="math" src="_images/math/4992211065e43e7ec68c1363b8fb99d28bbece7b.png" alt="T \setminus S"/>, is
-the set of elements in <em>T</em> that are not in <em>S</em>. Thus, <img class="math" src="_images/math/f9f0d10780a702674a6d8ee8b49136ffa9f7e51f.png" alt="T
+<p>The difference of sets <em>T</em> and <em>S</em>, written <img class="math" src="_images/math/372a03a8e92a17a4f896244d23305b2a37e5c178.png" alt="T \setminus S"/>, is
+the set of elements in <em>T</em> that are not in <em>S</em>. Thus, <img class="math" src="_images/math/a20aa63c849b3f889f35df85143b2a43199c682e.png" alt="T
 \setminus S = \{e~|~e \in T \land e \notin S)"/>.</p>
 <p>We could write a Dafny function to specify this operation as follows:</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span> function set_minus&lt;A&gt;(T: set&lt;A&gt;, S: set&lt;A&gt;): set&lt;A&gt;
@@ -491,10 +491,10 @@ expression with <em>T</em> and <em>S</em> as defined in the previous section.</p
 </div>
 <div class="section" id="product-set">
 <h3>8.5.8. Product Set<a class="headerlink" href="#product-set" title="Permalink to this headline">¶</a></h3>
-<p>The product set, <img class="math" src="_images/math/1acb93609f9c3ced3ac62508151f822cee4b46bc.png" alt="S \times T"/>, of two sets, <em>S</em> and T*, is
+<p>The product set, <img class="math" src="_images/math/b3c0b2aa2da198398d83550b440222e8b30cf0da.png" alt="S \times T"/>, of two sets, <em>S</em> and T*, is
 defined ot be set of all the ordered pairs, <em>(s,t)</em>, that can be
 formed by taking any element, <em>s</em>, from <em>S</em>, and any element, <em>t</em>,
-from <em>T</em>. That is, <img class="math" src="_images/math/2223c9d9c255b2b1fa242c11ae7609640ac44aea.png" alt="S \times T = \{ (s, t) | s \in S \land t \in
+from <em>T</em>. That is, <img class="math" src="_images/math/3a3b8bf6528722ae3c0da8231b0cc605aeba5368.png" alt="S \times T = \{ (s, t) | s \in S \land t \in
 T \}"/>.</p>
 <p>There actually is no built in product set operator, in Dafny. The
 good news is that you now know how to express the concept using a
@@ -532,19 +532,19 @@ and last, a function.</p>
 <p>An <em>n</em>-tuples should be understood as values taken from a product of
 <em>n</em> sets.  If <em>S</em> and <em>T</em> are our sets of even numbers between zero
 and one hundred, and zero and twenty four, for example, then the
-ordered pair, <em>(60,24)</em> is an element of the product set <img class="math" src="_images/math/8e4b485a20a84b7f2ec8231dc0a35dc4c5100c7d.png" alt="S
+ordered pair, <em>(60,24)</em> is an element of the product set <img class="math" src="_images/math/56baab92c0fced053d9c5110e37946317c895291.png" alt="S
 \times T"/>.  The preceding <em>4</em>-tuple would have come from a product of
 four sets: one of integers, one of variables, one of strings, and one
 of functions.</p>
 <p>The <em>type</em> of a tuple is the tuple of the types of its elements. In
 mathematical writing, we’d say that the tuple, <em>(-3,4)</em> is al element
-of the set <img class="math" src="_images/math/7968e821678c1ff446e8287d09112436b3680edf.png" alt="{\mathbb Z} \times {\mathbb Z},"/> and if asked about
+of the set <img class="math" src="_images/math/10ca3fbb5d4ffe45ba30c57a89e0ab2c3e21f89b.png" alt="{\mathbb Z} \times {\mathbb Z},"/> and if asked about
 its type, most mathematicians would say <em>pair of integers</em>. In Dafny,
 where types are more explicit than they usually are in quasi-formal
 mathematical discourse, the type of this tuple is <em>(int, int)</em>. In
 general, in both math and in Dafny, in particular, the type of a tuple
 in a set product, ::<cite>S_1 times S_2 times ldots time S_n</cite>, where
-the types of these sets are <img class="math" src="_images/math/3eccb40a18247a3afb7fd0a856d29c0efc279393.png" alt="T_1, \ldots, T_n"/> is <img class="math" src="_images/math/60d74cdd3e9179c740d4f155e323527982941707.png" alt="(T_1,
+the types of these sets are <img class="math" src="_images/math/cf8f4a196de138c8481128a2c9dd72cccba571bb.png" alt="T_1, \ldots, T_n"/> is <img class="math" src="_images/math/d638f7708f22f50f07b1b4e56775cefc0c049d7b.png" alt="(T_1,
 \ldots, T_n)"/>.</p>
 <p>The elements of a tuple are sometimes called <em>fields of that tuple.
 Given an *n</em>-tuple, <em>t</em>, we are often interested in working with the
@@ -555,13 +555,13 @@ as coming with <em>n</em> projection functions, one for each field.</p>
 ::<cite>pi</cite>, with a natural number subscript indicating which field a
 given projection function ” projects”. Given a <em>4</em>-tuple, <em>t = (7, X,
 “house”, square_func)</em>, we would have math::<cite>pi_0(t) = 7</cite> and
-<img class="math" src="_images/math/f5dae668608a8337e4c6c132b504a7acc3c92f0b.png" alt="\pi_3(t) = square_func."/></p>
+<img class="math" src="_images/math/d1a4e0ba835a8488a222ef32afead4d7ddfe08b2.png" alt="\pi_3(t) = square_func."/></p>
 <p>The type of a projection funcion is <em>function from tuple type to field
 type</em>. In general, because tuples have fields of different types, they
 will also have projection functions of different types. For example,
-<img class="math" src="_images/math/cfbe6151259e39775abc71d3c9405e717c6d2303.png" alt="pi_0"/> here is of type (in Dafny) <img class="math" src="_images/math/1e87ccf973ff9a9c10bbeb1ce92487edb37b972b.png" alt="(int, variable, string,
-int \rightarrow int) \rightarrow {\mathbb Z}"/> while <img class="math" src="_images/math/a466c2939441e38dc2f8f1ac96f1f87da7ff9967.png" alt="pi_3"/> is of
-type <img class="math" src="_images/math/b346c5b20b3cbae9a0e9e8fdf5e327618f771868.png" alt="(int, variable, string, int \rightarrow int) \rightarrow
+<img class="math" src="_images/math/d5fe4057ee0bb18d8bcebf89ea50140a52eb45d1.png" alt="pi_0"/> here is of type (in Dafny) <img class="math" src="_images/math/cc08ca3d7ee3f46e5c5ae4f3bf5f3d565bc2b48c.png" alt="(int, variable, string,
+int \rightarrow int) \rightarrow {\mathbb Z}"/> while <img class="math" src="_images/math/fadfa3a65e672fa77d3aceae1d36f6cc29a884a2.png" alt="pi_3"/> is of
+type <img class="math" src="_images/math/b7c1b9081eb9eae137a96eb15f17701c7a78e527.png" alt="(int, variable, string, int \rightarrow int) \rightarrow
 (int \rightarrow int)."/></p>
 <p>In Dafny, tuples are written as they are in mathematics, as lists of
 field values separated by commas and enclosed in parentheses.  For
@@ -596,7 +596,7 @@ heard of a <em>relational database</em>, you now know what kind of data such
 a system handles: tables, i.e., <em>relations</em>.</p>
 <div class="section" id="power-set">
 <h3>8.6.1. Power Set<a class="headerlink" href="#power-set" title="Permalink to this headline">¶</a></h3>
-<p>The power set of a set, <em>S</em>, denoted <img class="math" src="_images/math/ecf87312a6f2328d7aaf2c7faa76bd847c4a630a.png" alt="{\mathbb P}(S),"/> is the
+<p>The power set of a set, <em>S</em>, denoted <img class="math" src="_images/math/a1d88a2d61b1a1104faada79075a3dd9ca688162.png" alt="{\mathbb P}(S),"/> is the
 set of all subsets of <em>S</em>, including both the set itself and the empty
 set. If <em>S = {1, 2}</em>, for example, then the powerset of <em>S</em> is the set
 of sets, <em>{ {}, { 1 }, { 2 }, { 1, 2} }</em>. Note that the powerset of a
@@ -606,35 +606,35 @@ of the sets, <em>{ 1, 2, 3 }</em> and <em>{ 1, 2, 3, 4 }</em>. How many elements
 these powersets have? (What are their cardinalities?) Can you guess a
 formula for the cardinality of the powerset of a set with cardinality,
 <em>n</em>? Can you convince yourself that this formula is always right?</p>
-<p>The powerset of a set of cardinality <em>n</em> has <img class="math" src="_images/math/bc3842c422f55f3c3625d00cdb478d653523ee55.png" alt="2^n"/> elements.  To
+<p>The powerset of a set of cardinality <em>n</em> has <img class="math" src="_images/math/765e78a51ed297b5fcd72c223d6d93daa98362e3.png" alt="2^n"/> elements.  To
 see that this is always true, first, consider the powerset of the
 empty set, then consider what happens when you increase the size of a
 set by one element. Start with the empty set. The only subset of the
 empty set is the empty set itself, so the powerset of the empty set
 has just one element. The cardinality of the empty set is <em>0</em>. The
 cardinality of its powerset is <em>1</em>. And that is the same as
-<img class="math" src="_images/math/f77ff764672d37a6a1f3e3d3b4e4c1ec0cece70b.png" alt="2^0"/>. Now let’s suppose that our formula holds for any set <em>S</em>,
+<img class="math" src="_images/math/e85248c371e3f92d131db732961077a21dfa2106.png" alt="2^0"/>. Now let’s suppose that our formula holds for any set <em>S</em>,
 with cardinality <em>n</em>. What is the cardinality of a set with one more
 element? Its powerset contains every set in the powerset of <em>S</em>, as
 those are all subsets of the larger set. Then to each of those sets,
 we can add the one new element to produce all the new subsets. We thus
 have double the original number of subsets. So if the cardinality of
-the powerset of <em>S</em>, of cardinality <em>n</em>, was <img class="math" src="_images/math/bc3842c422f55f3c3625d00cdb478d653523ee55.png" alt="2^n"/>, then the
-cardinality of the set <em>S</em> plus one new element is <img class="math" src="_images/math/f16c8e20168feddea2e7f761e226d0c1a34ed57f.png" alt="2 * 2^n"/>,
-which is <img class="math" src="_images/math/f16c8e20168feddea2e7f761e226d0c1a34ed57f.png" alt="2 * 2^n"/>. We know that the powerset of the empty set
+the powerset of <em>S</em>, of cardinality <em>n</em>, was <img class="math" src="_images/math/765e78a51ed297b5fcd72c223d6d93daa98362e3.png" alt="2^n"/>, then the
+cardinality of the set <em>S</em> plus one new element is <img class="math" src="_images/math/601b7fbdd239c30789e3f1a726a435130a22043d.png" alt="2 * 2^n"/>,
+which is <img class="math" src="_images/math/601b7fbdd239c30789e3f1a726a435130a22043d.png" alt="2 * 2^n"/>. We know that the powerset of the empty set
 has cardinality <em>1</em>, and from there for each element we add we double
 the size of the powerset, so the formula holds for sets of any finite
 size!</p>
 <p>The rule holds for sets of size zero, and whenver it holds for sets of
 size <em>n</em> it also holds for sets of size <em>n + 1</em>, so it must hold for
 sets of every (finite) size. What we have here is an informal <em>proof
-by induction</em> of the mathematical proposition, that: <img class="math" src="_images/math/f5e8fcc31419910a8f7c64120ae35fb7751e25ba.png" alt="\forall S,
+by induction</em> of the mathematical proposition, that: <img class="math" src="_images/math/37f619103702a661158c3008df9c7673507f6266.png" alt="\forall S,
 |{\mathbb P}(S)| = 2^{|S|}"/>.</p>
 <p>In Dafny, there is no explicit powerset operator, but we know exactly
 how to implement one of our own. The concept can be expressed in a
 very elegant way using a set comprehension. The solution is simply to
 say <em>the set of all sets that are subsets of a given set, *S</em>. In
-mathematical notation, <img class="math" src="_images/math/182dc7ea1aeff27cae66331c159a01c89412c5dc.png" alt="{\mathbb P}(S) = { R | R \subseteq S }."/>
+mathematical notation, <img class="math" src="_images/math/7e9645474046e6319df95f3341786c4c77e24b33.png" alt="{\mathbb P}(S) = { R | R \subseteq S }."/>
 In Dafny it’s basically the same expression.</p>
 <p>The follwing three-line program computes and prints out the powerset
 of <em>S = { 1, 2, 3 }</em>.</p>
@@ -721,9 +721,9 @@ powerset. You have to figure out the return type: think “set of sets”.</p>
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="discrete_mathematics.pdf">PDF version</a></li>
-    
     <li class="toctree-l1"><a href="https://kevinsullivan.github.io/cs-dm">Lean Home</a></li>
+    
+    <li class="toctree-l1"><a href="discrete_mathematics.pdf">PDF version</a></li>
     
 </ul>
 
