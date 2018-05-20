@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>2. Requirement, Specifications, and Implementations &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
+    <title>2. Introduction &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -38,8 +38,15 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="requirement-specifications-and-implementations">
-<h1>2. Requirement, Specifications, and Implementations<a class="headerlink" href="#requirement-specifications-and-implementations" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="introduction">
+<h1>2. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>This course teaches discrete math in large part through its uses in
+software <em>specification</em> and <em>verification.</em> The aim is to make the
+abstract ideas of discrete mathematics come alive by showing how they
+play out in the context of automated tools for formal, which is to say
+mathematical and logical, reasoning about software. Let’s get started.</p>
+<div class="section" id="specification-implementation-verification">
+<h2>2.1. Specification, Implementation, Verification<a class="headerlink" href="#specification-implementation-verification" title="Permalink to this headline">¶</a></h2>
 <p>Software is an increasingly critical component of major societal
 systems, from rockets to power grids to healthcare, etc. Failures are
 not always bugs in implementation code. The most critical problems
@@ -50,6 +57,9 @@ specifications.</p>
 <li><strong>Specification:</strong> Statements of the behavior required of a machine to produce such effects</li>
 <li><strong>Implementation:</strong> The definition (usually in code) of how a machine produces the specified behavior</li>
 </ul>
+</div>
+<div class="section" id="verification-and-validation">
+<h2>2.2. Verification and Validation<a class="headerlink" href="#verification-and-validation" title="Permalink to this headline">¶</a></h2>
 <p>Avoiding software-caused system failures requires not only a solid
 understanding of requirements, specifications, and implementations,
 but also great care in both the <em>validation</em> of requirements and of
@@ -58,6 +68,9 @@ specifications, and <em>verification</em> of code against specifications.</p>
 <li><strong>Validation:</strong> <em>Are we building the right system?</em> is the specification right; are the requirements right?</li>
 <li><strong>Verification:</strong> <em>Are we building the system right?</em> Does the implementation behave as its specification requires?</li>
 </ul>
+</div>
+<div class="section" id="natural-and-formal-languages">
+<h2>2.3. Natural and Formal Languages<a class="headerlink" href="#natural-and-formal-languages" title="Permalink to this headline">¶</a></h2>
 <p>You know that the language of implementation is code. What is the
 language of specification and of requirements?</p>
 <p>One possible answer is <em>natural language</em>. Requirements and
@@ -67,53 +80,126 @@ ambiguity, incompleteness, and inconsistency. This makes it a risky
 medium for communicating the precise behaviors required of complex
 software artifacts.</p>
 <p>The alternative to natural language that we will explore in this class
-is the use of mathematical logic, in particular what we call propositional
-logic, predicate logic, set theory, and the related field of type theory.</p>
-<p>Propositional logic is a language of simple propositions. Propositions
-are assertions that might or might not be judged to be true. For
-example, <em>Tennys (the person) plays tennis</em> is actually a true
-proposition (if we interpret <em>Tennys</em> to be the person who just played
-in the French Open).  So is <em>Tennys is from Tennessee</em>. And because
-these two propositions are true, so is the <em>compound</em> proposition (a
-proposition built up from smaller propositions) that Tennys is from
-Tennessee <strong>and</strong> Tennys plans tennis.</p>
-<p>Sometimes we want to talk about whether different entities satisfy
-give propositions. For this, we introduce propositions with parameters,
-which we will call <em>properties</em>. If we take <em>Tennys</em> out of <em>Tennys
-plays tennis</em> and replace his name by a variable, <em>P</em>, that can take
-on the identify of any person, then we end up with a parameterized
-proposition, <em>P plays tennis</em>. Substituting the name of any particular
-person for <em>P</em> then gives us a proposition <em>about that person</em> that we
-can judge to be true or false. A parameterized proposition thus gives
-rise to a whole family of propositions, one for each possible value of
-<em>P</em>.</p>
-<p>Sometimes we write parameterized propositions so that they look like
-functions, like this: <em>PlaysTennis(P)</em>. <em>PlaysTennis(Tennys)</em> is thus
-the proposition, <em>Tennys plays Tennis</em> while <em>PlaysTennis(Kevin)</em> is
-the proposition <em>Kevin plays Tennis</em>. For each possible person name,
-<em>P</em>, there is a corresponding proposition, <em>PlaysTennis(P)</em>.</p>
-<p>Some such propositions might be true. For instance,
-<em>PlaysTennis(Tennys)</em> is true in our example. Others might be false. A
-parameterized proposition thus encodes a <em>property</em> that some things
-(here people) have and that others don’t have (here, the property of
-<em>being a tennis player</em>).</p>
-<p>A property, also sometimes called a <em>predicate</em>, thus also serves to
-identify a <em>subset</em> of elements in a given <em>domain of discourse</em>. Here
-the domain of discourse is the of all people. The subset of people who
-actually do <em>play tennis</em> is exactly the set of people, P, for whom
-<em>PlaysTennis(P)</em> is true.</p>
+is the use of mathematical logic, in particular propositional logic,
+first-order predicate logic, set theory, and higher-order constructive
+logic.</p>
+</div>
+<div class="section" id="mathematical-logic">
+<h2>2.4. Mathematical Logic<a class="headerlink" href="#mathematical-logic" title="Permalink to this headline">¶</a></h2>
+<p>A logic is a language of <em>propositions</em>, which are assertions that
+certain <em>states of affairs</em> hold in certain <em>domains of discourse.</em>
+For example, a proposition might assert that at a certain point in the
+execution of a program it is necessarily the case that the value of
+some variable, <em>x</em>, is non-zero. Here the domain of discourse is that
+of the states of a program. Another proposition might assert that Jane
+is the mother of Bob.</p>
+<p>A logic, as a language of propositions, is also rooted in the notion
+of <em>truth</em>. A proposition is subject to being <em>judged</em> to be true, or
+not. For example, if, on every possible execution path from the start
+of a program, through sequences of statements including conditionals
+and loops, to a point of interest, a variable, <em>x</em> is set to a value
+that is non-zero, then one could judge as true the proposition that
+the value of <em>x</em> at that point is non-zero. Similarly, if Jane really
+is the mother of Bob in a situation of interest, then th proposition
+that she is could also be judged to be true.</p>
+<p>Propositions are mathematically precise statements that assert that
+certain states of affairs hold in given domains of discourse, and as
+such are subject to being judged to be true, or not. In mathematical
+logic, the condition under which a proposition can be judged to be
+true is that there is a <em>proof</em> that it is true. One of the primary
+aims of this course is to work up to a deep understanding of what is
+meant by a proof of a logical proposition.</p>
+</div>
+<div class="section" id="many-logics">
+<h2>2.5. Many Logics<a class="headerlink" href="#many-logics" title="Permalink to this headline">¶</a></h2>
+<p>There are many logics. Different logics are able to express different
+kinds of propositions, and in different ways, and each comes with its
+own particular concepts and forms of proofs. In this course, students
+will first see first-order predicate logic <em>in use</em> as a language in
+which to write and verify propositions about programs. Next, students
+will delve into the nature of logic and truth by studing the simplest
+of useful logics: propositional logic. From there, the course builds
+to the concept of inference rules as valid principles that capture
+natural forms of reasoning. Having seen the uses of predicate logic,
+students then study its nature, its syntax and semantics. Finally,
+students learn about proofs and their construction, again supported
+by software tools, using the higher-order constructive logic of the
+Lean Prover.</p>
+</div>
+<div class="section" id="propositional-logic">
+<h2>2.6. Propositional Logic<a class="headerlink" href="#propositional-logic" title="Permalink to this headline">¶</a></h2>
+<p>Propositional logic is a language of simple statements. For example,
+<em>Tennys plays tennis</em> is an <em>elementary proposition</em>. It is also true
+if by <em>Tennys</em> we mean the person who recently played in the French
+Open.  <em>Tennys is from Tennessee</em> is another elementary proposition,
+and one that is also true of that same person. And because these two
+propositions are true, so is the <em>compound</em> proposition that <em>Tennys
+is from Tennessee and Tennys plans tennis</em>. Proposition logic is a
+very simple logic: of elementary propositions that can be judged to be
+either true or false, and compound propositions built by connecting
+smaller propositions together using the logic connectives, <em>and, or,
+not</em> and others. The truth of a compound proposition in propositional
+logic is judged by (1) the truths of its constituent parts, and (2)
+the connective used to build it out of its immediately smaller parts.
+If you see an immediate connection between propositional logic and
+Boolean expressions, you have seen the light: these languages are for
+out intents and purposes the essentially the same.</p>
+</div>
+<div class="section" id="predicate-logic">
+<h2>2.7. Predicate Logic<a class="headerlink" href="#predicate-logic" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes we want to talk about whether this person, or that person,
+or some other person plays tennis. To this end, we imagine a logic in
+which propositions can have parameters. If we replace the individual
+person, <em>Tennys</em>, in the proposition, <em>Tennys plays tennis</em>, with a
+variable, <em>P</em>, that can take on the identify of any person, then we
+end up with a parameterized proposition, <em>P plays tennis</em>. We call
+such a parameterized proposition a <em>predicate</em>. Predicate logic is a
+language of propositions and predicates, which you can think of as
+functions that, when given parameter values, new propositions. Such
+propositions might again be true or they might not be. We can now
+think of <em>plays tennis</em> as a predicate, or as a <em>property</em> that any
+invidivual either has or not. For example <em>PlaysTennis(Tennys)</em> might
+be the proposition, <em>Tennys plays Tennis</em> while <em>PlaysTennis(Kevin)</em>
+might be the proposition <em>Kevin plays Tennis</em>. For each possible
+person name, <em>P</em>, there is a proposition, <em>PlaysTennis(P)</em>.</p>
+<p>Predicate logic also allows one to write <em>quantified</em> propositions
+using existential and universal quantifiers. For example, one might
+write a proposition stating that <em>there exists some person, P, such
+that PlaysTennis(P)</em>, an existentially quantified proposition; or that
+<em>for every person, P, PlaysTennis(P)</em> (colloquially, <em>everyone plays
+tennis</em>).</p>
 <p>We note briefly, here, that, like functions, propositions can have
 multiple parameters. For example, we can generalize from <em>Tennys plays
 Tennis **and*</em> Tennys is from Tennessee* to <em>P plays tennis and P is
-from L,</em> where P ranges over people and L ranges over locations. We
-call a proposition with two or more parameters a <em>relation</em>. A
-relation picks out <em>combinations</em> of elements for which corresponding
-properties are true. So, for example, the <em>pair</em> (Tennys, Tennessee)
-is in the relation (set of <em>P-L</em> pairs) picked out by this
-parameterized proposition. On the other hand, the pair, (Kevin,
-Tennessee), is not, because Kevin is actually from New Hampshire, so
-the proposition <em>Kevin plays tennis **and*</em> Kevin is from Tennessee*
-is not true. More on relations later!</p>
+from L,</em> where the variable, <em>P</em>, ranges over people and the variable,
+<em>L</em> ranges over locations.</p>
+<p>While a predicate with one parameter can be thought of as a <em>property</em>
+of the individuals to which it applies (whether someone plays tennis
+or not), a proposition with two or more parameters can be thought of
+as a <em>relation</em>, here betwen people who play tennis and places where
+they live. A property picks out individuals for which a corresponding
+proposition is true, while a relation picks out pairs (or larger sets)
+of individuals for which corresponding propositions are true.</p>
+<p>For example, the <em>pair</em> (Tennys, Tennessee) is in the relation picked
+out by this parameterized proposition, but (Kevin, Tennessee), is not,
+because Kevin is from New Hampshire, so the proposition <em>Kevin plays
+tennis **and*</em> Kevin is from Tennessee* is not true.</p>
+</div>
+<div class="section" id="logic-and-code">
+<h2>2.8. Logic and Code<a class="headerlink" href="#logic-and-code" title="Permalink to this headline">¶</a></h2>
+<p>Predicate logic is the logic of everyday computer science, and of the
+programming language and that we will be using to learn how to read,
+write, and use predicate logic. Dafny supports not only coding in an
+ordinary imperative (Python or Java-like) language, but also the use
+of predicate logic to write <em>specifcations</em> that desribe precisely how
+given programs must behave. Dafny has an underlying mechanism for then
+judging whether such propositions are true, and it gives programmers
+real-time feedback on whether programs satisfy their specifications or
+not, without having the actually run the code! Dafny was developed by
+Rustan Leino at Microsoft Research, one of the world’s top research
+labs in computer science. It’s also a real revelation the first time
+one sees it highlighting errors in code without ever having to run it.</p>
+</div>
 </div>
 
 
@@ -135,7 +221,17 @@ is not true. More on relations later!</p>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="00-preface.html">1. Preface</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Requirement, Specifications, and Implementations</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#specification-implementation-verification">2.1. Specification, Implementation, Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#verification-and-validation">2.2. Verification and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#natural-and-formal-languages">2.3. Natural and Formal Languages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mathematical-logic">2.4. Mathematical Logic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#many-logics">2.5. Many Logics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#propositional-logic">2.6. Propositional Logic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#predicate-logic">2.7. Predicate Logic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#logic-and-code">2.8. Logic and Code</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="02-logic-and-code.html">3. Logical Specifications, Imperative Implementations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03-problems-with-imperative-code.html">4. Problems with Imperative Code</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04-runnable-math.html">5. Pure Functional Programming as Runnable Mathematics</a></li>
@@ -161,9 +257,9 @@ is not true. More on relations later!</p>
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="https://kevinsullivan.github.io/cs-dm">Lean Home</a></li>
-    
     <li class="toctree-l1"><a href="discrete_mathematics.pdf">PDF version</a></li>
+    
+    <li class="toctree-l1"><a href="https://kevinsullivan.github.io/cs-dm">Lean Home</a></li>
     
 </ul>
 
