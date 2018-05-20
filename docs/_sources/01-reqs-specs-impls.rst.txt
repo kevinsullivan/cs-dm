@@ -167,14 +167,16 @@ Logic and Code
 ==============
 
 Predicate logic is the logic of everyday computer science, and of the
-programming language and that we will be using to learn how to read,
-write, and use predicate logic. Dafny supports not only coding in an
-ordinary imperative (Python or Java-like) language, but also the use
-of predicate logic to write *specifcations* that desribe precisely how
-given programs must behave. Dafny has an underlying mechanism for then
-judging whether such propositions are true, and it gives programmers
-real-time feedback on whether programs satisfy their specifications or
-not, without having the actually run the code! Dafny was developed by
-Rustan Leino at Microsoft Research, one of the world's top research
-labs in computer science. It's also a real revelation the first time
-one sees it highlighting errors in code without ever having to run it.
+programming system and language that we will be using to learn how to
+read, write, and use predicate logic. Dafny supports not only coding
+in an ordinary imperative (Python or Java-like) language, but also the
+use of predicate logic and what we will learn are pure functional
+programs to write *specifcations.* Specifications are propositions
+that desribe precisely how given programs must behave. Dafny has an
+underlying mechanism for then judging whether such propositions are
+true, and it gives programmers real-time feedback on whether programs
+satisfy their specifications or not, without having the actually run
+the code! Dafny was developed by Rustan Leino at Microsoft Research,
+one of the world's top research labs in computer science. It's also a
+real revelation the first time one sees it alerting you to errors in
+code without ever running it.
