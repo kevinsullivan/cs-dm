@@ -72,3 +72,7 @@ infinite, of course, as it would be impossible to complete testing of each indiv
 (non-negative integer) as an argument behaves correctly *for all natural numbers* by testing it on each one in turn, because you could never finish the testing process. 
 -/
 
+/-
+What is a function? A truth table view. Binary relations. Single valued. Total.
+-/
+
