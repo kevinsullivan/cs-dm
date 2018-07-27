@@ -92,7 +92,7 @@ module consequence_test
         checkAndShowInferenceRule(deny_antecedent);
 
         /*
-        Exam 2 consequence answers
+        Exam 2 consequence answers: intro and elim rules for equivalence (iff)
         */
         var iff_elim_l := (([pEquiv(P,Q)], pImpl(P,Q)),"iff_elim_l");
         checkAndShowInferenceRule(iff_elim_l);

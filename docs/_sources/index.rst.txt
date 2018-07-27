@@ -9,6 +9,7 @@ Discrete Mathematics: A Computational Approach
 .. toctree::
    :maxdepth: 3
    :numbered:
+   :orphan:
    :caption: Contents:
 
    00-preface

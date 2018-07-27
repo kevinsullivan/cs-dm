@@ -1,4 +1,4 @@
-include "decision.dfy"
+include "satisfiability.dfy"
 
 module consequence
 {

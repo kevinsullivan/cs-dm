@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>5. Pure Functional Programming as Runnable Mathematics &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
+    <title>Pure Functional Programming as Runnable Mathematics &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -23,8 +23,6 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="6. Formal Verification of Imperative Programs" href="05-verifying-logical-specifications.html" />
-    <link rel="prev" title="4. Problems with Imperative Code" href="03-problems-with-imperative-code.html" />
 <!-- <link href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy" rel="stylesheet"> -->
 <!-- <link href="https://fonts.googleapis.com/css?family=Average" rel="stylesheet"> -->
 <!-- <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet"> -->
@@ -39,7 +37,7 @@
           <div class="body" role="main">
             
   <div class="section" id="pure-functional-programming-as-runnable-mathematics">
-<h1>5. Pure Functional Programming as Runnable Mathematics<a class="headerlink" href="#pure-functional-programming-as-runnable-mathematics" title="Permalink to this headline">¶</a></h1>
+<h1>Pure Functional Programming as Runnable Mathematics<a class="headerlink" href="#pure-functional-programming-as-runnable-mathematics" title="Permalink to this headline">¶</a></h1>
 <p>What we’d really like would be a language that gives us everything:
 the expressiveness and the <em>safety</em> of mathematical logic (there’s no
 concept of a memory in logic, and thus no possibility for unexpected
@@ -63,7 +61,7 @@ the same efficiency as in, say, C++.</p>
 implement runnable programs that closely mirror the mathematical
 definitions of the functions that they implement.</p>
 <div class="section" id="the-identify-function-for-integers">
-<h2>5.1. The identify function (for integers)<a class="headerlink" href="#the-identify-function-for-integers" title="Permalink to this headline">¶</a></h2>
+<h2>The identify function (for integers)<a class="headerlink" href="#the-identify-function-for-integers" title="Permalink to this headline">¶</a></h2>
 <p>An <em>identity function</em> is a function whose values is simply the value
 of the argument to which it is applied. For example, the identify
 function applied to an integer value, <em>x</em>, just evaluates to the value
@@ -118,7 +116,7 @@ for the <em>x</em> in the body, yielding the literal expression, <em>4</em>, whi
 when evaluated, yeilds the value <em>4</em>, and that’s the result.</p>
 </div>
 <div class="section" id="data-and-function-types">
-<h2>5.2. Data and function types<a class="headerlink" href="#data-and-function-types" title="Permalink to this headline">¶</a></h2>
+<h2>Data and function types<a class="headerlink" href="#data-and-function-types" title="Permalink to this headline">¶</a></h2>
 <p>Before moving on to more interesting functions, we must mention the
 concepts of <em>types</em> and <em>values</em> as they pertain to both <em>data</em> and
 <em>functions</em>. Two types appear in the example of the <em>id</em> function. The
@@ -131,7 +129,7 @@ returns a value of type <em>int</em>, we say that the type of <em>id</em> is
 int</em>.</p>
 </div>
 <div class="section" id="other-function-values-of-the-same-type">
-<h2>5.3. Other function values of the same type<a class="headerlink" href="#other-function-values-of-the-same-type" title="Permalink to this headline">¶</a></h2>
+<h2>Other function values of the same type<a class="headerlink" href="#other-function-values-of-the-same-type" title="Permalink to this headline">¶</a></h2>
 <p>There are many (indeed an uncountable infinity of) functions that
 convert integer values to other integer values. All such functions
 have the same type, namely <img class="math" src="_images/math/d3d219c1cd22d241f910083e5f1e4da0008bff92.png" alt="int \rightarrow int"/>, but they
@@ -297,7 +295,7 @@ the mathematical definition, is indispensible. It makes the definition
 sound and it makes the code correct!</p>
 </div>
 <div class="section" id="dafny-is-a-program-verifier">
-<h2>5.4. Dafny is a Program Verifier<a class="headerlink" href="#dafny-is-a-program-verifier" title="Permalink to this headline">¶</a></h2>
+<h2>Dafny is a Program Verifier<a class="headerlink" href="#dafny-is-a-program-verifier" title="Permalink to this headline">¶</a></h2>
 <p>Restricting the domain of factorial to non-negative integers is
 critical. Combining the non-negative property of ever value to which
 the function is applied with the fact that every recursive application
@@ -350,36 +348,6 @@ are expressed and verified.</p>
 
 
 <!-- <h3>Navigation</h3> -->
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="00-preface.html">1. Preface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="01-reqs-specs-impls.html">2. Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02-logic-and-code.html">3. Logical Specifications, Imperative Implementations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-problems-with-imperative-code.html">4. Problems with Imperative Code</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">5. Pure Functional Programming as Runnable Mathematics</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#the-identify-function-for-integers">5.1. The identify function (for integers)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#data-and-function-types">5.2. Data and function types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#other-function-values-of-the-same-type">5.3. Other function values of the same type</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#dafny-is-a-program-verifier">5.4. Dafny is a Program Verifier</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="05-verifying-logical-specifications.html">6. Formal Verification of Imperative Programs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06-dafny-language.html">7. Dafny Language: Types, Statements, Expressions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="07-set-theory.html">8. Set Theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="08-relations.html">9. Relations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="09-boolean-algebra.html">10. Boolean Algebra</a></li>
-<li class="toctree-l1"><a class="reference internal" href="10-formal-languages.html">11. Formal Languages</a></li>
-<li class="toctree-l1"><a class="reference internal" href="11-propositional-logic.html">12. Propositional Logic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="12-satisfiability.html">13. 12. Satisfiability</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13-consequence.html">14. Natural Deduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="14-predicate-logic.html">15. Predicate Logic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="15-proofs.html">16. Proofs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="16-equality.html">17. Proofs of Equalities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="17-inequality.html">18. Proofs of Inequality</a></li>
-<li class="toctree-l1"><a class="reference internal" href="18-existence.html">19. Proofs of Existence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="19-univeral.html">20. Proofs of Universality</a></li>
-<li class="toctree-l1"><a class="reference internal" href="20-termination.html">21. Termination</a></li>
-</ul>
 
 
 <hr />

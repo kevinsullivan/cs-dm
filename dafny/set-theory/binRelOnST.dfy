@@ -244,6 +244,10 @@ module binRelST
         
         /*
         Return true iff the relation is partial (relative to its domain set)
+
+        KEVIN NOTE: There seems to be some inconsistency in the mathematical
+        community about whether the partial functions include or exclude the
+        total functions.
         */
         predicate method isPartial()
             reads this;

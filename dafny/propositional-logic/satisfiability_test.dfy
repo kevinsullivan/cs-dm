@@ -1,4 +1,4 @@
-include "decision.dfy"
+include "satisfiability.dfy"
 include "evaluation.dfy"
 include "truth_table.dfy"
 include "consequence.dfy"

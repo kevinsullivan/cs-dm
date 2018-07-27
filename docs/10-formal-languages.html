@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>11. Formal Languages &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
+    <title>Formal Languages &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -23,8 +23,6 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="12. Propositional Logic" href="11-propositional-logic.html" />
-    <link rel="prev" title="10. Boolean Algebra" href="09-boolean-algebra.html" />
 <!-- <link href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy" rel="stylesheet"> -->
 <!-- <link href="https://fonts.googleapis.com/css?family=Average" rel="stylesheet"> -->
 <!-- <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet"> -->
@@ -39,7 +37,7 @@
           <div class="body" role="main">
             
   <div class="section" id="formal-languages">
-<h1>11. Formal Languages<a class="headerlink" href="#formal-languages" title="Permalink to this headline">¶</a></h1>
+<h1>Formal Languages<a class="headerlink" href="#formal-languages" title="Permalink to this headline">¶</a></h1>
 <p>In this chapter, we introduce the concept of formal languages. A
 formal language is a set of expressions and corresponding meanings,
 where the permitted forms of the expressions and the meaning of each
@@ -49,7 +47,7 @@ Boolean expressions, starting with a highly simplied language with
 only two literal value expressions; then extending to a language that
 adds the usualy Boolean connectives (and, or, not, etc).</p>
 <div class="section" id="boolean-algebra-revisited">
-<h2>11.1. Boolean Algebra Revisited<a class="headerlink" href="#boolean-algebra-revisited" title="Permalink to this headline">¶</a></h2>
+<h2>Boolean Algebra Revisited<a class="headerlink" href="#boolean-algebra-revisited" title="Permalink to this headline">¶</a></h2>
 <p>Any introduction to programming will have made it clear that there is
 an infinite set of Boolean expressions. For example, in Dafny, <em>true</em>
 is a Boolean expression; so are <em>false</em>, <em>true || false</em>, <em>(true ||
@@ -97,7 +95,7 @@ associates a <em>meaning</em>, in the form of a <em>value</em>, with each expres
 in the language.</p>
 </div>
 <div class="section" id="a-very-simple-language-of-boolean-expressions">
-<h2>11.2. A Very Simple Language of Boolean Expressions<a class="headerlink" href="#a-very-simple-language-of-boolean-expressions" title="Permalink to this headline">¶</a></h2>
+<h2>A Very Simple Language of Boolean Expressions<a class="headerlink" href="#a-very-simple-language-of-boolean-expressions" title="Permalink to this headline">¶</a></h2>
 <p>We start by considering a simplified language of Boolean expressions:
 one with only two literal expressions, for <em>true</em> and <em>false</em> values,
 along with several of the usual logical connectives.  To make it clear
@@ -106,7 +104,7 @@ expressions that we will eventually interpret as meaning Boolean
 values, we will call the literal values in our language not <em>true</em> and
 <em>false</em> but <em>bTrue</em> and <em>bFalse</em>.</p>
 <div class="section" id="syntax-inductive-data-type-definitions">
-<h3>11.2.1. Syntax: Inductive Data Type Definitions<a class="headerlink" href="#syntax-inductive-data-type-definitions" title="Permalink to this headline">¶</a></h3>
+<h3>Syntax: Inductive Data Type Definitions<a class="headerlink" href="#syntax-inductive-data-type-definitions" title="Permalink to this headline">¶</a></h3>
 <p>We can represent the syntax of this language in Dafny using what we
 call an <em>inductive data type definition.</em> A data type defines a set of
 values. So what we need to define is a data type whose values are all
@@ -138,7 +136,7 @@ all there is to specifying the <em>syntax</em> of our simplified language of
 Boolean expressions.</p>
 </div>
 <div class="section" id="semantics-pattern-matching-on-terms">
-<h3>11.2.2. Semantics: Pattern Matching on Terms<a class="headerlink" href="#semantics-pattern-matching-on-terms" title="Permalink to this headline">¶</a></h3>
+<h3>Semantics: Pattern Matching on Terms<a class="headerlink" href="#semantics-pattern-matching-on-terms" title="Permalink to this headline">¶</a></h3>
 <p>We now specify a semantics for this language. Speaking informally, we
 want to associate, to each of the expressions in our simple two-term
 language, a correponding meaning in the form of a Boolean value.  We
@@ -192,7 +190,7 @@ there is to defining a semantics for this simple language.</p>
 </div>
 </div>
 <div class="section" id="extending-the-language-with-boolean-connectives">
-<h2>11.3. Extending the Language with Boolean Connectives<a class="headerlink" href="#extending-the-language-with-boolean-connectives" title="Permalink to this headline">¶</a></h2>
+<h2>Extending the Language with Boolean Connectives<a class="headerlink" href="#extending-the-language-with-boolean-connectives" title="Permalink to this headline">¶</a></h2>
 <p>So far our Boolean language is very uninteresting. There are only two
 expressions in our language, two literal expressions, and all they
 mean are their corresponding Boolean values. In this section of this
@@ -209,7 +207,7 @@ be combined into ever larger expressions, without bound. Then the
 challenge is to specify a meaning for every such expression.  We do
 that by using recursion over the <em>structure</em> of any such term.</p>
 <div class="section" id="inductive-definitions-building-bigger-expressions-from-smaller-ones">
-<h3>11.3.1. Inductive Definitions: Building Bigger Expressions from Smaller Ones<a class="headerlink" href="#inductive-definitions-building-bigger-expressions-from-smaller-ones" title="Permalink to this headline">¶</a></h3>
+<h3>Inductive Definitions: Building Bigger Expressions from Smaller Ones<a class="headerlink" href="#inductive-definitions-building-bigger-expressions-from-smaller-ones" title="Permalink to this headline">¶</a></h3>
 <p>The real language of Boolean expressions has many more than two valid
 expressions, of course. In Dafny’s Boolean expression sub-language,
 for example, one can write not only the literal expressions, <em>true</em>
@@ -269,7 +267,7 @@ var R       := bAnd ( P, Q );
 </div>
 </div>
 <div class="section" id="structural-recursion-the-meanings-of-wholes-from-the-meanings-of-parts">
-<h3>11.3.2. Structural Recursion: The Meanings of Wholes from the Meanings of Parts<a class="headerlink" href="#structural-recursion-the-meanings-of-wholes-from-the-meanings-of-parts" title="Permalink to this headline">¶</a></h3>
+<h3>Structural Recursion: The Meanings of Wholes from the Meanings of Parts<a class="headerlink" href="#structural-recursion-the-meanings-of-wholes-from-the-meanings-of-parts" title="Permalink to this headline">¶</a></h3>
 <p>The remaining question, then, is how to give meanings to each of the
 expressions in the infinite set of expressions that can be built by
 finite numbers of applications of the constructor of our extended
@@ -351,7 +349,7 @@ the intended result, <em>true</em>.</p>
 </div>
 </div>
 <div class="section" id="id1">
-<h2>11.4. Formal Languages<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>Formal Languages<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>Formal languages are sets of well formed expressions with precisely
 specified syntaxes and semantics.  Programming languages are formal
 languages. Expressions in these languages are programs. The syntax of
@@ -417,44 +415,6 @@ logic, and then, ultimately, into the higher-order logic of a modern
 
 
 <!-- <h3>Navigation</h3> -->
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="00-preface.html">1. Preface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="01-reqs-specs-impls.html">2. Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02-logic-and-code.html">3. Logical Specifications, Imperative Implementations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-problems-with-imperative-code.html">4. Problems with Imperative Code</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04-runnable-math.html">5. Pure Functional Programming as Runnable Mathematics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05-verifying-logical-specifications.html">6. Formal Verification of Imperative Programs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06-dafny-language.html">7. Dafny Language: Types, Statements, Expressions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="07-set-theory.html">8. Set Theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="08-relations.html">9. Relations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="09-boolean-algebra.html">10. Boolean Algebra</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">11. Formal Languages</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#boolean-algebra-revisited">11.1. Boolean Algebra Revisited</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#a-very-simple-language-of-boolean-expressions">11.2. A Very Simple Language of Boolean Expressions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#syntax-inductive-data-type-definitions">11.2.1. Syntax: Inductive Data Type Definitions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#semantics-pattern-matching-on-terms">11.2.2. Semantics: Pattern Matching on Terms</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#extending-the-language-with-boolean-connectives">11.3. Extending the Language with Boolean Connectives</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#inductive-definitions-building-bigger-expressions-from-smaller-ones">11.3.1. Inductive Definitions: Building Bigger Expressions from Smaller Ones</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#structural-recursion-the-meanings-of-wholes-from-the-meanings-of-parts">11.3.2. Structural Recursion: The Meanings of Wholes from the Meanings of Parts</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">11.4. Formal Languages</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="11-propositional-logic.html">12. Propositional Logic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="12-satisfiability.html">13. 12. Satisfiability</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13-consequence.html">14. Natural Deduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="14-predicate-logic.html">15. Predicate Logic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="15-proofs.html">16. Proofs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="16-equality.html">17. Proofs of Equalities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="17-inequality.html">18. Proofs of Inequality</a></li>
-<li class="toctree-l1"><a class="reference internal" href="18-existence.html">19. Proofs of Existence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="19-univeral.html">20. Proofs of Universality</a></li>
-<li class="toctree-l1"><a class="reference internal" href="20-termination.html">21. Termination</a></li>
-</ul>
 
 
 <hr />

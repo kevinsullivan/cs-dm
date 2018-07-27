@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>16. Proofs &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
+    <title>Proofs &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -23,8 +23,6 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="17. Proofs of Equalities" href="16-equality.html" />
-    <link rel="prev" title="15. Predicate Logic" href="14-predicate-logic.html" />
 <!-- <link href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy" rel="stylesheet"> -->
 <!-- <link href="https://fonts.googleapis.com/css?family=Average" rel="stylesheet"> -->
 <!-- <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet"> -->
@@ -39,7 +37,7 @@
           <div class="body" role="main">
             
   <div class="section" id="proofs">
-<h1>16. Proofs<a class="headerlink" href="#proofs" title="Permalink to this headline">¶</a></h1>
+<h1>Proofs<a class="headerlink" href="#proofs" title="Permalink to this headline">¶</a></h1>
 <p>KS: Edit this intro.</p>
 <p>Finally, logic consequence. A set of logical propositions, premises,
 is said to entail another, a conclusion, if in every interpretation
@@ -79,7 +77,7 @@ one as a consequence. Mathematical logic allows us to replace human
 mental reasoning with the mechanical <em>transformation of symbolic
 expressions</em>.</p>
 <div class="section" id="unscalability-of-semantic-entailment">
-<h2>16.1. Unscalability of Semantic Entailment<a class="headerlink" href="#unscalability-of-semantic-entailment" title="Permalink to this headline">¶</a></h2>
+<h2>Unscalability of Semantic Entailment<a class="headerlink" href="#unscalability-of-semantic-entailment" title="Permalink to this headline">¶</a></h2>
 <p>At this point, we’ve proposed and validated (using truth tables) a set
 of fundamental inference rules. Unfortunately, using truth tables
 doesn’t scale well. We thus play an important game, now, where we
@@ -110,7 +108,7 @@ that you haven’t made a mistake by accepting a proof that isn’t really
 valid.</p>
 </div>
 <div class="section" id="natural-deduction">
-<h2>16.2. Natural Deduction<a class="headerlink" href="#natural-deduction" title="Permalink to this headline">¶</a></h2>
+<h2>Natural Deduction<a class="headerlink" href="#natural-deduction" title="Permalink to this headline">¶</a></h2>
 <p>Natural deduction, which is the proof system that we’re using here, is
 a set of functions (inference rules) for taking apart (elimination)
 and putting together (introduction) proofs of propositions to produce
@@ -137,7 +135,7 @@ community. When lives depend on the correctness of proofs, it can be
 worth the trouble to make sure they’re right.  -/</p>
 </div>
 <div class="section" id="forms-of-propositions-forms-of-proofs">
-<h2>16.3. Forms of Propositions; Forms of Proofs<a class="headerlink" href="#forms-of-propositions-forms-of-proofs" title="Permalink to this headline">¶</a></h2>
+<h2>Forms of Propositions; Forms of Proofs<a class="headerlink" href="#forms-of-propositions-forms-of-proofs" title="Permalink to this headline">¶</a></h2>
 <p>With this background in hand, we can now use
 what we’ve learned to start to investigate the
 world of mathematical logic and proof at a high
@@ -151,10 +149,10 @@ we see used here is “proof by simplification
 and by the reflexive property of equality”.</p>
 </div>
 <div class="section" id="introduction-and-elimination-rules">
-<h2>16.4. Introduction and Elimination Rules<a class="headerlink" href="#introduction-and-elimination-rules" title="Permalink to this headline">¶</a></h2>
+<h2>Introduction and Elimination Rules<a class="headerlink" href="#introduction-and-elimination-rules" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="true-introduction">
-<h2>16.5. True Introduction<a class="headerlink" href="#true-introduction" title="Permalink to this headline">¶</a></h2>
+<h2>True Introduction<a class="headerlink" href="#true-introduction" title="Permalink to this headline">¶</a></h2>
 <p>Recall from our introduction to inference rules in propositional logic
 that the proposition, pTrue, is true without any preconditions. We
 wrote the rule like this: ([],pTrue), and we called it “true intro”.
@@ -209,7 +207,7 @@ try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span><
 doesn’t allow you to conclude anything new. It’s not used much in
 real-world proofs, but it’s good to know about.</p>
 <div class="section" id="the-proposition-false">
-<h3>16.5.1. The proposition, false<a class="headerlink" href="#the-proposition-false" title="Permalink to this headline">¶</a></h3>
+<h3>The proposition, false<a class="headerlink" href="#the-proposition-false" title="Permalink to this headline">¶</a></h3>
 <p>In Lean, false is also a proposition. By contrast, the Boolean false
 value in Lean is written as ff.</p>
 <div style="position: relative">
@@ -236,7 +234,7 @@ proof of false because there is no proof of false.  We’ll discuss
 false elimination later.  -/</p>
 </div>
 <div class="section" id="proofs-involving-conjunctions">
-<h3>16.5.2. Proofs Involving Conjunctions<a class="headerlink" href="#proofs-involving-conjunctions" title="Permalink to this headline">¶</a></h3>
+<h3>Proofs Involving Conjunctions<a class="headerlink" href="#proofs-involving-conjunctions" title="Permalink to this headline">¶</a></h3>
 <p>We now explore the use of the and introduction and elimination
 inference rules, whether doing paper-and-pencil mathematics or when
 using an automated proof assistant such as Lean. This section also
@@ -244,7 +242,7 @@ serves as an introduction to the idea that you use different proof
 techniques to prove different kinds of propositions: e.g.,
 conjunctions, implications, disjuctions, etc.</p>
 <div class="section" id="and-introduction">
-<h4>16.5.2.1. And Introduction<a class="headerlink" href="#and-introduction" title="Permalink to this headline">¶</a></h4>
+<h4>And Introduction<a class="headerlink" href="#and-introduction" title="Permalink to this headline">¶</a></h4>
 <p>Whether in pencil-and-paper mathematics or when using a proof
 assistant such as Lean, to prove a conjunction, <img class="math" src="_images/math/a80e21781161e0f0697d3bdfdd259eabda0ca73c.png" alt="P \land Q"/>, you
 have to produce a proof of P and a proof of Q. You then use the “and
@@ -314,7 +312,7 @@ commas between values. So here for example, and below, we write
 when you get to the exercises to remember this point.</p>
 </div>
 <div class="section" id="and-elimination">
-<h4>16.5.2.2. And Elimination<a class="headerlink" href="#and-elimination" title="Permalink to this headline">¶</a></h4>
+<h4>And Elimination<a class="headerlink" href="#and-elimination" title="Permalink to this headline">¶</a></h4>
 <p>And introduction creates a proof of a conjunction from proofs of its
 parts (its “conjuncts”). Such a proof is a pair the elements of which
 are the two “smaller” proofs. Given such a proof/pair, the and
@@ -334,7 +332,7 @@ functions) on pairs of proofs.</p>
 </div>
 </div>
 <div class="section" id="implications">
-<h3>16.5.3. Implications<a class="headerlink" href="#implications" title="Permalink to this headline">¶</a></h3>
+<h3>Implications<a class="headerlink" href="#implications" title="Permalink to this headline">¶</a></h3>
 <p>Next we turn to proofs of propositions in the form of implications,
 such as P → Q.  Up until now, we’ve read this implication as a
 proposition that claims that “if P is true then Q must be true.”</p>
@@ -364,7 +362,7 @@ lambda expressions, also written as λ expressions. So let’s get
 started.</p>
 </div>
 <div class="section" id="interlude-function-values">
-<h3>16.5.4. Interlude: Function Values<a class="headerlink" href="#interlude-function-values" title="Permalink to this headline">¶</a></h3>
+<h3>Interlude: Function Values<a class="headerlink" href="#interlude-function-values" title="Permalink to this headline">¶</a></h3>
 <p>We can define functions in Lean almost as in Dafny. Here are two
 functions to play with: increment and square. Go back and look at the
 function.dfy file to see just how similar the syntax is.</p>
@@ -376,7 +374,7 @@ try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span><
 </pre></div>
 </div>
 </div><div class="section" id="functions-are-values-too-lambda-expressions">
-<h4>16.5.4.1. Functions are Values, Too: Lambda Expressions<a class="headerlink" href="#functions-are-values-too-lambda-expressions" title="Permalink to this headline">¶</a></h4>
+<h4>Functions are Values, Too: Lambda Expressions<a class="headerlink" href="#functions-are-values-too-lambda-expressions" title="Permalink to this headline">¶</a></h4>
 <p>Now’s a good time to make a point that should make sense: functions
 are values of function types. Our familiar notation doesn’t make
 function types explicit, but it shouldn’t be a stretch for you to
@@ -431,7 +429,7 @@ name as a proof, it is often easier to give a lambda expression
 directly, as we’ll see shortly.</p>
 </div>
 <div class="section" id="recursive-function-definitions">
-<h4>16.5.4.2. Recursive Function Definitions<a class="headerlink" href="#recursive-function-definitions" title="Permalink to this headline">¶</a></h4>
+<h4>Recursive Function Definitions<a class="headerlink" href="#recursive-function-definitions" title="Permalink to this headline">¶</a></h4>
 <p>We can also define recursive functions, such as factorial and
 fibonacci using Lean’s version of Dafny’s “match/case” construct (aka,
 “pattern matching”).</p>
@@ -465,13 +463,13 @@ try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span><
 </div></div>
 </div>
 <div class="section" id="rules-for-implication">
-<h3>16.5.5. Rules for Implication<a class="headerlink" href="#rules-for-implication" title="Permalink to this headline">¶</a></h3>
+<h3>Rules for Implication<a class="headerlink" href="#rules-for-implication" title="Permalink to this headline">¶</a></h3>
 <p>So far we’ve see how to build proofs of equality propositions (using
 simplification and reflexivity, i.e., rfl), of conjunctions (using
 and.intro), and of disjuctions (using one of the or introduction
 rules). What about implications?</p>
 <div class="section" id="arrow-introduction">
-<h4>16.5.5.1. Arrow Introduction<a class="headerlink" href="#arrow-introduction" title="Permalink to this headline">¶</a></h4>
+<h4>Arrow Introduction<a class="headerlink" href="#arrow-introduction" title="Permalink to this headline">¶</a></h4>
 <p>Suppose we wanted to show, for example, that (1=1 ∧ 0=0() → (0=0 ∧
 1=1). Here the order of the conjuncts is reversed.</p>
 <p>How to think about this? First, remember that an implication, such as
@@ -543,7 +541,7 @@ are given a proof of the premise, you can turn that into a proof of
 the conclusion. We thus have a second fundamental proof strategy.  -/</p>
 </div>
 <div class="section" id="arrow-elimination">
-<h4>16.5.5.2. Arrow Elimination<a class="headerlink" href="#arrow-elimination" title="Permalink to this headline">¶</a></h4>
+<h4>Arrow Elimination<a class="headerlink" href="#arrow-elimination" title="Permalink to this headline">¶</a></h4>
 <p>The arrow elimination inference rule looks like this: [P -&gt; Q, P]
 ⊢ Q. It starts with both an implication (aka, function), in the
 context, along with a proof of its premise, and derives the conclusion
@@ -586,7 +584,7 @@ try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span><
 </div>
 </div></div>
 <div class="section" id="optional-material-on-using-type-inference">
-<h4>16.5.5.3. Optional material on using type inference<a class="headerlink" href="#optional-material-on-using-type-inference" title="Permalink to this headline">¶</a></h4>
+<h4>Optional material on using type inference<a class="headerlink" href="#optional-material-on-using-type-inference" title="Permalink to this headline">¶</a></h4>
 <p>As an advanced concept, putting arguments in curly braces tells Lean
 to use type inference <a href="#id5"><span class="problematic" id="id6">`</span></a>to infer their values.</p>
 <div style="position: relative">
@@ -612,9 +610,9 @@ code readaibility.</p>
 </div>
 </div>
 <div class="section" id="proofs-involving-disjunctions">
-<h2>16.6. Proofs Involving Disjunctions<a class="headerlink" href="#proofs-involving-disjunctions" title="Permalink to this headline">¶</a></h2>
+<h2>Proofs Involving Disjunctions<a class="headerlink" href="#proofs-involving-disjunctions" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="or-introduction">
-<h3>16.6.1. Or Introduction<a class="headerlink" href="#or-introduction" title="Permalink to this headline">¶</a></h3>
+<h3>Or Introduction<a class="headerlink" href="#or-introduction" title="Permalink to this headline">¶</a></h3>
 <p>To prove a conjunction, we saw that we need to construct a pair of
 proofs, one for each conject. To prove a disjunction, P ∨ Q, we just
 need a proof of P or a proof of Q. We thus have two inference rules to
@@ -662,7 +660,7 @@ contains. In this case, the label is given by the introduction rule
 used to construct the proof object: either or.inl or or.inr.</p>
 </div>
 <div class="section" id="or-elimination">
-<h3>16.6.2. Or Elimination<a class="headerlink" href="#or-elimination" title="Permalink to this headline">¶</a></h3>
+<h3>Or Elimination<a class="headerlink" href="#or-elimination" title="Permalink to this headline">¶</a></h3>
 <p>[Kevin: Consider section on partial evaluation. Students need it at
 this point to understand the different ways to parse statements and
 proofs of chained implications: currying and uncurrying.</p>
@@ -719,9 +717,9 @@ the context.</p>
 </div>
 </div>
 <div class="section" id="falsity-and-negation">
-<h2>16.7. Falsity and Negation<a class="headerlink" href="#falsity-and-negation" title="Permalink to this headline">¶</a></h2>
+<h2>Falsity and Negation<a class="headerlink" href="#falsity-and-negation" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="p">
-<h3>16.7.1. ¬P<a class="headerlink" href="#p" title="Permalink to this headline">¶</a></h3>
+<h3>¬P<a class="headerlink" href="#p" title="Permalink to this headline">¶</a></h3>
 <p>The proposition, ¬P, is read “not P.”  It’s an assertion that P is
 false. One proves a proposition, ¬P, by showing that that an
 assumption that P is true leads to a contraction.</p>
@@ -775,7 +773,7 @@ try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span><
 </div>
 </div></div>
 <div class="section" id="law-of-excluded-middle">
-<h3>16.7.2. Law of Excluded Middle<a class="headerlink" href="#law-of-excluded-middle" title="Permalink to this headline">¶</a></h3>
+<h3>Law of Excluded Middle<a class="headerlink" href="#law-of-excluded-middle" title="Permalink to this headline">¶</a></h3>
 <p>Strangely, in constructive logic, which is the form of logic that Lean
 and other such provers implement, you cannot prove that ¬¬P -&gt; P. That
 is, double negatives can’t generally be eliminated.</p>
@@ -789,7 +787,7 @@ such problems, we cannot prove either the proposition P or its
 negation, ¬P, so we can’t prove P ∨ ¬P!</p>
 </div>
 <div class="section" id="proof-by-contradiction">
-<h3>16.7.3. Proof by Contradiction<a class="headerlink" href="#proof-by-contradiction" title="Permalink to this headline">¶</a></h3>
+<h3>Proof by Contradiction<a class="headerlink" href="#proof-by-contradiction" title="Permalink to this headline">¶</a></h3>
 <p>This is a bit of a problem because it deprives us of an important
 proof strategy called proof by contradiction. In this strategy, we
 start by assuming ¬ P and derive a contraction, proving ¬ ¬ P. In
@@ -835,7 +833,7 @@ true. It is known that this axiom can be added to the core
 constructive logic without causing the logic to become inconsistent.</p>
 </div>
 <div class="section" id="impossibility-of-contradiction">
-<h3>16.7.4. Impossibility of Contradiction<a class="headerlink" href="#impossibility-of-contradiction" title="Permalink to this headline">¶</a></h3>
+<h3>Impossibility of Contradiction<a class="headerlink" href="#impossibility-of-contradiction" title="Permalink to this headline">¶</a></h3>
 <p>Here’s something else that we can prove.  A slightly more interesting
 example is to prove that for any proposition P, we have ¬(P ∧ ¬P). In
 other words, it’s not possible for both P and ¬ P to be true.  We’ll
@@ -861,14 +859,14 @@ try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span><
 </div>
 </div></div>
 <div class="section" id="false-introduction">
-<h3>16.7.5. False Introduction<a class="headerlink" href="#false-introduction" title="Permalink to this headline">¶</a></h3>
+<h3>False Introduction<a class="headerlink" href="#false-introduction" title="Permalink to this headline">¶</a></h3>
 <p>There is no false introduction rule in Lean.  If there were, we’d be
 able to introduce a proof of false, and that would be bad. Why?
 Because a logic that allows one to prove a contradiction allows one to
 prove anything at all, and so is useless for distinguishing between
 true and false statements.</p>
 <div class="section" id="false-elimination">
-<h4>16.7.5.1. False Elimination<a class="headerlink" href="#false-elimination" title="Permalink to this headline">¶</a></h4>
+<h4>False Elimination<a class="headerlink" href="#false-elimination" title="Permalink to this headline">¶</a></h4>
 <p>The phrase to remember is that “From false, anything follows.” Ex
 falso quodlibit is the latin phrase for this dear to logicians.</p>
 <p>In other words, if we can prove false, we can prove any proposition,
@@ -915,7 +913,7 @@ try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span><
 </div></div>
 </div>
 <div class="section" id="not-introduction">
-<h3>16.7.6. Not Introduction<a class="headerlink" href="#not-introduction" title="Permalink to this headline">¶</a></h3>
+<h3>Not Introduction<a class="headerlink" href="#not-introduction" title="Permalink to this headline">¶</a></h3>
 <p>Here’s another form of proof by contradiction.  If know that ¬Q is
 true (there can be no proof) of Q, and we also know that P → Q (we
 have a function <em>if</em> given a proof of P returns a proof of Q), then we
@@ -945,14 +943,14 @@ try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span><
 </div></div>
 </div>
 <div class="section" id="bi-implication-iff">
-<h2>16.8. Bi-Implication (Iff)<a class="headerlink" href="#bi-implication-iff" title="Permalink to this headline">¶</a></h2>
+<h2>Bi-Implication (Iff)<a class="headerlink" href="#bi-implication-iff" title="Permalink to this headline">¶</a></h2>
 <p>A proposition of the form P ↔ Q is read as P (is true) if and only if
 Q (is true). It is defined as (P → Q) ∧ (Q → P). The phrase “if and
 only if” is often written as “iff” in mathematics. To obtain the ↔
 symbol in Lean, just type “iff”. P ↔ Q is known as a bi-implication
 or a logical equivalence.</p>
 <div class="section" id="iff-introduction">
-<h3>16.8.1. Iff Introduction<a class="headerlink" href="#iff-introduction" title="Permalink to this headline">¶</a></h3>
+<h3>Iff Introduction<a class="headerlink" href="#iff-introduction" title="Permalink to this headline">¶</a></h3>
 <p>A proof of a bi-implication requires that you prove both conjuncts: P
 → Q and Q → P. Given such proofs, you can use the iff introduction
 inference rule to construct a proof of P ↔ Q.  In Lean, iff.intro is
@@ -1000,7 +998,7 @@ PandQiffQandP’.</p>
 </div>
 </div>
 <div class="section" id="proof-engineering">
-<h2>16.9. Proof Engineering<a class="headerlink" href="#proof-engineering" title="Permalink to this headline">¶</a></h2>
+<h2>Proof Engineering<a class="headerlink" href="#proof-engineering" title="Permalink to this headline">¶</a></h2>
 <p>There are two main use cases for Lean and for other tools like
 it. First, it can be used for research in pure mathematics. Second, it
 can be used to verify properties of software. The latter is the use
@@ -1069,7 +1067,7 @@ the type of S-T pairs. A value of this type is written as an ordered
 pair, (s, t), where s: S, and t: T.</p>
 </div>
 <div class="section" id="proof-tactics">
-<h2>16.10. Proof Tactics<a class="headerlink" href="#proof-tactics" title="Permalink to this headline">¶</a></h2>
+<h2>Proof Tactics<a class="headerlink" href="#proof-tactics" title="Permalink to this headline">¶</a></h2>
 <p>THIS BRIEF INTRODUCTION TO TACTIC-BASED PROOFS IS COMPLETELY
 OPTIONAL. SKIP IT AT NO COST. READ IT IF YOU’RE INTERESTED. THIS
 MATERIAL WILL NOT BE ON THE TEST IN ANY FORM.</p>
@@ -1100,10 +1098,10 @@ try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span><
 </div>
 </div></div>
 <div class="section" id="moved-stuff">
-<h2>16.11. MOVED STUFF<a class="headerlink" href="#moved-stuff" title="Permalink to this headline">¶</a></h2>
+<h2>MOVED STUFF<a class="headerlink" href="#moved-stuff" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="propositions-in-the-higher-order-logic-of-lean">
-<h2>16.12. Propositions in the Higher Order Logic of Lean<a class="headerlink" href="#propositions-in-the-higher-order-logic-of-lean" title="Permalink to this headline">¶</a></h2>
+<h2>Propositions in the Higher Order Logic of Lean<a class="headerlink" href="#propositions-in-the-higher-order-logic-of-lean" title="Permalink to this headline">¶</a></h2>
 <p>KS: This is where it the course is realized.</p>
 <p>Lean and related proof assistants unify mathematical logic and
 computation, enabling us once again to mix code and logic, but where
@@ -1158,7 +1156,7 @@ proposition, such as 0=0, is of type, Prop, which in turn has the
 type, Type. But what about proofs?</p>
 </div>
 <div class="section" id="proof-and-truth">
-<h2>16.13. PROOF AND TRUTH<a class="headerlink" href="#proof-and-truth" title="Permalink to this headline">¶</a></h2>
+<h2>PROOF AND TRUTH<a class="headerlink" href="#proof-and-truth" title="Permalink to this headline">¶</a></h2>
 <p>What does it mean for a proposition to be true in Lean? It means
 exactly that there is a proof, which is to say that it means that
 there is some value of that type. A proposition that is false is a
@@ -1238,7 +1236,7 @@ type. Thus it ensures that we never accept a proof that is not a valid
 proof of its type/proposition.</p>
 </div>
 <div class="section" id="propositions">
-<h2>16.14. Propositions<a class="headerlink" href="#propositions" title="Permalink to this headline">¶</a></h2>
+<h2>Propositions<a class="headerlink" href="#propositions" title="Permalink to this headline">¶</a></h2>
 <p>Lean and related proof assistants unify mathematical logic and
 computation, enabling us once again to mix code and logic, but where
 the logic is now higher-order and constructive. So propositions are
@@ -1284,7 +1282,7 @@ try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span><
 </pre></div>
 </div>
 </div><div class="section" id="the-type-hierarchy-universes-of-lean">
-<h3>16.14.1. The Type Hierarchy (Universes) of Lean<a class="headerlink" href="#the-type-hierarchy-universes-of-lean" title="Permalink to this headline">¶</a></h3>
+<h3>The Type Hierarchy (Universes) of Lean<a class="headerlink" href="#the-type-hierarchy-universes-of-lean" title="Permalink to this headline">¶</a></h3>
 <p>Ok, the type of Prop is also Type. So what we have here is a type
 hierarchy in which the familiar types, such as nat, have the type,
 Type, but where there’s also a type, called Prop, that is also of
@@ -1296,7 +1294,7 @@ proposition, such as 0=0, is of type, Prop, which in turn has the
 type, Type. But what about proofs?</p>
 </div>
 <div class="section" id="proof-is-truth">
-<h3>16.14.2. Proof is Truth<a class="headerlink" href="#proof-is-truth" title="Permalink to this headline">¶</a></h3>
+<h3>Proof is Truth<a class="headerlink" href="#proof-is-truth" title="Permalink to this headline">¶</a></h3>
 <p>What does it mean for a proposition to be true in Lean? It means
 exactly that there is a proof, which is to say that it means that
 there is some value of that type. A proposition that is false is a
@@ -1307,9 +1305,9 @@ this type.</p>
 </div>
 </div>
 <div class="section" id="using-lean">
-<h2>16.15. Using Lean<a class="headerlink" href="#using-lean" title="Permalink to this headline">¶</a></h2>
+<h2>Using Lean<a class="headerlink" href="#using-lean" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="binding-values-to-variables">
-<h3>16.15.1. Binding Values to Variables<a class="headerlink" href="#binding-values-to-variables" title="Permalink to this headline">¶</a></h3>
+<h3>Binding Values to Variables<a class="headerlink" href="#binding-values-to-variables" title="Permalink to this headline">¶</a></h3>
 <p>Here’s a typical definition: in this case, of a variable, x, bound to
 the value, 1, of type, nat.</p>
 <div style="position: relative">
@@ -1321,7 +1319,7 @@ try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span><
 </div>
 </div></div>
 <div class="section" id="checking-types">
-<h3>16.15.2. Checking Types<a class="headerlink" href="#checking-types" title="Permalink to this headline">¶</a></h3>
+<h3>Checking Types<a class="headerlink" href="#checking-types" title="Permalink to this headline">¶</a></h3>
 <p>You can check the type of a term by using the #check command. Then
 hover your mouse over the #check in VSCode to see the result.</p>
 <div style="position: relative">
@@ -1355,7 +1353,7 @@ right doesn’t have the same type declared or inferror for the variable
 on the left.</p>
 </div>
 <div class="section" id="types-are-values-too">
-<h3>16.15.3. Types Are Values Too<a class="headerlink" href="#types-are-values-too" title="Permalink to this headline">¶</a></h3>
+<h3>Types Are Values Too<a class="headerlink" href="#types-are-values-too" title="Permalink to this headline">¶</a></h3>
 <p>In Lean, every term has a type. A type is a term, too, so it, too, has
 a type. We’ve seen that the type of x is nat. What is the type of nat?</p>
 <div style="position: relative">
@@ -1379,7 +1377,7 @@ try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span><
 </div>
 </div>
 <div class="section" id="propositional-logic-and-nd-proofs-in-lean">
-<h2>16.16. Propositional Logic and ND Proofs in Lean<a class="headerlink" href="#propositional-logic-and-nd-proofs-in-lean" title="Permalink to this headline">¶</a></h2>
+<h2>Propositional Logic and ND Proofs in Lean<a class="headerlink" href="#propositional-logic-and-nd-proofs-in-lean" title="Permalink to this headline">¶</a></h2>
 <p>Up until now, when we want to write a theorem about arbitrary
 propositions, we’ve used the ∀ connective to declare them as
 propositions. So we’ve written “∀ P Q R: Prop, …” for example.</p>
@@ -1473,7 +1471,7 @@ try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span><
 </div>
 </div></div>
 <div class="section" id="conclusion">
-<h2>16.17. Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
 <p>As mathematicians and computer scientists, we’re often the goal of
 proving some putative (unproven) theorem (aka conjecture). A key
 question in such a case is what proof strategy to use to produce a
@@ -1536,7 +1534,7 @@ recursive application of the same ideas, and finally apply the rule to
 these arguments to complete the proof.</p>
 </div>
 <div class="section" id="exercises">
-<h2>16.18. Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
+<h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h2>
 <p>(1) Write an implementation of comp (call it comp’), using a lambda
 expression rather than the usual function definition notation.  This
 problem gives practice writing function bodies as lambda expressions.</p>
@@ -1666,81 +1664,6 @@ try it!</a></div><div class="highlight-lean"><div class="highlight"><pre><span><
 
 
 <!-- <h3>Navigation</h3> -->
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="00-preface.html">1. Preface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="01-reqs-specs-impls.html">2. Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02-logic-and-code.html">3. Logical Specifications, Imperative Implementations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-problems-with-imperative-code.html">4. Problems with Imperative Code</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04-runnable-math.html">5. Pure Functional Programming as Runnable Mathematics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05-verifying-logical-specifications.html">6. Formal Verification of Imperative Programs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06-dafny-language.html">7. Dafny Language: Types, Statements, Expressions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="07-set-theory.html">8. Set Theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="08-relations.html">9. Relations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="09-boolean-algebra.html">10. Boolean Algebra</a></li>
-<li class="toctree-l1"><a class="reference internal" href="10-formal-languages.html">11. Formal Languages</a></li>
-<li class="toctree-l1"><a class="reference internal" href="11-propositional-logic.html">12. Propositional Logic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="12-satisfiability.html">13. 12. Satisfiability</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13-consequence.html">14. Natural Deduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="14-predicate-logic.html">15. Predicate Logic</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">16. Proofs</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#unscalability-of-semantic-entailment">16.1. Unscalability of Semantic Entailment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#natural-deduction">16.2. Natural Deduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#forms-of-propositions-forms-of-proofs">16.3. Forms of Propositions; Forms of Proofs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#introduction-and-elimination-rules">16.4. Introduction and Elimination Rules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#true-introduction">16.5. True Introduction</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#the-proposition-false">16.5.1. The proposition, false</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#proofs-involving-conjunctions">16.5.2. Proofs Involving Conjunctions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#implications">16.5.3. Implications</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#interlude-function-values">16.5.4. Interlude: Function Values</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rules-for-implication">16.5.5. Rules for Implication</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#proofs-involving-disjunctions">16.6. Proofs Involving Disjunctions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#or-introduction">16.6.1. Or Introduction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#or-elimination">16.6.2. Or Elimination</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#falsity-and-negation">16.7. Falsity and Negation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#p">16.7.1. ¬P</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#law-of-excluded-middle">16.7.2. Law of Excluded Middle</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#proof-by-contradiction">16.7.3. Proof by Contradiction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#impossibility-of-contradiction">16.7.4. Impossibility of Contradiction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#false-introduction">16.7.5. False Introduction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#not-introduction">16.7.6. Not Introduction</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#bi-implication-iff">16.8. Bi-Implication (Iff)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#iff-introduction">16.8.1. Iff Introduction</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#proof-engineering">16.9. Proof Engineering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#proof-tactics">16.10. Proof Tactics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#moved-stuff">16.11. MOVED STUFF</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#propositions-in-the-higher-order-logic-of-lean">16.12. Propositions in the Higher Order Logic of Lean</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#proof-and-truth">16.13. PROOF AND TRUTH</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#propositions">16.14. Propositions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#the-type-hierarchy-universes-of-lean">16.14.1. The Type Hierarchy (Universes) of Lean</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#proof-is-truth">16.14.2. Proof is Truth</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#using-lean">16.15. Using Lean</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#binding-values-to-variables">16.15.1. Binding Values to Variables</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#checking-types">16.15.2. Checking Types</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#types-are-values-too">16.15.3. Types Are Values Too</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#propositional-logic-and-nd-proofs-in-lean">16.16. Propositional Logic and ND Proofs in Lean</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#conclusion">16.17. Conclusion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#exercises">16.18. Exercises</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="16-equality.html">17. Proofs of Equalities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="17-inequality.html">18. Proofs of Inequality</a></li>
-<li class="toctree-l1"><a class="reference internal" href="18-existence.html">19. Proofs of Existence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="19-univeral.html">20. Proofs of Universality</a></li>
-<li class="toctree-l1"><a class="reference internal" href="20-termination.html">21. Termination</a></li>
-</ul>
 
 
 <hr />

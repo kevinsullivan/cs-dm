@@ -57,7 +57,7 @@ introduction and elimination rules in the natural
 deduction system of logical reasoning, so does
 the equivalence connective. 
 
-The introduction  rules states that in a context
+The introduction rules states that in a context
 in which P → Q is true and Q → P is true then it
 is valid to deduce P ↔ Q. Your job is to validate
 this inference rule using the method of truth

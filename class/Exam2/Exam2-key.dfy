@@ -82,8 +82,8 @@ method Main()
     */
     var parts := set R | 
         R in rels && isFun (S, R);
-    var parts' := set R | 
-        R in rels && isFun (S, R) && !isTot(S, R);
+//    var parts' := set R | 
+//        R in rels && isFun (S, R) && !isTot(S, R);
     print "The # of partial functions is ", |parts|,  "\n";
     /*
     We'll take two answers here: consistent with binRelOnST, 
@@ -117,8 +117,9 @@ method Main()
     so that tots represents the set of bijections on S.
     */
     var bijs := set R | 
-        R in rels && isFun(S, R) && isBij(S, R);
+        R in rels && isFun(S,R) && isBij(S, R);
     print "The # of bijections is ", |bijs|,  "\n";
+    print bijs;
 
 
     /*

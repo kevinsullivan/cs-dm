@@ -730,7 +730,9 @@ Functions are special cases of (single-valued) binary relations.  The
 properties of being partial, total, injective, surjective, bijective
 are generally associated with *functions*, i.e., with relations that
 are already single-valued. Now we turn to properties of relations more
-generally.
+generally. In particular, we focus on relations on a single set: where
+a single set is both the domain of definition of the relation and the
+codomain.
 
 Reflexive
 ---------
@@ -754,6 +756,22 @@ we can write as *Reflexive(R)*, if and only if for every *e* in *S*,
 the tuple *(e,e)* is in R. Or to be rigorous about it,
 :math:`Reflexive(R) \iff \forall e \in S, (e,e) \in R.`
 
+.. todo::
+
+   clarify that code is from two different files
+
+.. code-block:: dafny
+
+        predicate method isReflexive()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid(); 
+        {
+            forall x :: x in dom() ==> (x, x) in rel()
+        }
+		
+
 Exercise: Is the function, *y = x*, reflexive? If every person loves
 themself, is the *loves* relation reflexive? Is the *less than or
 equals* relation reflexive? Hint: the tuples *(2,3)* and *(3,3)* are
@@ -774,6 +792,19 @@ relation is thus symmetric in this sense.
 More formally, if *R* is a binary relation on a set *S*, i.e., given
 :math:`R \subseteq S \times S`, then :math:`Symmetric(R) \iff \forall
 (x,y) \in R, (y,x) \in R`.
+
+.. code-block:: dafny
+
+        predicate method isSymmetric()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+        {
+            forall x, y ::  x in dom() && y in dom() &&
+                            (x, y) in rel() ==> (y, x) in rel()
+        }
+		
 
 Question: is the function *y = x* symmetric? How about the *square*
 function? In an electric circuit, if a conducting wire connects
@@ -805,6 +836,26 @@ Sally and Sally likes Bob does Harry necesarily like Bob, too? No, the
 human "likes" relation is definitely not transitive. (And this is the
 cause of many a tragedy.)
 
+.. code-block:: dafny
+
+        /*
+        Return true iff the relation is transitive
+        */
+        predicate method isTransitive()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+        {
+            forall x, y, z ::  
+                x in dom() && y in dom() && z in dom() &&
+                (x, y) in rel() && 
+                (y, z) in rel() ==> 
+                (x, z) in rel() 
+        }
+		
+
+
 Equivalence
 -----------
 
@@ -815,6 +866,22 @@ this property as a conjunction of the three individual properties:
 Transitive(R)`. Equality is the canonical example of an equivalence
 relation: it is reflexive (*x = x*), symmetric (if *x = y* then *y =
 x*) and transitive (if *x = y* and *y = z* then *x = z*.).
+
+.. todo::
+
+   explain or replace pre-order in what follows
+
+.. code-block:: dafny
+
+       predicate method isEquivalence()
+            reads this;
+            reads r;
+            requires Valid();
+            ensures Valid();
+        {
+            isPreorder() && isSymmetric() 
+        }
+		
 
 An important property of equivalence relations is that they divide up
 a set into subsets of *equivalent* values. As an example, take the

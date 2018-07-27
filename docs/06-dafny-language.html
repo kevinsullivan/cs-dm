@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>7. Dafny Language: Types, Statements, Expressions &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
+    <title>Dafny Language: Types, Statements, Expressions &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -23,8 +23,6 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="8. Set Theory" href="07-set-theory.html" />
-    <link rel="prev" title="6. Formal Verification of Imperative Programs" href="05-verifying-logical-specifications.html" />
 <!-- <link href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy" rel="stylesheet"> -->
 <!-- <link href="https://fonts.googleapis.com/css?family=Average" rel="stylesheet"> -->
 <!-- <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet"> -->
@@ -39,9 +37,9 @@
           <div class="body" role="main">
             
   <div class="section" id="dafny-language-types-statements-expressions">
-<h1>7. Dafny Language: Types, Statements, Expressions<a class="headerlink" href="#dafny-language-types-statements-expressions" title="Permalink to this headline">¶</a></h1>
+<h1>Dafny Language: Types, Statements, Expressions<a class="headerlink" href="#dafny-language-types-statements-expressions" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="built-in-types">
-<h2>7.1. Built-In Types<a class="headerlink" href="#built-in-types" title="Permalink to this headline">¶</a></h2>
+<h2>Built-In Types<a class="headerlink" href="#built-in-types" title="Permalink to this headline">¶</a></h2>
 <p>Dafny natively supports a range of abstract data types akin to those
 found in widely used, industrial imperative programming languages and
 systems, such as Python and Java. In this chapter, we introduce and
@@ -59,7 +57,7 @@ the numerical types found in most industrial languages</li>
 <li>array&lt;T&gt;, polymorphic 1- and multi-dimensional arrays</li>
 </ul>
 <div class="section" id="booleans">
-<h3>7.1.1. Booleans<a class="headerlink" href="#booleans" title="Permalink to this headline">¶</a></h3>
+<h3>Booleans<a class="headerlink" href="#booleans" title="Permalink to this headline">¶</a></h3>
 <p>The bool abstract data type (ADT) in Dafny provides a bool data type
 with values, <em>true</em> and <em>false</em>, along with the Boolean operators that
 are supported by most programming langauges, along with a few that are
@@ -84,7 +82,7 @@ Dafny language.</p>
 </div>
 </div>
 <div class="section" id="numbers">
-<h3>7.1.2. Numbers<a class="headerlink" href="#numbers" title="Permalink to this headline">¶</a></h3>
+<h3>Numbers<a class="headerlink" href="#numbers" title="Permalink to this headline">¶</a></h3>
 <p>Methods aren’t required to return results. Such methods do their jobs
 by having side effects, e.g., doing output or writing data into global
 variables (usually a bad idea).  Here’s a method that doesn’t return a
@@ -105,7 +103,7 @@ value. It illustrates numerical types, syntax, and operations.</p>
 </div>
 </div>
 <div class="section" id="characters">
-<h3>7.1.3. Characters<a class="headerlink" href="#characters" title="Permalink to this headline">¶</a></h3>
+<h3>Characters<a class="headerlink" href="#characters" title="Permalink to this headline">¶</a></h3>
 <p>Characters (char) are handled sort of as they are in C, etc.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>method CharFun()
 {
@@ -121,7 +119,7 @@ value. It illustrates numerical types, syntax, and operations.</p>
 </div>
 </div>
 <div class="section" id="sets">
-<h3>7.1.4. Sets<a class="headerlink" href="#sets" title="Permalink to this headline">¶</a></h3>
+<h3>Sets<a class="headerlink" href="#sets" title="Permalink to this headline">¶</a></h3>
 <p>Polymorphic finite and infinite set types:
 set&lt;T&gt; and iset&lt;T&gt;. T must support equality.
 Values of these types are immutable.</p>
@@ -145,7 +143,7 @@ Values of these types are immutable.</p>
 </div>
 </div>
 <div class="section" id="sequences">
-<h3>7.1.5. Sequences<a class="headerlink" href="#sequences" title="Permalink to this headline">¶</a></h3>
+<h3>Sequences<a class="headerlink" href="#sequences" title="Permalink to this headline">¶</a></h3>
 <p>Polymorphic sequences (often called “lists”): seq&lt;T&gt;. These can be
 understood as functions from indices to values. Some of the operations
 require that T support equality. Values of this type are immutable.</p>
@@ -172,7 +170,7 @@ require that T support equality. Values of this type are immutable.</p>
 </div>
 </div>
 <div class="section" id="strings">
-<h3>7.1.6. Strings<a class="headerlink" href="#strings" title="Permalink to this headline">¶</a></h3>
+<h3>Strings<a class="headerlink" href="#strings" title="Permalink to this headline">¶</a></h3>
 <p>Dafny has strings. Strings are literally just sequences of characters
 (of type seq&lt;char&gt;), so you can use all the sequence operations on
 strings.  Dafny provides additional helpful syntax for strings.</p>
@@ -186,7 +184,7 @@ strings.  Dafny provides additional helpful syntax for strings.</p>
 </div>
 </div>
 <div class="section" id="maps-partial-functions">
-<h3>7.1.7. Maps (Partial Functions)<a class="headerlink" href="#maps-partial-functions" title="Permalink to this headline">¶</a></h3>
+<h3>Maps (Partial Functions)<a class="headerlink" href="#maps-partial-functions" title="Permalink to this headline">¶</a></h3>
 <p>Dafny also supports polymorphic maps, both finite (map&lt;K,V&gt;) and
 infinite (imap&lt;K,V&gt;).  The key type, K, must support equality (==).
 In mathematical terms, a map really represents a binary relation,
@@ -225,7 +223,7 @@ values.</p>
 </div>
 </div>
 <div class="section" id="arrays">
-<h3>7.1.8. Arrays<a class="headerlink" href="#arrays" title="Permalink to this headline">¶</a></h3>
+<h3>Arrays<a class="headerlink" href="#arrays" title="Permalink to this headline">¶</a></h3>
 <p>Dafny supports arrays. Here’s we’ll see simple 1-d arrays.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>method ArrayPlay()
 {
@@ -257,9 +255,9 @@ dynamically on the heap, are passed by reference, and therefore can be
 </div>
 </div>
 <div class="section" id="statements">
-<h2>7.2. Statements<a class="headerlink" href="#statements" title="Permalink to this headline">¶</a></h2>
+<h2>Statements<a class="headerlink" href="#statements" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="block">
-<h3>7.2.1. Block<a class="headerlink" href="#block" title="Permalink to this headline">¶</a></h3>
+<h3>Block<a class="headerlink" href="#block" title="Permalink to this headline">¶</a></h3>
 <p>In Dafny, you can make one bigger command from a sequence of smaller
 ones by enclosing the sequence in braces. You typically use this only
 for the bodies of loops and the parts of conditionals.</p>
@@ -271,7 +269,7 @@ for the bodies of loops and the parts of conditionals.</p>
 </div>
 </div>
 <div class="section" id="break">
-<h3>7.2.2. Break<a class="headerlink" href="#break" title="Permalink to this headline">¶</a></h3>
+<h3>Break<a class="headerlink" href="#break" title="Permalink to this headline">¶</a></h3>
 <p>The break command is for prematurely breaking out of loops.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>var i := 5;
 while (i &gt; 0)
@@ -287,7 +285,7 @@ print &quot;Break: Broke when i was &quot;, i, &quot;\n&quot;;
 </div>
 </div>
 <div class="section" id="update-assignment">
-<h3>7.2.3. Update (Assignment)<a class="headerlink" href="#update-assignment" title="Permalink to this headline">¶</a></h3>
+<h3>Update (Assignment)<a class="headerlink" href="#update-assignment" title="Permalink to this headline">¶</a></h3>
 <p>There are several forms of the update command. The first is the usual
 assignment that you see in many languages. The second is “multiple
 assignment”, where you can assign several values to several variables
@@ -305,7 +303,7 @@ print &quot;Update: Dafny chose this value from the set: &quot;, c, &quot;\n&quo
 </div>
 </div>
 <div class="section" id="var-variable-declaration">
-<h3>7.2.4. Var (variable declaration)<a class="headerlink" href="#var-variable-declaration" title="Permalink to this headline">¶</a></h3>
+<h3>Var (variable declaration)<a class="headerlink" href="#var-variable-declaration" title="Permalink to this headline">¶</a></h3>
 <p>A variable declaration stsatement is used to declare one or more local
 variables in a method or function. The type of each local variable
 must be given unless the variable is given an initial value in which
@@ -320,7 +318,7 @@ var l&#39;          := [1, 2, 3]; // Dafny infers type from [1, 2, 3]
 </div>
 </div>
 <div class="section" id="if-conditional">
-<h3>7.2.5. If (conditional)<a class="headerlink" href="#if-conditional" title="Permalink to this headline">¶</a></h3>
+<h3>If (conditional)<a class="headerlink" href="#if-conditional" title="Permalink to this headline">¶</a></h3>
 <p>There are several forms of the if statement in Dafny.  The first is
 “if (Boolean) block-statement.” The second is “if (Boolean)
 block-statement else block-statement” A block is a sequence of
@@ -346,7 +344,7 @@ if {
 </div>
 </div>
 <div class="section" id="while-iteration">
-<h3>7.2.6. While (iteration)<a class="headerlink" href="#while-iteration" title="Permalink to this headline">¶</a></h3>
+<h3>While (iteration)<a class="headerlink" href="#while-iteration" title="Permalink to this headline">¶</a></h3>
 <p>While statements come in two forms. The first is a typical Python-like
 statement “while (Boolean) block-command”. The second involves the use
 of a case-like construct instead of a single Boolean expression to
@@ -395,7 +393,7 @@ while i &lt; n
 </div>
 </div>
 <div class="section" id="assert-assert-a-proposition-about-the-state-of-the-program">
-<h3>7.2.7. Assert (assert a proposition about the state of the program)<a class="headerlink" href="#assert-assert-a-proposition-about-the-state-of-the-program" title="Permalink to this headline">¶</a></h3>
+<h3>Assert (assert a proposition about the state of the program)<a class="headerlink" href="#assert-assert-a-proposition-about-the-state-of-the-program" title="Permalink to this headline">¶</a></h3>
 <p>Assert statements are used to express logical proposition that are
 expected to be true. Dafny will attempt to prove that the assertion is
 true and give an error if not. Once it has proved the assertion it can
@@ -410,7 +408,7 @@ assert !(i == 4);   // similarly true
 </div>
 </div>
 <div class="section" id="print-produce-output-on-console">
-<h3>7.2.8. Print (produce output on console)<a class="headerlink" href="#print-produce-output-on-console" title="Permalink to this headline">¶</a></h3>
+<h3>Print (produce output on console)<a class="headerlink" href="#print-produce-output-on-console" title="Permalink to this headline">¶</a></h3>
 <p>From reference manual: The print statement is used to print the values
 of a comma-separated list of expressions to the console.  The
 generated C# code uses the System.Object.ToString() method to convert
@@ -424,7 +422,7 @@ ToString() method for Dafny data types.</p>
 </div>
 </div>
 <div class="section" id="return">
-<h3>7.2.9. Return<a class="headerlink" href="#return" title="Permalink to this headline">¶</a></h3>
+<h3>Return<a class="headerlink" href="#return" title="Permalink to this headline">¶</a></h3>
 <p>From the reference manual: A return statement can only be used in a
 method. It terminates the execution of the method. To return a value
 from a method, the value is assigned to one of the named return values
@@ -466,9 +464,9 @@ method complete.</p>
 </div>
 </div>
 <div class="section" id="expressions">
-<h2>7.3. Expressions<a class="headerlink" href="#expressions" title="Permalink to this headline">¶</a></h2>
+<h2>Expressions<a class="headerlink" href="#expressions" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="literals-expressions">
-<h3>7.3.1. Literals Expressions<a class="headerlink" href="#literals-expressions" title="Permalink to this headline">¶</a></h3>
+<h3>Literals Expressions<a class="headerlink" href="#literals-expressions" title="Permalink to this headline">¶</a></h3>
 <p>A literal expression is a boolean literal (true or false), a null
 object reference (null), an unsigned integer (e.g., 3) or real (e.g.,
 3.0) literal, a character (e.g., ‘a’) or string literal (e.g., “abc”),
@@ -477,7 +475,7 @@ instance method or function. We have not yet seen objects or talked
 about instance methods or functions.</p>
 </div>
 <div class="section" id="if-conditional-expressions">
-<h3>7.3.2. If (Conditional) Expressions<a class="headerlink" href="#if-conditional-expressions" title="Permalink to this headline">¶</a></h3>
+<h3>If (Conditional) Expressions<a class="headerlink" href="#if-conditional-expressions" title="Permalink to this headline">¶</a></h3>
 <p>If expressions first evaluate a Boolean expression and then evaluate
 one of the two following expressions, the first if the Boolean
 expression was true, otherwise the second one.  Notice in this example
@@ -492,7 +490,7 @@ assert x == 3;
 </div>
 </div>
 <div class="section" id="conjunction-and-disjunction-expressions">
-<h3>7.3.3. Conjunction and Disjunction Expressions<a class="headerlink" href="#conjunction-and-disjunction-expressions" title="Permalink to this headline">¶</a></h3>
+<h3>Conjunction and Disjunction Expressions<a class="headerlink" href="#conjunction-and-disjunction-expressions" title="Permalink to this headline">¶</a></h3>
 <p>Conjunction and disjuction are associative. This means that no matter
 what b1, b2, and b3 are, (b1 &amp;&amp; b2) &amp;&amp; b3 is equal to (b1 &amp;&amp; (b2 &amp;&amp;
 b3)), The same property holds for ||.</p>
@@ -516,7 +514,7 @@ expression must be false, so the right side not only doesn’t have to
 be evaluated; it also <em>won’t</em> be evaluated.</p>
 </div>
 <div class="section" id="sequence-set-multiset-and-map-expressions">
-<h3>7.3.4. Sequence, Set, Multiset, and Map Expressions<a class="headerlink" href="#sequence-set-multiset-and-map-expressions" title="Permalink to this headline">¶</a></h3>
+<h3>Sequence, Set, Multiset, and Map Expressions<a class="headerlink" href="#sequence-set-multiset-and-map-expressions" title="Permalink to this headline">¶</a></h3>
 <p>Values of these types can be written using so-called <em>display</em>
 expressions. Sequences are written as lists of values within square
 brackets; sets, within braces; and multisets using “multiset” followed
@@ -541,7 +539,7 @@ assert sqr[2] == 4;
 </div>
 </div>
 <div class="section" id="relational-expressions">
-<h3>7.3.5. Relational Expressions<a class="headerlink" href="#relational-expressions" title="Permalink to this headline">¶</a></h3>
+<h3>Relational Expressions<a class="headerlink" href="#relational-expressions" title="Permalink to this headline">¶</a></h3>
 <p>Relation expressions, such as less than, have a relational operator
 that compares two or more terms and returns a Boolean result. The ==,
 !=, &lt;, &gt;, &lt;=, and &gt;= operators are examples. These operators are also
@@ -564,7 +562,7 @@ assert { &quot;foo&quot;, &quot;bar&quot; } == { &quot;foo&quot;, &quot;bar&quot
 </div>
 </div>
 <div class="section" id="array-allocation-expressions">
-<h3>7.3.6. Array Allocation Expressions<a class="headerlink" href="#array-allocation-expressions" title="Permalink to this headline">¶</a></h3>
+<h3>Array Allocation Expressions<a class="headerlink" href="#array-allocation-expressions" title="Permalink to this headline">¶</a></h3>
 <p>Arrays in Dafny are <em>reference values</em>. That is, the value
 of an array variable is a <em>reference</em> to an address in the
 <em>heap</em> part of memory, or it is <em>null</em>. To get at the data
@@ -590,7 +588,7 @@ m[0,0] := 1;            // indexing into multi-dimensional array
 </div>
 </div>
 <div class="section" id="old-expressions">
-<h3>7.3.7. Old Expressions<a class="headerlink" href="#old-expressions" title="Permalink to this headline">¶</a></h3>
+<h3>Old Expressions<a class="headerlink" href="#old-expressions" title="Permalink to this headline">¶</a></h3>
 <p>An old expression is used in postconditions. old(e) evaluates to the
 value expression e had on entry to the current method.  Here’s an
 example showing the use of the old expression.  This method increments
@@ -614,7 +612,7 @@ ensures a[0] == old(a[0]) + 1;
 </div>
 </div>
 <div class="section" id="cardinality-expressions">
-<h3>7.3.8. Cardinality Expressions<a class="headerlink" href="#cardinality-expressions" title="Permalink to this headline">¶</a></h3>
+<h3>Cardinality Expressions<a class="headerlink" href="#cardinality-expressions" title="Permalink to this headline">¶</a></h3>
 <p>For a collection expression c, <a href="#id1"><span class="problematic" id="id2">|c|</span></a> is the cardinality of c. For a set
 or sequence the cardinality is the number of elements. For a multiset
 the cardinality is the sum of the multiplicities of the elements. For
@@ -631,7 +629,7 @@ assert | multiset{ 1, 2, 2, 3, 3, 3, 4, 4, 4, 4 } | == 10; // multiset
 </div>
 </div>
 <div class="section" id="let-expressions">
-<h3>7.3.9. Let Expressions<a class="headerlink" href="#let-expressions" title="Permalink to this headline">¶</a></h3>
+<h3>Let Expressions<a class="headerlink" href="#let-expressions" title="Permalink to this headline">¶</a></h3>
 <p>A let expression allows binding of intermediate values to identifiers
 for use in an expression. The start of the let expression is signaled
 by the var keyword. They look like local variable declarations except
@@ -670,67 +668,6 @@ assert sumsquared == 36;     // because of the let expression
 
 
 <!-- <h3>Navigation</h3> -->
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="00-preface.html">1. Preface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="01-reqs-specs-impls.html">2. Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02-logic-and-code.html">3. Logical Specifications, Imperative Implementations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-problems-with-imperative-code.html">4. Problems with Imperative Code</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04-runnable-math.html">5. Pure Functional Programming as Runnable Mathematics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05-verifying-logical-specifications.html">6. Formal Verification of Imperative Programs</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">7. Dafny Language: Types, Statements, Expressions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#built-in-types">7.1. Built-In Types</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#booleans">7.1.1. Booleans</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#numbers">7.1.2. Numbers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#characters">7.1.3. Characters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#sets">7.1.4. Sets</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#sequences">7.1.5. Sequences</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#strings">7.1.6. Strings</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#maps-partial-functions">7.1.7. Maps (Partial Functions)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#arrays">7.1.8. Arrays</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#statements">7.2. Statements</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#block">7.2.1. Block</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#break">7.2.2. Break</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#update-assignment">7.2.3. Update (Assignment)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#var-variable-declaration">7.2.4. Var (variable declaration)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#if-conditional">7.2.5. If (conditional)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#while-iteration">7.2.6. While (iteration)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#assert-assert-a-proposition-about-the-state-of-the-program">7.2.7. Assert (assert a proposition about the state of the program)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#print-produce-output-on-console">7.2.8. Print (produce output on console)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#return">7.2.9. Return</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#expressions">7.3. Expressions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#literals-expressions">7.3.1. Literals Expressions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#if-conditional-expressions">7.3.2. If (Conditional) Expressions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#conjunction-and-disjunction-expressions">7.3.3. Conjunction and Disjunction Expressions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#sequence-set-multiset-and-map-expressions">7.3.4. Sequence, Set, Multiset, and Map Expressions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#relational-expressions">7.3.5. Relational Expressions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#array-allocation-expressions">7.3.6. Array Allocation Expressions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#old-expressions">7.3.7. Old Expressions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#cardinality-expressions">7.3.8. Cardinality Expressions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#let-expressions">7.3.9. Let Expressions</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="07-set-theory.html">8. Set Theory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="08-relations.html">9. Relations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="09-boolean-algebra.html">10. Boolean Algebra</a></li>
-<li class="toctree-l1"><a class="reference internal" href="10-formal-languages.html">11. Formal Languages</a></li>
-<li class="toctree-l1"><a class="reference internal" href="11-propositional-logic.html">12. Propositional Logic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="12-satisfiability.html">13. 12. Satisfiability</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13-consequence.html">14. Natural Deduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="14-predicate-logic.html">15. Predicate Logic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="15-proofs.html">16. Proofs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="16-equality.html">17. Proofs of Equalities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="17-inequality.html">18. Proofs of Inequality</a></li>
-<li class="toctree-l1"><a class="reference internal" href="18-existence.html">19. Proofs of Existence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="19-univeral.html">20. Proofs of Universality</a></li>
-<li class="toctree-l1"><a class="reference internal" href="20-termination.html">21. Termination</a></li>
-</ul>
 
 
 <hr />

@@ -1,5 +1,47 @@
-module functional
+/*
+As in many programming languages, a module has a name
+and defines a namespace. Here the module name will be
+"functions." Within the module constructs are defined
+and named. The first construct defined in this module
+is named "id_int". Within the scope of a module, names
+can be used directly. From outside a module, constructs
+defined within the module can generally be accessed, 
+but the module name must be prepended to the construct
+name. From outside of this "functions" module, one can
+refer to the "id_int" function as "functions.int_id", 
+for example.
+*/
+
+module functions
 {
+
+    /*
+    In mathematics, a function is understood as a
+    single-valued binary relation. By the term,
+    binary relation, we mean a set of ordered pairs.
+    By single-valued we mean that no two pairs have
+    the same first value but different second values.
+    The binary relation that associates each natural
+    number (non-negative integer) with its square,
+    e.g., (2,4), (3, 9), (4, 16), etc.) is also a
+    function because it is single-valued. However,
+    the square root function that associates each
+    non-negative real number with its real-valued
+    square roots is not a function because it is not
+    single valued. For example it contains both the
+    pair (4,2) and (4, -2). 
+    
+    Note, however, that we can consider variants of
+    the square root relation that are functions. 
+    First, we could consider the "non-negative square 
+    root function", that associates each non-negative
+    real number with its non-negative square root, of
+    which there is only one. Alternatively, we could 
+    consider the function that associates to each 
+    non-negative real number the single *set* of
+    its square roots. In this relation, we would have
+    such ordered pairs as (4, {2, -2}),, for example.
+    */
 
     /*
     An "identity function" for values of type nat.

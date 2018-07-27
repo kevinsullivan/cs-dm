@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>9. Relations &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
+    <title>Relations &#8212; Discrete Mathematics: A Computational Approach 0.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -23,8 +23,6 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="10. Boolean Algebra" href="09-boolean-algebra.html" />
-    <link rel="prev" title="8. Set Theory" href="07-set-theory.html" />
 <!-- <link href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy" rel="stylesheet"> -->
 <!-- <link href="https://fonts.googleapis.com/css?family=Average" rel="stylesheet"> -->
 <!-- <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet"> -->
@@ -39,7 +37,7 @@
           <div class="body" role="main">
             
   <div class="section" id="relations">
-<h1>9. Relations<a class="headerlink" href="#relations" title="Permalink to this headline">¶</a></h1>
+<h1>Relations<a class="headerlink" href="#relations" title="Permalink to this headline">¶</a></h1>
 <p>A relation in nothing but a subset of (the tuples in) a product set. A
 table such as the one just described, will, in practice, usually not
 have a row with every possible combination of names, birthdays, and
@@ -65,7 +63,7 @@ a set comprehension expression rather than writing a while loop. Be
 careful: the number of possible relations will be very large even in
 cases where the given sets contain only a few elements each.</p>
 <div class="section" id="binary-relations">
-<h2>9.1. Binary Relations<a class="headerlink" href="#binary-relations" title="Permalink to this headline">¶</a></h2>
+<h2>Binary Relations<a class="headerlink" href="#binary-relations" title="Permalink to this headline">¶</a></h2>
 <p>Binary relations, which play an especially important role in
 mathematics and computer science, are relations over just <em>2</em>
 sets. Suppose <img class="math" src="_images/math/8976c2854fcacf02af1366971f1c7b69eb0420e4.png" alt="R \subseteq S \times T"/> is a binary relation on
@@ -95,7 +93,7 @@ as a relation. The tuples are again pairs of real numbers, but now the
 elements include tuples, <em>(4, 2)</em> and <em>(4, -2)</em>.</p>
 </div>
 <div class="section" id="methods-for-applying-relations">
-<h2>9.2. Methods for Applying Relations<a class="headerlink" href="#methods-for-applying-relations" title="Permalink to this headline">¶</a></h2>
+<h2>Methods for Applying Relations<a class="headerlink" href="#methods-for-applying-relations" title="Permalink to this headline">¶</a></h2>
 <p>Like functions, relations can be applied to arguments. Rather than
 single element values, such applications return sets of elements,
 as relations are in general not single valued. The set of values
@@ -223,7 +221,7 @@ method fimage(x: Stype) returns (y: Ttype)
 </div>
 </div>
 <div class="section" id="inverse-of-a-binary-relation">
-<h2>9.3. Inverse of a Binary Relation<a class="headerlink" href="#inverse-of-a-binary-relation" title="Permalink to this headline">¶</a></h2>
+<h2>Inverse of a Binary Relation<a class="headerlink" href="#inverse-of-a-binary-relation" title="Permalink to this headline">¶</a></h2>
 <p>The inverse of a given binary relation is simply the set of tuples
 formed by reversing the order of all of the given tuples. To put this
 in mathematical notation, if <em>R</em> is a relation, its inverse, denoted
@@ -284,7 +282,7 @@ it means for a function to be invertible. Model your definition on our
 definition of what it means for a relation to be single valued.</p>
 </div>
 <div class="section" id="functions-single-valued-relations">
-<h2>9.4. Functions: <em>Single-Valued</em> Relations<a class="headerlink" href="#functions-single-valued-relations" title="Permalink to this headline">¶</a></h2>
+<h2>Functions: <em>Single-Valued</em> Relations<a class="headerlink" href="#functions-single-valued-relations" title="Permalink to this headline">¶</a></h2>
 <p>A binary-relation is said to be <em>single-valued</em> if it does not have
 tuples with the same first element and different second elements.  A
 single-valued binary relation is also called a <em>function</em>.  Another
@@ -356,11 +354,11 @@ satisfying the precondition that it be invertible and that in this
 case returns its inverse, also as a map.</p>
 </div>
 <div class="section" id="properties-of-functions">
-<h2>9.5. Properties of Functions<a class="headerlink" href="#properties-of-functions" title="Permalink to this headline">¶</a></h2>
+<h2>Properties of Functions<a class="headerlink" href="#properties-of-functions" title="Permalink to this headline">¶</a></h2>
 <p>We now introduce essential concepts and terminology regarding for
 distinguishing essential properties and special cases of functions.</p>
 <div class="section" id="total-vs-partial">
-<h3>9.5.1. Total vs Partial<a class="headerlink" href="#total-vs-partial" title="Permalink to this headline">¶</a></h3>
+<h3>Total vs Partial<a class="headerlink" href="#total-vs-partial" title="Permalink to this headline">¶</a></h3>
 <p>A function is said to be <em>total</em> if every element of its domain
 appears as the first element in at least one tuple, i.e., its
 <em>support</em> is its entire <em>domain</em>.</p>
@@ -396,6 +394,10 @@ it is defined on its entire real number domain. By contrast, the
 square root function is not total if it domain is taken to be the real
 numbers because it is not defined for real numbers that are less than
 zero.</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">clarify domain vs domain of definition, use a figure</p>
+</div>
 <p>Note that if one considers a slightly different function, the square
 root function on the <em>non-negative</em> real numbers the only difference
 being in the domainm then this function <em>is</em> total. Totality is thus
@@ -432,7 +434,7 @@ such a box, one must explicitly check to see whether the box has a
 good value in it or, alternatively, and error flag.</p>
 </div>
 <div class="section" id="injective">
-<h3>9.5.2. Injective<a class="headerlink" href="#injective" title="Permalink to this headline">¶</a></h3>
+<h3>Injective<a class="headerlink" href="#injective" title="Permalink to this headline">¶</a></h3>
 <p>A function is said to be <em>injective</em> if no two elements of the domain
 are associated with the same element in the co-domain. (Note that we
 are limiting the concept of injectivity to functions.) An injective
@@ -477,7 +479,7 @@ injective.</p>
 for a binary relation to be injective.  Is the cube root function
 injective? Is <em>f(x) = sin(x)</em> injective?</p>
 <div class="section" id="an-aside-injectivity-in-type-theory">
-<h4>9.5.2.1. An Aside: Injectivity in Type Theory<a class="headerlink" href="#an-aside-injectivity-in-type-theory" title="Permalink to this headline">¶</a></h4>
+<h4>An Aside: Injectivity in Type Theory<a class="headerlink" href="#an-aside-injectivity-in-type-theory" title="Permalink to this headline">¶</a></h4>
 <p>As an aside, we note that the concept of injectivity is essential in
 <em>type theory</em>.  Whereas <em>set theory</em> provides a universally accepted
 axiomatic foundation for mathematics, <em>type</em> theory is of increasing
@@ -519,7 +521,7 @@ about programs using type theory. But more on this later.</p>
 </div>
 </div>
 <div class="section" id="surjective">
-<h3>9.5.3. Surjective<a class="headerlink" href="#surjective" title="Permalink to this headline">¶</a></h3>
+<h3>Surjective<a class="headerlink" href="#surjective" title="Permalink to this headline">¶</a></h3>
 <p>A function is said to be <em>surjective</em> if for every element, <em>t</em>, in
 the co-domain there is some element, <em>s</em> in the domain such that
 <em>(s,t)</em> is in the relation. That is, the range <em>range</em> of the function
@@ -560,7 +562,7 @@ can you connect these definitons to show for sure that your answer is
 right?</p>
 </div>
 <div class="section" id="bijective">
-<h3>9.5.4. Bijective<a class="headerlink" href="#bijective" title="Permalink to this headline">¶</a></h3>
+<h3>Bijective<a class="headerlink" href="#bijective" title="Permalink to this headline">¶</a></h3>
 <p>A function is said to be <em>bjective</em> if it is also both injective and
 surjective. Such a function is also often called a <em>bijection</em>.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>/*
@@ -653,14 +655,16 @@ that when applied has the effect of first applying <em>T</em> then applying
 </div>
 </div>
 <div class="section" id="properties-of-relations">
-<h2>9.6. Properties of Relations<a class="headerlink" href="#properties-of-relations" title="Permalink to this headline">¶</a></h2>
+<h2>Properties of Relations<a class="headerlink" href="#properties-of-relations" title="Permalink to this headline">¶</a></h2>
 <p>Functions are special cases of (single-valued) binary relations.  The
 properties of being partial, total, injective, surjective, bijective
 are generally associated with <em>functions</em>, i.e., with relations that
 are already single-valued. Now we turn to properties of relations more
-generally.</p>
+generally. In particular, we focus on relations on a single set: where
+a single set is both the domain of definition of the relation and the
+codomain.</p>
 <div class="section" id="reflexive">
-<h3>9.6.1. Reflexive<a class="headerlink" href="#reflexive" title="Permalink to this headline">¶</a></h3>
+<h3>Reflexive<a class="headerlink" href="#reflexive" title="Permalink to this headline">¶</a></h3>
 <p>Consider a binary relation on a set with itself.  That is, the domain
 and the co-domain are the same sets. A relation that maps real numbers
 to real numbers is an example. It is a subset of <img class="math" src="_images/math/ef4ff4c9b71a95ce07b703abefa85883c885b0b7.png" alt="{\mathbb R}
@@ -677,6 +681,20 @@ equality relation on real numbers thus includes <em>(2.5, 2.5)</em> and
 we can write as <em>Reflexive(R)</em>, if and only if for every <em>e</em> in <em>S</em>,
 the tuple <em>(e,e)</em> is in R. Or to be rigorous about it,
 <img class="math" src="_images/math/01fc7795202a1cf0db19cc409159cc25c22e82a5.png" alt="Reflexive(R) \iff \forall e \in S, (e,e) \in R."/></p>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<p class="last">clarify that code is from two different files</p>
+</div>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>predicate method isReflexive()
+    reads this;
+    reads r;
+    requires Valid();
+    ensures Valid();
+{
+    forall x :: x in dom() ==&gt; (x, x) in rel()
+}
+</pre></div>
+</div>
 <p>Exercise: Is the function, <em>y = x</em>, reflexive? If every person loves
 themself, is the <em>loves</em> relation reflexive? Is the <em>less than or
 equals</em> relation reflexive? Hint: the tuples <em>(2,3)</em> and <em>(3,3)</em> are
@@ -685,7 +703,7 @@ in this relation becaue <em>2</em> is less than or equal to <em>3</em>, and so i
 or equal to <em>3</em>. Is the less than relation reflexive?</p>
 </div>
 <div class="section" id="symmetric">
-<h3>9.6.2. Symmetric<a class="headerlink" href="#symmetric" title="Permalink to this headline">¶</a></h3>
+<h3>Symmetric<a class="headerlink" href="#symmetric" title="Permalink to this headline">¶</a></h3>
 <p>A binary relation, <em>R</em>, on a set <em>S</em> is said to be <em>symmetric</em> if
 whenever the tuple <em>(x,y)</em> is in <em>R</em>, the tuple, <em>(y,x)</em> is in <em>R</em> as
 well. On Facebook, for example, if Joe is “friends” with “Tom” then
@@ -694,6 +712,17 @@ relation is thus symmetric in this sense.</p>
 <p>More formally, if <em>R</em> is a binary relation on a set <em>S</em>, i.e., given
 <img class="math" src="_images/math/badf8967a9e750fa49296dc504efdd8360424458.png" alt="R \subseteq S \times S"/>, then <img class="math" src="_images/math/a983ca479a92d849d74c93ab3558691789025821.png" alt="Symmetric(R) \iff \forall
 (x,y) \in R, (y,x) \in R"/>.</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>predicate method isSymmetric()
+    reads this;
+    reads r;
+    requires Valid();
+    ensures Valid();
+{
+    forall x, y ::  x in dom() &amp;&amp; y in dom() &amp;&amp;
+                    (x, y) in rel() ==&gt; (y, x) in rel()
+}
+</pre></div>
+</div>
 <p>Question: is the function <em>y = x</em> symmetric? How about the <em>square</em>
 function? In an electric circuit, if a conducting wire connects
 terminal <em>T</em> to terminal <em>Q</em>, it also connects terminal <em>Q</em> to
@@ -703,7 +732,7 @@ symmetric? If <em>A</em> is <em>near</em> <em>B</em> then <em>B</em> is <em>near
 symmetric? In the real work is the <em>has-crush-on</em> relation symmetric?</p>
 </div>
 <div class="section" id="transitive">
-<h3>9.6.3. Transitive<a class="headerlink" href="#transitive" title="Permalink to this headline">¶</a></h3>
+<h3>Transitive<a class="headerlink" href="#transitive" title="Permalink to this headline">¶</a></h3>
 <p>Given a binary relation <img class="math" src="_images/math/badf8967a9e750fa49296dc504efdd8360424458.png" alt="R \subseteq S \times S"/>, <em>R</em> is said to
 be transitive if whenever <em>(x,y)</em> is in <em>R</em> and <em>(y,z)</em> is in <em>R</em>,
 then <em>(x,z)</em> is also in <em>R</em>. Formally, <img class="math" src="_images/math/2209188eabeeb58472953f1513897f62a1f1a32c.png" alt="Transitive(R) \iff
@@ -719,9 +748,26 @@ then, and the greater than or equal relations, are all transitive.</p>
 Sally and Sally likes Bob does Harry necesarily like Bob, too? No, the
 human “likes” relation is definitely not transitive. (And this is the
 cause of many a tragedy.)</p>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>/*
+Return true iff the relation is transitive
+*/
+predicate method isTransitive()
+    reads this;
+    reads r;
+    requires Valid();
+    ensures Valid();
+{
+    forall x, y, z ::
+        x in dom() &amp;&amp; y in dom() &amp;&amp; z in dom() &amp;&amp;
+        (x, y) in rel() &amp;&amp;
+        (y, z) in rel() ==&gt;
+        (x, z) in rel()
+}
+</pre></div>
+</div>
 </div>
 <div class="section" id="equivalence">
-<h3>9.6.4. Equivalence<a class="headerlink" href="#equivalence" title="Permalink to this headline">¶</a></h3>
+<h3>Equivalence<a class="headerlink" href="#equivalence" title="Permalink to this headline">¶</a></h3>
 <p>Finally (for now), a relation is said to be an <em>equivalence relation</em>
 if it is reflexive, transitive, and symmetric. Formally, we can write
 this property as a conjunction of the three individual properties:
@@ -729,6 +775,20 @@ this property as a conjunction of the three individual properties:
 Transitive(R)"/>. Equality is the canonical example of an equivalence
 relation: it is reflexive (<em>x = x</em>), symmetric (if <em>x = y</em> then <em>y =
 x</em>) and transitive (if <em>x = y</em> and <em>y = z</em> then <em>x = z</em>.).</p>
+<div class="admonition-todo admonition" id="index-2">
+<p class="first admonition-title">Todo</p>
+<p class="last">explain or replace pre-order in what follows</p>
+</div>
+<div class="highlight-dafny"><div class="highlight"><pre><span></span>predicate method isEquivalence()
+     reads this;
+     reads r;
+     requires Valid();
+     ensures Valid();
+ {
+     isPreorder() &amp;&amp; isSymmetric()
+ }
+</pre></div>
+</div>
 <p>An important property of equivalence relations is that they divide up
 a set into subsets of <em>equivalent</em> values. As an example, take the
 equivalence relation on people, <em>has same birthday as</em>. Clearly every
@@ -742,7 +802,7 @@ equivalence relation is being considered).</p>
 </div>
 </div>
 <div class="section" id="basic-order-theory">
-<h2>9.7. Basic Order Theory<a class="headerlink" href="#basic-order-theory" title="Permalink to this headline">¶</a></h2>
+<h2>Basic Order Theory<a class="headerlink" href="#basic-order-theory" title="Permalink to this headline">¶</a></h2>
 <p>Ordering is a relational concept. When we say that one value is less
 than another, for example, we are saying how those values are related
 under some binary relation. For example, the less than relation on the
@@ -754,7 +814,7 @@ properties a binary relation must have to be considered as belonging
 to one or another of these categories. The study of such relations is
 called order theory.</p>
 <div class="section" id="preorder">
-<h3>9.7.1. Preorder<a class="headerlink" href="#preorder" title="Permalink to this headline">¶</a></h3>
+<h3>Preorder<a class="headerlink" href="#preorder" title="Permalink to this headline">¶</a></h3>
 <p>A relation is said to be a <em>preorder</em> if it is reflexive and
 transitive. That is, every element is related to itself, and if e1 is
 related to e2 and e2 to e3, then e1 is also related to e3.</p>
@@ -781,7 +841,7 @@ relation, a preorder is not necesarily symmetric.</p>
 </div>
 </div>
 <div class="section" id="partial-order">
-<h3>9.7.2. Partial Order<a class="headerlink" href="#partial-order" title="Permalink to this headline">¶</a></h3>
+<h3>Partial Order<a class="headerlink" href="#partial-order" title="Permalink to this headline">¶</a></h3>
 <p>A binary relation is said to be a partial order if it is a preorder
 (reflexive and transitive) and also <em>anti-symmetric</em>. Recall that
 anti-symmetry says that the only way that both (x, y) and (y, x) can
@@ -811,7 +871,7 @@ the other, so they are not <em>comparable</em> under this relation.</p>
 </div>
 </div>
 <div class="section" id="total-order">
-<h3>9.7.3. Total Order<a class="headerlink" href="#total-order" title="Permalink to this headline">¶</a></h3>
+<h3>Total Order<a class="headerlink" href="#total-order" title="Permalink to this headline">¶</a></h3>
 <p>The kind of order most familiar from elementary mathematics is a
 “total” order. The natural and real numbers are totally ordered under
 the less than or equals relation, for example. Any pair of such
@@ -840,9 +900,9 @@ Z, with neither being a subset of the other.</p>
 </div>
 </div>
 <div class="section" id="additional-properties-of-relations">
-<h2>9.8. Additional Properties of Relations<a class="headerlink" href="#additional-properties-of-relations" title="Permalink to this headline">¶</a></h2>
+<h2>Additional Properties of Relations<a class="headerlink" href="#additional-properties-of-relations" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="total-relation">
-<h3>9.8.1. Total Relation<a class="headerlink" href="#total-relation" title="Permalink to this headline">¶</a></h3>
+<h3>Total Relation<a class="headerlink" href="#total-relation" title="Permalink to this headline">¶</a></h3>
 <p>We now define what it means for a binary relation to be “total,” also
 called “complete.” NOTE!  The term, “total”, means something different
 when applied to binary relations, in general, than when it is applied
@@ -892,7 +952,7 @@ predicate method isComplete()
 </div>
 </div>
 <div class="section" id="irreflexive">
-<h3>9.8.2. Irreflexive<a class="headerlink" href="#irreflexive" title="Permalink to this headline">¶</a></h3>
+<h3>Irreflexive<a class="headerlink" href="#irreflexive" title="Permalink to this headline">¶</a></h3>
 <p>A relation on a set S is said to be irreflexive if no element is
 related to, or maps, to itself.  As an example, the less than relation
 on natural numbers is irreflexive: not natural number is less than
@@ -910,7 +970,7 @@ itself.</p>
 </div>
 </div>
 <div class="section" id="antisymmetric">
-<h3>9.8.3. Antisymmetric<a class="headerlink" href="#antisymmetric" title="Permalink to this headline">¶</a></h3>
+<h3>Antisymmetric<a class="headerlink" href="#antisymmetric" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div>A binary relation is said to be antisymmetric
 if whenever both (x, y) and (y, x) are in the
@@ -933,7 +993,7 @@ that is possible) then it must be that x == y.</div></blockquote>
 </div>
 </div>
 <div class="section" id="asymmetric">
-<h3>9.8.4. Asymmetric<a class="headerlink" href="#asymmetric" title="Permalink to this headline">¶</a></h3>
+<h3>Asymmetric<a class="headerlink" href="#asymmetric" title="Permalink to this headline">¶</a></h3>
 <p>A binary relation, R, is said to be asymmetric (as distinct from
 anti-symmetric) if it is both anti-symmetric and also irreflexive. The
 latter property rules out an element being related to itself. Think of
@@ -958,7 +1018,7 @@ is the same as being antisymmetric and irreflexive.</p>
 </div>
 </div>
 <div class="section" id="quasi-reflexive">
-<h3>9.8.5. Quasi-reflexive<a class="headerlink" href="#quasi-reflexive" title="Permalink to this headline">¶</a></h3>
+<h3>Quasi-reflexive<a class="headerlink" href="#quasi-reflexive" title="Permalink to this headline">¶</a></h3>
 <p>A binary relation on a set, S, is said to be quasi-reflexive if every
 element that is related to some other element is also related to
 itself.</p>
@@ -984,7 +1044,7 @@ some other sequence, then it has the same limit as itself.</p>
 </div>
 </div>
 <div class="section" id="co-reflexive">
-<h3>9.8.6. Co-reflexive<a class="headerlink" href="#co-reflexive" title="Permalink to this headline">¶</a></h3>
+<h3>Co-reflexive<a class="headerlink" href="#co-reflexive" title="Permalink to this headline">¶</a></h3>
 <p>A binary relation is said to be coreflexive is for all x and y in S it
 holds that if xRy then x = y.  Every coreflexive relation is a subset
 of an identity relation (in which every element is related to and only
@@ -1006,9 +1066,9 @@ objects to, and only to, themselves.</p>
 </div>
 </div>
 <div class="section" id="more-advanced-order-theory-concepts">
-<h2>9.9. More Advanced Order Theory Concepts<a class="headerlink" href="#more-advanced-order-theory-concepts" title="Permalink to this headline">¶</a></h2>
+<h2>More Advanced Order Theory Concepts<a class="headerlink" href="#more-advanced-order-theory-concepts" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="total-preorder">
-<h3>9.9.1. Total Preorder<a class="headerlink" href="#total-preorder" title="Permalink to this headline">¶</a></h3>
+<h3>Total Preorder<a class="headerlink" href="#total-preorder" title="Permalink to this headline">¶</a></h3>
 <p>A total preorder is preorder in which every pair of elements is
 comparable, e.g., for every node a and b, either a reaches b or b
 reaches a.  That is, there are no pairs of elements that are
@@ -1025,7 +1085,7 @@ reaches a.  That is, there are no pairs of elements that are
 </div>
 </div>
 <div class="section" id="strict-partial-order">
-<h3>9.9.2. Strict Partial Order<a class="headerlink" href="#strict-partial-order" title="Permalink to this headline">¶</a></h3>
+<h3>Strict Partial Order<a class="headerlink" href="#strict-partial-order" title="Permalink to this headline">¶</a></h3>
 <p>A relation R is a strict partial order if it’s irreflexive,
 antisymmetric, and transitive. A canonical example is the less than
 (&lt;) relation on a set of natural numbers.</p>
@@ -1041,7 +1101,7 @@ antisymmetric, and transitive. A canonical example is the less than
 </div>
 </div>
 <div class="section" id="quasi-order">
-<h3>9.9.3. Quasi-order<a class="headerlink" href="#quasi-order" title="Permalink to this headline">¶</a></h3>
+<h3>Quasi-order<a class="headerlink" href="#quasi-order" title="Permalink to this headline">¶</a></h3>
 <p>A relation R is said to be a quasi-order if it is irreflexive and
 transitive.</p>
 <p>The less than and proper subset inclusion relations are quasi-orders
@@ -1066,7 +1126,7 @@ Mathematicas and Its Applications, 4th ed., McGraw-Hill, 1999.</p>
 </div>
 </div>
 <div class="section" id="weak-ordering">
-<h3>9.9.4. Weak Ordering<a class="headerlink" href="#weak-ordering" title="Permalink to this headline">¶</a></h3>
+<h3>Weak Ordering<a class="headerlink" href="#weak-ordering" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p>“There are several common ways of formalizing weak orderings,
 that are different from each other but cryptomorphic
@@ -1169,7 +1229,7 @@ would then form an equivalence class).</p>
 </div>
 </div>
 <div class="section" id="well-founded">
-<h3>9.9.5. Well-Founded<a class="headerlink" href="#well-founded" title="Permalink to this headline">¶</a></h3>
+<h3>Well-Founded<a class="headerlink" href="#well-founded" title="Permalink to this headline">¶</a></h3>
 <p>A relation R on a set, S, is said to be well-founded if every
 non-empty subset, X, of S has a “minimum” element, such that there is
 no other element, x, in X, such that (x, min) is in X.</p>
@@ -1202,9 +1262,9 @@ relation.</p>
 </div>
 </div>
 <div class="section" id="other-properties-of-relations">
-<h2>9.10. Other Properties of Relations<a class="headerlink" href="#other-properties-of-relations" title="Permalink to this headline">¶</a></h2>
+<h2>Other Properties of Relations<a class="headerlink" href="#other-properties-of-relations" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="dependence-relation">
-<h3>9.10.1. Dependence Relation<a class="headerlink" href="#dependence-relation" title="Permalink to this headline">¶</a></h3>
+<h3>Dependence Relation<a class="headerlink" href="#dependence-relation" title="Permalink to this headline">¶</a></h3>
 <p>A binary relation is said to be a dependency relation if it is finite,
 symmetric, and reflexive. That is, every element “depends on” itself,
 and if one depends on another, then the other depends on the
@@ -1222,7 +1282,7 @@ relation would make sense here.</p>
 </div>
 </div>
 <div class="section" id="independency-relation">
-<h3>9.10.2. Independency Relation<a class="headerlink" href="#independency-relation" title="Permalink to this headline">¶</a></h3>
+<h3>Independency Relation<a class="headerlink" href="#independency-relation" title="Permalink to this headline">¶</a></h3>
 <p>Return the complement of the given dependency relation on S. Such a
 relation is called an independency relation. Elements are related in
 such a relation if they are “independent” in the given dependency
@@ -1247,7 +1307,7 @@ relation.</p>
 </div>
 </div>
 <div class="section" id="trichotomous">
-<h3>9.10.3. Trichotomous<a class="headerlink" href="#trichotomous" title="Permalink to this headline">¶</a></h3>
+<h3>Trichotomous<a class="headerlink" href="#trichotomous" title="Permalink to this headline">¶</a></h3>
 <p>A binary relation is said to be trichotomous if for any pair of
 values, x and y, either xRy or yRx or x==y. The &lt; relation on natural
 numbers is an example of a trichotomous relation: given any two
@@ -1267,7 +1327,7 @@ condition holds, then it must be that x = y.</p>
 </div>
 </div>
 <div class="section" id="right-euclidean">
-<h3>9.10.4. Right Euclidean<a class="headerlink" href="#right-euclidean" title="Permalink to this headline">¶</a></h3>
+<h3>Right Euclidean<a class="headerlink" href="#right-euclidean" title="Permalink to this headline">¶</a></h3>
 <p>Dor all x, y and z in X it holds that if xRy and xRz, then yRz.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>predicate method isRightEuclidean()
     reads this;
@@ -1283,7 +1343,7 @@ condition holds, then it must be that x = y.</p>
 </div>
 </div>
 <div class="section" id="left-euclidean">
-<h3>9.10.5. Left Euclidean<a class="headerlink" href="#left-euclidean" title="Permalink to this headline">¶</a></h3>
+<h3>Left Euclidean<a class="headerlink" href="#left-euclidean" title="Permalink to this headline">¶</a></h3>
 <p>For all x, y and z in X it holds that if yRx and zRx, then yRz.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>predicate method isLeftEuclidean()
     reads this;
@@ -1299,7 +1359,7 @@ condition holds, then it must be that x = y.</p>
 </div>
 </div>
 <div class="section" id="euclidean">
-<h3>9.10.6. Euclidean<a class="headerlink" href="#euclidean" title="Permalink to this headline">¶</a></h3>
+<h3>Euclidean<a class="headerlink" href="#euclidean" title="Permalink to this headline">¶</a></h3>
 <p>A relation is said to be Euclidean if it is both left and right
 Euclidean. Equality is a Euclidean relation because if x=y and x=z,
 then y=z.</p>
@@ -1317,7 +1377,7 @@ then y=z.</p>
 </div>
 </div>
 <div class="section" id="composition-of-relations">
-<h2>9.11. Composition of Relations<a class="headerlink" href="#composition-of-relations" title="Permalink to this headline">¶</a></h2>
+<h2>Composition of Relations<a class="headerlink" href="#composition-of-relations" title="Permalink to this headline">¶</a></h2>
 <p>Return the relation g composed with this relation, (g o this). The
 domains/codomains of g and this must be the same.</p>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>method compose(g: binRelOnS&lt;Stype&gt;)
@@ -1351,9 +1411,9 @@ domains/codomains of g and this must be the same.</p>
 </div>
 </div>
 <div class="section" id="closure-operations">
-<h2>9.12. Closure Operations<a class="headerlink" href="#closure-operations" title="Permalink to this headline">¶</a></h2>
+<h2>Closure Operations<a class="headerlink" href="#closure-operations" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="reflexive-closure">
-<h3>9.12.1. Reflexive Closure<a class="headerlink" href="#reflexive-closure" title="Permalink to this headline">¶</a></h3>
+<h3>Reflexive Closure<a class="headerlink" href="#reflexive-closure" title="Permalink to this headline">¶</a></h3>
 <p>The reflexive closure is the smallest relation
 that contains this relation and is reflexive. In
 particular, it’s the union of this relation and
@@ -1374,7 +1434,7 @@ how we compute it here.</p>
 </div>
 </div>
 <div class="section" id="symmetric-closure">
-<h3>9.12.2. Symmetric Closure<a class="headerlink" href="#symmetric-closure" title="Permalink to this headline">¶</a></h3>
+<h3>Symmetric Closure<a class="headerlink" href="#symmetric-closure" title="Permalink to this headline">¶</a></h3>
 <p>The symmetric closure is the smallest relation that contains this
 relation and is symmetric. In particular, it’s the union of this
 relation and the inverse relation on the same set. It can be derived
@@ -1396,7 +1456,7 @@ all reversed pairs, (t, s), are also included.</p>
 </div>
 </div>
 <div class="section" id="transitive-closure">
-<h3>9.12.3. Transitive Closure<a class="headerlink" href="#transitive-closure" title="Permalink to this headline">¶</a></h3>
+<h3>Transitive Closure<a class="headerlink" href="#transitive-closure" title="Permalink to this headline">¶</a></h3>
 <p>The transitive closure of a binary relation, R, on a set, S, is the
 relation R plus all tuples, (x, y) when there is any “path” (a
 sequence of tuples) from x to y in R. In a finite relation.  such as
@@ -1433,7 +1493,7 @@ maximum-length paths in R.  That’s what we do, here.</p>
 </div>
 </div>
 <div class="section" id="reflexive-transitive-closure">
-<h3>9.12.4. Reflexive Transitive Closure<a class="headerlink" href="#reflexive-transitive-closure" title="Permalink to this headline">¶</a></h3>
+<h3>Reflexive Transitive Closure<a class="headerlink" href="#reflexive-transitive-closure" title="Permalink to this headline">¶</a></h3>
 <p>The reflexive transitive closure is the smallest relation that
 contains this relation and is both reflexive and transitive.  KS FIX:
 Under-informative specification.</p>
@@ -1451,7 +1511,7 @@ Under-informative specification.</p>
 </div>
 </div>
 <div class="section" id="reflexive-transitive-symmetric-closure">
-<h3>9.12.5. Reflexive Transitive Symmetric closure<a class="headerlink" href="#reflexive-transitive-symmetric-closure" title="Permalink to this headline">¶</a></h3>
+<h3>Reflexive Transitive Symmetric closure<a class="headerlink" href="#reflexive-transitive-symmetric-closure" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-dafny"><div class="highlight"><pre><span></span>method reflexiveSymmetricTransitiveClosure()
     returns (r: binRelOnS&lt;Stype&gt;)
     requires Valid();
@@ -1469,9 +1529,9 @@ Under-informative specification.</p>
 </div>
 </div>
 <div class="section" id="reductions">
-<h2>9.13. Reductions<a class="headerlink" href="#reductions" title="Permalink to this headline">¶</a></h2>
+<h2>Reductions<a class="headerlink" href="#reductions" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="reflexive-reduction">
-<h3>9.13.1. Reflexive Reduction<a class="headerlink" href="#reflexive-reduction" title="Permalink to this headline">¶</a></h3>
+<h3>Reflexive Reduction<a class="headerlink" href="#reflexive-reduction" title="Permalink to this headline">¶</a></h3>
 <p>The reflexive reduction of a relation is the relation
 minus the idenitity relation on the same set. It is, to
 be formal about it, the smallest relation with the same
@@ -1490,12 +1550,12 @@ reflexive closure as this (the given) relation.</p>
 </div>
 </div>
 <div class="section" id="transitive-reduction">
-<h3>9.13.2. Transitive Reduction<a class="headerlink" href="#transitive-reduction" title="Permalink to this headline">¶</a></h3>
+<h3>Transitive Reduction<a class="headerlink" href="#transitive-reduction" title="Permalink to this headline">¶</a></h3>
 <p>TBD</p>
 </div>
 </div>
 <div class="section" id="domain-and-range-restriction">
-<h2>9.14. Domain and Range Restriction<a class="headerlink" href="#domain-and-range-restriction" title="Permalink to this headline">¶</a></h2>
+<h2>Domain and Range Restriction<a class="headerlink" href="#domain-and-range-restriction" title="Permalink to this headline">¶</a></h2>
 <p>The “restriction” of a relation, R, on a set, S, to a subset, X, of S,
 is a relation X containing the pairs in R both of whose elements are
 in X. That X is a subset of S is a precondition for calling this
@@ -1516,7 +1576,7 @@ method.</p>
 </div>
 </div>
 <div class="section" id="sequences">
-<h2>9.15. Sequences<a class="headerlink" href="#sequences" title="Permalink to this headline">¶</a></h2>
+<h2>Sequences<a class="headerlink" href="#sequences" title="Permalink to this headline">¶</a></h2>
 <p>A sequence of elements is an ordered collection in which elements can
 appear zero or more times. In both mathematical writing and in Dafny,
 sequences are often denoted as lists of elements enclosed in square
@@ -1554,7 +1614,7 @@ See the Dafny language summary for examples of these and other related
 operations on lists.</p>
 </div>
 <div class="section" id="maps">
-<h2>9.16. Maps<a class="headerlink" href="#maps" title="Permalink to this headline">¶</a></h2>
+<h2>Maps<a class="headerlink" href="#maps" title="Permalink to this headline">¶</a></h2>
 <p>Fill in.</p>
 </div>
 </div>
@@ -1575,99 +1635,6 @@ operations on lists.</p>
 
 
 <!-- <h3>Navigation</h3> -->
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="00-preface.html">1. Preface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="01-reqs-specs-impls.html">2. Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02-logic-and-code.html">3. Logical Specifications, Imperative Implementations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-problems-with-imperative-code.html">4. Problems with Imperative Code</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04-runnable-math.html">5. Pure Functional Programming as Runnable Mathematics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05-verifying-logical-specifications.html">6. Formal Verification of Imperative Programs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06-dafny-language.html">7. Dafny Language: Types, Statements, Expressions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="07-set-theory.html">8. Set Theory</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">9. Relations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#binary-relations">9.1. Binary Relations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#methods-for-applying-relations">9.2. Methods for Applying Relations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#inverse-of-a-binary-relation">9.3. Inverse of a Binary Relation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#functions-single-valued-relations">9.4. Functions: <em>Single-Valued</em> Relations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#properties-of-functions">9.5. Properties of Functions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#total-vs-partial">9.5.1. Total vs Partial</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#injective">9.5.2. Injective</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#surjective">9.5.3. Surjective</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#bijective">9.5.4. Bijective</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#properties-of-relations">9.6. Properties of Relations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#reflexive">9.6.1. Reflexive</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#symmetric">9.6.2. Symmetric</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#transitive">9.6.3. Transitive</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#equivalence">9.6.4. Equivalence</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#basic-order-theory">9.7. Basic Order Theory</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#preorder">9.7.1. Preorder</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#partial-order">9.7.2. Partial Order</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#total-order">9.7.3. Total Order</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#additional-properties-of-relations">9.8. Additional Properties of Relations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#total-relation">9.8.1. Total Relation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#irreflexive">9.8.2. Irreflexive</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#antisymmetric">9.8.3. Antisymmetric</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#asymmetric">9.8.4. Asymmetric</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#quasi-reflexive">9.8.5. Quasi-reflexive</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#co-reflexive">9.8.6. Co-reflexive</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#more-advanced-order-theory-concepts">9.9. More Advanced Order Theory Concepts</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#total-preorder">9.9.1. Total Preorder</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#strict-partial-order">9.9.2. Strict Partial Order</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#quasi-order">9.9.3. Quasi-order</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#weak-ordering">9.9.4. Weak Ordering</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#well-founded">9.9.5. Well-Founded</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#other-properties-of-relations">9.10. Other Properties of Relations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#dependence-relation">9.10.1. Dependence Relation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#independency-relation">9.10.2. Independency Relation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#trichotomous">9.10.3. Trichotomous</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#right-euclidean">9.10.4. Right Euclidean</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#left-euclidean">9.10.5. Left Euclidean</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#euclidean">9.10.6. Euclidean</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#composition-of-relations">9.11. Composition of Relations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#closure-operations">9.12. Closure Operations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#reflexive-closure">9.12.1. Reflexive Closure</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#symmetric-closure">9.12.2. Symmetric Closure</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#transitive-closure">9.12.3. Transitive Closure</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#reflexive-transitive-closure">9.12.4. Reflexive Transitive Closure</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#reflexive-transitive-symmetric-closure">9.12.5. Reflexive Transitive Symmetric closure</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#reductions">9.13. Reductions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#reflexive-reduction">9.13.1. Reflexive Reduction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#transitive-reduction">9.13.2. Transitive Reduction</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#domain-and-range-restriction">9.14. Domain and Range Restriction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#sequences">9.15. Sequences</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#maps">9.16. Maps</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="09-boolean-algebra.html">10. Boolean Algebra</a></li>
-<li class="toctree-l1"><a class="reference internal" href="10-formal-languages.html">11. Formal Languages</a></li>
-<li class="toctree-l1"><a class="reference internal" href="11-propositional-logic.html">12. Propositional Logic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="12-satisfiability.html">13. 12. Satisfiability</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13-consequence.html">14. Natural Deduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="14-predicate-logic.html">15. Predicate Logic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="15-proofs.html">16. Proofs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="16-equality.html">17. Proofs of Equalities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="17-inequality.html">18. Proofs of Inequality</a></li>
-<li class="toctree-l1"><a class="reference internal" href="18-existence.html">19. Proofs of Existence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="19-univeral.html">20. Proofs of Universality</a></li>
-<li class="toctree-l1"><a class="reference internal" href="20-termination.html">21. Termination</a></li>
-</ul>
 
 
 <hr />
