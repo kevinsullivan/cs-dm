@@ -6,7 +6,7 @@ module imperative_factorial
        Allow use of definitions in functional
        module without prefixes.
     */
-    import opened functional
+    import opened functions
 
     /*
     Here's a typical imperative program for 

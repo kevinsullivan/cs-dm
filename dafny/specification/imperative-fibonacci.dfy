@@ -6,7 +6,7 @@ module imperative_fibonacci
        Allow use of definitions in functional
        module without prefixes.
     */
-    import opened functional
+    import opened functions
 
     /*
     Here's an imperative implementation of the Fibonacci

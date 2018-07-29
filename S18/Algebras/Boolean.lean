@@ -331,13 +331,17 @@ bit mysterious at this point. We'll get into it in more detail in chapters to co
 
 /-
 Exercise: See what happens if you try to use rfl as a proof of 1 = 2
-by uncommenting the following line. Hover your mouse over the red lines.
+by uncommenting the following line. 
+-/
+--theorem oeqt: 1 = 2 := rfl
+
+/-
+Hover your mouse over the red lines.
 You don't need to understand the error messages that will be revealed.
 You should note that somehow rfl is of the the wrong *type* to be a proof
 of 1 = 2. Indeed, there is not proof of the "proposition", 1=2, because,
 of course, it's simply not true!
 -/
---theorem oeqt: 1 = 2 := rfl
 
 
 

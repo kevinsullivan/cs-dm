@@ -190,7 +190,7 @@ module functions
    by recursive application of our multiplation
    function.
 */
-    function method exp(m: nat, n:nat): nat
+    function method exp(m: nat, n:nat): (r: nat)
     {
         if (n == 0) then 1
         else mult(m, exp(m, n-1))
