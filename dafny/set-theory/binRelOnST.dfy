@@ -15,6 +15,7 @@ module binRelST
         var d: set<Stype>;      // domain: set of values of type S
         var c: set<Ttype>       // codomain: set of values of type T
         var r: set<(Stype,Ttype)>;  // relation: set of pairs from s X t
+ 
         predicate Valid()
             reads this;
         {

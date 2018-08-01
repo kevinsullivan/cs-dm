@@ -135,14 +135,14 @@ a set at most once.  In this chapter, we will not encounter any of the
 bizarre issues that Russell and others had to consider at the start of
 the 20th century.
 
-What we will find is that set-theoretical thinking is an incredibly
-powerful intellectual tool. It's at the heart of program specification
-and verification, algorithm design and analysis, and theory of
-computing, among many other areas in computer science. Moreover, Dafny
-makes set theory not only fun but executable. The logic of Dafny, for
-writing assertions, pre- and post-conditions, and invariants *is* set
-theory, a first-order logic with sets and set-related operations as
-built-in concepts.
+What we will find is that set-theory is a powerful intellectual tool
+for the computer scientist and software engineer. It's at the heart of
+program specification and verification, algorithm design and analysis,
+theory of computing, among other areas in computer science. Moreover,
+Dafny makes set theory fun by making it runnable. The logic of Dafny,
+for writing assertions, pre- and post-conditions, and invariants *is*
+set theory, a first-order predicate logic with set and set operators
+built in.
 
 
 Set Theory Notations
@@ -193,90 +193,111 @@ builder* notation.
 Set comprehension notation
 --------------------------
 
-Take the example of the set, *S*, of even numbers from zero to one
-hundred, inclusive. We can denote this set precisely in mathematical
-writing as :math:`S = \{ n: {\mathbb Z}~|~0 <= n <= 100 \land n~mod~2
-= 0 \}.` Let's pull this expression apart.
+Take the example of the set, *T*, of even numbers from zero to fifty,
+inclusive. We can denote this set precisely in mathematical writing as
+:math:`T = \{ n: {\mathbb Z}~|~0 <= n <= 50 \land n~mod~2 = 0 \}.`
+Let's pull this expression apart.
 
-The set expression (to the right of the first equals sign) can be read
-in three parts. The vertical bar is read *such that*. To the left of
-the bar is an expression identifying the set from which the elements
-of *this* set are drawn, and a name is given to an arbitrary element
-of this source set. So here we can say that *S* is a set each element
-*n* of which is a natural number.  A name, here *n*, for an arbitrary
-element is given for two purposes. First it desribes the form of
-elements in the set being built: here just *integers*. Second, the
-name can then be used in writing a condition that must be true of each
-such element.  That expression is written to the right of the vertical
-bar.
+The set expression, to the right of the first equals sign, can be read
+in three parts. The vertical bar in the middle is pronounced, *such
+that*. To the left of the bar is an expression identifying the larger
+set from which the elements of the set being defined are drawn: here
+we are drawing values from the set of all integers. A name, here *n*,
+is given to an arbitrary element of this source set. This name is then
+used in writing a predicate that that defines which elements of the
+source set are included in the set being defined. That expression is
+written to the right of the vertical bar. Here the predicate is that
+*n* is greater than or equal to zero, less than or equal to fifty, and
+even (in that the remainder is zero when *n* is divided by *2*).
 
-Here the condition is that each such element, *n* must be greater than
-or equal to zero, less than or equal to one hundred, and even, in that
-the remainder must be zero when *n* is divided by *2*. The overall set
-comprehension expression is thus read literally as, *S* is the set of
-integers, *n*, such that *n* is greater than or equal to zero, *n* is
-less than or equal to 100, and *n* evenly divisible by *2*. A more
-fluent reading would simply be *S* is the set of even integers between
-zero and one hundred inclusive.
+The overall set comprehension expression is thus read as, *T* is the
+set of integers, *n*, such that *n* is greater than or equal to zero,
+less than or equal to 50, and evenly divisible by *2*. A more fluent
+reading would simply be "*T* is the set of even integers between zero
+and fifty, inclusive."
 
 Dafny supports set comprehension notations. This same set would be
-written as follows (we assume that the type of S has already been
-declared to be *set<int>)*:
+written as follows:
 
 .. code-block:: dafny
 
-  S := set s: int | 0 <= s <= 100;
+  set t: int | 0 <= t <= 50 && t % 2 == 0
 
-Another way to define the same set in ordinary mathematical writing
-would use a slightly richer form of set comprehension notation. In
-particular, we can define the same set as the set of values of the
-expression *2\*n* for *n* is in the range zero to fifty, inclusive.
+Note that this expression evaluates to a value of type "set of int*.
+You could assign this value to a variable in a Dafny method by writing
+
+.. code-block:: dafny
+
+    T := set t: int | 0 <= t <= 50 && t % 2 == 0;
+
+You can think of this expression as either pure mathematics, or as a
+program that *loops* over the integers, selects those that make the
+given predicate evaluate to *true*, and includes all and only the
+selected elements in the set being defined. That not how it actually
+works (it's not possible to actually loop over all integers), but it
+is as if this is what's happening "under the hood."
+
+There are other way to define the same set using set comprehension
+notation. For example, we can define the set as the set of values of
+the expression *2\*n*, where *n* is in the range zero to twentyfive.
 Where it's readily inferred, mathematicians will usually also leave
-out explicit type information. `S = \{ 2 * n | 0 <= n <= 50 \}. In
-this expression it's inferred that *n* ranges over all the natural
-numbers, these values are *filtered* by the expression on the right,
-and these filtered values are then fed through the expression on the
-left of the bar to produce the elements of the intended set.
+out explicit type information. Here's what it looks like: :math:`T = \{ 2 *
+n | 0 <= n <= 25 \}.`
 
-Dafny also supports set comprehension notation in this style. To
-define this very same set in Dafny we could also write this:
+In this expression one infers, based on one's mathematical intuition,
+that *n* is intended ranges over the integers or natural numbers. The
+predicate on the right selects the values from zero to twentyfive. The
+expression before the bar then *builds* the values in the set that is
+being defined by evaluating the given expression for each value of *n*
+selected from the source set. Set comprehension notation is sometimes
+called *set builder* notation, and here you can see why.
 
-.. code-block:: dafny
+As an aside, we note that practicing mathematicians are usually a bit
+imprecise in writing math, assuming that the reader will be able to
+fill in missing details.  Of course, such assumptions are sometimes
+wrong. This course and book show that it is possible, using tools like
+Dafny and Lean, not only to be formally precise, with tools checking
+that you haven't made mistakes.
 
-  S := set s: int | 0 <= s <= 50 :: 2 * s;
-
-This command assigns to S a set of values, *2 \* s*,, where *s*
-ranges over the integers and satisfies the predicate (or filter)
-*0 <= s <= 50*.
-
-The collection of values from which element are drawn to be
-build into a new set need not just be a built-in type but can
-be another programmer-defined set. Given that *S* is the set
-of even numbers from zero to one hundred, we can define the
-subset of *S* of elements that are less than *25* by writing
-a richer set comprehension. In pure mathematical writing, we
-could write :math:`T = \{ t | t \in S \land t < 25\}.` That is,
-*T* is the set of elements that are in *S* and less than *25*.
-The Dafny notation is a little different, but not too much:
+Dafny supports set builder notation. To express our set in Dafny we
+could also write this expression:
 
 .. code-block:: dafny
 
-  var T := set t | t in S && t < 25;
+  set t: int | 0 <= t <= 25 :: 2 * t
 
-This Dafny code defines *T* to be the set (of integers, but note that
-we let Dafny infer the type of *t* in this case), such that *t* is in
-the set *S* (that we just defined) and *t* is also less than *25*.
+To read this code, you could say, "the set of values of type integer
+obtained by first allowing *t* to range over values from zero to
+twentyfive any by then multiplying each such *t* value by 2."
+
+The source set need not be a built-in type. Given that *T* is the set
+of even numbers from zero to fifty, we can define the subset of *T* of
+elements that are less than *25* using a set comprehension. In pure
+mathematical writing, we could write :math:`S = \{ t | t \in T \land t
+< 25\}.` That is, *S* is the set of elements that are in *T* (the set
+of even numbers from zero to fifty) and that are less than *25*.  Here
+is a Dafny command assigning this set to the variable, *S*.
+
+.. code-block:: dafny
+
+  var S := set s | s in T && s < 25;
+
+This code defines *S* to be the set of integers, *s* (Dafny infers
+that the type of *s* is *int*) such that *s* is in the set *T* (that
+we just defined) and *s* is also less than *25*. *S* is thus assigned
+the set of even integers from zero to twentyfour.
 
 
 As a final example, let's suppose that we want to define the set of
 all ordered pairs whose first elements are from *S* and whose second
 elements are from *T*, as we've defined them here. For example, the
-pair *(76,24)* would be in this set, but not *(24 76)*. In ordinary
-mathematical writing, this would be :math:`\{ (s,t) | s \in S \land t
-\in T\}.` This set is, as we'll learn more about shortly, called the
-*product set* of the sets, *S* and *T*.
+pair *(24,76)* would be in this set, but not *(76,24)*. In ordinary
+mathematical writing, we'd write a set builder expression like this
+:math:`\{ (s,t) | s \in S \land t \in T\}.` This is read, "the set of
+ordered pairs, *(s,t)*, where *s* is any element of *S* and *t* is any
+element of *T*. 
 
-In Danfy, this would be written like this:
+In Danfy, this would be written using set builder notation, like this:
 
 .. code-block:: dafny
 
@@ -284,17 +305,14 @@ In Danfy, this would be written like this:
 
 This code assigns to the new variable, *Q*, a set formed by taking
 elements, *s* and *t*,, such that *s* is in *S* and *t* is in *T*, and
-forming the elements of the new set as tuples, *(s, t)*. This is a far
-easier way to write code for a product set than by explicit iteration
-over the sets *S* and *T*!
+forming the elements of the new set as tuples, *(s, t)*. 
 
-In Dafny, the way to extract an element of a tuple, *t*, of arity,
-*n*, is by writing *t.n*, where *n* is a natural number in the range
-*0* up to *n - 1*. So, for example, *(3, 4).1* evaluates to *4*. It's
-not a notation that is common to many programming languages. One can
-think of it as a kind of subscripting, but using a different notation
-than the usual square bracket subscripting used with sequences.
+The Empty Set
+-------------
 
+The empty set (of elements of some type, *A*) is the set containing no
+elements. In mathematical writing and in Dafny, this set is denoted as
+*{}*.
 
 Set Operations
 ==============
@@ -306,68 +324,146 @@ By the cardinality of a set, *S*, we mean the number of elements
 in S. When *S* is finite, the cardinality of *S* is a natural number.
 The cardinarily of the empty set is zero, for example, because it has
 no (zero) elements. In ordinary mathematics, if *S* is a finite set,
-then its cardinality is denoted :math:`|S|`. With *S* defined as in
-the preceding section, the cardinality of *S* is *50*. (There are
-*50* numbers between *0* and *49*, inclusive.)
+then its cardinality is denoted as :math:`|S|`. With *S* defined as in
+the preceding section, the cardinality of *S* is *13*, in that there
+are thirteen even numbers between *0* and *25*.
 
 The Dafny notation for set cardinality is just the same. The following
-code will print the cardinality of *S*, namely *50*, for example.
+code will print the cardinality of *S*, for example.
 
 .. code-block:: dafny
 
    print |S|;
 
 If a set is infinite in size, as for example is the set of natural
-numbers, the cardinality of the set is obviously not any natural
-number. One has entered the realm of *transfinite numbers*. We will
-discuss transfinite numbers later in this course. In Dafny, as you
-might expect, the cardinality operator is not defined for infinite
-sets (of type *iset<T>*).
+numbers, the cardinality of the set is not a natural number. One has
+entered the realm of *transfinite numbers*. We discuss transfinite
+numbers later in this course. In Dafny, as you might expect, the
+cardinality operator is not defined for infinite sets (of type
+*iset<T>*).
+
+.. todo::
+
+   add discussion of infinite sets somewhere
 
 Equality
 --------
 
-Two sets are considered equal if and only if they contain exactly
-the same elements. To assert that sets *S* and *T* are equal in
-mathematical writing, we would write *S = T*. In Dafny, such an
-assertion would be written, *S == T*. 
+Two sets, *S* and *T* are said to be *equal* if and only if they
+contain exactly the same elements. That is, :math:`S = T \iff \forall
+x, x \in S \iff x\in T.` In mathematical English, you would say, "A
+set *S* is equal to a set *T* if and only if for every possible value,
+*x*, *x* is in S if and only if it is in *T*.
+
+In Dafny, you could define a 
+polymorphic set equality operator like this:
+
+.. code-block:: dafny
+
+    predicate set_eq<A(!new)>(S: set<A>, T: set<A>)
+    {
+        forall x :: x in S <==> x in T
+    }
+
+This Dafny code defines a predicate, which is to say a proposition
+with two parameters, S and T, each sets containing elements of type A,
+where A is any Dafny type.  It looks like the mathematical definition
+except for the annotation, (!new), after the declaration of the type
+parameter.
+
+.. todo
+
+   Explain the !new annotation.
+
+   
+All that said, we don't need to define our own set equality operator,
+as the one that is built into Dafny will do just fine. The proposition
+that Dafny sets, *S* and *T*, are equal would be written, *S == T*.
+This expression uses Dafny's Boolean operator, *==*, for comparing
+values for equality. The expression, *S == T* evalutes to true if and
+only if *S* and *T* are equal, as defined here.
 
 Subset
 ------
 
 A set, *T*, can be said to be a subset of a set *S* if and only if
-every element in *T* is also in *S*. In this case, mathematicians
-write :math:`T \subseteq S`. In mathematical logic notation, we would
-write, :math:`T \subseteq S \iff \forall t \in T, t \in S`. That is,
-*T* is a subset of *S* if and only if every element in *T* is also in
-*S*.
+every element in *S* is also in *T*. In this case, mathematicians
+write :math:`S \subseteq T`. The mathematical definition is that
+:math:`S \subseteq T \iff \forall s \in S, s \in T`. That is, *S* is a
+subset of *T* if and only if every element in *S* is also in *T*.  An
+equivalent way to write it is, :math:`S \subseteq T \iff \forall s, s
+\in S \rightarrow s \in T`. That is, *S* is a subset of *T* if for
+every value, *s*, if *s* is in *S* then *s* is also in *T*, Note that
+this does not say that every element of S is in T, but only that *if*
+an element is in *S* then it is also in *T*.
 
-A set *T*, is said to be a *proper* subset of *S*, if *T* is a subset
-of *S* but *T* is not equal to *S*. In our example, *T* (the set of
-even natural numbers less than *25*) is a proper subset of *S* (the
-set of even natural numbers less than or equal to *100*).
+Here's how this definition would be written in Dafny.
 
-This is written in mathematics as :math:`T \subset S`. In other words,
-every element of *T* is in *S* but there is at least one element of
-*S* that is not in *T*. Mathematically, :math:`T \subset S \iff
-\forall t \in T, t \in S \land \exists s \in S, s \notin T`.
+.. code-block:: dafny
 
-The backwards *E* is the *existential quantifier* in first-order
-logic, and is read as, and means, *there exists.* So this expression
-says that *T* is a proper subset of *S* if every *t* in *T* is in *S*
-but there is at least one *s* in *S* that is not in *T*. That the
-proper subset operator contains an implicit existential operator poses
-some real problems for verification.
+    predicate set_subseteq<A(!new)>(S: set<A>, T: set<A>)
+    {
+        forall s :: s in S ==> s in T
+    }
 
-Without getting into details, when one asserts in Dafny that *T* is a
-proper subset of *S*, Dafny needs to find an element of *S* that is
-not in *T*, and in general, it needs a lot of help to do that. The
-details are out of scope at this point, but one should be aware of the
-difficulty.
+Dafny provides a built-in subset operator, *<=*. It looks like the
+usual "less than or equals" operator, but when applied to sets, as in
+the expression, *S <= T*, it returns true if and only if *S* is a
+subset of *T*.
 
-In Dafny, one uses the usual arithmetic less and less than or
-equal operator symbols, *<* and *<=*, to assert *proper subset* and
-*subset* relationships, respectively. The first two of the following
+.. todo::
+
+   Think about whether/when to introduce Dafny infinite sets into this
+   discussion. Everything so far is about Dafny's finite sets, albeit
+   without saying so explicitly.
+
+Proper Subset
+-------------
+
+A set *S*, is said to be a *proper* subset of *T*, if *S* is a subset
+of *T* but there is some element in *T* that is not in *S*. In our
+example, *S*, the set of even natural numbers less than *25*, is a
+proper subset of *T*, the set of even natural numbers less than or
+equal to *100*.
+
+In the language of mathematical logic, we would write, :math:`S
+\subset T` or, to emphasize the non-equality of *S* and *T*, as,
+:math:`S \subsetneq T`.
+
+
+.. todo::
+
+   Scrub chapter for inversions of S and T in the narrative.
+
+To futher clarify, *S* is said to be a *proper* subset of *T* if *S*
+is a subset of *T* and there is at least one element in *T* that is
+not in *S*.  In mathematical language, :math:`S \subset T \iff \forall
+s \in S, s \in T \land \exists t \in T, t \notin S`. The backwards
+*E*, :math:`exists`, is the *existential quantifier* in predicate
+logic, and is read as, and means, *there exists.* You this pronounce
+this sentence as, "*S* is a proper subset of *T* if and only if every
+element in *S* is in *T* and there *exists* some element in *T* that
+is not in *S*.
+
+.. todo::
+
+   Find first use of universal quantifier and explain it there.
+
+.. code-block:: dafny
+
+    predicate set_subset<A(!new)>(S: set<A>, T: set<A>)
+    {
+        forall s :: s in S ==> s in T && (exists t :: t in T && t !in S)
+    }
+
+The parentheses in around the exists clause aren't needed but are
+included to make it clear how to read, or *parse*, the expression.
+
+We don't really have to define our own proper subset operator in
+Dafny, as Dafny provides one that is built-in. The Dafny expression,
+*S < T* returns true if and only if *S* is a proper subset of *T*.
+
+Here are some examples of code in Dafny. They assume that The first two of the following
 assertions are thus both true in Dafny, but the third is not. That
 said, limitations in the Dafny verifier make it hard for Dafny to see
 the truth of such assertions without help. We will not discuss how to
@@ -375,9 +471,9 @@ provide such help at this point.
 
 .. code-block:: dafny
 
-   assert T < S;
-   assert T <= S;
+   assert S < T;
    assert S <= T;
+   assert T <= S;
 
 We note every set is a subset, but not a proper subset, of
 itself. It's also the case that the empty set is a subset of every
@@ -399,108 +495,108 @@ superset of itself, and every set is a superset of the empty set.
 Intersection
 ------------
 
-The intersection, :math:`S \cap T`, of two sets, *S* and *T*, is the
-set of elements that are in both *S* and *T*. Mathematically speaking,
-:math:`S \cap T = \{ e~|~e \in S \land e \in T \}`. 
+The intersection of two sets, *S* and *T*, written as :math:`S \cap
+T`, is the set of all elements that are in both sets. Mathematically
+speaking, :math:`S \cap T = \{ e~|~e \in S \land e \in T \}`.
 
-In Dafny, the *\** operator is used for set intersection.  The
-intersection of *S* and *T* is thus written *S \* T*. For example, the
-command *Q := S \* T* assigns the intersection of *S* and *T* as the
-new value of *Q*.
+In Dafny, we could define our own polymorphic set intersection
+function in only a superficially different way as follows:
+
+.. code-block:: dafny
+
+   function intersection<A>(S: set<A>, T: set<A>): set<A>
+   {
+       set e | e in S && e in T
+   }
+
+Once again, we don't have to write such code. Dafny's built-in *\**
+operator applied to sets denotes set intersection.  The intersection
+of *S* and *T* is written *S \* T*. For example, the command *Q := S
+\* T* assigns the intersection of *S* and *T* as the value of *Q*. Try
+it yourself.
 
 Union
 -----
 
-The union, :math:`S \cup T`, of two sets, *S* and *T*, is the set of
-elements that are in either (including both) *S* and *T*. That is,
-:math:`S \cup T = \{ e~|~e \in S \lor e \in T \}`. 
+The union of two sets, *S* and *T*, written as :math:`S \cup T`, is
+the set of elements that are in either (or both) *S* and *T*. That is,
+:math:`S \cup T = \{ e~|~e \in S \lor e \in T \}`.
 
-In Dafny, the *\+* operator is used for set union.  The union of *S*
-and *T* is thus written *S \+ T*. For example, the command *V := S \+
-T* assigns the union of *S* and *T* as the new value of *V*.
+In Dafny, we would hope to write this as follows:
+
+.. code-block:: dafny
+
+    function union<A>(S: set<A>, T: set<A>): set<A>
+   {
+       set e | e in S || e in T
+   }
+
+Unfortunately, Dafny rejects this definition. It's not that the
+definition is wrong, but rather that the implementation of Dafny is
+incomplete as of the writing of this chapter. As a result, Dafny
+complains that it cannot determine that the union of *S* and *T* is
+finite, even though it clearly is, as *S* and *T* themselves are, and
+a union of finite sets if clearly also finite. We will have to wait
+for certain enhancements to Dafny to be able to write this code.
+
+Fortunately, once again, of course, Dafny provides a built-in operator
+for computing set unions, namely *\+*.  The union of sets, *S* and
+*T*, is written *S \+ T*. For example, the command *V := S \+ T*
+assigns the union of *S* and *T* as the new value of *V*. Try it!
 
 Difference
 ----------
 
-The difference, :math:`S \setminus T` (*S* minus *T*), of sets *S* and
-*T* is the set of elements in *S* that are not also in *T*. Thus,
-:math:`S \setminus T = \{e~|~e \in S \land e \notin T)`. In Dafny, the
-minus sign is used to denote set difference, as in the expression,
-*S - T*. Operators in Dafny can be applied to sets to make up more
-complex expressions. So, for example, *|S-T|* denotes the cardinality
-of *S-T*.
+The difference of sets *T* and *S*, written :math:`T \setminus S`, is
+the set of elements in *T* that are not in *S*. Thus, :math:`T
+\setminus S = \{e~|~e \in T \land e \notin S)`.
+
+We could write a Dafny function to specify this operation as follows:
+
+.. code-block:: dafny
+
+    function set_minus<A>(T: set<A>, S: set<A>): set<A>
+    {
+        set e | e in T && e !in S
+   }		
+
+Again, we don't have to. In Dafny, the minus sign is used to denote
+set difference, as in the expression, *T - S*. Operators in Dafny can
+be applied to sets to make up more complex expressions. So, for
+example, *|T-S|* denotes the cardinality of *T-S*. Try evaluating this
+expression with *T* and *S* as defined in the previous section.
 
 Product Set
 -----------
 
-The product set, :math:`S \times T`, is the set of all the ordered
-pairs, *(s,t)*, that can be formed by taking one element, *s*, from
-*S*, and one element, *t*, from *T*. That is, :math:`S \times T = \{
-(s, t) | s \in S \land t \in T \}`. The cardinality of a product set
-is the product of the cardinalities of the individual sets.
+The product set, :math:`S \times T`, of two sets, *S* and T*, is
+defined ot be set of all the ordered pairs, *(s,t)*, that can be
+formed by taking any element, *s*, from *S*, and any element, *t*,
+from *T*. That is, :math:`S \times T = \{ (s, t) | s \in S \land t \in
+T \}`.
 
-There is no product set operator, per se, in Dafny, but given sets,
-*S* and *T* a product set can easily be expressed using Dafny's set
-comprehension notation: *set s, t | s in S && t in T :: (s,t)*. The
-keyword, *set*, is followed by the names of the variables that will be
-used to form the set comprehension expression, followed by a colon,
-followed by an assertion that selects the values of *s* and *t* that
-will be included in the result, followed by a double colon, and then,
-finally an expression using the local variables that states how each
-value of the resulting set will be formed.
+There actually is no built in product set operator, in Dafny. The
+good news is that you now know how to express the concept using a
+set comprehension.
 
-Power Set
----------
+The product set of two sets can be expressed using set comprehension
+notation: *set s, t | s in S && t in T :: (s,t)*. The keyword, *set*,
+is followed by the names of the variables that will be used to form
+the set comprehension expression, followed by a colon, followed by an
+assertion that selects the values of *s* and *t* that will be included
+in the result, followed by a double colon, and then, the expression
+that builds the values of the set being defined: here an ordered pair,
+or tuple, expression. 
 
-The power set of a set, *S*, denoted :math:`{\mathbb P}(S),` is the
-set of all subsets of *S*. If *S = {1, 2 }*, for example, the powerset
-of *S* is the set containing the proper and improper subsets of *S*,
-namely *{}, { 1 }, { 2 },* and *{ 1, 2}*.
+We note that the the cardinality of a product set is the product of
+the cardinalities of the individual sets. Think about why this must
+be true.
 
-The powerset of a set with *n* element will have :math:`2^n` elements.
-Consider the powerset of the empty set. The only subset of the empty
-set is the empty set itself, so the powerset of the empty set is the
-set containing only the empty set. This set has just *1* element. It's
-cardinality thus satisfies the rule, as *2* to the power, zero (the
-number of elements in the empty set), is *1*.
-
-Now suppose that for every set, *S*, with cardinality *n*, the
-cardinality of its powerset is *2* to the *n*. Consider a set, *S'*,
-of cardinality one bigger than that of *S*. Its powerset contains
-every set in the powerset of *S*, plus every set in that set with the
-new element included, and that's all the element it includes.
-
-The number of sets in the powerset of *S'* is thus double the number
-of sets in the powerset of *S*. Given that the cardinality of the
-powerset of *S* is *2* to the *n*, the cardinality of *S'*, being
-twice that number, is *2* to the *n + 1*.
-
-Now because the rule holds for sets of size zero, and whenver it holds
-for sets of size *n* it also holds for sets of size *n + 1*, it must
-hold for sets of every (finite) size. So what we have is an informal
-*proof by induction* of a theorem: :math:`\forall S, |{\mathbb P}(S)|
-= 2^{|S|}`.
-
-In Dafny, there is no explicit powerset operator, one that would take
-a set and returning its powerset, but the concept can be expressed in
-an elegant form using a set comprehension. The solution is simply to
-say *the set of all sets that are subsets of a given set, **. In pure
-mathematical notation this would be :math:`{ R | R \subseteq S }.` In
-Dafny it's basically the same expression.  The follwing three-line
-program computes and prints out the powerset of *S = { 1, 2, 3 }*.
-The key expression is to the right of the assignment operator on the
-second line.
-
-.. code-block:: dafny
-
-   var S := { 1, 2, 3 };
-   var P := set R | R <= S;
-   print P;
-
-Exercise: Write a pure function that when given a value of type set<T>
-returns its powerset. The function will have to be polymorphic.  Call
-it powerset<T>.
-		
+Exercise: Write and test a polymorphic function method in Dafny,
+called *set_product<A,B>*, that, when given any two sets, *S* and *T*,
+of elements of types *A* and *B*, respectively, returns the product
+set of *S* and *T*. Note that the type of elements in the resulting
+set is the *tuple type*, *(A, B)*.
 
 Tuples
 ======
@@ -591,5 +687,67 @@ Each row is just a particular tuple in product of these three sets,
 and the table as a whole is what we call a *relation*. If you have
 heard of a *relational database*, you now know what kind of data such
 a system handles: tables, i.e., *relations*.
+
+Power Set
+---------
+
+The power set of a set, *S*, denoted :math:`{\mathbb P}(S),` is the
+set of all subsets of *S*, including both the set itself and the empty
+set. If *S = {1, 2}*, for example, then the powerset of *S* is the set
+of sets, *{ {}, { 1 }, { 2 }, { 1, 2} }*. Note that the powerset of a
+set with two elements has four elements.
+
+Exercise: Before continuing, write out the elements of the powersets
+of the sets, *{ 1, 2, 3 }* and *{ 1, 2, 3, 4 }*. How many elements do
+these powersets have? (What are their cardinalities?) Can you guess a
+formula for the cardinality of the powerset of a set with cardinality,
+*n*? Can you convince yourself that this formula is always right?
+
+The powerset of a set of cardinality *n* has :math:`2^n` elements.  To
+see that this is always true, first, consider the powerset of the
+empty set, then consider what happens when you increase the size of a
+set by one element. Start with the empty set. The only subset of the
+empty set is the empty set itself, so the powerset of the empty set
+has just one element. The cardinality of the empty set is *0*. The
+cardinality of its powerset is *1*. And that is the same as
+:math:`2^0`. Now let's suppose that our formula holds for any set *S*,
+with cardinality *n*. What is the cardinality of a set with one more
+element? Its powerset contains every set in the powerset of *S*, as
+those are all subsets of the larger set. Then to each of those sets,
+we can add the one new element to produce all the new subsets. We thus
+have double the original number of subsets. So if the cardinality of
+the powerset of *S*, of cardinality *n*, was :math:`2^n`, then the
+cardinality of the set *S* plus one new element is :math:`2 * 2^n`,
+which is :math:`2 * 2^n`. We know that the powerset of the empty set
+has cardinality *1*, and from there for each element we add we double
+the size of the powerset, so the formula holds for sets of any finite
+size!
+
+The rule holds for sets of size zero, and whenver it holds for sets of
+size *n* it also holds for sets of size *n + 1*, so it must hold for
+sets of every (finite) size. What we have here is an informal *proof
+by induction* of the mathematical proposition, that: :math:`\forall S,
+|{\mathbb P}(S)| = 2^{|S|}`.
+
+In Dafny, there is no explicit powerset operator, but we know exactly
+how to implement one of our own. The concept can be expressed in a
+very elegant way using a set comprehension. The solution is simply to
+say *the set of all sets that are subsets of a given set, *S*. In
+mathematical notation, :math:`{\mathbb P}(S) = { R | R \subseteq S }.`
+In Dafny it's basically the same expression.
+
+The follwing three-line program computes and prints out the powerset
+of *S = { 1, 2, 3 }*.  
+
+.. code-block:: dafny
+
+   var S := { 1, 2, 3 };
+   var P := set R | R <= S;
+   print P;
+
+Exercise: Write a polymorphic function method, *powerset<A>(S: set<A>)
+in Dafny that when given a value, *S*, of type set<A> returns its
+powerset. You have to figure out the return type: think "set of sets".
+		
 
 

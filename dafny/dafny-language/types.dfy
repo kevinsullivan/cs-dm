@@ -53,7 +53,7 @@ method SetPlay()
     var b2 := primes <= primes;   // subset
     var b3: bool := primes !! squares; // disjoint
     var union := primes + squares;
-    var intersection := primes * squares;
+    var intersection := primes * squares; //intersection
     var difference := primes - {3, 5};
     var b4 := primes == squares;    // false
     var i1 := | primes |;   // cardinality (5)

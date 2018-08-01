@@ -3,13 +3,15 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Mathematical Logic in Software Development
-=====================================================
+Discrete Mathematics: A Computational Approach
+==============================================
 
 .. toctree::
    :maxdepth: 3
+   :numbered:
    :caption: Contents:
 
+   00-preface
    01-reqs-specs-impls
    02-logic-and-code
    03-problems-with-imperative-code
