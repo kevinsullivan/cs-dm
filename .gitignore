@@ -20,6 +20,8 @@ old
 .vscode
 
 
-kev
+/kev/
 
-notes/_build
+_build/
+
+temp/
