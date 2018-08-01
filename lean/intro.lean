@@ -1812,7 +1812,7 @@ Give it a try.
 -/
 
 def swap(aPair: nat × string): (string × nat) := 
-    _
+    sorry //_
 
 -- When the code is complete, this test will pass!
 theorem swapTest1: swap (5, "hi") = ("hi", 5) := rfl

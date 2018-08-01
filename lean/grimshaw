@@ -1,0 +1,103 @@
+Discussion with Andrew, Thursday, 4-5PM+.
+
+A component: a VM image configured in some way, so that I can assert "the file system is encrypted at rest"
+
+====
+
+Formal specification, design, implementation, operation, optimization, and evolution of self-monitoring, -controlling, and -optimizing, conditionally formal-property-certified,  platform-supported, cyber-social systems processes. Transform specifications not only into DevOps set-up scripts, per earlier comments below, but into schemes for adaptive monitoring, telemetry, analytics, using consistently propertied sub-processes to optimize given objective functions using available controls and influence. Such a cyber-social system will self-optimize in light of accumulating data taken from monitor observations. Monitoring can report on self, influence of environment on self, and environment, and the use of controls and influence can be applied to self, relationship, environment. Among other things, some objectives might dictate the need to learn more about the environment in order to be able to better optimize in its context. Such systems can experiment on the self and environment.
+
+====
+
+Kevin: Predicates on components. Evidence carried inboth analog/precise and logical/rounded,
+i.e., digital, namely Boolean, forms. Logical/rounded forms generally represent with loss of information. We refer to it as roundoff error. Logical forms are formally introduced by truth judgments decided by people. People can consider formal proofs as evidence, which are taken as sound proofs, but might also be willing to stipulate claims as logical axioms even in absence
+of formal proofs. When formal proofs of formal propositions cannot practicably be provided to complex software objects, a weakened approach that maintains formality of propositions, but
+equips them with logical truth judgments stipulated on the basis of available evidence on any kind and standards of evidence. For example, a security analyst might stipulate the truth of a proposition about the security of some component, not on the basis of a formal proof of the formal proposition, but by agreeing to introduce an axiom, which thereby becomes available for use in subsequent reasoning steps. It is always recognized, however, that in general there is loss (and possibly distortion) of information across the gulf between analog evidence and the truth judgment that signals its acceptance as adequate to provisionally justify its use in further logical argumentation. The loss can perhaps be visualed as the loss when a random variable with a non-Boolean distribution is mapped to a logical truth value: zero or one. Information roundoff can occur. The information that is lost in this transformation, which
+we will call a "difference," should be preserved, to inform the provisos that are delivered
+along with the final judgment. What information would otherwise be lost, and should therefore
+be preserved, is preserved not in logical judgments, but in other, possibly diverse, data structures, e.g., natural language texts, video, test results, controlled experiment data, expert assessments, etc. The idea is to build a logic for logical reasoning with provisos, that produces at the end of an inference, a judgement/proviso pair. The proviso explains
+how each difference in information not carried through proofs, might invalidate logical judgments. The difference often cannot practically be eliminated, but has to be provided and ideally explained to the analyst. Concrete example: an expert-estimated reliability of five nines might is sufficient to assert that a component satisfies its reliability specification.
+But in addition to establishing an axiom, maybe something like, "HasSecurityProperty(c, s),"
+our approach also packages up, in a Proviso, an explanation that a certain evidentiary basis and standard of evidence was employed to justify introducing the axiom for purposes of
+deductive reasoning. Inference rules are functions from multisets of (proof,proviso) pairs
+to (proof,proviso) pairs. The semantics explains how provisos are transformed by application
+of inference rules, just as they explain how proofs are processed into other proofs.
+
+So we've got that. Now add to it the concept of certified system instances as members of
+typeclasses that specify the forms, behaviors, and invariants of useful classes of systems,
+instances of which are "implementations." Then a specification-to-implementation function, a semantics of sorts, that, when given a PPD or something similar, returns a certified system structure / implementation. The structure could be represented in a form that is in turn some DevOps-like system configuration set-up script.
+
+====
+
+Kevin: Why not just adopt the approach of a Pitt, NCSU, Duke?
+
+====
+
+From a networking perspective, all ports except x, y, z are blocks. Locked down network. Restricted port access.
+
+To combine with VLANs, might also want to say about a VM image OS will only accept comms from certain IP addresses.
+
+Components are also like software packages. Service-layer packages. All data is encrypted in flight. If accessing data through GFFS, it guarantees that all traffic in and out is encrypted(X), where X is some enc std
+
+All comms are authenticated, certified cryptographically.
+
+Identities are X.509, 2048 bits. Delegated, signed SAML assertions. Authentication objects (idenity management systems) generate these assertions.
+
+Containers can have same kinds of properties.
+
+Want to support different containerization systems: VMs, Docker containers, etc. 
+
+Properties of components can depend on environment in wihch they operate: 
+
+Spectre/Meltdown showed that isolation properties once believed to hold actually didn't.  
+
+Web services is a container. Apache access containers. Have to make assumptions about TLS. 
+
+Peer relationships. Containing/container relationships. Often at mercy of container.  There's the OS that a container is running on. If it's compromised, all bets are off for the container.
+
+Physical hosts are things. THey have hypervisor. OS runs HV. HV runs VM. VM runs processes.
+
+Example: Have cluster. want to allocate/configure 4 local nodes, one remote node, vlan, so that they and only they can talk to/over the vlan, enforced by combination of vlan and their os settings. also have storage that they can talk to through vlan. constraint is that they have to be on same switch fabric to do this. (Alternatively?) Include host at another school (VCU) among those that can talk over the vlan. four hosts + file manager in virtually isolated environment, maybe other nodes in same rack, but with no way to access nodes on vlan. if vlan gets compromised, others can get data, so we also encrypt everything, for defense in depth. some people won't need both, and will be willing to use one or the other (cost is latency, switches can be limited in number of vlans that can run at once, etc)
+
+Machines can have certificates. CPU ID instructions tie certificate to machine with given ID.
+
+====
+
+Demo projects
+
+CUI/Non-CUI, want to move machines between
+
+LAMPS - 3D molecular modeling code, widely used 
+TENSORFLOW - make available through command-line and web-based interfaces
+ARABATA - gateway toolkit from Indiana
+
+Security and attack models are key
+
+If you're going to federate, require everyone to use same single Unix domain, experience with multi-organizational is that this is a non-starter
+
+AG focused on classical access control, not so much on privacy
+
+Ability to certain apps, Security, Privacy, Usability, Flexibility to reallocate accross boundaries
+
+With PPD (poicies) and job document (resource needs) plus information from factories about what can be produced and what properties it will have, you know what has to be true for data, access control, we have data-centric view
+
+gen: PDDL (XMACL?) -> RDL (Glue2) -> JDL (JSDL) -> set-up (Ansible) -> constructed environment handle
+
+JSDL will describe where -- two nodes, four GPUs, each, so many GB memory, can verify we're on a particular CPU, can certify that it has required properties to be connected to sensitive data
+
+How do VLANs actually get set up; VLAN had affordances; 
+
+set-up needs to be interpretable, might want to see stdout, need set of affordances to interact with set-up
+
+Resources with given properties are obtained from factories
+
+Repository has PPDs, resources via factories, datasets
+
+Provisioner 
+
+User log on, ppd says what properties must hold when job is created for project, 
+
+====
+
+Kevin: Need something like Simulink for infrastructures but with a
+formal semantics.
+
