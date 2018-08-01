@@ -1,5 +1,3 @@
-def x: ℤ  := 5
-
 inductive natural : Type
     | O: natural 
     | S: natural -> natural
@@ -39,11 +37,10 @@ def plus_natural: natural -> natural -> natural -- KEVIN: Introduce → types in
 | O n2 := n2
 | (S n1') n2 := S (plus_natural n1' n2)
 
-def mult_nat: natural -> natural -> natural -- KEVIN: Introduce → types in very first unit
+def mult_natural: natural -> natural -> natural -- KEVIN: Introduce → types in very first unit
 | O n2 := O
-| (S n1') n2 := plus_natural n2 (mult_nat n1' n2)
+| (S n1') n2 := plus_natural n2 (mult_natural n1' n2)
+
+#eval mult_natural (S (S O)) (S (S (S O)))
 
 -- HOMEWORK: minus, exponentiate
-
-def mult_natural (n1 n2: natural): natural := sorry
-
