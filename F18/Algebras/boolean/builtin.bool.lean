@@ -1,52 +1,108 @@
-namespace cs2102
-
-/-
-SUMMARY
-
-In this chapter you will meet the following general concepts made concrete through a case study
-of boolean algebra. Boolean algebra should already be familiar from your study of this algebra 
-and its application to conditions and decisions in your CS 1 class.
-
-- types and values of given types
-- inductive definitions of types and their values
-- tuple types and their values
-- relations and functions (set theoretic view)
-- functional programs as implicit representations of functions
-- proof strategies:
-  * by simplification and reflexivity of equality
-  * by exhaustive case analysis
-- algebras
-- case study: boolean algebra
-  * inductive definition of the type of booleans
-  * functions on booleans
-  ** unary functions on booleans
-  ** binary functions on booleans
-  ** a ternary function: if then else (tbd)
--/
-
-
-/-
-An algebra is a set, A, of values of some type, along with a number of functions, 
-f_i, that are closed over A. By the phrase, closed over A, we mean that each such 
-functions takes values in A as its arguments and returns values in A as its results.
-
-In this chapter, we make this concept clear through the study of two important 
-examples: Boolean algebra and the arithmetic of natural numbers. We characterize each 
-algebra by first defining its set, A, of values, and by then defining a set of functions 
-that are closed on that particular set.
-
-In the course of studying these two simple algebras, for which you already have strong 
-intuition, we will encounter two of the most interesting and useful ideas in all of computer
-science  and discrete mathematics: the inductive definition of sets of values, which we will 
-call types, and the recursive definition of functions taking and returning values of
-these types.
--/ 
-
 /- TYPES AND VALUES: Case study of the boolean type -/
 
 /-
-A type defines a set of values and each such value has exactly that one 
-type. It is important when reading and writing mathemtical logic (and code)
+In Lean, Every value, and indeed every expression that represents some 
+value, has exactly one type. A type in turn defines a set of values,
+namely the set of all and the only values of the given type. 
+
+For example, in Lean, the Boolean values, tt and ff (for "true" and "false")
+are the two and only values of the type called bool. 
+
+In Lean, you can always check the type of any expression, including any
+literal value, by using the #check command. Hover your mouse pointer over 
+the #check command to see its output.
+-/
+
+#check tt
+
+/-
+The output of this command is what we call a "type judgement". In
+particular, it is the type judgement, "tt : bool." You can read this
+as saying "the type of tt is bool".
+-/
+
+/-
+EXERCISE: use #check to confirm that the type of ff is also bool.
+-/
+
+/-
+Through its libraries, Lean provides many operations on Boolean values.
+These include the usual "and", "or", and "not" operators familiar from
+CS1. For example, "band tt ff" is an expression in Lean that applies the
+Boolean "and", or conjunction, operator to the Boolean values tt and ff 
+to compute a new Boolean value.
+-/
+
+/-
+EXERCISE: What is the type of the expression, "and tt ff"?
+-/
+
+#check band tt ff
+
+/-
+EXERCISE: The Boolean "or", or disjunction, operator is written
+(between its arguments) as bor. What is the type of the expression
+for the disjunction of tt and ff? Use #check to confirm your answer.
+-/
+
+/-
+Part of magic of computers is that they can not only tell you
+the type of an expression; they can also generally tell you what
+value it reduces to when you "evaluate" it. In Lean, you can
+use the #eval command to see the value of an expression.
+-/
+
+#eval band tt ff
+
+/-
+EXERCISE: Use #eval to evaluate the disjunction of tt and ff.
+-/
+
+/-
+The notation bnot b is used to represent the negation of a Boolean 
+expression, b. 
+-/
+
+#check bnot tt
+#eval bnot tt
+
+/-Write a Lean expression for what we
+would informally say as "the negation of the conjunction of true
+and false". Use parenthesis to group the band operator and its
+arguments. Then use #check to check the type of this expression,
+and use #eval to reduce it to a Boolean value.
+-/
+
+/-
+At this point, you should have a good feeling: you have learned
+about types, values, operators that are closed on values of a 
+type, and expressions involving these operators and values. What 
+you are seeing is the "algebra" of Boolean values, formalized in 
+Lean, and amenable to automated type checking and evaluation.
+-/
+
+/-
+Now it's one thing to use a computerize algebra built in to a
+programming system, such as Lean or Python, that someone else has
+given you, but it's another thing altogether to understand how to 
+define an algebra yourself. Seeing how to do that is the purpose
+of the next unit. And we might as well proceed by implementing
+our own version of the Boolean algebra we just saw.
+-/
+
+/-
+The set of values of a type are defined by "constructors". 
+A constructor provides a way to "build" a value of a type. It has a
+name, and possibly some arguments  
+-/
+
+inductive bool : Type
+| ff : bool
+| tt : bool
+
+
+/-
+It is important when reading and writing mathemtical logic (and code)
 to be very clear about the types of the values that are being discussed or
 manipulated. We already have strong intutions for many important types. They
 include the booleans, the natural numbers (the non-negative integers), the
@@ -83,9 +139,6 @@ We have written this set using "display notation", where we list the
 elements of the set separated by commas and enclosed within curly braces. 
 -/
 
-inductive bool : Type
-| ff : bool
-| tt : bool
 /-
 The observant reader will see another type judgment in this expression:
 we are specifying boolean to be a value of type, "Type". "Type" is the
