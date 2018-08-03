@@ -312,20 +312,20 @@ following command opens the namespace of the bool type in the root
 environment. But it's already open so the command has no further effect.
 -/
 
-/-
-That was a bit of a diversion but luckily we only need to say it
-once. From this point forward, we'll assume that you can come 
-back to this chapter if you have any questions about namespaces
-in Lean.
--/
-
 open bool
 
 /-
 In this command, bool refers the type defined in the root
-namespace. But its namespace is already opened. Opening it
-again isn't an error, but it has no effect in the current
-environment. 
+namespace! The takeaway is that when you use an open command,
+you should always use a fully qualified name. But the namespace
+of the bool type in the root namespace is already opened. Opening 
+it again isn't an error, but it has no effect. 
+-/
+
+/-
+The interested reader may (but is not expected to) refer to the
+Lean reference manual for additional information on namespaces.
+https://leanprover.github.io/reference/other_commands.html#namespaces
 -/
 
 /- 
