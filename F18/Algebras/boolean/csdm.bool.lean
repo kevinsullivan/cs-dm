@@ -653,6 +653,7 @@ the prevailing binding of the identifier, b, to the value of the
 bool argument to which the function is applied in any given case. 
 -/
 
+
 /-
 EXERCISE: Write pure functional programs called false_bool and
 true_bool, respectively, each of which takes a bool argument and
@@ -686,12 +687,16 @@ you true_bool and false_bool programs.
 A function application expression is an expression written 
 as a function name (or more generally as an expression that
 reduces to a function value)) followed by an expression that 
-reduces to a value that is taken to be an an argument to the 
-given function. 
+reduces to a value that is taken to be the argument to the 
+function. 
 
 The simplest form of a function application expression is
 just a function name applied to a so-called "literal value"
-of the required type. Here's an example in which id_bool is
+of the required type. In the function application expression,
+"id_bool tt", you see first a function name, the "variable",
+id_bool, followed by the literal expression, tt.
+
+Here's an example in which id_bool is
 applied to the literal value, tt. By hovering over the
 #reduce command, you can see the value to which this
 function application expression is reduced.
@@ -740,6 +745,12 @@ okay here to write tt without qualifiers in the expression,
 id_bool tt?
 -/
 
+/-
+EXERCISE: Explain in precise, concise English exactly 
+how your true_bool program is evaluated when applied to
+the argument given by the literal expression, tt.
+-/
+
 
 -- FUNCTION TYPES
 
@@ -754,79 +765,313 @@ of that same type.
 #check id_bool
 
 /-
-Test cases for this function. A test case asserts that the result actually 
-obtained by applying some function to arguments is the result that is 
-expected if the function definition is correct. Here's a test case for id_bool. 
-It's a little "putative theorem" called T_id_T that asserts that the result 
-of applying id_boolean to T is T. To the right of the := is a proof: the term 
-"rfl". This term serves as a proof that any value is equal to itself, and it 
-takes care of reducing expressions to values before deciding whether it sees
-"the same" value on each side of the = sign. Here, the application of id_boolean 
-to T reduces to T, and T = T, so rfl can serve as a proof that id_boolean T = T. 
--/
-theorem T_id_T: id_bool tt = tt := rfl
-
-/-
-Exercise: Write and prove a theorem called oeqo stating that 1 = 1.
+EXERCISE: First mentally determine the types of your false_bool
+and true_bool functions, and then use #check commands to test
+your predictions.
 -/
 
--- answer
-theorem oeqo: 1 = 1 := rfl
+-- TESTING FUNCTION IMPLEMENTATIONS FOR CORRECTNESS
 
 /-
-PROOF BY SIMPLIFICATION AND THE REFLEXIVE PROPERTY OF EQUALITY
--/
+Whenever we write programs that are meant to compute values
+of functions for given arguments, the question arises, did
+we represent/implement the intended function correctly?  
 
-/-
-What we see here is "proof by simplification" combined with an appeal to the reflexive 
-property of equality: that everything is equal to itself! Don't worry if this all seems a 
-bit mysterious at this point. We'll get into it in more detail in chapters to come.
--/
+An important observation is that the question presumes
+that we have a definition of a function to be implemented
+against which the correctness of the implementation can
+be evaluated. 
 
-/-
-Exercise: See what happens if you try to use rfl as a proof of 1 = 2
-by uncommenting the following line. 
--/
---theorem oeqt: 1 = 2 := rfl
-
-/-
-Hover your mouse over the red lines.
-You don't need to understand the error messages that will be revealed.
-You should note that somehow rfl is of the the wrong *type* to be a proof
-of 1 = 2. Indeed, there is not proof of the "proposition", 1=2, because,
-of course, it's simply not true!
--/
-
-
-
-
-/- PROOF BY CASE ANALYSIS -/
-/-
-Exercise: How many test cases do we need to "prove" that the function works correctly for all possible inputs of type boolean. (Hint: how many such inputs are there?) Write any
-additional test cases need to prove that our definition of the identity function works as 
-we expect it to. 
+Consider our implementation of id_bool? Against what 
+specification should its correctness be determined? 
+Here the best answers are that we can evaluate the 
+correctness of id_bool against either the truth table 
+or the equivalent set-theoretic definition. The tuples 
+in the definition of the function, (tt, tt) and (ff, ff), 
+tell us what result to *expect* for each argument value: 
+expect tt when given tt as an argument and expect ff 
+when given ff as an argument.
 -/
 
 /-
-Congratuations, you have now constructed a "proof by case analysis" by providing that
-the result of applying id_boolean to *any* boolean value is that same value. You have 
-thus shown that the functional program correctly implements the identity function for
-*all* booleans by showing that it works for each case individually. There were only two 
-cases to consider: when the argument is T, and when the argument is F. As the function has 
-been shown to behave properly in each of these cases, we conclude that it works properly 
-*for all* values of its argument type.
+The process of software *testing* is one in which a
+program is evaluated for one or more argument values
+and the actual results are compared with the expected
+results to identify any discrepancies. A single pair,
+(argument value, expected result) is called a *test
+case*. The tuples in our set-theoretic definition
+of id_bool can thus serve as test cases. Consider
+the tuple, (tt, tt). Viewing it as a test case tells
+us that we should expect that "id_bool tt = tt." 
+-/
 
-Proof by case analysis often works well when you want to prove that something is true for every element in a finite set of elements. It isn't an appropriate proof strategy when 
-the set of values to be considered is infinite, as it would be impossible to test every
-individual case. For example, in general you can't prove that a functional program is
-correct that takes any natural number as an argument, because there is an infinity of
-such argument values. When faced with this kind of challenge, another proof strategy is
-need, which goes by the name of "proof by induction." More on that later!
+-- PROPOSITIONS AND PROOFS
+
+/-
+A claim like this---an assertion that a certain state
+of affairs holds in a given situation, here the assertion
+that if we evaluate id_bool with argument tt the result 
+will be tt---is what in logic we call a proposition. 
+
+A proposition is a truth claim. A proposition can thus
+be true, or false, or, in some logics the truth of a 
+given proposition can be indeterminate. In any case, 
+establishing the truth of a proposition requires what
+we call a proof.
 -/
 
 /-
-Defining functions by cases. Here's the boolean "not" function. First, the truth
-table, then the computation.
+The real power of Lean is that in addition to letting
+us write programs, it also let us write propositions
+and proofs, and it checks that proofs are correct.
+Here, the proposition for which we want a proof is
+the proposition, id_bool tt = tt. We can write and
+prove this proposition in Lean as follows.
+-/
+
+theorem id_bool_correct_for_tt: id_bool tt = tt :=
+    rfl
+/-
+We introduce a proposition and its proof with the
+keyword, theorem. Technically theorem is just the
+same as definition: it's a way to say we're about 
+to define a value but we intend for that value to
+be a proof of some proposition 
+
+Following this keyword we give a name to the proof 
+that we intend to define: id_bool_correct_for_tt.
+
+Next, after the colon comes the proposition itself:
+here, id_bool tt = tt. 
+
+Next comes a :=. Finally we write the proof: here 
+the cryptic term, rfl. 
+-/
+
+/-
+PROOF BY SIMPLIFICATION AND THE REFLEXIVE PROPERTY
+OF EQUALITY
+-/
+
+/-
+Proofs come in many forms. As a mathematician,
+you learn what forms of proofs work for what
+kinds of propositions. Here we have propositions
+that two expressions reduce to the same value.
+To construct such a proof, you first reduce each
+expression to a value. The expression id_bool tt
+reduces to tt. The expression tt reduces to tt 
+(it's alrady reduced to a value). Then what 
+you have is the proposition, tt = tt. But 
+that is true by the reflexive property of
+equality: for any value x, no matter what it 
+is, x = x. So tt = tt. The proposition is
+thus proved.
+-/
+
+/--/
+You thus read "rfl" as saying what a mathematician
+would pronouce as, "by simplication of expressions 
+and the reflexive property of equality." 
+
+The fact that Lean accepts rfl as a proof (value)
+provides a very strong mechanized check on the 
+correctness of the proof.
+-/
+
+/-
+EXERCISE: Use Lean to state and prove the proposition
+that id_bool ff = ff.
+-/
+
+/-
+EXERCISE: Write a similar definition, bad_proof_1,
+asserting that there is a proof of the proposition,
+id_bool tt = ff. Does Lean accept the proof? What 
+error messages does Lean report?
+-/
+
+-- YOUR WORK HERE
+
+/-
+The red under rfl indicates a "type mismatch", stating
+that rfl was expected to be a proof that something
+(here given the arbitrary name m_2) is equal to itself,
+but that (in so many words) the things asserted to be
+equal are not equal. 
+
+The red under bad_proof states, in effect, that the
+name, bad_proof, was expected to be bound to a proof
+of some proposition, but it is not so bound (due to
+the preceding error).
+
+A proposition that is false has no proof. To see that
+rfl cannot be a proof of id_bool tt = ff, observe that
+id_bool tt reduces to tt, so the proposition reduces 
+to tt = ff, but tt and ff are not equal, and so rfl is
+not a valid proof: it can only be used to prove that
+two values are equal to themselves. In the logic of 
+Lean, different constructors *always* build different 
+values -- values that are never equal to each other --
+so ff cannot be equal to tt. The proposed proof, rfl,
+is thus rejected. 
+-/
+
+
+/-
+EXERCISE: Give a proof, call it one_equals_one, for 
+the proposition, 1 = 1.
+-/
+
+-- YOUR WORK HERE
+
+/-
+EXERCISE: Attempt to give a proof, using rfl, of the
+proposition that 1 = 2. What happens. Investigate and
+briefly explain in plain English the meanings of the
+error messages that are reported.
+-/
+
+
+/- UNIVERSAL QUANTIFICATION AND PROOF BY CASE ANALYSIS -/
+
+/-
+Testing that a program is corect for one input, which is
+what a test case asserts, does not prove that it is correct
+for all possible inputs, unless there is only one possible
+input, in which case the function is pretty much useless.
+The kind of propositions that we really want to prove are
+ones that claim= a program is correct *for all* possible
+inputs. 
+-/
+
+theorem id_bool_correct: 
+  ∀ b: bool, id_bool b = b 
+    | tt := rfl
+    | ff := rfl
+
+
+
+
+/-
+We once again give our proof a name that reflects the 
+proposition that it proves: here, id_bool_correct. We
+are claiming that the function is correct for every
+possible input. On the second lines is the proposition
+itself. The "universal quantifier", ∀, pronounced as
+"for all", or "for every", or "for any". It is followed 
+by a variable, b, and its type, bool. So far we can thus
+pronounce the proposition as saying "for any value, b, 
+of type bool." Then comes a comma followed by the rest
+of the proposition: namely, the claim that, for any
+such b, id_bool b = b. The "b" in this part of the 
+proposition is the b "bound" in the quantifier part 
+of the expression. The whole proposition thus covers 
+all possible cases, and reads, "for any boolean value,
+b, id_bool b is equal to b." 
+
+We can't use rfl directly as a proof, because the 
+form of the proposition is not a simple assertion
+of equality of the values of two expressions. It is
+instead a "universall quantified" proposition
+
+The remainder is the code instead gives a "proof by 
+case analysis." We show that for each possible value
+of b considered in turn, the claim that id_bool b = b
+is true. 
+
+Because there are only two values of type bool, there 
+are two cases: one where b is tt, and one where b is 
+ff. 
+
+Each case starts with a vertical bar, followed by the 
+case (the value of b) being considered. Then comes a
+:=, and followed by a proof for that case. 
+
+Consider the first case, in which b is bound to tt. 
+In this case, making this subsitution in the "body"
+of the proposition gives us id_bool tt = tt. For 
+this proposition, we already have a proof! It's rfl.
+The same holds true for the second case. 
+
+As we've now given a proof for each individual case, 
+we've given a proof "for all" cases, showing that
+the overall quantified proposition is true. Proving
+universally quantified propositions about software
+correctness is called formal verification, and is a
+state of the art approach to producing ultra-high
+quality code. Such a high standard of correctness
+is not always necessary or practical, but when 
+lives or nations depend on correctness of code, it
+is a "gold standard" approach to software quality. 
+-/
+
+/-
+EXERCISE: In a similar style, state and prove the
+proposition that every natural number, n, is equal 
+to itself. Call your proof nat_refl. You can get
+the ∀ character (the universal quantifier, for all)
+in Lean by typing \forall followed by a space.
+
+NOTE: You don't know how to write such a proof 
+yet, so just write "sorry" instead. This tells
+Lean to accept the proposition as being true
+even though you haven't yet given a proof (and
+even if it's actually not even true). You are
+saying, "accept the proposition without proof",
+or "accept it as an "axiom." An axiom is any
+proposition that is accepted without a proof.
+
+This is really just an exercise that asks you
+to write a proposition in Lean using a ∀.
+-/
+
+-- theorem nat_refl: ∀ n: nat, n = n := sorry
+
+/-
+EXERCISE: State a proposition and give a proof
+in Lean for the proposition stating that for
+*every* possible argument, b, to false_bool,
+false_bool b = false. Similarly prove that
+your implementation of true_bool is correct
+with respect to our understanding of how it
+should behave.
+-/
+
+
+
+/-
+Exercise: How many test cases do we need to "prove" that 
+the function works correctly for all possible inputs of 
+type boolean. (Hint: how many such inputs are there?) 
+Write any additional test cases need to prove that our 
+definition of the identity function works as we expect 
+it to. 
+-/
+
+/-
+Proof by case analysis often works well when you want to 
+prove that something is true for every element in a finite 
+set of elements. It isn't an appropriate proof strategy when 
+the set of values to be considered is infinite, as it would 
+be impossible to test every individual case. For example, 
+you can't prove that a functional program that takes a 
+natural number as an argument is correct by giving a proof
+for each natural number in turn because there is an infinity
+of such values. Another proof strategy would be need. It 
+goes by the name of "proof by induction." More on that later!
+-/
+
+-- THE MAJOR FUNCTIONS OF BOOLEAN ALGEBRA
+
+/-
+So far we have implemented three of the four unary functions
+of Boolean algebra. The remaining one is usually called "not"
+or "negation." We will give it the name, negb. Given one of 
+the two Boolean values as an argument, negb returns the other.
+
+The set-theoretic definition is negb = { (tt, ff), (ff, tt) }.
+The truth table depicts this definition graphically. 
 
  Arg Ret
 +---+---+
@@ -834,35 +1079,96 @@ table, then the computation.
 +---+---|
 | F | T |
 +---+---+
-
-{ (T, F), (F, T) }
 -/
 
-def neg_boolean (b: bool): bool :=
+/-
+We don't yet have the tools needed to implement this function.
+The tool we need is called pattern matching. It's just a form
+of case analysis! Here's the code.
+-/
+
+def negb (b: bool): bool :=
   match b with 
     | tt := ff
     | ff := tt
   end
 
 /-
-What is a function? A truth table view. Binary relations. Single valued. Total.
+We define negb to be a function that takes a Boolean value and
+returns a Boolean value. That is, the type of this function is,
+like the others we've defined so far, bool → bool. The thing that
+is different about this function is that we have to inspect the
+argument value to determing what result to return. We do that by
+case analysis! What the body of this function says is "match the
+value of b with each of its possible cases. THe first case is tt,
+and in this case (after the :=), the return value is given by
+the expression ff. Similarly, for the case, ff, the result is tt.
+There are no more cases, and so this function has given a result
+value "for every" possible value of b. This is thus a definition
+of a total function by case analysis!
 
- Arg Ret
-+---+---+
-| T | T |
-+---+---|
-| F | F |
-+---+---+
-
-{ (T, T), (F, F) }
+(You get the → symbol in Lean by typing \to. EXERCISE: Try it.)
 -/
 
 /-
-Binary functions: case study of the boolean "and" function
+EXERCISE: Write a second implementation of id_bool, call it
+id_bool', using case analysis. Prove by case analysis that it 
+is correct with respect to its expected behavior.
+-/
 
-A truth table view. Binary relations. Single valued. Total.
+-- FUNCTION TYPES
 
- Arg Ret
+/-
+In Lean, every function is required to be total. That is, a
+function must define how to construct a return value of the
+specified type "for every" value of its argument type. The
+four unary functions we've seen so far all do this. For every
+value of type bool, each of them returns a value of type bool.
+We've seen that you can write this type as bool → bool, but
+another way to write it is, ∀ b: bool, bool. This just says,
+for every value of type bool you can give me, I promise to
+give you back a value of type bool. Hover over the #check
+that follows. You will see that we have just found two ways
+to write the same function type.
+-/
+
+
+#check ∀ b: bool, bool
+
+/-
+EXERCISE: Use a universal quantifier to write and check the
+type of functions from natural numbers to bools. An example
+of such a function would be one that took any natural number
+and returned tt if and only it it was even, and ff otherwise.
+-/
+
+#check ∀ n: nat, bool
+
+/-
+THE BINARY OPERATORS OF BOOLEAN ALGEBRA
+-/
+
+/-
+Binary operations of an algebra are functions that take two 
+arguments of a given type (such as bool) and that return a
+value of that same type. The conjunction, aka and, operation
+in Boolean algebra is an example. It takes two Boolean values
+as arguments and returns a Boolean result. If both arguments
+are true, its result is true, otherwise it is false. This
+behavior is reflected in  the following set-theoretic and 
+truth table specifications. We will call the function andb. 
+
+
+andb = { ((T, T), T), ((T, F), F), ((F, T), F), ((F, F), F) }
+
+Note that we again give the function as a set of argument/result
+pairs, but now each argument is itself a pair of values.
+
+
+
+A truth table view:
+
+    andb
 +---+---+---+
 | T | T | T |
 +---+---|---+
@@ -872,9 +1178,19 @@ A truth table view. Binary relations. Single valued. Total.
 +---+---+---+
 | F | F | F |
 +---+---+---+
+-/
 
-{ (T, T, T), (T, F, F), (F, T, F), (F, F, F) }
-
+/-
+We already have all the tools but for one to implement this
+function. The one tool we need is pattern matching (i.e., case
+analysis) for *pairs* of argument values. This following code
+shows how to do this. Instead of matching on one value, b, we
+now match on the comma-separated pair of values, b1, b2; and
+each case now corresponds to a possible pair of argument values.
+There are four possible pairs of Boolean values, and so there 
+are four cases to consider. Note how the visual organization
+of the code reflects the truth table contents (and thus the
+equivalent set-theoretic definition nearly directly.)
 -/
 
 def and_boolean' (b1 b2: bool): bool :=
@@ -884,6 +1200,17 @@ def and_boolean' (b1 b2: bool): bool :=
         | ff, tt := ff
         | ff, ff := ff
     end
+
+/-
+It's often the case (ha ha) that in a case analysis, one
+case stands out and several others or all the rest can be
+considered at once. To define "andb" all we really have to
+say is "if b1 and b2 are both true, the result is true, and
+in any other case the result is false." In Lean and in many
+other functional programming language, we can write cases
+analysis using "wildcards" (here underscores) that match
+any values not considered in previous cases.
+-/
 
 def and_boolean (b1 b2: bool): bool :=
     match b1, b2 with
@@ -898,19 +1225,17 @@ EXERCISES:
 1. Write definitions of the following binary functions on booleans in the form of
 (a) sets, using display notation, (b) truth tables, (3) functional programs.
 
-* or
-* xor
-* nand
-* implies
-* nor
+* or -- false if both arguments are false, otherwise true
+* xor -- true if either not both both arguments are true
+* nand -- the negation of the conjunction of the arguments
+* implies -- false if b1 is true and b2 is false otherwise true
+* nor -- the negation of the "disjunction" of its arguments
 
-2. By the method of case analysis prove that at least two of your programs are
+2. By the method of case analysis, prove that your "or" and "xor" programs are
 correct with respect to your truth table definitions, i.e., that they produce the
 outputs specified by the truth tables for the given inputs.
 
-3. What could still go wrong? Explain.
-
-4. How many binary functions on booleans are there? Justify your answer. Hint:
+3. How many binary functions on booleans are there? Justify your answer. Hint:
 think about the truth tables. The set of possible arguments is always the set of
 pairs of booleans. How many different ways can these arguments be associated with
 boolean results?
@@ -929,11 +1254,12 @@ in the set.
 The set of values in the case of boolean algebra is the set containing the two truth
 values, true and false, or T and F as we have called them here. The operations of 
 boolean algebra include the operations that we have studied here, including the four
-unary operations, the sixteen binary options, and so forth. Indeed, in a sense, this
-file as a whole provides a computable definition of boolean algebra. It provides 
-computable definitions of both the boolean type, comprising the set of two boolean 
-values of type boolean, and a collection of unary and binary functions that are closed 
-on this set.
+unary operations, the sixteen binary options, and so forth. 
+
+Indeed, in a very strong sense, this file as a whole provides a "runnable" definition 
+of Boolean algebra. It provides definitions of both the boolean type, comprising the 
+set of two boolean values, and a collection of the unary and major binary functions 
+closed on this set.
 -/
 
 /-
@@ -944,16 +1270,18 @@ SUMMARY
 - tuple values and tuple types
 - relations and functions (set theoretic)
 - functional programs
+- propositions
+  * about equality of terms
+  * universally quantified propositions
 - proof strategies:
   * by simplification and reflexivity of equality
-  * by exhaustive case analysis
+  * by case analysis
 - algebras
 - case study: boolean algebra
   * inductive definition of the type of booleans
   * functions on booleans
   ** unary functions on booleans
   ** binary functions on booleans
-  ** a ternary function: if then else (tbd)
 -/
 
 
