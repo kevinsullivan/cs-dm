@@ -12,6 +12,8 @@ the following:
 - namespaces and name disambiguation
 - inductive definitions of types (thus of their value sets)
 - sets, product sets, tuples, binary relations, and functions
+- explicit type declarations and type inference
+- function types and function values
 - functional programs including pattern matching and evaluation
 -/
 
@@ -120,21 +122,31 @@ native to Lean. So let's dig in.
 A type definition establishes a new definition for the name of the
 type, here bool. It also implicitly defines its own namespace, nested 
 within the prevailing namespace, within which the constructor names
-are defined. In the current environment, the name bool is thus really cs2102.bool, and the names of our constructors, tt and ff, are really
+are defined. In the current environment, the name bool is thus really 
+cs2102.bool, and the names of our constructors, tt and ff, are really
 cs2102.bool.tt and cs2102.bool.ff. Like many programming languages,
 Lean provides defaults that often let us leave off the "qualifiers,"
 with Lean figuring out what we mean by context. 
 -/
 
+-- EXPRESSIONS, TYPES, AND LITERAL EXPRESSIONS, IN PARTICULAR
+
 /-
 The #check command in Lean can be used to determine the type of an
-identifier, value, or expression. Hover your mouse over the #check
-command. Lean will tell you that the type of bool is Type. Yep, a
-type, such as bool, is itself a value, and so has a type, and the
-type of a type is Type! Moreover, as the following command shows, 
-the name, "bool", refers, in the current contexts, to our local 
-definition of bool, which we can write out in full as cs2102.bool,
-not to the built-in definition of bool in the _root_ namespace.
+identifier, value, or expression. An expressions in the form of a
+simple name name that has been defined to have some value is called
+a "literal" expression.
+
+Hover your mouse over the #check command to check the type of the
+literal expression, bool. Lean will tell you that the type of bool 
+is Type. Yep, a type, such as bool, is itself a value, and so has 
+a type! And its type -- the type of any such type -- is Type! 
+
+Moreover, as the following command shows, the name, "bool", refers, 
+in the current contexts, to our local definition of bool, which we 
+can write out in full as cs2102.bool. The name does not refer, in
+the current environment, to the built-in definition of bool in the 
+so-called _root_ namespace.
 -/
 
 #check bool
@@ -143,23 +155,28 @@ not to the built-in definition of bool in the _root_ namespace.
 /-
 Hover your mouse over "bool." Lean will confirm what we just said.
 Similarly, hover over _root_.bool. Notice that it's not the version
-of bool defined in our cs2102 namespace.
+of bool defined in our cs2102 namespace. Rather, it's the version 
+defined in the _root_ namespace, which is established when Lean is
+started.
 -/
 
 /-
-Similarly, you can confirm that the type of bool.tt is bool (think
-about that!) and that the definition of bool in use in this context 
-is (still) cs2102.bool.
+Similarly, you can confirm that the type of the literal expression,
+and thus the type of the value, bool.tt, is bool (think about that!). 
+You can also re-confirm here that the definition of bool in use in 
+this context is cs2102.bool.
 -/
 #check bool.tt
+
+-- NESTED NAMESPACES ESTABLISHED BY INDUCTIVE TYPE DEFINITIONS
 
 /-
 The next important concept related to namespaces is that each
 inductive type definition introduces its own namespace, with the
 same name as the type name, within which its constructor names
-are defined; and, importantly, such namespaces are not "open" by
+are defined. Importantly, such namespaces are not "open" by
 default. What that means is that you can't refer to constructors
-by name without the type name as a prefix. Here's a silly type
+by name without the type name as a qualifier. Here's a silly type
 definition to make the point.
 -/
 
@@ -182,6 +199,10 @@ details), then confirm that the second #check is good.
 
 -- #check silly_a
 #check silly_type.silly_a
+
+
+
+-- OPENING NAMESPACES
 
 /-
 It's inconvenient to always have to type namespace names to refer
@@ -246,14 +267,15 @@ of its constructors are defined, is still closed. Therefore we
 can't just use tt and ff to refer to those constructors.
 
 On the other hand, the names, tt and ff, from the by-default 
-opened namespace of the 
-bool type in the root namespace to "shine though" into the current namespace. So at this
-point, tt refers to _root_.bool.tt! If we want to refer to our
-version of tt, a qualified name has to be used. It can be bool.tt,
-as *bool* in the current environment refers to our version of bool,
-or to be completely clear, you can use csdm.bool.tt. They mean the
-same thing. Hover over the identifiers in the following #check
-commands to confirm what we just said.
+opened namespace of the bool type in the root namespace to be
+visible into the current namespace. So at this point, tt refers 
+to _root_.bool.tt. 
+
+If we want to refer to our version of tt, a qualified name has 
+to be used. It can be bool.tt or to be completely clear, you 
+can use csdm.bool.tt. They mean the same thing. Hover over the
+identifiers in the following #check commands to confirm what we 
+just said.
 -/
 
 #check tt
@@ -267,21 +289,29 @@ qualified" name of this constructor. But tt refers to the tt
 constructor defined by the built-in version of the bool type.
 -/
 
+-- AMBIGUOUS DEFINITIONS
+
 /-
 Now the astute reader might suggest that all we have to do 
 is to open the csdm.bool namespace. That's actually a good
 idea, but there's a complication: we end up with two definitions
-of the same identifier in the same current environment! Here's the
-command to open csdm.bool.
+of the same identifier in the same current environment! The
+first is the definition visible in the _root_ namespace, and
+the second is the one from our own bool type definition. 
+Here's the command to open csdm.bool.
 -/
 
 open csdm.bool 
 
 /-
-Now uncomment the following line by deleting the two underscores
-at the beginning of the and hover over the red line to see the error 
-message. It says that the definition of tt is ambiguous in the current
-environment. 
+The problem is that two different definitions of tt are now
+visible in the current environment. That is, the definition of
+the identifier is ambiguous. 
+
+Uncomment the following line by deleting the two underscores
+at the beginning of the and hover over the red line to see the 
+error  message. It says that the definition of tt is ambiguous
+in the current environment. 
 -/
 
 --#check tt --ambiguous!
@@ -295,9 +325,13 @@ to use a qualified name. Either of the following forms will do.
 #check csdm.bool.tt -- so does this!
 
 /-
-And if you really want to refer to the bool type or to one of
-its constructor from the version of bool in the root namespace, 
-you can do so using the special _root_ namespace disambiguator.
+Moreover, you can no longer refer to the definition of tt from
+the root environment just by writing tt: tt is ambiguous now.
+To refer either to the bool type or to one of its constructors 
+from the root namespace, you now have to do so using the special 
+namespace designator. At a technical level, _root_ is not itself
+a namespace, but it tells Lean that that's the namespace in which
+to look for a definition of the following name.
 -/
 
 #check _root_.bool -- the _root_ tells lean to use the built-in version
@@ -307,19 +341,18 @@ you can do so using the special _root_ namespace disambiguator.
 For the reader who wants the full picture, there's one final,
 and admittedly confusing point. Even though in the current environment,
 bool refers to our definition of bool, in the context of an open command,
-that is not so. Rather, "bool" refers to the built-in version. So the
-following command opens the namespace of the bool type in the root
-environment. But it's already open so the command has no further effect.
+that is not so. Rather, "bool" refers to the built-in version. This is
+arguably a design flaw in Lean. The following command thus opens the 
+namespace of the bool type in the root environment; but it's already 
+open so the command has no further effect!
 -/
 
 open bool
 
 /-
-In this command, bool refers the type defined in the root
-namespace! The takeaway is that when you use an open command,
-you should always use a fully qualified name. But the namespace
-of the bool type in the root namespace is already opened. Opening 
-it again isn't an error, but it has no effect. 
+The takeaway is that when you use an open command, you should use a 
+qualified name, as we did above when we opened cs2012.bool (not just
+bool). 
 -/
 
 /-
@@ -376,7 +409,9 @@ So here we go.
 /-
 Consider the function f(x) = x + 1. Mathematicians think of a function as
 a set of pairs. Here those would be all of the (x, f(x)) pairs, where x is
-any value of whatever type of numbers if being considered (let's assume x is any natural number, i.e., non-negative integer), and where for any such x, f(x) is the value of x plus one. This set of pairs has one element for
+any value of whatever type of numbers if being considered (let's assume x 
+is any natural number, i.e., non-negative integer), and where for any such 
+x, f(x) is the value of x plus one. This set of pairs has one element for
 each natural number, including (3, 4) and (7, 8) but not (0, 0) or (7, 11). 
 
 Mathematicians would write this set using "set comprehension notation", 
@@ -392,7 +427,8 @@ informal mathematical writing, mathemeticians expect the reader to know
 the answer based on context. 
 
 A mathematician seeking to be precise could instead write this: 
-f = { (x: ℕ, y: ℕ) | y = x + 1 }. The "blackboard font" ℕ is standard mathematical notation for "the natural numbers". So this expression 
+f = { (x: ℕ, y: ℕ) | y = x + 1 }. The "blackboard font" ℕ is standard 
+mathematical notation for "the natural numbers". So this expression 
 could be pronounced as "f is the set of x-y pairs where x and y range
 over the natural numbers and where in each pair the y value is equal
 to one more than the x value."
@@ -573,63 +609,147 @@ of pairs, { (tt, tt), (ff, ff) }, which is the right way to think of
 the identity function as a mathematical object. If we wanted to give
 this function a name, we might call it id_bool, with a prefix, id,
 suggesting the identity function, and the suffix, _bool, suggesting
-that this is the identity function for the bool type. If you were
-writing out the algebra in ordinary paper-and-pencil mathematics, 
-you'd write this function as id_bool(b) = b, where b is any Boolean
-value. You can imagine the corresponding identity functions for any
-other type. E.g., for the natural numbers, you could define id_nat 
-as id_nat(n) = n, where n is any natural number.
+that this is the identity function for the bool type. 
+
+If you were writing out the algebra in ordinary paper-and-pencil 
+mathematics,  you'd write this function as id_bool(b) = b, where 
+b is any Boolean value. You can imagine the corresponding identity 
+functions for any other type. E.g., for the natural numbers, you 
+could define id_nat as id_nat(n) = n, where n is any natural number.
 -/
 
 /-
 We can now put all of these ideas together to write a pure
-functional program that implements this function as a pure
-functional program, so that if we apply our functional program
-to a Boolean value (represented as a value of type bool) the
-result will be correct with respect to the definition of the
-function, represented as (1) a set of pairs, (2) graphically,
-or (3) by the equation id_bool(b) = b. Pure functional programs
-reflect the third kind of representation most directly. The
-only difference is the types of the argument and return have
-to be unambiguous, which often means that they haveto be
-declared explicitly. Here's the code, which you can pronounce
-as "we define id_bool to be a function taking one argument,
-b, of type bool, and returning a value of type bool, where
-the value returned for any given argument, b, is given by
-evaluating the expression, b."
+functional program that implements this function. We will call
+this program id_bool. If we apply this resulting program to a
+Boolean-valued argument value, b, which would be done by writing
+the expression, "id_bool b", the result that is returned will be
+just b itself. 
+
+As we've now seen, a Boolean function can be represented in at
+least three ways:
+
+- as a set of pairs, such as { (tt, tt), (ff, ff) }
+- in the form of a table, namely a truth table
+- using an equation, such as "id_bool(b) = b" 
+  
+Simple pure functional programs are generally written in the
+equational form. Here's the code for the id_bool function. 
 -/
 
 def id_bool (b: bool) : bool := b
 
 /-
-The "def" keyword introduces a new definition. We give a name to our 
-"function," namely "id_boolean". This function takes a single value, b, 
-of type boolean, and returns value of type boolean. You can read this 
-definition as saying that, "When id_boolean is applied to an argument, 
-b, of type boolean, the result is a value of type boolean. In particular, 
-the result that is returned is given by the expression to the right of 
-the :=. That is just b. So the value that the function returns is just
-the value to which it was applied. That makes this functional program
-a valid representation/implementation of the identity function. 
+The "def" keyword introduces a new definition -- a binding of a name,
+or "identifier", here id_bool, to a value, here a definition of the
+identity function that takes a bool argument and returns that same
+value as the result. (Yes, function bodies are values, too.)
+
+You can thus pronounce this code as follows: "we define id_bool to 
+be a function that takes one argument of type bool, bound to the 
+identifier b,  and that also returns a value of type bool, namely 
+that obtained by evaluating the expression, "b", in the context of
+the prevailing binding of the identifier, b, to the value of the
+bool argument to which the function is applied in any given case. 
 -/
 
 /-
-It works!
+EXERCISE: Write pure functional programs called false_bool and
+true_bool, respectively, each of which takes a bool argument and
+that always returns false or true, respectively.
+-/
+
+-- TYPE INFERENCE
+
+/-
+There's a shorter way to write the same function: we can leave out 
+the explicit return type (the bool after the colon) because Lean 
+can infer what it must be by analyzing the type of the expression
+that defines the return result. The argument, b, is declared to
+be of type bool, so it is clear that type obtained by evaluating
+the expression, b, defining the return result, is also of type bool. 
+Here's another version of the same definition,  with a "prime" mark 
+to make the name unique, exhibiting the use of type inference.
+
+-/
+
+def id_bool' (b: bool) := b
+
+/-
+EXERCISE: Use type inteference to write shorter versions of 
+you true_bool and false_bool programs.
+-/
+
+-- FUNCTION APPLICATION EXPRESSIONS
+
+/-
+A function application expression is an expression written 
+as a function name (or more generally as an expression that
+reduces to a function value)) followed by an expression that 
+reduces to a value that is taken to be an an argument to the 
+given function. 
+
+The simplest form of a function application expression is
+just a function name applied to a so-called "literal value"
+of the required type. Here's an example in which id_bool is
+applied to the literal value, tt. By hovering over the
+#reduce command, you can see the value to which this
+function application expression is reduced.
 -/
 
 #reduce id_bool tt
 
 /-
-We can apply this function to a value and see the result using the 
-#reduce command in Lean.
+EXERCISES: Write and reduce expressions in which you apply
+your true_bool and false_bool programs to each of the two
+bool values, thereby exhaustively testing each program for
+correctness.
 -/
-#reduce id_bool tt
-#reduce id_bool ff
+
+-- EVALUATION OF FUNCTION APPLICATION EXPRESSIONS
 
 /-
-Functions also have types. We can check the type of id_boolean using the #check 
-command. Hover your mouse over the #check. You see that the type of this function is
-boolean → boolean. That is, it's a function that takes a boolean and returns a boolean.
+Reducing a function application expression is a very simple
+process. First you evaluate the function expression, then you
+evaluate the argument expression, then you apply the resulting
+function to the resulting value. Let's do this in steps. 
+
+First, the function expression is given by the identifier,
+id_bool. To obtain the actual function, Lean looks up its
+definition and finds a function that takes a bool as a value
+and that returns that same bool value as a result.
+
+Second, the identifer, tt, is a literal expression for the
+tt value/constructor of the bool type.
+
+Finally, the function is applied to this argument value.
+This is done by substituting the argument value for the
+argument variable wherever it appears in the body of the
+function and by then evaluating the resulting expression.
+
+The body of the function in this case is just "b". So the
+value, tt, is substituted for "b". Finally this expression
+is evaluated, once again producing the value, tt, and that
+is the result of the function application!
+-/
+
+/-
+EXERCISE: We previously confirmed that the definition of 
+tt is ambiguous in the current environment. So why was it 
+okay here to write tt without qualifiers in the expression, 
+id_bool tt?
+-/
+
+
+-- FUNCTION TYPES
+
+/-
+Functions also have types. We can check the type of id_boolean 
+using the #check  command. Hover your mouse over the #check. 
+Lean reports that the type of this function is boolean → boolean. 
+That is how, in type theory, we write the type of a function
+that takes an argument of type bool and that returns a result
+of that same type. 
 -/
 #check id_bool
 

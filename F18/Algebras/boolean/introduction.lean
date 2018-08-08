@@ -21,7 +21,7 @@ include the following:
 - implementing the carrier sets of algebras using inductive type definitions
 - implementing the operations of algebras as pure functional programs 
 - asserting and proving properties of such an implementation
-- proof strategies
+- propositions and proofs
   * by simplification and reflexivity of equality
   * by exhaustive case analysis
 
@@ -42,6 +42,8 @@ and systems.
 - inductive type definitions (common across most functional languages)
 - the #check command in Lean (common across many proof assistants)
 - pure functional programming (a major category of programming languages)
+- type inference
+- function types
 - pattern matching (common to many functional programming languages)
 - propositions as types (common across constructive logic proof assistants)
 -/
