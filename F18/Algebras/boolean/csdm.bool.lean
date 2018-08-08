@@ -1222,14 +1222,16 @@ def and_boolean (b1 b2: bool): bool :=
 /- 
 EXERCISES:
 
-1. Write definitions of the following binary functions on booleans in the form of
-(a) sets, using display notation, (b) truth tables, (3) functional programs.
+1. Using case analysis, write definitions of the following binary 
+functions on booleans in the form of (a) sets, using display notation, 
+(b) truth tables, (3) functional programs. When writing functional
+programs, use wildcards where possible to shorten your definitions.
 
-* or -- false if both arguments are false, otherwise true
-* xor -- true if either not both both arguments are true
-* nand -- the negation of the conjunction of the arguments
-* implies -- false if b1 is true and b2 is false otherwise true
-* nor -- the negation of the "disjunction" of its arguments
+* or (call it orb)-- false if both arguments are false, otherwise true
+* xor (xorb) -- true if either not both both arguments are true
+* nand (nandb) -- the negation of the conjunction of the arguments
+* implies (implb) -- false if b1 is true and b2 is false otherwise true
+* nor (norb)-- the negation of the "disjunction" of its arguments
 
 2. By the method of case analysis, prove that your "or" and "xor" programs are
 correct with respect to your truth table definitions, i.e., that they produce the
@@ -1239,6 +1241,13 @@ outputs specified by the truth tables for the given inputs.
 think about the truth tables. The set of possible arguments is always the set of
 pairs of booleans. How many different ways can these arguments be associated with
 boolean results?
+
+4. Write a second definition of nandb, call it nandb', that instead of
+using pattern matching applies a combination of andb and negb functions.
+Surround function application expressions with parentheses to specify
+groupings when they might otherwise be misinterpreted, e.g., vvv (www x y)
+in the case where the argument to vvv is meant to be the result of 
+evaluating www x y.
 -/
 
 /-
@@ -1263,25 +1272,68 @@ closed on this set.
 -/
 
 /-
+FORMAL AND INFORMAL PROOFS.
+-/
+
+/-
+Our formal proofs are very precise and their correctness is assured by Lean's
+automated proof checking mechanism. By contrast, most working mathematicians
+write informal proofs. These are still highly precise, but they are written in
+structured English (or another natural language) rather than in what amounts 
+to code. The major benefit of informal proofs is that they are easier for most
+people to understand. The downside is that mistakes in proofs can, and often 
+do, go undetected. One benefit of formal proofs is that they are checked for
+correctness by a computer, and, when verified can be accepted as correct with
+very high levels of confidence. Another benefit of learning how to write such
+proofs is that the relationships between forms of propositions (e.g., equality
+claims or universally quantified claims) and the forms of the corresponding
+proofs becomes very clear. Learning how to write both informal and formal
+propositions and proofs is an important goal of this class.
+-/
+
+/-
+As an example, let's recast our formal proof of the correctness of our
+program for id_bool as an informal proof. Here's how it might be written.
+
+"The goal is to show that for every value, b, id_bool = b. We do this by
+case analysis. There are two cases: b = tt, and b = ff, respectively. We
+first consider the case where b = tt. In this case, the proposition to be
+proved is that id_bool tt = tt. We prove this by simplification of the left
+hand side to tt by applying the definition of id_bool. What's left to prove
+is that tt = tt, and this is done trivially by appealing to the reflexive
+property of equality. The proof of the second case is by the same strategy
+of simplification and reflexivity of equality."
+-/
+
+
+/-
+EXERCISE: Write both a formal and a corresponding informal proof of the 
+correctnes of your andb function.
+-/
+
+/-
 SUMMARY
 
+- boolean algebra
+  * inductive definition of the type of booleans
+  * functions on booleans
+  ** set theoretic, truth table, and pure functional representations
+  ** unary functions on booleans
+  ** binary functions on booleans
 - types and values
 - inductive definitions
 - tuple values and tuple types
 - relations and functions (set theoretic)
-- functional programs
+- functional programs: their types and values
 - propositions
   * about equality of terms
   * universally quantified propositions
+- an application: propositions and proofs of program correctness
 - proof strategies:
   * by simplification and reflexivity of equality
-  * by case analysis
+  * by exhaustive case analysis
+- formal and informal proofs
 - algebras
-- case study: boolean algebra
-  * inductive definition of the type of booleans
-  * functions on booleans
-  ** unary functions on booleans
-  ** binary functions on booleans
 -/
 
 
