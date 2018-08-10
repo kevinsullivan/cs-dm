@@ -9,12 +9,12 @@ In doing this, we will encounter several important concepts in
 Lean, which are also shared by many other languages. They include
 the following:
 
-- namespaces and name disambiguation
-- inductive definitions of types (thus of their value sets)
+- namespaces
+- inductive type definitions 
 - sets, product sets, tuples, binary relations, and functions
-- explicit type declarations and type inference
+- type judgments, type declarations, and type inference
 - function types and function values
-- functional programs including pattern matching and evaluation
+- functional programing: case analysis via pattern matching
 -/
 
 -- NAMESPACES
@@ -40,7 +40,7 @@ To avoid such conflicts, we will give our own definition to the
 identifier, "bool", in a separate "namespace." We'll call it cs2102.
 -/
 
-namespace csdm
+namespace uvacs.csdm.xbool
 
 /-
 What this means is that every name, such as bool, that we define in this
@@ -1250,26 +1250,6 @@ in the case where the argument to vvv is meant to be the result of
 evaluating www x y.
 -/
 
-/-
-BOOLEAN ALGEBRA AS AN ALGEBRA
--/
-
-/-
-We have now gotten to the point where we can make sense of the term, boolean algebra.
-Boolean algebra is an algebra, which is to say a set of values of a given type and a 
-collection of operations closed on this set -- taking and returning values contained
-in the set.
-
-The set of values in the case of boolean algebra is the set containing the two truth
-values, true and false, or T and F as we have called them here. The operations of 
-boolean algebra include the operations that we have studied here, including the four
-unary operations, the sixteen binary options, and so forth. 
-
-Indeed, in a very strong sense, this file as a whole provides a "runnable" definition 
-of Boolean algebra. It provides definitions of both the boolean type, comprising the 
-set of two boolean values, and a collection of the unary and major binary functions 
-closed on this set.
--/
 
 /-
 FORMAL AND INFORMAL PROOFS.
@@ -1309,6 +1289,50 @@ of simplification and reflexivity of equality."
 /-
 EXERCISE: Write both a formal and a corresponding informal proof of the 
 correctnes of your andb function.
+-/
+
+/-
+BOOLEAN ALGEBRA AS AN ALGEBRA
+-/
+
+/-
+We have now gotten to the point where we can make sense of the term, boolean algebra.
+Boolean algebra is an algebra, which is to say it is a particular set of values and
+a particular collection of operations closed on that set. We have represented the set
+of values as a type, namely our bool type. We have represented the operations as pure
+functional programs taking and returning values of this type. 
+
+Moreover, by defining this set and its operations in a namespace, we've grouped
+the values and operations on them in a meaningful way.
+
++ -----------+
+|  csdm.bool |  DATA
++------------+
+|  csdm.negb |
+|  csdm.andb | OPERATIONS
+|  csdm.orb  |
+|     ...    |
++------------+
+
+Such a structure, comprising a data type and a collection of operations on it is
+also known, in the computer science field, as an "abstract data type (ADT)". When
+computer scientists talk about "types", sometimes they mean inductively defined
+types, such as the bool type (separate from operations), and sometimes (actually
+more often) then mean abstract data types. Abstract data types, i.e., algebras!,
+are fundamental building blocks of software. It took a while for us to build up
+our bool ADT, but now that we're done, you can step back and now view our data 
+type definition and our definitions of a collection of associated operations as 
+a coherent whole, an abstract data type that implements the algebra of Boolean
+truth values. 
+-/
+
+-- USING AN ABSTRCT DATA TYPE
+
+/-
+The last question we address in this chapter is how to use such an abstract 
+data type implementation. To this end, please open and shift your attention
+to the file csdm_bool_test.lean. It will show you how to import and use type
+and function definitions in another file: this file in this case. 
 -/
 
 /-
