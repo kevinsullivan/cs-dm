@@ -20,7 +20,7 @@ These are all perfectly wonderful ways to think about,
 and indeed, to represent such a function. The first two
 ways, as a graph and as a set of pairs, are closely 
 related: the graph is simply a drawing in which each
-ppossible air of values is represented as a point in 
+possible pair of values is represented as a point in 
 the Cartesian plane and where the pairs constituting 
 the function are highlighted in pencil. The result is
 a continuous line infinite in extent hitting all and
@@ -164,6 +164,18 @@ of the first. Examples include (1, 1),
 (8, 2). 
 -/
 
+/-
+ abh: When I first looked at this, I was about
+ to argue that this is a multi-valued function
+ until I realized that the domain is limited to
+ the naturals, so that {-9, 3} is not allowed.
+ I mention this because it's a common pitfall
+ in my experience, so it might be nice to ask
+ the class, if this is a well-behaved (i.e.,
+ single-valued) function, and then when some
+ argue that it is not, explain why it is, but
+ that it's good to ponder such things.
+ -/
 def sqrt_nat := { p: ℕ × ℕ | p.2 * p.2 = p.1 }
 
 /-
@@ -222,12 +234,12 @@ lemma no_sqrt8: ¬ ∃ n: nat, n * n = 8 := sorry
 /-
 To formalize (make mathematically precise) a 
 proposition in lean, we define an identifier
-(here no_squrt8) whose value is ultimately 
+(here no_sqrt8) whose value is ultimately 
 meant to be a proof of the proposition. We 
 next state the proposition itself. Finally,
 we give a proof of the proposition (if there
 is one, of course). In this case, we use the
-Lean construct, sorry, to "apologise" for 
+Lean construct, sorry, to "apologize" for 
 not (yet) knowing how to give such a proof. 
 Sorry tells Lean to take our word for it
 and accepts the proposition as being true,
@@ -247,14 +259,14 @@ we skip out on trying to provide a proof at
 this point. We'll get to that later.)
 -/
 
-lemma no_sqrt8': ¬ ∃ s, (8, s) ∈ f := sorry
+lemma no_sqrt8': ¬ ∃ s, (8, s) ∈ sqrt_nat := sorry
 
 /-
 You can pronounce this like so: there does 
 not exist an (or, there is no) s such that 
-the pair (8, s) is in f; please accept this
-claim as true even though we don't give an
-actual proof.
+the pair (8, s) is in sqrt_nat; please accept
+this claim as true even though we don't give
+an actual proof.
 -/
 
 /-
@@ -266,10 +278,10 @@ stipulating that there is no square root of
 -/
 
 /-
-This is a great way to specify our function, f.
+This is a great way to specify our function.
 The problem is that you can't compute with such
 a definition. It is "declarative in the sense
-that it declares what the function f, is, but it
+that it declares what the function is, but it
 is not procedural, in that it does not give us a
 step-by-step procedure for computing a value of
 f(x) given a value of x.
@@ -343,7 +355,7 @@ These are two notations for the same idea.
 have Lean tell you what to type to use them
 in your own Lean code.) Again, even though
 in principle a proof could be given here, 
-we skip it for now and apologise instead.
+we skip it for now and apologize instead.
 -/
 
 lemma three_three_not_in_f: (3, 3) ∉ f := sorry
@@ -352,6 +364,8 @@ lemma three_three_not_in_f: (3, 3) ∉ f := sorry
 /-
 EXERCISE: Use set comprehension notation to specify
 the square root function.
+abh: Is this an old exercise, or is the definition above old,
+or is this meant to be for types other than naturals?
 -/
 
 /-
@@ -364,18 +378,18 @@ What is implicit in this kind of semi-formal mathematics is the
 y drawn from the natural numbers (the non-negative integers from
 zero on up), the integers (including negative whole numbers), the 
 rationals, the reals, complex numbers? In ordinary, semi-formal
-mathematical writing, mathemeticians expect the reader to be able
+mathematical writing, mathematicians expect the reader to be able
 to infer the answer based on context. Here for example, most high
 school mathematicians would assume that x and y range over the
 reals.
 
 A mathematician seeking to be more precise could instead write this: 
-f = { (x: ℕ, y: ℕ) | y = x + 1 }. The "blackboard font" ℕ is standard 
+f = { (x: ℕ, y: ℕ) | y * y = x }. The "blackboard font" ℕ is standard 
 mathematical notation for "the natural numbers". So this expression 
 could be pronounced as "f is the set of x-y pairs where x and y range
 over the natural numbers and where in each pair the y value is equal
 to one more than the x value." So in this function we have the pair
-(2, 3) but not the pair (2.5, 3.5), because 2.5 and 3.5 are not even
+(4, 2) but not the pair (4.41, 2.1), because 4.41 and 2.1 are not
 possible values for x and y. They are of the wrong type.
 
 As an aside, mathematicians generally use the "blackboard font" symbol, 
@@ -430,7 +444,7 @@ functional style. But nothing beats a real
 pure functional language for clarity and
 precision.
 
-You'll recall that one way a mathemtician
+You'll recall that one way a mathematician
 would write our function is as f(x) = x + 1.
 Now look at how we'd "implement" f in the
 pure functional programming language of Lean.
@@ -482,8 +496,8 @@ type ℕ → ℕ. You have thus now defined two
 values, each functions, both of this type.
 Yes, functions are values, too, in a pure
 functional programming language, Later on
-we'll see that we can do compute with 
-values of function types  just as we can 
+we'll see that we can compute with 
+values of function types just as we can 
 compute with values of numerical types.
 Mathematicians view functions as values.
 Our good luck is that we can now use pure
@@ -544,6 +558,9 @@ Sometimes it's helpful to people to give
 explicit declarations. Oftentimes it's
 better to leave them out, to make the
 code easier to read.
+abh: I'd argue that leaving it out also
+increases the chances that a mistake
+is not caught 
 -/
 
 def f_prog'' (x: nat): nat := x + 1
@@ -572,6 +589,17 @@ the result code is more rather than
 less clear. We think the original
 definition of f_prog is pretty clear!
 -/
+
+/-
+abh: Notice that Lean infers the return
+type to be nat
+I'm really not a fan of type inference
+for return types, or anything beyond a
+intermediate variable
+-/
+def g (x: nat) := 0 - x
+
+#check g
 
 -- EVALUATING (REDUCING) FUNCTION APPLICATION EXPRESSIONS
 
