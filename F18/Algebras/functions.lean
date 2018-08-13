@@ -59,7 +59,8 @@ defined to be "the set of all x-y pairs where the
 y value is equal to the x value plus one." 
 
 We can represent the function this way in Lean, as
-well, using set comprehension notation, as follows:
+well, using what we call set comprehension notation, 
+as follows:
 -/
 
 
@@ -67,33 +68,31 @@ def f := { p: ℕ × ℕ | p.2 = p.1 + 1 }
 
 /-
 This can be read as saying, "We define f to
-be the set of values, p, where each p is a 
-pair of natural numbers, where the second 
-component of p is equal to the first plus 
-one.
+be the set of values, p, where each such p 
+is a pair of natural numbers, such that the 
+second component of the ordered pair, p, is 
+equal to the first component plus one.
 -/
 
 /-
 We now take a few paragraphs to drill down
 on some details.
--/
 
-/-
-First, some new information about Lean.
+First, here's more about math in Lean.
 The #check command in Lean will tell us the
 type of an object. Checking the type of f
 reveals that it is indeed a set of pairs of
 natural numbers. Hover your mouse pointer
 over the #check command. The message you
 get back says that the type of f is what
-you can read as "set of pairs of natural 
-numbers."
+you can read as "set of values, the type
+of which is "pair of natural numbers."
 -/
 
 #check f
 
 /-
-We can denote specifici pairs of natural 
+We can denote specific pairs of natural 
 numbers as ordered pairs using ordinary
 mathematical notation. Here we assign the
 pair, (3, 4), as the value of goodPair
@@ -150,12 +149,19 @@ in mathematical writing and reasoning.
 One of the advantages of this style of
 specification is that it is expressive. 
 We can say *what* the relationship is
-between arguments and results without
-having to say anything about how to
-compute results given arguments. Here
-for example is a specification of the
-square root function for natural 
-numbers.
+between the arguments to and results of
+a function without having provide a
+procedure for compute results given 
+arguments. 
+
+Here for example is a declarative 
+specification of the square root function 
+for natural numbers. This function contains
+pairs of natural numbers where the second
+element of each pair is the square root
+of the first. Examples include (1, 1), 
+(4, 2) and (9, 3), but not (9, 4) or
+(8, 2). 
 -/
 
 def sqrt_nat := { p: ℕ × ℕ | p.2 * p.2 = p.1 }
@@ -167,21 +173,27 @@ not the case that 9 = 4 * 4.
 -/
 
 /-
-This specification is very clear. Consider,
-by contrast, a Python program to compute 
-natural roots of natural numbers: it would 
+This specification is crystal clear. It
+really says what it means to be a square
+root: that result times itself has to be
+equal to the argument the the function.
+
+By contrast, a Python program to compute 
+natural roots of natural numbers would 
 not be anywhere near as expressive. It might
 for example use a loop to check each number,
 n, between zero and an argument, a, to see 
 if n * n is equal to a, returning n if it
-satisfies this condition or an error if it
-can't find such an n.
+satisfies this condition, or an error if it
+can't find such an n. Just looking at such
+code would hardly make it clear what the
+code is meant to do.
 -/
 
 /-
-A second advantage of this declarative style
+A second advantage of the declarative style
 of specification is that it let's us specify
-partial functions without having to explain
+*partial* functions without having to explain
 anything about values on which a function is
 undefined.
 
@@ -191,36 +203,58 @@ there is no pair in this function with first
 element 8. We say that the function is not
 defined for the value, 8. A function that is
 not defined for some argument values is called
-partial. If we wanted to be really precise,
-we could write ¬ ∃ n: ℕ | n * n = 8, which a
-mathematician would pronounce as "there does 
+partial. 
+
+If we wanted to be mathematically precise in 
+stating that there is no integer square root 
+of 8, we could write ¬ ∃ n: ℕ | n * n = 8.
+A mathematician would say this as "there does 
 not (¬) exist (∃) a natural number (ℕ), n,
 such that n * n = 8." We can make this semi-
-formal statement formally precising in Lean.
+formal statement formally precise in Lean,
+as what we call a proposition. A proposition
+is a claim that some statement is true. Here
+the statement is that ¬∃ n: nat, n * n = 8.
 -/
 
 lemma no_sqrt8: ¬ ∃ n: nat, n * n = 8 := sorry
 
 /-
-We first name then state the proposition,
-and we finally apologise for not (yet) being
-able to give Lean an actual proof of this
-claim, while telling Lean to just take our
-word for it, at least for now.
+To formalize (make mathematically precise) a 
+proposition in lean, we define an identifier
+(here no_squrt8) whose value is ultimately 
+meant to be a proof of the proposition. We 
+next state the proposition itself. Finally,
+we give a proof of the proposition (if there
+is one, of course). In this case, we use the
+Lean construct, sorry, to "apologise" for 
+not (yet) knowing how to give such a proof. 
+Sorry tells Lean to take our word for it
+and accepts the proposition as being true,
+whether it really is or not! Using sorry to
+get Lean to accept a false proposition as
+true is obviously not a good idea. It makes
+a contradiction from which anything can then
+be proved true, making the logic useless.
 -/
 
 /-
 An even better way to explain that there is
 no natural number square root of 8 would be
 to claim that there is no natural number, s,
-such that the pair, (8, n), is in f.
+such that the pair, (8, n), is in f. (Again
+we skip out on trying to provide a proof at
+this point. We'll get to that later.)
 -/
 
 lemma no_sqrt8': ¬ ∃ s, (8, s) ∈ f := sorry
 
 /-
-You can pronounce this like so: there is no s
-such that the pair (8, s) is in f. 
+You can pronounce this like so: there does 
+not exist an (or, there is no) s such that 
+the pair (8, s) is in f; please accept this
+claim as true even though we don't give an
+actual proof.
 -/
 
 /-
@@ -287,28 +321,24 @@ lemma three_three_is_in_f: (3, 3) ∈ f := _
 /-
 We don't use sorry here because we don't 
 want Lean to accept as a given that (3, 3)
-is a pair in f. It's not. Forcing Lean to
-accept that (3, 3) is in the function would
-make the set of facts that Lean is working
-with inconsistent, and an inconsistent set
-of facts is basically useless, as anything
-then becomes provable. 0 = 1. true = false.
-Etc.
+is a pair in f. It's not. 
 
-Instead of sorry, we just use an underscore.
+Instead of sorry, we  use an underscore.
 It's called a placeholder. Lean issues an
 error saying that it can't figure out how
-to fill in that placeholder, which in this
-case would require that Lean come up with 
-a proof that doesn't exist. The erros just
-says, "Hey, I can't figure out what proof
-goes here."
+to fill in that placeholder with a valid
+proof. That would of course require that
+Lean Lean come up with a proof that doesn't 
+exist; so it's not going to happen. The 
+error message can be read as saying, "Hey, 
+I can't figure out what proof goes here."
 -/
 
 /-
 The proposition that (3, 3) is NOT in f_set
 is true, of course . A mathematician would 
 write either ¬ (3, 3) ∈ f or (3, 3) ∉ f.
+These are two notations for the same idea.
 (Just hover over these special symbols to
 have Lean tell you what to type to use them
 in your own Lean code.) Again, even though
@@ -317,21 +347,6 @@ we skip it for now and apologise instead.
 -/
 
 lemma three_three_not_in_f: (3, 3) ∉ f := sorry
-
-
--- REPRESENTING FUNCTIONS AS PURE FUNCTIONAL PROGRAMS
-
-
-def f_prog (x: nat): nat := x + 1
-
-
-#reduce f_prog 3
-
-def f_prog': nat → nat := λ x, x + 1
-
-#reduce f_prog' 3
-
-
 
   
 /-
@@ -371,67 +386,210 @@ These strings get replaced with the symbols when they are followed by
 a space. Try it!
 -/
 
--- REPRESENTING FUNCTIONS AS PROGRAMS THAT COMPUTE FUNCTION VALUES
+
+
+-- REPRESENTING FUNCTIONS AS FUNCTIONAL PROGRAMS
 
 /-
-Whereas a mathematician generally thinks of a function as a set of
-pairs, with one pair for each argument value for which the function
-is defined, a programmer, on the other hand, thinks of a function as
-a kind of machine that takes the first element of such a pair as an
-argument, and that computes and returns the corresponding second
-element. For example, if implement the function f(x) = x + 1 as a
-program, let's also call it f, then we could write and evaluate the
-expression f(3) and the machine would compute and return the value
-4. A program thus says, "if you give me a value for x, I will hand 
-you back the corresponding value of f(x). The program implicitly
-thus represents the set of pairs of the desired function. 
+Whereas a mathematician generally thinks of a 
+function as a set of pairs, with one pair for each 
+argument value for which the function is defined, 
+a programmer, on the other hand, thinks of a 
+function as a kind of machine that takes the first 
+element of such a pair as an argument, and that 
+computes and returns the corresponding second
+element. For example, if implement the function 
+f(x) = x + 1 as a program, let's also call it 
+f_prog, then we could write and evaluate the
+expression f_prog(3) and the machine would 
+compute and return the value 4. 
+-/
+
+/- Rather than defining a function as a set of
+pairs, a "functional program" says, "if you give 
+me a value for x, I will compute and return the 
+corresponding value of f(x). The program thus 
+*implicitly* represents the set of pairs of the 
+function being represented. 
+
+So let's turn from declarative representations
+of functions to computational representations.
+
+In particular, we now see how we can write a
+function is a mathematically clear way that
+nevertheless supports computation of results
+given arguments. The trick is to represent a
+function not in a procedural language, such 
+as Python, but in a pure functional language.
+
+There are many such languages. Indeed, even
+popular, industrial-strength procedural
+languages, such as Java and Python, are 
+increasingly supporting programming in a
+functional style. But nothing beats a real 
+pure functional language for clarity and
+precision.
+
+You'll recall that one way a mathemtician
+would write our function is as f(x) = x + 1.
+Now look at how we'd "implement" f in the
+pure functional programming language of Lean.
+-/
+
+
+def f_prog (x: ℕ) := x + 1
+
+/-
+We define f_prog to be a function taking
+an argument, x, of type ℕ, and returning
+(or reducing to) the value of that x plus
+1. 
 -/
 
 /-
-Here's one way to express the function, f(x) = x + 1 in Lean.
+We can now use the #reduce command in
+Lean to reduce expressions in which this
+function is applied to an argument to
+compute the corresponding result.
 -/
 
-def f (x: ℕ) := x + 1
+#reduce f_prog 3
 
 /-
-We start with the keyword, def, for "definition." The comes the 
-name we're defining, f, following by names for and the types of
-arguments it takes, then a :=, followed by the expression that
-defines what value the function returns for any given value of
-x.
+If we check the type of f_prog, we find
+that Lean says it's of type ℕ → ℕ. 
+-/
+
+#check f_prog
+
+/-
+This can be read as "natural number to 
+natural number." That is, f_prog takes a
+natural number and reduces it to another
+natural number. The observant reader will
+understand that what this is really saying
+is that "f_prog is a value of type ℕ → ℕ."
+The value of f_prog is one of many possible
+functions taking nats to nats.
 -/
 
 /-
-To apply a function, such as f, to a value, such as 3, you just
-write the function name, here, f, followed by an expression for 
-the argument value, here, 3. The result is what we call a function
-application expression. In Lean, you can use the #reduce command to 
-evaluate such an expression, i.e., to "reduce" the expression to the
-value that it represents. Hover your mouse over the #reduce to see 
-the result.
+EXERCISE: Define g_prog to be a function
+from ℕ → ℕ that reduces any given argument
+x: ℕ to the value, x * x. Check its type
+to confirm that this function is also of
+type ℕ → ℕ. You have thus now defined two
+values, each functions, both of this type.
+Yes, functions are values, too, in a pure
+functional programming language, Later on
+we'll see that we can do compute with 
+values of function types  just as we can 
+compute with values of numerical types.
+Mathematicians view functions as values.
+Our good luck is that we can now use pure
+functional languages to automate computing
+with functions values.
 -/
 
-#reduce f 3
+/-
+Before we continue, we provide alternative
+notations for defining f_prog.
 
+The first declares f_prog' (we add a prime
+to the name to make it unique) as a value of
+type, ℕ → ℕ, and then uses what we call 
+lambda notation to represent the function
+"value" assigned to f_prog'.
+-/
+
+def f_prog': nat → nat := 
+    λ x, x + 1
+
+/-
+The first line declares that f_prog' will
+be bound to a value of type ℕ → ℕ. The
+second line defines the value so bound.
+The notation uses the Greek letter lambda,
+which you can just pronounce from now on
+as "a function that takes an argument, ...".
+The argument it takes is called x. The
+body of the function is the expression,
+x + 1. The whole "lambda expression" can
+thus be read as "a function that takes an
+argument, x (already declared to be of type
+ℕ by the way)" and that returns the value,
+x + 1 (which we've also told Lean should
+be of type ℕ.)
+-/
+
+/-
+Without giving a formal proof, we claim
+truthfully here that f_prog' is exactly
+the same function as f_prog.
+
+EXERCISE: (1) Use #check to confirm that
+the types of f_prog and f_prog' are the 
+same. Then use #reduce to test the claim
+that f_prog and f_prog' reduce to the same
+results when applied to the same arguments.
+-/
+
+/-
+Finally, we note we've left out explicit
+type declarations in a few places where 
+Lean can infer them automatically. Here
+we present versions of f_prog and f_prog'
+that include explicit type declarations.
+Sometimes it's helpful to people to give
+explicit declarations. Oftentimes it's
+better to leave them out, to make the
+code easier to read.
+-/
+
+def f_prog'' (x: nat): nat := x + 1
+
+/-
+Here we declare the result type. Lean
+could have figured it out by "seeing"
+that the argument is a ℕ, and knowing
+that a ℕ plus 1 is also a ℕ. 
+-/
+
+/-
+In the following code we tell Lean that 
+both the argument and result are of type 
+ℕ, even though  it already knows that is
+the case from the ℕ → ℕ type declaration.
+-/
+
+def f_prog''': nat → nat := 
+    λ x: nat, (x + 1: nat) 
+
+/-
+Leave out explicit type declarations 
+when (1) Lean can infer them, and (2)
+the result code is more rather than
+less clear. We think the original
+definition of f_prog is pretty clear!
+-/
 
 -- EVALUATING (REDUCING) FUNCTION APPLICATION EXPRESSIONS
 
-
 /-
-Lean is a so-called "pure functional programming language." 
-As already indicated, in such a language, a program is really just
-the expression of a mathematical function. A function definition in 
-such a language has a formal parameter (such as x) and an expression,
-the "body" of the function, in which the formal parameter, x, can
-appear (as it does in the expression, x + 1, for example). 
+In a pure functional language, a program is simply the 
+expression of a ... wait for it ... mathematical function. 
+A  function definition in such a language has an argument, 
+or "formal parameter", (such as x), and an expression,
+the "body" of the function, in which the formal parameter, 
+x, can appear, as it does in the expression, x + 1. 
 
 When such a function is applied to a value, such as 3, the
-resulting expression is evaluating by substituting the actual
-value (here 3) for every occurrence of the argument (here x)
-in the function body (here x + 1). The resulting expression 
-(here 3 + 1) is itself then evaluated. Finally the resulting 
-value is returned. That value is the result of "reducing" the
-original function application expression. 
+resulting expression is *evaluated* by substituting the actual
+value (here 3) for every occurrence of the formal parameter 
+(here x) in the function body (here x + 1). The resulting 
+expression  (here 3 + 1) is itself then evaluated. Finally 
+the resulting value is returned. That value is the result 
+of "reducing" the original function application expression. 
 -/
 
 /-
@@ -439,7 +597,7 @@ Note that the argument to a function can be any expression that
 itself reduces to a value of the right type. Here's an example.
 -/
 
-#reduce f (2 + 2)
+#reduce f_prog (2 + 2)
 
 /-
 Here we're using Lean's built-in addition function applied to the
@@ -456,6 +614,10 @@ EXERCISE: First predict then confirm your prediction of the return
 value of the following (nested) function application expression.
 -/
 
-#reduce f (f (f 4))
+#reduce f_prog (f_prog (f_prog 4))
+
+/-
+EXERCISES: more to come.
+-/
 
 
