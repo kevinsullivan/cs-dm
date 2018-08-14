@@ -46,7 +46,7 @@ code. When those pieces of code are brought together, the
 result could be that the name becomes ambiguous: with two
 different meanings.
 
-A general solution to this problem empoyed by many
+A general solution to this problem employed by many
 different programming languages is to define meanings
 for identifiers within different namespaces. A namespace
 is just a prefix that it implicitly prepended to each
@@ -117,7 +117,7 @@ built-in bool type, and its tt and ff values (even
 though we're in our own namespace here), we will 
 define our own Boolean algebra implementation to
 be like the built-in version but with all names
-prefixed with an "x".
+prefixed with an "dm".
 -/
 
 /-
@@ -141,8 +141,8 @@ value of the type being defined.
 
 We have thus just defined a type called dm_bool with 
 two values, and no other values, namely dm_tt and dm_ff. 
-Our intended interpretation is that dm_bool represents 
-the carrier set of Boolean algebra, dm_tt reprents the 
+Our *intended* interpretation is that dm_bool represents 
+the carrier set of Boolean algebra, dm_tt represents the 
 true value of Boolean algebram and dm_ff represents 
 the false value.
 
@@ -190,7 +190,7 @@ That's it's way of saying "dm_bool is a type!"
 
 /-
 You might think that you can also use the #check command
-to check to see what's the type of dm_tt, and indded we can.
+to check to see what's the type of dm_tt, and indeed we can.
 However, we can't just do "#check dm_tt" because the name,
 dm_tt, is defined in a namespace created by the dm_bool type.
 Uncomment the following code and see what error you get.
@@ -234,7 +234,7 @@ We've thus got the first component of our algebra defined: the
 carrier set of Boolean values! To complete our implementation, 
 we need to define a set of operations on this set: operations 
 such as "and", "or", and "not", which should already be familiar 
-from CS1. Take a few minutes to recall exactly how they work in
+from CS1 (abh: CS 1xxx?). Take a few minutes to recall exactly how they work in
 a language you already know (e..g, Python).
 -/
 
@@ -245,7 +245,7 @@ EXERCISES:
 value, true, however it is written in your language, to 
 a variable called X. Assign the Boolean variable, false, 
 to Y. Assign to a variable, Z, the value of the negation 
-of ("not") X. Assign to W the disjuction ("or") of X and 
+of ("not") X. Assign to W the disjunction ("or") of X and 
 Y. Finally print the value of the conjunction of W and 
 true. What value is produced? Every useful programming
 languages provides a built-in implementation of Boolean
@@ -298,7 +298,7 @@ exactly one result for each argument value.
 As a mathematical object, such a function is a set of pairs with
 exactly one pair having each Boolean value in the first position.
 For example, the set, { (tt, ff), (ff, tt) } is such a function. 
-The set { (tt, tt), (tt,, ff) } is not, for two different reasons. 
+The set { (tt, tt), (tt, ff) } is not, for two different reasons. 
 First, it is not a function at all, because it has two pairs with 
 the same first element, and so is not single-valued. Second, it
 doesn't have a pair with ff as a first element and so is not total. 
@@ -411,7 +411,7 @@ to make the name unique, exhibiting the use of type inference.
 def id_bool' (b: dm_bool) := b
 
 /-
-EXERCISE: Use type inteference to write shorter versions of 
+EXERCISE: Use type inference to write shorter versions of 
 you true_bool and false_bool programs.
 -/
 
@@ -458,7 +458,10 @@ id_bool. To obtain the actual function, Lean looks up its
 definition and finds a function that takes a bool as a value
 and that returns that same bool value as a result.
 
-Second, the identifer, tt, is a literal expression for the
+abh: there are a lot of references to "tt" where we clearly
+mean "dm_tt"
+
+Second, the identifier, tt, is a literal expression for the
 tt value/constructor of the bool type.
 
 Finally, the function is applied to this argument value.
@@ -487,6 +490,8 @@ the argument given by the literal expression, tt.
 
 
 -- FUNCTION TYPES
+
+-- abh: There's some redundancy between dm_bool.lean and functions.lean
 
 /-
 Functions also have types. We can check the type of id_boolean 
@@ -595,7 +600,7 @@ that two expressions reduce to the same value.
 To construct such a proof, you first reduce each
 expression to a value. The expression id_bool dm_tt
 reduces to tt. The expression dm_tt reduces to dm_tt 
-(it's alrady reduced to a value). Then what 
+(it's already reduced to a value). Then what 
 you have is the proposition, dm_tt = dm_tt. But 
 that is true by the reflexive property of
 equality: for any value x, no matter what it 
@@ -603,9 +608,9 @@ is, x = x. So dm_tt = dm_tt. The proposition is
 thus proved.
 -/
 
-/--/
+/-
 You thus read "rfl" as saying what a mathematician
-would pronouce as, "by simplication of expressions 
+would pronounce as, "by simplification of expressions 
 and the reflexive property of equality." 
 
 The fact that Lean accepts rfl as a proof (value)
@@ -670,7 +675,7 @@ error messages that are reported.
 /- UNIVERSAL QUANTIFICATION AND PROOF BY CASE ANALYSIS -/
 
 /-
-Testing that a program is corect for one input, which is
+Testing that a program is correct for one input, which is
 what a test case asserts, does not prove that it is correct
 for all possible inputs, unless there is only one possible
 input, in which case the function is pretty much useless.
@@ -707,7 +712,7 @@ b, id_bool b is equal to b."
 We can't use rfl directly as a proof, because the 
 form of the proposition is not a simple assertion
 of equality of the values of two expressions. It is
-instead a "universall quantified" proposition
+instead a "universally quantified" proposition
 
 The remainder is the code instead gives a "proof by 
 case analysis." We show that for each possible value
@@ -723,7 +728,7 @@ case (the value of b) being considered. Then comes a
 :=, and followed by a proof for that case. 
 
 Consider the first case, in which b is bound to tt. 
-In this case, making this subsitution in the "body"
+In this case, making this substitution in the "body"
 of the proposition gives us id_bool tt = tt. For 
 this proposition, we already have a proof! It's rfl.
 The same holds true for the second case. 
@@ -807,6 +812,8 @@ the two Boolean values as an argument, negb returns the other.
 The set-theoretic definition is negb = { (tt, ff), (ff, tt) }.
 The truth table depicts this definition graphically. 
 
+abh: the table below has switched from tt/ff to T/F
+
  Arg Ret
 +---+---+
 | T | F |
@@ -832,7 +839,7 @@ We define negb to be a function that takes a Boolean value and
 returns a Boolean value. That is, the type of this function is,
 like the others we've defined so far, bool → bool. The thing that
 is different about this function is that we have to inspect the
-argument value to determing what result to return. We do that by
+argument value to determining what result to return. We do that by
 case analysis! What the body of this function says is "match the
 value of b with each of its possible cases. THe first case is tt,
 and in this case (after the :=), the return value is given by
@@ -912,6 +919,19 @@ A truth table view:
 +---+---+---+
 | F | F | F |
 +---+---+---+
+
+abh: An alternative truth table view
+(lower-case inputs, upper-case result):
+
+        arg 1
+      +---+---+
+      | t | f |
+a +---+---|---+
+r | t | T | F |
+g +---+---+---+
+  | f | F | F |
+2 +---+---+---+
+
 -/
 
 /-
@@ -1022,7 +1042,7 @@ of simplification and reflexivity of equality."
 
 /-
 EXERCISE: Write both a formal and a corresponding informal proof of the 
-correctnes of your andb function.
+correctness of your andb function.
 -/
 
 /-
@@ -1033,8 +1053,8 @@ BOOLEAN ALGEBRA AS AN ALGEBRA
 We have now gotten to the point where we can make sense of the term, boolean algebra.
 Boolean algebra is an algebra, which is to say it is a particular set of values and
 a particular collection of operations closed on that set. We have represented the set
-of values as a type, namely our bool type. We have represented the operations as pure
-functional programs taking and returning values of this type. 
+of values as a type, namely our dm_bool type. We have represented the operations as
+pure functional programs taking and returning values of this type. 
 
 Moreover, by defining this set and its operations in a namespace, we've grouped
 the values and operations on them in a meaningful way.
