@@ -205,7 +205,7 @@ Here's what you need to do instead.
 #check dm_bool.dm_tt
 
 /-
-This is of course equivalent to the following.
+This is equivalent to the following.
 -/
 
 #check edu.virginia.cs.dm.dm_bool.dm_tt
