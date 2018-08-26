@@ -1,2 +1,2 @@
 # cs-dm
-CS2012 UVa CS Discrete Math Spring 2018
+CS2012 UVa CS Discrete Math Fall 2018
