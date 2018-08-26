@@ -8,7 +8,7 @@ understand what it's saying.
 
 As an aside, importing from a file reveals the
 definitions at the top-level namespace. If some
-sumbols in that file are defined in namespaces,
+symbols in that file are defined in namespaces,
 then either the names in the file must qualified,
 or the namespace has to be opened.
 -/
@@ -50,7 +50,7 @@ open edu.virginia.cs.dm
 /-
 Having imported from dm_bool.lean and 
 opened the edu.virginia.cs.dm namespace,
-we can now access definitons from that 
+we can now access definitions from that 
 file without the namespace qualifiers.
 -/
 
@@ -78,7 +78,7 @@ is an example.
 
 /-
 We can now use the dm_bool type in this 
-mofule. file. We'll also want to use the
+module. file. We'll also want to use the
 functions that implement the operators
 defined in that file.
 -/
@@ -98,7 +98,7 @@ obtained when the program is run.
 
 Here's an example. We understand the
 following program to be an expression
-that reduces to the conjuection of the
+that reduces to the conjunction of the
 Boolean true and false values, which 
 is false. That's the expected value.
 Now hover over the #check to see the
@@ -111,7 +111,7 @@ answer actually obtained by "running.
             dm_bool.dm_ff
 
 /-
-The actual result equals the expeced
+The actual result equals the expected
 result. So we say that the program 
 passed the test (case).
 -/
@@ -120,7 +120,7 @@ passed the test (case).
 All that this this means, however is 
 that "the test case did not succeed in 
 flagging a possible programming bug."
-So in a sense a test case the a program
+So in a sense a test case the program
 passes is a failure.
 -/
 
@@ -128,11 +128,19 @@ passes is a failure.
 Testing succeeds when it finds important
 bugs in your program: bugs that you didn't
 know about and that you would think need
-to be fixed. 
+to be fixed.
 -/
 
 /-
 EXERCISE: WRITE TEST CASES FOR ALL OF
 THE OPERATORS IN OUR IMPLEMENTATION OF
 BOOLEAN ALGEBRA.
+-/
+
+/-
+abh: I like to differentiate between testing
+and proofs. As Dijkstra said at the NATO
+Software Engineering Conference in 1969:
+"Testing shows the presence, not the absence
+of bugs"
 -/
