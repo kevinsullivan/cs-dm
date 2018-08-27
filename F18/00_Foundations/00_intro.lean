@@ -33,41 +33,72 @@ that P is true.
 
 Another example of a proposition is the claim that
 zero does not equal one, which we would write like
-this: ¬ (0 = 1). We would judge this proposition to
-be true.
+this: ¬ (0 = 1). You could pronounce this as "it is
+not the case that 0 = 1." We would naturally judge
+this proposition to be true (albeit currently just
+based on our intution, not on any specific rules).
 
-EXERCISE: Write a truth judgment here in Lean that
-expresses the judgement that ¬ (0 = 1) is true.
+EXERCISE: Write a truth judgment here (just type it
+in as part of this comment) that expresses the 
+judgement that ¬ (0 = 1) is true.
 
 Propositions, then, are claims that certain states
 of affairs hold, and logic provides us with rules
 for determing when a given proposition is (can be
-judged to be) true,.
+judged to be) true.
 
 Propositions are basically declarative statements,
 asserting that such and such is true. What makes
-them formal is that they have a precise syntax.
+them formal is that they have a precise syntax,
+or form, and a precise semantics, or meaning.
+
 Just as with computer programs, there are strict
 rules that define the forms that propositions can
-take.
+take, i.e., their syntax. For example, 0 = 0 is a
+syntactically well-formed proposition, but 00= is
+not.
 
 Moreover, propositions in a given logic also have
-meanings in that they can be judged to be true or 
-not in a given domain. (For example "Mary is the 
-mom of Bob" is a proposition, that we could write 
-as a formal proposition, and this proposition will 
-be true in some families (domains) but not others.)
-The truth value of a proposition is relative to a
-domain of discourse. 
+meanings, in that they can be judged to be true,
+or not, in a given domain. For example "Mary is 
+the mom of Bob" (perhaps written more formally as
+mother_of(Mary,Bob) is a proposition that can be 
+judged to be true in some domains (family units)
+and not true in others. It's true in a domain in
+which Mary really is the mother of Bob, and it is
+not true otherwise. A proposition cannot generally
+be judged to be true or false on its own. Rather,
+it is judged to be true or false in some domain,
+under some *interpretation* that explains what
+each of the symbols in the proposition is meant 
+to refer to. For example, we could judge "Mary
+is the mother of Bob" to be true if and only if
+"Mary" refers to some person, "Bob" refers to
+some other person, and under some definition of
+what it really means to be the mother of, that
+that person referred to as Mary really is the
+mother of that person referred to as Bob. When
+we talk about the semantics of a logic, we are
+talking about rules for determining when some
+given proposition can be judged to be true with
+respect to some particular interpretation that
+"maps" the symbols in the proposition to things
+in the domain of discourse.
 
 The rules for determining whether a proposition 
-in a particular logic is true in a given domain 
-is called the semantics of that logic.
+in a particular logic is true in a given such a
+domain and interpretation is, again, called the 
+semantics of that logic.
 
 Logics thus provide rules that define the syntax
-and the semantics of propositions: their forms
-and their meanings (whether they are true or not) 
-in given domains of discourse.
+and the semantics of propositions: their forms,
+and their meanings (that is, whether they are 
+true or not) in given domains of discourse.
+
+We will use interchangeably the notions that a
+proposition is true and that we have reached a
+judgement that it is true by applying the rules
+of the semantics of a logic.
 
 We'll dive deeper into the syntax and semantics 
 of various logics as we go along. In particular,
@@ -100,15 +131,19 @@ be true.
 
 An inference rule is like a little program: it says,
 if you can give me judgments that certain "input"
-propositions are true, then I will hand you back a
-judgement that that some new proposition must also 
-be true.
+propositions are true (have already been judged to
+be true under the rules of the logic), then I will 
+hand you back a judgement that a new proposition 
+must also be true without question. We would say
+that from the premises (the input judgements) we
+deduce or derive the truth of (a truth judgement 
+for) a conclusion.
 
 Logicians often write inference rules like this:
 
  propositions already judged to be true
 ----------------------------------------- name-of-rule
-   new proposition judged to be true
+   a new proposition judged to be true
 
 The required input judgements, called premises, are 
 listed above the line. The name of the rule is given
@@ -116,42 +151,44 @@ to the right of the line. And the proposition that
 can thereby be judged to be true (the conclusion of
 the rule) is written below the line.
 
-For example, if we already have (0 = 0 : true) and
-(1 = 1: true) then the inference rule that logicians
-call and-introduction can be used to derive a truth
-judgment for the proposition that 0 = 0 and 1 = 1,
-typically written as 0 = 0 ∧ 1 = 1.
+For example, if we already have the truth judgment,
+(0 = 0 : true), and another, (1 = 1: true), then the 
+inference rule that logicians call and-introduction 
+can be used to derive a truth judgment for the new
+proposition that 0 = 0 and 1 = 1, typically written 
+as 0 = 0 ∧ 1 = 1.
 
-Predicate logic thus includes this inference rule.
+Predicate logic,  endowed with a sensible definition
+of equality, will thus (in effect) include this rule:
 
 0 = 0 : true, 1 = 1 : true
 -------------------------- and-introduction-*
       0 = 0 ∧ 1 = 1
 
+This can be pronounced as, "If you already have 
+judged 0 = 0 to be true and 1 = 1 to be true then
+by the application of the and-introduction-* rule,
+you can deduce that the proposition, 0 = 0 and 
+1 = 1" must also be true.
+
 We've put a * on the name of this rule to indicate
 that it's really just a specialization of a more
-general inference rule. Inference rules are actually
+general inference rule. Inference rules are usually
 written not in terms of specific propositions, such
 as 0 = 0, but in terms of variables that refer to 
-arbitrary propositions. These are often called 
-meta-variables.
+arbitrary propositions, often called meta-variables.
 
 Here's a simple example. If P is any proposition 
 (e.g., it could be 0 = 0 but might be some other
-proposition), and Q is some other proposition (e.g.,
+proposition), and Q is another proposition (e.g.,
 1 = 1), and if both propositions are already known
 to be true, then you can always validly conclude
-that the proposition "P and Q", written P ∧ Q, is
-true. 
-
-So no matter what proposition P and Q are,
-if you know both of them to be true, then by the
-application of what we call the and-introduction
-inference rule, you can conclude that P ∧ Q can 
-also be judged to be (i.e., "is") true.
+that the proposition "P and Q", written P ∧ Q, must
+also be true, mo matter what proposition P and Q 
+are.
 
 Here then is the general form of this inference 
-rule.
+rule as you'd find it in any basic book on logic.
 
 P : true, Q : true
 ------------------ and-introduction
@@ -167,18 +204,17 @@ written simply like this:
 
 Above the line, then, is a list of propositions (or 
 to be precise, propositional meta-variables that can 
-refer to arbitrary propositions. Below the line is 
-the form of a new proposition, built from the given
-propositions to which the meta-variables refer, for
-which a truth judgement is derived, or deduced. 
+refer to arbitrary propositions). Below the line is 
+a new proposition, typically built from the premises, 
+for which a truth judgement is thereby justified and
+provided. 
 
-A nice way to think about this rule, then, is as a 
+A nice way to think about this rule is as a 
 little program. It's called "and-introduction." It
 takes two arguments: namely a truth judgment for 
 some proposition P and a truth judgment for some
 proposition Q, and, when given these arguments, it
-returns is a truth judgement for the proposition
-P ∧ Q.
+returns itruth judgement for the proposition P ∧ Q.
 -/
 
 /- 
