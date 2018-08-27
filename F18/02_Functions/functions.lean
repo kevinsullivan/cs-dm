@@ -328,7 +328,14 @@ such proposition is that the pair, (3, 3), is
 in f. 
 -/
 
-lemma three_three_is_in_f: (3, 3) ∈ f := _
+/-
+Uncomment the following line temporarily. 
+Once you're done reading about it, turn it
+back into a comment. Otherwise your file will
+have an error.
+-/
+
+-- lemma three_three_is_in_f: (3, 3) ∈ f := _
 
 /-
 We don't use sorry here because we don't 
