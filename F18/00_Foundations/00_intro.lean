@@ -66,20 +66,24 @@ mother_of(Mary,Bob) is a proposition that can be
 judged to be true in some domains (family units)
 and not true in others. It's true in a domain in
 which Mary really is the mother of Bob, and it is
-not true otherwise. A proposition cannot generally
-be judged to be true or false on its own. Rather,
-it is judged to be true or false in some domain,
-under some *interpretation* that explains what
-each of the symbols in the proposition is meant 
-to refer to. For example, we could judge "Mary
-is the mother of Bob" to be true if and only if
-"Mary" refers to some person, "Bob" refers to
-some other person, and under some definition of
-what it really means to be the mother of, that
-that person referred to as Mary really is the
-mother of that person referred to as Bob. When
-we talk about the semantics of a logic, we are
-talking about rules for determining when some
+not true otherwise. 
+
+A proposition cannot generally be judged to be 
+true or false on its own. Rather, it is judged 
+in some domain: under an *interpretation* that 
+explains what each symbol in the proposition is 
+meant  to refer to. 
+
+For example, we could judge "Mary is the mother 
+of Bob" to be true if and only if "Mary" refers 
+to some person, "Bob" refers to another person, 
+and under some definition of what it means to 
+be the mother of, that the person referred to 
+as Mary really is the mother of that person 
+referred to as Bob. 
+
+When we talk about the semantics of a logic, we 
+are talking about rules for determining when some
 given proposition can be judged to be true with
 respect to some particular interpretation that
 "maps" the symbols in the proposition to things
@@ -92,13 +96,15 @@ semantics of that logic.
 
 Logics thus provide rules that define the syntax
 and the semantics of propositions: their forms,
-and their meanings (that is, whether they are 
-true or not) in given domains of discourse.
+and their meanings (that is, whether they are,
+i.e., can be judged to be, true or not) under 
+any given interpretation.
 
 We will use interchangeably the notions that a
-proposition is true and that we have reached a
-judgement that it is true by applying the rules
-of the semantics of a logic.
+proposition *is* true (under an interpretation)
+and that we have reached a judgement that it is 
+true by applying the rules of the semantics of 
+a logic.
 
 We'll dive deeper into the syntax and semantics 
 of various logics as we go along. In particular,
@@ -110,16 +116,16 @@ called predicate logic.
 For purposes of this unit, we'll just assume 
 that one particular form of valid proposition 
 in predicate logic is an proposition that the 
-values of two arithmetic expressions are equal. 
-For example, 0 = 0, 1 + 1 = 2, and 1 + 1 = 3 are 
-valid (syntactically well formed) propositions 
-in predicate logic.
+values of two terms are equal. For example, 
+0 = 0, 1 + 1 = 2, and 1 + 1 = 3 are valid 
+(syntactically well formed) propositions in 
+the predicate logic of everyday mathematics
+and computer science.
 -/
 
 /- ** Inference rules ** -/
 
 /-
-
 So how do we decide whether a given proposition
 can be judged to be true or not? Here is where 
 the semantics of a logic come into play.
@@ -130,14 +136,13 @@ under which a given proposition can be judged to
 be true.
 
 An inference rule is like a little program: it says,
-if you can give me judgments that certain "input"
-propositions are true (have already been judged to
-be true under the rules of the logic), then I will 
-hand you back a judgement that a new proposition 
-must also be true without question. We would say
-that from the premises (the input judgements) we
-deduce or derive the truth of (a truth judgement 
-for) a conclusion.
+if you can give me evidence (called proofs) showing
+that certain "input" propositions can be judged to
+be true, then I will hand you back evidence that
+shows that a new proposition can also be judged to
+be true, unquestionably. We would say that from the 
+proofs of the premises, the rule derives or deduces
+a proof of the conclusion.
 
 Logicians often write inference rules like this:
 
@@ -220,18 +225,19 @@ returns itruth judgement for the proposition P ∧ Q.
 /- 
 EXERCISE: What is returned when the and-introduction
 inference rule is applied to truth judgments for the
-propositions 0 = 0 ∧ 1 = 1?
+propositions 0 = 0 and 1 = 1? Write it out in full.
 
-EXERCISE: Why could this rule never be applied to
-produce a proof judgment for 0 = 0 ∧ 0 = 1?
+EXERCISE: Why could this rule never be applied (in
+any reasonable logic) to produce a truth judgment 
+for the proposition that 0 = 0 ∧ 0 = 1?
 -/
 
 /- *** Axioms *** -/
 
 /-
 In a mathematical or logical system, some propositions 
-taken to be true unconditionally without the need for 
-any "input" judgements.
+are taken to be true unconditionally: without the need 
+for any "input" judgements.
 
 An inference rule that requires no inputs at all, and 
 that nevertheless lets you judge some proposition to
