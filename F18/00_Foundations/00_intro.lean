@@ -23,7 +23,7 @@ that 0 = 0 is a proposition. So is the claim that 0 = 1.
 Logic is about precise rules for ascertaining when any
 given proposition can be judged to be true.
 
-Clearly we would just the proposition, 0 = 0, to be 
+Clearly we would judge the proposition, 0 = 0, to be 
 true, and the proposition that 0 = 1 to be false.
 Logicians will sometimes write "0 = 0 : true" as a
 way to assert that the proposition, 0 = 0, is (has
