@@ -33,42 +33,79 @@ that P is true.
 
 Another example of a proposition is the claim that
 zero does not equal one, which we would write like
-this: ¬ (0 = 1). We would judge this proposition to
-be true.
+this: ¬ (0 = 1). You could pronounce this as "it is
+not the case that 0 = 1." We would naturally judge
+this proposition to be true (albeit currently just
+based on our intution, not on any specific rules).
 
-EXERCISE: Write a truth judgment here in Lean that
-expresses the judgment that ¬ (0 = 1) is true.
+EXERCISE: Write a truth judgment here (just type it
+in as part of this comment) that expresses the 
+judgement that ¬ (0 = 1) is true.
 (abh: We have not introduced Lean yet.)
 
 Propositions, then, are claims that certain states
 of affairs hold, and logic provides us with rules
-for determining when a given proposition is (can be
+for determing when a given proposition is (can be
 judged to be) true.
 
 Propositions are basically declarative statements,
 asserting that such and such is true. What makes
-them formal is that they have a precise syntax.
+them formal is that they have a precise syntax,
+or form, and a precise semantics, or meaning.
+
 Just as with computer programs, there are strict
 rules that define the forms that propositions can
-take.
+take, i.e., their syntax. For example, 0 = 0 is a
+syntactically well-formed proposition, but 00= is
+not.
 
 Moreover, propositions in a given logic also have
-meanings in that they can be judged to be true or 
-not in a given domain. (For example "Mary is the 
-mom of Bob" is a proposition, that we could write 
-as a formal proposition, and this proposition will 
-be true in some families (domains) but not others.)
-The truth value of a proposition is relative to a
-domain of discourse. 
+meanings, in that they can be judged to be true,
+or not, in a given domain. For example "Mary is 
+the mom of Bob" (perhaps written more formally as
+mother_of(Mary,Bob) is a proposition that can be 
+judged to be true in some domains (family units)
+and not true in others. It's true in a domain in
+which Mary really is the mother of Bob, and it is
+not true otherwise. 
+
+A proposition cannot generally be judged to be 
+true or false on its own. Rather, it is judged 
+in some domain: under an *interpretation* that 
+explains what each symbol in the proposition is 
+meant  to refer to. 
+
+For example, we could judge "Mary is the mother 
+of Bob" to be true if and only if "Mary" refers 
+to some person, "Bob" refers to another person, 
+and under some definition of what it means to 
+be the mother of, that the person referred to 
+as Mary really is the mother of that person 
+referred to as Bob. 
+
+When we talk about the semantics of a logic, we 
+are talking about rules for determining when some
+given proposition can be judged to be true with
+respect to some particular interpretation that
+"maps" the symbols in the proposition to things
+in the domain of discourse.
 
 The rules for determining whether a proposition 
-in a particular logic is true in a given domain 
-is called the semantics of that logic.
+in a particular logic is true in a given such a
+domain and interpretation is, again, called the 
+semantics of that logic.
 
 Logics thus provide rules that define the syntax
-and the semantics of propositions: their forms
-and their meanings (whether they are true or not) 
-in given domains of discourse.
+and the semantics of propositions: their forms,
+and their meanings (that is, whether they are,
+i.e., can be judged to be, true or not) under 
+any given interpretation.
+
+We will use interchangeably the notions that a
+proposition *is* true (under an interpretation)
+and that we have reached a judgement that it is 
+true by applying the rules of the semantics of 
+a logic.
 
 We'll dive deeper into the syntax and semantics 
 of various logics as we go along. In particular,
@@ -80,16 +117,16 @@ called predicate logic.
 For purposes of this unit, we'll just assume 
 that one particular form of valid proposition 
 in predicate logic is a proposition that the 
-values of two arithmetic expressions are equal. 
-For example, 0 = 0, 1 + 1 = 2, and 1 + 1 = 3 are 
-valid (syntactically well formed) propositions 
-in predicate logic.
+values of two terms are equal. For example, 
+0 = 0, 1 + 1 = 2, and 1 + 1 = 3 are valid 
+(syntactically well formed) propositions in 
+the predicate logic of everyday mathematics
+and computer science.
 -/
 
 /- ** Inference rules ** -/
 
 /-
-
 So how do we decide whether a given proposition
 can be judged to be true or not? Here is where 
 the semantics of a logic come into play.
@@ -100,16 +137,19 @@ under which a given proposition can be judged to
 be true.
 
 An inference rule is like a little program: it says,
-if you can give me judgments that certain "input"
-propositions are true, then I will hand you back a
-judgment that that some new proposition must also 
-be true.
+if you can give me evidence (called proofs) showing
+that certain "input" propositions can be judged to
+be true, then I will hand you back evidence that
+shows that a new proposition can also be judged to
+be true, unquestionably. We would say that from the 
+proofs of the premises, the rule derives or deduces
+a proof of the conclusion.
 
 Logicians often write inference rules like this:
 
- propositions already judged to be true
------------------------------------------ name-of-rule
-   new proposition judged to be true
+  list of input truth judgments 
+  ----------------------------- (name-of-rule)
+  truth judgment for conclusion
 
 The required input judgments, called premises (or
 antecedents), are listed above the line. The name 
@@ -118,92 +158,137 @@ the proposition (or consequent) that can thereby
 be judged to be true (the conclusion of the rule)
 is written below the line.
 
-For example, if we already have (0 = 0 : true) and
-(1 = 1: true) then the inference rule that logicians
-call "and introduction" (or "conjunction introduction")
-can be used to derive a truth judgment for the
-proposition that 0 = 0 and 1 = 1, typically written
-as 0 = 0 ∧ 1 = 1.
+For example, if we already have the truth judgment,
+(0 = 0 : true), and another, (1 = 1: true), then the 
+inference rule that logicians call "and introduction"
+(or "conjunction introduction") can be used to derive
+a truth judgment for the new proposition, 0 = 0 and
+1 = 1, typically written as 0 = 0 ∧ 1 = 1. (Hover
+your mouse over special symbols in this editor to
+learn how to use them in your work.)
 
-Predicate logic thus includes this inference rule.
+Predicate logic will thus (in effect) include this 
+inference rule, for example:
 
 0 = 0 : true, 1 = 1 : true
 -------------------------- and-introduction-*
       0 = 0 ∧ 1 = 1
 
+This can be pronounced as, "If you already have 
+evidence (a proof) supporting the judgment that 
+0 = 0 is true and evidence supporting the judgment
+that 1 = 1 is true, then by the application of the 
+and-introduction-* rule, you can obtain evidence
+that supports the judgment that 0 = 0 ∧  1 = 1" 
+is also true.
+
 We've put a * on the name of this rule to indicate
-that it's really just a specialization of a more
-general inference rule. Inference rules are actually
+that it's really just a special case of a far more
+general inference rule. Inference rules are usually
 written not in terms of specific propositions, such
 as 0 = 0, but in terms of variables that refer to 
-arbitrary propositions. These are often called 
-meta-variables.
+arbitrary propositions, often called meta-variables.
+In this way, inference rules become program-like, in
+that they can take arbitrary inputs (of the correct 
+types), and whenever they are given such inputs, they
+produce a result of the promised type.
 
-Here's a simple example. If P is any proposition 
+Here's a simple example of such a parameterized and
+thereby generalized rule. If P is *any* proposition 
 (e.g., it could be 0 = 0 but might be some other
-proposition), and Q is some other proposition (e.g.,
+proposition), and Q is another proposition (e.g.,
 1 = 1), and if both propositions are already known
-to be true, then you can always validly conclude
-that the proposition "P and Q", written P ∧ Q, is
-true. 
+to be true, then you can always conclude that the 
+proposition "P and Q", written P ∧ Q, for whatever
+propositions P and Q happen to be, must also be true.
 
-So no matter what proposition P and Q are,
-if you know both of them to be true, then by the
-application of what we call the and-introduction
-inference rule, you can conclude that P ∧ Q can 
-also be judged to be (i.e., "is") true.
-
-Here then is the general form of this inference 
-rule.
+Here is how the general form of this inference 
+rule would typically be written in a book on 
+logic.
 
 P : true, Q : true
------------------- and-introduction
+------------------ (and-introduction)
    P ∧ Q : true
 
+Now here we're going to pull a little trick. 
+It's based on the idea that a "proof", whatever
+that is (!), serves as "evidence" that justifies
+a truth judgment about a proposition. So we are
+now technically distinguishing between a proof
+of a proposition and the truth judgment that it
+justifies. Nevertheless, we will assume that a
+truth judgment for some proposition, P, is in
+fact justified if and only if we have a proof
+of P.
+
+To denote the fact that we have a proof, p, of
+some proposition, P, we will write p : P. Now,
+the idea is that if we have p : P then we also
+have P : true, and the only way we can get
+P : true is if we have some evidence, p, for
+P. In other words, P is true if and only if
+we have evidence (a proof), p, for P. We can
+write this statement in the language of logic
+like this: p : P ↔ P : true.  The evidence, 
+p, for P, justifies the judgement, P : true,
+and the only way to justify such a judgement
+is with such a piece of evidence. In other
+words, having a proof of P is equivalent to
+P being true.
+
+We can thus write an equivalent inference 
+rule like this:
+
+p : P, q : Q
+------------ (and-introduction)
+r : P ∧ Q
+
+This then says, "If you give me a proof, P, of
+some proposition, P, and if you also given me a
+proof, q, of some proposition Q, then I promis
+to give you back a proof, r, of the proposition,
+P ∧ Q."
+
 As a shorthand, logicians usually leave off the
-": true" bits, and so you'd usually see this rule
-written simply like this:
+": true" bits and/or the "p :" bits, and so you'd 
+usually see this rule written simply like this:
 
    P, Q
    ----- and-introduction
    P ∧ Q
 
-Above the line, then, is a list of propositions (or 
-to be precise, propositional meta-variables that can 
-refer to arbitrary propositions. Below the line is 
-the form of a new proposition, built from the given
-propositions to which the meta-variables refer, for
-which a truth judgment is derived, or deduced. 
+Above the line, then, is a list of propositions 
+that must be true for the rule to be applied. Below 
+the line is a new proposition, typically built from 
+bits and pieces of the premise propositions, the
+truth of which then follows from the truth of the
+premises. 
 
-A nice way to think about this rule, then, is as a 
-little program. It's called "and-introduction." It
-takes two arguments: namely a truth judgment for 
-some proposition P and a truth judgment for some
-proposition Q, and, when given these arguments, it
-returns is a truth judgment for the proposition
-P ∧ Q.
+A nice way to think about such a rule is as a 
+little program. Let's call it "and-introduction!" 
+It takes two arguments: namely a proof of P and a
+proof of Q and when these are provided it creates
+and returns a proof of P ∧ Q. How it might do
+this and what such a proof might look like are
+details that we won't get into until later. 
 -/
 
 /- 
 EXERCISE: What is returned when the and-introduction
-inference rule is applied to truth judgments for the
-propositions 0 = 0 ∧ 1 = 1?
-(abh: This feels unclear. Are we also providing 
-0 = 0, 1 = 1 as input propositions? Or are we
-assuming that and-introduction will infer those?
-This ambiguity could work to our advantage if we
-make a pedagogical choice to point out these are
-questions to be asked.)
+inference rule viewed as a program is applied to two
+proofs, one of the proposition, 0 = 0, and one of the
+proposition, "Hello" = "Hello".
 
-EXERCISE: Why could this rule never be applied to
-produce a proof judgment for 0 = 0 ∧ 0 = 1?
+EXERCISE: Why could this rule never be applied (in
+any reasonable logic) to produce a truth judgment 
+for the proposition that 0 = 0 ∧ 0 = 1?
 -/
 
 /- *** Axioms *** -/
 
 /-
 In a mathematical or logical system, some propositions 
-are taken to be true unconditionally without the need
+are taken to be true unconditionally: without the need
 for any "input" judgments.
 
 An inference rule that requires no inputs at all, and 
