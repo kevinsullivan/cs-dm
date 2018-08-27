@@ -105,6 +105,9 @@ you the ability to write mathematical logic using ordinary math
 and logic symbols.
 -/
 
+/- 
+*** The Evaluation (or Reduction) of Expressions
+-/
 
 /-
 Part of magic of computers is that they can tell you not
@@ -118,25 +121,16 @@ display the reduced value of an expression.
 
 /-
 EXERCISE: Use #eval to evaluate the disjunction of tt and ff.
--/
-
-/-
-The notation bnot b is used to represent the negation of a Boolean 
-expression, b. 
--/
-
-#check bnot tt
-#eval bnot tt
-
-/-Write a Lean expression for what we
-would informally say as "the negation of the conjunction of true
-and false". Use parenthesis to group the band operator and its
-arguments. Then use #check to check the type of this expression,
+EXERCISE: Use #eval to evaluate the negation of tt
+EXERCISE: Evaluate a Lean expression for what we would 
+informally say as "the negation of the conjunction of true
+and false". Use parenthesis to group the and operator and its
+arguments. Use #check to check the type of this expression,
 and use #eval to reduce it to a Boolean value.
 -/
 
 /-
-At this point, you should have a good feeling: you have learned
+At this point, you should feel good! You have learned
 about types, values, operators that are closed on values of a 
 type, and expressions involving these operators and values. What 
 you are seeing is the "algebra" of Boolean values, formalized in 

@@ -1,4 +1,4 @@
-import .natural
+import ..dm_nat.dm_nat
 
 inductive integer : Type
 | of_nat : natural → integer
