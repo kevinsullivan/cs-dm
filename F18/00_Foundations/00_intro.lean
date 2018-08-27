@@ -3,7 +3,7 @@
 -/
 
 /-
-Modern mathematics, and discrete mathematics in partiular,
+Modern mathematics, and discrete mathematics in particular,
 are formal (mathematical) logical systems. 
 
 Logical systems in turn are rooted in the concepts of 
@@ -115,7 +115,7 @@ called predicate logic.
 
 For purposes of this unit, we'll just assume 
 that one particular form of valid proposition 
-in predicate logic is an proposition that the 
+in predicate logic is a proposition that the 
 values of two terms are equal. For example, 
 0 = 0, 1 + 1 = 2, and 1 + 1 = 3 are valid 
 (syntactically well formed) propositions in 
@@ -150,19 +150,21 @@ Logicians often write inference rules like this:
   ----------------------------- (name-of-rule)
   truth judgment for conclusion
 
-The required input judgements, called premises, are 
-listed above the line. The name of the rule is given
-to the right of the line. And the proposition that 
-can thereby be judged to be true (the conclusion of
-the rule) is written below the line.
+The required input judgments, called premises (or
+antecedents), are listed above the line. The name 
+of the rule is given to the right of the line. And
+the proposition (or consequent) that can thereby
+be judged to be true (the conclusion of the rule)
+is written below the line.
 
 For example, if we already have the truth judgment,
 (0 = 0 : true), and another, (1 = 1: true), then the 
-inference rule that logicians call "and-introduction" 
-can be used to derive a truth judgment for the new
-proposition, 0 = 0 and 1 = 1, typically written as 
-0 = 0 ∧ 1 = 1. (Hover your mouse over special symbols
-in this editor to learn how to use them in your work.)
+inference rule that logicians call "and introduction"
+(or "conjunction introduction") can be used to derive
+a truth judgment for the new proposition, 0 = 0 and
+1 = 1, typically written as 0 = 0 ∧ 1 = 1. (Hover
+your mouse over special symbols in this editor to
+learn how to use them in your work.)
 
 Predicate logic will thus (in effect) include this 
 inference rule, for example:
@@ -325,7 +327,7 @@ logic includes 0 = 0 as an axiom.
 Intuitively you would suppose that the proposition,
 0 = 0, should be true in any reasonable logical system. 
 
-There are two way a logic could make this happen. 
+There are two ways a logic could make this happen. 
 The first is that the logic could provide 0 = 0 as 
 an axiom, as we just discussed. 
 
@@ -351,7 +353,7 @@ object or value of that type, T (e.g., 0 is a value
 of type, natural number), then you can conclude that
 t = t is true.  
 
-We meet a new kind of judgement here: a type judgment.
+We meet a new kind of judgment here: a type judgment.
 If X is some type, and x is a value of that type, X, 
 we can denote this fact by writing x : X. We read this
 as "x is of type X."
@@ -390,7 +392,7 @@ Now we move the ball forward yet another distance.
 In predicate logic, we could also write the inference 
 rule for eq like this: ∀ T: Type, ∀ t: T, t = t. The 
 upside-down A is the universal quantifier of predicate
-logic. You can pronounce it as "forall" or "for any" or 
+logic. You can pronounce it as "for all" or "for any" or 
 "if you give me any value of the specified type ..."
 
 You could thus pronounce the rule like this: "If you
@@ -483,9 +485,22 @@ of this proof object doesn't work for the type
 of the proposition to be proved, "0 = 1", so Lean
 rejects the proof. The red line over the zeqo
 then explains that you've promised to provide a
-proof, but you haven't, and so the think you said
-would be a theorem (lemma) really isn't proven to
-be one! 
+proof, but you haven't, and so the thing you said
+would be a theorem hasn't actually been proven to
+be one!
+
+Note: The word "theorem" in mathematics is generally
+used to mean an "important" proposition that has been
+proved. The word lemma is used to mean a somewhat less 
+important proposition that has been proved, often as
+part of a larger proof of a more important theorem.
+Mathematicians also use the word corrolary to refer
+to a proposition the proof of which follows from the
+proof of a more important theorem. You can read all
+about the various words used to refer to things that
+have been proved, or that are intended to be proved,
+here: https://academia.stackexchange.com/questions/113819/is-it-acceptable-for-a-referee-to-suggest-changing-theorem-into-proposition.
+For our purposes, we'll typically just use theorem.
 -/
 
 /-
@@ -553,7 +568,7 @@ to generate such a proof?
 In Lean the and-introduction inference rule goes by
 the name and.intro. It takes two arguments: a truth 
 judgment for some proposition, P, and one for another
-proposition Q. It then returns a truth judgement for
+proposition Q. It then returns a truth judgment for
 the proposition P ∧ Q. Here's the code!
 -/
 
@@ -576,7 +591,7 @@ each of the arguments following that name. You do
 not write the arguments to a function as a list 
 of values within parentheses as in Python or Java. 
 
-Voila! 
+Voilà! 
 -/
 
 /-
@@ -594,7 +609,7 @@ a good idea to label them as lemmas, by the way)
 for 2 = 2 and "Hi" = "Hi". Each of these would
 in turn by proved by the application of the rfl
 rule. Then we could use the named truth judgments
-for those lemms as inputs to and.intro and we'd
+for those lemmas as inputs to and.intro and we'd
 be done. But there's a shorter way to go. We can
 just write the proofs of individual propositions
 inline.
@@ -634,7 +649,7 @@ inference rules to already proved theorems to come up with
 new theorems. That would be like typing randomly and hoping
 to produce a new Shakespeare-quality play. 
 
-Rather, mathematicians, and computer scientists, come up
+Rather, mathematicians and computer scientists, come up
 with propositions that they believe, and hope, are true
 (e.g., a proposition that asserts that some program gives
 the right answer for any possible combination of inputs);
@@ -698,7 +713,7 @@ prove if your aim is ultimately to prove the proposition
 that 5 = 1 + 4 ∧ "Strike" = "S" ++ "trike". Go ahead and
 prove those smaller propositions. You can use whatever
 names you want for these little "theorems", then write
-the theorem that proves the final result usig the lemmas
+the theorem that proves the final result using the lemmas
 as inputs.
 -/
 
@@ -713,8 +728,8 @@ There is however more than one way to establish the
 logical foundations of mathematics.
 
 The most widely used axiomatic foundation comprises a
-set of axioms that describe what it means to be a set,
-and everything else then built on the concept of sets.
+set of axioms that describes what it means to be a set,
+and everything else then builds on the concept of sets.
 The resulting theory is called "set theory." Set theory
 is the most widely accepted and used logical foundation
 for everyday mathematics.
@@ -727,14 +742,29 @@ that contains that set; and so forth.
 The specific set theory foundation for ordinary
 mathematics is known as Zermelo-Frankl Set Theory 
 with the Axiom of Choice (often abbreviated as ZFC). 
-The axioms of ZFC capture our "naive" view of sets 
+The axioms of ZFC capture our "naïve" view of sets 
 as collections of elements. It took much time and
 great care, however, to craft a set of axioms that
-was not self-contradicting. The original formulation
-of set theory turned out to be inconsistent! (Does
-the set of all sets that do not contain themselves
-contain itself? If it does, then it doesn't, and if
-it doesn't then it does: a profound inconsistency.)
+are not self-contradicting. The original formulation
+of set theory turned out to be inconsistent! 
+
+(Does the set of all sets that do not contain 
+themselves contain itself? If it does, then it 
+doesn't, and if it doesn't then it does: a real 
+inconsistency! In fact it was this problem that
+led mathematicians to a much more careful notion
+of what it means to be a set, as captured by the
+axioms of ZFC.
+
+As another example of an inconsistency, there's 
+a word in the English language to describe words 
+that describe themselves: autological. The antonym 
+of autological is heterological. "Polysyllabic" is 
+autological, but  "palindrome" is heterological. 
+Is the word "heterological" heterological? If the 
+word doesn't describe itself, then it is, but then 
+the word would describe itself. So, yeah, English
+is inconsistent in this sense.)
 
 The axioms of ZFC are somewhat technical; we will 
 not explore them in this class. What you might want
@@ -743,7 +773,7 @@ mathematical proposition in a precise, fully formal
 way using ZFC, it is a complex and messy affair. 
 
 In fact, it's so messy that most mathematicians trade
-trade in rigorous but informal proofs. By informal 
+in rigorous but informal proofs. By informal 
 proofs we mean mathematical arguments written in a 
 stylized form of a natural language, such as English.
 For example, a proof of 0 = 0 and 1 = 1 might read
@@ -751,7 +781,7 @@ like this: "To prove the proposition, which is a
 conjunction, we need proofs of the two parts. The
 first, 0 = 0, is proved by noting that equality is
 a reflexive relation, and 1 = 1 is proved similarly.
-Given that both conjunts are so, then so is the
+Given that both conjuncts are so, then so is the
 overall conjunction. So it is shown (QED in latin)."
 
 Because machines aren't much good at figuring out what
@@ -764,7 +794,7 @@ When a mathematician claims to have produced a proof
 of a theorem of potential significance, other experts
 come together (often as reviewers for journals to which
 mathematical purported proofs are generally submitted 
-for review and publication) to  see if they can find 
+for review and publication) to see if they can find 
 any errors in reasoning. They often do! 
 
 Such human proof checking has in some cases proved to 
@@ -793,8 +823,9 @@ can be based. Not surprisingly, types, rather than sets, are
 a fundamental building block of mathematics in type theory.
 Sets can be modeled, but they are not built in. 
 
-You already have a good intuition for sets as collections
-of values. A type also defines a set of values, each each
+From your high school math background, you probably 
+already have a reasonable intuition for sets as collections
+of values. A type also defines a set of values, and each
 value in that set has that type. But whereas a value can be
 in many sets, in type theory a value has exactly one type.
 Whenever you see a value, or an expression that reduces to
@@ -832,7 +863,7 @@ in type theory than in set theory. Type theory has thus
 emerged as an important framework for *automating* the 
 handling of logic in both mathematics and computer science. 
 
-For computer scientists, it is also the mai foundation for
+For computer scientists, it is also the main foundation for
 functional programming, the theory of programming languages, 
 and for formal verification of software correctness, which
 is vitally important when ultra-high levels of confidence 
@@ -845,7 +876,7 @@ think of it for now as a really cool tool in which you can
 write both programs and logic, and that can help you to 
 construct "manageable" proofs. Through the magic of type 
 checking it then *automatically* determines whether a proof 
-is valid or a given proposition.
+is valid for a given proposition.
 
 This technology holds the promise of eventually changing
 the way that code is written and verified, and even the way 
@@ -859,7 +890,7 @@ In this unit you've learned the following concepts:
 * proposition
 * axiom
 * inference rule
-* truth judgement 
+* truth judgment 
 * proof
 * equality
 * type judgment
