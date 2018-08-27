@@ -286,28 +286,40 @@ for the proposition that 0 = 0 ∧ 0 = 1?
 /-
 In a mathematical or logical system, some propositions 
 are taken to be true unconditionally: without the need 
-for any "input" judgements.
+for any prior "input" judgements or proofs.
 
-An inference rule that requires no inputs at all, and 
-that nevertheless lets you judge some proposition to
-be true, is called an axiom. We also use the term, 
-axiom, to refer to the proposition that is thereby 
-stipulated to be true unconditionally. 
+An inference rule that requires no proof or truth
+judgement inputs, and that nevertheless lets you 
+judge some proposition to be true unconditionally
+(e.g., by handing you a proof of that proposition), 
+is called an axiom. 
 
-If we were to take the proposition, 0 = 0, as an
-axiom, we could write it like this: 
+We also use the term, axiom, to refer to the 
+proposition that is the conclusion of the rule, 
+and that is thereby judged true unconditionally. 
+An axiom viewed as an inference rule with no
+proofs/judgements as inputs would be written
+with no proof/judgment premises/arguments above
+the line.
 
+For example, if we were to take the proposition, 
+0 = 0, as an axiom, we could write it like this: 
+
+           <---- note the absence of premises
 -----
 0 = 0
 
-Note that there are no require "input" judgments. 
-So without having proved anything else at all to 
-be true, this rule nevertheless lets you conclude
-that 0 = 0. In this case, you could say that the
-logic has accepted 0 = 0 as an axiom.
+What this says then is that without having proved 
+or judged any other propositions to be true you can
+nevertheless judge 0 = 0 to be true. Equivalently,
+without providing any proofs of other propositions
+as arguments, this rule will still hand you back a
+proof of 0 = 0, thereby justifying the judgment that
+0 = 0 is true. In this case, you could say that the
+logic includes 0 = 0 as an axiom.
 -/
 
-/- ** Examples involving equality propositions ** -/
+/- ** An inference rule for equality in general ** -/
 
 /-
 Intuitively you would suppose that the proposition,
@@ -320,50 +332,61 @@ an axiom, as we just discussed.
 That'd be ok, but then we'd need similar axioms for 
 every other number. We'd also need similar axioms
 for every object of every other type: person, car, 
-plant, atom, book, idea, etc. We end up with a pretty 
-intractable set of axioms.
+plant, atom, book, idea, etc. We end up with a pretty
+unweildy (and infinite) set of axioms. Moreover, if
+we were ever to define a new type of objects (e.g.,
+digital pets), we'd have to extend the logic with 
+similar inference rules for every value of the new
+type. (Fido = Fido, Spot = Spot, Kitty = Kitty, etc).
 
-What would be much better would be to have an
+What would be much better would be to have just one
 inference rule that basically allow us to conclude
-that any object or value of any type is equal to 
-itself.
+that *any* object, or value, of any type whatsoever 
+is always equal to itself (and that nothing else
+is ever equal to that object).
 
-Indeed. It'd go something like this: if T is any "type" 
-of thing (such as number, car, person), and t is any 
-object or value of that type, T (such as 0), then you 
-can conclude (derive a truth judgment for proposition) 
-that t = t. 
+It'd go something like this: if T is any "type" 
+(such as natural number, car, person), and t is any 
+object or value of that type, T (e.g., 0 is a value
+of type, natural number), then you can conclude that
+t = t is true.  
 
 We meet a new kind of judgement here: a type judgment.
-If T is a type, then we can write T : Type. If t is of
-some type, T, then we can write t : T. Now we can write
-the inference rule, which we'll call eq, like this:
+If X is some type, and x is a value of that type, X, 
+we can denote this fact by writing x : X. We read this
+as "x is of type X."
+
+Now for a tricky idea: even types are going to have
+types in type theory. If T is a type, then it's type
+will be called "Type". So if T is a type, then we'd
+write the type judgment, "T : Type". And if T is a 
+type, and t is of type, T, then we'd write t : T. 
+Now we can write the inference rule for equality:
 
 T: Type, t : T
--------------- eq
+-------------- (eq)
     t = t
 
 Those are now type judgments above the line. You can 
-thus understand this inference rule as saying this:
-if you give me a T that is of type, Type, which is to
-say that it itself a type (such as natural number or 
-Boolean), and if you then also give me a value, t, of 
-that particular type T (such as 0 or true), then I 
-will give you a truth judgement for the proposition 
-that t is equal to itself (e.g., 0 = 0 or true = true).
+understand this inference rule as saying this: if you 
+give me a T that is some type (of type, Type, e.g., 
+Boolean or natural number), and if you also give me a 
+value, t, of type, T, (such as 0 or true), then I 
+will give you back a proof that t = t. This single
+inference rule thus defines a a very sensible notion
+of equality for all values of all types that exist or
+might ever be defined. 
 
 EXERCISE: Why can this rule never be used to derive a
 truth judgment for the proposition that 0 = 1?
 
 So now, rather than a separate axiom for 0 = 0,
 another one for 1 = 1, another for true = true, and
-so forth, we now have a single inference rule that
-covers every conceivable case forever forward. No
-matter what types you might define, and not matter
-what values of such types you might produce, you
-can always conclude that any such value of any
-such type is equal to itself. 
+yet another for Fido = Fido, so forth, we now have 
+a single inference rule that covers every possible 
+case forever forward.  
 
+Now we move the ball forward yet another distance. 
 In predicate logic, we could also write the inference 
 rule for eq like this: ∀ T: Type, ∀ t: T, t = t. The 
 upside-down A is the universal quantifier of predicate
@@ -371,40 +394,44 @@ logic. You can pronounce it as "forall" or "for any" or
 "if you give me any value of the specified type ..."
 
 You could thus pronounce the rule like this: "If you
-give me any T that is of type, Type (which is to say
-that if T is any type), and if you give me any value,
-t, of that type, T, then I promise to give you back a
-truth judgement (i.e., proof) of the proposition that 
-t = t." The notation "x: X" is called a type judgement.
-It asserts that the value, x, is of some type, X. Lean
-strictly checks that all type judgements are valid, so
-you wouldn't be able to apply such an inference rule 
-if the types didn't "type check" correctly.
+give me any T that is of type, Type, which is to say
+that if T is any type, and if you give me any value,
+t, of that type, T, then I promise to give you back 
+a value of type t = t.
+
+Wait! What?
+
+Yeah! In the logic of Lean, propositions are types
+and proofs are values of these types. To read the
+rule again, we could say, if you given me any type,
+T, and any value, t, of that type, I promise to give
+you back a value of type, t = t. But t = t is clearly
+a proposition, so a value of this type is ... wait for
+it ... a proof of the proposition. of the proposition 
+that t = t." 
+
+That's crazy, but stick with it ...
 -/
 
 /-
 Now, given this more general inference rule, we could
-"apply" it to the case where T = "natural number", or
-"non-negative integer" (in many languages written as 
-"nat"), and t = 0 (a value of type nat) to *derive* 
-a truth judgment for the proposition, 0 = 0, as a 
-special case. 
-
-We could apply the same  rule to derive truth judgements
-for 1 = 1, 2 = 2, true = true, "Bob" = "Bob", and so on.
+"apply" it to the case where T = nat (Lean's name for
+the type of natural numbers), and where t = 0 (a value
+of this type) to produce a proof of 0 = 0. We could 
+apply the same  rule to derive truth judgements for 
+1 = 1, 2 = 2, true = true, "Bob" = "Bob", and so on.
 -/
 
 /-
-In Lean, this inference rule, for defining a general
-concept of equality that works for all values of all
-types, is built in (actually define in a library that
-is automatically loaded when you start Lean). 
+In Lean, this inference rule is built in (actually 
+defined in a library that is automatically loaded 
+when you start Lean). 
 
 There's a shorthand in Lean for applying this rule 
-to a value of some particular type to construct a proof
-(a truth judgment) for the proposition that that value 
-equals itself. In Lean, rfl can be used whenever you
-want to prove that two terms are equal.
+to a value, t, of some particular type, T, to 
+produce a proof of t = t. It's called "rfl". It
+can be used whenever you want to prove that two 
+terms are equal.
 
 Here's an example for the proposition, 0 = 0. Note:
 mathematicians commonly use the term "theorem" for a
