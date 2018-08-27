@@ -146,9 +146,9 @@ a proof of the conclusion.
 
 Logicians often write inference rules like this:
 
- propositions already judged to be true
------------------------------------------ name-of-rule
-   a new proposition judged to be true
+  list of input truth judgments 
+  ----------------------------- (name-of-rule)
+  truth judgment for conclusion
 
 The required input judgements, called premises, are 
 listed above the line. The name of the rule is given
@@ -158,74 +158,123 @@ the rule) is written below the line.
 
 For example, if we already have the truth judgment,
 (0 = 0 : true), and another, (1 = 1: true), then the 
-inference rule that logicians call and-introduction 
+inference rule that logicians call "and-introduction" 
 can be used to derive a truth judgment for the new
-proposition that 0 = 0 and 1 = 1, typically written 
-as 0 = 0 ∧ 1 = 1.
+proposition, 0 = 0 and 1 = 1, typically written as 
+0 = 0 ∧ 1 = 1. (Hover your mouse over special symbols
+in this editor to learn how to use them in your work.)
 
-Predicate logic,  endowed with a sensible definition
-of equality, will thus (in effect) include this rule:
+Predicate logic will thus (in effect) include this 
+inference rule, for example:
 
 0 = 0 : true, 1 = 1 : true
 -------------------------- and-introduction-*
       0 = 0 ∧ 1 = 1
 
 This can be pronounced as, "If you already have 
-judged 0 = 0 to be true and 1 = 1 to be true then
-by the application of the and-introduction-* rule,
-you can deduce that the proposition, 0 = 0 and 
-1 = 1" must also be true.
+evidence (a proof) supporting the judgment that 
+0 = 0 is true and evidence supporting the judgment
+that 1 = 1 is true, then by the application of the 
+and-introduction-* rule, you can obtain evidence
+that supports the judgment that 0 = 0 ∧  1 = 1" 
+is also true.
 
 We've put a * on the name of this rule to indicate
-that it's really just a specialization of a more
+that it's really just a special case of a far more
 general inference rule. Inference rules are usually
 written not in terms of specific propositions, such
 as 0 = 0, but in terms of variables that refer to 
 arbitrary propositions, often called meta-variables.
+In this way, inference rules become program-like, in
+that they can take arbitrary inputs (of the correct 
+types), and whenever they are given such inputs, they
+produce a result of the promised type.
 
-Here's a simple example. If P is any proposition 
+Here's a simple example of such a parameterized and
+thereby generalized rule. If P is *any* proposition 
 (e.g., it could be 0 = 0 but might be some other
 proposition), and Q is another proposition (e.g.,
 1 = 1), and if both propositions are already known
-to be true, then you can always validly conclude
-that the proposition "P and Q", written P ∧ Q, must
-also be true, mo matter what proposition P and Q 
-are.
+to be true, then you can always conclude that the 
+proposition "P and Q", written P ∧ Q, for whatever
+propositions P and Q happen to be, must also be true.
 
-Here then is the general form of this inference 
-rule as you'd find it in any basic book on logic.
+Here is how the general form of this inference 
+rule would typically be written in a book on 
+logic.
 
 P : true, Q : true
------------------- and-introduction
+------------------ (and-introduction)
    P ∧ Q : true
 
+Now here we're going to pull a little trick. 
+It's based on the idea that a "proof", whatever
+that is (!), serves as "evidence" that justifies
+a truth judgment about a proposition. So we are
+now technically distinguishing between a proof
+of a proposition and the truth judgment that it
+justifies. Nevertheless, we will assume that a
+truth judgment for some proposition, P, is in
+fact justified if and only if we have a proof
+of P.
+
+To denote the fact that we have a proof, p, of
+some proposition, P, we will write p : P. Now,
+the idea is that if we have p : P then we also
+have P : true, and the only way we can get
+P : true is if we have some evidence, p, for
+P. In other words, P is true if and only if
+we have evidence (a proof), p, for P. We can
+write this statement in the language of logic
+like this: p : P ↔ P : true.  The evidence, 
+p, for P, justifies the judgement, P : true,
+and the only way to justify such a judgement
+is with such a piece of evidence. In other
+words, having a proof of P is equivalent to
+P being true.
+
+We can thus write an equivalent inference 
+rule like this:
+
+p : P, q : Q
+------------ (and-introduction)
+r : P ∧ Q
+
+This then says, "If you give me a proof, P, of
+some proposition, P, and if you also given me a
+proof, q, of some proposition Q, then I promis
+to give you back a proof, r, of the proposition,
+P ∧ Q."
+
 As a shorthand, logicians usually leave off the
-": true" bits, and so you'd usually see this rule
-written simply like this:
+": true" bits and/or the "p :" bits, and so you'd 
+usually see this rule written simply like this:
 
    P, Q
    ----- and-introduction
    P ∧ Q
 
-Above the line, then, is a list of propositions (or 
-to be precise, propositional meta-variables that can 
-refer to arbitrary propositions). Below the line is 
-a new proposition, typically built from the premises, 
-for which a truth judgement is thereby justified and
-provided. 
+Above the line, then, is a list of propositions 
+that must be true for the rule to be applied. Below 
+the line is a new proposition, typically built from 
+bits and pieces of the premise propositions, the
+truth of which then follows from the truth of the
+premises. 
 
-A nice way to think about this rule is as a 
-little program. It's called "and-introduction." It
-takes two arguments: namely a truth judgment for 
-some proposition P and a truth judgment for some
-proposition Q, and, when given these arguments, it
-returns itruth judgement for the proposition P ∧ Q.
+A nice way to think about such a rule is as a 
+little program. Let's call it "and-introduction!" 
+It takes two arguments: namely a proof of P and a
+proof of Q and when these are provided it creates
+and returns a proof of P ∧ Q. How it might do
+this and what such a proof might look like are
+details that we won't get into until later. 
 -/
 
 /- 
 EXERCISE: What is returned when the and-introduction
-inference rule is applied to truth judgments for the
-propositions 0 = 0 and 1 = 1? Write it out in full.
+inference rule viewed as a program is applied to two
+proofs, one of the proposition, 0 = 0, and one of the
+proposition, "Hello" = "Hello".
 
 EXERCISE: Why could this rule never be applied (in
 any reasonable logic) to produce a truth judgment 
