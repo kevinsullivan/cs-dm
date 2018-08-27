@@ -719,11 +719,12 @@ contain itself? If it does, then it doesn't, and if
 it doesn't then it does: a profound inconsistency.
 abh:In case that example feels contrived, there's a
 word in the English language to describe words that
-describe themselves: autological. "Polysyllabic" is
-autological, but "palindrome" is not. The antonym of
-autological is heterological. Is the word "heterological"
-heterological? If the word doesn't describe itself,
-then it is, but then the word would describe itself…)
+describe themselves: autological. The antonym of
+autological is heterological. "Polysyllabic" is
+autological, but "palindrome" is heterological. Is
+the word "heterological" heterological? If the word
+doesn't describe itself, then it is, but then the
+word would describe itself…)
 
 The axioms of ZFC are somewhat technical; we will 
 not explore them in this class. What you might want
