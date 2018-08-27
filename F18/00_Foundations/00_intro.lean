@@ -3,7 +3,7 @@
 -/
 
 /-
-Modern mathematics, and discrete mathematics in partiular,
+Modern mathematics, and discrete mathematics in particular,
 are formal (mathematical) logical systems. 
 
 Logical systems in turn are rooted in the concepts of 
@@ -37,12 +37,13 @@ this: ¬ (0 = 1). We would judge this proposition to
 be true.
 
 EXERCISE: Write a truth judgment here in Lean that
-expresses the judgement that ¬ (0 = 1) is true.
+expresses the judgment that ¬ (0 = 1) is true.
+(abh: We have not introduced Lean yet.)
 
 Propositions, then, are claims that certain states
 of affairs hold, and logic provides us with rules
-for determing when a given proposition is (can be
-judged to be) true,.
+for determining when a given proposition is (can be
+judged to be) true.
 
 Propositions are basically declarative statements,
 asserting that such and such is true. What makes
@@ -78,7 +79,7 @@ called predicate logic.
 
 For purposes of this unit, we'll just assume 
 that one particular form of valid proposition 
-in predicate logic is an proposition that the 
+in predicate logic is a proposition that the 
 values of two arithmetic expressions are equal. 
 For example, 0 = 0, 1 + 1 = 2, and 1 + 1 = 3 are 
 valid (syntactically well formed) propositions 
@@ -101,7 +102,7 @@ be true.
 An inference rule is like a little program: it says,
 if you can give me judgments that certain "input"
 propositions are true, then I will hand you back a
-judgement that that some new proposition must also 
+judgment that that some new proposition must also 
 be true.
 
 Logicians often write inference rules like this:
@@ -110,17 +111,19 @@ Logicians often write inference rules like this:
 ----------------------------------------- name-of-rule
    new proposition judged to be true
 
-The required input judgements, called premises, are 
-listed above the line. The name of the rule is given
-to the right of the line. And the proposition that 
-can thereby be judged to be true (the conclusion of
-the rule) is written below the line.
+The required input judgments, called premises (or
+antecedents), are listed above the line. The name 
+of the rule is given to the right of the line. And
+the proposition (or consequent) that can thereby
+be judged to be true (the conclusion of the rule)
+is written below the line.
 
 For example, if we already have (0 = 0 : true) and
 (1 = 1: true) then the inference rule that logicians
-call and-introduction can be used to derive a truth
-judgment for the proposition that 0 = 0 and 1 = 1,
-typically written as 0 = 0 ∧ 1 = 1.
+call "and introduction" (or "conjunction introduction")
+can be used to derive a truth judgment for the
+proposition that 0 = 0 and 1 = 1, typically written
+as 0 = 0 ∧ 1 = 1.
 
 Predicate logic thus includes this inference rule.
 
@@ -170,14 +173,14 @@ to be precise, propositional meta-variables that can
 refer to arbitrary propositions. Below the line is 
 the form of a new proposition, built from the given
 propositions to which the meta-variables refer, for
-which a truth judgement is derived, or deduced. 
+which a truth judgment is derived, or deduced. 
 
 A nice way to think about this rule, then, is as a 
 little program. It's called "and-introduction." It
 takes two arguments: namely a truth judgment for 
 some proposition P and a truth judgment for some
 proposition Q, and, when given these arguments, it
-returns is a truth judgement for the proposition
+returns is a truth judgment for the proposition
 P ∧ Q.
 -/
 
@@ -185,6 +188,12 @@ P ∧ Q.
 EXERCISE: What is returned when the and-introduction
 inference rule is applied to truth judgments for the
 propositions 0 = 0 ∧ 1 = 1?
+(abh: This feels unclear. Are we also providing 
+0 = 0, 1 = 1 as input propositions? Or are we
+assuming that and-introduction will infer those?
+This ambiguity could work to our advantage if we
+make a pedagogical choice to point out these are
+questions to be asked.)
 
 EXERCISE: Why could this rule never be applied to
 produce a proof judgment for 0 = 0 ∧ 0 = 1?
@@ -194,8 +203,8 @@ produce a proof judgment for 0 = 0 ∧ 0 = 1?
 
 /-
 In a mathematical or logical system, some propositions 
-taken to be true unconditionally without the need for 
-any "input" judgements.
+are taken to be true unconditionally without the need
+for any "input" judgments.
 
 An inference rule that requires no inputs at all, and 
 that nevertheless lets you judge some proposition to
@@ -209,7 +218,7 @@ axiom, we could write it like this:
 -----
 0 = 0
 
-Note that there are no require "input" judgments. 
+Note that there are no required "input" judgments. 
 So without having proved anything else at all to 
 be true, this rule nevertheless lets you conclude
 that 0 = 0. In this case, you could say that the
@@ -222,7 +231,7 @@ logic has accepted 0 = 0 as an axiom.
 Intuitively you would suppose that the proposition,
 0 = 0, should be true in any reasonable logical system. 
 
-There are two way a logic could make this happen. 
+There are two ways a logic could make this happen. 
 The first is that the logic could provide 0 = 0 as 
 an axiom, as we just discussed. 
 
@@ -233,7 +242,7 @@ plant, atom, book, idea, etc. We end up with a pretty
 intractable set of axioms.
 
 What would be much better would be to have an
-inference rule that basically allow us to conclude
+inference rule that basically allows us to conclude
 that any object or value of any type is equal to 
 itself.
 
@@ -243,12 +252,12 @@ object or value of that type, T (such as 0), then you
 can conclude (derive a truth judgment for proposition) 
 that t = t. 
 
-We meet a new kind of judgement here: a type judgment.
+We meet a new kind of judgment here: a type judgment.
 If T is a type, then we can write T : Type. If t is of
 some type, T, then we can write t : T. Now we can write
 the inference rule, which we'll call eq, like this:
 
-T: Type, t : T
+T : Type, t : T
 -------------- eq
     t = t
 
@@ -258,7 +267,7 @@ if you give me a T that is of type, Type, which is to
 say that it itself a type (such as natural number or 
 Boolean), and if you then also give me a value, t, of 
 that particular type T (such as 0 or true), then I 
-will give you a truth judgement for the proposition 
+will give you a truth judgment for the proposition 
 that t is equal to itself (e.g., 0 = 0 or true = true).
 
 EXERCISE: Why can this rule never be used to derive a
@@ -268,7 +277,7 @@ So now, rather than a separate axiom for 0 = 0,
 another one for 1 = 1, another for true = true, and
 so forth, we now have a single inference rule that
 covers every conceivable case forever forward. No
-matter what types you might define, and not matter
+matter what types you might define, and no matter
 what values of such types you might produce, you
 can always conclude that any such value of any
 such type is equal to itself. 
@@ -276,17 +285,17 @@ such type is equal to itself.
 In predicate logic, we could also write the inference 
 rule for eq like this: ∀ T: Type, ∀ t: T, t = t. The 
 upside-down A is the universal quantifier of predicate
-logic. You can pronounce it as "forall" or "for any" or 
+logic. You can pronounce it as "for all" or "for any" or 
 "if you give me any value of the specified type ..."
 
 You could thus pronounce the rule like this: "If you
 give me any T that is of type, Type (which is to say
 that if T is any type), and if you give me any value,
 t, of that type, T, then I promise to give you back a
-truth judgement (i.e., proof) of the proposition that 
-t = t." The notation "x: X" is called a type judgement.
+truth judgment (i.e., proof) of the proposition that 
+t = t." The notation "x: X" is called a type judgment.
 It asserts that the value, x, is of some type, X. Lean
-strictly checks that all type judgements are valid, so
+strictly checks that all type judgments are valid, so
 you wouldn't be able to apply such an inference rule 
 if the types didn't "type check" correctly.
 -/
@@ -299,14 +308,14 @@ Now, given this more general inference rule, we could
 a truth judgment for the proposition, 0 = 0, as a 
 special case. 
 
-We could apply the same  rule to derive truth judgements
+We could apply the same  rule to derive truth judgments
 for 1 = 1, 2 = 2, true = true, "Bob" = "Bob", and so on.
 -/
 
 /-
 In Lean, this inference rule, for defining a general
 concept of equality that works for all values of all
-types, is built in (actually define in a library that
+types, is built in (actually defined in a library that
 is automatically loaded when you start Lean). 
 
 There's a shorthand in Lean for applying this rule 
@@ -365,9 +374,15 @@ of this proof object doesn't work for the type
 of the proposition to be proved, "0 = 1", so Lean
 rejects the proof. The red line over the zeqo
 then explains that you've promised to provide a
-proof, but you haven't, and so the think you said
+proof, but you haven't, and so the thing you said
 would be a theorem (lemma) really isn't proven to
-be one! 
+be one!
+(abh: This is our first time introducing lemma.
+Perhaps we should introduce it when we first
+mention theorem, as zeqz might arguably be more
+of a lemma than a theorem. See
+https://academia.stackexchange.com/questions/113819/is-it-acceptable-for-a-referee-to-suggest-changing-theorem-into-proposition for some opinions on
+this!)
 -/
 
 /-
@@ -435,7 +450,7 @@ to generate such a proof?
 In Lean the and-introduction inference rule goes by
 the name and.intro. It takes two arguments: a truth 
 judgment for some proposition, P, and one for another
-proposition Q. It then returns a truth judgement for
+proposition Q. It then returns a truth judgment for
 the proposition P ∧ Q. Here's the code!
 -/
 
@@ -458,7 +473,7 @@ each of the arguments following that name. You do
 not write the arguments to a function as a list 
 of values within parentheses as in Python or Java. 
 
-Voila! 
+Voilà! 
 -/
 
 /-
@@ -476,7 +491,7 @@ a good idea to label them as lemmas, by the way)
 for 2 = 2 and "Hi" = "Hi". Each of these would
 in turn by proved by the application of the rfl
 rule. Then we could use the named truth judgments
-for those lemms as inputs to and.intro and we'd
+for those lemmas as inputs to and.intro and we'd
 be done. But there's a shorter way to go. We can
 just write the proofs of individual propositions
 inline.
@@ -516,7 +531,7 @@ inference rules to already proved theorems to come up with
 new theorems. That would be like typing randomly and hoping
 to produce a new Shakespeare-quality play. 
 
-Rather, mathematicians, and computer scientists, come up
+Rather, mathematicians and computer scientists, come up
 with propositions that they believe, and hope, are true
 (e.g., a proposition that asserts that some program gives
 the right answer for any possible combination of inputs);
@@ -580,7 +595,7 @@ prove if your aim is ultimately to prove the proposition
 that 5 = 1 + 4 ∧ "Strike" = "S" ++ "trike". Go ahead and
 prove those smaller propositions. You can use whatever
 names you want for these little "theorems", then write
-the theorem that proves the final result usig the lemmas
+the theorem that proves the final result using the lemmas
 as inputs.
 -/
 
@@ -595,8 +610,8 @@ There is however more than one way to establish the
 logical foundations of mathematics.
 
 The most widely used axiomatic foundation comprises a
-set of axioms that describe what it means to be a set,
-and everything else then built on the concept of sets.
+set of axioms that describes what it means to be a set,
+and everything else then builds on the concept of sets.
 The resulting theory is called "set theory." Set theory
 is the most widely accepted and used logical foundation
 for everyday mathematics.
@@ -609,14 +624,21 @@ that contains that set; and so forth.
 The specific set theory foundation for ordinary
 mathematics is known as Zermelo-Frankl Set Theory 
 with the Axiom of Choice (often abbreviated as ZFC). 
-The axioms of ZFC capture our "naive" view of sets 
+The axioms of ZFC capture our "naïve" view of sets 
 as collections of elements. It took much time and
 great care, however, to craft a set of axioms that
-was not self-contradicting. The original formulation
+are not self-contradicting. The original formulation
 of set theory turned out to be inconsistent! (Does
 the set of all sets that do not contain themselves
 contain itself? If it does, then it doesn't, and if
-it doesn't then it does: a profound inconsistency.)
+it doesn't then it does: a profound inconsistency.
+abh:In case that example feels contrived, there's a
+word in the English language to describe words that
+describe themselves: autological. "Polysyllabic" is
+autological, but "palindrome" is not. The antonym of
+autological is heterological. Is the word "heterological"
+heterological? If the word doesn't describe itself,
+then it is, but then the word would describe itself…)
 
 The axioms of ZFC are somewhat technical; we will 
 not explore them in this class. What you might want
@@ -625,7 +647,7 @@ mathematical proposition in a precise, fully formal
 way using ZFC, it is a complex and messy affair. 
 
 In fact, it's so messy that most mathematicians trade
-trade in rigorous but informal proofs. By informal 
+in rigorous but informal proofs. By informal 
 proofs we mean mathematical arguments written in a 
 stylized form of a natural language, such as English.
 For example, a proof of 0 = 0 and 1 = 1 might read
@@ -633,7 +655,7 @@ like this: "To prove the proposition, which is a
 conjunction, we need proofs of the two parts. The
 first, 0 = 0, is proved by noting that equality is
 a reflexive relation, and 1 = 1 is proved similarly.
-Given that both conjunts are so, then so is the
+Given that both conjuncts are so, then so is the
 overall conjunction. So it is shown (QED in latin)."
 
 Because machines aren't much good at figuring out what
@@ -646,7 +668,7 @@ When a mathematician claims to have produced a proof
 of a theorem of potential significance, other experts
 come together (often as reviewers for journals to which
 mathematical purported proofs are generally submitted 
-for review and publication) to  see if they can find 
+for review and publication) to see if they can find 
 any errors in reasoning. They often do! 
 
 Such human proof checking has in some cases proved to 
@@ -675,8 +697,10 @@ can be based. Not surprisingly, types, rather than sets, are
 a fundamental building block of mathematics in type theory.
 Sets can be modeled, but they are not built in. 
 
+(abh: We have not discussed sets that much yet if this is
+considered the first chapter.)
 You already have a good intuition for sets as collections
-of values. A type also defines a set of values, each each
+of values. A type also defines a set of values, and each
 value in that set has that type. But whereas a value can be
 in many sets, in type theory a value has exactly one type.
 Whenever you see a value, or an expression that reduces to
@@ -714,7 +738,7 @@ in type theory than in set theory. Type theory has thus
 emerged as an important framework for *automating* the 
 handling of logic in both mathematics and computer science. 
 
-For computer scientists, it is also the mai foundation for
+For computer scientists, it is also the main foundation for
 functional programming, the theory of programming languages, 
 and for formal verification of software correctness, which
 is vitally important when ultra-high levels of confidence 
@@ -727,7 +751,7 @@ think of it for now as a really cool tool in which you can
 write both programs and logic, and that can help you to 
 construct "manageable" proofs. Through the magic of type 
 checking it then *automatically* determines whether a proof 
-is valid or a given proposition.
+is valid for a given proposition.
 
 This technology holds the promise of eventually changing
 the way that code is written and verified, and even the way 
@@ -741,7 +765,7 @@ In this unit you've learned the following concepts:
 * proposition
 * axiom
 * inference rule
-* truth judgement 
+* truth judgment 
 * proof
 * equality
 * type judgment
