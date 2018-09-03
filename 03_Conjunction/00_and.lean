@@ -324,10 +324,10 @@ inferred from paq).
 We can now even see how we might
 implement this rule ourselves --
 literally as a program! We'll call
-it "my_and_comm".
+it "and_commutes".
 -/
 
-def my_and_comm { P Q: Prop } (paq: P ∧ Q) :=
+def and_commutes { P Q: Prop } (paq: P ∧ Q) :=
   and.intro (and.elim_right paq) (and.elim_left paq)
 
 /-
@@ -341,7 +341,7 @@ parameters, to obtain a proof of Q ∧ P.
 Does it work?
 -/
 
-theorem qap : Q ∧ P := my_and_comm pf
+theorem qap : Q ∧ P := and_commutes pf
 
 /-
 Holy cow, it does! We applied our new
@@ -360,7 +360,7 @@ that converts a proof of P ∧ Q, for
 *any* propositions P and Q, into a 
 proof of Q ∧ P.
 
-Now things are starting to get interesting.
+Now things are getting interesting.
 -/
 
 /-
