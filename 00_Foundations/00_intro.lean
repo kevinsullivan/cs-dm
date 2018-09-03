@@ -296,7 +296,7 @@ p : P, q : Q
 
 This then says, "If you give me a proof, p, of
 some proposition, P, and if you also given me a
-proof, q, of some proposition Q, then I promise
+proof, q, of some proposition Q, then I promis
 to give you back a proof, r, of the proposition,
 P ∧ Q." 
 
