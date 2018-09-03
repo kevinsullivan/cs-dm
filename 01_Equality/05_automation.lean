@@ -49,7 +49,7 @@ used to mean an "important" proposition that has been
 proved. The word lemma is used to mean a less 
 important proposition that has been proved, often as
 part of a larger proof of a more important theorem.
-Mathematicians also use the word corrolary to refer
+Mathematicians also use the word corollary to refer
 to a proposition the proof of which follows from the
 proof of a more important theorem. You can read all
 about the various words used to refer to things that

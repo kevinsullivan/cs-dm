@@ -19,7 +19,7 @@ T? If t = "Hello Lean!" what is T?
 
 Lean supports what we call type inference to 
 relieve us of having to give values for type
-parameters explicity when they can be inferred
+parameters explicitly when they can be inferred
 from from the context. The context in this case
 is the value of t.
 
@@ -48,7 +48,7 @@ What this slightly modified rule provides is
 the ability to expressions in which eq_refl is 
 applied to just one argument, namely a value, 
 t. Rather than writing "eq_refl nat 0", for 
-example, we'dwrite "eq_refl 0". A value for 
+example, we'd write "eq_refl 0". A value for 
 T is still required, but it is inferred from 
 the context (that t = 0 and 0 is of type nat), 
 and thus does not need to be given explicitly.

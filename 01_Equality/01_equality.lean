@@ -12,7 +12,7 @@ That'd be ok, but then we'd need similar axioms for
 every other number. We'd also need similar axioms
 for every object of every other type: person, car, 
 plant, atom, book, idea, etc. We end up with a pretty
-unweildy (and infinite) set of axioms. Moreover, if
+unwieldy (and infinite) set of axioms. Moreover, if
 we were ever to define a new type of objects (e.g.,
 digital pets), we'd have to extend the logic with 
 similar inference rules for every value of the new
@@ -42,7 +42,7 @@ In English you could pronounce this rule as
 saying, "if you can give any type, T, and any 
 value, t, of that type, T, then the eq_refl 
 rule will derive a proof of the proposition
-that t = t. In mathematiacl logic, this notion 
+that t = t. In mathematical logic, this notion 
 of equality is called Leibniz equality.
 
 EXERCISE: Give an expression in which eq_refl

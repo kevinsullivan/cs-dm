@@ -60,7 +60,7 @@ That'd be ok, but then we'd need similar axioms for
 every other number. We'd also need similar axioms
 for every object of every other type: person, car, 
 plant, atom, book, idea, etc. We end up with a pretty
-unweildy (and infinite) set of axioms. Moreover, if
+unwieldy (and infinite) set of axioms. Moreover, if
 we were ever to define a new type of objects (e.g.,
 digital pets), we'd have to extend the logic with 
 similar inference rules for every value of the new
@@ -330,7 +330,7 @@ used to mean an "important" proposition that has been
 proved. The word lemma is used to mean a somewhat less 
 important proposition that has been proved, often as
 part of a larger proof of a more important theorem.
-Mathematicians also use the word corrolary to refer
+Mathematicians also use the word corollary to refer
 to a proposition the proof of which follows from the
 proof of a more important theorem. You can read all
 about the various words used to refer to things that

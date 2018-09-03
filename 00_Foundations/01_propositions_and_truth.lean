@@ -71,7 +71,7 @@ zero does not equal one, which we would write like
 this: ¬ (0 = 1). You could pronounce this as "it is
 NOT the case that 0 = 1." We would naturally judge
 this proposition to be true (albeit currently just
-based on our intution, not on any specific rules).
+based on our intuition, not on any specific rules).
 
 EXERCISE: Write a truth judgment here (just type it
 in as part of this comment) that expresses the 
@@ -79,7 +79,7 @@ judgement that ¬ (0 = 1) is true.
 
 Propositions, then, are claims that certain states
 of affairs hold, and logic provides us with rules
-for determing when a given proposition is (can be
+for determining when a given proposition is (can be
 judged to be) true.
 
 Propositions are basically declarative statements,
