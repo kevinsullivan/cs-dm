@@ -1,281 +1,10 @@
 /-
-*** MATHEMATICAL LOGIC ***
-
-/- *** Overview *** -/
-
-In this unit you will learned the following concepts, among others:
-
-* mathematical logics as formal systems
-* propositions, including their syntax and semantics
-* truth judgments 
-* inference rules, their meaning and notation
-* axioms
-* proofs as evidence that justify truth judgments
-* propositions about equality
-* automating propositions and proofs in Lean
-* an axiom defining equality in general
-* type judgments
-* proof trees (derivations)
-* set theory and type theory as axiomatic foundations for mathematics
--/
-
-/- *** Formal systems *** -/
-
-/-
-Modern mathematics, and discrete mathematics in particular,
-are formal (mathematical) logical systems. 
-
-Logical systems in turn are rooted in the concepts of 
-propositions, truth judgments, inference rules, and 
-proofs, or derivations, as evidence supporting truth
-judgments.
-
-This is pretty abstract. Let's see what it really means.
--/
-
-/- ** Propositions and truth judgments ** -/
-
-/-
-A proposition is a mathematically precise assertion that 
-some state of affairs is true in some domain of interest.
-
-For example, in the domain of basic arithmetic, the claim
-that 0 = 0 is a proposition. So is the claim that 0 = 1.
-
-As another example, in the domain of some family unit, a
-perfectly good proposition is that "Mary is the mother of
-Bob." It might or might not be true in a given family,
-but it's a perfectly good proposition: a claim that a
-certain state of affairs holds in that domain.
-
-Logic, then, is about making propositions precise and
-above precise rules for ascertaining when any given 
-proposition can be judged to be true.
-
-Clearly we would judge the proposition, 0 = 0, to be 
-true, in the domain of arithmetic. Similarly, we would
-not judge the proposition 0 = 1 to be true.
-
-Logicians will sometimes write "0 = 0 : true" as a
-way to assert that the proposition, 0 = 0, is (has
-been judged to be) true. We call this a truth
-judgment. More generally, if P is a proposition, 
-then "P : true" denotes the judgment that P is true.
-
-EXERCISE: Write a truth judgment (just type it
-in as part of this comment) for the proposition
-that "Mary is the mother of Bob."
-
-Another example of a proposition is the claim that
-zero does not equal one, which we would write like
-this: ¬ (0 = 1). You could pronounce this as "it is
-NOT the case that 0 = 1." We would naturally judge
-this proposition to be true (albeit currently just
-based on our intution, not on any specific rules).
-
-EXERCISE: Write a truth judgment here (just type it
-in as part of this comment) that expresses the 
-judgement that ¬ (0 = 1) is true.
-
-Propositions, then, are claims that certain states
-of affairs hold, and logic provides us with rules
-for determing when a given proposition is (can be
-judged to be) true.
-
-Propositions are basically declarative statements,
-asserting that "such and such" is true. What makes
-them, and logic, formal is that they have a precise 
-syntax, or form, and a precise semantics, or meaning.
-
-
-/- * syntax * -/
-
-Just as with computer programs, there are strict
-rules that define the forms that propositions can
-take, i.e., their syntax. For example, 0 = 0 is a
-syntactically well-formed proposition, but 00= is
-not.
-
-/- * semantics *-/
-
-Moreover, propositions in a given logic also have
-meanings, in that they can be judged to be true,
-or not, in a given domain. For example "Mary is 
-the mom of Bob" (perhaps written more formally as
-mother_of(Mary,Bob) is a proposition that can be 
-judged to be true in some domains (family units)
-and not true in others. It's true in a domain in
-which Mary really is the mother of Bob, and it is
-not true otherwise. 
-
-A proposition cannot generally be judged to be 
-true or false on its own. Rather, it is judged 
-in some domain: under an *interpretation* that 
-explains what each symbol in the proposition is 
-meant  to refer to. 
-
-For example, we could judge "Mary is the mother 
-of Bob" to be true if and only if "Mary" refers 
-to some person, "Bob" refers to another person, 
-and under some definition of what it means to 
-be the mother of, that the person referred to 
-as Mary really is the mother of that person 
-referred to as Bob. 
-
-When we talk about the semantics of a logic, we 
-are talking about rules for determining when some
-given proposition can be judged to be true with
-respect to some particular interpretation that
-"maps" the symbols in the proposition to things
-in the domain of discourse.
-
-The rules for determining whether a proposition 
-in a particular logic is true in a given such a
-domain and interpretation is, again, called the 
-semantics of that logic.
-
-Logics thus provide rules that define the syntax
-and the semantics of propositions: their forms,
-and their meanings (that is, whether they are,
-i.e., can be judged to be, true or not) under 
-any given interpretation.
-
-We'll dive deeper into the syntax and semantics 
-of various logics as we go along. In particular,
-we will discuss a simple logic, propositional
-logic, and a much more useful logic, the logic 
-of everyday mathematics and computer science, 
-called predicate logic.
-
-For purposes of this unit, we'll just assume 
-that one particular form of valid proposition 
-in predicate logic is a proposition that the 
-values of two terms are equal. For example, 
-0 = 0, 1 + 1 = 2, and 1 + 1 = 3 are valid 
-(syntactically well formed) propositions in 
-the predicate logic of everyday mathematics
-and computer science.
--/
-
-/- ** Inference rules ** -/
-
-/-
-So how do we decide whether a given proposition
-can be judged to be true or not? Here is where 
-the semantics of a logic come into play.
-
-The semantics of a logic comprises a set of rules,
-called inference rules, that define the conditions 
-under which a given proposition can be judged to 
-be true.
-
-Oversimplying a bit, if you can apply one or more 
-inference rules to propositions you already know 
-to be true, and if by doing this you "deduce" some
-new proposition, then you can conclude that that
-new proposition must also be true. Such a "chain"
-of inference rules, linking things already known
-to be true to propositions that you want to prove
-to be true because they follow logically is called
-a proof. A valid proof is incontrovertible evidence
-that the final proposition is true.
-
-An inference rule is like a little program: it says,
-if you can give me evidence (i.e., proofs) showing
-that certain "input" propositions can be judged to
-be true, then I will hand you back evidence (i.e.,
-a proof) that shows that some new proposition can 
-also be judged to be true. We would say that from 
-the  proofs of the premises (the input propositions
-already known to be true), the rule derives or deduces
-a proof of the conclusion.
-
-Logicians often write inference rules like this:
-
-  list of input truth judgments 
-  ----------------------------- (name-of-rule)
-  truth judgment for conclusion
-
-The required input judgments, called premises (or
-antecedents), are listed above the line. The name 
-of the rule is given to the right of the line. And
-the proposition (or consequent) that can thereby
-be judged to be true (the conclusion of the rule)
-is written below the line.
-
-For example, if we already have the truth judgment,
-(0 = 0 : true), and another, (1 = 1: true), then the 
-inference rule that logicians call "and introduction"
-(or "conjunction introduction") can be used to derive
-a truth judgment for the new proposition, "0 = 0 and
-1 = 1", typically written as 0 = 0 ∧ 1 = 1. (Hover
-your mouse over special symbols in this editor to
-learn how to use them in your work.)
-
-Predicate logic will thus (in effect) include this 
-rule as an inference rule:
-
-0 = 0 : true, 1 = 1 : true
--------------------------- and-introduction-*
-      0 = 0 ∧ 1 = 1
-
-This can be pronounced as, "If you already have 
-evidence (a proof) supporting the judgment that 
-0 = 0 is true, and if you also have evidence (a
-proof) supporting the judgment that 1 = 1 is true, 
-then by applying the and-introduction-* rule, 
-you can deduce (obtain a proof justifying a truth
-judgment for) the proposition, 0 = 0 ∧  1 = 1". 
-
-We've put a * on the name of this rule to indicate
-that it's really just a special case of a far more
-general inference rule for reasoning about equality. 
-
-Inference rules are usually written not in terms of 
-very specific propositions, such as 0 = 0, but in 
-terms of variables that can refer to any arbitrary 
-propositions. They are often called meta-variables.
-
-
-In this way, inference rules become program-like, in
-that they can take arbitrary inputs (of the correct 
-types), and whenever they are given such inputs, they
-produce result of a promised type.
-
-Here's a simple example of such a parameterized and
-thereby generalized rule. If P is *any* proposition 
-(e.g., it could be 0 = 0 but might be some other
-proposition), and Q is another proposition (e.g.,
-1 = 1), and if both propositions are already known
-to be true, then you can always conclude that the 
-proposition "P and Q", written P ∧ Q, must also be
-true, for whatever propositions P and Q happen to 
-be.
-
-Here is how the general form of this inference rule 
-would typically be written in a book on logic.
-
-P : true, Q : true
------------------- (and-introduction)
-   P ∧ Q : true
-
-Now here we're going to pull a little trick. 
-It's based on the idea that a "proof", whatever
-that is (!), serves as "evidence" that justifies
-a truth judgment about a proposition. So we are
-now technically distinguishing between a proof
-of a proposition and the truth judgment that it
-justifies. Nevertheless, we will assume that a
-truth judgment for some proposition, P, is in
-fact justified if and only if we have a proof
-of P.
-
-To denote the fact that we have a proof, 
-let's call it, p, of some proposition, P, 
-we will write p : P. Now, the idea is that 
-if we have p : P then we also have P : true, 
-and the only way we can get P : true is if 
-we have some evidence, p, (a proof) for P. 
+To denote the fact that we have a proof, p, 
+of some proposition, P, we will write p : P. 
+Now, the key idea is that having a proof is
+the evidence we need to judge that P is true.
+Moreover, if we've judged P to be true, then
+we must have a proof, p, of P.
 
 In other words, P is true if and only if we 
 have evidence (a proof), p, for P. We can 
@@ -294,15 +23,68 @@ p : P, q : Q
 ------------ (and-introduction)
  r : P ∧ Q
 
+ -/
+
+ /- *** END FIRST DAY FORMAL LECTURE ***-/
+
+/-
+  0             : nat
+  tt            : bool
+  "Hello Lean!" : string
+  p             : P
+
+This makes proof construction computational.
+Inference rules are basically programs & data.
+Foundational type checker can be trusted to a
+very high to correctly check type of values 
+and parameters. Consequently given that proofs
+are types, it can with very high assurance
+check that proofs are valid.
+
+-/
+
+#check 0
+#check tt 
+#check "Hello Lean!"
+
+theorem zeqz : 0 = 0 := rfl
+theorem zeqz' : 0 = 0 := eq.refl 0
+#check zeqz
+
+#reduce zeqz
+
+theorem oeqo : 1 = 1 := rfl
+
+theorem xyzzy : 0 = 0 ∧ 1 = 1 := 
+    and.intro zeqz oeqo
+
+ #check 0
+ #check tt 
+ #check "Hello Lean!"
+
+/- *** END FIRST DAY LOOKAHEAD *** -/
+
+ /-
+ Student question: why do you write the little
+ p before the big P, whereas before you wrote the
+ true after the big P?
+
+ Answer: Because it's a type judgment, and 
+ propositions are types!
+ -/
+
+ /-
+
 This then says, "If you give me a proof, p, of
 some proposition, P, and if you also given me a
 proof, q, of some proposition Q, then I promis
 to give you back a proof, r, of the proposition,
 P ∧ Q." 
 
-As a shorthand, logicians usually leave off the
-": true" bits and/or the "p :" bits, and so you'd 
-usually see this rule written simply like this:
+As a shorthand, mathematicians and logicians
+would usually elide the ": true" and the "p :" 
+bits, so you'd usually see this rule written
+informally like this:
 
    P, Q
    ----- and-introduction
@@ -337,6 +119,9 @@ EXERCISE: Why could this rule never be applied (in
 any reasonable logic) to produce a proof (thus a
 truth judgement) for the proposition, 0 = 0 ∧ 0 = 1?
 -/
+
+
+/- KEVIN -/
 
 /- *** Axioms *** -/
 
@@ -409,14 +194,40 @@ object or value of that type, T (e.g., 0 is a value
 of type "natural number", or "nat"), then you can 
 unconditionally conclude that t = t is true.  
 
+We could write this inference rule something like
+this:
+
+  T: Type, t : T
+  -------------- (eq_refl)
+     pf: t = t
+
+In English, "if you're given that T is a (any) 
+type and t is a value of that type, then the
+eq_reflexive inference rule derives a proof of 
+t = t. In informal English, you could say, 'for
+any t (of any type_, t = t by the reflexive
+property of equality". So there: *that* is the
+fundamental reason why 0 = 0. It's an essential
+property of the equality relation (on any type).
+
+(Detail: This notion of equality is called Leibniz
+equality.)
+
+EXERCISE: Why exactly can this rule never be used 
+to derive a proof of the proposition that 0 = 1?
+-/
+
+theorem foo : 4 = 2 + 2 := eq.refl (1 + 3)
+
+/-
+
 /- * Type judgments * -/
 
-We meet a new kind of judgment here: a type judgment.
-If X is some type, and x is a value of that type, X, 
-we can denote this fact by writing x : X. We read this
-as "x is of type X."
-
-
+Above the line in this inference rule, we meet a 
+new kind of judgment here: a type judgment. If X 
+is some type, and x is a value of that type, X, 
+we can denote this fact by writing x : X. We read 
+this as "x is of type X."
 
 /- * The types of types * -/
 
@@ -458,14 +269,14 @@ judgment, "T : Type". And if T is a type, and t
 a value of type, T, then we'd also write t : T. 
 -/
 
-
 /-
-So now, with all that out of the way, we can write
-the inference rule for equality that we really want. 
+With all that out of the way, we can once again 
+write and now more fully understand the inference 
+rule for equality that we really want. 
 
 T: Type, t : T
--------------- (eq)
-    t = t
+-------------- (eq-reflexive)
+  pf: t = t
 
 Those are now type judgments above the line. You can 
 understand this inference rule as saying this: "if you 
@@ -476,22 +287,48 @@ t = t. This single inference rule thus defines a very
 sensible notion of equality for all values of all types 
 that exist or might ever be defined. 
 
-(Detail: This notion of equality is called Leibniz
-equality.)
-
-EXERCISE: Why exactly can this rule never be used to 
-derive a proof of the proposition that 0 = 1?
-
 So now, rather than a separate axiom for 0 = 0,
 another one for 1 = 1, another for true = true, and
 yet another for Fido = Fido, so forth, we now have 
-a single inference rule, which we take as an axiom
-(no prior proofs are required, but the types of T
-and t do have to be right) that covers every possible 
-case, forever forward.  
+a single inference rule that gives them all just as
+special cases. We are given this inference rule as 
+something close to an axiom, in the sense that the
+only "proofs" it requires requires as inputs are
+proofs that T is a type and t is a value of that
+type. Where do these proofs come from? They come
+from the Lean type checker!
+
+Now as we've seen, give a value, t, of some type, 
+T, Lean can tell us what T is. The #check command
+tells us the type of any value or expression. This
+is helpful because it means that in principle, we
+could re-write the inference rule as follows, where
+the curly braces around { T : Type } means that we
+don't have to give a value of T explicitly when we
+apply the eq-reflexivity inference rule, because
+T can be inferred from t.
+
+  { T: Type }, t: T
+  ----------------- (eq-refl)
+      pf: t = t
+
+In Lean, the eq-reflexivity rule is formalized 
+in this way and is called eq.refl. It takes one 
+value, t, infers T from it, and returns a proof 
+that that t equals itself!
+-/
+
+#check eq.refl 0 -- rfl
+#check eq.refl "Hello Lean!"
+#check eq.refl tt
+#check eq.refl bool    -- even types are values
+#check eq.refl (0 = 0) -- including propositions!
+
+/-*********DELETE**********-/
 
 /- * Formalizing Leibniz equality * -/
 
+/-
 Now we move the ball forward yet another yard or two. 
 In predicate logic, we could also write the inference 
 rule for eq like this: ∀ T: Type, ∀ t: T, t = t. 
@@ -533,6 +370,8 @@ of this type) to produce a proof of 0 = 0. We could
 apply the same  rule to derive truth judgements for 
 1 = 1, 2 = 2, true = true, "Bob" = "Bob", and so on.
 -/
+
+/- *********END DELETE*********-/
 
 /-
 In Lean, this inference rule is built in (actually 
@@ -1037,4 +876,17 @@ In this unit you've learned the following concepts:
 * type judgment
 * set theory and type theory foundations of mathematics
 * type theory for automating mathematical logic and proof checking
+
+* inference rules for equality
+* inference rules for conjunction
+* inference rules for disjunction
+
+    P
+  ----- (∨-intro-left)
+  P ∨ Q
+
+    Q
+  ----- (∨-intro-right)
+  P ∨ Q
+
 -/

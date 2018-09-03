@@ -62,3 +62,91 @@ we are specifying boolean to be a value of type, "Type". "Type" is the
 type of values that are themselves types in Lean!
 -/
 
+====
+
+/-
+EXERCISE: What happens if the proofs you pass 
+to and.intro aren't quite right? For example, 
+try to give p as the value for both arguments. 
+Does the resulting proof "type check"? Read
+and explain the resulting error message.
+-/
+
+/-
+EXERCISE: Formalize and prove the proposition
+that 2 = 2 ∧ "Hi" = "Hi". Call the resulting
+proof teqt_and_heqh.
+
+/- ** Formal Systems ** -/
+/-
+A mathematical, or formal, system starts with a set 
+of inference rules including axioms (with the condition 
+that this starting point not be self-contradictory; so, 
+for example, you would never want 0 = 1 as an axiom). 
+It extends to include the typically infinite set of 
+all of theorems that can be possibly "proved" by any
+number of applications of available inference rules 
+to already available truth judgments (or equivalently
+to proofs, which in Lean are taken to be tantamount
+to truth judgments).  
+-/
+
+/-
+EXERCISE: What are some other theorems that you could
+prove using only the concepts we've discussed so far?
+Formulate and prove several new theorems. Note that 
+Lean has a Boolean type, called bool, with the values
+tt and ff (short for Boolean true and Boolean false).
+Prove at least one theorem involving Boolean values.
+-/
+
+/- ** What mathematicians and some computer scientists do -/
+
+/-
+Working mathematicians and computer scientists don't sit
+around all day mechanically generating theorems by applying
+inference rules to already proved theorems to come up with
+new theorems. That would be like typing randomly and hoping
+to produce a new Shakespeare-quality play. 
+
+Rather, mathematicians and computer scientists, come up
+with propositions that they believe, and hope, are true
+(e.g., a proposition that asserts that some program gives
+the right answer for any possible combination of inputs);
+and they then have the task of producing proofs to show
+that such propositions are true.
+
+We call this the problem of "proving" that a proposition
+is true. If there is already a truth judgment for (proof 
+of) the given proposition, it's easy: you just hand over
+the existing proof. If there are proofs to which an
+inference rule can be applied directly to produce a
+proof for the given proposition, then you just apply the
+inference rule to those proofs and you hand over the new
+proof that results. In the typical case, you won't have
+proofs of propositions that you need as inputs to the
+inference rule that you'll ultimately want to generate
+the desired proof, so you need to go off and produce
+proofs of those intermediate propositions first. In this 
+way the task of producing the desired proof is broken
+down into one or more smaller problems of producing the
+proofs that are needed to feed the inference rule that
+will be used to produce the final proof. 
+
+Mathematicians typically label the proposition that is
+ultimately to be proved as a theorem (once there really
+is a proof), and the smaller propositions to be proved
+as lemmas. In Lean you can use theorem and lemma (and
+a few other keywords, such as def) interchangeably.
+
+Such a process is said to be "recursive". Axioms give
+you starting points. You then apply inference rules to
+produces proofs of larger and larger lemmas. Finally 
+you apply some inference rule to proofs of key lemmas
+to produce a proof of the desired theorem. 
+
+The chain of "derivations" that thus results is what
+logicians and mathematicians sometimes call a proof tree.
+Such trees can be written using inference rule notation.
+
+Here's the entire proof tree for 0 = 0 ∧ 1 = 1. 
