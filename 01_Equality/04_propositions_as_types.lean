@@ -249,10 +249,10 @@ that Prop is of type, Type 0. We thus now have a
 complete picture of the type hierarchy of Lean.
 
 Prop   :   Type : Type 1 : Type 2 : Type 3 : ...
- |          |
-0=0        nat
- |          |
-eq.refl 0   1
+  |          |
+0 = 0       nat
+  |          |
+eq.refl 0    1
 
 Prop is the first type in the hierarchy. Every
 propositional type is of type Prop. We illustrate

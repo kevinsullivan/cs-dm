@@ -318,7 +318,7 @@ implicit, insofar as they can be
 inferred from paq).
 
 { P Q: Prop }, paq : P ∧ Q
--------------------------- and.comm
+-------------------------- and_commutes
         qap: Q ∧ P
 
 We can now even see how we might

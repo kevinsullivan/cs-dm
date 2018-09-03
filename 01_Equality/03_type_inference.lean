@@ -30,13 +30,13 @@ braces around this argument.  Here's the rule as
 we defined it up until now.
 
 T: Type, t : T
--------------- (eq_refl)
+-------------- (eq.refl)
   pf: t = t
 
 Here's the rewritten rule.
 
 { T: Type }, t : T
------------------- (eq_refl)
+------------------ (eq.refl)
     pf: t = t
 
 The new version means exactly the same thing

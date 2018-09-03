@@ -44,7 +44,7 @@ of the proposition, true, in Lean.
 theorem t : true := true.intro
 
 #check t
-#eval t
+#reduce t
 
 /- 
 That's it! Super easy. 
@@ -71,7 +71,8 @@ that would be a fatal contradiction.
 
 
 /-
-The difference between tt/ff and true/false.
+The difference between tt/ff and the
+propositions, true and false.
 -/
 
 
@@ -117,6 +118,9 @@ message to a colleague in your class.
 -/
 
 -- theorem bad : true := tt
+
+
+/- * EX FALSO QUOD LIBET * -/
 
 /-
 Now we come to a very fundamental
@@ -169,8 +173,6 @@ Let's try to prove 0 = 1.
 -/
 
 theorem zeqo : 0 = 1 := false.elim f
-
-#check false.elim
 
 /-
 It will very occasionally be useful
