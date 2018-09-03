@@ -58,7 +58,7 @@ then I will give you back a proof of P ∧ Q.
             pf : P ∧ Q
 
 
-The and.intro takes two explcit arguments: a proof 
+The and.intro takes two explicit arguments: a proof 
 of P and a proof of Q. It infers P and Q from p 
 and q. It then derives a proof of P ∧ Q. 
 
@@ -138,7 +138,7 @@ of the conjunction follows immediately.
 QED.
 
 You can see that the everyday working
-matheatician elides many details, such
+mathematician elides many details, such
 as the precise principle used to derive
 the truth of the conjunction. The lack
 of detail in informal proofs makes them
@@ -199,7 +199,7 @@ of precision and checkability.  The
 downside of the formal proof object
 is that it's not in the form of a
 story; and as you can imagine, in
-cases where proofs get massssive,
+cases where proofs get massive,
 understanding why they are the way
 they are can be near impossible.
 But that's why we have machines.
@@ -270,7 +270,7 @@ theorem pfQ : Q := sorry
 Now we've really got some power tools. We
 can prove equalities. From constituent proofs
 we we prove conjunctions and from proofs of
-conjunctions we can obtain consituent proofs.
+conjunctions we can obtain constituent proofs.
 With these tools new can now start to state
 and prove interesting properties of logical
 operators, here conjunction.
@@ -282,7 +282,7 @@ as well.
 We have a proof of P ∧ Q (0 = 0 ∧ 1 = 1)
 already. Can we construct a proof of Q ∧ P?
 
-First, let's formaliez the proposition.
+First, let's formalize the proposition.
 -/
 
 def Q_and_P : Prop := Q ∧ P
@@ -336,7 +336,7 @@ brace notation as introduced informally
 above to indicate parameters that are to
 be inferred from context. That is, we can
 apply this function to a proof of P ∧ Q,
-without expliciting giving P and Q as
+without explicitly giving P and Q as
 parameters, to obtain a proof of Q ∧ P.
 Does it work?
 -/
@@ -370,13 +370,13 @@ use my_and_comm to prove tt = tt ∧ 1 = 1.
 
 /-
 Having now proved that and commutes, as
-matheaticians would say, we can now use
+mathematicians would say, we can now use
 this principle as a valid principle in
 all future reasoning. Indeed in the work
 of everyday mathematics one had proved 
 P ∧ Q and need a proof of Q ∧ P, it'd 
 be a simple matter of saying "Q ∧ P 
-follows from the communitativity of 
+follows from the commutativity of 
 conjunction." Many mathematicians would
 just say, "Q ∧ P follows immediately,"
 leaving it to the reader to know that

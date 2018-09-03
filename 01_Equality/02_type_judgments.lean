@@ -1,9 +1,7 @@
 /- * Type judgments * -/
 
 /-
-Recall the inference rule for Liebniz equality.
-
-Recall the inference rule for Liebniz equality.
+Recall the inference rule for Leibniz equality.
 
   T: Type, t : T
   -------------- (eq_refl)

@@ -10,7 +10,7 @@ called inference rules, that define the conditions
 under which a given proposition can be judged to 
 be true.
 
-Oversimplying a bit, if you can apply one or more 
+Oversimplifying a bit, if you can apply one or more 
 inference rules to propositions you already know 
 to be true, and if by doing this you "deduce" some
 new proposition, then you can conclude that that

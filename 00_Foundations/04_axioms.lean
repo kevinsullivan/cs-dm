@@ -61,7 +61,7 @@ That'd be ok, but then we'd need similar axioms for
 every other number. We'd also need similar axioms
 for every object of every other type: person, car, 
 plant, atom, book, idea, etc. We end up with a pretty
-unweildy (and infinite) set of axioms. Moreover, if
+unwieldy (and infinite) set of axioms. Moreover, if
 we were ever to define a new type of objects (e.g.,
 digital pets), we'd have to extend the logic with 
 similar inference rules for every value of the new

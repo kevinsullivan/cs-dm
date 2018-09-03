@@ -69,13 +69,18 @@ detail in material to come. It says that if
 P and Q are propositions, and if p is a proof
 of P and q is a proof of Q, then applying the
 and.intro rule to p and q returns a proof of
-P ∧ Q. As we'll see in a bit, the expression,
+P ∧ Q. We thus now have a rule to establish
+the truth of a proposition of P ∧ Q by using 
+this inference rule to construct a proof of
+the proposition P ∧ Q from given proofs of 
+its constituent propositions. 
+
+As we'll see in a bit, the expression,
 (and.intro p q), which you can read as simply
 applying the function, and.intro. to the proof
 "values", p and q, returns (reduces to) a value
 that is a proof of P ∧ Q. That's where we are
 headed.
-
 -/
 
 /- 

@@ -24,7 +24,7 @@ now see it clearly as defining a computation.
 It can now be seen as saying, "if you give me 
 any value, t, I will infer its type, T, and will 
 return to you a value (a proof!) of type, t = t. 
-Not only that but the typechecker will provide 
+Not only that but the type-checker will provide 
 you with a very high degree of assurance that 
 it's a valid proof! 
 -/
@@ -51,7 +51,7 @@ for which a value of type nat must be provided
 (n : nat), and it goes on to assign to n ( := )
 the value 1. 
 
-The Lean type checker checks tthat 1 is a
+The Lean type checker checks that 1 is a
 value of type nat, which it is. Lean therefore
 accepts the definition, and consequently n is 
 defined, with the value, 1, for the remainder 
@@ -59,7 +59,7 @@ of this file.
 
 We note that we could have elided the explicit
 type declaration (n : nat), as Lean infers from 
-the value, 1, on the right, that the inteded 
+the value, 1, on the right, that the intended 
 type of n can only be nat.
 -/
 
@@ -68,7 +68,7 @@ def n' := 1
 
 /-
 The type checker also absolutely prevents the
-assigment to a variable of a value that is not
+assignment to a variable of a value that is not
 of the right type. Read the following code and
 identify the type error, then uncomment it and
 see how Lean detects and reports the error. Be
@@ -187,7 +187,7 @@ teqt : 2 = 1 + 1
 That last proposition, 2 = 1 + 1, is a bit
 different because it has different terms on
 each side of the equals sign. In Lean, these
-terms are reduced (evaluted) before they are
+terms are reduced (evaluated) before they are
 compared, and so eq.refl can be used to prove
 this proposition.
 -/

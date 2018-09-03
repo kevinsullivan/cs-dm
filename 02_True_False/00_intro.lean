@@ -135,7 +135,7 @@ if you're given a proof of false, let's
 call it f, and any proposition, P, 
 whatsoever (any value, P, of type 
 Prop!), then you can derive a proof 
-of P, and the false dissapears from
+of P, and the false disappears from
 the conclusion (which is why we call
 this inference rule false elimination).
 
