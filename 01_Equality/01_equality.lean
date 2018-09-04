@@ -12,11 +12,13 @@ That'd be ok, but then we'd need similar axioms for
 every other number. We'd also need similar axioms
 for every object of every other type: person, car, 
 plant, atom, book, idea, etc. We end up with a pretty
-unwieldy (and infinite) set of axioms. Moreover, if
-we were ever to define a new type of objects (e.g.,
-digital pets), we'd have to extend the logic with 
-similar inference rules for every value of the new
-type. (Fido = Fido, Spot = Spot, Kitty = Kitty, etc).
+unwieldy (and infinite) set of axioms. 
+
+Moreover, if we were ever to define a new type of 
+objects (e.g., digital pets), we'd have to extend 
+the axioms of the logic with similar rules for 
+every value of the new type. (e.g., Fido = Fido, 
+Spot = Spot, Kitty = Kitty, etc).
 
 What would be much better would be to have just one
 inference rule that basically allow us to conclude

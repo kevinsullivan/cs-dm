@@ -117,7 +117,9 @@ have a way to construct a proof of b = c
 from a proof of c = b. Just use it. 
 
 Ignore the error message in the following 
-incomplete code. Replace the underscore 
+incomplete code. The problem is simply that
+the definition is incomplete, due to the
+underscore placeholder. Replace the underscore 
 with your answer. Leave parenthesis around 
 your expression so that it gets evaluted
 as its own term. 
