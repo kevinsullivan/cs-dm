@@ -96,17 +96,14 @@ Here is how the general form of this inference rule
 would typically be written in a book on logic.
 
 P : true, Q : true
------------------- (and-introduction)
+------------------ (and.intro)
    P ∧ Q : true
 
-Now here we're going to pull a little trick. 
-It's based on the idea that a "proof", whatever
-that is (!), serves as "evidence" that justifies
-a truth judgment about a proposition. So we are
-now technically distinguishing between a proof
-of a proposition and the truth judgment that it
-justifies. Nevertheless, we will assume that a
-truth judgment for some proposition, P, is in
-fact justified if and only if we have a proof
-of P.
+The inference rule is called "and introduction"
+because it produces a proof of a proposition 
+that now contains an "and" (∧). The rule can be
+read as follows. If P and Q are propositions,
+and if you have judged P to be true and you 
+have judged Q to be true, then you can judge
+P ∧ Q to be true. 
 -/

@@ -1,38 +1,3 @@
-/-
-*** MATHEMATICAL LOGIC ***
-
-/- *** Overview *** -/
-
-In this unit you will learned the following concepts, among others:
-
-* mathematical logics as formal systems
-* propositions, including their syntax and semantics
-* truth judgments 
-* inference rules, their meaning and notation
-* axioms
-* proofs as evidence that justify truth judgments
-* propositions about equality
-* automating propositions and proofs in Lean
-* an axiom defining equality in general
-* type judgments
-* proof trees (derivations)
-* set theory and type theory as axiomatic foundations for mathematics
--/
-
-/- *** Formal systems *** -/
-
-/-
-Modern mathematics, and discrete mathematics in particular,
-are formal (mathematical) logical systems. 
-
-Logical systems in turn are rooted in the concepts of 
-propositions, truth judgments, inference rules, and 
-proofs, or derivations, as evidence supporting truth
-judgments.
-
-This is pretty abstract. Let's see what it really means.
--/
-
 /- ** Propositions and truth judgments ** -/
 
 /-
@@ -86,17 +51,21 @@ Propositions are basically declarative statements,
 asserting that "such and such" is true. What makes
 them, and logic, formal is that they have a precise 
 syntax, or form, and a precise semantics, or meaning.
+-/
 
 /- * syntax * -/
 
+/-
 Just as with computer programs, there are strict
 rules that define the forms that propositions can
 take, i.e., their syntax. For example, 0 = 0 is a
 syntactically well-formed proposition, but 00= is
 not.
+-/
 
 /- * semantics *-/
 
+/-
 Moreover, propositions in a given logic also have
 meanings, in that they can be judged to be true,
 or not, in a given domain. For example "Mary is 
@@ -154,5 +123,23 @@ values of two terms are equal. For example,
 (syntactically well formed) propositions in 
 the predicate logic of everyday mathematics
 and computer science.
+
+In the next section, we'll meet an inference
+rules that from proofs of two propositions,
+such as 0 = 0 and 1 = 1, will allow us to
+derive proofs of their conjunctions, e.g.,
+of the proposition that 0 = 0 AND 1 = 1. 
+
+In everyday logical notation, we write this
+as 0 = 0 ∧ 1 = 1. The ∧ symbol, which is 
+pronounced "and", is the first so-called
+logical connective that we will meet. The
+logical connectives allow us to build bigger
+propositions out of smaller onces, and to
+to with each such connective we will have
+inference rules giving us ways to prove
+such bigger propositions and to derive
+proofs of other propositions from such
+proofs.
 -/
 
