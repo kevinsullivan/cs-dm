@@ -37,17 +37,17 @@ We could write this inference rule something like
 this:
 
   T: Type, t : T
-  -------------- (eq_refl)
+  -------------- (eq.refl)
      pf: t = t
 
 In English you could pronounce this rule as
 saying, "if you can give any type, T, and any 
-value, t, of that type, T, then the eq_refl 
+value, t, of that type, T, then the eq.refl 
 rule will derive a proof of the proposition
 that t = t. In mathematical logic, this notion 
 of equality is called Leibniz equality.
 
-EXERCISE: Give an expression in which eq_refl
+EXERCISE: Give an expression in which eq.refl
 is applied to two arguments to derive a proof
 of 0 = 0.
 

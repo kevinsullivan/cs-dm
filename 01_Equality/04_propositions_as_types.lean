@@ -12,18 +12,18 @@ is the deep idea: in the "constructive logic" of
 Lean, propositions are formalized as types, and 
 proofs are represented values of these types! 
 
-A proof,then, is valid for a given proposition
+A proof, then, is valid for a given proposition
 if it is a value of the corresponding type. And
 Lean's type checker can always determine whether 
 that is the case! In lieu of human checking of
 the validity of proofs, we therefore now have a 
 mechanical proof checker!
 
-Read the eq_refl inference rule again. We can 
+Read the eq.refl inference rule again. We can 
 now see it clearly as defining a computation. 
 It can now be seen as saying, "if you give me 
 any value, t, I will infer its type, T, and will 
-return to you a value (a proof!) of type, t = t. 
+construct and return a value of type, t = t. 
 Not only that but the type-checker will provide 
 you with a very high degree of assurance that 
 it's a valid proof! 
@@ -33,8 +33,8 @@ it's a valid proof!
 We can also now understand what it means when we
 say that Lean is a proof checker. It means that
 Lean will not allow us to use proofs that are not
-valid (with respect to the propositions they are
-supposed to prove) because they won't type check.
+valid with respect to the propositions/types they 
+are said to prove, because they won't type check.
 -/
 
 /-
@@ -50,13 +50,20 @@ This Lean definition says that n is a variable
 for which a value of type nat must be provided
 (n : nat), and it goes on to assign to n ( := )
 the value 1. 
-ℤ  
+  
 The Lean type checker checks that 1 is a
 value of type nat, which it is. Lean therefore
 accepts the definition, and consequently n is 
 defined, with the value, 1, for the remainder 
 of this file.
+-/
 
+/-
+EXERCISE: Define s to have the type, string,
+and the value, "Hello, Lean!"
+-/
+
+/-
 We note that we could have elided the explicit
 type declaration (n : nat), as Lean infers from 
 the value, 1, on the right, that the intended 
@@ -65,6 +72,11 @@ type of n can only be nat.
 
 def n' := 1
 #check n'
+
+/-
+EXERCISE: define s' to be "Hello, Lean", leaving
+it to Lean to infer the type of s'.
+-/
 
 /-
 The type checker also absolutely prevents the
@@ -130,6 +142,12 @@ this file.)
 -- def p' : 0 = 0 := (eq.refl 1)
 
 /-
+EXERCISE: Explain why could you never use
+eq.refl to successfully produce a proof
+of 0 = 1? Explain.
+-/
+
+/-
 In Lean and related proof assistants,
 propositions are types, proofs are values
 of proposition types, and proof checking 
@@ -140,47 +158,8 @@ to fully grasp these concepts.
 -/
 
 /-
-Now for a brief aside on lexicon.
-
-When we assign a computational data value,
-such as 1, to a variable, we generally use
-the keyword, def. When we assign a proof as
-a value to a parameter, we instead generally
-use the mathematical term, "theorem" or 
-"lemma" instead. 
-
-In Lean, these terms are interchangeable. 
-They mean the same thing. But to make your
-Lean code easier for people to interpret,
-it's always a good idea to use the term
-that aligns with mathematical practice.
-
-Use theorem for proofs of major results.
-Use lemma for proofs of results that in
-turn are incorporated into theorems. Use
-def to define data and function values
-(computational as opposed to logical
-values).
--/
-
-/-
-EXERCISE: Use "theorem" instead of def to 
-bind a proof of 0 = 0 to a variable, s'. 
-Note that theorem, lemma, and def all mean 
-the same thing in Lean. In practice, you
-should use one or the other to communicate 
-your intent. Def is usually used to define 
-function and data values, while theorem 
-and lemma are used to define proof values.
--/
-
-/-
-EXERCISE: Prove theorems for the following
-propositions:
-
-oeqo : 1 = 1
-heqh : "Hello Lean! = Hello Lean!"
-teqt : 2 = 1 + 1
+EXERCISE: Prove the following theorem,
+teqt, that 2 = 1 + 1. Try using eq.refl.
 -/
 
 /-
@@ -188,9 +167,12 @@ That last proposition, 2 = 1 + 1, is a bit
 different because it has different terms on
 each side of the equals sign. In Lean, these
 terms are reduced (evaluated) before they are
-compared, and so eq.refl can be used to prove
-this proposition.
+compared, and so eq.refl can still be used 
+to prove this proposition. 
 -/
+
+
+/- * What is the type of a proposition? *-/
 
 /-
 We've already seen that types are values, 
@@ -216,29 +198,9 @@ Lean tells us that the type of each proposition is
 Prop. In Lean, every logical proposition is of type
 Prop, just as every ordinary computational type, such
 as nat, bool, or string, is of type, Type. So how
-do Prop and Type relate?
--/
-
-/-
-To prepare to answer this question, let's first 
-claim and then prove that "Type" is a shorthand 
-for Type 0.
--/
-
-theorem type0 : Type = Type 0 := eq.refl Type
-
-/-
-So now we know that Type is a shorthand for Type 0. 
-And we already know that the type of Type (and thus
-of Type 0) is Type 1; it's type is Type 2; its type 
-is Type 3; etc ad infinitum.
--/
-
-/-
-Ok, then, so where does Prop fit in? What is its 
-type? To find out, we need to know the answer to
-the question, what is the type of Prop? We can of
-course just #check it.
+do Prop and Type relate? Where does Prop fit in? 
+What is its type? What is the type of Prop? We can 
+of course just #check it!
 -/
 
 #check Prop

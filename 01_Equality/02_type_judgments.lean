@@ -4,7 +4,7 @@
 Recall the inference rule for Leibniz equality.
 
   T: Type, t : T
-  -------------- (eq_refl)
+  -------------- (eq.refl)
      pf: t = t
 
 Above the line in this inference rule, we meet a 
@@ -14,7 +14,7 @@ x is a value of that type, X, we can denote this
 fact by writing x : X. We read this as "x is of 
 type X."
 
-The Lean tool that you're using here is based on a
+The Lean tool, which you're using, is based on a
 foundational theory called type theory. In type
 theory, every object (value) and every expression 
 has a type. Every parameter, such as an argument 
@@ -75,28 +75,33 @@ write and now more fully understand the inference
 rule for equality that we really want. 
 
 T: Type, t : T
--------------- (eq-refl)
+-------------- (eq.refl)
   pf: t = t
 
 Those are now type judgments above the line. You can 
 understand this inference rule as saying this: "if you 
 give me a T that is a type (e.g., bool, nat, string), 
-and if you also give me a value, t, of type, T, (e.g.,
-0 or true), then I will give you back a proof that 
-t = t. This single inference rule thus defines a very 
-sensible notion of equality for all values of all types 
-that exist or might ever be defined. 
+and if you also give me a value, t, of that type, T, 
+(e.g., 0 or true), I will give you back a proof that 
+t = t. 
+
+This single inference rule thus defines a very sensible notion of equality for all values of all types that now
+exist or might ever be defined. 
 
 So now, rather than a separate axiom for 0 = 0,
 another one for 1 = 1, another for true = true, and
-yet another for Fido = Fido, so forth, we now have 
-a single inference rule that gives them all as
-special cases. 
+yet another for Fido = Fido, so forth, we have one 
+a single inference rule that derives them all as
+special cases, one case for every possible value,
+and type of, t.
 
-You can think of the "inputs" above the line as parameters. That is how we generalize from a single
+You can think of the "inputs" above the line as 
+parameters. That is how we generalize from a single
 case to an infinity of cases.
 
-Indeed, you can now start to think of eq_refl in
+/- * Inference rules as computations * -/
+
+Indeed, you can now start to think of eq.refl in
 two different ways: as a logical inference rule,
 and as a kind of program! This program takes two
 arguments. The first is a type and the second is 
@@ -112,7 +117,7 @@ that T is a type and t is a value of that type.
 That is, its inputs are not proofs of proposition,
 but rather are type judgments. 
 
-EXERCISE: Take the view that eq_refl is a program
+EXERCISE: Take the view that eq.refl is a program
 that takes two parameters as discussed here, and
 write an expression that reduces to ("returns") a 
 proof of the proposition that the natural number, 
