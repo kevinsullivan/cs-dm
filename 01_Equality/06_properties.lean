@@ -121,7 +121,7 @@ incomplete code. The problem is simply that
 the definition is incomplete, due to the
 underscore placeholder. Replace the underscore 
 with your answer. Leave parenthesis around 
-your expression so that it gets evaluted
+your expression so that it gets evaluated
 as its own term. 
 -/
 
@@ -145,7 +145,7 @@ proof of a = c. Call the proof eq_snart'
 
 /-
 You now begin to see the power of proof
-assitants. We can now compute with proofs
+assistants. We can now compute with proofs
 and the type checker makes sure that we
 can (for all intents and purposes) never
 use a proof that is not a valid proof of
@@ -158,7 +158,7 @@ rather than values we can compute with.
 
 /-
 EXERCISE: Here we use eq_snart rather 
-than eq.trans direcly to prove a = c, 
+than eq.trans directly to prove a = c, 
 given proofs of a = b and c = b.
 -/
 
@@ -169,7 +169,7 @@ theorem aeqc : a = c := eq_snart _ _
 /-
 In general, there are many ways to prove 
 a given theorem. Each distinct proof is 
-nevertheless an inhabitant of the tyep of
+nevertheless an inhabitant of the type of
 the proposition that it proves, and each
 suffices as evidence to justify a truth
 judgment for the proposition. In many
