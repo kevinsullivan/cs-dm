@@ -27,7 +27,7 @@ type).
 
 -/
 
--- Let's see it in action in four lines
+-- Let's see it in action in five lines
 def a := 1
 def b := 2 - 1
 lemma ab : a = b := rfl 
@@ -90,10 +90,9 @@ the fun part!
 /-
 EXERCISE: First write a textual inference
 rule, let's call it eq_snart. It says that
-if T is any type; if a, b, and c are values
-of this type, T; and you are given proofs 
-of a = b and c = b then you can derive a
-proof of a = c. 
+if T is any type; if a, b, and c are values of this type, T; and you are given
+proofs  of a = b and c = b then you can 
+derive a proof of a = c. 
 -/
 
 /-
@@ -117,12 +116,12 @@ have a way to construct a proof of b = c
 from a proof of c = b. Just use it. 
 
 Ignore the error message in the following 
-incomplete code. The problem is simply that
-the definition is incomplete, due to the
-underscore placeholder. Replace the underscore 
-with your answer. Leave parenthesis around 
-your expression so that it gets evaluated
-as its own term. 
+incomplete code. The problem is simply 
+that the definition is incomplete, due 
+to the underscore placeholder. Replace 
+the underscore with your answer. Leave 
+parenthesis around your expression so
+that it gets evaluated as its own term. 
 -/
 
 def eq_snart    { T : Type} 
@@ -134,31 +133,16 @@ def eq_snart    { T : Type}
         (_)
 
 /-
-EXERCISE: Use lean to implement a new rule 
-that that, from a proof of c = b and a proof 
-of b = a, derives (constructs and returns) a
-proof of a = c. Call the proof eq_snart' 
+EXERCISE: Use lean to implement a new 
+rule that that, from a proof of c = b 
+and a proof of b = a, derives a proof 
+of a = c. Call the proof eq_snart' 
 (why not, it sounds funny).
 -/
 
-/- * Conclusion * -/
 
 /-
-You now begin to see the power of proof
-assistants. We can now compute with proofs
-and the type checker makes sure that we
-can (for all intents and purposes) never
-use a proof that is not a valid proof of
-the proposition that it claims to prove.
-This represents a discontinuous leap over
-the the state of mathematical practice, 
-where proofs are beautiful little essays
-rather than values we can compute with.
--/
-
-/-
-EXERCISE: Here we use eq_snart rather 
-than eq.trans directly to prove a = c, 
+EXERCISE: Use eq_snart rather than eq.trans directly to prove a = c, 
 given proofs of a = b and c = b.
 -/
 
