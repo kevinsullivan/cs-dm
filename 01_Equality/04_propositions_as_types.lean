@@ -50,7 +50,7 @@ This Lean definition says that n is a variable
 for which a value of type nat must be provided
 (n : nat), and it goes on to assign to n ( := )
 the value 1. 
-
+ℤ  
 The Lean type checker checks that 1 is a
 value of type nat, which it is. Lean therefore
 accepts the definition, and consequently n is 
@@ -104,7 +104,7 @@ def      p     :  0 = 0   :=   (eq.refl 0)
 /-
 EXERCISE: To the variable s, bind a proof of
 the proposition that "Hello Lean!" is equal 
-to itself. T
+to itself.
 
 EXERCISE: Do the same for the Boolean value,
 tt.
@@ -120,7 +120,7 @@ proof that is not of the right type.
 
 /-
 EXERCISE. Explain precisely why Lean 
-reports and error for this code and what
+reports an error for this code and what
 it means. (Uncomment the code to see the
 error, then replace the comments so that
 the error isn't a problem in the rest of

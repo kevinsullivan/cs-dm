@@ -36,7 +36,7 @@ applied to that value.
 
 /-
 EXERCISE: Use rfl to produce a proof, h, of
-the proposition, "Hello" = "He"" ++ "llo".
+the proposition, "Hello" = "He" ++ "llo".
 
 EXERCISE: Use rfl to prove p: 3*3+4*4=5*5.
 -/
