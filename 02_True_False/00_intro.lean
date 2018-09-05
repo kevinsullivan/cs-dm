@@ -46,6 +46,14 @@ theorem t : true := true.intro
 #check t
 #reduce t
 
+/-
+We could of course have used tactics
+as well.
+
+EXERCISE prove t' : true using a 
+tactic script.
+-/
+
 /- 
 That's it! Super easy. 
 -/
