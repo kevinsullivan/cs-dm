@@ -156,9 +156,11 @@ a given theorem. Each distinct proof is
 nevertheless an inhabitant of the type of
 the proposition that it proves, and each
 suffices as evidence to justify a truth
-judgment for the proposition. In many
-cases, the particular proof object that 
-is used
+judgment for the proposition. In cases
+where one's aim is simply to prove a
+proposition, the particular proof object 
+that is used doesn't matter. We say that
+the particular proof is "irrelevant."
 -/ 
 
 /-
