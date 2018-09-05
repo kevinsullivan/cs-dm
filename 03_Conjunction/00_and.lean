@@ -558,7 +558,7 @@ EXERCISE: Write a bottom-up proof script
 to prove the same proposition, calling 
 the result pfQaP''.
 -/
-
+ 
 theorem pfQaP' : Q ∧ P :=
 begin
 split,
