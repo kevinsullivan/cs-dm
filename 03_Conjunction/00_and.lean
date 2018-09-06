@@ -236,7 +236,7 @@ write the theorem in Lean that proves
 the final result using and.intro.
 -/
 
-/- * Proving conjuctions with tactics * -/
+/- * Proving conjunctions with tactics * -/
 
 /-
 One can always prove a proposition by
@@ -256,7 +256,7 @@ able to apply a final rule to construct
 the desired proof. 
 
 Consider again the goal of proving the
-conjuctive proposition P ∧ Q. If we have
+conjunctive proposition P ∧ Q. If we have
 a proof of P and a proof of Q then we 
 can apply the and.intro rule to build
 the proof we need. Well, that breaks the
@@ -267,19 +267,19 @@ the solution to the overall problem).
 
 In particular, we can *split* the goal
 of proving a conjunction into sub-goals,
-one for each conjunct. We then sovle 
+one for each conjunct. We then solve 
 the sub-problems and finally combine
 the partial solutions into a final result 
 using and.intro.
 
 Whether you are using a tool like Lean
-or just writing informal mathematical
+or are just writing informal mathematical
 proofs, the use of decomposition of a
-large problem into pieces, recursive
+large problem into pieces, recursively
 solving of the parts, and ultimately
 the combination of the partial results
-into a final result, is essetial and
-uniquitous. Ideed, it's a general way
+into a final result, is essential and
+ubiquitous. Indeed, it's a general way
 to solve complex problems in almost
 any domain. The key is being able to
 break a problem into parts that can 
@@ -334,7 +334,7 @@ first writing the Main routine, having
 it call subroutines, and then writing
 the subroutines. Here instead we start
 with the main goal, P ∧ Q. We apply
-an inferene rule to break down the
+an inference rule to break down the
 problem of proving the goal into one
 or more problems of proving sub-goals,
 and once we're done with that, a proof
@@ -417,7 +417,7 @@ on the inference rules. They are what
 is most fundamental. Moving from the
 conclusion to the premises of and.intro
 is how we decompose the top-level goal,
-P ∧ Q, into sub-goals. Mving from the
+P ∧ Q, into sub-goals. Moving from the
 premises X and Y down through the
 and.intro rule to a proof of P ∧ Q is
 how we merge bottom-up partial results
@@ -462,7 +462,7 @@ call them and.elim_left and and.elim_right.
 /-
 EXERCISE: Fill in the "sorry" words in 
 the following incomplete theorems with 
-explic proof objects obtained by applying 
+explicit proof objects obtained by applying 
 the and elimination rules to our proof, t,
 of P ∧ Q. 
 
@@ -632,7 +632,7 @@ Now things are getting interesting.
 
 /-
 EXERCISE: From a proof of 1 = 1 ∧ tt = tt,
-use and_commuts to prove tt = tt ∧ 1 = 1.
+use and_commutes to prove tt = tt ∧ 1 = 1.
 -/
 
 /-

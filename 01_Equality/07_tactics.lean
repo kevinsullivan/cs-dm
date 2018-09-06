@@ -6,7 +6,7 @@ its type, and we can prove the proposition
 by assigning a proof term to the variable.
 -/
 
-def zeqz : 0 = 0 := eq.refl 0
+lemma zeqz : 0 = 0 := eq.refl 0
 
 /-
 Sometimes it's harder to write an exact
@@ -18,9 +18,9 @@ what are called tactic-based proving.
 Here's an equivalent tactic-based proof.
 -/
 
-def zeqz' : 0 = 0 :=
+lemma zeqz' : 0 = 0 :=
 begin
-apply eq.refl 0,
+  apply eq.refl 0,
 end
 
 /-
@@ -37,7 +37,7 @@ something new has been proved.
 /-
 Now open the Lean Messages panel by typing
 control-shift-enter or command-shift-enter
-(Mac/Windows). Now place your curor first
+(Windows/Mac). Now place your cursor first
 at the start of the "apply". The message
 window will display the "tactic state" at
 this point in the script. The state say
@@ -77,7 +77,7 @@ the goal that remains is 0 = 0.
 If you then click on the next line, end, 
 Lean tells you that the proof-generating 
 tactic script between the begin and end
-linesfailed because some goal remains to 
+lines failed because some goal remains to 
 be proved.
 
 In general, a tactic will only partially 
