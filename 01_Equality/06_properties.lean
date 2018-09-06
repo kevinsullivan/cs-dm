@@ -90,9 +90,10 @@ the fun part!
 /-
 EXERCISE: First write a textual inference
 rule, let's call it eq_snart. It says that
-if T is any type; if a, b, and c are values of this type, T; and you are given
-proofs  of a = b and c = b then you can 
-derive a proof of a = c. 
+if T is any type; if a, b, and c are values 
+of this type, T; and you are given proofs  
+of a = b and c = b then you can  derive a 
+proof of a = c. 
 -/
 
 /-
@@ -123,6 +124,7 @@ the underscore with your answer. Leave
 parenthesis around your expression so
 that it gets evaluated as its own term. 
 -/
+
 
 def eq_snart    { T : Type} 
                 { a b c: T }
