@@ -42,7 +42,6 @@ of the proposition, true, in Lean.
 -/
 
 theorem t : true := true.intro
-
 #check t
 #reduce t
 
@@ -178,7 +177,7 @@ all can be proved. We just feed
 our proof of false to false.elim
 to prove any proposition at all.
 Let's try to prove 0 = 1.
--/
+-/  
 
 theorem zeqo : 0 = 1 := false.elim f
 
