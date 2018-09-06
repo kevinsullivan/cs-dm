@@ -456,8 +456,8 @@ call them and.elim_left and and.elim_right.
 
 
 -- recall that t is a proof of P ∧ Q
-#check and.elim_left pfPQ
-#check and.elim_right t
+#check and.elim_left pf_PQ
+#check and.elim_right pf_PQ
 
 /-
 EXERCISE: Fill in the "sorry" words in 
