@@ -310,9 +310,9 @@ tactic state changes as you go.
 
 theorem pf_PQ': P ∧ Q := 
 begin
-apply and.intro,
-exact (eq.refl 0),
-exact (eq.refl 1),
+  apply and.intro,
+  exact (eq.refl 0),
+  exact (eq.refl 1),
 end
 
 /-
@@ -372,9 +372,9 @@ an example where we prove the same proposition but in a bottom-up manner.
 
 theorem pf_PQ'': P ∧ Q := 
 begin
-have X := (eq.refl 0),
-have Y := (eq.refl 1),
-apply and.intro X Y
+  have X := (eq.refl 0),
+  have Y := (eq.refl 1),
+  apply and.intro X Y
 end
 
 /-
@@ -450,20 +450,20 @@ call them and.elim_left and and.elim_right.
 
 
 { P Q: Prop } (paq : P ∧ Q)
---------------------------- and.elim_left
+--------------------------- and.elim_right
          pfQ : Q
 -/
 
 
 -- recall that t is a proof of P ∧ Q
-#check and.elim_left pfPQ
-#check and.elim_right t
+#check and.elim_left pf_PQ
+#check and.elim_right pf_PQ
 
 /-
 EXERCISE: Fill in the "sorry" words in 
 the following incomplete theorems with 
 explicit proof objects obtained by applying 
-the and elimination rules to our proof, t,
+the and elimination rules to our proof, pf_PQ,
 of P ∧ Q. 
 
 Note: Sorry says, "please just accept 
@@ -482,16 +482,16 @@ Here are two script-based proofs.
 
 theorem pfP'' : P :=
 begin
-exact and.elim_left pf_PQ
+  exact and.elim_left pf_PQ
 end
 
 theorem pfP''' : P :=
 begin
-have pfP := and.elim_left pf_PQ,
-exact pfP
+  have pfP := and.elim_left pf_PQ,
+  exact pfP
 end
 
-/- * COMMUTATIVITY OF CONJUCNTION *-/
+/- * COMMUTATIVITY OF CONJUNCTION *-/
 
 /-
 Now we've really got some power tools. We
@@ -561,16 +561,16 @@ the result pfQaP''.
  
 theorem pfQaP' : Q ∧ P :=
 begin
-split,
-exact (and.elim_right pf_PQ),
-exact (and.elim_left pf_PQ),
+  split,
+  exact (and.elim_right pf_PQ),
+  exact (and.elim_left pf_PQ),
 end
 
 theorem pfQaP'' : Q ∧ P :=
 begin
-have pfQ := (and.elim_right pf_PQ),
-have pfP := (and.elim_left pf_PQ),
-apply and.intro pfQ pfP
+  have pfQ := (and.elim_right pf_PQ),
+  have pfP := (and.elim_left pf_PQ),
+  apply and.intro pfQ pfP
 end
 
 /-
@@ -638,7 +638,8 @@ use and_commutes to prove tt = tt ∧ 1 = 1.
 /-
 Having now proved that "and commutes," 
 as mathematicians would say, we can now 
-use this principle in all future reasoning. Indeed in the work of everyday mathematics,
+use this principle in all future reasoning.
+Indeed in the work of everyday mathematics,
 if one had proved P ∧ Q and needed a proof 
 of Q ∧ P, it'd be a simple matter of saying 
 "Q ∧ P follows from the commutativity of 

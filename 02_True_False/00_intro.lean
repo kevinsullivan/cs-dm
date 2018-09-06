@@ -53,6 +53,11 @@ EXERCISE prove t' : true using a
 tactic script.
 -/
 
+lemma t' : true :=
+begin
+  apply true.intro
+end
+
 /- 
 That's it! Super easy. 
 -/

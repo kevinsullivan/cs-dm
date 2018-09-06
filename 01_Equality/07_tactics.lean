@@ -54,9 +54,10 @@ EXERCISE. Define zeqz'' as also
 being of type 0 = 0, but after the :=,
 just write begin on the next line and 
 then an end on the following line. You
-need to type the begin and end lines at
-the same time.
+need to type the begin and end lines
+before continuing.
 -/
+
 
 /-
 HOW TO SOLVE IT:
@@ -89,7 +90,7 @@ are separated by commas. We'll see more
 later. 
 
 Go ahead and type the required tactic  
-between  begin and end. Click on the 
+between begin and end. Click on the 
 line with the tactic, then on the end. Watch how the tactic state changes as 
 you go from line to line. 
 -/
