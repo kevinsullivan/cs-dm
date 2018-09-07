@@ -1,2 +1,0 @@
-Quantifiers and Predicate Logic
-===============================

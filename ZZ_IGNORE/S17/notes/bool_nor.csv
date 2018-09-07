@@ -1,5 +1,0 @@
-":math:`P`", ":math:`Q`", ":math:`P \downarrow Q`"
-"true", "true", "false"
-"true", "false", "false"
-"false", "true", "false"
-"false", "false", "true"
