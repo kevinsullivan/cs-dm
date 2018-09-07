@@ -1,41 +1,53 @@
 /-
-Produce a proof, pf1, of the proposition
+This homework assignment will be due in class
+on Thursday, September. Edit your answers into
+this file and save your answers. Know where 
+the file is in your file system so that you
+can submit it to Collab during class. To be
+ready for this homework, you should be sure
+to have read all of the class material up to
+and including 03_Conjunction, and you should
+have (on your own or in class) done all of 
+the exercises in those units. 
+-/
+
+/-
+1. Produce a proof, pf1, of the proposition
 that 0 = 0 ∧ (1 = 1 ∧ 2 = 2).
 -/
 
-lemma pf1 : 0 = 0 ∧ (1 = 1 ∧ 2 = 2) :=
-    and.intro rfl (and.intro rfl rfl)
+-- WRITE ANSWER HERE
 
 /-
-Produce a proof, pf2, of the proposition
+2. Produce a proof, pf2, of the proposition
 that (0 = 0 ∧ 1 = 1) ∧ 2 = 2
 -/
 
-lemma pf2 : (0 = 0 ∧ 1 = 1) ∧ 2 = 2 :=
-    and.intro (and.intro rfl rfl) rfl
+-- WRITE ANSWER HERE
+
 
 /-
-Produce a proof, pf3, of the proposition
+3. Produce a proof, pf3, of the proposition
 that 0 = 0 ∧ 1 = 1 ∧ 2 = 2. Hint, one of
 the two preceding proofs can be used to
 prove this proposition; there's no need
 to type out a whole new proof.
 -/
-lemma pf3 : 0 = 0 ∧ 1 = 1 ∧ 2 = 2 :=
-    pf1
+
+-- WRITE ANSWER HERE
 
 /-
-An operator, *, is "right associative"
+4. An operator, *, is "right associative"
 if X * Y * Z means X * (Y * Z), and is
 "left associative" if X * Y * Z means
 (X * Y) * Y. Is the logical connective,
 ∧, left or right associative? Explain.
 -/
 
--- It's right associative; we proved it.
+-- WRITE ANSWER HERE
 
 /-
-Use Lean to produce a proof, pf4, that 
+5. Use Lean to produce a proof, pf4, that 
 0 = 0 ∧ 1 = 1 ∧ 2 = 2 is exactly the
 same proposition as one of the two
 parenthesized forms. It will be a 
@@ -44,13 +56,11 @@ Put parentheses around each of the
 propositions.
 -/
 
-lemma pf4 :
-    (0 = 0 ∧ 1 = 1 ∧ 2 = 2) =
-    (0 = 0 ∧ (1 = 1 ∧ 2 = 2)) := 
-        rfl
+-- WRITE ANSWER HERE
+
 
 /-
-Given arbitrary propositions, P, Q and
+6. Given arbitrary propositions, P, Q and
 R it should be possible to produce a
 proof, pf5, showing that if P ∧ (Q ∧ R)
 is true then so is (P ∧ Q) ∧ R. Written
@@ -147,23 +157,11 @@ returns a proof of P ∧ (Q ∧ R). Write
 the entire solution yourself.
 -/
 
-def and_assoc_r 
-        {P Q R: Prop} 
-        (pf: (P ∧ Q) ∧ R) : 
-        P ∧ (Q ∧ R) :=
-    begin
-    have pfPQ := and.elim_left pf,
-    have pfR := and.elim_right pf,
-    have pfP := and.elim_left pfPQ,
-    have pfQ := and.elim_right pfPQ,    
-    have pfQR := and.intro pfQ pfR,
-    have pfP_QR := and.intro pfP pfQR,
-    exact pfP_QR
-    end
+-- WRITE ANSWER HERE
 
 
 /-
-It's important to learn how you would
+7. It's important to learn how you would
 give such proofs in natural langage.
 Let's take our first example. Here is
 a natural language version.
@@ -192,9 +190,11 @@ language proof for the theorem in the
 other direction.
 -/
 
+-- WRITE ANSWER HERE
+
 
 /-
-Use Lean to produce a proof, tnott, of
+8. Use Lean to produce a proof, tnott, of
 the proposition that truth isn't truth. 
 I.e., true is not true. We'll write this
 is Lean like this:
@@ -208,19 +208,15 @@ your choice, which you can then use
 to produce the required proof.
 -/
 
+
+-- WRITE ANSWER HERE
 -- You can introduce an axiom here
+-- Now prove the theorem here
 
--- Now prove the theorem
-
-axiom f: false
-
-theorem tnott : true ≠ true := false.elim f
 
 /-
 What did you have to accept to be able 
 to prove that truth isn't truth?
 -/
 
-/- Ans: We had to accept an absurdity: 
-technically, that there is a proof of a proposition for which there is no proof.
--/
+-- YOUR ANSWER HERE
