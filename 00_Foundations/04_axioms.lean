@@ -83,7 +83,7 @@ We could write this inference rule something like
 this:
 
   T: Type, t : T
-  -------------- (eq_refl)
+  -------------- (eq.refl)
      pf: t = t
 
 In English, "if you're given that T is a (any) 

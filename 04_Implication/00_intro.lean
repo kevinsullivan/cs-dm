@@ -1,4 +1,16 @@
-/- Introduction Rule for Implication -/
+/-
+Given any two propositions, P and Q, we can form
+the proposition, P → Q. That is the syntax of an
+implications. 
+
+If P and Q are proposotions, we read P → Q as 
+P implies Q. A proof of a proposition, P → Q, 
+is a program that that converts any proof of P 
+into a proof of Q. The type of such a program 
+is P → Q.
+-/
+
+/- Elimination Rule for Implication -/
 
 /-
 From two premises, (1) that "if it's raining then
@@ -35,11 +47,10 @@ must also be true. We can write this inference
 rule informally like this: 
 
   R → W, R
-  --------
+  -------- (→ elim)
      W
 
-EXERCISE: As written, does this appear to be an
-introduction rule or an elimination rule?
+This is the arrow (→) elimination rule?
 
 In the rest of this chapter, we will formalize
 this notion of inference by first presenting the
@@ -61,85 +72,131 @@ recall that to judge R → W to be true or to
 judge either R or W to be true means that we
 have proofs of these propositions. We can now
 give a precise rule in type theory capturing
-Aristotle's modus ponens, and what it means
-to be a function!
+Aristotle's modus ponens: what it means to be
+a function, and how function application works.
 
 { R W : Prop }, pfRtoW : R → W, pfR : R
 --------------------------------------- (→-elim)
                    pfW: W                
+
+
+Here it is formalized as a function.
+-/
+
+def 
+    arrow_elim 
+    (R W: Prop)  (pfRtopfW : R → W) (pfR : R) 
+    :  W := pfRtopfW pfR
+
+/-
+This program expresses the inference rule. The
+name of the rule (a program) is arrow_elim. The
+function takes (1) two propositions, R and W;
+(2) a proof of R → W (itself a program that 
+converts and proof of R into a proof of W;
+(3) a proof of R. If promises that if it is
+given any values of these types, it will 
+return a proof of(a value of type) W. Given
+values for its arguments it derives a proof 
+of W by applying that given function to that
+givenvalue. The result will be a proof of (a 
+value of type) W. 
+
+We thus now have another way to pronounce this
+inference rule: "if you have a function that can
+turn any proof of R into a proof of W, and if you 
+have a proof of R, then you obtain a proof of W,
+and you do it in particular by applying the 
+function to that value."
+-/
+
+/- In yet other words, if you've got a function
+and you've got an argument value, then you can 
+eliminate the function (the "arrow") by applying 
+the function to that value, yielding a value of
+the return type. 
 -/
 
 /-
-The inference rule says this: "If R and W are
-arbitrary propositions, and if you also have 
-both a proof, pfRtoW, of R → W, and you have a
-proof, pfR, of R, then by applying this rule
-you can obtain a proof of (and thus deduce the
-truth of) W.
+A concrete example of a program that serves as
+a proof of W → R is found  in our program, from 
+the 03_Conjunction chapter that turns any proof
+of P ∧ Q (W) into a proof Q ∧ P (R). 
 
-We thus now have another way to pronounce this
-inference rule: "if you have way to turn any 
-proof of R into a proof of W, and if you have
-a proof of R, then you can apply the former to
-the latter to obtain a proof of W."
-
-A concrete example of a proof of W → R is found 
-in our program from the conjunction chapter that 
-turns any proof of P ∧ Q (here serving as W) into 
-a proof of Q ∧ P (R). We wrote it so that for 
-any P and Q, and no matter what proof of P ∧ Q 
-might be given, it constructs a proof of Q ∧ P.
-It can always do this because from any proof of
-P ∧ Q, it can always apply ∧-elimination rules 
-to obtain separate proofs of P and Q, and that
-suffices to apply ∧-introduction to these proofs
-in the opposite order, thereby obtaining the
-desired proof of Q ∧ P.
-
-
-We wish to emphasize two important ideas at this
-point. 
-
-First, we see here a fundmanetal strategy for 
-constructing proofs, whether formal or not. We
-will call it decompose-recompose. Start with the
-assumptions you're given. The use elimination
-rules to take them apart (decompose them) into 
-pieces you need (proofs of smaller propositions).
-At this point you might need to transform some
-of these proofs further. And then finally use 
-introduction rules to put those smaller pieces 
-(proofs) back together into a proof of the the 
-proposition you set out to prove. 
-
-
-Second, a program that can convert any proof of
-one proposition, such as R, into a proof of 
-another, such as W, is in effect a proof of an 
-implication: in this case, R → W. If the type 
-checker accepts such a program as a proof of 
-the proposition, R → W, and if you can give it
-any proof of R, it will return a proof of W.
-
-Here we thus see a second much more general 
-idea. Whether you're being completely formal,
-as we are here, or writing the more informal
-proofs of everyday mathematics and computer
-science, to prove an implication, R → W, you
-must, one way or another, show that if you
-assume that R is true you must be able to
-apply valid reasoning principles (inference
-rules) to deduce that W must be true as
-well. A formal proof given as a program is
-basically just a "recipe" for making a proof
-of W given any argument that is a proof of 
-R. With such a program in hand, if one is given
-any proof of R → W,, which we can now say as,
-"if you're given any program of type R → W,
-and you're given any value of type R, then 
-you can apply the program to the value to get
-a proof of W."
+We wrote that code so that for any propositions, 
+P and Q, for any proof of P ∧  Q, it returns a 
+proof of Q ∧ P. It can always do this because 
+from any proof of P ∧ Q, it can obtain separate 
+proofs of P and Q that it can then re-assembled
+into a proof of Q ∧ P. That function is a proof
+of this type: ∀ P Q: Prop, P ∧ Q → Q ∧ P.  That 
+says, for any propositions, P and Q, a function
+of this type turns a proof of P ∧ Q into a proof
+of Q ∧ P. It thus proves P ∧ Q → Q ∧ P.
 -/
+
+
+/-
+We want to give an example of the use of the
+arrow-elim rule.  In this example we use a new
+(for us) capability of Lean: you can define
+variables to be give given types without proofs,
+i.e., as axioms. 
+
+Here (read the code) we assume that P and Q
+are arbitrary propositions. We do not say
+what specific propositions they are. Next
+we assume that we have a proof that P → Q,
+which will be represented as a program
+that takes proofs of Ps and returns proofs
+of Qs. Third we assumpe that we have some
+proof of P. And finally we check to see
+that the result of applying impl to pfP is
+of type Q.
+-/
+
+variables P Q : Prop
+variable impl : P → Q
+variable  pfP : P
+#check impl pfP
+
+
+/-
+In Lean, a proof of R → W is given as a 
+program: a "recipe" for making a proof of W 
+out of a proof of R. With such a program in 
+hand, if we apply it to a proof of R it will
+derive a proof of W. 
+-/
+
+
+
+
+/-
+EXAMPLE: implications involving true and false
+-/
+
+/-
+Another way to read P → Q is "if P (is true)
+then Q (is true)."
+    
+We now ask which of the following implications
+can be proved?
+
+true → true     -- if true (is true) then true (is true)
+true → false    -- if true (is true) then false (is true)
+false → true    -- if false (is true) then true (is true)
+false → false   -- if false (is true) then false (is true)
+
+EXERCISE: What is your intuition?
+
+Hint: Remember the unit on true and false. Think about 
+the false elimination rule. Recall how many proofs there
+are of the proposition, false.
+-/
+
+
+/- true → true -/
 
  /-
  Let's see one of the simplest of all possible
@@ -200,14 +257,23 @@ of the proposition, and type, true → true.
 
 #check timpt
 
+
+
+
+
+/- true → false -/
+
 /-
-EXERCISE: Is it true that false → false? 
-Prove it. Hint: We wrote a program that
-turned out to be a proof of true → true.
-If you can write such a program, call it 
-fimpf, then use it to prove the theorem,
-false_imp_false: false → false.
+EXERCISE: Can you prove true → false? If
+so, state and prove the theorem. If not,
+explain exactly why you think you can't
+do it. 
 -/
+
+
+
+
+/- false → true -/
 
 /-
 EXERCISE: Prove false → true. The key to
@@ -220,22 +286,32 @@ def fimpf (f: false): true :=
     _
 
 
+
+
+/- false → false -/
+
 /-
-EXERCISE: Can you prove true → false? If
-so, state and prove the theorem. If not,
-explain exactly why you think you can't
-do it. 
+EXERCISE: Is it true that false → false? 
+Prove it. Hint: We wrote a program that
+turned out to be a proof of true → true.
+If you can write such a program, call it 
+fimpf, then use it to prove the theorem,
+false_imp_false: false → false.
 -/
+
+
+
+
 
 
 /-
 We summarize our findings in the following
 table for implication.
 
-true  →  true  :  true
+true  →  true  :  proof, true
 true  →  false :  <no proof>
-false →  true  :  true
-false →  false :  true
+false →  true  :  proof, true
+false →  false :  proof, true
 
 What's deeply interesting here is that 
 we're not just given these judgments as 
@@ -250,37 +326,8 @@ is that we don't have a proof.
 -/
 
 
-
-
-
-/- Elimination Rule for Implication -/
-
-/-
-
-  { P Q: Prop }, pimpq: P → Q, p : P
-  ----------------------------------
-                pfQ : Q
--/
-
 #check true_imp_true  -- (proof of) implication
 #check true.intro     -- (proof of) premise
 #check (true_imp_true true.intro) -- conclusion!
-
-/-
-The elimination rule for implication is
-Aristotle's syllogism, modus ponens. It's
-also just function application! A proof 
-of P → Q is a program of type P → Q. When
-you apply such a program to a value (proof)
-of (type) P, what do you get? A value/proof
-of (type) Q.
-
--/
-
-
-
-variable Person : Type 
-variable Mortal : Person → Prop
-def prog (p: Person) : Mortal p := sorry
 
 -- Seven days in May
