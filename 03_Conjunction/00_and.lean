@@ -372,8 +372,8 @@ an example where we prove the same proposition but in a bottom-up manner.
 
 theorem pf_PQ'': P ∧ Q := 
 begin
-  have X := (eq.refl 0),
   have Y := (eq.refl 1),
+  have X := (eq.refl 0),
   apply and.intro X Y
 end
 
@@ -599,6 +599,8 @@ def and_commutes { P Q: Prop } (paq: P ∧ Q) :=
   and.intro 
     (and.elim_right paq) 
     (and.elim_left paq)
+
+#check and_commutes
 
 /-
 In this program we use the same curly
