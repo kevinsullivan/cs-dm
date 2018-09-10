@@ -3,7 +3,7 @@ Given any two propositions, P and Q, we can form
 the proposition, P → Q. That is the syntax of an
 implications. 
 
-If P and Q are proposotions, we read P → Q as 
+If P and Q are propositions, we read P → Q as 
 P implies Q. A proof of a proposition, P → Q, 
 is a program that that converts any proof of P 
 into a proof of Q. The type of such a program 
@@ -60,7 +60,7 @@ elimination rule for implication. We will see
 that this rule not only formalizes Aristotle's 
 modus ponens rule of reasoning (it is one of
 his fundamental "syllogisms"), but is also
-corresponds to funtion application! 
+corresponds to function application! 
 
 EXERCISE: When you apply a function that takes 
 an argument of type R and returns a value of 
@@ -68,7 +68,7 @@ type W to a value of type P, what do you get?
 -/
 
 /-
-Now let's specofy that R and W are arbitrary
+Now let's specify that R and W are arbitrary
 propositions in the type theory of Lean. And
 recall that to judge R → W to be true or to
 judge either R or W to be true means that we
@@ -96,12 +96,12 @@ name of the rule (a program) is arrow_elim. The
 function takes (1) two propositions, R and W;
 (2) a proof of R → W (itself a program that 
 converts and proof of R into a proof of W;
-(3) a proof of R. If promises that if it is
+(3) a proof of R. It promises that if it is
 given any values of these types, it will 
 return a proof of(a value of type) W. Given
 values for its arguments it derives a proof 
 of W by applying that given function to that
-givenvalue. The result will be a proof of (a 
+given value. The result will be a proof of (a 
 value of type) W. 
 
 We thus now have another way to pronounce this
@@ -121,7 +121,7 @@ the return type.
 
 /-
 A concrete example of a program that serves as
-a proof of W → R is found  in our program, from 
+a proof of W → R is found in our program, from 
 the 03_Conjunction chapter that turns any proof
 of P ∧ Q (W) into a proof Q ∧ P (R). 
 
@@ -151,7 +151,7 @@ what specific propositions they are. Next
 we assume that we have a proof that P → Q,
 which will be represented as a program
 that takes proofs of Ps and returns proofs
-of Qs. Third we assumpe that we have some
+of Qs. Third we assume that we have some
 proof of P. And finally we check to see
 that the result of applying impl to pfP is
 of type Q.
@@ -202,7 +202,7 @@ are of the proposition, false.
 
  /-
  Let's see one of the simplest of all possible
- examples to make these anstract ideas concrete. 
+ examples to make these abstract ideas concrete. 
  Consider the proposition, true → true. We can
  read this as "true implies true". But for our
  purposes, a better way to say it is, "if you 
@@ -285,7 +285,7 @@ a proof of false proves anything at all.
 -/
 
 def fimpf (f: false): true := 
-    _
+    sorry
 
 
 
@@ -371,4 +371,4 @@ The proof of a proposition, P → Q, in
 Lean, is thus a program that takes an 
 argument of type P and returns a result 
 of type Q.
-
+-/
