@@ -14,9 +14,11 @@ is P → Q.
 
 /-
 From two premises, (1) that "if it's raining then
-the streets are wet,"" and (2) "it's raining,"" we 
-can derive a conclusion with certainty. The streets
-really must be wet.
+the streets are wet," and (2) "it's raining,"" we 
+can surely derive as a conclusion that the streets
+are wet. Combining "raining → streets wet" with 
+"raining" reduces to "streets wet." This is modus
+ponens.
 
 Let's abbreviate the proposition "it's raining", 
 as R, and let's also abbreviate the proposition, 
@@ -330,4 +332,43 @@ is that we don't have a proof.
 #check true.intro     -- (proof of) premise
 #check (true_imp_true true.intro) -- conclusion!
 
--- Seven days in May
+
+
+/- *** → INTRODUCTION RULE -/
+
+
+/-
+The → introduction rules say that if 
+assuming that there is proof of P allows
+you to derive a proof of Q, then one can
+derive a proof of P → Q, discharging the 
+assumption. 
+
+To represent this rule as an inference
+rule, we need a notation to represent 
+the idea that from an assumption that
+there is a proof of P one can derive a
+proof of Q. The notation used in most
+logic books represents this notion as a
+vertical dotted line from a P above to
+a Q below. If one has such a derivation
+then one can conclude P → Q. The idea
+is that the derivation is in essence a
+program; the program is the proof; and
+it is a proof of the proposition, which
+is to say, of the type, P → Q. 
+
+
+   P
+   |
+   |
+   Q
+ -----
+ P → Q
+
+
+The proof of a proposition, P → Q, in
+Lean, is thus a program that takes an 
+argument of type P and returns a result 
+of type Q.
+
