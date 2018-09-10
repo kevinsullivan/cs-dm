@@ -650,10 +650,3 @@ the commutativity property of ∧ is the
 real justification for the conclusion.
 -/
 
-
-/-
-In class quiz: Do this on your own. But if you really, really get stuck, you can
-ask a friend for a little help.
--/
-
-def and_assoc_r { P Q R : Prop } (pfP_QR: (P ∧ Q) ∧ R) : (P ∧ (Q ∧ R)) := sorry 
