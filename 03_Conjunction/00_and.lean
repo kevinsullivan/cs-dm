@@ -651,3 +651,4 @@ leaving it to the reader to know that
 the commutativity property of ∧ is the
 real justification for the conclusion.
 -/
+
