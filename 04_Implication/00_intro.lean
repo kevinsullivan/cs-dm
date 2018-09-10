@@ -167,8 +167,8 @@ Note that we should be careful when creating
 implication variables!
 -/
 
-variable fimpt : true → false
-theorem zeqo : (0 = 1) := false.elim (fimpt true.intro)
+variable timpf : true → false
+theorem zeqo : (0 = 1) := false.elim (timpf true.intro)
 #check zeqo
 
 /-
@@ -268,9 +268,6 @@ of the proposition, and type, true → true.
 #check timpt
 
 
-
-
-
 /- true → false -/
 
 /-
@@ -279,8 +276,6 @@ so, state and prove the theorem. If not,
 explain exactly why you think you can't
 do it. 
 -/
-
-
 
 
 /- false → true -/
@@ -292,10 +287,9 @@ false.elim (think of it as a function) to
 a proof of false proves anything at all.
 -/
 
-def fimpf (f: false): true := 
-    sorry
+def fimpt ( pf_false: false ) : true := true.intro
 
-
+#check fimpt
 
 
 /- false → false -/
@@ -310,9 +304,10 @@ false_imp_false: false → false.
 -/
 
 
+def fimpf (pf_false: false ) : false := 
+  sorry
 
-
-
+#check fimpf
 
 /-
 We summarize our findings in the following
