@@ -162,6 +162,14 @@ variable impl : P → Q
 variable  pfP : P
 #check impl pfP
 
+/-
+Note that we should be careful when creating
+implication variables!
+-/
+
+variable fimpt : true → false
+theorem zeqo : (0 = 1) := false.elim (fimpt true.intro)
+#check zeqo
 
 /-
 In Lean, a proof of R → W is given as a 
