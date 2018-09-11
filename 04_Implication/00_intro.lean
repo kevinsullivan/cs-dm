@@ -179,8 +179,16 @@ hand, if we apply it to a proof of R it will
 derive a proof of W. 
 -/
 
+/-
+Modus tollens is an inference rule for proving that
+P is false given that P implies Q and that Q is false.
+E.g., if we know that if it’s raining, then the streets
+are wet, and we know that the streets are not wet,
+then we know it's not raining.
 
-
+Proving this relies on proof by contradiction, which
+we will discuss later.
+ -/
 
 /-
 EXAMPLE: implications involving true and false
