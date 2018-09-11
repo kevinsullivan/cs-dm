@@ -31,3 +31,21 @@ theorem t1 : ¬ 1 = 0 :=
 begin
 by contradiction, 
 end 
+
+
+
+theorem  modus_tollens { P Q : Prop } (pfPtoQ : P → Q) (pfnQ : Q → false) : 
+    ¬ P:= λ pfP, pfnQ (pfPtoQ pfP)
+        
+theorem qAndNotQfalse { P Q: Prop } (pf: Q ∧ ¬ Q) : false := pf.2 pf.1
+
+theorem notQAndNotQ: ∀ Q : Prop, ¬ (Q ∧ ¬ Q) :=
+    λ (Q : Prop) (qanq : Q ∧ ¬ Q), qanq.2 qanq.1
+
+/-
+theorem proof_by_contra_1 { P Q : Prop } (pfNotPImpQNotQ: ¬ P → (Q ∧ ¬ Q)) : P :=
+    _
+
+You've got nothing in the context from which to construct a proof of P. Proof by 
+contradiction is not constructive and so can't be done in plain Lean, Coq, etc.
+-/
