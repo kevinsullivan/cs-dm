@@ -561,7 +561,7 @@ the result pfQaP''.
  
 theorem pfQaP' : Q ∧ P :=
 begin
-  split,
+  apply and.intro,
   exact (and.elim_right pf_PQ),
   exact (and.elim_left pf_PQ),
 end

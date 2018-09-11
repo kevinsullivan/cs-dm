@@ -32,6 +32,7 @@ begin
 by contradiction, 
 end 
 
+#check t1
 
 
 theorem  modus_tollens { P Q : Prop } (pfPtoQ : P → Q) (pfnQ : Q → false) : 
