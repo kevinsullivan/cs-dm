@@ -311,8 +311,8 @@ tactic state changes as you go.
 theorem pf_PQ': P ∧ Q := 
 begin
   apply and.intro,
-  exact (eq.refl 0),
-  exact (eq.refl 1),
+  exact pfP,
+  exact pfQ,
 end
 
 /-
@@ -372,8 +372,8 @@ an example where we prove the same proposition but in a bottom-up manner.
 
 theorem pf_PQ'': P ∧ Q := 
 begin
-  have Y := (eq.refl 1),
-  have X := (eq.refl 0),
+  have X := pfP,
+  have Y := pfQ,
   apply and.intro X Y
 end
 
