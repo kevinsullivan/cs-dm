@@ -503,17 +503,19 @@ these tools in hand we can now start to
 state and prove essential mathematical 
 properties of logical operators, here of
 conjunction (and, ∧) .
+-/
 
+/- *** Commutativity of ∧ ***-/
+/-
 Let's first state a claim informally. If
 P ∧ Q is true then Q ∧ P must be true
-as well. We won't prove the general case
-here, but we will show that from a proof
-of (0 = 0 ∧ 1 = 1) we can derive a proof
-of (1 = 1 ∧ 0 = 0).
+as well. For example, from a proof of 
+(0 = 0 ∧ 1 = 1) we should be able to 
+derive a proof of (1 = 1 ∧ 0 = 0).
 
 We already have the propositions, P := 
-0 = 0, Q := 1 = 1, and a proof, t, of
-P ∧ Q (i.e., of 0 = 0 ∧ 1 =1 ). Now
+0 = 0, Q := 1 = 1, and a proof, pf_PQ, 
+of P ∧ Q (i.e., of 0 = 0 ∧ 1 =1 ). Now
 let's give a name to the proposition
 that (1 = 1 ∧ 0 = 0).
 
@@ -535,13 +537,15 @@ be (and.intro _ _), where the first _
 is a proof of Q and the second _ is a
 proof of P.
 
-If all we start with is a proof, t, of 
-P ∧ Q, how can get the proofs, pfP of 
-P and pfQ of Q, that we need? Easy! Apply 
-the and.elimination rules to t to get
-first a proof of Q then a proof of P,
-and then use those proofs as arguments 
-to and.intro. 
+If all we start with is a proof, pf_PQ, 
+of P ∧ Q, how can get the proofs, pfP of 
+P and pfQ of Q, that we need? 
+
+Easy! Apply the and.elimination rules 
+to get first a proof of Q then a proof 
+of P; then use those proofs as arguments 
+to and.intro, the first being the proof
+of Q and the second, the proof of P. 
 -/
 
 theorem pfQaP : Q ∧ P :=
@@ -575,15 +579,13 @@ end
 
 /-
 The general inference rule, which we
-will call and.comm, short for "and
-commutes", says that if P and Q are 
-*any* propositions, and we have a 
-proof, paq, of P ∧ Q, then we can
-obtain a proof, qap, of Q ∧ P. We
-could write the rule like this (with
-the arguments P and Q again being 
-implicit, insofar as they can be
-inferred from paq).
+will call and.commutes, says that if 
+P and Q are *any* propositions, and 
+we have a proof, paq, of P ∧ Q, then 
+we can obtain a proof, qap, of Q ∧ P. 
+We could write the rule like this 
+(the arguments P and Q are implicit
+and are inferred from paq).
 
 { P Q: Prop }, paq : P ∧ Q
 -------------------------- and_commutes
@@ -616,20 +618,17 @@ Does it work?
 theorem qap : Q ∧ P := and_commutes pf_PQ
 
 /-
-Holy cow, it does! We applied our new
+Holy cow, it works! We applied our new
 *proof converter* to convert a proof
 of 0 = 0 ∧ 1 = 1 into a proof of 1 = 1 ∧ 
-0 = 0. We might guess that this will
-work no matter what P and Q are, and
-indeed that is the case, because we
-wrote our program to be general with
-respect to what the propositions P and
-Q are. We have thus in effect proven 
+0 = 0. But we've written our converter
+program in a way that will work for any
+P and Q are. We have in effect proven 
 that conjunction is commutative: that
 for any propositions, P and Q, if P
-∧ Q is true, then so must be Q ∧ P.
-
-Now things are getting interesting.
+∧ Q is true, then we can derive that
+Q ∧ P is, too. Now things are getting 
+interesting.
 -/
 
 /-
