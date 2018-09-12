@@ -360,14 +360,16 @@ program by writing code that uses them.
 We call such an approach "bottom-up." 
 
 You can similarly develop proofs using
-a bottom-up approach. You first obtain the proofs of sub-goals that you'll need
+a bottom-up approach. You first obtain 
+the proofs of sub-goals that you'll need
 and then you "integrate" (combine) them 
 by applying some inference rule.
 
 We now introduce a style of Lean proof 
 scripts that supports such a bottom-up 
 approach to constructing proofs. Here's 
-an example where we prove the same proposition but in a bottom-up manner.
+an example where we prove the same 
+proposition but in a bottom-up manner.
 -/
 
 theorem pf_PQ'': P ∧ Q := 
@@ -597,10 +599,8 @@ literally as a program! We'll call
 it "and_commutes".
 -/
 
-def and_commutes { P Q: Prop } (paq: P ∧ Q) :=
-  and.intro 
-    (and.elim_right paq) 
-    (and.elim_left paq)
+def and_commutes { P Q: Prop } (paq: P ∧ Q) : Q ∧ P :=
+  and.intro (and.elim_right paq) (and.elim_left paq)
 
 #check and_commutes
 
@@ -615,7 +615,7 @@ parameters, to obtain a proof of Q ∧ P.
 Does it work?
 -/
 
-theorem qap : Q ∧ P := and_commutes pf_PQ
+theorem qap : Q ∧ P := (and_commutes pf_PQ)
 
 /-
 Holy cow, it works! We applied our new
@@ -651,3 +651,10 @@ the commutativity property of ∧ is the
 real justification for the conclusion.
 -/
 
+def and_assoc_r 
+  { P Q R : Prop } 
+  (pfP_QR: (P ∧ Q) ∧ R) : 
+    (P ∧ (Q ∧ R)) := 
+      sorry
+
+  
