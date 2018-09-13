@@ -137,6 +137,8 @@ exact (and.elim_right (and.elim_left pfPQ_R)),
 exact and.elim_right pfPQ_R
 end
 
+#check 0=0 ∧ (1=1 ∧ (2=2 ∧ 3=3))
+
 /- ** Decompose / Recompose ** -/
 
 

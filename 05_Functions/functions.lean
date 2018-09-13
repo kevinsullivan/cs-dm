@@ -57,6 +57,8 @@ def double (n : ℕ) := 2 * n -- return type inferred
 #check double 3
 #reduce double 3
 
+def double' := λ n: ℕ , (2 * n : ℕ)
+
 /-
 EXERCISE: Write it using a lambda expression.
 -/
@@ -65,6 +67,11 @@ def square (n: ℕ) := n * n -- return type inferred
 #check square
 #check square 3
 #reduce square 3
+
+def square' : ℤ → ℤ := λ n: ℤ, (n * n: ℤ)
+
+#reduce square' (-3)
+-- #reduce square (-3) -- Nope
 
 /-
 EXERCISE: Write it using a lambda expression.
@@ -156,6 +163,12 @@ def positive''' :=
 #reduce positive''' 3
 #reduce positive''' 0
 
+theorem pos_is_pos : isPositive = positive''' := rfl
+
+def my_pow (x: nat) (y: nat) := x^y
+
+#eval my_pow 2 16
+
 /-
 EXERCISE: Give two or three examples
 of interesting functions from nat to
@@ -192,16 +205,25 @@ see what we get.
 -/
 
 def do_twice' : (ℕ → ℕ) → ℕ → ℕ := 
-    λ f x, f (f x)
+    λ (f: ℕ → ℕ) (x: ℕ), f (f x)
 
 /-
 And that's a shorthand for this!
 -/
 
 def do_twice'' : (ℕ → ℕ) → ℕ → ℕ := 
-    λ f : (ℕ → ℕ),
+    λ (f : ℕ → ℕ),
         λ (x : ℕ), 
             f (f x)
+
+def sub_do_twice (f: ℕ → ℕ) := λ (x : ℕ), f (f x)
+
+#check sub_do_twice
+
+def call_sub_do_twice := sub_do_twice (λ (x: ℕ), x + 1)
+#check call_sub_do_twice
+#reduce call_sub_do_twice 2
+
 
 theorem dt_eq_dt : do_twice = do_twice'' := rfl
 
