@@ -38,9 +38,12 @@ than "¬".
 #check t1
 
 
-theorem  modus_tollens { P Q : Prop } (pfPtoQ : P → Q) (pfnQ : Q → false) : 
-    ¬ P:= λ pfP, pfnQ (pfPtoQ pfP)
-        
+theorem  modus_tollens { P Q : Prop }
+        (pfPtoQ : P → Q) (pfnQ : Q → false) : ¬ P:=
+    λ (pfP : P), pfnQ (pfPtoQ pfP)
+
+#check modus_tollens
+
 theorem qAndNotQfalse { P Q: Prop } (pf: Q ∧ ¬ Q) : false := pf.2 pf.1
 
 theorem notQAndNotQ: ∀ Q : Prop, ¬ (Q ∧ ¬ Q) :=
