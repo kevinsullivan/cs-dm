@@ -87,8 +87,10 @@ Here it is formalized as a function.
 
 def 
     arrow_elim 
-    (R W: Prop)  (pfRtopfW : R → W) (pfR : R) 
-    :  W := pfRtopfW pfR
+    (R W: Prop)  
+    (pfRtopfW : R → W) 
+    (pfR : R) :  W := 
+        pfRtopfW pfR
 
 /-
 This program expresses the inference rule. The
