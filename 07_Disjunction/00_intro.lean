@@ -16,12 +16,17 @@ given explicitly.
 -/
 theorem pfPorR : P ∨ R := or.intro_left R pfP
 
+#check pfPorR
+
 /-
 EXERCISE: Explain why P doesn't need to be 
 given explicitly to the right of the :=.
-
-
 -/
+
+theorem pfPorR' : P ∨ R := or.intro_right P pfR
+
+#check pfPorR'
+
 
 /-
 
