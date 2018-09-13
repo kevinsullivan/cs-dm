@@ -60,10 +60,15 @@ contradiction is not constructive and so can't be done in plain Lean, Coq, etc.
 def qAndNotQimpf { Q: Prop } (pf: Q ∧ ¬ Q) : false := pf.2 pf.1
 #check qAndNotQimpf
 
-open classical
+open classical -- requires classical logic!
 
 theorem proof_by_contra_1 { P Q : Prop } (pfNotPImpQNotQ: ¬ P → (Q ∧ ¬ Q)) : P :=
   by_contradiction (assume h: ¬P, show false,
    from (qAndNotQimpf (pfNotPImpQNotQ h)))
 
 #check proof_by_contra_1
+
+/-
+Note that in order to use proof by contradiction we have to abandon purely
+constructive logic and employ classical logic.
+-/
