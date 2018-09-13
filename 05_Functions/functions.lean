@@ -23,7 +23,7 @@ number as an argument and always returns
 a Boolean value as a result is a value
 (a "function", or it would be better to
 say, a lambda expression) of this type, 
-P → Q. 
+ℕ → bool. 
 -/
 
 def positive (n: nat) : bool := 
@@ -94,8 +94,14 @@ def positive''' :=
 #reduce positive''' 0
 
 /-
-Now let's look at some functions from
-ℕ to ℕ
+EXERCISE: Give two or three examples
+of interesting functions from nat to
+nat. A program that takes any natural
+number as an argument and always returns
+a natural as a result is a value
+(a "function", or it would be better to
+say, a lambda expression) of this type, 
+ℕ → ℕ
 -/
 
 def double (n: ℕ) := 2 * n
@@ -117,6 +123,12 @@ to other functions!
 def compose (f: ℕ → ℕ) (g: ℕ → ℕ) (x: ℕ) : ℕ :=
   f (g x)
 
+#check compose
 #reduce compose double double 3
 #reduce compose square double 3
+#reduce square (double 3)
 
+def do_twice (f : ℕ → ℕ) (x: ℕ) : ℕ := f (f x)
+
+#check do_twice
+#reduce do_twice square 3
