@@ -1,5 +1,3 @@
--- UNDER CONSTRUCTION
-
 /-
 Up until now, we've said that if we can
 construct a proof of a proposition, then

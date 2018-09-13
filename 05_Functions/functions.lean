@@ -50,6 +50,8 @@ def positive' : nat → bool :=
 
 #check λ n : nat, (if n > 0 then tt else ff : bool)
 #check λ n, (if n > 0 then tt else ff)
+#check λ n, n > 0
+
 
 /-
 Read the first line as saying positive'
@@ -91,19 +93,30 @@ def positive''' :=
 #reduce positive''' 3
 #reduce positive''' 0
 
-theorem  modus_tollens { P Q : Prop } (pfPtoQ : P → Q) (pfnQ : Q → false) : 
-    ¬ P:= λ pfP, pfnQ (pfPtoQ pfP)
-        
-theorem qAndNotQfalse { P Q: Prop } (pf: Q ∧ ¬ Q) : false := pf.2 pf.1
+/-
+Now let's look at some functions from
+ℕ to ℕ
+-/
 
-theorem notQAndNotQ: ∀ Q : Prop, ¬ (Q ∧ ¬ Q) :=
-    λ (Q : Prop) (qanq : Q ∧ ¬ Q), qanq.2 qanq.1
+def double (n: ℕ) := 2 * n
+
+#check double
+#check double 3
+#reduce double 3
+
+def square (n: ℕ) := n * n
+
+#check square
+#reduce square 3
 
 /-
-theorem proof_by_contra_1 { P Q : Prop } (pfNotPImpQNotQ: ¬ P → (Q ∧ ¬ Q)) : P :=
-    _
-
-You've got nothing in the context from which to construct a proof of P. Proof by 
-contradiction is not constructive and so can't be done in plain Lean, Coq, etc.
+We can also pass functions as arguments
+to other functions!
 -/
+
+def compose (f: ℕ → ℕ) (g: ℕ → ℕ) (x: ℕ) : ℕ :=
+  f (g x)
+
+#reduce compose double double 3
+#reduce compose square double 3
 
