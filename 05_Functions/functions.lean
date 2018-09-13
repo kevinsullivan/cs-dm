@@ -1,5 +1,3 @@
--- UNDER CONSTRUCTION
-
 /-
 If P and Q are of type Prop, we think
 of P → Q as a proposition in the form
@@ -33,6 +31,10 @@ def positive (n: nat) : bool :=
 
 #check positive
 
+def uint32 (n: nat) : bool := 
+    if n >= 0 ∧ n < 2^32 then tt else ff
+
+#check uint32
 
 /-
 An equivalent function definition with
@@ -45,6 +47,9 @@ def positive' : nat → bool :=
         (if n > 0 then tt else ff : bool)
 
 #check positive'
+
+#check λ n : nat, (if n > 0 then tt else ff : bool)
+#check λ n, (if n > 0 then tt else ff)
 
 /-
 Read the first line as saying positive'
@@ -101,3 +106,4 @@ theorem proof_by_contra_1 { P Q : Prop } (pfNotPImpQNotQ: ¬ P → (Q ∧ ¬ Q))
 You've got nothing in the context from which to construct a proof of P. Proof by 
 contradiction is not constructive and so can't be done in plain Lean, Coq, etc.
 -/
+
