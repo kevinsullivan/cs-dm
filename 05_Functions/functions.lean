@@ -203,6 +203,8 @@ def do_twice'' : (ℕ → ℕ) → ℕ → ℕ :=
         λ (x : ℕ), 
             f (f x)
 
+theorem dt_eq_dt : do_twice = do_twice'' := rfl
+
 /-
 Inception! Here we define a function that takes
 as an argument a function that takes as an argument
