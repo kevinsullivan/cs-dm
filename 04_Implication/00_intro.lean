@@ -60,7 +60,7 @@ elimination rule for implication. We will see
 that this rule not only formalizes Aristotle's 
 modus ponens rule of reasoning (it is one of
 his fundamental "syllogisms"), but is also
-corresponds to function application! 
+corresponds to funtion application! 
 
 EXERCISE: When you apply a function that takes 
 an argument of type R and returns a value of 
@@ -68,7 +68,7 @@ type W to a value of type P, what do you get?
 -/
 
 /-
-Now let's specify that R and W are arbitrary
+Now let's specofy that R and W are arbitrary
 propositions in the type theory of Lean. And
 recall that to judge R → W to be true or to
 judge either R or W to be true means that we
@@ -96,12 +96,12 @@ name of the rule (a program) is arrow_elim. The
 function takes (1) two propositions, R and W;
 (2) a proof of R → W (itself a program that 
 converts and proof of R into a proof of W;
-(3) a proof of R. It promises that if it is
+(3) a proof of R. If promises that if it is
 given any values of these types, it will 
 return a proof of(a value of type) W. Given
 values for its arguments it derives a proof 
 of W by applying that given function to that
-given value. The result will be a proof of (a 
+givenvalue. The result will be a proof of (a 
 value of type) W. 
 
 We thus now have another way to pronounce this
@@ -121,7 +121,7 @@ the return type.
 
 /-
 A concrete example of a program that serves as
-a proof of W → R is found in our program, from 
+a proof of W → R is found  in our program, from 
 the 03_Conjunction chapter that turns any proof
 of P ∧ Q (W) into a proof Q ∧ P (R). 
 
@@ -151,7 +151,7 @@ what specific propositions they are. Next
 we assume that we have a proof that P → Q,
 which will be represented as a program
 that takes proofs of Ps and returns proofs
-of Qs. Third we assume that we have some
+of Qs. Third we assumpe that we have some
 proof of P. And finally we check to see
 that the result of applying impl to pfP is
 of type Q.
@@ -160,16 +160,8 @@ of type Q.
 variables P Q : Prop
 variable impl : P → Q
 variable  pfP : P
-#check impl pfP
+#check (impl pfP)
 
-/-
-Note that we should be careful when creating
-implication variables!
--/
-
-variable timpf : true → false
-theorem zeqo : (0 = 1) := false.elim (timpf true.intro)
-#check zeqo
 
 /-
 In Lean, a proof of R → W is given as a 
@@ -179,16 +171,8 @@ hand, if we apply it to a proof of R it will
 derive a proof of W. 
 -/
 
-/-
-Modus tollens is an inference rule for proving that
-P is false given that P implies Q and that Q is false.
-E.g., if we know that if it’s raining, then the streets
-are wet, and we know that the streets are not wet,
-then we know it's not raining.
 
-Proving this relies on proof by contradiction, which
-we will discuss later.
- -/
+
 
 /-
 EXAMPLE: implications involving true and false
@@ -218,7 +202,7 @@ are of the proposition, false.
 
  /-
  Let's see one of the simplest of all possible
- examples to make these abstract ideas concrete. 
+ examples to make these anstract ideas concrete. 
  Consider the proposition, true → true. We can
  read this as "true implies true". But for our
  purposes, a better way to say it is, "if you 
@@ -276,6 +260,9 @@ of the proposition, and type, true → true.
 #check timpt
 
 
+
+
+
 /- true → false -/
 
 /-
@@ -284,6 +271,8 @@ so, state and prove the theorem. If not,
 explain exactly why you think you can't
 do it. 
 -/
+
+
 
 
 /- false → true -/
@@ -295,9 +284,10 @@ false.elim (think of it as a function) to
 a proof of false proves anything at all.
 -/
 
-def fimpt ( pf_false: false ) : true := true.intro
+def fimpf (f: false): true := 
+    _
 
-#check fimpt
+
 
 
 /- false → false -/
@@ -312,10 +302,9 @@ false_imp_false: false → false.
 -/
 
 
-def fimpf (pf_false: false ) : false := 
-  sorry
 
-#check fimpf
+
+
 
 /-
 We summarize our findings in the following
@@ -382,4 +371,4 @@ The proof of a proposition, P → Q, in
 Lean, is thus a program that takes an 
 argument of type P and returns a result 
 of type Q.
--/
+
