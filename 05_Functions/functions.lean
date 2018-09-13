@@ -132,3 +132,23 @@ def do_twice (f : ℕ → ℕ) (x: ℕ) : ℕ := f (f x)
 
 #check do_twice
 #reduce do_twice square 3
+
+/-
+Inception! Here we define a function that takes
+as an argument a function that takes as an argument
+a function (and a natural number)
+-/
+
+def do_twice' (f: (ℕ → ℕ) → ℕ → ℕ) (x: (ℕ → ℕ)) : (ℕ → ℕ) := f (f x)
+
+#check do_twice'
+#check do_twice' do_twice
+
+/-
+Use #eval instead of #reduce because #reduce will
+have recursion problems unless we increase our
+stack space.
+-/
+
+#eval (do_twice' do_twice) square 2
+#eval 2^16
