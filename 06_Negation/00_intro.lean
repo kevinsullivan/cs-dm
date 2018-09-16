@@ -3,7 +3,7 @@
 
 * proposition built using ¬ 
 * the formal meaning of ¬ 
-* proofs of inqualities, ¬a=b
+* proofs of inequalities, ¬a=b
 * disjointness of constructors
 * strategy: proof by negation
 * inference rule: modus tollens
@@ -244,7 +244,7 @@ An English language rendition of this
 proof would go like this. We prove 
 that 0 ≠ 1 by assuming 0 = 1 and by
 showing that this assumption leads to
-a contradiction. As thatis impossible,
+a contradiction. As that is impossible,
 there must be no such proof of 0 = 1.
 That proves ¬ 0 = 1, i.e., 0 ≠ 1.  
 -/
@@ -325,7 +325,7 @@ justifies the conclusion that P is cannot
 be true, thus ¬ P.
 
 Negation introduction, or proof by negation,
-starts by assuming  P, derives a contradition, 
+starts by assuming  P, derives a contradiction, 
 and concludes with ¬ P. 
 
 Here's the principle in the form of a simple 
@@ -394,7 +394,7 @@ theorem  modus_tollens' { P Q : Prop }
 /-
 EXERCISE: present this same construction using
 a lambda expression. This presentation style
-makes the proposition, modustollens, explicit: 
+makes the proposition, modus tollens, explicit: 
 for all P and Q : Prop, (P → Q) → (¬ Q → ¬ P).
 Fill in the blank.
 -/
@@ -437,7 +437,7 @@ that assuming ¬ P leads to a contraction,
 thus to the conclusion that ¬ P is false,
 there can be no proof it, thus ¬ ¬ P; and
 then, by the principle of double negation
-eliminaton one deduces that P must be true.
+elimination one deduces that P must be true.
 
 This is called proving P by contradiction.
 
@@ -450,7 +450,7 @@ their corresponding arrow notations. Then
 ¬ ¬ P, ¬ (¬ P), is ((P → false) → false).
 
 What this says is that from a function 
-that converts assumped proofs of P into
+that converts assumed proofs of P into
 proofs of false, one can derive a proof
 of false. So there can be no function of
 this kind. But no where buried in any of
@@ -500,7 +500,7 @@ derive a proof of P.
 -/
 axiom excluded_middle : ∀ P, P ∨ ¬ P
 
-axiom exluded_middle' (P : Prop) : P ∨ ¬ P
+axiom excluded_middle' (P : Prop) : P ∨ ¬ P
 
 
 /-
