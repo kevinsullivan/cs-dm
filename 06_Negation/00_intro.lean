@@ -402,7 +402,7 @@ Fill in the blank.
 theorem modus_tollens: 
     ∀ P Q: Prop, (P → Q) → (¬ Q → ¬ P) :=
         λ P Q pfPQ pfnQ pfP, 
-            _
+            sorry
 
 /-
    **** Principle of non-contradiction ****
@@ -450,18 +450,21 @@ their corresponding arrow notations. Then
 ¬ ¬ P, ¬ (¬ P), is ((P → false) → false).
 
 What this says is that from a function 
-that converts assumped proofs of P into
+that converts assumed proofs of P into
 proofs of false, one can derive a proof
-of false. So there can be no function of
+of false: there can be no function of
 this kind. But no where buried in any of
-this is there an actual proof of P to be
-found! There's simply no way to convert 
-a function of type ((P → false) → false)
-into a proof of P, so there is no proof
-of ¬ ¬ P → P. That is, double negation 
-elimination doesn't work in constructive
-logic. Proofs by contradiction are thus
-not available in Lean.
+this is an actual proof of P to be found! 
+There's  no way to convert a function of 
+type ((P → false) → false) into a proof 
+of P, so there is no proof of ¬ ¬ P → P. 
+
+That is, double negation elimination is
+not a valid inference rule in constructive
+logic. Because proofs by contradiction 
+rely on double negation elimination, they
+are not valid or available either in a
+constructive logic, such as Lean's.
 
 Lean can be extended by a single axiom, 
 however, to make it classical, rather
@@ -599,7 +602,7 @@ theorem contrapositive:
         assume p : P,
         have nqf : ¬ Q → false :=
           λ nq : ¬ Q, 
-            no_contra' (and.intro p (nqnp nq)),
+            no_contra P (and.intro p (nqnp nq)),
         have nnq : ¬ ¬ Q := nqf,
         show Q,
         from double_neg_elim Q nnq
