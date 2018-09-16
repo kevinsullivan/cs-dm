@@ -383,16 +383,40 @@ argument of type P and returns a result
 of type Q.
 -/
 
+/- ** Direct Proofs: Proof Strategy -/
+
 /-
-Tactic-based proof scripts for implications
+Many of the propositions you need to
+prove in practice are implications, of
+the form P → Q. It's a way of saying,
+"under conditions defined by P it must
+be the case that Q is also true. A 
+direct proof is just what we have
+seen: a way to derive a proof of Q 
+from an assumed proof of P. 
+
+To prove P → Q, you thus start with an
+assumption that there's a proof of P, 
+and from that you deduce a proof of Q. 
 -/
 
-variables R W : Prop
-variable rimpq: R → W
+/-
+EXAMPLE: Give a direct proof of eqsym:
+a = b → b = a. Give it as both a lambda 
+expression and as an assume-show-from 
+tactic script.
+-/
 
-theorem w : W :=
-begin 
-assume (pfR : R), 
-show W, from rimpq pfR 
-end
+lemma eqsym : 
+    ∀ a b : nat, a = b → b = a 
+        := sorry
 
+lemma eqsym' : 
+   ∀ a b : nat, a = b → b = a 
+     := begin
+        sorry
+        end
+
+/-
+http://zimmer.csufresno.edu/~larryc/proofs/proofs.direct.html
+-/
