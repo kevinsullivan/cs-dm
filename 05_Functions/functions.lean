@@ -26,7 +26,7 @@ say, a lambda expression) of this type,
 ℕ → bool. 
 -/
 
-def zero_nat (n : ℕ) : nat := 0 -- explicit return type
+def zero_nat (n : ℕ) : ℕ := 0 -- explicit return type
 #check zero_nat
 #check zero_nat 5
 #reduce zero_nat 5
@@ -41,6 +41,8 @@ number as an argument and always returns the natural number
 1. Write it in traditional function definition notation and
 using lambda expressions and type inference. 
 -/
+
+def one_nat' : ℕ → ℕ := λ n : nat, 1
 
 def identity_nat (n : ℕ) : nat := n --explicit return type
 #check identity_nat
@@ -57,7 +59,7 @@ def double (n : ℕ) := 2 * n -- return type inferred
 #check double 3
 #reduce double 3
 
-def double' := λ n: ℕ , (2 * n : ℕ)
+def double' : ℕ →  ℕ := λ n , 2 * n
 
 /-
 EXERCISE: Write it using a lambda expression.
@@ -68,7 +70,7 @@ def square (n: ℕ) := n * n -- return type inferred
 #check square 3
 #reduce square 3
 
-def square' : ℤ → ℤ := λ n: ℤ, (n * n: ℤ)
+def square' : ℤ → ℤ := λ n, n * n
 
 #reduce square' (-3)
 -- #reduce square (-3) -- Nope
@@ -76,8 +78,9 @@ def square' : ℤ → ℤ := λ n: ℤ, (n * n: ℤ)
 /-
 EXERCISE: Write it using a lambda expression.
 -/
-def isPositive (n: nat) : bool := 
-    if n > 0 then tt else ff
+def isPositive (n: nat) : bool := n > 0
+
+--    if n > 0 then tt else ff
 
 #check isPositive
 #check isPositive 0
@@ -215,6 +218,10 @@ def do_twice'' : (ℕ → ℕ) → ℕ → ℕ :=
     λ (f : ℕ → ℕ),
         λ (x : ℕ), 
             f (f x)
+
+def foo := (do_twice'' double)
+#check foo
+#eval foo 5
 
 def sub_do_twice (f: ℕ → ℕ) := λ (x : ℕ), f (f x)
 

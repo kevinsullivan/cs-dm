@@ -161,6 +161,7 @@ variables P Q : Prop
 variable impl : P → Q
 variable  pfP : P
 #check (impl pfP)
+#check (arrow_elim impl pfP)
 
 
 /-
@@ -223,6 +224,8 @@ just the identity function of type true → true.
 
 def timpt ( pf_true: true ) : true := pf_true
 
+theorem timpt_theorem : true → true := timpt
+
 #check timpt
 
 /-
@@ -272,7 +275,9 @@ explain exactly why you think you can't
 do it. 
 -/
 
+-- def timpf (pf_true : true) : false := _
 
+-- theorem timpf_theorem: true → false := _
 
 
 /- false → true -/
@@ -284,10 +289,9 @@ false.elim (think of it as a function) to
 a proof of false proves anything at all.
 -/
 
-def fimpf (f: false): true := 
-    _
+def fimpt (f: false) : true := true.intro
 
-
+theorem fimpt_theorem : false → true := fimpt
 
 
 /- false → false -/
@@ -301,7 +305,13 @@ fimpf, then use it to prove the theorem,
 false_imp_false: false → false.
 -/
 
+def fimpf (f: false) : false := f
 
+theorem fimpf_theorem : false → false := fimpf
+
+def fimpzeqo (f: false) : 0 = 1 := false.elim f
+
+theorem fizeo : false → 0 = 1 := fimpzeqo
 
 
 
@@ -371,4 +381,18 @@ The proof of a proposition, P → Q, in
 Lean, is thus a program that takes an 
 argument of type P and returns a result 
 of type Q.
+-/
+
+/-
+Tactic-based proof scripts for implications
+-/
+
+variables R W : Prop
+variable rimpq: R → W
+
+theorem w : W :=
+begin 
+assume (pfR : R), 
+show W, from rimpq pfR 
+end
 
