@@ -484,7 +484,7 @@ consequences of the logic we've introduced.
 
 
 /-
-** Axiom of Excluded Middle : Classical **
+** Classical Logic: Excluded Middle Axiom  **
 -/
 
 /-
@@ -507,7 +507,7 @@ axiom excluded_middle' (P : Prop) : P ∨ ¬ P
 
 
 /-
- ** DOUBLE NEGATION ELIMINATION **
+ ** Double Negation Elimination Rule **
 -/
 
 /-
@@ -529,7 +529,7 @@ exact false.elim f
 end
 
 /-
- ** PROOF BY CONTRADICTION **
+ ** By Contradiction Proof "Strategy" **
 -/
 
 /-
@@ -591,7 +591,7 @@ does without it.
 
 
 /-
-PROOF BY CONTRAPOSITIVE.
+ ** By Contrapositive Proof "Strategy" **
 -/
 
 theorem contrapositive: 
