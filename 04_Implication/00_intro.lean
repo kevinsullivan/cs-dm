@@ -59,8 +59,8 @@ this notion of inference by first presenting the
 elimination rule for implication. We will see 
 that this rule not only formalizes Aristotle's 
 modus ponens rule of reasoning (it is one of
-his fundamental "syllogisms"), but is also
-corresponds to funtion application! 
+his fundamental "syllogisms"), but it also
+corresponds to function application! 
 
 EXERCISE: When you apply a function that takes 
 an argument of type R and returns a value of 
@@ -68,7 +68,7 @@ type W to a value of type P, what do you get?
 -/
 
 /-
-Now let's specofy that R and W are arbitrary
+Now let's specify that R and W are arbitrary
 propositions in the type theory of Lean. And
 recall that to judge R → W to be true or to
 judge either R or W to be true means that we
@@ -101,7 +101,7 @@ given any values of these types, it will
 return a proof of(a value of type) W. Given
 values for its arguments it derives a proof 
 of W by applying that given function to that
-givenvalue. The result will be a proof of (a 
+given value. The result will be a proof of (a 
 value of type) W. 
 
 We thus now have another way to pronounce this
@@ -151,7 +151,7 @@ what specific propositions they are. Next
 we assume that we have a proof that P → Q,
 which will be represented as a program
 that takes proofs of Ps and returns proofs
-of Qs. Third we assumpe that we have some
+of Qs. Third we assume that we have some
 proof of P. And finally we check to see
 that the result of applying impl to pfP is
 of type Q.
@@ -203,7 +203,7 @@ are of the proposition, false.
 
  /-
  Let's see one of the simplest of all possible
- examples to make these anstract ideas concrete. 
+ examples to make these abstract ideas concrete. 
  Consider the proposition, true → true. We can
  read this as "true implies true". But for our
  purposes, a better way to say it is, "if you 
