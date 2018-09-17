@@ -101,7 +101,7 @@ and Lean does the rest! Here it is.
 theorem zneqo : 0 ≠ 1. -- note period
 #check zneqo
 
-theorem zneqoeqnneqo : (0 ≠ 1) = ¬(0 = 1) := rfl
+theorem zneqoeqzneqo : (0 ≠ 1) = ¬(0 = 1) := rfl
 
 /-
 Note that the types, 0 ≠ 1, ¬ 0 = 1,
