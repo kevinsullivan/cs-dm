@@ -149,7 +149,7 @@ end
 This rule gives us an indirect way to
 prove a proposition W by showing that
 one or another condition must be true
-(P ∨ Q), and in either W must be true,
-because both (P → R) and (Q → R).
+(P ∨ Q), and in either case W must be 
+true because both (P → R) and (Q → R).
 -/
 

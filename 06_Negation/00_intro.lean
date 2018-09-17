@@ -134,6 +134,7 @@ theorem zneqo' : 0 = 1 → false :=
         nat.no_confusion h
 #check zneqo'
 
+
 /-
 You can see that the proof, being
 a proof of an implication, is in
@@ -351,7 +352,7 @@ to a contradiction. That's just what we
 just did. Here's a more concrete example.
 -/
 
-lemma foo: ¬ (0 = 1) :=
+lemma zneqo''': ¬ (0 = 1) :=
 begin
     apply proof_by_negation,
     assume h: (0 = 1),
@@ -411,7 +412,7 @@ Fill in the blank.
 -/
 
 theorem modus_tollens: 
-     ∀ { P Q: Prop }, (P → Q) → (¬ Q → ¬ P) :=
+     ∀ { P Q: Prop }, (P → Q) → ¬ Q → ¬ P :=
         λ P Q pfPQ pfnQ pfP, 
             sorry
 
@@ -662,7 +663,7 @@ prove P.
 -/
 theorem proof_by_contradiction : ∀ P : Prop,
     (¬ P → false) → P := 
-        @double_neg_elim 
+        @double_neg_elim
 
 /-
 The @ here turns off type inferencing for 
