@@ -16,6 +16,11 @@
 * proof by contrapositive 
 -/
 
+/-   **********************
+     *** ¬ Introduction ***
+     **********************
+-/
+
 /-
 In constructive logic, if we can 
 construct a proof of a proposition,
@@ -204,7 +209,7 @@ and thus 0 ≠ 1.
 
 
 /-
-The Assume-Show-From proof pattern.
+The Assume-Show-From proof pattern
 -/
 
 /-
@@ -255,8 +260,6 @@ That proves ¬ 0 = 1, i.e., 0 ≠ 1.
 Disjointness of Constructors in General
 -/
 
-
-
 /-
 Proofs of inequalities for values of 
 types other than nat can be produced 
@@ -288,9 +291,10 @@ Prove it. (How'd it do that?)
 EXERCISE: What about 2 ≠ 1?
 -/
 
-/- 
-      *** ¬ Introduction ***
+
+/-  ***************************
      *** Proof by Negation ***
+    ***************************
 -/
 
 /-
@@ -302,10 +306,6 @@ would follow, leading to the conclusion that
 there must be no proof of P, that it isn't
 true, and that ¬ P there is true. This is
 called "proof by negation."
--/
-
-/-
-   *** Consequences ***
 -/
 
 /-
@@ -346,8 +346,18 @@ theorem proof_by_negation : ∀ P : Prop,
         λ P p, p
 
 /-
-   ** Example of Proof by Negation **
+To show ¬ P, show that assuming P leads
+to a contradiction. That's just what we
+just did. Here's a more concrete example.
 -/
+
+lemma foo: ¬ (0 = 1) :=
+begin
+    apply proof_by_negation,
+    assume h: (0 = 1),
+    show false,
+    from (nat.no_confusion h)
+    end
 
 /-
 A classic example of a proof by negation
@@ -364,8 +374,9 @@ that the square root of two is not rational.
 And now you have proved it is irrational.
 -/
 
-/-
-  **** Modus Tollens ****
+/- *********************
+   *** Modus Tollens ***
+   *********************
 -/
 
 /-
@@ -400,12 +411,36 @@ Fill in the blank.
 -/
 
 theorem modus_tollens: 
-    ∀ P Q: Prop, (P → Q) → (¬ Q → ¬ P) :=
+     ∀ { P Q: Prop }, (P → Q) → (¬ Q → ¬ P) :=
         λ P Q pfPQ pfnQ pfP, 
             sorry
 
+
 /-
-   **** Principle of non-contradiction ****
+There are two ways to view the modus 
+tollens rule.
+
+The first view is that the aim is to
+produce a proof of ¬ Q → ¬ P and the
+way it is done is to prove P → Q. 
+
+The other view is that the aim is to
+produce a proof of ¬ P, and the way 
+to do it is by proving both a proof 
+of P → Q and a proof of ¬ Q.  
+-/
+
+/-
+Let's use this strategy to prove ...
+
+EXAMPLE
+-/
+
+
+
+/- ***************************
+   **** Non-contradiction ****
+   ***************************
 -/
 
 /-
@@ -417,15 +452,53 @@ contradiction cannot arise. That is, for any
 proposition Q, it's the case that ¬ (Q ∧ ¬ Q).
 -/
 
-theorem no_contra : ∀ Q: Prop, ¬ (Q ∧ ¬ Q) :=
+theorem no_contra : 
+∀ Q: Prop, ¬ (Q ∧ ¬ Q) :=
     λ (Q : Prop) (pf : Q ∧ ¬ Q), 
         (and.elim_right pf) (and.elim_left pf)
 
 #check no_contra
 
+variables a b : nat
+
+theorem ncab : ¬ ((a = b) ∧ (a ≠ b)) :=
+begin
+  apply no_contra
+end
+
 /-
+What happens when we apply no_contra here
+is that Lean matches up ((a = b) ∧ (a ≠ b))
+with Q ∧ ¬ Q by matching up Q with (a = b),
+and then deriving false from the result to
+polish off the proof (false is a get out of
+jail free card). 
+-/
+
+/-
+A longer, less clear version that does
+the same thing.
+-/
+theorem ncab' : ¬ ((a = b) ∧ (a ≠ b)) :=
+begin
+  assume c : ((a = b) ∧ (a ≠ b)),
+  have l := c.1,    -- short for left elim
+  have r := c.2,    -- same for right elim
+  have f := r l,    -- now a proof of false
+  assumption        -- and that proves it
+end
+
+/-
+The assumption tactic tells lean that the
+goal to be proved is already proved by an
+assumption in the context, so just go find
+it. Watch how the tactic state changes as
+you move through the proof script steps.
+-/
+
+/-  ********************************
      *** NEGATION ELIMINATION ***
-    *** PROOF BY CONTRADICTION ***
+    ********************************
 -/
 
 /-
@@ -476,15 +549,12 @@ P : Prop
 P ∨ ¬ P
 
 axiom excluded_middle: ∀ P : Prop, P ∨ ¬ P
-
-We will return to proof by contradiction
-later. For now, we explore some important
-consequences of the logic we've introduced.
 -/
 
 
-/-
-** Classical Logic: Excluded Middle Axiom  **
+/-  *******************************
+    ** Classical Excluded Middle **
+    *******************************
 -/
 
 /-
@@ -505,20 +575,38 @@ axiom excluded_middle : ∀ P, P ∨ ¬ P
 
 axiom excluded_middle' (P : Prop) : P ∨ ¬ P
 
-
 /-
- ** Double Negation Elimination Rule **
+The axiom of the excluded middle is thus 
+added to the other rules of the constructive
+logic of Lean, making the logic classical.
+We gain an ability to prove more theorems,
+at the cost of a loss of constructivness.
+(We don't need a proof of either P or of
+not P to derive a proof of P ∨ ¬ P. Thus
+no proof of either P or of ¬ P can be 
+obtained from a proof of P ∨ ¬ P. In our
+constructive logic, as we will see soon,
+in our constructive logic a proof of P ∨
+¬ P has to contain either a proof of P or
+a proof of ¬ P. The elimination rule gets
+us back to these proofs in a certain way.
+-/
+
+/-  *********************************
+    ** Double Negation Elimination **
+    *********************************
 -/
 
 /-
 What the axiom of the excluded middle
 let's you assume is that there are only
-two possibilities: either P or ¬ P, so 
-¬ ¬ P, not being ¬ P, can only be P, so
-¬ ¬ P is P.
+two possibilities: either P or ¬ P, so
+because ¬ ¬ P is clearly not ¬ P, the
+only remaining possibility is that it 
+is P, so it must be P. Thus ¬ ¬ P is P.
 -/
 
-theorem double_neg_elim: ∀ P, ¬ ¬ P → P := 
+theorem double_neg_elim: ∀ { P }, ¬ ¬ P → P := 
 begin
 assume P : Prop,
 assume pfNotNotP : ¬ ¬ P,
@@ -529,7 +617,27 @@ exact false.elim f
 end
 
 /-
- ** By Contradiction Proof "Strategy" **
+THe proof uses a technique that we haven't
+discussed yet: by case analysis. For now it
+is enough to see that the principle can be
+proved, at least if one accepts excluded 
+middle.
+-/
+
+variable notNotP : ¬ ¬ P -- assume ¬ ¬ P
+-- derive P by double negation elimination
+theorem pfP : P := double_neg_elim notNotP
+
+/-
+Note: the expression  double_neg_elim notNotP
+takes advantage of the type inference that we
+asked for by surrounding { P } with the curly
+braces in the statement of the theorem.
+-/
+
+/-  ******************************
+    *** Proof By Contradiction ***
+    ******************************
 -/
 
 /-
@@ -542,18 +650,54 @@ The term ¬ P → false is the same as ¬ ¬ P.
 
 The natural reasoning is like this: if ¬
 P leads to a contraction then it must be
-true that ¬ P is not true, i.e., ¬ ¬ P,
-But this, by classical double negation 
-elimination, implies P, so P must be true.
+true that ¬ P is not true, so ¬ ¬ P must
+be. But this, by classical double negation 
+elimination, is just P, so P must be true.
 
 This is negation elimination in the sense
 that one starts with an assumption of ¬ P
-and concludes with P. Proof by contradiction
-is a means of proving P.
+and concludes with P, albeit by way of 
+¬ ¬ P. A proof by contradiction aims to 
+prove P.
 -/
 theorem proof_by_contradiction : ∀ P : Prop,
     (¬ P → false) → P := 
-        double_neg_elim
+        @double_neg_elim 
+
+/-
+The @ here turns off type inferencing for 
+this one reference to double_neg_elim. It
+is a detail here. We'll discuss @ later. 
+The point is that proof by contradiction
+relies on double negation elimination.
+-/
+
+/-
+Proving in Lean that these laws are valid
+might seem unmotivated at first. But once
+we have these rules, we can use them as our
+own higher-level inference rules. Here's a
+proof by contradiction of 0 = 0. The goal
+to start is a proof of 0 = 0. By applying
+our proof_by_contradiction theorem to effect
+backwards (through the theorem) reasoning,
+we convert the goal of showing 0 = 0 into
+the goal of showing that ¬ 0 = 0 → false.
+This is exactly the strategy of a proof by
+contradiction. The rest of our script does
+the construction of false from the assumed
+proof of 0 = 0 → false. We just use eq.refl
+0 to produce a proof of 0 = 0, to which we
+then apply this function, yielding a false.
+-/
+
+theorem zeqz : 0 = 0 :=
+begin
+    apply proof_by_contradiction,
+    assume pf: 0 = 0 → false,
+    show false,
+    from pf (eq.refl 0)
+end
 
 /-
 The standard method for introducing
@@ -565,36 +709,59 @@ derived theorems available for use.
 -/
 open classical 
 
-
-theorem proof_by_contra_1 { P Q : Prop } (pfNotPImpQNotQ: ¬ P → (Q ∧ ¬ Q)) : P :=
-  by_contradiction 
-    (
-        -- assume ¬ P 
-        assume h : ¬ P,
-        -- derive a contradiction, Q ∧ ¬ Q
-        have qnq : Q ∧ ¬ Q := pfNotPImpQNotQ h,
-        -- from that derive false
-        show false, 
-        from no_contra Q qnq
-        -- thus derive that ¬ ¬ P,
-        -- and by excluded middle, P 
-    )
+/-
+The example keyword lets us write a
+theorem without giving it a name. It
+is useful for giving examples!
+-/
+example
+    { P Q : Prop } 
+    (pf: ¬ P → (Q ∧ ¬ Q)) 
+    : P :=
+    begin
+        apply proof_by_contradiction,
+        assume notP: ¬ P,
+        have contra := (pf notP),
+        show false,
+        from no_contra Q contra
+    end
 
 /-
 Remember: To use proof by contradiction 
 we have to use the axiom (or the so-called 
 "law") of the excluded middle. Clearly it's
 optional as a "law", as constructive logic
-does without it.
+does without it. We thus generally call it
+the *axiom* of the excluded middle. Take it
+if you're classicist; leave it if you're 
+constructivist.
 -/
 
 
+
+/-  *****************************
+    ** Proof By Contrapositive **
+    *****************************
+-/
 
 /-
- ** By Contrapositive Proof "Strategy" **
+The aim in a proof by contraspositive 
+is to show P ∧ Q from an assumption of 
+¬ P ∧ ¬ Q, i.e., (¬ Q → ¬ P) → (P → Q).
+
+Another way to view this rule is that
+it aims to show Q from, first, a proof
+of ¬ Q → ¬ P, and, second, a proof of P.
+
+The way to think about this latter view
+is that it says, if Q being false implies
+that P is false, and if we know that P is
+true, then Q must not be false and so (by
+the axiom of the excluded middle) Q must
+be true.
 -/
 
-theorem contrapositive: 
+theorem proof_by_contrapositive: 
     ∀ P Q : Prop, (¬ Q → ¬ P) → (P → Q) :=
     begin
         assume P Q: Prop,
@@ -605,10 +772,32 @@ theorem contrapositive:
             no_contra P (and.intro p (nqnp nq)),
         have nnq : ¬ ¬ Q := nqf,
         show Q,
-        from double_neg_elim Q nnq
+        from double_neg_elim nnq
     end
 
+/-
+http://zimmer.csufresno.edu/~larryc/proofs/proofs.contrapositive.html
+-/
 
+theorem zeqz' : 0 = 0 → true :=
+begin
+    apply proof_by_contrapositive,
+    assume nt : ¬true,
+    have pff := nt true.intro,
+    show ¬ 0 = 0,
+    from false.elim pff
+end
+
+/-
+Compare what by_contrapositive does to goal
+with what by_contradiction does to the goal.
+-/
+
+theorem zeqz'' : 0 = 0 → true :=
+begin
+    apply proof_by_contradiction (0 = 0 → true),
+    sorry
+end
 /-
 EXERCISE: Does it appear that one needs 
 to use proof by contradiction (and thus
