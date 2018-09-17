@@ -129,7 +129,7 @@ bi-implications, whether using a
 prover such as Lean or just using
 paper and pencil.
 -/
-theorem fooey: 0 = 0 ↔ 1 = 1 :=
+theorem easy_iff: 0 = 0 ↔ 1 = 1 :=
 begin
 apply bi_implication,
 exact λ e, eq.refl 1, -- ignores argument
