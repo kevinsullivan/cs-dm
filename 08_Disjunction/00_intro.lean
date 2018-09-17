@@ -57,7 +57,7 @@ for the "side" of the disjunction
 for which we're not providing a proof
 so that Lean knows the type of both
 propositions and thus the full type 
-of the disjunection to be proved. 
+of the disjunction to be proved. 
 -/
 
 /-

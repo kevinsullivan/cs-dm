@@ -101,6 +101,8 @@ and Lean does the rest! Here it is.
 theorem zneqo : 0 ≠ 1. -- note period
 #check zneqo
 
+theorem zneqoeqnneqo : (0 ≠ 1) = ¬(0 = 1) := rfl
+
 /-
 Note that the types, 0 ≠ 1, ¬ 0 = 1,
 and 0 = 1 → false, look different but
@@ -550,7 +552,7 @@ P : Prop
 P ∨ ¬ P
 
 axiom excluded_middle: ∀ P : Prop, P ∨ ¬ P
--/
+-/ 
 
 
 /-  *******************************
@@ -581,7 +583,7 @@ The axiom of the excluded middle is thus
 added to the other rules of the constructive
 logic of Lean, making the logic classical.
 We gain an ability to prove more theorems,
-at the cost of a loss of constructivness.
+at the cost of a loss of constructiveness.
 (We don't need a proof of either P or of
 not P to derive a proof of P ∨ ¬ P. Thus
 no proof of either P or of ¬ P can be 
@@ -746,7 +748,7 @@ constructivist.
 -/
 
 /-
-The aim in a proof by contraspositive 
+The aim in a proof by contrapositive 
 is to show P ∧ Q from an assumption of 
 ¬ P ∧ ¬ Q, i.e., (¬ Q → ¬ P) → (P → Q).
 
