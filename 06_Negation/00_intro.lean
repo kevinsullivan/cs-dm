@@ -299,15 +299,6 @@ If not, why not?
 EXERCISE: What about 2 ≠ 1?
 -/
 
-theorem ex1 : "Hello, Lean!" ≠ "Hello Lean!" :=
-    begin
-        assume h : ("Hello, Lean!" = "Hello Lean!"),
-        show false,
-        from string.no_confusion h
-    end
-
-theorem ex2 : 2 ≠ 1.
-
 
 /-  ***************************
      *** Proof by Negation ***
