@@ -131,6 +131,10 @@ a proposition in the form of an
 implication.
 -/
 
+#reduce nat.zero
+#reduce nat.succ(0)
+#reduce nat.succ(nat.succ(0))
+
 theorem zneqo' : 0 = 1 → false := 
     λ h : (0 = 1), 
         nat.no_confusion h
@@ -289,10 +293,20 @@ theorem ttneqff : tt ≠ ff.
 /-
 EXERCISE: Is it true that 
 "Hello, Lean!" ≠ "Hello Lean!"? 
-Prove it. (How'd it do that?)
+Can you prove it? If so, how?
+If not, why not?
 
 EXERCISE: What about 2 ≠ 1?
 -/
+
+theorem ex1 : "Hello, Lean!" ≠ "Hello Lean!" :=
+    begin
+        assume h : ("Hello, Lean!" = "Hello Lean!"),
+        show false,
+        from string.no_confusion h
+    end
+
+theorem ex2 : 2 ≠ 1.
 
 
 /-  ***************************
@@ -303,11 +317,11 @@ EXERCISE: What about 2 ≠ 1?
 /-
 We've thus got our introduction rule for ¬.
 To derive ¬ P, show that from an assumption
-of (a proof of P) some kind of contraction
+of (a proof of P) some kind of contradiction
 that cannot occur, and thus a proof of false,
 would follow, leading to the conclusion that 
 there must be no proof of P, that it isn't
-true, and that ¬ P there is true. This is
+true, and that ¬ P therefore is true. This is
 called "proof by negation."
 -/
 
@@ -611,12 +625,13 @@ is P, so it must be P. Thus ¬ ¬ P is P.
 
 theorem double_neg_elim: ∀ { P }, ¬ ¬ P → P := 
 begin
-assume P : Prop,
-assume pfNotNotP : ¬ ¬ P,
-cases excluded_middle P,
-show P, from h,
-have f: false := pfNotNotP h,
-exact false.elim f
+  assume P : Prop,
+  assume pfNotNotP : ¬ ¬ P,
+  cases excluded_middle P,
+    show P, from h,
+
+    have f: false := pfNotNotP h,
+    exact false.elim f
 end
 
 /-
