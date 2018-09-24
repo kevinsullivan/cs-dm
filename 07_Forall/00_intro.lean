@@ -26,7 +26,7 @@ Here's our concrete example stated
 and proved in Lean.
 -/
 
-example : ∀ n : nat, n + 1 ≠ 0 :=
+example : ∀ (n : nat), n + 1 ≠ 0 :=
     -- assume an arbitrary nat, n
     λ n : nat,    
         -- assume proof of n + 1 = 0
@@ -34,6 +34,13 @@ example : ∀ n : nat, n + 1 ≠ 0 :=
             -- derive a contradiction
             (nat.no_confusion h : false)
     -- therefore n + 1 ≠ 0
+
+/-
+Note that the parentheses around (n: nat)
+are not required by Lean, but they might
+help the human reader to understand the
+intention better.
+-/
 
 /-
 Here's another example, which you
@@ -45,12 +52,12 @@ not possible to have both P and
 ¬ P be true at the same time.
 -/
 
-example : ∀ P : Prop, ¬ (P ∧ ¬ P) :=
+example : ∀ (P : Prop), ¬ (P ∧ ¬ P) :=
     -- assume an arbitrary proposition
     λ P : Prop,
         -- assume it's both true and false
         λ h : (P ∧ ¬ P),
-            -- derive a contradition
+            -- derive a contradiction
             (h.right h.left : false)
     -- thereby proving ¬ h
 
@@ -88,7 +95,7 @@ We "stub out" the simple proof for
 now.
 -/
 
-example : ∀ n : nat, ∀ m : nat, 
+example : ∀ (n : nat), ∀ (m : nat), 
     m = n ∨ m ≠ n := 
 begin
     assume n : nat,
@@ -102,10 +109,10 @@ end
 
 /-
 So that should give an understanding
-of the use and meaning of the univeral 
+of the use and meaning of the universal 
 quantifier, ∀, in predicate logic.
 
-What does (∀ p : P, Q) mean in the
+What does (∀ (p : P), Q) mean in the
 constructive logic of Lean?
 
 Let's check! First we'll assume two
@@ -121,7 +128,7 @@ it?
 variables P Q : Prop
 
 -- What is the type of (∀ p : P, Q)
-#check (∀ p : P, Q)
+#check (∀ (p : P), Q)
 
 /-
 What? the proposition/type, 
@@ -137,7 +144,7 @@ Let's see.
 -/
 
 -- Assume a proof of ∀ (p : P), Q.
-variable ap2q : (∀ p : P, Q)
+variable ap2q : (∀ (p : P), Q)
 
 -- Assume a proof of P.
 variable p : P
@@ -146,7 +153,7 @@ variable p : P
 #check ap2q p
 
 -- They're the same types! Here's a proof.
-theorem same : (∀ p : P, Q) = (P → Q) := rfl
+theorem same : (∀ (p : P), Q) = (P → Q) := rfl
 
 /-
 So why not just use → instead of ∀? The
@@ -163,7 +170,7 @@ that that particular n is either 0 or not
 0. This is a function type. 
 -/
 
-#check ∀ n : nat, n = 0 ∨ n ≠ 0.
+#check ∀ (n : nat), n = 0 ∨ n ≠ 0.
 
 
 /-
@@ -235,7 +242,7 @@ The ∀ is right-associative so we read this as
 above, we can see that it means P → Q → R!
 -/
 
-#check ∀ p : P, (∀ q : Q, R)
+#check ∀ (p : P), (∀ q : Q, R)
 
 /-
 There are at least three ways to think about
@@ -324,7 +331,7 @@ any proposition. Let's see this in action.
 -/
 
 -- Assume a proof/function of the given type
-variable no_contra : ∀ P : Prop, ¬ (P ∧ ¬ P)
+variable no_contra : ∀ (P : Prop), ¬ (P ∧ ¬ P)
 
 /-
 Now look at what we get when we apply this 
