@@ -64,7 +64,7 @@ corresponds to function application!
 
 EXERCISE: When you apply a function that takes 
 an argument of type R and returns a value of 
-type W to a value of type P, what do you get? 
+type W to a value of type R, what do you get? 
 -/
 
 /-

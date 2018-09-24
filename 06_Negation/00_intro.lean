@@ -344,9 +344,11 @@ simple inference rule for ¬ introduction,
 and the "strategy" of proof by negation.
 -/
 
-theorem proof_by_negation : ∀ P : Prop,
-    (P → false) → ¬ P :=
-        λ P p, p
+theorem proof_by_negation : 
+    ∀ P : Prop, (P → false) → 
+        ¬ P :=
+
+        λ (P: Prop) (p: P → false), p
 
 /-
 To show ¬ P, show that assuming P leads
@@ -414,9 +416,14 @@ Fill in the blank.
 -/
 
 theorem modus_tollens: 
-     ∀ { P Q: Prop }, (P → Q) → ¬ Q → ¬ P :=
-        λ P Q pfPQ pfnQ pfP, 
-            sorry
+     ∀ P Q: Prop, (P → Q) → (¬ Q → ¬ P) :=
+        λ (P Q: Prop) (pfPtoQ: P → Q),
+            λ pfnQ : ¬ Q, 
+                λ pfP : P, 
+                    pfnQ (pfPtoQ pfP)
+
+
+
 
 
 /-
@@ -431,6 +438,24 @@ The other view is that the aim is to
 produce a proof of ¬ P, and the way 
 to do it is by proving both a proof 
 of P → Q and a proof of ¬ Q.  
+
+In the first case, the goal is 
+¬ Q → ¬ P, but of course the first
+step in proving this implication is
+to assume ¬ Q.
+
+So in the first approach, we assume 
+¬ Q by making (a value of type) ¬ Q 
+an argument. In the second case, we
+assume ¬ Q using a lambda -- and you
+guessed it, ¬ Q is an argument.
+
+You should be sure you understand
+why these two theorems say the same
+things and why the proofs are really
+the same, even though they're 
+presented a bit differently.
+
 -/
 
 /-

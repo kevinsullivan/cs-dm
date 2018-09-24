@@ -63,7 +63,16 @@ write the rule like this:
   { P Q : Prop } (p : P) (q : Q)
   ------------------------------ (and.intro)
          pf : P ∧ Q
+-/
 
+variable P : Prop
+variable Q : Prop
+variable pfP: P
+variable pfQ: Q
+def pf : P ∧ Q := and.intro pfP pfQ
+
+
+/-
 This is the final form, as we'll see in more
 detail in material to come. It says that if 
 P and Q are propositions, and if p is a proof
