@@ -261,6 +261,7 @@ we've discussed, → is right associative,
 so this is the function type is P → (Q → R). 
 -/
 
+#check ∀(n: ℕ), (∀(m: ℕ), m + n >= 0)
 
 /- ** Chained implications ** -/
 
