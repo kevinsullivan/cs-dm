@@ -344,7 +344,7 @@ theorem foo: ∀ P : Prop, P ↔ (P → P),
 
 /-
 A proof of P ↔ Q is essentially a 
-proof of the conjunection (P → Q) ∧  
+proof of the conjunction (P → Q) ∧  
 (Q → P). iff.intro is like ∧-intro,
 and the left and right iff.elim 
 rules are like the ∧-elim left and
@@ -355,7 +355,7 @@ right rules.
 If you have a proof of P ↔ Q, it
 tells you P and Q are equivalent.
 From a classical perspective, 
-qhenever P is true, so is Q, and
+whenever P is true, so is Q, and
 whenever Q is true, so is P. 
 
 When given the goal of proving a
