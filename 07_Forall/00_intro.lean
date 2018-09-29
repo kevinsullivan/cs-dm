@@ -2,8 +2,9 @@
 We've met but haven't yet been
 properly introduced to ∀. 
 
-Assuming P and Q are propositions,
-What does (∀ p : P, Q) mean?
+Assuming P is a Type and Q is a
+proposition, What does (∀ p : P, 
+Q) mean?
 
 For example, what does this mean?
 
@@ -26,7 +27,7 @@ Here's our concrete example stated
 and proved in Lean.
 -/
 
-example : ∀ (n : nat), n + 1 ≠ 0 :=
+example : ∀ n : nat, n + 1 ≠ 0 :=
     -- assume an arbitrary nat, n
     λ n : nat,    
         -- assume proof of n + 1 = 0
@@ -52,15 +53,16 @@ not possible to have both P and
 ¬ P be true at the same time.
 -/
 
-example : ∀ (P : Prop), ¬ (P ∧ ¬ P) :=
+example : ∀ P : Prop, ¬ (P ∧ ¬ P) :=
     -- assume an arbitrary proposition
     λ P : Prop,
         -- assume it's both true and false
         λ h : (P ∧ ¬ P),
             -- derive a contradiction
-            (h.right h.left : false)
+            (h.right h.left)
     -- thereby proving ¬ h
 
+#check (3)
 /-
 The ∀ parts of these propositions, 
 before the commas, give names to
@@ -128,7 +130,9 @@ it?
 variables P Q : Prop
 
 -- What is the type of (∀ p : P, Q)
-#check (∀ (p : P), Q)
+#check (∀ p : P, Q)
+
+#check ∀ n: nat, nat 
 
 /-
 What? the proposition/type, 
@@ -144,7 +148,7 @@ Let's see.
 -/
 
 -- Assume a proof of ∀ (p : P), Q.
-variable ap2q : (∀ (p : P), Q)
+variable ap2q : (∀ p : P, Q)
 
 -- Assume a proof of P.
 variable p : P
@@ -153,7 +157,7 @@ variable p : P
 #check ap2q p
 
 -- They're the same types! Here's a proof.
-theorem same : (∀ (p : P), Q) = (P → Q) := rfl
+theorem same : (∀ p : P, Q) = (P → Q) := rfl
 
 /-
 So why not just use → instead of ∀? The
@@ -170,7 +174,7 @@ that that particular n is either 0 or not
 0. This is a function type. 
 -/
 
-#check ∀ (n : nat), n = 0 ∨ n ≠ 0.
+#check ∀ n : nat, n = 0 ∨ n ≠ 0.
 
 
 /-
@@ -184,6 +188,38 @@ effected by a ∀ provides us a context in
 which we can state the remainder of the
 universally quantified proposition. 
 -/
+
+/-
+Some work done in class
+-/
+
+def inc : ℕ → ℕ := 
+    λ n : nat, 
+        n + 1
+
+def inc' : ∀ n: nat, nat := 
+    λ n : nat, n + 1
+
+def add : ∀ n : nat, ∀ m :nat, nat :=
+    λ n m, n + m
+
+def add' : ∀ n : nat, (∀ m :nat, nat) :=
+    λ n : nat, 
+        λ m : nat, 
+            n + m
+
+#eval add 3 4
+#eval add' 3 4
+
+#check add' 3
+
+#eval (add' 3) 
+
+def add3 := (add' 3) 
+
+#check add3
+
+#eval add3 4
 
 
 /- ** Further explanation ** -/
