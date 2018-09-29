@@ -426,6 +426,19 @@ theorem modus_tollens:
             λ pfnQ : ¬ Q, 
                 λ pfP : P, 
                     pfnQ (pfPtoQ pfP)
+/-
+theorem wrong : ∀ (P Q : Prop), (P → Q) → (¬ P → ¬ Q) :=
+    λ (P Q: Prop),
+        λ (p2q : P → Q),
+            λ (notP : ¬ P),
+                λ (pfQ : Q),
+                    _
+-/
+
+def inc (n : ℕ) : ℕ := n + 1
+def inc' : ℕ → ℕ := λ n : ℕ, n + 1
+def inc'' : ∀ n : nat, nat := 
+    λ n : nat, n + 1
 
 
 
@@ -534,6 +547,11 @@ you move through the proof script steps.
     ********************************
 -/
 
+
+theorem dne : ∀ P : Prop, ¬ ¬ P → P :=
+    λ (P : Prop) (pf : ((P → false) → false)),
+      sorry
+
 /-
 What about negation elimination? Negation
 elimination works in a closely related way.
@@ -608,6 +626,8 @@ axiom excluded_middle : ∀ P, P ∨ ¬ P
 
 axiom excluded_middle' (P : Prop) : P ∨ ¬ P
 
+#check excluded_middle
+
 /-
 The axiom of the excluded middle is thus 
 added to the other rules of the constructive
@@ -639,15 +659,16 @@ only remaining possibility is that it
 is P, so it must be P. Thus ¬¬P is P.
 -/
 
-theorem double_neg_elim: ∀ { P }, ¬¬P → P := 
+theorem double_neg_elim: ∀ { P : Prop }, ¬¬P → P := 
 begin
   assume P : Prop,
   assume pfNotNotP : ¬¬P,
   cases excluded_middle P,
+    -- case where P is true
     show P, from h,
-
+    -- case where ¬ P is true
     have f: false := pfNotNotP h,
-    exact false.elim f
+    exact false.elim f,
 end
 
 theorem double_neg_elim': ∀ { P }, (P ∨ ¬P) → ¬¬P → P := 
@@ -707,8 +728,8 @@ and concludes with P, albeit by way of
 ¬ ¬ P. A proof by contradiction aims to 
 prove P.
 -/
-theorem proof_by_contradiction : ∀ P : Prop,
-    (¬ P → false) → P := 
+theorem proof_by_contradiction : 
+    ∀ P : Prop, (¬ P → false) → P := 
         @double_neg_elim
 
 theorem proof_by_contradiction' : ∀ P : Prop,
@@ -783,7 +804,13 @@ example
         assume notP: ¬ P,
         have contra := (pf notP),
         show false,
-        from no_contra Q contra
+        from 
+        begin
+            have notQ := contra.right,
+            have pfQ := contra.left, 
+            show false,
+            from notQ pfQ
+        end
     end
 
 /-
