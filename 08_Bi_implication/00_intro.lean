@@ -313,6 +313,37 @@ def iff_compose (P Q R: Prop) (pq: P ↔ Q) (qr: Q ↔ R) : P ↔ R :=
                 _
 -/
 
+
+/-
+We now have all of the inference rules required to
+prove that (P → Q → R) and (P ∧ Q → R) are logically
+equivalent.
+-/
+lemma conj_impl_antecedent_equiv:
+  ∀ {P Q R : Prop},
+    (P → Q → R) ↔ (P ∧ Q → R) :=
+    λ (P Q R),
+    begin
+      apply iff.intro,
+      assume PimpQimpR,
+      assume PandQ,
+      have P := and.elim_left PandQ,
+      have QimpR := PimpQimpR P,
+      have Q := and.elim_right PandQ,
+      exact QimpR Q,
+      assume PandQimpR,
+      assume P,
+      assume Q,
+      have PandQ := and.intro P Q,
+      exact PandQimpR PandQ
+    end
+
+/-
+EXERCISE: From the lemma conj_impl_antecedent_equiv,
+does it follow that (P → Q) ↔ (P ∧ Q)?
+Why or why not?
+-/
+
 /-
 EXERCISE:
 
