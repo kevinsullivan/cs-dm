@@ -10,6 +10,9 @@ type nat having the specific value 0.
 Be sure it type-checks. 
 -/
 
+def x : nat := 0
+
+def x' := 0 
 
 /-
 # 
@@ -20,6 +23,11 @@ the value to which it is applied (i.e.,
 that it is given as an argument)
 -/
 
+def square' (n : nat) : nat := n^2 
+
+#check square'
+
+def square : ℕ → ℕ := λ n : nat, n^2
 
 /-
 #
@@ -29,6 +37,13 @@ takes any proposition, P, and that returns
 the proposition, P → false. 
 -/
 
+def nt (P : Prop) : Prop := P → false
+
+#check nt
+
+def isZero (n : nat) : Prop := 0 = n
+
+#reduce isZero 3
 
 /-
 #
@@ -46,12 +61,22 @@ Use #check to check it.
 /-
 #1 
 
-Write a function that takes any type, 
+Write a function, teqt, that takes any type, 
 T : Type, and any value, t : T, and that 
 returns a proof of t = t.
 -/
 
+def teqt (T : Type) (t: T) := eq.refl t
 
+def teqt' : ∀ (T : Type), ∀ (t : T), (t = t) := 
+    λ X x, eq.refl x
+
+def teqt'' (T : Type) := λ t : T, t = t
+
+#check teqt''
+
+
+#check teqt
 
 /-
 #2a
@@ -63,13 +88,25 @@ you most of the answer. Replace the sorry with your
 answer.  
 -/
 
-def aBbCCa 
+def aBbCCa : ∀ (T : Type), ∀ (a b c: T), 
+    (a = b) -> (b = c) → (c = a) :=
+        λ X a b c ab bc, 
+            eq.symm (eq.trans ab bc)
+
+
+-- This is equivalent
+def aBbCCa''
     { T : Type } 
     (a b c : T)
     (ab : a = b)
-    (bc: c = b) :
+    (bc: b = c) :
     (c = a) 
-    := sorry
+    :=
+begin
+have ac := eq.trans ab bc,
+show c = a,
+from eq.symm ac
+end
 
 
 /-
@@ -84,8 +121,11 @@ then the proposition, starting with ∀ and ending with
 lambda expression.
 -/
 
--- your answer here 
-
+def aBbCCa' : 
+    ∀ T : Type, ∀ a b c : T, (a = b) → (b = c) → (c = a) :=
+        λ T a b c ab bc,
+            eq.symm (eq.trans ab bc)
+            
 
 /-*******************************-/
 /- ** PROOFS OF CONJUNCTIONS ** --/
@@ -106,12 +146,28 @@ Prove the following propositions by completing
 the definitions (replace sorrys with your answers).
 -/
 
-theorem t1 : P → Q → R → P := sorry
+theorem t1 : P → Q → R → P := 
+  λ p q r, p
 
-theorem t2 : Q → (Q ∧ Q) := sorry 
+#check t1
 
-theorem t3 : (P ∧ Q) ∧ (Q ∧ R) → (P ∧ R) := sorry
+theorem t2 : Q → (Q ∧ Q) := 
+    λ (q : Q), and.intro q q 
 
+theorem t3 : (P ∧ Q) ∧ (Q ∧ R) → (P ∧ R) := 
+begin
+assume pqqr : (P ∧ Q) ∧ (Q ∧ R),
+have pq : P ∧ Q := pqqr.left,
+have qr := pqqr.right,
+have p := pq.left,
+have r := qr.right,
+apply and.intro p r
+end 
+
+/- This is a shorter version!
+   λ pqqr : ((P ∧ Q) ∧ (Q ∧ R)), 
+        and.intro (pqqr.left.left) pqqr.right.right
+-/
 
 
 /-*******************************-/
@@ -123,11 +179,14 @@ Prove the following theorem. It claims that
 implication is transitive (which it is).
 -/
 
-theorem t4 : ((P → Q) ∧ P) → Q := sorry
+theorem t4 : ((P → Q) ∧ P) → Q := 
+λ pqp, pqp.left pqp.right
 
 theorem t5 : 
-    (P → Q) → (Q → R) → (R → S) → (P → S) := sorry
-        
+    (P → Q) → (Q → R) → (R → S) → (P → S) := 
+        λ pq qr rs,
+            λ p, rs (qr (pq p))      
+
 
 /-******************-/
 /- ** Functions ** --/
@@ -142,7 +201,7 @@ lambda expression. You can also
 use a tactic script if you prefer.
 -/
 def n2n : ℕ → ℕ := 
-    sorry
+    λ n, 0
 
 /-
 Define a function called double 
@@ -150,7 +209,7 @@ that takes any natural number, n,
 and returns two times n. 
 -/
 
--- Your answer goes here
+def double : ℕ → ℕ := λ n, 2 * n
 
 
 
@@ -161,7 +220,7 @@ d15is30, that asserts that the
 double of 15 is 30, and prove it.
 -/
 
---- Your answer here
+theorem d15is30 : double 15 = 30 := rfl 
 
 /-
 Write a function, sum3, that takes three 
@@ -170,6 +229,9 @@ the sum of a, b, and c. Use a λ expression
 to express the function.
 -/
 
+
+def sum' :=
+    λ (a b c : nat), a + b + c
 -- Your answer here
 
 
@@ -190,8 +252,8 @@ need the law of the excluded
 middle to prove it.
 -/
 
-def t6 : P → ¬ ¬ P := sorry
-
+def t6 : P → ¬ ¬ P := 
+    λ p np, np p
 
 /-
 You've learned a few important 
