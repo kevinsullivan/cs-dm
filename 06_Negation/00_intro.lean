@@ -652,17 +652,17 @@ us back to these proofs in a certain way.
 
 /-
 What the axiom of the excluded middle
-let's you assume is that there are only
-two possibilities: either P or ¬ P, so
-because ¬ ¬ P is clearly not ¬ P, the
+lets you assume is that there are only
+two possibilities: either P or ¬P, so
+because ¬¬P is clearly not ¬P, the
 only remaining possibility is that it 
-is P, so it must be P. Thus ¬ ¬ P is P.
+is P, so it must be P. Thus ¬¬P is P.
 -/
 
-theorem double_neg_elim: ∀ { P : Prop }, ¬ ¬ P → P := 
+theorem double_neg_elim: ∀ { P : Prop }, ¬¬P → P := 
 begin
   assume P : Prop,
-  assume pfNotNotP : ¬ ¬ P,
+  assume pfNotNotP : ¬¬P,
   cases excluded_middle P,
     -- case where P is true
     show P, from h,
@@ -671,17 +671,30 @@ begin
     exact false.elim f,
 end
 
+theorem double_neg_elim': ∀ { P }, (P ∨ ¬P) → ¬¬P → P := 
+begin
+  assume P : Prop,
+  assume PornotP : P ∨ ¬P,
+  assume notnotP : ¬¬P,
+  cases PornotP,
+    show P, from PornotP,
+
+    have f: false := notnotP PornotP,
+    exact false.elim f
+end
+
 /-
-THe proof uses a technique that we haven't
+The proof uses a technique that we haven't
 discussed yet: by case analysis. For now it
 is enough to see that the principle can be
 proved, at least if one accepts excluded 
 middle.
 -/
 
-variable notNotP : ¬ ¬ P -- assume ¬ ¬ P
+variable notNotP : ¬¬P -- assume ¬ ¬ P
 -- derive P by double negation elimination
 theorem pfP : P := double_neg_elim notNotP
+theorem pfP' : P := double_neg_elim' (excluded_middle P) notNotP
 
 /-
 Note: the expression  double_neg_elim notNotP
@@ -718,6 +731,19 @@ prove P.
 theorem proof_by_contradiction : 
     ∀ P : Prop, (¬ P → false) → P := 
         @double_neg_elim
+
+theorem proof_by_contradiction' : ∀ P : Prop,
+    (¬ P → false) → P := 
+    begin
+      assume P : Prop,
+      assume nnP : ¬P → false,
+      cases excluded_middle P,
+        show P, from h,
+
+        have f: false := nnP h,
+        exact false.elim f
+    end
+        
 
 /-
 The @ here turns off type inferencing for 
@@ -807,8 +833,8 @@ constructivist.
 
 /-
 The aim in a proof by contrapositive 
-is to show P ∧ Q from an assumption of 
-¬ P ∧ ¬ Q, i.e., (¬ Q → ¬ P) → (P → Q).
+is to show P → Q from an assumption of 
+¬ P → ¬ Q, i.e., (¬ Q → ¬ P) → (P → Q).
 
 Another way to view this rule is that
 it aims to show Q from, first, a proof

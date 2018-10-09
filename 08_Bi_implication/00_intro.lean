@@ -45,12 +45,23 @@ time.
   *************************
 -/
    
-To prove P ↔ Q you must always
-prove two propositions: first,  
-P → Q, then Q → P. In informal
-mathematical writing, a proof of
-P ↔ Q will usually start off with
-"first we consider the implication
+To construct a proof of P ↔ Q you 
+must have (or have assumed) proofs
+of two propositions: a proof of   
+P → Q, and a proof of Q → P. The
+inference rule is thus as follows:
+
+P Q : Prop, p2q : P → Q, q2p: Q → P
+-----------------------------------
+        PiffQ : P ↔ Q
+
+In informal mathematical writing, a 
+proof of P ↔ Q will start with the
+following kind of language. "We are
+to prove P ↔ Q. To prove it we must
+first prove P → Q, then we must prove
+P → Q. We consider the case P → Q 
+first. " "first we consider the implication
 from P to Q, ..." Once that part
 is proved, it will say "and now 
 we consider the implication in
@@ -136,10 +147,26 @@ are true, false, or unknown to provide
 such a proof.
 -/
 
-theorem pqequiv : P ∧ Q ↔ Q ∧ P :=
+theorem andcomm : P ∧ Q ↔ Q ∧ P :=
         iff.intro
         (λ pq : P ∧ Q, and.intro (pq.right) (pq.left))
         (λ qp : Q ∧ P, and.intro (qp.right) (qp.left))
+
+/-
+Note that the proposition that andcomm
+proves is: ∀ P Q: Prop, P ∧ Q ↔ Q ∧ P.
+The use of "variables P Q : Prop" above
+basically adds a "∀ P Q : Prop" to each
+of the propositions that follow.
+
+As a result, andcomm in effect takes
+any two propositions as arguments and
+returns a proof that the conjunctions
+are equivalent no matter the order of
+the conjuncts.
+-/
+
+#check andcomm (0=0) (1=1)
 
 /- 
   *************************
@@ -156,9 +183,8 @@ the constituent sub-proofs, P → Q,
 and Q → P, respectively.
 -/
 
-#check (iff.elim_left pqequiv)
-#check (iff.elim_right 
-        (bi_implication p2q q2p))
+#check iff.elim_left (andcomm P Q)
+#check iff.elim_right (andcomm P Q)
 
 /-
 In the following trivial example,
