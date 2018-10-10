@@ -58,9 +58,6 @@ def chain : ∀ { P Q R : Prop }, (P → Q) → (Q → R) → (P → R) :=
 
         /-
         Now we show P → R by ...
-        -/
-        
-        /-
         first assuming a proof of P ...
         -/
         (λ p : P,
@@ -153,24 +150,35 @@ begin
                 from qr (pq p)
         end
 end
+
 /-
 Finally, you can write the same theorem in 
 the form of an ordinary function definition,
-in which case assumptions are reflected in
-the arguments, the return type is explicit,
+in which case assumptions are represented as
+arguments, the return type is made explicit,
 and the body of the function is just as it
 is in all the preceding examples. The return
-type could be left implicit here, but that 
-would make the code harder to understand, as
-it would force the reader to figure out the
-type of "qr (pq p)".
+type could be left implicit, but that would 
+make the code harder to understand, as it'd 
+force the reader to figure out the type of 
+the expression, qr (pq p).
 -/
 
 def chain_prog (P Q R : Prop) (pq: (P → Q)) (qr: Q → R) (p : P): R :=
         qr (pq p) 
 
 
+/-
+-/
 
+variables P Q R : Prop
+variable pq : P → Q
+variable qr : P → R
+
+theorem pr : P → R :=
+begin
+apply chain Q,
+end
 
 
 

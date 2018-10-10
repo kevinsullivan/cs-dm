@@ -163,3 +163,62 @@ def existsElim'
     :=
         λ p2t : (∀ x : S, pred x → P),
             exists.elim ex p2t
+
+
+
+/-
+EXAMPLE: Express the property, 
+of natural numbers, of being a 
+perfect square. For example, 9
+is a perfect square, because 3
+is a natural number such that 
+3 * 3 = 9. By constrast, 12 is
+not a perfect square, as there 
+is no other natural number that
+squares to 12. 
+
+State and prove the proposition 
+that 9 is a perfect square.
+-/
+
+-- Answer
+
+def isASquare: ℕ → Prop :=
+    λ n, exists m, n = m ^ 2
+
+theorem isPS9 : isASquare 9 
+:=
+begin
+unfold isASquare,
+exact exists.intro 3 (eq.refl 9)
+end
+
+
+/-
+EXERCISE: In lean, the function,
+string.length returns the length
+of a given string. Specify a new
+predicate sHasLenL taking a string
+and a natural number as arguments
+that asserts that a given string
+has the given length.  Write the
+function using lambda notation to
+make the type of the predicate as
+clear as possible.
+-/
+
+#eval string.length "Hello"
+
+-- answer here
+
+def sHasLenL : string → ℕ → Prop :=
+    λ s n, (string.length s) = n
+
+
+/-
+EXERCISE: Express the property
+of natural numbers of being even.
+A number, n, is even if there is
+a number, m, such that n = m * 2.
+-/
+
