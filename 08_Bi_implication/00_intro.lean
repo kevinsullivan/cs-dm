@@ -208,6 +208,15 @@ exact λ e, eq.refl 0, -- ignores argument
 end
 
 /-
-EXERCISES: TBD.
+EXERCISE:
+1. Prove that A → B → C ↔ A ∧ B → C.
+2. Given that you can prove this, does this
+mean that A → B = A ∧ B?
 -/
 
+lemma a_imp_b_imp_c_iff_a_and_b_imp_c:
+  ∀ A B C: Prop, ((A → B) → C) ↔ ((A ∧ B) → C) :=
+  λ A B C: Prop,
+  begin
+    sorry
+  end
