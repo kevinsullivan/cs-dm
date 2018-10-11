@@ -185,8 +185,8 @@ theorem wet''' :
 begin
   assume R S W pfRorS r2w s2w, 
   cases pfRorS with pfR pfS,
-  exact r2w pfR,
-  exact s2w pfS,
+    exact r2w pfR,  -- case when it's raining
+    exact s2w pfS,  -- case when the sprinkler's on
 end
 
 /-
@@ -210,8 +210,8 @@ theorem id_right_or :
       apply iff.intro,
       assume pfPorfalse,
       cases pfPorfalse with pfP pfFalse,
-        assumption,
-        exact false.elim pfFalse,
+        assumption, -- case where we have a proof of P
+        exact false.elim pfFalse, -- case with proof of false
       apply or.intro_left
     end
 
