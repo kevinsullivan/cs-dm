@@ -28,12 +28,12 @@ variable pfR : R
 -/
 
 /-
-In constructive logic, P ∨ Q, is
-judged to be true if either a proof
-of P or a proof of Q can be given.
-Having a proof of both of course
-allows one to give either proof to 
-construct a proof of P ∨ Q.
+In constructive logic, P ∨ Q is 
+true if either a proof of P or 
+a proof of Q can be given. Having 
+a proof of both of course allows 
+one to give either proof to prove
+P ∨ Q.
 
 Here are the introduction rules
 written as inference rules.
@@ -44,42 +44,65 @@ written as inference rules.
            P ∨ Q
 
 
+Notice in the preceding rule that while
+P can be inferred from pfP, Q has to be
+given explicitly, because otherwise there
+is no way to know what it is.
+
   P { Q } : Prop, pfQ:  Q
   ----------------------- (or.intro_right)
             P ∨ Q
 
+Now P has to be given explicitly, while
+Q can be inferred.
 -/
 
 
 /-
-The or.intro_left rule (also or.inl
-in Lean) takes a proof of P along with 
-a proposition Q and builds a proof of 
-P ∨ Q. No proof of Q is needed. P need
-not be given explicit because it can be
-inferred from the proof of P; however,
-because no proof of Q is given, from 
-which Q can be inferred, Q must be given
+The or.intro_left rule takes 
+propositions P and Q (P implicitly)
+constructs a proof of P ∨ Q. No proof 
+of Q is needed. P need not be given 
+explicitly because it can be inferred 
+from the proof of P; however, because 
+no proof of Q is given, from which Q 
+could be inferred, Q must be given
 explicitly.
 
-The or.intro_right (or.inr) rule takes 
-a proof of Q along with a proposition P 
+The or.intro_right rule takes 
+a proof of Q explicitly along with a 
+proposition P, from which P is inferred, 
 and constructs a proof of P ∨ Q. No proof
 of P is required, but the proposition P 
 has to be given explicitly, as there's
 no proof to infer it from.
-
-We have to provide the proposition
-for the "side" of the disjunction
-for which we're not providing a proof
-so that Lean knows the type of each
-of the disjuncts and thus the full 
-type of the disjunction being proved. 
 -/
 
 /-
-We can use example to state a theorem
-without giving it a name.
+To prove a disjunction, such as 
+0 = 0 ∨ 0 = 1, we have to pick which
+side of the disjunction we will give
+a proof for in order to apply or.intro.
+Here's an example. We pick the side
+to prove that actually has a proof.
+There is no proof of the right side.
+-/
+
+theorem goodSide : 0 = 0 ∨ 0 = 1 :=
+  or.intro_left (0 = 1) rfl 
+  ---------------- Q ---pfP
+
+/-
+Recacall that we can use "example" in
+Lean to state a theorem without giving 
+its proof a name. 
+
+Here we use example to state and prove 
+that for any proposition, P, P or false 
+is equivalent to P. (Remember that we 
+assumed above that P is defined to be a
+Prop, and pfP is defined to be a proof 
+of P.)
 -/
 example : P ∨ false := 
   or.intro_left false pfP
@@ -88,12 +111,15 @@ example : false ∨ Q :=
   or.intro_right false pfQ
 
 /-
-EXERCISE: Prove 0=0 ∨ 0 = 1. 
+EXERCISE: Prove 0 = 1 ∨ 0 = 0. 
 -/
 
 /-
 Here's a proof that P or true 
-is always true.
+is always true. The key idea is
+that we can always choose to give
+a proof for the true side, which
+is trivial.
 -/
 theorem zero_right_or : 
   ∀ P : Prop, P ∨ true :=
@@ -114,47 +140,50 @@ always true as well.
 
 /-
 The or.elim rule gives us an indirect way
-to prove a proposition W (the goal) by 
+to prove a proposition, W, (the goal) by 
 showing first that at least one of two 
 conditions holds (P ∨ Q), and in either 
-case W must be true, because of both 
-(P → R) and (Q → R) holding.
--/
+case W must be true, because both (P → R)
+and (Q → R). If P ∨ Q, then if both P → R 
+and Q → R, then R. 
 
-
-/-
 Here's the inference rule in plain text.
-
-If P ∨ Q, then if both P → R and Q → R,
-then R. 
 
 pfPQ: P ∨ Q, pfPR: P → R, pfQR: Q → R
 -------------------------------------- or.elim
                  R
 
-As an example, suppose that (1) when it is
-raining (R) the grass is wet (R → W); (2)
+-/
+
+/-As an example, suppose that (1) when it 
+is raining (R) the grass is wet (R → W); (2)
 when the sprinkler (S) is on, the grass 
-is also wet (S → W); and it is raining ∨ 
+is also wet (S → W); and it is raining *or* 
 the sprinkler is on (R ∨ S). Then the grass 
 must be wet (W).
 
 Going in the other dirction, if our aim
-is to prove W, then doing it by the strategy
-of or elimination means showing that for
-some propositions, R and S, R ∨ S is true,
-and that *in either case*, W is true.
+is to prove W, we can do it using or.elim
+by showing that for some propositions, R 
+and S, that R ∨ S is true, and that *in 
+either case*, W must also be true.
 
-The reasoning is by considering each case
-separately. R ∨ S means that at least one 
-is true. We first consider a case where R
-is true. Then we consider the case where S
-is true. If case it's R that's true, then
-we show that W follows from R → W. In case 
-it's S that's true, we show that W follows
-from S → W. W holds in either case and so
-W holds.
+The reasoning is by considering each case,
+each possible way to have proven R ∨ S,
+separately. R ∨ S means that at least one
+of R and S is true, and for whichever one
+is true, there must be a proof. 
 
+We first consider a case where R is true. 
+Then we consider the case where S is true. 
+In the case where R is true, we show that 
+W follows from R → W. In case where S is
+true, we show that W follows from S → W. 
+W holds in either case and so W holds.
+-/
+
+
+/-
 Now let's see it working in Lean. We
 make a few basic assumptions and then
 show how to combine them using the or
@@ -199,22 +228,22 @@ theorem wet : Wet :=
 
 
 /-
-We explicate the general concept of or
-elimination by wrapping a program around
-it. The program makes both the argument
-and the result types clear, and shows an
-example application of or.elim.
+The following program make the arguments to
+and the result typof or.elim clear, and it 
+gives an example of the use of or.elim.
 -/
-theorem wet' : 
+theorem orElim : 
   ∀ R S W: Prop, 
-    (R ∨ S) → (R → W) → (S → W) → W :=
+    (R ∨ S) → (R → W) → (S → W) 
+    → W 
+:=
 begin
   assume R S W pfRorS r2w s2w, 
   show W,
   from or.elim pfRorS r2w s2w
 end
 
-theorem wet'' : 
+theorem orElim' : 
   ∀ R S W: Prop, 
     (R ∨ S) → (R → W) → (S → W) → W :=
 begin
