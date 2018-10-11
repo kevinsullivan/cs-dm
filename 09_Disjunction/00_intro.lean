@@ -1,3 +1,8 @@
+/-
+We start by making some assumptions
+that we use in the rest of this unit.
+-/
+
 variables P Q R X Y Z: Prop
 variable pfP : P
 variable pfQ : Q
@@ -8,8 +13,16 @@ If P and Q are propositions, then
 P ∨ Q is also a proposition. It is
 read as "P or Q" and is called a
 disjunction. P and Q are called the
-disjuncts.
+disjuncts of the disjunction P ∨ Q.
+-/
 
+/-
+  **************************
+  *** INTRODUCTION RULES ***
+  **************************
+-/
+
+/-
 In constructive logic, P ∨ Q, is
 judged to be true if either a proof
 of P or a proof of Q can be given.
@@ -17,7 +30,8 @@ Having a proof of both of course
 allows one to give either proof to 
 construct a proof of P ∨ Q.
 
-Here are the introduction rules.
+Here are the introduction rules
+written as inference rules.
 
 
   { P } Q : Prop, pfP: P
@@ -31,31 +45,31 @@ Here are the introduction rules.
 
 -/
 
-/-
-  **************************
-  *** INTRODUCTION RULES ***
-  **************************
--/
 
 /-
-The or.intro_left rule takes a 
-proof of P along with a proposition 
-Q and builds a proof of P ∨ Q. (No 
-proof of Q is needed so any Q will 
-do, even false.) 
+The or.intro_left rule (also or.inl
+in Lean) takes a proof of P along with 
+a proposition Q and builds a proof of 
+P ∨ Q. No proof of Q is needed. P need
+not be given explicit because it can be
+inferred from the proof of P; however,
+because no proof of Q is given, from 
+which Q can be inferred, Q must be given
+explicitly.
 
-The or.intro_right rule takes a proof 
-of Q along with a proposition P and
-constructs a proof of P ∨ Q. No proof
-of P is required, so any P will do,
-even false. 
+The or.intro_right (or.inr) rule takes 
+a proof of Q along with a proposition P 
+and constructs a proof of P ∨ Q. No proof
+of P is required, but the proposition P 
+has to be given explicitly, as there's
+no proof to infer it from.
 
 We have to provide the proposition
 for the "side" of the disjunction
 for which we're not providing a proof
-so that Lean knows the type of both
-propositions and thus the full type 
-of the disjunction to be proved. 
+so that Lean knows the type of each
+of the disjuncts and thus the full 
+type of the disjunction being proved. 
 -/
 
 /-
@@ -65,16 +79,16 @@ without giving it a name.
 example : P ∨ false := 
   or.intro_left false pfP
 
-example : false ∨ P := 
-  or.intro_right false pfP
+example : false ∨ Q := 
+  or.intro_right false pfQ
 
 /-
 EXERCISE: Prove 0=0 ∨ 0 = 1. 
 -/
 
 /-
-Here's a proof that true is a right
-identity for or.
+Here's a proof that P or true 
+is always true.
 -/
 theorem zero_right_or : 
   ∀ P : Prop, P ∨ true :=
@@ -82,8 +96,8 @@ theorem zero_right_or :
       or.intro_right P true.intro
 
 /-
-EXERCISE: Prove that it's also a left
-identity.
+EXERCISE: Prove that true ∨ Q is
+always true as well. 
 -/
 
 
@@ -98,14 +112,14 @@ The elimination rule for ∨ at first
 seems slightly involved. Here's what
 it says:
 
-If P ∨ Q, and if both P → R and Q → R,
+If P ∨ Q, then if both P → R and Q → R,
 then R. 
 
 pfPQ: P ∨ Q, pfPR: P → R, pfQR: Q → R
 -------------------------------------- ∨-elim
                  R
 
-For example, suppose that (1) when it is
+As an example, suppose that (1) when it is
 raining the grass is wet (P → R); when the
 sprinkler is on, the grass is wet (Q → R);
 and it is raining or the sprinkler is on
@@ -117,6 +131,14 @@ we can show that R is true using P → R. If
 it's Q, then we can show from R using Q → R. 
 So in either case, we can show R, so R must
 be true.
+
+Now go back to the inference rule and
+make sure that it makes sense to you.
+
+Now let's see it working in Lean. We
+make a few basic assumptions and then
+show how to combine them using the or
+elimination rule.
 -/
 
 variable porq : P ∨ Q
@@ -169,10 +191,11 @@ end
 
 /-
 The or.elim rule gives us an indirect way
-to prove a proposition W by showing that
-one or another condition must be true
-(P ∨ Q), and in either case W must be 
-true because both (P → R) and (Q → R).
+to prove a proposition W by showing first
+that at least one of two conditions must 
+be true (P ∨ Q), and in either case W 
+must be true because both (P → R) and 
+(Q → R) are true.
 -/
 
 /-
