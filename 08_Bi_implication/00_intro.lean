@@ -132,7 +132,7 @@ left and right rules.
 
 /-
 A proof of P ↔ Q is essentially a 
-proof of the conjunection (P → Q) ∧  
+proof of the conjunction (P → Q) ∧  
 (Q → P). iff.intro is like ∧-intro,
 and the left and right iff.elim 
 rules are like the ∧-elim left and

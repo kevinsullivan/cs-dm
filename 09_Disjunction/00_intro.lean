@@ -1,5 +1,3 @@
--- UNDER CONSTRUCTION
-
 variables P Q R X Y Z: Prop
 variable pfP : P
 variable pfQ : Q
@@ -78,8 +76,8 @@ EXERCISE: Prove 0=0 ∨ 0 = 1.
 Here's a proof that true is a right
 identity for or.
 -/
-theorem id_right_or : 
-  forall P : Prop, P ∨ true :=
+theorem zero_right_or : 
+  ∀ P : Prop, P ∨ true :=
     λ P,
       or.intro_right P true.intro
 
@@ -137,19 +135,64 @@ variable rors: Raining ∨ Sprinkling
 theorem wet : Wet := or.elim rors r2w s2w
 
 theorem wet' : 
-  forall R S W: Prop, 
+  ∀ R S W: Prop, 
     (R ∨ S) → (R → W) → (S → W) → W :=
 begin
-assume R S W pfRorS r2w s2w, 
-show W,
-from or.elim pfRorS r2w s2w
+  assume R S W pfRorS r2w s2w, 
+  show W,
+  from or.elim pfRorS r2w s2w
+end
+
+theorem wet'' : 
+  ∀ R S W: Prop, 
+    (R ∨ S) → (R → W) → (S → W) → W :=
+begin
+  assume R S W pfRorS r2w s2w, 
+  apply or.elim pfRorS,
+  exact r2w,
+  exact s2w
 end
 
 /-
-This rule gives us an indirect way to
-prove a proposition W by showing that
+Notice the subtle difference between using
+or.elim and cases:
+-/
+theorem wet''' : 
+  ∀ R S W: Prop, 
+    (R ∨ S) → (R → W) → (S → W) → W :=
+begin
+  assume R S W pfRorS r2w s2w, 
+  cases pfRorS with pfR pfS,
+  exact r2w pfR,
+  exact s2w pfS,
+end
+
+/-
+The or.elim rule gives us an indirect way
+to prove a proposition W by showing that
 one or another condition must be true
 (P ∨ Q), and in either case W must be 
 true because both (P → R) and (Q → R).
 -/
 
+/-
+Here's a proof that false is a right
+identity for disjunction.
+-/
+
+theorem id_right_or : 
+  ∀ P : Prop, P ∨ false ↔ P :=
+    λ P,
+    begin
+      apply iff.intro,
+      assume pfPorfalse,
+      cases pfPorfalse with pfP pfFalse,
+        assumption,
+        exact false.elim pfFalse,
+      apply or.intro_left
+    end
+
+/-
+Exercise: Prove that false is also a
+left identity for disjunction.
+-/
