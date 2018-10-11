@@ -168,23 +168,6 @@ the conjuncts.
 
 #check andcomm (0=0) (1=1)
 
-/- 
-  *************************
-  *** Elimination Rules ***
-  *************************
--/
-
-
-/-
-As with ∧, the elimination rules,
-iff.elim_left and iff.elim_right,
-take a proof of P ↔ Q and return 
-the constituent sub-proofs, P → Q,
-and Q → P, respectively.
--/
-
-#check iff.elim_left (andcomm P Q)
-#check iff.elim_right (andcomm P Q)
 
 /-
 In the following trivial example,
@@ -215,8 +198,71 @@ mean that A → B = A ∧ B?
 -/
 
 lemma a_imp_b_imp_c_iff_a_and_b_imp_c:
-  ∀ A B C: Prop, ((A → B) → C) ↔ ((A ∧ B) → C) :=
+  ∀ A B C: Prop, (A → B → C) ↔ ((A ∧ B) → C) :=
   λ A B C: Prop,
+  sorry
+  
+  
+  
+
+
+
+  
+  
+  
+  /-
   begin
-    sorry
+    apply iff.intro,
+    -- forward direction
+    assume abc, 
+    show A ∧ B → C,
+    from λ ab, abc ab.left ab.right,
+    -- other direction
+    assume abAndc,
+    show A → B → C, 
+    from λ a : A, λ b : B,  
+          abAndc (and.intro a b)
   end
+-/
+
+/- 
+  *************************
+  *** Elimination Rules ***
+  *************************
+-/
+
+
+/-
+As with ∧, the elimination rules,
+iff.elim_left and iff.elim_right,
+take a proof of P ↔ Q and return 
+the constituent sub-proofs, P → Q,
+and Q → P, respectively.
+-/
+
+#check iff.elim_left (andcomm P Q)
+#check iff.elim_right (andcomm P Q)
+
+
+theorem PIffQImpP2Q : (P ↔ Q) → P -> Q :=
+begin
+assume piffq p,
+show Q,
+from 
+  begin
+  have p2q := iff.elim_left piffq,
+  exact (p2q p)
+  end
+end
+
+-- even easier is this
+theorem PIffQImpP2Q' : (P ↔ Q) → P -> Q :=
+begin
+assume piffq,
+show P → Q,
+from iff.elim_left piffq
+end
+
+/-
+EXERCISE: Prove P ↔ Q) → Q -> P
+-/
