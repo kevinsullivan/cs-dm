@@ -1,4 +1,17 @@
 /-
+If P and Q are propositions, then
+P ∨ Q is also a proposition. It is
+read as "P or Q" and is called a
+disjunction. P and Q are called the
+disjuncts of the disjunction P ∨ Q.
+In constructive logic, one can prove
+P ∨ Q from either a proof of P or a
+proof of Q. This unit presents and
+discusses the basic introduction and
+elimination rules for or.
+-/
+
+/-
 We start by making some assumptions
 that we use in the rest of this unit.
 -/
@@ -7,14 +20,6 @@ variables P Q R X Y Z: Prop
 variable pfP : P
 variable pfQ : Q
 variable pfR : R
-
-/-
-If P and Q are propositions, then
-P ∨ Q is also a proposition. It is
-read as "P or Q" and is called a
-disjunction. P and Q are called the
-disjuncts of the disjunction P ∨ Q.
--/
 
 /-
   **************************
