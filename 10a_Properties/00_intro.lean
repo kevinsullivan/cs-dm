@@ -202,7 +202,7 @@ the predicate (corresponding proposition)
 is true. 
 
 For example, the predicate, isZero(n),
-spefifies the set containing only the 
+specifies the set containing only the 
 natural number, zero. A predicate, 
 isEven(n), could specify the set of 
 even natural numbers. Etc. We explore

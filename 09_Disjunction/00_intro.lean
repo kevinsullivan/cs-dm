@@ -93,7 +93,7 @@ theorem goodSide : 0 = 0 ∨ 0 = 1 :=
   ---------------- Q ---pfP
 
 /-
-Recacall that we can use "example" in
+Recall that we can use "example" in
 Lean to state a theorem without giving 
 its proof a name. 
 
@@ -166,7 +166,7 @@ is also wet (S → W); and it is raining *or*
 the sprinkler is on (R ∨ S). Then the grass 
 must be wet (W).
 
-Going in the other dirction, if our aim
+Going in the other direction, if our aim
 is to prove W, we can do it using or.elim
 by showing that for some propositions, R 
 and S, that R ∨ S is true, and that *in 
@@ -233,7 +233,7 @@ theorem wet : Wet :=
 
 /-
 The following program make the arguments to
-and the result typof or.elim clear, and it 
+and the result of or.elim clear, and it 
 gives an example of the use of or.elim.
 -/
 theorem orElim : 
