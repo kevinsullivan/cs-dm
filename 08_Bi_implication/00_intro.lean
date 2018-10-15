@@ -127,7 +127,6 @@ left and right rules.
 -/
 
 #check  pqEquiv
-#check  pqEquiv
 
 
 /-
@@ -148,9 +147,17 @@ such a proof.
 -/
 
 theorem andcomm : P ∧ Q ↔ Q ∧ P :=
-        iff.intro
-        (λ pq : P ∧ Q, and.intro (pq.right) (pq.left))
-        (λ qp : Q ∧ P, and.intro (qp.right) (qp.left))
+begin
+apply iff.intro,
+-- left to right
+assume pq : P ∧ Q,
+show Q ∧ P,
+from and.intro (pq.right) (pq.left),
+-- in other direction
+assume qp: Q ∧ P,
+show P ∧ Q,
+from and.intro (qp.right) (qp.left),
+end
 
 /-
 Note that the proposition that andcomm
@@ -167,7 +174,7 @@ the conjuncts.
 -/
 
 #check andcomm (0=0) (1=1)
-
+#reduce andcomm (0=0) (1=1)
 
 /-
 In the following trivial example,
@@ -200,30 +207,30 @@ mean that A → B = A ∧ B?
 lemma a_imp_b_imp_c_iff_a_and_b_imp_c:
   ∀ A B C: Prop, (A → B → C) ↔ ((A ∧ B) → C) :=
   λ A B C: Prop,
-  sorry
-  
-  
-  
-
-
-
-  
-  
-  
-  /-
+begin
+apply iff.intro,
+-- forward
+assume abc : (A → B → C),
+assume ab : A ∧ B,
+show C,
+from 
   begin
-    apply iff.intro,
-    -- forward direction
-    assume abc, 
-    show A ∧ B → C,
-    from λ ab, abc ab.left ab.right,
-    -- other direction
-    assume abAndc,
-    show A → B → C, 
-    from λ a : A, λ b : B,  
-          abAndc (and.intro a b)
-  end
--/
+  have a : A := ab.left,
+  have b : B := ab.right,
+  show C,
+  from abc a b,
+  end, 
+-- backward
+  assume abc : (A ∧ B → C),
+  show A → B → C,
+  from 
+    begin
+    assume (a : A) (b : B),
+    have ab := and.intro a b,
+    show C,
+    from abc ab
+    end,
+end 
 
 /- 
   *************************
@@ -244,7 +251,7 @@ and Q → P, respectively.
 #check iff.elim_right (andcomm P Q)
 
 
-theorem PIffQImpP2Q : (P ↔ Q) → P -> Q :=
+theorem PIffQImpP2Q : (P ↔ Q) → P →  Q :=
 begin
 assume piffq p,
 show Q,

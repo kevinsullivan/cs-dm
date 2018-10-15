@@ -117,7 +117,7 @@ theorem thSqIsNine : square 3 9
 :=
 begin
 unfold square,  -- notice unfold
-exact rfl
+exact rfl,
 end
 
 /-

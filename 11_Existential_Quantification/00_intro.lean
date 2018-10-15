@@ -46,7 +46,7 @@ can be produced using rfl).
 More generally the introduction 
 rule for ∃ is as follows:
 
-(T : Type) (p: T → Prop) (w : T) (e : pred wit)
+(T : Type) (p: T → Prop) (w : T) (e : p w)
 -----------------------------------------------
             ∃ a : T, pred a
 -/
@@ -84,22 +84,22 @@ def eightEven := isEven 8
 #check eightEven
 #reduce eightEven
 
-lemma pf8Even : 8 = 4 + 4 := rfl
+lemma pf8is4twice : 4 + 4 = 8 := rfl
 
 -- exact proof term using exists.intro
 theorem even8 : eightEven := 
-    exists.intro 4 pf8Even
+    exists.intro 4 pf8is4twice
 
 -- syntactic sugar
 theorem even8' : eightEven := 
-    ⟨ 4, pf8Even ⟩ 
+    ⟨ 4, pf8is4twice ⟩ 
 
 -- as a tactic script
 -- unfold expands a definition
 theorem even8'' : isEven 8 := 
 begin
 unfold isEven,      -- not necessary
-exact ⟨ 4, pf8Even ⟩ 
+exact ⟨ 4, pf8is4twice ⟩ 
 end 
 
 /-
@@ -109,7 +109,8 @@ a natural number n such that 0 ≠ n.
 -/
 
 theorem isNonZ : exists n : nat, 0 ≠ n :=
-exists.intro 1 (λ pf : (0 = 1), nat.no_confusion pf)
+exists.intro 1 (λ pf : (0 = 1), 
+nat.no_confusion pf)
 
 
 /- **********************-/
@@ -117,54 +118,106 @@ exists.intro 1 (λ pf : (0 = 1), nat.no_confusion pf)
 /-***********************-/
 
 /-
-"Notice that in this pattern of reasoning, p should be “arbitrary.” In other words, we should not have assumed anything about p beforehand, we should not make any additional assumptions about p along the way, and the conclusion should not mention p. Only then does it makes sense to say that the conclusion follows from the “mere” existence of a p with the assumed properties. 
-...
-"exists.elim allows us to prove a proposition 
-q from ∃ x : α, p x, by showing that q follows 
-from p w for an arbitrary value w" -- Avigad
+If one assumes that ∃ x, P x, then one 
+can assume there is an arbitrary value,
+w, such that P w is true. If one can then 
+show, without making additional assumptions 
+about w, that some conclusion, Q that does
+not depend on w, follows, that one has shown
+that Q follows from the mere existence of a
+w with property P, and thus from ∃ x, P x. 
+
+The formal rule is a little bit involved. 
+Here it is as an inference rule. We explain
+each piece below.
+
+∀ Q : Prop; ∀ T : Type; ∀ P : T → Prop; ∃ x : T, P x; ∀ w : T, P w → Q
+----------------------------------------------------------------------
+               Q
+
+This rule says that we can conclude that
+any proposition, Q, is true, if (1) T is
+any type of value; (2) P is any property 
+of values of this type; (3) there is some
+value, x, of this type that has property 
+P; and (4) from any such value, w, Q then
+follows. 
+
+This is the elimination rule for ∃. It 
+lets you draw a conclusion, Q, from the
+premise that ∃ x, P x and from a proof
+that from any such w one can construct
+a proof of Q.
+
+The following function shows all of the
+pieces needed to use exists.elim and how
+to use it. Note that the conclusion, Q,
+the type of elements involved, T, and 
+the property, P, are given implicitly,
+as they can be inferred from the ∃ and
+from the proof that Q follows from any
+such value.
 -/
 
 def existsElim 
-    { S : Type } 
-    { pred : S → Prop }
-    ( P : Prop)
-    ( ex : exists x, pred x) 
-    ( p2t : ∀ x : S, pred x → P) : P
+    { Q : Prop }
+    { T : Type } 
+    { P : T → Prop }
+    ( ex : exists x, P x) 
+    ( pw2q : ∀ w : T, P w → Q) 
+    : Q
     :=
-        exists.elim ex p2t
+        exists.elim ex pw2q
+
 
 /-
-The preceding formulation of a function that
-does ∃ elimination makes clear what pieces have
-to be "assembled" for exists.elim to work.
+EXAMPLE. Let's prove that if there
+is a value of some type that has two
+properties, P and Q, then it has one
+of those properties.
 
-The following is a restatement of the same 
-function, but now it returns a higher order function that takes as an argument a proof 
-of the proposition, ∀ x : S, pred x → T. In
-this form, it better clarifies what you have
-to provide, along with a proof of "exists x, 
-pred x", to use ∃ elimination.
-
-In a nutshell, the proof of the ∃ shows that
-there is some value with the required property.
-The ∀ shows that no matter which such value you
-pick, you can derive P from a proof that it has
-that property. Given these two conditions, the
-exists.elim rule allows you to conclude that P
-is true.
 -/
 
-def existsElim' 
-    { S : Type } 
-    { pred : S → Prop }
-    ( P : Prop)
-    ( ex : exists x, pred x) :
-    ( ∀ x : S, pred x → P) → P
-    :=
-        λ p2t : (∀ x : S, pred x → P),
-            exists.elim ex p2t
+-- assume P and S are properties of nats
+variables (P : ℕ → Prop) (S : ℕ → Prop)
 
+theorem forgetAProperty : 
+(exists n, P n ∧ S n) → (exists n, P n) :=
+-- here Q, the conclusion, is (exists n, P n)
+begin
+assume ex,
+show ∃ (n : ℕ), P n,
+from
+    begin
+    apply exists.elim ex, -- give one arg, build  other
+    intros w Pw,          -- assume w and proof of P w
+    show ∃ (n : ℕ), P n,
+    from exists.intro w Pw.left,
+    end,
+end
 
+/-
+*** EXERCISE: 
+
+Prove:
+Assuming n is a nat and P and S are properties of nats,
+prove that (exists n, P n ∧ S n) → (exists n, S n ∧ P n).
+-/
+
+theorem reverseProperty : 
+(exists n, P n ∧ S n) → (exists n, S n ∧ P n) :=
+-- here Q, the conclusion, is (exists n, P n)
+begin
+assume ex,
+show ∃ (n : ℕ), S n ∧ P n,
+from
+    begin
+    apply exists.elim ex, -- give one arg, build  other
+    intros w Pw,          -- assume w and proof of P w
+    show ∃ (n : ℕ), S n ∧ P n,
+    from exists.intro w ⟨ Pw.right, Pw.left ⟩ 
+    end,
+end
 
 /-
 EXAMPLE: Express the property, 
@@ -217,8 +270,9 @@ def sHasLenL : string → ℕ → Prop :=
 
 /-
 EXERCISE: Express the property
-of natural numbers of being even.
-A number, n, is even if there is
-a number, m, such that n = m * 2.
+of natural numbers of being perfect
+squares. A number, n, is a perfect
+square if there is a number, m, 
+such that m * m = n.
 -/
 

@@ -89,7 +89,7 @@ There is no proof of the right side.
 -/
 
 theorem goodSide : 0 = 0 ∨ 0 = 1 :=
-  or.intro_left (0 = 1) rfl 
+   or.intro_left (0=1) (eq.refl 0)
   ---------------- Q ---pfP
 
 /-
@@ -113,6 +113,9 @@ example : false ∨ Q :=
 /-
 EXERCISE: Prove 0 = 1 ∨ 0 = 0. 
 -/
+
+theorem xyz : 0 = 1 ∨ 0 = 0 :=
+  or.intro_right (0 = 1) rfl
 
 /-
 Here's a proof that P or true 
@@ -140,7 +143,7 @@ always true as well.
 
 /-
 The or.elim rule gives us an indirect way
-to prove a proposition, W, (the goal) by 
+to prove a proposition, R, (the goal) by 
 showing first that at least one of two 
 conditions holds (P ∨ Q), and in either 
 case W must be true, because both (P → R)
@@ -155,7 +158,8 @@ pfPQ: P ∨ Q, pfPR: P → R, pfQR: Q → R
 
 -/
 
-/-As an example, suppose that (1) when it 
+/-
+As an example, suppose that (1) when it 
 is raining (R) the grass is wet (R → W); (2)
 when the sprinkler (S) is on, the grass 
 is also wet (S → W); and it is raining *or* 
