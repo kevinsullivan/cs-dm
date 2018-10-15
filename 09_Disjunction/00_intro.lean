@@ -269,8 +269,8 @@ end
 /-
 Notice the subtle difference between using
 or.elim and cases. The or.elim rule takes
-the disjuction and the two implications as
-arguments. The cases, tactic, on the other
+the disjunction and the two implications as
+arguments. The cases tactic, on the other
 hand, sets you up to apply one or the other
 implication depending on the case being
 considered.
@@ -306,7 +306,7 @@ end
 
 /-
 We recommend approaching proofs from
-disjuctions, as here, using the cases
+disjunctions, as here, using the cases
 tactic. It clearly shows that what is
 happening is a case analysis. That if
 the disjunction is true, then one way
@@ -352,15 +352,13 @@ Another example. The proof of another
 standard rule of reasoning in natural 
 deduction.
 -/
-theorem 
-disjunctiveSyllogism :
-forall P Q : Prop, P ∨ Q → ¬Q → P 
-:=
+theorem disjunctiveSyllogism :
+  ∀ P Q : Prop, P ∨ Q → ¬Q → P :=
 begin
-intros P Q porq nq, -- assumptions
-cases porq with p q, -- now by cases
-assumption, -- case where p is true,
-exact false.elim (nq q) -- or q true
+  intros P Q porq nq, -- assumptions
+  cases porq with p q, -- now by cases
+    assumption, -- case where p is true,
+    exact false.elim (nq q) -- or q true
 end
 
 
