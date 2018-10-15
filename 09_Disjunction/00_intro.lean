@@ -238,34 +238,42 @@ gives an example of the use of or.elim.
 -/
 theorem orElim : 
   ∀ R S W: Prop, 
-    (R ∨ S) → (R → W) → (S → W) 
-    → W 
+    (R ∨ S) → (R → W) → (S → W) → W 
 :=
 begin
-  assume R S W pfRorS r2w s2w, 
+  assume R S W rors r2w s2w, 
   show W,
-  from or.elim pfRorS r2w s2w
+  from or.elim rors r2w s2w
 end
 
+/-
+This example constructs the same
+proof but illustrates how we can
+apply inference rules, leaving out
+some arguments, to be filled in, in
+the style of backward reasoning.
+-/
 theorem orElim' : 
   ∀ R S W: Prop, 
     (R ∨ S) → (R → W) → (S → W) → W :=
 begin
-  assume R S W pfRorS r2w s2w, 
+  assume R S W rors r2w s2w, 
   -- apply or.elim
-  apply or.elim pfRorS,
-  -- this does backward chaining
-  -- reducing goal to two subgoals
+  apply or.elim rors,
+  -- reduce goal to two subgoals
   -- one for each required implication 
-    -- R → W
     exact r2w,
-    -- S → W
     exact s2w
 end
 
 /-
 Notice the subtle difference between using
-or.elim and cases:
+or.elim and cases. The or.elim rule takes
+the disjuction and the two implications as
+arguments. The cases, tactic, on the other
+hand, sets you up to apply one or the other
+implication depending on the case being
+considered.
 -/
 theorem wet''' : 
   ∀ R S W: Prop, 
@@ -279,7 +287,6 @@ begin
   -/
   show W, from 
     begin
-
     /- 
     What we need to show is that W follows
     from R ∨ S, whether because R is true and
@@ -297,6 +304,15 @@ begin
     -- QED 
 end
 
+/-
+We recommend approaching proofs from
+disjuctions, as here, using the cases
+tactic. It clearly shows that what is
+happening is a case analysis. That if
+the disjunction is true, then one way
+or another we can reach the desired
+conclusion.
+-/
 
 /-
 Here's a proof that false is a right
@@ -330,8 +346,27 @@ theorem id_right_or :
   end
 
 
+
+/-
+Another example. The proof of another
+standard rule of reasoning in natural 
+deduction.
+-/
+theorem 
+disjunctiveSyllogism :
+forall P Q : Prop, P ∨ Q → ¬Q → P 
+:=
+begin
+intros P Q porq nq, -- assumptions
+cases porq with p q, -- now by cases
+assumption, -- case where p is true,
+exact false.elim (nq q) -- or q true
+end
+
+
 /-
 Exercise: Prove that false is also a
 *left* identity for disjunction. That
 is: false ∨ P ↔ P (false is on the left).
 -/
+
