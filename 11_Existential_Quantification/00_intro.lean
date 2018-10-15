@@ -190,7 +190,7 @@ show ∃ (n : ℕ), P n,
 from
     begin
     apply exists.elim ex, -- give one arg, build  other
-    intros w Pw,          -- assume w and proof of P w
+    assume w Pw,          -- assume w and proof of P w
     show ∃ (n : ℕ), P n,
     from exists.intro w Pw.left,
     end,
@@ -212,9 +212,10 @@ assume ex,
 show ∃ (n : ℕ), S n ∧ P n,
 from
     begin
-    apply exists.elim ex, -- give one arg, build  other
-    intros w Pw,          -- assume w and proof of P w
+    apply exists.elim ex, -- give one arg, build other
+    assume w Pw,          -- assume w and proof of P w
     show ∃ (n : ℕ), S n ∧ P n,
+    -- here's some new notation for and.intro
     from exists.intro w ⟨ Pw.right, Pw.left ⟩ 
     end,
 end
