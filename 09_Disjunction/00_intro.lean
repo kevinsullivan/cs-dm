@@ -369,7 +369,9 @@ is: false ∨ P ↔ P (false is on the left).
 -/
 
 /-
-De Morgan had two important laws:
+De Morgan had two important laws. They
+explain how negations distribute over
+disjunctions and conjunctions.
 1) ¬P ∧ ¬Q ↔ ¬(P ∨ Q)
 2) ¬P ∨ ¬Q ↔ ¬(P ∧ Q)
 Proving the first law is homework 4.
@@ -377,57 +379,100 @@ We can only prove the second law using the
 axiom of the excluded middle.
 -/
 axiom excluded_middle: ∀ (P: Prop), P ∨ ¬P
+open classical -- "em" is excl. middle. axiom
+theorem emIse_m: em = excluded_middle := rfl
 
 theorem DemorganLaw2 : 
   ∀ P Q: Prop, ¬P ∨ ¬ Q ↔ ¬(P ∧ Q) :=
 begin
+  show ∀ P Q: Prop, ¬P ∨ ¬ Q ↔ ¬(P ∧ Q), from
+  begin
   assume P Q,
   apply iff.intro,
+
+  -- implication in forward direction
+  show ¬P ∨ ¬Q → ¬(P ∧ Q), from 
+    begin
+    -- goal is an implication
+    -- so assume premise, and ...
     assume pf_np_or_nq,
-    assume pf_p_and_q,
-    cases pf_np_or_nq with pf_np pf_nq,
-      have pf_p := pf_p_and_q.1,
-      exact pf_np pf_p,
+    -- ... show conclusion
+    show ¬(P ∧ Q), from
+      begin
+      -- remember ¬ is an implication in Lean
+      -- so, assume premise, and ...
+      assume pf_p_and_q,
+      -- show conclusion 
+      show false, from begin
+        -- by case analysis on ¬P ∨ ¬Q
+        cases pf_np_or_nq with pf_np pf_nq,
+        -- consider case where ¬P is true
+          have pf_p := pf_p_and_q.left, 
+          exact pf_np pf_p,
+        -- case where ¬Q is true
+          have pf_q := pf_p_and_q.right,
+          exact pf_nq pf_q,
+        end
+      end,
+    end,
 
-      have pf_q := pf_p_and_q.2,
-      exact pf_nq pf_q,
-
+  -- implication in reverse direction
     assume pf_n_p_and_q,
-    cases excluded_middle P with pf_p pf_np,
-      cases excluded_middle Q with pf_q pf_nq,
+    -- consider cases where P is true and false
+    cases (em P) with pf_p pf_np,
+      -- consider cases where Q is true, false
+      cases em Q with pf_q pf_nq,
+        -- P true, Q true
         have pf_p_and_q := and.intro pf_p pf_q,
         have pf_false := pf_n_p_and_q pf_p_and_q,
         exact false.elim pf_false,
-
+        -- P true, Q false
         exact or.intro_right (¬P) pf_nq,
-
+      -- P false
       exact or.intro_left (¬Q) pf_np,
+  end
 end
 
 /-
-We can also use the axiom of the excluded
-middle to prove that "P implies Q" is equivalent
-to "not P or Q" (in a system where the axiom
-holds).
+Assuming the axiom of the excluded middle,
+we can alsoprove  "P implies Q" is equivalent
+to "not P or Q".
+
+In this proof we take a more spartan
+approach, mostly leaving out show/from.
+Still we include English language comments
 -/
 
 theorem altImplication:
   ∀ P Q: Prop, (P → Q) ↔ (¬P ∨ Q) :=
 begin
+  -- to show ∀ P Q: Prop, (P → Q) ↔ (¬P ∨ Q) 
+  -- we first introduce assumptions of P and Q
   assume P Q,
+  -- next we prove implication in each direction
   apply iff.intro,
-    assume pf_p_imp_q,
-    cases excluded_middle P with pf_p pf_np,
-      have pf_q := (pf_p_imp_q pf_p),
-      exact or.intro_right (¬P) pf_q,
 
+    -- first we prove the forward direction
+    -- we start by assuming the premise
+    assume pf_p_imp_q,
+    -- we note that without em, we're stuck
+    -- key is case analysis on P given em
+    cases (em P) with pf_p pf_np,
+      -- case where P is true
+      -- construct a proof of Q
+      have pf_q := (pf_p_imp_q pf_p),
+      -- then prove goal by orintro
+      exact or.intro_right (¬P) pf_q,
+      -- case where ¬ P is true is easy
       exact or.intro_left Q pf_np,
 
+    -- prove implication reverse direction
+    -- proof script without comments
+    -- you can now read this kind of code!
     assume pf_np_or_q,
     assume pf_p,
     cases pf_np_or_q with pf_np pf_q,
       have pf_false := (pf_np pf_p),
       exact false.elim pf_false,
-
       assumption,
 end
