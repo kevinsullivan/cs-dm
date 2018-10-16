@@ -368,29 +368,79 @@ Exercise: Prove that false is also a
 is: false ∨ P ↔ P (false is on the left).
 -/
 
+
+/-
+We now turn to the question, how do 
+and, or, not, and implies interact?
+We prove both of DeMorgan's laws, and
+we also show that P → Q ↔ ¬ P ∨ Q. One
+of DeMorgan's law and this identity 
+about → are both classical, and not
+valid/provable without the axiom of
+the excluded middle (em).
+-/
+
 /-
 De Morgan had two important laws. They
 explain how negations distribute over
 disjunctions and conjunctions.
+
 1) ¬P ∧ ¬Q ↔ ¬(P ∨ Q)
 2) ¬P ∨ ¬Q ↔ ¬(P ∧ Q)
-Proving the first law is homework 4.
-We can only prove the second law using the
-axiom of the excluded middle.
+
+Consider what the first of DeMorgan's
+laws is saying. Start on the right. If
+P ∨ Q is not true, then both P and Q
+must be false, and if P and Q are both
+false, then so is P ∨ Q.
+
+Now the second law. If P and Q is false,
+then at least one of P, Q must be false,
+so ¬ P ∨ ¬ Q must be true. And if that is
+true, then certainly P ∧ Q is false.
+
+Proving that the first law is valid even
+in constructive logic is homework 4. We 
+can only prove the second law using the
+axiom of the excluded middle, which we 
+now proceed to do.
+-/
+
+
+/-
+We could declare our own version of the 
+axiom of the excluded middle, as we have
+seen.
 -/
 axiom excluded_middle: ∀ (P: Prop), P ∨ ¬P
+
+/-
+Or, better, is simply to open the classical
+namespace in Lean, which gives us access to
+the definition, em, of this axiom. We do this
+now and then show that the two propositions 
+are the same. From now on, prefer to use em.
+-/
 open classical -- "em" is excl. middle. axiom
 theorem emIse_m: em = excluded_middle := rfl
 
+
+/-
+And now for DeMorgan's second law.
+-/
 theorem DemorganLaw2 : 
   ∀ P Q: Prop, ¬P ∨ ¬ Q ↔ ¬(P ∧ Q) :=
 begin
+
   show ∀ P Q: Prop, ¬P ∨ ¬ Q ↔ ¬(P ∧ Q), from
   begin
+  -- introduce assumptions of P and Q
   assume P Q,
+
+  -- prove implication in each direction
   apply iff.intro,
 
-  -- implication in forward direction
+  -- first, implication in forward direction
   show ¬P ∨ ¬Q → ¬(P ∧ Q), from 
     begin
     -- goal is an implication
@@ -416,31 +466,60 @@ begin
       end,
     end,
 
-  -- implication in reverse direction
-    assume pf_n_p_and_q,
-    -- consider cases where P is true and false
-    cases (em P) with pf_p pf_np,
-      -- consider cases where Q is true, false
-      cases em Q with pf_q pf_nq,
-        -- P true, Q true
-        have pf_p_and_q := and.intro pf_p pf_q,
-        have pf_false := pf_n_p_and_q pf_p_and_q,
-        exact false.elim pf_false,
-        -- P true, Q false
-        exact or.intro_right (¬P) pf_nq,
-      -- P false
-      exact or.intro_left (¬Q) pf_np,
-  end
+  -- now implication in reverse direction
+    show ¬(P ∧ Q) → ¬P ∨ ¬Q, from
+      begin
+      -- assume premise
+      assume pf_n_p_and_q,
+      show ¬P ∨ ¬Q, from 
+        begin
+        -- consider cases for P using em
+        cases (em P) with pf_p pf_np,
+          -- consider cases for Q using em
+          cases em Q with pf_q pf_nq,
+            -- P true, Q true
+            have pf_p_and_q := and.intro pf_p pf_q,
+            have pf_false := pf_n_p_and_q pf_p_and_q,
+            exact false.elim pf_false,
+            -- P true, Q false
+            exact or.intro_right (¬P) pf_nq,
+          -- P false
+          exact or.intro_left (¬Q) pf_np,
+      end,
+    end,
+  end,
 end
 
 /-
 Assuming the axiom of the excluded middle,
-we can alsoprove  "P implies Q" is equivalent
-to "not P or Q".
+we can also show that P → Q is equivalent 
+to ¬P ∨ Q. Think about what P → Q means: 
+whenever P is true, Q is true. So either
+P is false, in which case P → Q is true,
+or Q is true (along with P). Here we use
+the axiom of the excluded middle to limit
+the possibilities for P to these cases.
 
 In this proof we take a more spartan
-approach, mostly leaving out show/from.
-Still we include English language comments
+approach to using show/from. It's really
+a matter of purpose and style to use a
+lot of show/from or not. It does make
+proofs more self-explanatory, but it can
+also make them unnecessarily verbose in
+cases where they should be clear enough
+in any case to one who knows how to read
+this kind of code. 
+
+Still, in the first half of this code, 
+we include English language comments. In
+the second half, we just leave them out.
+For now we recommend that you at least
+include English language comments. In 
+many cases, you could then edit them
+end end up with a good English language 
+proof, forgetting the formalism! So you
+are on your way now to understanding how
+to write informal proofs.
 -/
 
 theorem altImplication:
@@ -451,24 +530,22 @@ begin
   assume P Q,
   -- next we prove implication in each direction
   apply iff.intro,
-
-    -- first we prove the forward direction
+    -- first we prove forward direction
     -- we start by assuming the premise
     assume pf_p_imp_q,
-    -- we note that without em, we're stuck
+    -- note that without em, we're stuck
     -- key is case analysis on P given em
     cases (em P) with pf_p pf_np,
       -- case where P is true
       -- construct a proof of Q
       have pf_q := (pf_p_imp_q pf_p),
-      -- then prove goal by orintro
-      exact or.intro_right (¬P) pf_q,
+      -- then prove goal by or intro
+      --exact or.intro_right (¬P) pf_q,
+      exact or.inr pf_q, -- shorhand!
       -- case where ¬ P is true is easy
-      exact or.intro_left Q pf_np,
+      exact or.inl pf_np, -- shorthand
 
     -- prove implication reverse direction
-    -- proof script without comments
-    -- you can now read this kind of code!
     assume pf_np_or_q,
     assume pf_p,
     cases pf_np_or_q with pf_np pf_q,
