@@ -379,7 +379,7 @@ axiom of the excluded middle.
 axiom excluded_middle: ∀ (P: Prop), P ∨ ¬P
 
 theorem DemorganLaw2 : 
-    ∀ P Q: Prop, ¬P ∨ ¬ Q ↔ ¬(P ∧ Q) :=
+  ∀ P Q: Prop, ¬P ∨ ¬ Q ↔ ¬(P ∧ Q) :=
 begin
   assume P Q,
   apply iff.intro,
@@ -402,4 +402,32 @@ begin
         exact or.intro_right (¬P) pf_nq,
 
       exact or.intro_left (¬Q) pf_np,
+end
+
+/-
+We can also use the axiom of the excluded
+middle to prove that "P implies Q" is equivalent
+to "not P or Q" (in a system where the axiom
+holds).
+-/
+
+theorem altImplication:
+  ∀ P Q: Prop, (P → Q) ↔ (¬P ∨ Q) :=
+begin
+  assume P Q,
+  apply iff.intro,
+    assume pf_p_imp_q,
+    cases excluded_middle P with pf_p pf_np,
+      have pf_q := (pf_p_imp_q pf_p),
+      exact or.intro_right (¬P) pf_q,
+
+      exact or.intro_left Q pf_np,
+
+    assume pf_np_or_q,
+    assume pf_p,
+    cases pf_np_or_q with pf_np pf_q,
+      have pf_false := (pf_np pf_p),
+      exact false.elim pf_false,
+
+      assumption,
 end
