@@ -368,3 +368,38 @@ Exercise: Prove that false is also a
 is: false ∨ P ↔ P (false is on the left).
 -/
 
+/-
+De Morgan had two important laws:
+1) ¬P ∧ ¬Q ↔ ¬(P ∨ Q)
+2) ¬P ∨ ¬Q ↔ ¬(P ∧ Q)
+Proving the first law is homework 4.
+We can only prove the second law using the
+axiom of the excluded middle.
+-/
+axiom excluded_middle: ∀ (P: Prop), P ∨ ¬P
+
+theorem DemorganLaw2 : 
+    ∀ P Q: Prop, ¬P ∨ ¬ Q ↔ ¬(P ∧ Q) :=
+begin
+  assume P Q,
+  apply iff.intro,
+    assume pf_np_or_nq,
+    assume pf_p_and_q,
+    cases pf_np_or_nq with pf_np pf_nq,
+      have pf_p := pf_p_and_q.1,
+      exact pf_np pf_p,
+
+      have pf_q := pf_p_and_q.2,
+      exact pf_nq pf_q,
+
+    assume pf_n_p_and_q,
+    cases excluded_middle P with pf_p pf_np,
+      cases excluded_middle Q with pf_q pf_nq,
+        have pf_p_and_q := and.intro pf_p pf_q,
+        have pf_false := pf_n_p_and_q pf_p_and_q,
+        exact false.elim pf_false,
+
+        exact or.intro_right (¬P) pf_nq,
+
+      exact or.intro_left (¬Q) pf_np,
+end
