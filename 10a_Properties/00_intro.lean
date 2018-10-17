@@ -23,7 +23,7 @@ be true. Rather, the predicate in effect
 "picks out" the argument values for which
 the corresponding proposition is true and
 thereby identifies them as having a 
-property of interest, such as the propery
+property of interest, such as the property
 of "being from Cville." 
 -/
 
