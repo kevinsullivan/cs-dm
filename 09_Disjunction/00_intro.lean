@@ -114,8 +114,18 @@ example : false ∨ Q :=
 EXERCISE: Prove 0 = 1 ∨ 0 = 0. 
 -/
 
-theorem xyz : 0 = 1 ∨ 0 = 0 :=
+example : 0 = 1 ∨ 0 = 0 :=
   or.intro_right (0 = 1) rfl
+
+/- 
+Note: inl and inr are shorthands for 
+intro_left and intro_right, and the are
+defined so that the Prop parameter is 
+implicit.
+-/
+
+example : 0 = 1 ∨ 0 = 0 :=
+  or.inr rfl
 
 /-
 Here's a proof that P or true 
@@ -131,8 +141,13 @@ theorem zero_right_or :
 
 /-
 EXERCISE: Prove that true ∨ Q is
-always true as well. 
+always true as well, but use one 
+of the shorthands to write your
+proof.
 -/
+
+example : ∀ Q : Prop, true ∨ Q :=
+  λ Q, or.inl true.intro
 
 
 /-
@@ -259,11 +274,12 @@ theorem orElim' :
 begin
   assume R S W rors r2w s2w, 
   -- apply or.elim
-  apply or.elim rors,
+  apply or.elim,
   -- reduce goal to two subgoals
-  -- one for each required implication 
-    exact r2w,
-    exact s2w
+  -- one for each required implication
+    exact rors, 
+    assumption,
+    exact s2w,
 end
 
 /-
@@ -342,7 +358,8 @@ theorem id_right_or :
         exact false.elim pfFalse, 
   
       -- Reverse direction, easy
-      apply or.intro_left
+      assume p,
+      exact or.inl p,
   end
 
 
@@ -355,10 +372,13 @@ deduction.
 theorem disjunctiveSyllogism :
   ∀ P Q : Prop, P ∨ Q → ¬Q → P :=
 begin
-  intros P Q porq nq, -- assumptions
-  cases porq with p q, -- now by cases
-    assumption, -- case where p is true,
-    exact false.elim (nq q) -- or q true
+assume P Q porq,
+assume nq,
+cases porq with p q,
+-- first case
+assumption,
+-- second case
+exact (false.elim (nq q)),
 end
 
 
@@ -552,4 +572,63 @@ begin
       have pf_false := (pf_np pf_p),
       exact false.elim pf_false,
       assumption,
+end
+
+
+theorem altEquivalence : 
+∀ { P Q : Prop }, (P ↔  Q) ↔ ((P ∧ Q) ∨ (¬P ∧ ¬Q))
+:=
+begin
+assume P Q,
+apply iff.intro,
+
+intros,
+have pq := iff.elim_left a,
+have qp := iff.elim_right a,
+cases (em P) with p np,
+cases (em Q) with q nq,
+
+exact or.inl (and.intro p q),
+
+exact false.elim (nq (pq p)),
+
+cases (em Q) with q nq,
+exact false.elim (np (qp q)),
+exact or.inr (and.intro np nq),
+
+intros,
+cases a,
+
+apply iff.intro,
+intro,
+exact a.2,
+
+intro,
+exact a.1,
+
+apply iff.intro,
+intro,
+exact (false.elim (a.1 a_1)),
+
+intro,
+exact (false.elim (a.2 a_1)),
+end
+
+/-
+Recall, that once we've prove a theorem,
+we can then henceforth use it in larger
+proofs. Here's an example showing how we
+could use iffExplained, just proved, to
+transform a goal, P ↔ Q, into the form 
+of a corresponding disjunction.
+-/
+example : ∀ P Q : Prop, P ↔ Q :=
+begin
+-- Assume P and Q are propositions
+intros,
+-- Apply backwards implication 
+-- Goal matches right side of implication
+-- reducing goal to left side with substs
+apply altEquivalence.elim_right,
+-- abandon, never meant to complete proof
 end

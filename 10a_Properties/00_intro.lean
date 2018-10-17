@@ -1,12 +1,35 @@
 /-
-A predicate is a function that takes
-one or more more arguments and that 
-then reduces to a proposition that 
-asserts that those specific arguments
-have some property.
+A predicate is a "proposition with
+parameters." For example, a predicate,
+fromCharlottesville(p) has a parameter,
+p, and asserts that p (for some value
+of p) is from Charlottesville.
+    
+In Lean, we represent a predicate as
+a function that takes one or more more 
+arguments and reduces to a proposition,
+and generally to one that is "about" the
+arguments that were given.
 
-For example, consider a predicate called
-even(n), that, for any given value of n, 
+So, speaking informally, for example,
+fromCharlottesville(Kevin) could be read
+as the proposition "Kevin is from Cville".
+fromCharlottesville(Mary) is a different
+proposition, "Mary is from Cville."
+
+Not every proposition derived by applying
+a predicate to one or more arguments will 
+be true. Rather, the predicate in effect
+"picks out" the argument values for which
+the corresponding proposition is true and
+thereby identifies them as having a 
+property of interest, such as the propery
+of "being from Cville." 
+-/
+
+/-
+Consider a predicate called even(n): that, 
+for any given natural number value of n, 
 asserts that n is even. Given a specific 
 value for n, say 3, this predicate would 
 reduce to the proposition (even 3), a
@@ -15,20 +38,31 @@ Of course 3 isn't even, so (even 3) is
 false; but (even 4), on the other hand,
 is true, as long as even(n) is properly
 defined to express the property of being
-even.
+even. The key idea is this: the numbers 
+that have the property are exactly the
+numbers for which the corresponding
+propositions are true. The predicate
+"picks out" the set of numbers with the
+given property.
 
 
-Indeed, a predicate basically asserts 
-that its argument has some property. 
-Not every value has a given property
-(e.g., 3 does not have the property
-of being even), so in general a given
-predicate is not true for every value
-of its argument(s).
+A predicate basically asserts that 
+the value  given as its argument has 
+some property. Not every value has a 
+given property (e.g., 3 does not have 
+the property of being even). In general 
+a given predicate is not true for 
+every value of its argument(s).
 
 EXERCISE: What are other properties
 of natural numbers that could be
 expressed as predicates?
+
+EXERCISE: Define a predicate that is
+true for every natural number.
+
+EXERCISE: Define a predicate that is
+false for every natural number.
 -/
 
 
@@ -208,4 +242,12 @@ isEven(n), could specify the set of
 even natural numbers. Etc. We explore
 this idea in more depth in the unit on
 sets to come shortly. 
+
+EXERCISE: Think of a few more
+properties that you could specify 
+as predicates. What are the domains
+of values on which your properties
+are defined? What sets do your
+predicates define?
 -/
+
