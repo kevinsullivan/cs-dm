@@ -45,26 +45,7 @@ propositions are true. The predicate
 "picks out" the set of numbers with the
 given property.
 
-
-A predicate basically asserts that 
-the value  given as its argument has 
-some property. Not every value has a 
-given property (e.g., 3 does not have 
-the property of being even). In general 
-a given predicate is not true for 
-every value of its argument(s).
-
-EXERCISE: What are other properties
-of natural numbers that could be
-expressed as predicates?
-
-EXERCISE: Define a predicate that is
-true for every natural number.
-
-EXERCISE: Define a predicate that is
-false for every natural number.
 -/
-
 
 /-
 We define a predicate as a function 
@@ -83,7 +64,7 @@ that number is equal to zero.
 Here's such a predicate/function. 
 -/
 
-def isZero (n : nat) : Prop := (0 = n)
+def isZero (n : ℕ): Prop := (0 = n)
 
 /-
 First, let's check the type of the 
@@ -112,8 +93,15 @@ the other hand, (isZero 0) is true.
 -/
 
 example : isZero 0 := rfl
-example : ¬ (isZero 3) := 
+
+example : ¬(isZero 3) := 
     λ zeq3, nat.no_confusion zeq3
+
+example : ¬(isZero 1) := 
+begin
+  assume zeq1,
+  exact nat.no_confusion zeq1
+end
 
 /-
 This carefully about what kind of value
@@ -175,14 +163,36 @@ theorem zeqz : isZero 0 :=
     eq.refl 0
 
 -- 1 does not have this property
-theorem onez : ¬ (isZero 1) :=
+theorem oneeqz : ¬(isZero 1) :=
 begin
-unfold isZero,
-assume eq,
-exact nat.no_confusion eq,
+  unfold isZero,
+  assume eq,
+  exact nat.no_confusion eq,
 end
 
+/-
+A predicate basically asserts that 
+the value given as its argument has 
+some property. Not every value has a 
+given property (e.g., 3 does not have 
+the property of being even). In general 
+a given predicate is not true for 
+every value of its argument(s).
 
+EXERCISE: What are other properties
+of natural numbers that could be
+expressed as predicates?
+
+EXERCISE: Define a predicate that is
+true for every natural number.
+
+EXERCISE: Define a predicate that is
+false for every natural number.
+-/
+
+def is_absorbed_by_zero(n: ℕ): Prop := n * 0 = 0
+
+def equals_self_plus_one(n: ℕ): Prop := n = n + 1
 
 /-
 EXAMPLE: Thank goodness it's the
@@ -218,12 +228,11 @@ def isWeekend : day → Prop :=
 
 
 -- EXERCISE: Show Saturday's a weekend day
-theorem 
-satIsWeekend : isWeekend Saturday :=
+theorem satIsWeekend: isWeekend Saturday :=
 begin
-unfold isWeekend,   -- unfold tactic
-apply or.intro_left,-- backwards reasoning
-apply rfl           -- finally, equality
+  unfold isWeekend,   -- unfold tactic
+  apply or.intro_left,-- backwards reasoning
+  apply rfl           -- finally, equality
 end
 
 
@@ -250,4 +259,3 @@ of values on which your properties
 are defined? What sets do your
 predicates define?
 -/
-

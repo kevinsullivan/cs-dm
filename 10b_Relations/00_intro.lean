@@ -39,10 +39,10 @@ returns Prop.
 def areEqual : ℕ → ℕ → Prop :=
     λ n m, n = m
 
-#check areEqual 0 0 
+#check areEqual 0 0
 #reduce areEqual 0 0
-lemma zeqz : areEqual 0 0 := eq.refl 0
 
+lemma zeqz : areEqual 0 0 := eq.refl 0
 
 #check areEqual 2 3
 #reduce areEqual 2 3
@@ -95,15 +95,16 @@ example : areEqual 2 2 :=
     eq.refl 2
 
 -- but (0, 1) is not in it
-example : ¬ areEqual 0 1 :=
+example : ¬(areEqual 0 1) :=
     λ zeqo, nat.no_confusion zeqo
 
 
 /-
 EXERCISE [Worked]: Define a predicate
-isSquare that express the relation
-between natural numbers and their 
-squares and prove that the pair,
+isSquare that expresses the relation
+between two natural numbers that the
+second natural number is the square
+of the first and prove that the pair,
 (3, 9), is in the isSquare, 
 relation.
 -/
@@ -116,8 +117,8 @@ def square: ℕ → ℕ → Prop :=
 example : square 3 9 
 :=
 begin
-unfold square,  -- notice unfold
-exact eq.refl 9
+  unfold square,  -- notice unfold
+  exact eq.refl 9
 end
 
 /-
