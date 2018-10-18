@@ -104,7 +104,7 @@ begin
 end
 
 /-
-This carefully about what kind of value
+Think carefully about what kind of value
 this predicate/function returns when 
 applied to a particular argument value,
 e.g., 3. The result is a proposition, 
