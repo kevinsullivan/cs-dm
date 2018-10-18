@@ -55,7 +55,7 @@ Here's one way to define an evenness
 predicate. It uses the existential 
 quantifier, ∃, which we study in detail
 in the next unit. You can read this as
-saying n is even if there exists an m
+saying  n is even if there exists an m
 such that 2 * m = n. 
 -/
 def isEven (n :ℕ) : Prop :=
