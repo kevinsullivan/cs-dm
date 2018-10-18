@@ -111,13 +111,12 @@ relation.
 
 -- Answer
 
-def square: ℕ → ℕ → Prop :=
+def isSquare: ℕ → ℕ → Prop :=
     λ n nsq, nsq = n^2
 
-example : square 3 9 
-:=
+example : isSquare 3 9 :=
 begin
-  unfold square,  -- notice unfold
+  unfold isSquare,  -- notice unfold
   exact eq.refl 9
 end
 
