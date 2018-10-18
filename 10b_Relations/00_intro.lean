@@ -109,10 +109,20 @@ of the first and prove that the pair,
 relation.
 -/
 
--- Answer
+
+
+-- Relation Answer
+
 
 def isSquare: ℕ → ℕ → Prop :=
     λ n nsq, nsq = n^2
+
+
+
+
+-- Proof Answer
+
+
 
 example : isSquare 3 9 :=
 begin
@@ -124,7 +134,7 @@ end
 EXERCISE: In lean, the function,
 string.length returns the length
 of a given string. Specify a new
-predicate sHasLenL taking a string
+predicate sHasLenN taking a string
 and a natural number as arguments
 that asserts that a given string
 has the given length.  Write the
@@ -135,7 +145,12 @@ clear as possible.
 
 #eval string.length "Hello"
 
+
+
+
 -- answer here
 
-def sHasLenL : string → ℕ → Prop :=
+
+
+def sHasLenN : string → ℕ → Prop :=
     λ s n, (string.length s) = n
