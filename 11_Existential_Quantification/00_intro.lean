@@ -302,3 +302,23 @@ begin
   exact exists.intro 3 (eq.refl 9)
 end
 
+/-
+Remember this claim:
+  ∃ t ∈ time, ∀ p ∈ People, fool(p, t) →
+    ∀ p ∈ People, ∃ t ∈ time, fool(p, t)
+Let's look at a general proof
+-/
+
+theorem existsforall_impl_forallexists:
+  ∀ (S T: Type) (pred: (S → T → Prop)),
+    (∃ (t: T), ∀ (p: S), pred(p)(t)) →
+      (∀ (p: S), ∃ (t: T), pred(p)(t)) :=
+begin
+  assume S T pred,
+  assume existsforall,
+  assume p,
+  apply exists.elim existsforall,
+  assume a pf_forallp_a,
+  have pf_a := (pf_forallp_a p),
+  exact exists.intro a pf_a,
+end
