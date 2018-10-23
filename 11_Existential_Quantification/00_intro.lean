@@ -364,4 +364,3 @@ begin
     have pf_not_a := pf_forall_t_not a,
     exact pf_not_a pf_a
 end
-
