@@ -7,7 +7,7 @@ An existentially quantified
 proposition asserts that there
 is some value of some type for 
 which some proposition involving 
-that value is true. Here's an 
+that value is true. Here is an 
 example.
 -/
 
@@ -43,10 +43,42 @@ can be produced using rfl).
 -/
 
 /-
+Here are a couple more examples.
+Note, as with all propositions,
+these existential propositions do
+not have to be true.
+-/
+
+def anotherExistsProp := 
+  exists m, m > 10
+
+def yetAnotherExistsProp :=
+  exists m, m - m = 3
+
+/-
+Consider a familiar expression:
+
+You can fool all of the people some of the time…
+  ∀ p ∈ People, ∃ t ∈ time, fool(p, t) 
+    — everybody can be fooled at one time or another
+  ∃ t ∈ time, ∀ p ∈ People, fool(p, t)
+    — there exists a time when all of the people can be fooled simultaneously
+  ∃ t ∈ time, ∀ p ∈ People, fool(p, t) →
+    ∀ p ∈ People, ∃ t ∈ time, fool(p, t)
+…and some of the people all of the time.
+  ∃ p ∈ People, ∀ t ∈ time, fool(p, t)
+    — there exists somebody who can be fooled all of the time
+  ∀ t ∈ time, ∃ p ∈ People, fool(p, t)
+    — at any given moment, there exists somebody who can be fooled
+  ∃ p ∈ People, ∀ t ∈ time, fool(p, t) →
+    ∀ t ∈ time, ∃ p ∈ People, fool(p, t)
+-/
+
+/-
 More generally the introduction 
 rule for ∃ is as follows:
 
-(T : Type) (p: T → Prop) (w : T) (e : p w)
+(T : Type) (pred: T → Prop) (w : T) (e : p w)
 -----------------------------------------------
             ∃ a : T, pred a
 -/
@@ -61,6 +93,8 @@ def existsIntro
     : exists w, pred w
     := exists.intro w e
 
+#check existsIntro
+
 /-
 Abstract example
 -/
@@ -71,6 +105,9 @@ variable proof : predicate witness
 
 def pf : ∃ m, predicate m := 
     ⟨ witness, proof ⟩ 
+
+def examplePredicate: ℕ → Prop :=
+  λ(x: ℕ), x + x = 8
 
 /-
 Concrete example
@@ -98,8 +135,8 @@ theorem even8' : eightEven :=
 -- unfold expands a definition
 theorem even8'' : isEven 8 := 
 begin
-unfold isEven,      -- not necessary
-exact ⟨ 4, pf8is4twice ⟩ 
+  unfold isEven,      -- not necessary
+  exact ⟨ 4, pf8is4twice ⟩ 
 end 
 
 /-
@@ -108,10 +145,21 @@ of the proposition that there exists
 a natural number n such that 0 ≠ n.
 -/
 
-theorem isNonZ : exists n : nat, 0 ≠ n :=
-exists.intro 1 (λ pf : (0 = 1), 
-nat.no_confusion pf)
 
+
+-- Possible Answers --
+
+theorem isNonZ : exists n : nat, 0 ≠ n :=
+  exists.intro 1 (λ pf : (0 = 1), 
+    nat.no_confusion pf)
+
+theorem isNonZ' : exists n : nat, 0 ≠ n :=
+begin
+  have pf0isnt1: (0 ≠ 1),
+    apply nat.no_confusion,
+
+  exact ⟨ 1, pf0isnt1 ⟩
+end
 
 /- **********************-/
 /- *** ∃ Elimination *** -/
@@ -185,14 +233,14 @@ theorem forgetAProperty :
 (exists n, P n ∧ S n) → (exists n, P n) :=
 -- here Q, the conclusion, is (exists n, P n)
 begin
-assume ex,
-show ∃ (n : ℕ), P n,
-from
+  assume ex,
+  show ∃ (n : ℕ), P n,
+  from
     begin
-    apply exists.elim ex, -- give one arg, build  other
-    assume w Pw,          -- assume w and proof of P w
-    show ∃ (n : ℕ), P n,
-    from exists.intro w Pw.left,
+      apply exists.elim ex, -- give one arg, build  other
+      assume w Pw,          -- assume w and proof of P w
+      show ∃ (n : ℕ), P n,
+      from exists.intro w Pw.left,
     end,
 end
 
@@ -200,80 +248,57 @@ end
 *** EXERCISE: 
 
 Prove:
-Assuming n is a nat and P and S are properties of nats,
-prove that (exists n, P n ∧ S n) → (exists n, S n ∧ P n).
+Assuming n is a natural number and P and S are
+properties of natural numbers, prove that
+(∃ n, P n ∧ S n) → (∃ n, S n ∧ P n).
 -/
 
+
+
+-- Answer
+
 theorem reverseProperty : 
-(exists n, P n ∧ S n) → (exists n, S n ∧ P n) :=
--- here Q, the conclusion, is (exists n, P n)
+  (exists n, P n ∧ S n) → (exists n, S n ∧ P n) :=
+  -- here Q, the conclusion, is (exists n, S n ∧ P n)
 begin
-assume ex,
-show ∃ (n : ℕ), S n ∧ P n,
-from
+  assume ex,
+  show ∃ (n : ℕ), S n ∧ P n,
+  from
     begin
-    apply exists.elim ex, -- give one arg, build other
-    assume w Pw,          -- assume w and proof of P w
-    show ∃ (n : ℕ), S n ∧ P n,
-    -- here's some new notation for and.intro
-    from exists.intro w ⟨ Pw.right, Pw.left ⟩ 
+      apply exists.elim ex, -- give one arg, build other
+      assume w Pw,          -- assume w and proof of P w
+      show ∃ (n : ℕ), S n ∧ P n,
+      -- here's some new notation for and.intro
+      from exists.intro w ⟨ Pw.right, Pw.left ⟩ 
     end,
 end
 
 /-
-EXAMPLE: Express the property, 
+EXERCISE: Express the property, 
 of natural numbers, of being a 
 perfect square. For example, 9
 is a perfect square, because 3
 is a natural number such that 
-3 * 3 = 9. By constrast, 12 is
+3 * 3 = 9. By contrast, 12 is
 not a perfect square, as there 
-is no other natural number that
-squares to 12. 
+does not exist a natural number
+that squares to 12. 
 
 State and prove the proposition 
 that 9 is a perfect square.
 -/
+
+
+
 
 -- Answer
 
 def isASquare: ℕ → Prop :=
     λ n, exists m, n = m ^ 2
 
-theorem isPS9 : isASquare 9 
-:=
+theorem isPS9 : isASquare 9 :=
 begin
-unfold isASquare,
-exact exists.intro 3 (eq.refl 9)
+  unfold isASquare,
+  exact exists.intro 3 (eq.refl 9)
 end
-
-
-/-
-EXERCISE: In lean, the function,
-string.length returns the length
-of a given string. Specify a new
-predicate sHasLenL taking a string
-and a natural number as arguments
-that asserts that a given string
-has the given length.  Write the
-function using lambda notation to
-make the type of the predicate as
-clear as possible.
--/
-
-#eval string.length "Hello"
-
--- answer here
-
-def sHasLenL : string → ℕ → Prop :=
-    λ s n, (string.length s) = n
-
-
-/-
-EXERCISE: Express the property
-of natural numbers of being perfect
-squares. A number, n, is a perfect
-square if there is a number, m, 
-such that m * m = n.
--/
 
