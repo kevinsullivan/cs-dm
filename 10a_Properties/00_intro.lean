@@ -59,7 +59,7 @@ saying  n is even if there exists an m
 such that 2 * m = n. 
 -/
 def isEven (n :ℕ) : Prop :=
-  ∃ m, 2 * m = n
+  ∃ m : nat, 2 * m = n
 
 /-
 Note: isEven isn't a proposition, it's
@@ -83,6 +83,7 @@ We can even prove it.
 
 example : isEven 6 :=
 begin
+unfold isEven,
 apply exists.intro 3,
 apply rfl,
 end
@@ -106,6 +107,19 @@ Here's such a predicate/function.
 -/
 
 def isZero (n : ℕ): Prop := (0 = n)
+
+def nil (n : ℕ) : Prop :=
+  false
+
+def allN (n : ℕ) := true
+
+example : allN 8 := true.intro
+
+example : ¬ (nil 8) := 
+begin
+assume p,
+exact false.elim p,
+end
 
 /-
 First, let's check the type of the 
@@ -223,10 +237,26 @@ every value of its argument(s).
 EXERCISE: What are other properties
 of natural numbers that could be
 expressed as predicates?
+-/
+
+def isMultOf8: ℕ → Prop :=
+  λ n : nat,
+    ∃ m : nat, 8 * m = n
+
+example : isMultOf8 64 := 
+begin
+unfold isMultOf8,
+apply exists.intro 8,
+apply rfl,
+end
+
+/-
 
 EXERCISE: Define a predicate that is
 true for every natural number.
+-/
 
+/-
 EXERCISE: Define a predicate that is
 false for every natural number.
 -/
@@ -247,8 +277,8 @@ of being a weekend day.
 -/
 
 inductive day : Type
-| Monday
-| Tuesday
+| Monday : day
+| Tuesday : day 
 | Wednesday
 | Thursday
 | Friday
@@ -273,7 +303,7 @@ theorem satIsWeekend: isWeekend Saturday :=
 begin
   unfold isWeekend,   -- unfold tactic
   apply or.intro_left,-- backwards reasoning
-  apply rfl           -- finally, equality
+  apply rfl  ,         -- finally, equality
 end
 
 

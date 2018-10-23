@@ -105,30 +105,21 @@ isSquare that expresses the relation
 between two natural numbers that the
 second natural number is the square
 of the first and prove that the pair,
-(3, 9), is in the isSquare, 
-relation.
+(3, 9), is in the isSquare, relation.
 -/
 
-
-
--- Relation Answer
-
+-- Answer
 
 def isSquare: ℕ → ℕ → Prop :=
-    λ n nsq, nsq = n^2
-
-
-
-
--- Proof Answer
-
-
+    λ n m, n * n = m
 
 example : isSquare 3 9 :=
 begin
-  unfold isSquare,  -- notice unfold
-  exact eq.refl 9
+unfold isSquare,
+exact rfl,
 end
+
+
 
 /-
 EXERCISE: In lean, the function,
@@ -150,7 +141,22 @@ clear as possible.
 
 -- answer here
 
+def sHasLenN (s :string) (n : ℕ) : Prop :=
+    s.length = n
+
+example : sHasLenN "Hello" 5 := 
+begin
+unfold sHasLenN,
+exact rfl,
+end
 
 
-def sHasLenN : string → ℕ → Prop :=
-    λ s n, (string.length s) = n
+
+def pythagoreanTriple : ℕ → ℕ → ℕ → Prop :=
+    λ a b h, a^2 + b^2 = h^2
+
+example : pythagoreanTriple 3 4 5 :=
+begin
+unfold pythagoreanTriple,
+exact rfl,
+end 

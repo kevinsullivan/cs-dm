@@ -5,10 +5,9 @@
 /-
 An existentially quantified 
 proposition asserts that there
-is some value of some type for 
-which some proposition involving 
-that value is true. Here's an 
-example.
+exusts *some* value of some type 
+that makes a given predicate 
+true. Here's an example.
 -/
 
 def anExistsProp := 
@@ -17,49 +16,59 @@ def anExistsProp :=
 /- This proposition asserts that 
 there is some value m (inferred 
 to be of type ℕ) that makes the 
-sub-proposition, m + m = 8, true. 
+predicate, m + m = 8, true. 
 
 Basic algebra tells us that there 
 is such a value, namely 4, so this 
-proposition can be proved. 
+existentially quantified proposition
+can be proved and is true. 
 
 The key thing to remember is that
 a proof of such an existentially
 quantified proposition is a pair.
+
 The first element is a value that 
 makes the sub-proposition true. We
-call such a value a "witness". The 
-second element is a proof of the 
-sub-proposition when the witness
-is substituted in. 
+call such a value a "witness". In
+the example, the witness is 4. 
 
-So a proof of the proposition, 
-exists m , m + m = 8, for example,
-will be a pair, where the first
-element is the ℕ value 4 and the
-second element is a proof of the
-proposition that 4 + 4 = 8 (which 
-can be produced using rfl).
+The second element in a proof 
+is a proof of that the proposition
+obtained by substituting the witness
+in for the value of the variable in
+the predicate is true. Here, the
+proof must be a proof of 4 + 4 = 8.
+
+A proof of exists m , m + m = 8, is
+thus the pair, ⟨ 4, rfl ⟩. Here we use
+special angle brackets, a notation that
+Lean recognizes for writing proofs of existentially quantified propositions.
 -/
 
 /-
 More generally the introduction 
 rule for ∃ is as follows:
 
-(T : Type) (p: T → Prop) (w : T) (e : p w)
------------------------------------------------
+{ T : Type } { p: T → Prop } (w : T) (e : p w)
+----------------------------------------------
             ∃ a : T, pred a
 -/
 
 #print exists.intro
 
+/-
+Here's code that illustrates the use of
+-/
+
 def existsIntro 
-    (T: Type) 
-    (pred: T → Prop) 
-    (w : T) 
-    (e : pred w) 
-    : exists w, pred w
-    := exists.intro w e
+(T: Type)           -- arguments
+(pred: T → Prop) 
+(w : T) 
+(e : pred w) 
+: 
+exists w, pred w    -- return type
+:= 
+exists.intro w e    -- direct use of exists. intro
 
 /-
 Abstract example
@@ -67,10 +76,23 @@ Abstract example
 variable T : Type
 variable witness : T
 variable predicate : T → Prop
+#check predicate witness
 variable proof : predicate witness
 
-def pf : ∃ m, predicate m := 
+-- direct use of exists.intro
+def pfOfExists : ∃ m, predicate m := 
+    exists.intro witness proof 
+
+-- shorthand
+def pfOfExists' : ∃ m, predicate m := 
     ⟨ witness, proof ⟩ 
+
+-- a script in which we build the proof interactively
+def fourAgain : exists m, m + m = 8 :=
+begin
+    apply exists.intro 4,
+    exact rfl,
+end
 
 /-
 Concrete example
@@ -79,27 +101,40 @@ Concrete example
 def isEven (n : nat) : Prop :=
     exists m : nat, m + m = n
 
+/-
+A bad definition of isEven (last time).
+-/
+
+def isEvenBadDef (n : nat) : Prop :=
+    exists m : nat, n / m = 2
+
+example : isEvenBadDef 7 :=
+    ⟨ 3.5, rfl ⟩ 
+
+-- OOPS "/"" is natural number division
+#reduce (7 / 2 : nat)
+
+-- 
 def eightEven := isEven 8
 
 #check eightEven
 #reduce eightEven
 
-lemma pf8is4twice : 4 + 4 = 8 := rfl
-
 -- exact proof term using exists.intro
 theorem even8 : eightEven := 
-    exists.intro 4 pf8is4twice
+    exists.intro 4 rfl
 
 -- syntactic sugar
 theorem even8' : eightEven := 
-    ⟨ 4, pf8is4twice ⟩ 
+    ⟨ 4, rfl ⟩ 
 
 -- as a tactic script
 -- unfold expands a definition
 theorem even8'' : isEven 8 := 
 begin
 unfold isEven,      -- not necessary
-exact ⟨ 4, pf8is4twice ⟩ 
+apply exists.intro 4,
+exact rfl 
 end 
 
 /-
@@ -111,6 +146,7 @@ a natural number n such that 0 ≠ n.
 theorem isNonZ : exists n : nat, 0 ≠ n :=
 exists.intro 1 (λ pf : (0 = 1), 
 nat.no_confusion pf)
+-- second arg is a pf of 0=1→false
 
 
 /- **********************-/
