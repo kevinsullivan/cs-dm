@@ -5,7 +5,7 @@
 /-
 An existentially quantified 
 proposition asserts that there
-exusts *some* value of some type 
+exists *some* value of some type 
 that makes a given predicate 
 true. Here's an example.
 -/
@@ -42,7 +42,40 @@ proof must be a proof of 4 + 4 = 8.
 A proof of exists m , m + m = 8, is
 thus the pair, ⟨ 4, rfl ⟩. Here we use
 special angle brackets, a notation that
-Lean recognizes for writing proofs of existentially quantified propositions.
+Lean recognizes for writing proofs of 
+existentially quantified propositions.
+-/
+
+/-
+Here are a couple more examples.
+Note, as with all propositions,
+these existential propositions do
+not have to be true.
+-/
+
+def anotherExistsProp := 
+  exists m, m > 10
+
+def yetAnotherExistsProp :=
+  exists m, m - m = 3
+
+/-
+Consider a familiar expression:
+
+You can fool all of the people some of the time…
+  ∀ p ∈ People, ∃ t ∈ time, fool(p, t) 
+    — everybody can be fooled at one time or another
+  ∃ t ∈ time, ∀ p ∈ People, fool(p, t)
+    — there exists a time when all of the people can be fooled simultaneously
+  ∃ t ∈ time, ∀ p ∈ People, fool(p, t) →
+    ∀ p ∈ People, ∃ t ∈ time, fool(p, t)
+…and some of the people all of the time.
+  ∃ p ∈ People, ∀ t ∈ time, fool(p, t)
+    — there exists somebody who can be fooled all of the time
+  ∀ t ∈ time, ∃ p ∈ People, fool(p, t)
+    — at any given moment, there exists somebody who can be fooled
+  ∃ p ∈ People, ∀ t ∈ time, fool(p, t) →
+    ∀ t ∈ time, ∃ p ∈ People, fool(p, t)
 -/
 
 /-
@@ -50,8 +83,7 @@ More generally the introduction
 rule for ∃ is as follows:
 
 { T : Type } { p: T → Prop } (w : T) (e : p w)
-----------------------------------------------
-            ∃ a : T, pred a
+----------------------------------------------                             ∃ a : T, p a
 -/
 
 #print exists.intro
@@ -69,6 +101,8 @@ def existsIntro
 exists w, pred w    -- return type
 := 
 exists.intro w e    -- direct use of exists. intro
+
+#check existsIntro
 
 /-
 Abstract example
@@ -143,11 +177,20 @@ of the proposition that there exists
 a natural number n such that 0 ≠ n.
 -/
 
+
+-- Possible Answers --
+
 theorem isNonZ : exists n : nat, 0 ≠ n :=
 exists.intro 1 (λ pf : (0 = 1), 
 nat.no_confusion pf)
 -- second arg is a pf of 0=1→false
 
+theorem isNonZ' : exists n : nat, 0 ≠ n :=
+begin
+apply exists.intro 1,
+assume contra: 0=1,
+exact nat.no_confusion contra
+end
 
 /- **********************-/
 /- *** ∃ Elimination *** -/
@@ -167,23 +210,23 @@ The formal rule is a little bit involved.
 Here it is as an inference rule. We explain
 each piece below.
 
-∀ Q : Prop; ∀ T : Type; ∀ P : T → Prop; ∃ x : T, P x; ∀ w : T, P w → Q
-----------------------------------------------------------------------
+∀ {Q : Prop}, ∀ {T : Type }, ∀ { P : T → Prop},
+pfEx: (∃ x : T, P x), pfP2Q: ∀ w : T, P w → Q
+----------------------------------------------
                Q
 
-This rule says that we can conclude that
-any proposition, Q, is true, if (1) T is
-any type of value; (2) P is any property 
-of values of this type; (3) there is some
-value, x, of this type that has property 
-P; and (4) from any such value, w, Q then
-follows. 
+Ignore the implicit parameters for a moment,
+and focus on pfEx and pfP2Q. This rule says 
+that (1) if there is some object, x that has
+property P, and (2) if whenever *any* object 
+has this property, Q follows, then Q follows.
 
 This is the elimination rule for ∃. It 
 lets you draw a conclusion, Q, from the
-premise that ∃ x, P x and from a proof
-that from any such w one can construct
-a proof of Q.
+premise that ∃ x, P x (there is an x with
+property P) and from a proof that if any 
+x has this property (and we just assumed
+there is one) then there is a proof of Q.
 
 The following function shows all of the
 pieces needed to use exists.elim and how
@@ -219,16 +262,17 @@ variables (P : ℕ → Prop) (S : ℕ → Prop)
 
 theorem forgetAProperty : 
 (exists n, P n ∧ S n) → (exists n, P n) :=
--- here Q, the conclusion, is (exists n, P n)
+-- here "Q", the conclusion, is (exists n, P n)
 begin
-assume ex,
-show ∃ (n : ℕ), P n,
-from
+  assume ex,
+  show ∃ (n : ℕ), P n,  -- document goal for readability
+  from
     begin
-    apply exists.elim ex, -- give one arg, build  other
-    assume w Pw,          -- assume w and proof of P w
-    show ∃ (n : ℕ), P n,
-    from exists.intro w Pw.left,
+      apply exists.elim ex, -- give one arg, build  other
+      assume w PandSw,      -- assume w and proof of P w
+      show ∃ (n : ℕ), P n,
+      apply exists.intro w,
+      exact PandSw.left,
     end,
 end
 
@@ -236,80 +280,188 @@ end
 *** EXERCISE: 
 
 Prove:
-Assuming n is a nat and P and S are properties of nats,
-prove that (exists n, P n ∧ S n) → (exists n, S n ∧ P n).
+Assuming n is a natural number and P and S are
+properties of natural numbers, prove that
+(∃ n, P n ∧ S n) → (∃ n, S n ∧ P n).
 -/
 
+
+
+-- Answer
+
 theorem reverseProperty : 
-(exists n, P n ∧ S n) → (exists n, S n ∧ P n) :=
--- here Q, the conclusion, is (exists n, P n)
+  (exists n, P n ∧ S n) → (exists n, S n ∧ P n) :=
+  -- here Q, the conclusion, is (exists n, S n ∧ P n)
 begin
-assume ex,
-show ∃ (n : ℕ), S n ∧ P n,
-from
+  assume ex,
+  show ∃ (n : ℕ), S n ∧ P n,
+  from
     begin
-    apply exists.elim ex, -- give one arg, build other
-    assume w Pw,          -- assume w and proof of P w
-    show ∃ (n : ℕ), S n ∧ P n,
-    -- here's some new notation for and.intro
-    from exists.intro w ⟨ Pw.right, Pw.left ⟩ 
+      apply exists.elim ex, -- give one arg, build other
+      assume w Pw,          -- assume w and proof of P w
+      show ∃ (n : ℕ), S n ∧ P n,
+      -- here's some new notation for and.intro
+      from exists.intro w ⟨ Pw.right, Pw.left ⟩ 
     end,
 end
 
 /-
-EXAMPLE: Express the property, 
+EXERCISE: Express the property, 
 of natural numbers, of being a 
 perfect square. For example, 9
 is a perfect square, because 3
 is a natural number such that 
-3 * 3 = 9. By constrast, 12 is
+3 * 3 = 9. By contrast, 12 is
 not a perfect square, as there 
-is no other natural number that
-squares to 12. 
+does not exist a natural number
+that squares to 12. 
 
 State and prove the proposition 
 that 9 is a perfect square.
 -/
+
+
+
 
 -- Answer
 
 def isASquare: ℕ → Prop :=
     λ n, exists m, n = m ^ 2
 
-theorem isPS9 : isASquare 9 
-:=
+theorem isPS9 : isASquare 9 :=
 begin
-unfold isASquare,
-exact exists.intro 3 (eq.refl 9)
+  unfold isASquare,
+  exact exists.intro 3 (eq.refl 9)
 end
 
-
 /-
-EXERCISE: In lean, the function,
-string.length returns the length
-of a given string. Specify a new
-predicate sHasLenL taking a string
-and a natural number as arguments
-that asserts that a given string
-has the given length.  Write the
-function using lambda notation to
-make the type of the predicate as
-clear as possible.
+The difficulty of proving propositions in
+predicate logic is often related to the
+nesting of quantifiers. Here's a little
+example illustrating such nesting.
+
+We formalize and prove this claim: if
+there is a person who can be fooled at
+any time, then at any time someone can
+be fooled. 
+
+Here's a logical rendition of this idea:  
+∃ p ∈ Person,   ∀ t ∈ Time,     canFool(p, t) → 
+∀ t ∈ Time,     ∃ p ∈ Person,   canFool(p, t). 
+
+Note the different nestings of the quantifiers.
+
+Let's prove it.
 -/
 
-#eval string.length "Hello"
-
--- answer here
-
-def sHasLenL : string → ℕ → Prop :=
-    λ s n, (string.length s) = n
-
+theorem existsforall_impl_forallexists:
+∀ (Time Person: Type),
+∀ (canFool: Time → Person → Prop),
+    (∃ p: Person, ∀ t: Time, canFool t p) →
+        (∀ t: Time, ∃ p: Person, canFool t p)
+:=
+begin
+  assume Time Person,
+  assume canFool,
+  assume someoneCanBeFooledAllTheTime,
+  show ∀ (t : Time), ∃ (p : Person), canFool t p, from
+  begin
+    assume aTime,
+    show ∃ (p : Person), canFool aTime p, from
+        begin
+        apply exists.elim someoneCanBeFooledAllTheTime,
+        assume somePerson,
+        assume canFoolThatPersonAnytime,
+        have canFoolThatPersonSometime := 
+            canFoolThatPersonAnytime aTime,
+        exact ⟨ somePerson, canFoolThatPersonSometime ⟩, 
+        end,
+  end,
+end
 
 /-
-EXERCISE: Express the property
-of natural numbers of being perfect
-squares. A number, n, is a perfect
-square if there is a number, m, 
-such that m * m = n.
+The same proposition and proof using neutral identifiers.
+-/
+theorem existsforall_impl_forallexists':
+∀ (T P: Type),
+∀ (rel: T → P → Prop),
+    (∃ p: P, ∀ t: T, rel t p) →
+        (∀ t: T, ∃ p: P, rel t p)
+:=
+begin
+  assume T P,
+  assume rel,
+  assume somePrelAllT,
+  assume someT,
+  apply exists.elim somePrelAllT,
+  assume someP,
+  assume thatPrelAllT,
+  have thatTrelThatP := 
+    thatPrelAllT someT,
+  exact ⟨ someP, thatTrelThatP ⟩, 
+end
+
+/-
+Discussion: Is the converse proposition true?
 -/
 
+/-
+Negating Existential and Universal Quantifiers
+
+What happens when you negate an existential
+quantifier? What does this mean:
+¬(∃ t ∈ time, fool(me, t)) -
+  there does not exist a time when you can fool me
+∀ t ∈ time, ¬fool(me, t) -
+  at any time, you will not fool me
+Are these equivalent?
+
+How about this:
+¬(∀ t ∈ time, fool(me, t)) -
+  you cannot fool me all of the time
+∃ t ∈ time, ¬fool(me, t) -
+  there exists a time when you cannot fool me
+Are these equivalent?
+-/
+
+theorem not_exists_t_iff_always_not_t:
+  ∀ (T: Type) (pred: (T → Prop)),
+    (¬(∃ t: T, pred(t))) ↔
+      ∀ t: T, ¬pred(t) :=
+begin
+  assume T pred,
+  apply iff.intro,
+
+  -- forward
+  show (¬∃ (t : T), pred t) → ∀ (t : T), ¬pred t, from
+    begin
+        assume pf_not_exists_t,
+        show ∀ (t : T), ¬pred t, from
+        begin
+            assume t,
+            assume pred_t,
+            have pf_exists_t := exists.intro t pred_t,
+            exact (pf_not_exists_t pf_exists_t),
+            -- contradiction,
+        end,
+    end,
+
+    -- reverse
+  show (∀ (t : T), ¬pred t) → (¬∃ (t : T), pred t), from
+    begin
+        assume all_not_pred,
+        show ¬∃ (t : T), pred t, from
+            begin
+            assume ex_t_pred,
+            show false, from
+                begin
+                apply exists.elim ex_t_pred,
+                assume t,
+                assume pred_t,
+                have not_pred_t := all_not_pred t,
+                --exact pf_not_pred_t pf_pred_t
+                contradiction,
+                end,
+            end,
+    end,
+end

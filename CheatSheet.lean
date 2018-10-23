@@ -57,7 +57,7 @@ PandQ' :
 begin
 assume P Q p q,
 show P ∧ Q,
-from and.intro p q 
+from and.intro p q, 
 end
 
 
@@ -107,8 +107,10 @@ end
 
 /-
 To prove P → Q, present a function that, 
-when given an arbitrary proof of P, returns 
-some proof of Q. 
+when given an arbitrary proof of P (which
+is really just a value of type P, because
+propositions are types), returns some 
+proof of Q. 
 
 So, for example, if it's actually true for
 given propositions, P and Q, that P → Q, then
@@ -521,3 +523,54 @@ We will also see additional rules for equality
 -/
 
 
+
+
+inductive ev: ℕ → Prop 
+| ev_0 : ev 0
+| ev_SS : ∀ n, ev n → ev (n + 2)
+
+open ev
+
+example : ev 0 := ev_0
+
+example : ev 2 := ev_SS 0 ev_0
+
+lemma ev4 : ev 4 := 
+    ev_SS 
+        2 
+        (ev_SS
+            0
+            ev_0)
+
+example : ev 6 :=
+    ev_SS 4 ev4
+
+example : ev 8 :=
+begin
+apply ev_SS,
+apply ev_SS,
+apply ev_SS,
+apply ev_SS,
+exact ev_0
+end
+
+example : ev 2932 :=
+begin
+repeat { apply ev_SS },
+exact ev_0
+end
+
+example : ¬ ev 1 :=
+begin
+assume ev1,
+cases ev1,
+end
+
+example : ¬ ev 7 :=
+begin
+assume ev7,
+cases ev7 with ev5,
+cases ev7_a,
+cases ev7_a_a,
+cases ev7_a_a_a,
+end

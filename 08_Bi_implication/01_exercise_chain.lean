@@ -205,8 +205,6 @@ and that you have proof of P ↔ Q and of Q ↔ R,
 then you can derive a proof of P ↔ R.
 -/
 
-∀ 
-
 
 
 /-

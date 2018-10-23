@@ -1,69 +1,5 @@
 /-
-THIS ASSIGNMENT IS DUE BEFORE 9AM 
-ON TUESDAY NEXT WEEK, BEFORE THE 
-DAY'S 2101 CLASSES BEGIN. WE WILL 
-REVIEW THE ANSWERS IN CLASS. THEN 
-WE WILL GIVE An IN-CLASS, GRADED 
-EXERCISE TO TEST YOUR UNDERSTANDING.
-
-This file comes in two parts. The first
-part presents an example that you are to
-read and understand. It's an example of 
-a proof of a bi-implication between two
-equivalent disjunctions. The key lesson 
-it teaches is proof by *case analysis*.
-
-When you are asked to prove that P ∨ Q 
-implies some conclusion, you do it by 
-case analysis. The idea is that if P ∨ Q 
-is true, there are two ways in which it
-can be true: either P is true, or Q is 
-true. You have prove the goal follows 
-in either case. If the goal follows in 
-either case,  then it follows from the 
-disjunction, P ∨ Q, as a whole. 
-
-We use the "cases" tactic in lean to 
-reason about the two possible cases of
-a proof of P ∨ Q. Using this tactic 
-produces two subgoals. In one case, P 
-is assumed to have a proof, p. In the
-other case, Q is assumed to have a proof,
-q. The aim then is to show that the main
-goal follows in each case, as that will
-then prove that the goal follows from 
-the disjunction as a whole.
-
-The second part of this file presents a
-problem for you to solve. One again it's
-a bi-implication involving a disjunction
-as a premise (in one direction but not in
-the other direction). 
-
-In both of these parts, we, or you will, 
-start by applying iff.intro to split the 
-bi-implication into two implications to be proved. 
-
-Then in the subproblems with disjunctions 
-as premises, you will use case analysis. 
-A hint: Remember that ¬ X means X → false,
-and the way to prove this is to assume X
-and show this leads to a contradiction. It
-is this maneuver that gets you a disjunction 
-as a premise in the problem you're to solve.
--/
-
-
--- PART I: A WORKED EXAMPLE
-
-/-
-We first show you how to prove P ∨ Q ↔ Q ∨ P.
-At the highest level, the proof is by showing
-the implication in each direction. Within each
-direction, the proof is by case analysis for 
-the disjunction that forms the premise of the
-implication. These ideas are explained in more
-detail in the proof that follows.
+Prove P ∨ Q ↔ Q ∨ P.
 -/
 
 theorem 
@@ -153,10 +89,6 @@ apply iff.intro,
         end,
 end
 
-
-
--- PART II: YOUR HOMEWORK ASSIGNMENT
-
 /-
 Homework: 
 
@@ -164,8 +96,36 @@ Prove, ∀ P Q: Prop, ¬ P ∧ ¬ Q ↔ ¬ (P ∨ Q)
 
 -/
 
-theorem aDemorganLaw : 
-    ∀ P Q: Prop, ¬ P ∧ ¬ Q ↔ ¬ (P ∨ Q) :=
+theorem aDemorganLaw : ∀ P Q: Prop, ¬ P ∧ ¬ Q ↔ ¬ (P ∨ Q) :=
 begin
-_
+assume P Q : Prop,
+apply iff.intro,
+
+-- forward
+assume npnq,
+show ¬(P ∨ Q), 
+from
+    begin
+    assume poq,
+    -- proof by cases
+    cases poq with p q,
+    -- case where P is true
+    show false, from npnq.left p,
+    -- case where Q is true
+    show false, from npnq.right q,
+    end,
+
+-- converse
+assume poq,
+show  ¬P ∧ ¬Q,
+from 
+    begin
+    -- proof by and introduction
+    apply and.intro,
+    -- left conjunct
+    assume p, show false, from poq (or.intro_left Q p),
+    -- right conjunct
+    assume q, show false, from poq (or.intro_right P q)
+    end,
+-- QED
 end
