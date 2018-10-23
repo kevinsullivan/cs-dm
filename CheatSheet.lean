@@ -327,9 +327,11 @@ end
 A bi-implication P ↔ Q is a conjunction of
 the two implications, P → Q and Q → P. It is
 equivalent to P → Q ∧ Q → P. The ↔ symbol is
-read as "is equivalent to," as "if and only if," or (in writing) as "iff". 
+read as "is equivalent to," as "if and only 
+if," or (in writing) as "iff". 
 
-Its introduction and elimination rules are equivalent to those for conjunction, but 
+Its introduction and elimination rules are 
+equivalent to those for conjunction, but 
 specialized to the case where each of the 
 conjuncts is an implication and where one 
 is the other going in the other direction.
@@ -348,6 +350,10 @@ iffIntro :
 λ P Q pq qp, 
     iff.intro pq qp
 
+
+/- ******************************** -/
+/- bi-implication (iff) elimination -/
+/- ******************************** -/
 
 /-
 Similarly, the iff elimination rules are
@@ -397,7 +403,8 @@ forall P Q: Prop, Q → (P ∨ Q)
 
 /-
 Note that the law of the excluded middle
-allows you to conlude P ∨ ¬ P "for free," without giving a proof of either P or of
+allows you to conlude P ∨ ¬ P "for free," 
+without giving a proof of either P or of
 ¬ P. It is in this precise sense that em
 is not "constructive." When using em, you
 do not build a "bigger" proof (or P ∨ ¬ P)
@@ -407,7 +414,9 @@ of ¬ P). Whereas constructive proofs are
 smaller proofs needed to justify a given
 conclusion, classical proofs are not, in
 general. Accepting that P ∨ ¬ P by using
-em gives you a proof but such a proof does not tell you anything at all (it doesn't inform you) which case is true.
+em gives you a proof but such a proof does 
+not tell you anything at all (it doesn't 
+inform you) which case is true.
 -/
 
 
@@ -418,11 +427,15 @@ em gives you a proof but such a proof does not tell you anything at all (it does
 
 /-
 The elimination rule for or says that if
-P ∨ Q is true, and if in either case--of P being true or of Q being true--some other
+P ∨ Q is true, and if in either case--of P 
+being true or of Q being true--some other
 proposition R is true, then R must be true.
 
 So, for example if "it's raining or the fire
-hydrant is running" (P ∨ Q), and if "if it's raining then the streets are wet", and also "if the fire hydrant is running then the streets are wet", then the streets are wet!
+hydrant is running" (P ∨ Q), and if "if it's 
+raining then the streets are wet", and also 
+"if the fire hydrant is running then the 
+streets are wet", then the streets are wet!
 -/
 
 theorem orElim : 
@@ -462,12 +475,20 @@ Exists (∃) introduction & elimination rules.
 This material requires knowledge of predicates.
 -/
 
+/- ******************* -/
 /- Exists introduction -/
+/- ******************* -/
 
 /-
-From "Nifty is a cat" deduce "There exists a
-cat." From a proof of (P a), for a particular
-a, derive a proof of ∃ x, P x.
+From "Nifty is a cat" (that Nifty is
+an object with the property of being
+a cat) deduce "There exists a cat," 
+asserting the existence of such an
+object while hiding the particular
+object that makes the proposition 
+true. hiding From a proof of (P a), 
+for a particular a, derive a proof 
+of ∃ x, P x.
 -/
 
 #check exists.intro
@@ -521,56 +542,3 @@ exists.elim
 /-
 We will also see additional rules for equality
 -/
-
-
-
-
-inductive ev: ℕ → Prop 
-| ev_0 : ev 0
-| ev_SS : ∀ n, ev n → ev (n + 2)
-
-open ev
-
-example : ev 0 := ev_0
-
-example : ev 2 := ev_SS 0 ev_0
-
-lemma ev4 : ev 4 := 
-    ev_SS 
-        2 
-        (ev_SS
-            0
-            ev_0)
-
-example : ev 6 :=
-    ev_SS 4 ev4
-
-example : ev 8 :=
-begin
-apply ev_SS,
-apply ev_SS,
-apply ev_SS,
-apply ev_SS,
-exact ev_0
-end
-
-example : ev 2932 :=
-begin
-repeat { apply ev_SS },
-exact ev_0
-end
-
-example : ¬ ev 1 :=
-begin
-assume ev1,
-cases ev1,
-end
-
-example : ¬ ev 7 :=
-begin
-assume ev7,
-cases ev7 with ev5,
-cases ev7_a,
-cases ev7_a_a,
-cases ev7_a_a_a,
-end
