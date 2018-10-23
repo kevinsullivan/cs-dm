@@ -322,3 +322,35 @@ begin
   have pf_a := (pf_forallp_a p),
   exact exists.intro a pf_a,
 end
+
+/-
+Negating Existential and Universal Quantifiers
+
+What happens when you negate an existential
+quantifier? What does this mean:
+¬(∃ t ∈ time, fool(me, t)) -
+  there does not exist a time when you can fool me
+∀ t ∈ time, ¬fool(me, t) -
+  at any time, you will not fool me
+Are these equivalent?
+
+How about this:
+¬(∀ t ∈ time, fool(me, t)) -
+  you cannot fool me all of the time
+∃ t ∈ time, ¬fool(me, t) -
+  there exists a time when you cannot fool me
+Are these equivalent?
+-/
+
+theorem not_exists_t_iff_always_not_t:
+  ∀ (T: Type) (pred: (T → Prop)),
+    (¬(∃ t: T, pred(t))) →
+      ∀ t: T, ¬pred(t) :=
+begin
+  assume T pred,
+  assume pf_not_exists_t,
+  assume t,
+  assume Q,
+  have pf_exists_t := exists.intro t Q,
+  exact (pf_not_exists_t pf_exists_t)
+end
