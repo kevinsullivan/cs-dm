@@ -83,7 +83,8 @@ More generally the introduction
 rule for ∃ is as follows:
 
 { T : Type } { p: T → Prop } (w : T) (e : p w)
-----------------------------------------------                             ∃ a : T, p a
+---------------------------------------------- exists.intr        
+                    ∃ a : T, p a
 -/
 
 #print exists.intro
@@ -128,12 +129,16 @@ begin
     exact rfl,
 end
 
+#reduce fourAgain
+
 /-
 Concrete example
 -/
 
 def isEven (n : nat) : Prop :=
     exists m : nat, m + m = n
+
+#check isEven
 
 /-
 A bad definition of isEven (last time).
@@ -148,6 +153,7 @@ example : isEvenBadDef 7 :=
 -- OOPS "/"" is natural number division
 #reduce (7 / 2 : nat)
 
+#reduce isEven 8
 -- 
 def eightEven := isEven 8
 
@@ -197,12 +203,14 @@ end
 /-***********************-/
 
 /-
+Suppose you want to show: ∃ x, P x → Q.
+
 If one assumes that ∃ x, P x, then one 
-can assume there is an arbitrary value,
+can assume there is some specific value,
 w, such that P w is true. If one can then 
 show, without making additional assumptions 
-about w, that some conclusion, Q that does
-not depend on w, follows, that one has shown
+about w, that some conclusion, Q (that does
+not depend on w), follows, then one has shown
 that Q follows from the mere existence of a
 w with property P, and thus from ∃ x, P x. 
 
@@ -259,6 +267,13 @@ of those properties.
 
 -- assume P and S are properties of nats
 variables (P : ℕ → Prop) (S : ℕ → Prop)
+
+/-
+∀ {Q : Prop}, ∀ {T : Type }, ∀ { P : T → Prop},
+pfEx: (∃ x : T, P x), pfP2Q: ∀ w : T, P w → Q
+----------------------------------------------
+               Q
+-/
 
 theorem forgetAProperty : 
 (exists n, P n ∧ S n) → (exists n, P n) :=
