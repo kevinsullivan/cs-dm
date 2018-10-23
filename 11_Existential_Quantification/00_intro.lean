@@ -344,13 +344,24 @@ Are these equivalent?
 
 theorem not_exists_t_iff_always_not_t:
   ∀ (T: Type) (pred: (T → Prop)),
-    (¬(∃ t: T, pred(t))) →
+    (¬(∃ t: T, pred(t))) ↔
       ∀ t: T, ¬pred(t) :=
 begin
   assume T pred,
-  assume pf_not_exists_t,
-  assume t,
-  assume Q,
-  have pf_exists_t := exists.intro t Q,
-  exact (pf_not_exists_t pf_exists_t)
+  apply iff.intro,
+    assume pf_not_exists_t,
+    assume t,
+    assume Q,
+    have pf_exists_t := exists.intro t Q,
+    exact (pf_not_exists_t pf_exists_t),
+
+    -- proof that ∀ t: T, ¬pred(t) implies
+    -- ¬(∃ t: T, pred(t))
+    assume pf_forall_t_not,
+    assume pf_not_exists_t,
+    apply exists.elim pf_not_exists_t,
+    assume a pf_a,
+    have pf_not_a := pf_forall_t_not a,
+    exact pf_not_a pf_a
 end
+
