@@ -90,16 +90,14 @@ def fromFalse (P: Prop) (f: false) : P :=
 
 theorem 
 fromFalse' : 
-∀ P : Prop, false → P 
-:= 
+∀ P : Prop, false → P := 
 λ P f, 
     false.elim f
 
 
 theorem 
 fromFalse'' : 
-∀ P : Prop, false → P 
-:= 
+∀ P : Prop, false → P := 
 begin
 assume P f,
 show P,
@@ -249,7 +247,8 @@ def arrowElim {P Q : Prop} (p2q: P → Q) (p : P) : Q :=
     p2q p 
 
 theorem arrowElim': ∀ { P Q : Prop}, (P → Q) → P → Q :=
-λ P Q p2q p, (p2q p)
+λ P Q p2q p, 
+    p2q p
 
 theorem arrowElim'': ∀ { P Q : Prop}, (P → Q) → P → Q :=
 begin
@@ -340,7 +339,7 @@ how this works.
 -/
 
 def forallElim (p2q: ∀ n : nat, n = n) (p : nat) : p = p :=
-p2q p
+    p2q p
 
 def forallElim' (p2q: ∀ n : nat, n = n) (p : nat) : p = p :=
 begin
@@ -356,47 +355,80 @@ end
 /-***********************-/
 
 /-
-To prove ¬ P, show that assuming P leads to 
-a contradiction (proof of false). Here's the 
-intuition. ¬ P means P is false. That means that there can be no proof of P. Proving P → 
-false is done by showing that there exists a 
-function of type P → false. Such a function 
-proves that if one can produce a proof of P,
-then one can do the impossible, i.e., to
-produce a proof of false. But no such proof 
-exists; so, if such a function does exist, then such a proof of P does not exist. That 
-is, ¬ P. 
+If P is a proposition, then ¬ P is one, too.
+We read ¬ P as asserting that P is false. In
+constructive logic this means that there is
+no proof of P. In constructive logic, ¬ P is
+thus actually defined as P → false. So ¬ P
+means P → false, and a proof of ¬ P is just
+a proof of P → false. 
+
+
+To prove ¬ P, one thus assumes a proof of P
+and shows that in that context one can produce
+a proof of false. To this one, one produces a function that takes a proof of P as an argument
+and uses it to construct and return a proof of
+false. This is the introduction rule for ¬. 
+Another way to say this: To prove ¬ P, assume
+P and show that this leads to a contradiction.
+This is of course just the principle of proof
+by negation. 
+
+P: Prop, f2p : false → P
+------------------------ false introduction
+        np : ¬ P
+
+The elimination rule allows one to reason from
+a contradition (a proof of false) to conclude
+that any proposition is true. 
+
+P : Prop, f : false
+------------------- false.elim
+      p : P
 -/
 
-theorem 
-notIntro : 
-∀ P : Prop, (P → false) → ¬ P 
-:=
-λ P pf, pf
 
+-- negation introduction 
+
+def notIntro' (P : Prop) (p2f: P → false) : ¬P :=
+    p2f -- a proof of P → false is a proof of ¬ P
+
+theorem 
+notIntro : ∀ P : Prop, (P → false) → ¬ P :=
+begin
+assume P : Prop,
+assume p2f : P → false,
+show ¬ P,
+from p2f
+end
 
 /- 
-In both constructive and classical logic,
-from the assumption that any proposition, P,
-is true, we can deduce that ¬ ¬ P is true as
+Example: from the assumption that a proposition, P, is true, we can deduce that ¬ ¬ P is true, as
 well. 
 -/
 
-theorem doubleNegIntro : 
-∀ P : Prop, P → ¬ ¬ P :=
-    λ P p np, np p
+theorem doubleNegIntro : ∀ P : Prop, P → ¬ ¬ P :=
+begin
+assume P : Prop,
+assume p : P,
+assume np : ¬ P, -- ¬ ¬ P means ¬ P → false, so assume ¬ P
+show false,
+from np p
+end
+
+theorem doubleNegIntro' : ∀ P : Prop, P → ¬ ¬ P :=
+    λ P p np, 
+        np p
 
 
 
-/-*******************************-/
-/- (double) negation elimination -/
-/-*******************************-/
+/- negation elimination -/
 
 /-
 The rule for negation elimination in
 natural deduction is really a rule 
-for double negation elimination:
-∀ P : Prop, ¬ ¬ P → P. 
+for double negation elimination: it
+states that, ∀ P : Prop, ¬ ¬ P → P. 
 
 This rule is not valid in constructive 
 logic. You can't prove the following 
@@ -421,21 +453,25 @@ open classical
 /-
 Now em is the axiom of the excluded middle.
 What em tells us is that if P is any
-proposition, then one of P or ¬ P is true,
-and that there are no other possibilities. 
+proposition, then either one of P or ¬ P is 
+true, and there are no other possibilities. 
 
-And from em we can now prove double negation elimination.  The proof is by "case analysis." 
+And from em we can now prove double negation 
+elimination.  The proof is by "case analysis." 
 We consider each of the two possible cases for 
 P (true and false) in turn. 
 
 If we assume P is true, then we are done, 
 as our goal is to show P (from ¬ ¬ P). On 
 the other hand, if we assume P is false, 
-i.e., ¬ P, then we reach a contradiction, as 
-both (¬ P) and ¬ (¬ P) can't be true at the 
-same time. That tells us that in reality 
-this case can't occur. Because there are 
-no other cases, P must be true.
+i.e., ¬ P, then we reach a contradiction.
+We have already assumed ¬ ¬ P is true and
+we are trying to prove P. But now if we
+also assume that ¬ P is true, then clearly
+we have a contradition (between ¬ P and 
+¬ ¬ P). Using false elimination finishes
+this case leaving us with the conclusion
+that P is true in either case.
 -/
 
 theorem 
@@ -457,96 +493,23 @@ from
     end,
 end 
 
-
-/- ********************************* -/
-/- bi-implication (iff) introduction -/
-/- ********************************* -/
-
 /-
-A bi-implication P ↔ Q is a conjunction of
-the two implications, P → Q and Q → P. It is
-equivalent to P → Q ∧ Q → P. The ↔ symbol is
-read as "is equivalent to," as "if and only 
-if," or (in writing) as "iff". 
-
-Its introduction and elimination rules are 
-equivalent to those for conjunction, but 
-specialized to the case where each of the 
-conjuncts is an implication and where one 
-is the other going in the other direction.
-
-Thus, to prove P ↔ Q (introduction), you 
-must first produce a proof of P → Q the you
-must produce a proof of Q → P. With these
-two proofs in hand, you can apply the intro 
-rule to conclude P ↔ Q.
+Double negation elimination is the fundamental
+operation needed in a proof by contradiction. 
+In a proof by contradiction, on tries to prove
+P by assuming ¬ P and showing that that leads
+to a contradiction, thus to a proof that ¬ P
+is not true, that is, ¬ (¬ P). The negation
+elimination rule lets us then conclude P. 
 -/
 
-theorem 
-iffIntro : 
-∀ P Q : Prop, (P → Q) → (Q → P) → (P ↔ Q)
-:=
-λ P Q pq qp, 
-    iff.intro pq qp
-
-
-/- ******************************** -/
-/- bi-implication (iff) elimination -/
-/- ******************************** -/
-
 /-
-Similarly, the iff elimination rules are
-equivalent to the and elimination rules but
-for the special case where the conjunction
-is a bi-implication in particular.
--/
-
-theorem
-iffElimLeft : 
-∀ P Q : Prop, (P ↔ Q) → P → Q
-:=
-λ P Q bi, 
-    iff.elim_left bi
-
-
-theorem
-iffElimRight : ∀ P Q : Prop, (P ↔ Q) → Q → P
-:=
-λ P Q bi, 
-    iff.elim_right bi
-
-
-/- *************** -/
-/- or introduction -/
-/- *************** -/
-
-/-
-To prove P ∨ Q, in constructive logic
-one can provide either a proof of P or
-a proof of Q.
--/
-
-theorem 
-orIntroLeft: 
-forall P Q: Prop, P → (P ∨ Q) 
-:=
-λ P Q p, 
-    or.inl p
-
-theorem 
-orIntroRight: 
-forall P Q: Prop, Q → (P ∨ Q) 
-:=
-λ P Q q, 
-    or.inr q
-
-/-
-Note that the law of the excluded middle
+Note: The law of the excluded middle
 allows you to conlude P ∨ ¬ P "for free," 
 without giving a proof of either P or of
 ¬ P. It is in this precise sense that em
 is not "constructive." When using em, you
-do not build a "bigger" proof (or P ∨ ¬ P)
+do not build a "bigger" proof (of P ∨ ¬ P)
 from one or more "smaller" proofs (of P or 
 of ¬ P). Whereas constructive proofs are
 "informative," in that they contain the
@@ -554,25 +517,155 @@ smaller proofs needed to justify a given
 conclusion, classical proofs are not, in
 general. Accepting that P ∨ ¬ P by using
 em gives you a proof but such a proof does 
-not tell you anything at all (it doesn't 
-inform you) which case is true.
+not tell you anything at all about which
+case is true, whereas a constructive proof
+does.
 -/
 
 
 
-/- ************** -/
+
+
+/- *************** -/
+/- bi-implication  -/
+/- *************** -/
+
+/-
+If P and Q are propositions then so is P ↔ Q.
+We read P ↔ Q as asserting P → Q ∧ Q → P. To
+prove P ↔ Q, we have to provide proofs of both
+conjunctions, and from a proof of P ↔ Q we can
+obtain proofs of P → Q and of Q → P by use of
+the elimination rule for ↔.
+
+The ↔ symbol is pronounced as is equivalent 
+to," or as "if and only if," In mathematical 
+writing it is often written as "iff". And to 
+get the ↔ symbol in Lean, use backslash-iff.
+
+Its introduction and elimination rules are 
+equivalent to those for conjunction, but 
+specialized to the case where each of the 
+conjuncts is an implication and where one 
+is the other going in the other direction.
+-/
+
+/- iff introduction -/
+
+/-
+To prove P ↔ Q (introduction), apply iff.intro
+to proofs of P and Q. 
+
+(P Q : Prop), (pq : P → Q) (qp : Q → P)
+--------------------------------------- iff.intro
+        pqEquiv: P ↔ Q
+    -/
+
+theorem 
+iffIntro : ∀ P Q : Prop, (P → Q) → (Q → P) → (P ↔ Q) :=
+begin
+assume P Q : Prop,
+assume p2q q2p,
+apply iff.intro p2q q2p
+end
+
+theorem 
+iffIntro' : ∀ P Q : Prop, (P → Q) → (Q → P) → (P ↔ Q) :=
+λ P Q pq qp, 
+    iff.intro pq qp
+
+
+/- iff elimination -/
+
+/-
+Similarly, the left and right iff elimination 
+rules are equivalent to the and elimination 
+rules but for the special case where the 
+conjunction is a bi-implication in particular.
+-/
+
+theorem
+iffElimLeft : ∀ P Q : Prop, (P ↔ Q) → P → Q :=
+begin
+assume P Q : Prop,
+assume bi : P ↔ Q,
+show P → Q,
+from iff.elim_left bi -- bi.1 is a shorthand
+end
+
+
+theorem
+iffElimLeft' : ∀ P Q : Prop, (P ↔ Q) → P → Q :=
+λ P Q bi, 
+    iff.elim_left bi
+
+
+theorem
+iffElimRight : ∀ P Q : Prop, (P ↔ Q) → Q → P :=
+λ P Q bi, 
+    iff.elim_right bi
+
+
+/- **************** -/
+/- or (disjunction) -/
+/- **************** -/
+
+/-
+If P and Q are propositions, then so is P ∨ Q.
+P ∨ Q asserts that at least one of P, Q is true,
+but it does not indicate which case holds.
+-/
+
+/- introduction rules for or -/
+
+/-
+To prove P ∨ Q, in constructive logic
+one either applies the or.intro_left rule
+to a proof of P or the or.intro_right rule
+to a proof of Q. In either case, one must
+also provide, as the first argument, the
+proposition that is not being proved. The
+shorthand or.inl and or.inr rules infer
+these propositional arguments and are
+easier and clearer to use in practice.
+-/
+
+theorem orIntroLeft (P Q : Prop) (p : P) : P ∨ Q :=
+    or.intro_left Q p -- args: proposition Q, proof of P
+
+theorem 
+orIntroLeft': forall P Q: Prop, P → (P ∨ Q) :=
+λ P Q p, 
+    or.inl p -- shorthand
+
+theorem orIntroRight: forall P Q: Prop, Q → (P ∨ Q) :=
+λ P Q q, 
+    or.inr q
+
+
 /- or elimination -/
-/- ************** -/
 
 /-
 The elimination rule for or says that if
-P ∨ Q is true, and if in either case--of P 
-being true or of Q being true--some other
-proposition R is true, then R must be true.
+(1) P ∨ Q is true, (2) P → R, and (3) Q → R,
+then you can conclude R. 
 
-So, for example if "it's raining or the fire
-hydrant is running" (P ∨ Q), and if "if it's 
-raining then the streets are wet", and also 
+The reasoning in by "case analysis." In
+one case, if P ∨ Q because P is, then use 
+P → R to prove R. Otherwise, if P ∨ Q is 
+true because Q is, then use Q → R to prove
+R. Usually you don't know which case holds
+so to prove R from P ∨ Q you have to show
+that R follows "in either case", and to 
+do that, you need both P → R and Q → R.
+
+pfPQ: P ∨ Q, pfPR: P → R, pfQR: Q → R
+-------------------------------------- or.elim
+                 R
+                 
+So, for example if (1) "it's raining or the 
+fire hydrant is running" (P ∨ Q), (2)"if it's 
+raining then the streets are wet", and (3)  
 "if the fire hydrant is running then the 
 streets are wet", then the streets are wet!
 -/
@@ -590,13 +683,9 @@ show R,
 from or.elim PorQ pr qr 
 end
 
--- Same idea, different identifiers
 theorem orElim' : 
-forall Rain Hydrant Wet: Prop, 
-    (Rain ∨ Hydrant) → -- raining or hydrant on;
-    (Rain → Wet) →     -- if raining then wet;
-    (Hydrant → Wet) →  -- if hydrant on then wet;
-    Wet                -- then wet
+forall P Q R: Prop, 
+    (P ∨ Q) → (P → R) → (Q → R) → R 
 :=
 begin
 assume P Q R,
@@ -604,80 +693,344 @@ assume PorQ: (P ∨ Q),
 assume pr: (P → R),
 assume qr: (Q → R),
 show R,
-from or.elim PorQ pr qr 
+from 
+    -- compare carefully with previous example
+    begin
+    cases PorQ with p q,
+    exact (pr p),
+    exact (qr q)
+    end  
 end
 
 
+-- Same proof, different identifiers
+theorem orElimExample' : 
+forall Rain Hydrant Wet: Prop, 
+    (Rain ∨ Hydrant) → -- raining or hydrant on;
+    (Rain → Wet) →     -- if raining then wet;
+    (Hydrant → Wet) →  -- if hydrant on then wet;
+    Wet                -- then wet
+:=
+begin
+-- setup
+assume Rain Hydrant Wet,
+assume RainingOrHydrantRunning: (Rain ∨ Hydrant),
+assume RainMakesWet: (Rain → Wet),
+assume HydrantMakesWet: (Hydrant → Wet),
+-- the core of the proof
+cases RainingOrHydrantRunning with raining running,
+show Wet, from RainMakesWet raining,
+show Wet, from HydrantMakesWet running,
+
+end
 
 /-
-Exists (∃) introduction & elimination rules.
-This material requires knowledge of predicates.
+Note: The axiom of the excluded middle allows
+us to do case analysis even if we don't have an
+explicit disjunction to work with, because we
+can always apply em to any proposition P to get
+a proof of P ∨ ¬ P.
+
+Here's an example. (There is a more direct
+proof, but we're showing how to apply em to a
+proposition to get a disjunction to do case
+analysis on.
+-/
+open classical
+example : ∀ P : Prop, P ∨ ¬ P :=
+begin
+assume P : Prop,
+cases (em P) with p np, --(em P) is a proof of P ∨ ¬ P
+exact or.inl p,         -- case where P assumed true
+exact or.inr np,        -- case where ¬ P assumed true
+end
+
+/-
+Go back and without fail see where
+this trick was used to prove one of
+the DeMorgan laws and the validity of
+double negation elimination.
 -/
 
-/- ******************* -/
-/- Exists introduction -/
-/- ******************* -/
+/- ********** -/
+/- Predicates -/
+/- ********** -/
 
 /-
-From "Nifty is a cat" (that Nifty is
-an object with the property of being
-a cat) deduce "There exists a cat," 
-asserting the existence of such an
-object while hiding the particular
-object that makes the proposition 
-true. hiding From a proof of (P a), 
-for a particular a, derive a proof 
-of ∃ x, P x.
+A predicate is a proposition with parameters
+whose values need to be supplied to reduce the
+predicate to a proposition.
+
+For example, even (n : ℕ) : Prop, could be 
+a predicate that takes a value, n : ℕ, and
+that reduces to a proposition that in general
+will assert something about the particular n
+that was supplied as an argument.
+
+So, even 3, for example would reduce to the
+proposition that we would interpret as "three
+is even", while "even 7" would be (reduce to)
+a proposition that 7 is even. 
+
+We formalize predicates as functions that
+take arguments and that return propositions
+about those arguments. If this is unclear,
+re-read the preceding paragraph.
+
+A predicate thus generates a whole family
+of propositions, one for each combination 
+of values of its arguments. The "even n"
+predicate, for example, gives rise to a
+whole family of propositions, one for each
+ℕ value of n.
+
+Note that you can think of a predicate with
+no parameters as just a proposition. 
+
+A predicate with one parameter can be read
+as defining a "property" of the values of
+its argument type. A sensibly defined even n
+predicate, for example, will generate a
+proposition that is true for every even
+natural number and that is false for every
+odd natural number. 
+
+Such a predicate can also be understood to 
+define a set, namely the set of all values
+for which the corresponding propositions are
+true.
+
+A predicate with multiple parameters can
+be read as defining a property of, and thus
+a set of, ordered pairs (for two arguments)
+or more generally tuples of arguments. We
+call a set of pairs (or tuples) a relation.
+
+As an example, a predicate "lessThan m n"
+could be defined to reduce to a proposition
+that is true whenever m is less than n and
+that is false otherwise. This predicate 
+implictly "picks out" the set of (m, n)
+pairs where m is less than n and exlcudes
+all pairs where m is not less than n. The
+pair (3, 4) is in the lessThan relation in
+that the proposition, lessThan 3 4, would 
+be true, while (4, 3) would not be in the
+relation, in that "lessThan 4 3" would not
+be a true/provable proposition.
+
+We formalize predicates as functions from
+argument values to propositions. Here are 
+some examples.
+-/
+
+/-
+First, we define zEqz as a predicate
+with no arguments. That is to say, it
+is just a plain old proposition. No
+more need be said.
+-/
+def zEqz : Prop := 0 = 0
+
+/-
+Next, we generalize by making one of
+the zero values into a parameter. The
+predicate, when provided with a value
+for n, reduces to the proposition that
+that zero is equal to that particular
+n. -/
+
+def nEqz (n : ℕ) : Prop := 0 = n
+
+
+/-
+Note that we could have written this 
+definition using a lambda abstraction. 
+A benefit is that this way of writing
+the same thing makes the nature of 
+zEqz'clear by expressing its type 
+explicitly: ℕ → Prop.
+-/
+def nEqz' : ℕ → Prop := λ n, 0 = n
+
+/-
+The only value of n that satisfies this
+predicate, in the sense that it makes the
+corresponding proposition true, is n = 0.
+This predicate thus implicitly represents
+the set, { 0 }. 
+-/
+
+/-
+We can further generalize this predicate
+by making both values to be compared into
+arguments.
+-/
+
+
+/- ******* -/
+/- Exists  -/
+/- ******* -/
+
+/-
+If P is a type and Q is a predicate, 
+then ∃ p : P, Q is a proposition. It 
+asserts that there is some value, 
+p : P, that makes the predicate, Q, 
+true.
+-/
+
+/- ∃ introduction -/
+
+/-
+To prove a proposition of the form,
+∃ p : P, Q, one must provide two things:
+(1) a specific value, w : P, that we
+often call a "witness", and a proof that 
+Q is true for that specific w.
+
+So, for example, to prove that there
+exists an object, o, that is a cat, it
+would suffice to exhibit some object
+(the witness), let's call it Nifty, and
+a proof, pf, of the proposition, Nifty
+is a cat. Then the pair, ⟨ nifty, pf ⟩ 
+would be a proof of ∃ o: Object, Cat o. 
+
+The proposition, ∃ o: Object, Cat o, does 
+not refer to Nifty or any other object in 
+particular. It just asserts that *some*
+object out there is a cat. To prove it,
+though, you do need to exhibit a specific
+object and give a proof that that object
+is a cat. You can then conclude that there
+is some object that is a cat.
+
+Here's the exists.intro rule, after which 
+we give some very simple examples of how it
+would be used in code.
+
+(T : Type), (P : T → Prop), (t : T), (pf: P t)
+---------------------------------------------- exists.intro
+          ⟨ t, pf ⟩ : exists t : T, P t
 -/
 
 #check exists.intro
 
 theorem existsIntro :
-∀ T : Type, ∀ P : T → Prop, ∀ (t : T), (P t) → ∃ x, P x
+∀ T : Type,     -- suppose T is a type
+∀ P : T → Prop, -- suppose P is a property of values of type T
+/-
+now if for any t : T, we can show that t has propery P,
+then we can construct a proof that *there exists* an x : T 
+with property P
+-/
+∀ (t : T), (P t) → ∃ x : T, P x
 :=
 begin
-assume T P t pf,
-show ∃ x, P x,
-from (exists.intro t pf)
+assume T: Type,         -- assume T is some type
+assume P: T → Prop,     -- and P is a property
+-- show that if there's a t with property P (P t), the ∃ is true
+show ∀ (t : T), P t → (∃ (x : T), P x), from
+    begin
+    assume t : T,           -- assume t is some object of type T
+    assume pf : P t,        -- and that t has property P
+    show ∃ x, P x, from     -- now we can show ∃ x, P x
+        (exists.intro t pf) -- using exists.intro
+    --  ⟨ t, pf ⟩  would be a shorthand for (exists.intro t pf)
+    end,
 end
+
+
+/- existential elimination -/
 
 /-
 The reasoning about existential elimination goes
-like this. If we know that (∃ x : T, P x), then 
-we can temporarily assume that there is some 
-specific value, let's call it by the otherwise unused name, u, such that P u. Now, if from (P u)
-we can deduce some fact S (that doesn't involve the temporarily assumed u), then we can conclude
-S. So, from ∃ x, P x we deduce S, eliminating
-the ∃, while also no longer relying on the
-assumed value, u.
+like this. If we know that (∃ x : T, P x), that
+there is some value, x of type T with property P, 
+then we can temporarily assume that there is some 
+specific value, that we will call it by an otherwise 
+unused name, u, where u has property P, which is to
+say that we also have a proof of (P u).
+
+If the meaning of "a proof of (P u)" doesn't make
+sense, go back and review the class material on 
+predicates. P is a predicate, i.e., a function 
+from T to Prop, u is the name we've given to some
+value of type T with property P such that u has
+property P, which is to say there is a proof of 
+the proposition, (P u).
+
+Now, if from u and a proof of (P u) we can 
+construct a proof of some proposition S (a
+proposition that does not involve u in any
+way), then we can conclude that S follows from
+the mere existence of such a u, i.e., from the
+truth of ∃ x : T, P x.  
+
+Here is slightly simplified version of the 
+exists.elim rule.
+
+{T : Type}, {P : T → Prop}, {Q : Prop}, (ex: ∃ x : T, P x) (p2q: ∀ t : T, P t → Q)
+---------------------------------------------------------------------------------- ∃.intro
+                                    q : Q
+
+Let's unpack this. The assumptions are that T 
+is any type and P is any property of values of
+that type. Q is the proposition that we want to
+prove follows from ∃ x : T, P x. The additional
+fact that is needed to conclude that Q is true
+is a proo, p2q, f that if any t : T has property 
+P, then Q follows. If we combine this fact, p2q,
+with the fact, ex, that there exists such a t,
+then we can conclude that Q must be true.
 -/
 
 #check exists.elim
 
-def existElimExample
-(T : Type) 
-(P Q : T → Prop) 
-(ex : exists x, P x ∧ Q x) 
-: (exists y, Q y ∧ P y)
-:=
-exists.elim 
-    ex 
-    begin
-    -- assume a : T a specific value ...
-    assume a : T,
-    -- for which the predicate is true;
-    assume pfa : P a ∧ Q a,
-    -- show conclusion from assumption.
-    show (∃ (y : T), Q y ∧ P y),
-    from 
-        -- prove Q a ∧ P a
-        let pa := pfa.left in
-        let qa := pfa.right in
-        let qp := and.intro qa pa in
-        -- construct proof of goal
-        exists.intro a qp
-    end
-
 /-
-We will also see additional rules for equality
+Here's some code that illustrates the use of 
+the exists.elim principle in Lean.
 -/
+
+def existElimExample
+(T : Type)                      -- Suppose T is any type
+(P S : T → Prop)                -- and P, S are properties of T
+(ex : exists x, P x ∧ S x)      -- and there is an x with P and S
+: (exists y, S y ∧ P y)         -- show there is a y with P
+:=
+begin
+/-
+The only thing we have to work with is ex. So we will 
+apply exists.elim to it. We supply the first argument,
+namely the proof of exists x, P x ∧ Q x-/
+apply exists.elim ex,
+/-
+What we then have to provide is the proof required as
+the second argument to exists.elim. This is a proof of
+the proposition that that for any object, a : T, if a
+has properties P and S, then (∃ (y : T), S y ∧ P y) is
+true. We will now prove this proposition to finish off
+the proof. What we have to prove is an implication, so
+we will start by assuming its premises: that a is some 
+value of type T and that we have a proof that a has the
+properties P and S.
+-/
+assume a : T,
+assume pfa : P a ∧ S a,
+
+/- 
+Given these assumption we now need to show the final
+conclusion, that (∃ (y : T), S y ∧ P y). This is a job
+for exists.intro. The arguments we will give it are 
+a as a witness, and of (S a ∧ P a) that we can now
+construct from the assumed proof of (P a and S a). 
+-/
+    show (∃ (y : T), S y ∧ P y), from
+    begin
+        have pa := pfa.left,
+        have qa := pfa.right,
+        have qp := and.intro qa pa,
+        exact exists.intro a qp
+    end
+end
