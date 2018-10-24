@@ -1,36 +1,104 @@
-/-*******************-/
+/-
+This cheat sheet summarizes the 
+introduction and elimination
+rules for each connective and
+quantifier in predicate logic,
+used, respectively, to construct
+and to take apart, or destruct,
+proofs of propositions built 
+using these connectives and 
+quantifiers. 
+-/
+
+/- **** -/
+/- true -/
+/- **** -/
+
+/-
+The proposition, true, has
+a single proof and can thus
+always be judged to be true. 
+
+The introduction rule gives us
+a proof without conditions.
+
+  ---------------- (true.intro)
+  true.intro: true
+
+Having a proof of true isn't
+very useful. One is always
+available, and no information
+can be obtained from a proof
+of true. We thus don't see a
+proof of true very often in
+practice.
+-/
+
 /- true introduction -/
-/-*******************-/
+
+
+theorem trueIsTrue : true := 
+    true.intro
 
 theorem 
-trueIsTrue : 
-true 
-:= 
-true.intro
-
-theorem 
-trueIsTrue' : 
-true 
-:= 
+trueIsTrue' : true := 
 begin
 exact (true.intro),
 end
 
 
-/-*******************-/
-/- false elimination -/
-/-*******************-/
+/-*******-/
+/- false -/
+/-*******-/
 
-theorem 
-fromFalse : 
-∀ { P : Prop }, false → P 
-:= 
-λ P f, 
+/-
+The proposition, false, has no
+proofs, and can thus be judged 
+to be false. Because there is 
+no proof of false, there is no
+introduction rule for false. On
+the other hand, it often happens
+in real proofs that one ends up
+with inconsistent assumptions, 
+which shows that such a case in
+reality can't occur. When one
+ends up in such a situation, a
+proof of false can be derived
+from the inconsistency, and the
+false elimination rule can then
+be used to finish the proof of
+the current proof goal.
+-/
+
+/- false elimination -/
+
+/-
+From an assumed proof of false
+(or from a proof of false that
+is obtained from a contradiciton), 
+any proposition, P, can be proved
+by simply applying false.elim to
+the proof of false.
+
+  P : Prop, f : false
+  ------------------- false.elim
+        pf : P
+-/
+
+def fromFalse (P: Prop) (f: false) : P :=
     false.elim f
 
 theorem 
 fromFalse' : 
-∀ { P : Prop }, false → P 
+∀ P : Prop, false → P 
+:= 
+λ P f, 
+    false.elim f
+
+
+theorem 
+fromFalse'' : 
+∀ P : Prop, false → P 
 := 
 begin
 assume P f,
@@ -39,60 +107,85 @@ from false.elim f,
 end
 
 
-/-******************-/
-/- and introduction -/
-/-******************-/
+/-**** -/
+/- and -/
+/-**** -/
 
-theorem 
-PandQ : 
-∀ { P Q : Prop }, P → Q → P ∧ Q  
-:= 
-λ P Q p q, 
+/-
+If P and Q are propositions, then
+P ∧ Q is a proposition. It is read
+as asserting that both P and Q are
+true. 
+
+To prove P ∧ Q, one applies the 
+introduction rule for ∧ to a proof 
+of P and to a proof of Q. 
+
+{ P, Q : Prop } (p: P) (q: Q)
+----------------------------- and.intro
+       ⟨ p, q ⟩ : P ∧ Q
+
+From a proof of P and Q one can derive 
+proofs of P and of Q by applying the left
+and right elimination rules, respectively.
+
+{ P Q: Prop } (pq : P ∧ Q)
+--------------------------- and.elim_left
+          p : P
+
+
+{ P Q: Prop } (pq : P ∧ Q)
+--------------------------- and.elim_right
+          q : Q
+-/
+
+/- and introduction -/
+
+-- P → Q → P ∧ Q
+
+def PandQ (P Q : Prop) (p: P) (q: Q) : P ∧ Q :=
     and.intro p q
 
+#check PandQ
+
 theorem 
-PandQ' : 
-∀ { P Q : Prop }, P → Q → P ∧ Q 
-:= 
+PandQ' : ∀ ( P Q : Prop ), P → Q → P ∧ Q  := 
+λ P Q p q, 
+    ⟨ p, q ⟩ -- shorthand for and.intro p q
+
+#check PandQ'
+
+theorem PandQ'' : ∀ { P Q : Prop }, P → Q → P ∧ Q := 
 begin
 assume P Q p q,
 show P ∧ Q,
-from and.intro p q, 
+from ⟨ p, q ⟩, -- again shorthand for and.intro p q
 end
 
-
-/-*****************-/
 /- and elimination -/
-/-*****************-/
 
-theorem 
-PfromPandQ : 
-∀ { P Q : Prop }, P ∧ Q → P 
-:= 
+def PfromPandQ (P Q: Prop) (pq: P ∧ Q) : P :=
+    and.elim_left pq
+
+def QfromPandQ (P Q: Prop) (pq: P ∧ Q) : Q :=
+    and.elim_right pq
+
+theorem PfromPandQ' : ∀ { P Q : Prop }, P ∧ Q → P := 
 λ P Q pq, 
-    pq.left 
+    pq.left -- shorthand for and.elim_left pq
 
-theorem 
-PfromPandQ' : 
-∀ { P Q : Prop }, P ∧ Q → P 
-:= 
+theorem QfromPandQ' : ∀ { P Q : Prop }, P ∧ Q → Q := 
+λ P Q pq, 
+    pq.right -- shorthand for and.elim_left pq
+
+theorem PfromPandQ'' : ∀ { P Q : Prop }, P ∧ Q → P := 
 begin
 assume P Q pq, 
 show P,
 from pq.left
 end 
 
-theorem 
-QfromPandQ : 
-∀ { P Q : Prop }, P ∧ Q → Q 
-:= 
-λ P Q pq, 
-    pq.right
-
-theorem 
-QfromPandQ' : 
-∀ { P Q : Prop }, P ∧ Q → Q 
-:=
+theorem QfromPandQ'' : ∀ { P Q : Prop }, P ∧ Q → Q := 
 begin
 assume P Q pq, 
 show Q,
@@ -100,115 +193,161 @@ from pq.right
 end 
 
 
-
-/-**************************-/
-/- implication introduction -/
-/-**************************-/
-
-/-
-To prove P → Q, present a function that, 
-when given an arbitrary proof of P (which
-is really just a value of type P, because
-propositions are types), returns some 
-proof of Q. 
-
-So, for example, if it's actually true for
-given propositions, P and Q, that P → Q, then
-you would prove it by presenting a function
-that on the assumption it's given a proof of
-P reduces to and returns a proof of Q.
-
-Note that this reasoning also applies when 
-data types such as nat and bool are used as
-P and Q. For example, a "proof" of the type, 
-nat → bool, is any function that, when given 
-an arbitrary n : nat returns some value of 
-type bool. Use "def" rather than "theorem" 
-when defining functions involving ordinary 
-data types rather than proofs.
--/
-
-def aFunc : 
-nat → bool 
-    := λ n : nat, ff
-
-
-
-/-*************************-/
-/- implication elimination -/
-/-*************************-/
+/- ***** -/
+/- arrow -/
+/-****** -/
 
 /-
-Implication elimination can be used when we
-have a proof of P → Q and a proof of P to
-construct a proof of Q. This is Aristotle's 
-modus ponens. In constructive logic a proof 
-of P → Q is a function that, assuming it is
-given a proof of P, reduces to a proof of Q. 
-In effect, the function explains precisely 
-how to derive a proof of Q from any proof of 
-P. So, if pq is a proof of P → Q, and p is a 
-proof of P, then by applying the function, 
-pq, to p, we obtain a proof of Q.
+If P and Q are propositions, then P → Q
+is a proposition. It read as asserting
+that if P is true then Q is true. 
+
+To prove P → Q, one must show that there
+is a (total) function that, when given a 
+proof of P as an argument, constructs a
+proof of Q as a result. NB: Functions can
+be defined to take argument of types that
+have no value! See the false elimination
+examples above. It is very important to
+understand that P → Q being true does not 
+necessarily mean that P is true, but only
+that *if* P is true (there is a proof of 
+P) then Q is true (a proof of Q can be 
+constructed).
+
+To prove P → Q, provide a function that
+shows that from an assumed proof of P
+one can construct a proof of Q. The type
+of such a function is P → Q. 
 -/
 
-theorem 
-arrowElim: 
-∀ { P Q : Prop}, (P → Q) → P → Q 
-:=
-λ P Q pq p, (pq p)
+-- implication introduction
 
+def falseImpliesTrue (f : false) : true :=
+    true.intro
 
+#check falseImpliesTrue
 
-/-*************************-/
-/- forall (∀) introduction -/
-/-*************************-/
+example : false → true :=
+    λ f : false, true.intro
+
+/- → implication elimination -/
 
 /-
-If P and Q are propositions, then to 
-conclude ∀ p : P, Q, show that if you
-assume that p is some arbitrary value 
-of type P, then you can prove Q. In the
-general case, Q is a proposition that
-involves p. Here is a simple example 
-in which we prove that for any n of 
-type nat, n = n. You can see that the
-proposition after the comma involves
-the value bound by the ∀ before the 
-comma. 
+From a proof of P → Q and a proof of P 
+one can derive a proof of Q. This is done
+by "applying" the proof of the implication
+(which in Lean is a function) to the proof
+of P, the result of which is a proof of Q.
+
+(P Q : Prop) (p2q: P → Q) (p : P)
+--------------------------------- → elim
+         (p2q p) : Q
 -/
 
-theorem 
-allNeqN : 
-∀ N : nat, N = N
-:=
+def arrowElim {P Q : Prop} (p2q: P → Q) (p : P) : Q :=
+    p2q p 
+
+theorem arrowElim': ∀ { P Q : Prop}, (P → Q) → P → Q :=
+λ P Q p2q p, (p2q p)
+
+theorem arrowElim'': ∀ { P Q : Prop}, (P → Q) → P → Q :=
 begin
-assume n : nat, -- assume n is arbitrary nat
-show n = n,     -- prove prop true for that n
-from eq.refl n  -- conclude true for all n
+assume P Q p2q p,
+show Q,
+from p2q p
 end
 
 
-
-/-************************-/
-/- forall (∀) elimination -/
-/-************************-/
+/- ********** -/
+/- forall (∀) -/
+/- ********** -/
 
 /-
-Forall elimination reasons that if some
-proposition is true for every value of 
-a type, then it must also be true for a
-specific value of that type. So from the
-proposition, ∀ P, Q combined with p : P,
-we conclude Q. Forall elimination is just
-another form of arrow elimination and in
-constructive logic is function application.
+If P is a type and Q is a predicate,
+then ∀ p : P, Q is a proposition. It
+is read as stating that the predicate,
+Q, is true for any value, p, in the 
+set of values (domain of discourse)
+given by the type, P. The predicate,
+Q, is usually one that takes a value
+of type, P, as an argument, but this
+is not always the case. For example,
+one could write, ∀ n : ℕ, true. Here
+the predicate, true, is a predicate
+that takes no arguments at all, and
+so it is simply a proposition, and it
+is true for every value of n, so the 
+proposition, ∀ n : ℕ, true, is true.
+More commonly, the predicate part of
+a universally quantified proposition
+will be "about" the values over which
+the quantification ranges. Here is an
+example: 
+
+∀ n : ℕ : (n > 2 ∧ prime n) → odd n
+
+This proposition asserts that any n
+greater than 2 and prime is also odd
+(which also happens to be true). The
+predicate, (n > 2 ∧ prime n) → odd n,
+in this case takes n as an argument,
+and is thus "about" each of the values
+over which the ∀ ranges.
 -/
 
-theorem forallElim 
-(pf: ∀ n : nat, n = n) (m : nat) : m = m
-:=
-pf m
+/- ∀ introduction -/
+
+/-
+To prove a proposition, ∀ p : P, Q, 
+assume an arbitrary value, p : P,
+and shows that the predicate, Q, is
+true for that assumed value. As the
+value was chosen arbitarily, it thus
+follows that the predicate is true
+for *any* such value, proving the ∀.  
+
+To see this principle in action, 
+study the following proof script.
+-/
+
+theorem allNEqualSelf: ∀ n : ℕ, n = n :=
+begin
+assume n, -- assume an arbitrary n
+show n = n, -- show predicate true for n
+from rfl, -- thus proving ∀ n, n = n
+end
+
+/- ∀ elimination -/
+
+/-
+∀ elimination reasons that if some
+predicate, Q, is true for every value of 
+some type, then it must also be true for 
+any particular value of that type. So 
+from a proof, p2q, of ∀ P, Q and a proof,
+p : P, we conclude Q. 
+
+P : Type, Q : P → Prop, p2q : ∀ p : P, Q, p : P
+-----------------------------------------------
+            (p2q p) :  Q p
+
+Forall elimination is just another form 
+of arrow elimination. In constructive 
+logic this is function application. Study 
+the following examples carefully to see 
+how this works.
+-/
+
+def forallElim (p2q: ∀ n : nat, n = n) (p : nat) : p = p :=
+p2q p
+
+def forallElim' (p2q: ∀ n : nat, n = n) (p : nat) : p = p :=
+begin
+exact (p2q p)
+end
+
+#reduce forallElim allNEqualSelf 7
 
 
 
