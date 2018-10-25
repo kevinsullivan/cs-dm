@@ -96,7 +96,8 @@ theorem fromFalse':
 theorem  fromFalse'': 
   ∀ P : Prop, false → P := 
 begin
-  assume P f,
+  assume P,
+  assume f,
   show P,
   from false.elim f,
 end
@@ -561,7 +562,7 @@ This is of course just the principle of proof
 by negation, equivalent to the introduction 
 rule for false.
 
-P: Prop, f2p : false → P
+P: Prop, f2p : P → false
 ------------------------ false introduction
         np : ¬ P
 
@@ -608,7 +609,8 @@ begin
   assume p : P,
   assume np : ¬P, -- ¬ ¬ P means ¬ P → false, so assume ¬ P
   show false,
-  from np p
+  --from np p,
+  contradiction,
 end
 
 theorem doubleNegIntro' : ∀ P : Prop, P → ¬¬P :=
@@ -687,7 +689,7 @@ begin
         -- case with P is assumed to be true
         exact h,
         -- case with P is assumed to be false
-        exact false.elim (nnp h)
+        exact false.elim (nnp h),
         -- em says there are no other cases
     end,
 end 
@@ -915,7 +917,6 @@ begin
   cases RainingOrHydrantRunning with raining running,
     show Wet, from RainMakesWet raining,
     show Wet, from HydrantMakesWet running,
-
 end
 
 /-
@@ -1067,6 +1068,10 @@ We can further generalize this predicate
 by making both values to be compared into
 arguments.
 -/
+
+def nEqm (n m: ℕ) : Prop := n = m
+
+def isSquare (n m : ℕ) := n^2 = m
 
 
 /- ******* -/
