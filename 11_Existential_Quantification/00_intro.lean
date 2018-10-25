@@ -513,3 +513,44 @@ begin
             end,
     end,
 end
+
+open classical
+-- em is axiom of the excluded middle
+
+theorem not_all_t_iff_exists_not_t:
+  ∀ (T: Type) (pred: (T → Prop)) (x: T),
+    (¬(∀ t: T, pred(t))) ↔
+      ∃ t: T, ¬pred(t) :=
+begin
+  intros,
+  apply iff.intro,
+    assume pf_not_all_t,
+    cases (em (∃ (t : T), ¬pred t)) with pf_exists_not_t pf_not_exists_not_t,
+      exact pf_exists_not_t,
+
+      have contra_double_neg: ∀(t: T), ¬¬pred t,
+        assume t,
+        assume pf_n_pred_t,
+        have pf_exists_t := exists.intro t pf_n_pred_t,
+        exact (pf_not_exists_not_t pf_exists_t),
+      
+      have contra: ∀(t: T), pred t,
+        assume t,
+        have pf_nn_pred_t := (contra_double_neg t),
+        cases em (pred t) with pf_pred_t pf_n_pred_t,
+          assumption,
+
+          exact false.elim (pf_nn_pred_t pf_n_pred_t),
+    
+      exact false.elim (pf_not_all_t contra),
+
+    assume pf_exists_not_t,
+    apply exists.elim pf_exists_not_t,
+    assume w not_pred_w,
+    assume pf_all_t,
+    show false, from
+      begin
+        have pred_w := pf_all_t w,
+        exact not_pred_w pred_w,
+      end,
+end
