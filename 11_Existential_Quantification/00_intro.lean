@@ -302,8 +302,12 @@ begin
     end,
 end
 
-abbreviation P : ℕ → Prop := λ(x: ℕ), pred1 x ∧ pred2 x
-abbreviation Q : Prop := ∃(x: ℕ), pred1 x
+def pred3: ℕ → Prop := λ(x: ℕ), x > 1
+def pred4: ℕ → Prop := λ(x: ℕ), x < 4
+abbreviation P : ℕ → Prop := λ(x: ℕ), pred3 x ∧ pred4 x
+abbreviation Q : Prop := ∃(x: ℕ), pred3 x
+
+#check P(2)
 
 theorem forgetAProperty':
   (∃(x: ℕ), P x) → Q :=
