@@ -1326,8 +1326,8 @@ we will start by assuming its premises: that a is some
 value of type T and that we have a proof that a has the
 properties P and S.
 -/
-  assume a : T,
-  assume pfa : P a ∧ S a,
+  assume w : T,
+  assume pfa : P w ∧ S w,
 
 /- 
 Given these assumption we now need to show the final
@@ -1342,6 +1342,6 @@ That is then all that we need to prove the final goal,
         have pa := pfa.left,
         have qa := pfa.right,
         have qp := and.intro qa pa,
-        exact exists.intro a qp
+        exact exists.intro w qp,
     end,
 end 
