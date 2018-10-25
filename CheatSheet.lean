@@ -8,7 +8,8 @@ and quantifier in predicate logic.
 * false
 * P ∧ Q
 * ∀ p : P, Q
-* P → Q
+* P → Q (view as function type)
+* P → Q (viewed as implication)
 * ¬ P
 * P ↔ Q
 * P ∨ Q
