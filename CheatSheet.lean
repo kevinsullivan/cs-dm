@@ -637,7 +637,7 @@ begin
 assume P nnp,
 -- no way to get from ¬¬P to P
 -- stuck and giving up on this proof
-end 
+end
 
 /-
 However, if we accept the axiom of the 
