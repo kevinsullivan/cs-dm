@@ -7,13 +7,13 @@ and quantifier in predicate logic.
 * true
 * false
 * P ∧ Q
-* ∀ p : P, Q
+* ∀ p : P, Q  -- predicate Q usually involves p
 * P → Q (view as function type)
 * P → Q (viewed as implication)
 * ¬ P
 * P ↔ Q
 * P ∨ Q
-* ∃ p : P, Q
+* ∃ p : P, Q  -- predicate Q usually involves p
 
 Introduction rules are used when
 your goal is to prove a proposition 
