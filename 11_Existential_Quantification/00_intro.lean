@@ -309,6 +309,14 @@ abbreviation Q : Prop := ∃(x: ℕ), pred3 x
 
 #check P(2)
 
+example:
+  ∀(a: ℕ)(pred: ℕ → Prop),
+    ((λ(x: ℕ), pred x) a) = (pred a) :=
+begin
+  assume a pred,
+  apply rfl
+end
+
 theorem forgetAProperty':
   (∃(x: ℕ), P x) → Q :=
 begin
