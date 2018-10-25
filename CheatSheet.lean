@@ -530,7 +530,10 @@ end
 
 #reduce forallElim allNEqualSelf 7
 
-/- Negation introduction -/
+
+/- ************** -/
+/- ** Negation ** -/
+/- ************** -/
 
 /-
 If P is a proposition, then ¬ P is one, too.
@@ -543,36 +546,46 @@ a proof of P → false.
 
 
 To prove ¬ P, one thus assumes a proof of P
-and shows that in that context one can produce
-a proof of false. To this one, one produces a function that takes a proof of P as an argument
-and uses it to construct and return a proof of
-false. This is the introduction rule for ¬. 
-Another way to say this: To prove ¬ P, assume
-P and show that this leads to a contradiction.
+and shows that, in that context, one can 
+construct a proof of false. That is, one
+exhibits a function that takes a proof of 
+P as an argument and constructs and returns
+a proof of false as a result. 
+
+This is the introduction rule for ¬. Another 
+way to say this: To prove ¬ P, assume P and 
+show that this leads to a contradiction.
+
 This is of course just the principle of proof
-by negation. 
+by negation, equivalent to the introduction 
+rule for false.
 
 P: Prop, f2p : false → P
 ------------------------ false introduction
         np : ¬ P
 
-The elimination rule allows one to reason from
-a contradiction (a proof of false) to conclude
-that any proposition is true. 
-
-P : Prop, f : false
-------------------- false.elim
-      p : P
+We discuss the elimination rule for ¬ below.
+The key idea is that it's really a rule for
+double negation elimination, and it requires
+classical reasoning. More on this later.
 -/
 
 
 -- negation introduction 
 
-def notIntro' (P : Prop) (p2f: P → false) : ¬P :=
-    p2f -- a proof of P → false is a proof of ¬ P
+/-
+That Lean accepts the following function definition
+shows that a proof of P → false *is* a proof of ¬ P
+-/
 
+def notIntro (P : Prop) (p2f: P → false) : ¬P :=
+    p2f 
+
+/-
+An equivalent proof script.
+-/
 theorem 
-notIntro : ∀ P : Prop, (P → false) → ¬ P :=
+notIntro' : ∀ P : Prop, (P → false) → ¬ P :=
 begin
 assume P : Prop,
 assume p2f : P → false,
@@ -581,8 +594,11 @@ from p2f
 end
 
 /- 
-Example: from the assumption that a proposition, P, is true, we can deduce that ¬ ¬ P is true, as
-well. 
+Example: from the assumption that a 
+proposition, P, is true, we can deduce 
+that ¬ ¬ P is true, as well. This is
+a rule for double negation introduction,
+though not a rule that is commonly needed.
 -/
 
 theorem doubleNegIntro : ∀ P : Prop, P → ¬ ¬ P :=
@@ -606,17 +622,24 @@ theorem doubleNegIntro' : ∀ P : Prop, P → ¬ ¬ P :=
 The rule for negation elimination in
 natural deduction is really a rule 
 for double negation elimination: it
-states that, ∀ P : Prop, ¬ ¬ P → P. 
+states that, ∀ P : Prop, ¬ (¬ P) → P. 
+Because ¬ is right associative, we 
+can drop the parenthesis: ¬ ¬ P → P.
 
 This rule is not valid in constructive 
 logic. You can't prove the following 
 unless you also accept the axiom of 
 the excluded middle, or equivalent.
+-/
 
-theorem doubleNegationElim : 
-    ∀ P : Prop, ¬ ¬ P → P :=
-        -- we're stuck! 
+example: ∀ P : Prop, ¬ ¬ P → P :=
+begin
+assume P nnp,
+-- no way to get from ¬¬P to P
+-- stuck and giving up on this proof
+end 
 
+/-
 However, if we accept the axiom of the 
 excluded middle, which we can do by 
 "opening" Lean's "classical" module, 
@@ -625,7 +648,6 @@ elimination is valid.
 -/
 
 open classical
-
 #check em
 
 /-
@@ -661,8 +683,9 @@ assume P nnp,
 show P,
 from 
     begin
+        -- preview: we study case analysis later
         -- proof by case analysis for P
-        cases em P, -- here we rely on em
+        cases (em P), -- (em P) is (P ∨ ¬ P)
         -- case with P is assumed to be true
         exact h,
         -- case with P is assumed to be false
