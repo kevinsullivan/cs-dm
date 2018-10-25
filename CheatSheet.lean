@@ -408,7 +408,7 @@ of type R).
 Here's an example.
 -/
 
-def plus (n m: ℕ) := n + m
+def plus (n m: ℕ) : ℕ := n + m
 
 #check plus
 #reduce plus
@@ -1343,5 +1343,5 @@ That is then all that we need to prove the final goal,
         have qa := pfa.right,
         have qp := and.intro qa pa,
         exact exists.intro a qp
-    end
-end
+    end,
+end 
