@@ -75,7 +75,7 @@ the current proof goal.
 /-
 From an assumed proof of false
 (or from a proof of false that
-is obtained from a contradiciton), 
+is obtained from a contradiction), 
 any proposition, P, can be proved
 by simply applying false.elim to
 the proof of false.
@@ -363,7 +363,7 @@ this section in mind as you read the next one.
 /- → elimination -/
 
 /-
-The elimnation rule for functions is easy. The
+The elimination rule for functions is easy. The
 application of a function, f : P → Q, to a value,
 p : P, will produce a value of type Q. 
 -/
@@ -484,7 +484,7 @@ To prove a proposition, ∀ p : P, Q,
 assume an arbitrary value, p : P,
 and shows that the predicate, Q, is
 true for that assumed value. As the
-value was chosen arbitarily, it thus
+value was chosen arbitrarily, it thus
 follows that the predicate is true
 for *any* such value, proving the ∀.  
 
@@ -557,7 +557,7 @@ P: Prop, f2p : false → P
         np : ¬ P
 
 The elimination rule allows one to reason from
-a contradition (a proof of false) to conclude
+a contradiction (a proof of false) to conclude
 that any proposition is true. 
 
 P : Prop, f : false
@@ -646,7 +646,7 @@ i.e., ¬ P, then we reach a contradiction.
 We have already assumed ¬ ¬ P is true and
 we are trying to prove P. But now if we
 also assume that ¬ P is true, then clearly
-we have a contradition (between ¬ P and 
+we have a contradiction (between ¬ P and 
 ¬ ¬ P). Using false elimination finishes
 this case leaving us with the conclusion
 that P is true in either case.
@@ -683,7 +683,7 @@ elimination rule lets us then conclude P.
 
 /-
 Note: The law of the excluded middle
-allows you to conlude P ∨ ¬ P "for free," 
+allows you to conclude P ∨ ¬ P "for free," 
 without giving a proof of either P or of
 ¬ P. It is in this precise sense that em
 is not "constructive." When using em, you
@@ -985,8 +985,8 @@ As an example, a predicate "lessThan m n"
 could be defined to reduce to a proposition
 that is true whenever m is less than n and
 that is false otherwise. This predicate 
-implictly "picks out" the set of (m, n)
-pairs where m is less than n and exlcudes
+implicitly "picks out" the set of (m, n)
+pairs where m is less than n and excludes
 all pairs where m is not less than n. The
 pair (3, 4) is in the lessThan relation in
 that the proposition, lessThan 3 4, would 
@@ -1096,7 +1096,7 @@ theorem existsIntro :
 ∀ T : Type,     -- suppose T is a type
 ∀ P : T → Prop, -- suppose P is a property of values of type T
 /-
-now if for any t : T, we can show that t has propery P,
+now if for any t : T, we can show that t has property P,
 then we can construct a proof that *there exists* an x : T 
 with property P
 -/
@@ -1155,7 +1155,7 @@ is any type and P is any property of values of
 that type. Q is the proposition that we want to
 prove follows from ∃ x : T, P x. The additional
 fact that is needed to conclude that Q is true
-is a proo, p2q, f that if any t : T has property 
+is a proof, p2q, f that if any t : T has property 
 P, then Q follows. If we combine this fact, p2q,
 with the fact, ex, that there exists such a t,
 then we can conclude that Q must be true.
