@@ -191,9 +191,191 @@ from pq.right
 end 
 
 
-/- ***** -/
-/- arrow -/
-/-****** -/
+/- ********* -/
+/- functions -/
+/- ********* -/
+
+/-
+If P and Q are arbitrary types (examples of which include
+bool, nat, and string), then P → Q is the type of a total 
+function that takes, as an argument, any value of type P, 
+and that always then returns some value of type Q. 
+
+The type judgment, f : P → Q, asserts that the identifier, 
+f, will bound to a value of type, P → Q: that is to say, f 
+is (bound to) some function that takes values of type P as 
+arguments and that returns values of type Q as results.
+
+To "prove" (which means to provide a value of) type P → Q,
+you have to provide a lambda abstraction that defines some
+particular function from type P to type Q.
+-/
+
+/- → introduction -/
+
+/-
+To "prove" a function type, P → Q, you provide a lambda
+abstraction that defines a particular function value of 
+this type. The particular lambda expressions selected as
+a proof is significant, as their are many functions values
+of most function types. For example, a function that takes
+a ℕ, n, and that returns n + 1, and a function that takes
+a ℕ, n and returns n * n, are both of type ℕ → ℕ, but in
+most cases would not be interchangeable in a program. So, 
+when "proving" a function type, we're almost always very
+careful to pick a specific function definition of interest
+as a proof.  
+-/
+
+/-
+For example, we could exhibit a proof, inc, of ℕ → ℕ, 
+which is to say that we could define a function, inc,
+that simply increments its argument, with the lambda 
+abstraction, λ n, n + 1. This is the function that 
+adds one to its argument, n, of type ℕ. Let's look at
+different ways this function can be defined in Lean.
+-/
+
+/-
+First, we define inc to be a value of type ℕ → ℕ,
+namely the value, λ n : ℕ, n + 1.
+-/
+
+def inc : ℕ → ℕ := λ n : ℕ, (n + 1 : ℕ)
+
+#check inc  -- type: ℕ → ℕ 
+#reduce inc -- value/proof: λ n : ℕ, n + 1
+
+/-
+Typically we would drop explicit types in places where 
+Lean can infer them.
+-/
+
+def inc' : ℕ → ℕ := λ n, n + 1
+
+/-
+We can also write such a function in a more Python-like
+style.
+-/
+
+def inc'' (n : ℕ) : ℕ := n + 1
+
+-- It really is the same function type and value
+#check inc''
+#reduce inc''
+
+/-
+Again we can often simplify code by leaving out explicit types
+-/
+
+def inc''' (n : ℕ) := n + 1
+
+/-
+We can confirm that the type of this function is still ℕ → ℕ. 
+-/
+
+#check inc'''
+
+/-
+You must be able to express function values using both 
+Python-like expressions and lambda abstractions. 
+-/
+
+/-
+We note that we can even construct function values
+using tactic scripts.
+-/
+
+def inc'''' (n : ℕ) : ℕ := 
+begin
+exact n + 1
+end 
+
+def inc''''' : ℕ → ℕ :=
+begin
+assume n,
+show ℕ,
+from n + 1
+end
+
+-- these are all exactly the same function
+#reduce inc
+#reduce inc'
+#reduce inc'''
+#reduce inc''''
+#reduce inc'''''
+
+
+/- multiple arguments -/
+
+/-
+If P, Q, and R are types, then P → Q → R is
+also a type. Because → is right associative,
+this type can also be written as P → (Q → R).
+This is the type of functions that take values
+of type P as arguments and that return values
+of type (Q → R) as results.  
+
+If we have a function, f, of type P → Q → R,
+we can apply it to a value p : P and get back
+some function of type Q → R. 
+
+So the result of (f p) is a function of type 
+Q → R. The function (f p) can thus be applied
+to an value, q, of type Q to obtain a result,
+r, of type R, with the expression (f p) q.
+
+Because function application is left associative
+the parenthesis can be dropped and you can just
+write f p q, giving the impression that f is a
+function that takes two arguments, one of type P
+and one of type Q (and that then returns a value
+of type R).
+
+Here's an example.
+-/
+
+def plus (n m: ℕ) := n + m
+
+#check plus
+#reduce plus
+
+#check plus 3
+#reduce plus 3 -- a function taking one argument!
+
+#reduce (plus 3) 4 -- that function applied to 4
+#reduce plus 3 4 -- the parentheses were redundant
+
+/-
+The following section addresses implication, 
+where, if P and Q are propositions, P → Q, is
+the logical implication, if there is a proof of
+P then a proof of Q can be constructed. A proof
+of this proposition is given by any function of 
+type P → Q. 
+
+Everything in this section about function types 
+and values/implementations (lambda expressions)
+applies to implications, so bear the lessons of
+this section in mind as you read the next one.
+-/
+
+/- → elimination -/
+
+/-
+The elimnation rule for functions is easy. The
+application of a function, f : P → Q, to a value,
+p : P, a result will constructed of type Q. 
+-/
+
+#check inc 3
+#reduce inc 3
+
+
+
+/- *********** -/
+/- implication -/
+/-************ -/
 
 /-
 If P and Q are propositions, then P → Q
@@ -348,11 +530,7 @@ end
 
 #reduce forallElim allNEqualSelf 7
 
-
-
-/-***********************-/
 /- Negation introduction -/
-/-***********************-/
 
 /-
 If P is a proposition, then ¬ P is one, too.
@@ -521,9 +699,6 @@ not tell you anything at all about which
 case is true, whereas a constructive proof
 does.
 -/
-
-
-
 
 
 /- *************** -/
@@ -1022,9 +1197,10 @@ assume pfa : P a ∧ S a,
 /- 
 Given these assumption we now need to show the final
 conclusion, that (∃ (y : T), S y ∧ P y). This is a job
-for exists.intro. The arguments we will give it are 
-a as a witness, and of (S a ∧ P a) that we can now
-construct from the assumed proof of (P a and S a). 
+for exists.intro. The arguments we will give it are, 
+a, as a witness, and a proof of (S a ∧ P a) as a proof.
+That is then all that we need to prove the final goal, 
+(∃ (y : T), S y ∧ P y), using exists.intro.  
 -/
     show (∃ (y : T), S y ∧ P y), from
     begin
