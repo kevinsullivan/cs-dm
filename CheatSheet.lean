@@ -88,20 +88,17 @@ the proof of false.
 def fromFalse (P: Prop) (f: false) : P :=
     false.elim f
 
-theorem 
-fromFalse' : 
-∀ P : Prop, false → P := 
+theorem fromFalse': 
+  ∀ P : Prop, false → P := 
 λ P f, 
     false.elim f
 
-
-theorem 
-fromFalse'' : 
-∀ P : Prop, false → P := 
+theorem  fromFalse'': 
+  ∀ P : Prop, false → P := 
 begin
-assume P f,
-show P,
-from false.elim f,
+  assume P f,
+  show P,
+  from false.elim f,
 end
 
 
@@ -146,8 +143,7 @@ def PandQ (P Q : Prop) (p: P) (q: Q) : P ∧ Q :=
 
 #check PandQ
 
-theorem 
-PandQ' : ∀ ( P Q : Prop ), P → Q → P ∧ Q  := 
+theorem PandQ' : ∀ ( P Q : Prop ), P → Q → P ∧ Q  := 
 λ P Q p q, 
     ⟨ p, q ⟩ -- shorthand for and.intro p q
 
@@ -155,9 +151,9 @@ PandQ' : ∀ ( P Q : Prop ), P → Q → P ∧ Q  :=
 
 theorem PandQ'' : ∀ { P Q : Prop }, P → Q → P ∧ Q := 
 begin
-assume P Q p q,
-show P ∧ Q,
-from ⟨ p, q ⟩, -- again shorthand for and.intro p q
+  assume P Q p q,
+  show P ∧ Q,
+  from ⟨ p, q ⟩, -- again shorthand for and.intro p q
 end
 
 /- and elimination -/
@@ -178,16 +174,16 @@ theorem QfromPandQ' : ∀ { P Q : Prop }, P ∧ Q → Q :=
 
 theorem PfromPandQ'' : ∀ { P Q : Prop }, P ∧ Q → P := 
 begin
-assume P Q pq, 
-show P,
-from pq.left
+  assume P Q pq, 
+  show P,
+  from pq.left
 end 
 
 theorem QfromPandQ'' : ∀ { P Q : Prop }, P ∧ Q → Q := 
 begin
-assume P Q pq, 
-show Q,
-from pq.right
+  assume P Q pq, 
+  show Q,
+  from pq.right
 end 
 
 
@@ -245,6 +241,7 @@ def inc : ℕ → ℕ := λ n : ℕ, (n + 1 : ℕ)
 
 #check inc  -- type: ℕ → ℕ 
 #reduce inc -- value/proof: λ n : ℕ, n + 1
+#reduce inc 3
 
 /-
 Typically we would drop explicit types in places where 
@@ -284,18 +281,22 @@ Python-like expressions and lambda abstractions.
 /-
 We note that we can even construct function values
 using tactic scripts.
+
+Knowing how to do this can be useful both in handling
+unexpected proof states, and might be useful for
+some who like to create functions in an imperative style.
 -/
 
 def inc'''' (n : ℕ) : ℕ := 
 begin
-exact n + 1
+  exact n + 1
 end 
 
 def inc''''' : ℕ → ℕ :=
 begin
-assume n,
-show ℕ,
-from n + 1
+  assume n,
+  show ℕ,
+  from n + 1
 end
 
 -- these are all exactly the same function
@@ -434,9 +435,9 @@ theorem arrowElim': ∀ { P Q : Prop}, (P → Q) → P → Q :=
 
 theorem arrowElim'': ∀ { P Q : Prop}, (P → Q) → P → Q :=
 begin
-assume P Q p2q p,
-show Q,
-from p2q p
+  assume P Q p2q p,
+  show Q,
+  from p2q p
 end
 
 
@@ -494,9 +495,9 @@ study the following proof script.
 
 theorem allNEqualSelf: ∀ n : ℕ, n = n :=
 begin
-assume n, -- assume an arbitrary n
-show n = n, -- show predicate true for n
-from rfl, -- thus proving ∀ n, n = n
+  assume n, -- assume an arbitrary n
+  show n = n, -- show predicate true for n
+  from rfl, -- thus proving ∀ n, n = n
 end
 
 /- ∀ elimination -/
@@ -584,13 +585,13 @@ def notIntro (P : Prop) (p2f: P → false) : ¬P :=
 /-
 An equivalent proof script.
 -/
-theorem 
-notIntro' : ∀ P : Prop, (P → false) → ¬ P :=
+theorem notIntro':
+ ∀ P : Prop, (P → false) → ¬P :=
 begin
-assume P : Prop,
-assume p2f : P → false,
-show ¬ P,
-from p2f
+  assume P : Prop,
+  assume p2f : P → false,
+  show ¬P,
+  from p2f
 end
 
 /- 
@@ -603,17 +604,16 @@ though not a rule that is commonly needed.
 
 theorem doubleNegIntro : ∀ P : Prop, P → ¬ ¬ P :=
 begin
-assume P : Prop,
-assume p : P,
-assume np : ¬ P, -- ¬ ¬ P means ¬ P → false, so assume ¬ P
-show false,
-from np p
+  assume P : Prop,
+  assume p : P,
+  assume np : ¬P, -- ¬ ¬ P means ¬ P → false, so assume ¬ P
+  show false,
+  from np p
 end
 
-theorem doubleNegIntro' : ∀ P : Prop, P → ¬ ¬ P :=
+theorem doubleNegIntro' : ∀ P : Prop, P → ¬¬P :=
     λ P p np, 
         np p
-
 
 
 /- negation elimination -/
@@ -632,12 +632,12 @@ unless you also accept the axiom of
 the excluded middle, or equivalent.
 -/
 
-example: ∀ P : Prop, ¬ ¬ P → P :=
+example: ∀ P : Prop, ¬¬P → P :=
 begin
-assume P nnp,
--- no way to get from ¬¬P to P
--- stuck and giving up on this proof
-end
+  assume P nnp,
+  -- no way to get from ¬¬P to P
+  -- stuck and giving up on this proof
+end 
 
 /-
 However, if we accept the axiom of the 
@@ -674,14 +674,12 @@ this case leaving us with the conclusion
 that P is true in either case.
 -/
 
-theorem 
-doubleNegationElim : 
-∀ P : Prop, ¬ ¬ P → P 
-:=
+theorem doubleNegationElim: 
+ ∀(P : Prop), ¬¬P → P :=
 begin
-assume P nnp,
-show P,
-from 
+  assume P nnp,
+  show P,
+  from 
     begin
         -- preview: we study case analysis later
         -- proof by case analysis for P
@@ -759,16 +757,16 @@ to proofs of P and Q.
         pqEquiv: P ↔ Q
     -/
 
-theorem 
-iffIntro : ∀ P Q : Prop, (P → Q) → (Q → P) → (P ↔ Q) :=
+theorem iffIntro:
+  ∀(P Q: Prop), (P → Q) → (Q → P) → (P ↔ Q) :=
 begin
-assume P Q : Prop,
-assume p2q q2p,
-apply iff.intro p2q q2p
+  assume P Q : Prop,
+  assume p2q q2p,
+  apply iff.intro p2q q2p
 end
 
-theorem 
-iffIntro' : ∀ P Q : Prop, (P → Q) → (Q → P) → (P ↔ Q) :=
+theorem iffIntro':
+  ∀(P Q : Prop), (P → Q) → (Q → P) → (P ↔ Q) :=
 λ P Q pq qp, 
     iff.intro pq qp
 
@@ -782,24 +780,23 @@ rules but for the special case where the
 conjunction is a bi-implication in particular.
 -/
 
-theorem
-iffElimLeft : ∀ P Q : Prop, (P ↔ Q) → P → Q :=
+theorem iffElimLeft:
+  ∀(P Q : Prop), (P ↔ Q) → P → Q :=
 begin
-assume P Q : Prop,
-assume bi : P ↔ Q,
-show P → Q,
-from iff.elim_left bi -- bi.1 is a shorthand
+  assume P Q : Prop,
+  assume bi : P ↔ Q,
+  show P → Q,
+  from iff.elim_left bi -- bi.1 is a shorthand
 end
 
 
-theorem
-iffElimLeft' : ∀ P Q : Prop, (P ↔ Q) → P → Q :=
+theorem iffElimLeft':
+  ∀(P Q : Prop), (P ↔ Q) → P → Q :=
 λ P Q bi, 
     iff.elim_left bi
 
-
-theorem
-iffElimRight : ∀ P Q : Prop, (P ↔ Q) → Q → P :=
+theorem iffElimRight:
+  ∀(P Q : Prop), (P ↔ Q) → Q → P :=
 λ P Q bi, 
     iff.elim_right bi
 
@@ -831,8 +828,7 @@ easier and clearer to use in practice.
 theorem orIntroLeft (P Q : Prop) (p : P) : P ∨ Q :=
     or.intro_left Q p -- args: proposition Q, proof of P
 
-theorem 
-orIntroLeft': forall P Q: Prop, P → (P ∨ Q) :=
+theorem orIntroLeft': forall P Q: Prop, P → (P ∨ Q) :=
 λ P Q p, 
     or.inl p -- shorthand
 
@@ -869,34 +865,34 @@ streets are wet", then the streets are wet!
 -/
 
 theorem orElim : 
-forall P Q R: Prop, 
+  ∀(P Q R: Prop), 
     (P ∨ Q) → (P → R) → (Q → R) → R 
 :=
 begin
-assume P Q R,
-assume PorQ: (P ∨ Q),
-assume pr: (P → R),
-assume qr: (Q → R),
-show R,
-from or.elim PorQ pr qr 
+  assume P Q R,
+  assume PorQ: (P ∨ Q),
+  assume pr: (P → R),
+  assume qr: (Q → R),
+  show R,
+  from or.elim PorQ pr qr 
 end
 
 theorem orElim' : 
-forall P Q R: Prop, 
+  ∀(P Q R: Prop), 
     (P ∨ Q) → (P → R) → (Q → R) → R 
 :=
 begin
-assume P Q R,
-assume PorQ: (P ∨ Q),
-assume pr: (P → R),
-assume qr: (Q → R),
-show R,
-from 
+  assume P Q R,
+  assume PorQ: (P ∨ Q),
+  assume pr: (P → R),
+  assume qr: (Q → R),
+  show R,
+  from 
     -- compare carefully with previous example
     begin
-    cases PorQ with p q,
-    exact (pr p),
-    exact (qr q)
+      cases PorQ with p q,
+        exact (pr p),
+        exact (qr q)
     end  
 end
 
@@ -911,14 +907,14 @@ forall Rain Hydrant Wet: Prop,
 :=
 begin
 -- setup
-assume Rain Hydrant Wet,
-assume RainingOrHydrantRunning: (Rain ∨ Hydrant),
-assume RainMakesWet: (Rain → Wet),
-assume HydrantMakesWet: (Hydrant → Wet),
+  assume Rain Hydrant Wet,
+  assume RainingOrHydrantRunning: (Rain ∨ Hydrant),
+  assume RainMakesWet: (Rain → Wet),
+  assume HydrantMakesWet: (Hydrant → Wet),
 -- the core of the proof
-cases RainingOrHydrantRunning with raining running,
-show Wet, from RainMakesWet raining,
-show Wet, from HydrantMakesWet running,
+  cases RainingOrHydrantRunning with raining running,
+    show Wet, from RainMakesWet raining,
+    show Wet, from HydrantMakesWet running,
 
 end
 
@@ -935,12 +931,19 @@ proposition to get a disjunction to do case
 analysis on.
 -/
 open classical
-example : ∀ P : Prop, P ∨ ¬ P :=
+
+example : ∀(P : Prop), P ∨ ¬ P :=
 begin
-assume P : Prop,
-cases (em P) with p np, --(em P) is a proof of P ∨ ¬ P
-exact or.inl p,         -- case where P assumed true
-exact or.inr np,        -- case where ¬ P assumed true
+  assume P : Prop,
+  cases (em P) with p np,   --(em P) is a proof of P ∨ ¬ P
+    exact or.inl p,         -- case where P assumed true
+    exact or.inr np,        -- case where ¬ P assumed true
+end
+
+example : ∀(P : Prop), P ∨ ¬ P :=
+begin
+  assume P : Prop,
+  apply em P
 end
 
 /-
@@ -1116,24 +1119,24 @@ would be used in code.
 #check exists.intro
 
 theorem existsIntro :
-∀ T : Type,     -- suppose T is a type
-∀ P : T → Prop, -- suppose P is a property of values of type T
+  ∀(T : Type),     -- suppose T is a type
+  ∀(P : T → Prop), -- suppose P is a property of values of type T
 /-
 now if for any t : T, we can show that t has property P,
 then we can construct a proof that *there exists* an x : T 
 with property P
 -/
-∀ (t : T), (P t) → ∃ x : T, P x
+  ∀(t : T), (P t) → ∃ x : T, P x
 :=
 begin
-assume T: Type,         -- assume T is some type
-assume P: T → Prop,     -- and P is a property
+  assume T: Type,         -- assume T is some type
+  assume P: T → Prop,     -- and P is a property
 -- show that if there's a t with property P (P t), the ∃ is true
-show ∀ (t : T), P t → (∃ (x : T), P x), from
+  show ∀ (t : T), P t → (∃ (x : T), P x), from
     begin
-    assume t : T,           -- assume t is some object of type T
-    assume pf : P t,        -- and that t has property P
-    show ∃ x, P x, from     -- now we can show ∃ x, P x
+      assume t : T,           -- assume t is some object of type T
+      assume pf : P t,        -- and that t has property P
+      show ∃ x, P x, from     -- now we can show ∃ x, P x
         (exists.intro t pf) -- using exists.intro
     --  ⟨ t, pf ⟩  would be a shorthand for (exists.intro t pf)
     end,
@@ -1202,7 +1205,7 @@ begin
 The only thing we have to work with is ex. So we will 
 apply exists.elim to it. We supply the first argument,
 namely the proof of exists x, P x ∧ Q x-/
-apply exists.elim ex,
+  apply exists.elim ex,
 /-
 What we then have to provide is the proof required as
 the second argument to exists.elim. This is a proof of
@@ -1214,8 +1217,8 @@ we will start by assuming its premises: that a is some
 value of type T and that we have a proof that a has the
 properties P and S.
 -/
-assume a : T,
-assume pfa : P a ∧ S a,
+  assume a : T,
+  assume pfa : P a ∧ S a,
 
 /- 
 Given these assumption we now need to show the final
