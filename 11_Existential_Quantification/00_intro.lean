@@ -193,10 +193,21 @@ nat.no_confusion pf)
 
 theorem isNonZ' : exists n : nat, 0 ≠ n :=
 begin
-apply exists.intro 1,
-assume contra: 0=1,
-exact nat.no_confusion contra
+  apply exists.intro 1,
+  assume contra: 0=1,
+  exact nat.no_confusion contra
 end
+
+theorem isNonZ'' : exists n : nat, 0 ≠ n :=
+begin
+  have pf0isnt1: (0 ≠ 2),
+    apply nat.no_confusion,
+
+  exact ⟨ 2, pf0isnt1 ⟩
+end
+
+theorem isNonZ''' : exists n : nat, 0 ≠ n :=
+  ⟨ 3, dec_trivial ⟩
 
 /- **********************-/
 /- *** ∃ Elimination *** -/
@@ -265,8 +276,9 @@ of those properties.
 
 -/
 
--- assume P and S are properties of nats
-variables (P : ℕ → Prop) (S : ℕ → Prop)
+-- assume pred1 and pred2 are properties of nats
+variable pred1 : ℕ → Prop
+variable pred2 : ℕ → Prop
 
 /-
 ∀ {Q : Prop}, ∀ {T : Type }, ∀ { P : T → Prop},
@@ -276,18 +288,39 @@ pfEx: (∃ x : T, P x), pfP2Q: ∀ w : T, P w → Q
 -/
 
 theorem forgetAProperty : 
-(exists n, P n ∧ S n) → (exists n, P n) :=
--- here "Q", the conclusion, is (exists n, P n)
+  (exists n, pred1 n ∧ pred2 n) → (exists n, pred1 n) :=
+-- here "Q", the conclusion, is (exists n, pred1 n)
 begin
   assume ex,
-  show ∃ (n : ℕ), P n,  -- document goal for readability
+  show ∃ (n : ℕ), pred1 n,
   from
     begin
       apply exists.elim ex, -- give one arg, build  other
-      assume w PandSw,      -- assume w and proof of P w
-      show ∃ (n : ℕ), P n,
+      assume w Pw,          -- assume w and proof of P w
+      show ∃ (n : ℕ), pred1 n,
+      from exists.intro w Pw.left,
+    end,
+end
+
+def pred3: ℕ → Prop := λ(x: ℕ), x > 1
+def pred4: ℕ → Prop := λ(x: ℕ), x < 4
+abbreviation P : ℕ → Prop := λ(x: ℕ), pred3 x ∧ pred4 x
+abbreviation Q : Prop := ∃(x: ℕ), pred3 x
+
+#check P(2)
+
+theorem forgetAProperty':
+  (∃(x: ℕ), P x) → Q :=
+begin
+  assume pf_existsP,
+  show Q,  -- document goal for readability
+  from
+    begin
+      apply exists.elim pf_existsP, -- give one arg, build  other
+      assume w pf_Pw,               -- assume w and proof of P w
+      show Q,
       apply exists.intro w,
-      exact PandSw.left,
+      exact pf_Pw.left,
     end,
 end
 
@@ -316,7 +349,7 @@ begin
       assume w Pw,          -- assume w and proof of P w
       show ∃ (n : ℕ), S n ∧ P n,
       -- here's some new notation for and.intro
-      from exists.intro w ⟨ Pw.right, Pw.left ⟩ 
+      from ⟨ w, ⟨ Pw.right, Pw.left ⟩ ⟩
     end,
 end
 
