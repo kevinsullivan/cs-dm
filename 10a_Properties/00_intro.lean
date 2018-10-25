@@ -243,9 +243,21 @@ def isMultOf8: ℕ → Prop :=
   λ n : nat,
     ∃ m : nat, 8 * m = n
 
+def nIsMultOfm: ℕ → ℕ → Prop :=
+  λ n m, 
+    ∃ k, n = k * m
+  
+
 example : isMultOf8 64 := 
 begin
 unfold isMultOf8,
+apply exists.intro 8,
+apply rfl,
+end
+
+example : nIsMultOfm 64 8 := 
+begin
+unfold nIsMultOfm,
 apply exists.intro 8,
 apply rfl,
 end
