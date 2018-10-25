@@ -302,20 +302,48 @@ begin
     end,
 end
 
-def pred3: ℕ → Prop := λ(x: ℕ), x > 1
-def pred4: ℕ → Prop := λ(x: ℕ), x < 4
-abbreviation P : ℕ → Prop := λ(x: ℕ), pred3 x ∧ pred4 x
-abbreviation Q : Prop := ∃(x: ℕ), pred3 x
-
-#check P(2)
+/-
+We'll need to understand the following fact
+to fully understand the proof of the theorem
+that follows. This fact says that if "a" is a
+value (here of type ℕ) and pred is a predicate 
+on values (or type ℕ), and if you further have 
+a function that takes a value, x, and returns
+pred x, then applying that function to a value
+a returns pred a. Just keep this in mind as we
+work through the follow-on proof.  
+-/
 
 example:
-  ∀(a: ℕ)(pred: ℕ → Prop),
-    ((λ(x: ℕ), pred x) a) = (pred a) :=
+  ∀ (a: ℕ), ∀ (pred: ℕ → Prop),
+    (λ (x: ℕ), pred x) a = (pred a) :=
 begin
   assume a pred,
   apply rfl
 end
+
+/-
+We now define two simple predicates,
+gt1 (λ x, x > 1) and pred4 (λ x, x < 4), 
+and two more complex predicates, P and Q.
+P is the predicate that asserts that both
+gt1 and pred4 are true of some x, and 
+Q is the predicate that asserts that 
+there is some x that satisfies gt1.
+
+The reason for this "set up" is so that
+we can state the main theorem that follows
+in a way that makes cler the relevance 
+of the elimination rule for exists. We
+want to prove Q from ∃(x: ℕ), P x. 
+-/
+
+def gt1: ℕ → Prop := λ (x: ℕ), x > 1
+def lt4: ℕ → Prop := λ (x: ℕ), x < 4
+abbreviation P : ℕ → Prop := λ (x: ℕ), gt1 x ∧ lt4 x
+abbreviation Q : Prop := ∃ (x: ℕ), gt1 x
+
+#check P 2
 
 theorem forgetAProperty':
   (∃(x: ℕ), P x) → Q :=
@@ -345,10 +373,11 @@ properties of natural numbers, prove that
 
 -- Answer
 
-theorem reverseProperty : 
+theorem reverseProperty : ∀ (P S : ℕ → Prop),
   (exists n, P n ∧ S n) → (exists n, S n ∧ P n) :=
   -- here Q, the conclusion, is (exists n, S n ∧ P n)
 begin
+  assume P S,
   assume ex,
   show ∃ (n : ℕ), S n ∧ P n,
   from
@@ -359,35 +388,6 @@ begin
       -- here's some new notation for and.intro
       from ⟨ w, ⟨ Pw.right, Pw.left ⟩ ⟩
     end,
-end
-
-/-
-EXERCISE: Express the property, 
-of natural numbers, of being a 
-perfect square. For example, 9
-is a perfect square, because 3
-is a natural number such that 
-3 * 3 = 9. By contrast, 12 is
-not a perfect square, as there 
-does not exist a natural number
-that squares to 12. 
-
-State and prove the proposition 
-that 9 is a perfect square.
--/
-
-
-
-
--- Answer
-
-def isASquare: ℕ → Prop :=
-    λ n, exists m, n = m ^ 2
-
-theorem isPS9 : isASquare 9 :=
-begin
-  unfold isASquare,
-  exact exists.intro 3 (eq.refl 9)
 end
 
 /-
@@ -430,7 +430,8 @@ begin
         assume canFoolThatPersonAnytime,
         have canFoolThatPersonSometime := 
             canFoolThatPersonAnytime aTime,
-        exact ⟨ somePerson, canFoolThatPersonSometime ⟩, 
+        exact exists.intro somePerson canFoolThatPersonSometime,
+        --exact ⟨ somePerson, canFoolThatPersonSometime ⟩, 
         end,
   end,
 end
