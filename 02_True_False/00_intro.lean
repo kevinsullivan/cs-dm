@@ -153,8 +153,8 @@ this inference rule false elimination).
 
 Here's the rule:
 
-  f : false, { P : Prop }
-  ----------------------- false.elim
+  P : Prop, f : false 
+  ------------------- false.elim
         pf : P
 
 Note that the proposition argument, 

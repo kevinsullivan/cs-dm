@@ -11,7 +11,7 @@ true. Here's an example.
 -/
 
 def anExistsProp := 
-    exists m , m + m = 8
+    ∃ m , m + m = 8
 
 /- This proposition asserts that 
 there is some value m (inferred 
@@ -39,8 +39,8 @@ in for the value of the variable in
 the predicate is true. Here, the
 proof must be a proof of 4 + 4 = 8.
 
-A proof of exists m , m + m = 8, is
-thus the pair, ⟨ 4, rfl ⟩. Here we use
+A proof of ∃ m , m + m = 8, is
+thus the pair, ⟨ 4, eq.refl 8 ⟩. Here we use
 special angle brackets, a notation that
 Lean recognizes for writing proofs of 
 existentially quantified propositions.
