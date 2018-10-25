@@ -365,7 +365,7 @@ this section in mind as you read the next one.
 /-
 The elimnation rule for functions is easy. The
 application of a function, f : P → Q, to a value,
-p : P, a result will constructed of type Q. 
+p : P, will produce a value of type Q. 
 -/
 
 #check inc 3
