@@ -242,7 +242,7 @@ theorem PfromPandQ' : ∀ { P Q : Prop }, P ∧ Q → P :=
 
 theorem QfromPandQ' : ∀ { P Q : Prop }, P ∧ Q → Q := 
 λ P Q pq, 
-    pq.right -- shorthand for and.elim_left pq
+    pq.right -- shorthand for and.elim_right pq
 
 theorem PfromPandQ'' : ∀ { P Q : Prop }, P ∧ Q → P := 
 begin
@@ -317,6 +317,7 @@ def inc : ℕ → ℕ := λ n : ℕ, (n + 1 : ℕ)
 
 #check inc  -- type: ℕ → ℕ 
 #reduce inc -- value/proof: λ n : ℕ, n + 1
+#check inc 3
 #reduce inc 3
 
 /-
@@ -492,6 +493,9 @@ def falseImpliesTrue (f : false) : true :=
 example : false → true :=
     λ f : false, true.intro
 
+example : false → true :=
+    falseImpliesTrue
+
 /- → implication elimination -/
 
 /-
@@ -606,7 +610,7 @@ def forallElim (p2q: ∀ n : nat, n = n) (p : nat) : p = p :=
 
 def forallElim' (p2q: ∀ n : nat, n = n) (p : nat) : p = p :=
 begin
-exact (p2q p)
+  exact (p2q p)
 end
 
 #reduce forallElim allNEqualSelf 7
@@ -686,11 +690,11 @@ a rule for double negation introduction,
 though not a rule that is commonly needed.
 -/
 
-theorem doubleNegIntro : ∀ P : Prop, P → ¬ ¬ P :=
+theorem doubleNegIntro : ∀ P : Prop, P → ¬¬P :=
 begin
   assume P : Prop,
   assume p : P,
-  assume np : ¬P, -- ¬ ¬ P means ¬ P → false, so assume ¬ P
+  assume np : ¬P, -- ¬¬P means ¬P → false, so assume ¬P
   show false,
   --from np p,
   contradiction,
@@ -770,11 +774,11 @@ begin
     begin
         -- preview: we study case analysis later
         -- proof by case analysis for P
-        cases (em P), -- (em P) is (P ∨ ¬ P)
+        cases (em P) with pf_P pf_nP, -- (em P) is (P ∨ ¬ P)
         -- case with P is assumed to be true
-        exact h,
+        exact pf_P,
         -- case with P is assumed to be false
-        exact false.elim (nnp h),
+        exact false.elim (nnp pf_nP)
         -- em says there are no other cases
     end,
 end 
@@ -861,6 +865,16 @@ theorem iffIntro':
 λ P Q pq qp, 
     iff.intro pq qp
 
+theorem iffIntro'':
+  ∀(P Q: Prop), (P → Q) → (Q → P) → (P ↔ Q) :=
+begin
+  assume P Q : Prop,
+  assume p2q q2p,
+  apply iff.intro,
+    exact p2q,
+    
+    exact q2p
+end
 
 /- iff elimination -/
 
@@ -928,6 +942,12 @@ theorem orIntroLeft': forall P Q: Prop, P → (P ∨ Q) :=
 λ P Q p, 
     or.inl p -- shorthand
 
+theorem orIntroLeft'' (P Q : Prop) (p : P) : P ∨ Q :=
+begin
+  apply or.intro_left,
+  assumption
+end
+
 theorem orIntroRight: forall P Q: Prop, Q → (P ∨ Q) :=
 λ P Q q, 
     or.inr q
@@ -991,7 +1011,6 @@ begin
         exact (qr q)
     end  
 end
-
 
 -- Same proof, different identifiers
 theorem orElimExample' : 

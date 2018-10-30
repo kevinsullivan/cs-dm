@@ -483,8 +483,8 @@ Are these equivalent?
 
 theorem not_exists_t_iff_always_not_t:
   ∀ (T: Type) (pred: (T → Prop)),
-    (¬(∃ t: T, pred(t))) ↔
-      ∀ t: T, ¬pred(t) :=
+    (¬(∃(t: T), pred(t))) ↔
+      ∀(t: T), ¬pred(t) :=
 begin
   assume T pred,
   apply iff.intro,
@@ -527,7 +527,7 @@ open classical
 -- em is axiom of the excluded middle
 
 theorem not_all_t_iff_exists_not_t:
-  ∀ (T: Type) (pred: (T → Prop)) (x: T),
+  ∀ (T: Type) (pred: (T → Prop)),
     (¬(∀ t: T, pred(t))) ↔
       ∃ t: T, ¬pred(t) :=
 begin
@@ -562,4 +562,131 @@ begin
         have pred_w := pf_all_t w,
         exact not_pred_w pred_w,
       end,
+end
+
+/-
+Satisfiability
+
+Satisfiability is about finding values for
+sub-propositions that make a larger proposition
+true. We typically like to formulate these
+questions in something known as conjunctive
+normal form (or CNF). In CNF we have a series
+of disjunctions, e.g., x1 ∨ x2 ∨ ¬x3 ∨ x4.
+These disjunctions are then combined into
+the larger proposition using conjunctions, e.g.:
+(x1 ∨ x2 ∨ ¬x3 ∨ x4) ∧ (¬x1 ∨ x2 ∨ ¬x3).
+
+
+For example, do there exist values for P and Q
+such that:
+(P ∨ Q) ∧ (¬P ∨ ¬Q) is true?
+-/
+
+example: ∃(P Q: Prop), (P ∨ Q) ∧ (¬P ∨ ¬Q) :=
+begin
+  apply exists.intro true,
+  apply exists.intro false,
+  apply and.intro,
+    -- prove true or false
+    apply or.inl true.intro,
+
+    -- prove not true or not false,
+    apply or.inr false.elim,
+end
+
+/-
+Exercise:
+Do there exist values for P and Q such that:
+(P ∨ Q) ∧ (¬P ∨ ¬Q) ∧ (¬P or Q) is true?
+If so, prove it.
+-/
+
+
+
+
+-- Answer:
+
+
+example: ∃(P Q: Prop), (P ∨ Q) ∧ (¬P ∨ ¬Q) ∧ (¬P ∨ Q) :=
+begin
+  apply exists.intro false,
+  apply exists.intro true,
+  apply and.intro,
+    -- prove true or false
+    apply or.inr true.intro,
+
+    apply and.intro,
+      -- prove not true or not false
+      apply or.inl false.elim,
+
+      -- prove not false or true
+      apply or.inr true.intro
+end
+
+/-
+Exercise:
+Do there exist values for P and Q such that:
+(P ∨ Q) ∧ (¬P ∨ ¬Q) ∧ (¬P ∨ Q) ∧ (¬Q) is true?
+If so, prove it.
+-/
+
+
+
+
+-- Answer:
+
+
+-- No such values exist
+
+
+/-
+3-SAT
+
+3-SAT is a special case of satisfiability (SAT) where
+there are no more than 3 terms in each disjunction.
+E.g., (P ∨ Q ∨ R) ∧ (¬P ∨ ¬Q ∨ ¬S) ∧ (¬P ∨ Q ∨ T) ∧ …
+
+3-SAT is SAT, and 2-SAT is 3-SAT. The prior problems
+were technically all 3-SAT.
+
+All SAT problems can be reduced to 3-SAT problems.
+3-SAT (and hence SAT) is NP-complete.
+
+Here is one that uses all 3 terms:
+
+Exercise:
+Do there exist values for P, Q, and R such that:
+(P ∨ Q ∨ R) ∧ (¬P ∨ ¬Q ∨ ¬R) ∧ (¬P ∨ Q ∨ R) ∧ (¬Q ∨ ¬R) is true?
+If so, prove it.
+-/
+
+
+
+
+-- Answer:
+
+
+example: ∃(P Q R: Prop), 
+  (P ∨ Q ∨ R) ∧ (¬P ∨ ¬Q ∨ ¬R) ∧
+   (¬P ∨ Q ∨ R) ∧ (¬Q ∨ ¬R) :=
+begin
+  apply exists.intro false,
+  apply exists.intro true,
+  apply exists.intro false,
+  apply and.intro,
+    -- prove false ∨ true ∨ false
+    apply or.inr,
+    exact or.inl true.intro,
+
+    apply and.intro,
+    -- prove ¬false ∨ ¬true ∨ ¬false
+    exact or.inl false.elim,
+
+    apply and.intro,
+    -- prove ¬false ∨ true ∨ false
+    exact or.inl false.elim,
+
+    -- prove ¬true or ¬false
+    exact or.inr false.elim
 end
