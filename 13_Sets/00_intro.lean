@@ -1,3 +1,4 @@
+import tactic.norm_num
 /-
 In Lean, set is a type constructor. It takes
 a type, T, as an argument and returns, as a 
@@ -126,13 +127,30 @@ slightly different but equivalent
 predicates.
 -/
 
+-- SET MEMBERSHIP
+
 /-
-The proposition that an element,
-e, is in (is a member of) a set,
-s, is written e ∈ s. We can thus 
-assert, and we can then actually 
-prove, that 1 is in the set, x.
+By the notation 1 ∈ x we mean the
+proposition that "1 is in, or is 
+a member of the set, x." This is
+simplythe proposition obtained 
+by applying the predicate, x, to
+the value, 1. The proposition is
+literally the value (x 1). Recall 
+that function application works 
+by substituting the argument (1)
+for the parameter (a) in the body 
+of the predicate (function).  In
+this case, the predicate, x, is
+λ (n : ℕ), n = 1. Applying this
+predicate/function the value, 1,
+reduces to the proposition that:
+1 = 1 ∨ false. This proposition,
+in turn, is easy to prove, and so,
+yes, indeed, 1 is in the set x.
 -/
+
+#reduce 1 ∈ x
 
 example : 1 ∈ x :=
 -- 1 = 1 ∨ false
@@ -141,11 +159,32 @@ apply or.intro_left,
 exact rfl,
 end
 
-example : 1 ∈ x' :=
+/-
+Because the proposition, 1 ∈ x,
+is defined to be the disjunction,
+(1 = 1 ∨ false), you can ask Lean 
+to change the format of the goal 
+accordingly. If doing this makes 
+it easier for you to see how to 
+proceed with the proof, feel free 
+to use it. You can cut and paste
+the disjunction from the string
+that #reduce 3 ∈ u prints out.
+-/
+
+
+example : 1 ∈ x :=
 -- 1 = 1
 begin
-exact rfl,
+change 1 = 1 ∨ false,
+-- now or.intro_left, but with a shortcut
+left,
+-- and now exact rfl, but with a shortcut
+trivial,
 end
+
+
+-- ANOTHER EXAMPLE
 
 /-
 Here's two sets with three
@@ -214,11 +253,62 @@ define y and z, respectively. Union
 corresponds to "or."
 -/
 
+/-
+Let's prove that 3 ∈ u. Let's 
+start by reminding ourselves of
+the predicate that defines u and
+of the proposition represented 
+by 3 ∈ u.
+-/
+
+#reduce u
+
+/-
+The set, u, is defined as a
+predicate that takes a : ℕ and
+returns the proposition that
+that a is one of the values
+in the set, expressed as a 
+somewhat long disjunction. Lean 
+selects the variable name, a, 
+for purposes of printing out 
+the value of u. There is no
+special meaning to a; it is 
+just an otherwise unbound name.
+-/
+
+
+/-
+Now that we know that 3 ∈ u is 
+just a proposition involving a
+bunch of disjunctions, it's easy
+to prove. -/
+
+example : 3 ∈ u :=
+begin
+/-
+Notice again that Lean leaves the 
+goal written using set membership
+notation. Just bear in mind that
+the goal is just the disjunction,
+(3 = 3 ∨ 3 = 2 ∨ 3 = 1 ∨ false) ∨ 
+3 = 4 ∨ 3 = 3 ∨ 3 = 2 ∨ false.
+-/
+apply or.inl,
+apply or.inl,
+trivial,
+end
+
+/-
+Or, if you prefer, make the goal
+explicit as a disjunction.
+-/
 example : 3 ∈ y ∪ z :=
 begin
+change (3 = 3 ∨ 3 = 2 ∨ 3 = 1 ∨ false) ∨ 3 = 4 ∨ 3 = 3 ∨ 3 = 2 ∨ false,
 apply or.inl,
 apply or.inl,
-exact rfl
+trivial,
 end
 
 -- SET INTERSECTION
@@ -240,13 +330,13 @@ def w := y ∩ z
 example : 2 ∈ y ∩ z :=
 begin
 apply and.intro,
-apply or.inr,
-apply or.inl,
-exact rfl,
-apply or.inr,
-apply or.inr,
-apply or.inl,
-exact rfl,
+right,
+left,
+trivial,
+right,
+right,
+left,
+trivial,
 end
 
 
@@ -269,25 +359,63 @@ a set difference, y \ z?
 
 example : 1 ∈ y \ z :=
 begin
-apply and.intro,
-apply or.inr,
-apply or.inr,
-apply or.inl,
-exact rfl,
+-- apply and.intro,
+split,
+right,
+right,
+left,
+trivial,
+/-
+The goal looks funny, but think
+about what it means. It is the
+predicate, (λ (a : ℕ), a ∉ z),
+applied to the value, 1, which
+is to say it's the proposition,
+1 ∉ z. That in turn is ¬ 1 ∈ z.
+And that, in turn, is just the
+proposition that 1 ∈ z → false.
+So assume 1 ∈ z and show false 
+to prove it. What is 1 ∈ z? It's
+the proposition that 1 is one of
+the elements in the set, written
+as a disjunction, so use case
+analysis! 
+-/
 assume pf,
 cases pf,
-sorry,
-cases pf,
-sorry,
-cases pf,
-sorry,
-sorry,
-end
-
 /-
-We're going to show you how to get a 
-version of Lean that includes the math
-library, which you need to make these
-proofs go through easily without sorrys.
-Soon.
+Now we need a proof that 1 ≠ 4. The 
+dec_trivial tactic defined in the Lean's
+standard library "decides" many purely 
+arithmetic propositions. That is, it 
+generates either a proof that such a
+proposition is true if it's true. It
+will also generate a proof that its
+negation is true if that is the case. 
+The dec_trivial tactic implements a
+"decision procedure" for sufficiently
+simple propositions involved numbers.
+Here we use it to give us a proof of 
+1 ≠ 4. We can then use that to get a 
+proof of false and use false elim to 
+eliminate the current case on grounds 
+that it is based on contradictory
+assumptions (and thus can't happen).
 -/
+have h : 1 ≠ 4 := dec_trivial,
+/-
+The contradiction tactic looks for a
+explicit contradiction in the context
+and if it finds one, applies false.elim
+to finish proving the goal.
+-/
+contradiction,
+cases pf,
+have h : 1 ≠ 3 := dec_trivial,
+contradiction,
+cases pf,
+have h : 1 ≠ 2 := dec_trivial,
+contradiction,
+have f : false := pf,
+contradiction,
+end
