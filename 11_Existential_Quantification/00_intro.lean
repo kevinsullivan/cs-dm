@@ -643,16 +643,22 @@ If so, prove it.
 /-
 3-SAT
 
-3-SAT is a special case of satisfiability where
+3-SAT is a special case of satisfiability (SAT) where
 there are no more than 3 terms in each disjunction.
+E.g., (P ∨ Q ∨ R) ∧ (¬P ∨ ¬Q ∨ ¬S) ∧ (¬P ∨ Q ∨ T) ∧ …
 
-The above problems were technically all 3-SAT.
+3-SAT is SAT, and 2-SAT is 3-SAT. The prior problems
+were technically all 3-SAT.
+
+All SAT problems can be reduced to 3-SAT problems.
+3-SAT (and hence SAT) is NP-complete.
 
 Here is one that uses all 3 terms:
 
 Exercise:
 Do there exist values for P, Q, and R such that:
 (P ∨ Q ∨ R) ∧ (¬P ∨ ¬Q ∨ ¬R) ∧ (¬P ∨ Q ∨ R) ∧ (¬Q ∨ ¬R) is true?
+If so, prove it.
 -/
 
 
