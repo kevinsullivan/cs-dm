@@ -1,4 +1,3 @@
-import tactic.norm_num
 /-
 In Lean, set is a type constructor. It takes
 a type, T, as an argument and returns, as a 
@@ -80,6 +79,9 @@ set using set builder notation.
 
 def e'' : set nat := { n | false }
 
+def ev(n : ℕ):Prop := ∃ m, m + m = n 
+
+def v : set nat := { n | ev n } 
 /-
 We read the right hand side as
 "the set of values, n, for which
@@ -209,6 +211,11 @@ with the name, y', using set builder
 notation.
 -/
 
+def y' : set nat := { n | 
+    n = 1 ∨ n = 2 ∨ n = 3 }
+
+#reduce y 
+
 /-
 With these basics in hand, we can 
 define, understand, and work with
@@ -294,8 +301,8 @@ the goal is just the disjunction,
 (3 = 3 ∨ 3 = 2 ∨ 3 = 1 ∨ false) ∨ 
 3 = 4 ∨ 3 = 3 ∨ 3 = 2 ∨ false.
 -/
-apply or.inl,
-apply or.inl,
+left,
+left,
 trivial,
 end
 
@@ -328,6 +335,7 @@ def w := y ∩ z
 #reduce w
 
 example : 2 ∈ y ∩ z :=
+-- (a = 3 ∨ a = 2 ∨ a = 1 ∨ false) ∧ (a = 4 ∨ a = 3 ∨ a = 2 ∨ false)
 begin
 apply and.intro,
 right,

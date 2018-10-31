@@ -103,6 +103,13 @@ example : 0 = 1 → 0 ≠ 1 :=
 begin
 assume zo,
 have f : false := nat.no_confusion zo,
+/-
+nat.no_confusion applied to an assumed
+proof that 0, specifically, is equal to 
+something that is not zero, returns a
+proof of false. The false elimination
+principle then finishes off the proof.
+-/
 exact false.elim f,
 end
 
@@ -117,6 +124,15 @@ begin
 assume a b,
 assume aeqb,
 assume nbeqa,
+/-
+The trick in this case is to apply
+the symmetry rule for equality to 
+the proof of a=b to get a proof of 
+b=a so that you have a contradiction
+that you can exploit to get a proof
+of false, at which point you can use
+false elimination.
+-/
 have beqa := eq.symm aeqb,
 contradiction,
 -- shorthand for (false.elim (nbeqa beqa))
@@ -149,6 +165,14 @@ Use "example" to prove that if P, Q, and R
 are propositions, (P ∧ Q) ∧ R → P ∧ R.
 -/
 
+example : 
+    ∀ P Q R : Prop, (P ∧ Q) ∧ R → P ∧ R :=
+begin
+intros P Q R pqr,
+exact and.intro pqr.left.left pqr.right,
+-- the following shorthand also works
+-- exact ⟨ pqr.left.left, pqr.right ⟩ 
+end
 
 /- ***************************************** -/
 /- *************** functions *************** -/
@@ -158,8 +182,8 @@ are propositions, (P ∧ Q) ∧ R → P ∧ R.
 (7) Use example to prove that if S and T 
 are arbitrary types and if there is a value, 
 t : T, then S → T. Remember that a proof of 
-S → T has to be a function that if given any 
-value of type S returns some value of type T.
+S → T has to be a function that, if given any 
+value of type S, returns some value of type T.
 
 Present this proof as a Python-style function
 definition, isFun, then using a tactic script. 
@@ -167,8 +191,26 @@ The Π you can read and treast as ∀, for now.
 -/
 
 def isFun (S T: Type) (t : T) : S → T :=
+/-
+The key idea captured by this example is
+that if you already have a value of type T
+"lying around" (which you do in this case),
+you can always define a function from S to
+T. All it has to do is ignore its argument
+and return t.
+
+Similarly, if S and T were propositions, if
+you have a proof, t, that T is true, then 
+you can easily prove S → T, and you'd do it
+in exactly the same way. Assume a proof of
+S, ignore it, and just return the proof, t,
+of T, that you already have.
+
+So, here's the function.
+-/
     λ s, t
 
+-- and as a tactic script
 example : ∀ S T : Type, T → (S → T) :=
 begin
 assume S T,
@@ -187,10 +229,25 @@ T, and R implicitly and st and tr explicitly.
 -/
 
 def 
+/-
+The arguments, S, T, and R are designated as
+implicit by enclosing them in curly braces.
+The values of these arguments (the types) can
+be inferred from the explicit arguments, st 
+and tr.
+-/
 comp {S T R : Type}
 (st : S → T) 
 (tr: T → R) 
 : S → R :=
+/-
+The comp (short for "compose") function,
+given functions st and tr, composes them
+into a function that takes an argument of
+type S and returns a value of type R, by
+first applying st to s, and then applying
+tr to the result.
+-/
 λ s, tr (st s)
 
 /-
@@ -219,7 +276,21 @@ is the type of (sum4 3 7)? What function is
 with a lambda abstraction.
 -/
 
+/-
+NOTE: Sorry, when we posted this problem,
+we deleted the definition of sum4 by mistake.
+Here it is along with the solution.
+-/
+
 def sum4 (a b c d : ℕ) := a + b + c + d
+
+-- The type of sum4 3 7 is ℕ → ℕ → ℕ 
+
+/-
+The function, sum 3 7, is the function,
+λ a b, 10 + a + b, i.e., the function that
+adds 10 to the sum of its two arguments.
+-/
 
 /- ***************************************** -/
 /- ************** implication ************** -/
@@ -260,6 +331,20 @@ intros P Q paq npaq,
 exact (npaq paq),
 end
 
+/-
+The contradiction tactic looks for two
+contradictory assumptions in the context,
+and if it finds them, applies false.elim
+automatically.
+-/
+example : 
+∀ P Q : Prop, 
+P ∧ Q → ¬ (P ∧ Q) → false :=
+begin
+intros, -- let Lean give names to assumptions
+contradiction,
+end
+
 
 /- ***************************************** -/
 /- *************** forall (∀) ************** -/
@@ -272,6 +357,11 @@ Use example to prove that for all proposition,
 P, Q, and R, if P → Q → R then P → R.
 -/
 
+/-
+You might have been tempted to prove this, but
+it's the wrong proposition.
+-/
+
 example : ∀ P Q R : Prop, P → Q → R → (P → R) :=
 begin
 intros P Q R,
@@ -279,6 +369,20 @@ intros p q r,
 exact λ p, r
 end
 
+/-
+As written in English, the proposition to be
+proved the following, and it can't be proved 
+because it isn't true in general.
+-/
+
+example : ∀ P Q R : Prop, (P → Q → R) → (P → R) :=
+begin
+intros P Q R pqr,
+assume p,
+have qr := pqr p,
+-- need but don't have a proof of Q
+-- abandon proof
+end
 
 /-
 (14)
@@ -294,6 +398,18 @@ begin
 assume T a P f, 
 exact f a
 end
+
+/-
+This example illustrates the principle of 
+∀ elimination. A ∀ is really just a function
+in constructive logic, expressing the idea 
+that if you provide *any* value of some type,
+then there is a value of another type, namely
+a proof of the following proposition. If you
+have such a function, and a value of type T,
+then you can obtain a proof of P a by simply
+applying the "function" to a.
+-/
 
 
 /- ***************************************** -/
@@ -333,6 +449,18 @@ example: ∀ P R : Prop,
     (P → R) → (¬ P → R) → R :=
 begin
 assume P R pr npr,
+/-
+At this point it looks like we don't have
+much to work with, but remember that if you
+are willing to use classical reasoning with
+the law of the excluded middle then for any
+proposition, you can always use case analysis
+to consider what happens if that proposition
+is true, then false respectively. Now take
+another look at the context? What if P is
+true? What is P is false?
+-/
+
 cases (em P) with p np,
 exact (pr p),
 exact (npr np),
@@ -394,6 +522,17 @@ Start your proof like this:
 example : ∀ donut candy cavity : Prop, ...
 -/
 
+/-
+The problem asks you to prove "you will get
+cavities" from a disjunction "eat donuts ∨ 
+eat candy." It also allows you to assume
+that eating either one will give you cavities.
+This is a clear set-up for or elimination.
+You could use or.elim directly, or use case
+analysis, which is an indirect way of doing
+the same thing.
+-/
+
 example : ∀ donut candy cavity : Prop,
 donut ∨ candy → (candy → cavity) → (donut → cavity) → cavity :=
 begin
@@ -416,6 +555,18 @@ example : ∀ P Q: Prop, ¬ (P ∨ Q) -> ¬ P :=
 begin
 assume P Q npq,
 assume p,
+/-
+Study this example carefully. The key insight
+is that you have a proof of P and you also 
+have a proof of ¬ (P ∨ Q), so if you had a
+proof of (P ∨ Q), you could use false elim;
+but you can get yourself a proof of (P ∨ Q)
+from the assumed proof of P using or intro!
+This example makes it clear that you really
+do have to think about what you have to work
+with (in the context) and what you can do 
+with it.
+-/
 have pq := or.intro_left Q p,
 contradiction,
 end
@@ -432,6 +583,12 @@ Remember that a proof of (∀ P, S) can be applied
 to a value of type P to get a value of type S.
 -/
 
+/-
+What you're being asked to do here is to 
+prove that double negation elimination is
+valid if you can assume that ∀ P : Prop,
+P ∨ ¬ P.
+-/
 example : 
     (∀ P : Prop, P ∨ ¬ P) → (∀ Q, ¬¬ Q → Q) :=
 begin
@@ -461,10 +618,22 @@ means, and remember what negation means.
 Second, prove (notZero 1).
 -/
 
+
+/-
+A predicate is conceptually a proposition
+with one or more parameter values to be
+filled in. We represent a predicate as a
+function from parameter values to Prop.
+In this case, for any natural number, n,
+we reduce it to the proposition that that
+zero is unequal to the particular n given
+as an argument. 
+-/
 def notZero (n: ℕ) := 0 ≠ n
 
 example : ¬ notZero 0 := 
 begin
+-- remember that ¬ X means X → false.
 assume nzz,
 apply nzz (eq.refl 0),
 end
@@ -487,6 +656,21 @@ eqString "Hello Lean" ("Hello " ++ "Lean")
 def eqString: string → string → Prop :=
 λ s t, s = t
 
+/-
+What we have here is a predicate with two
+arguments, which defines a binary relation.
+Here the relation is one of equality between
+pairs of strings. This relation contains all
+pairs of strings where the two elements are
+equal, and it contains no other pairs. We
+can prove that a particular pair is in the
+relation by simply using rfl (if the pair
+really is in the relation, of course.) This
+example shows again that equality in Lean
+doesn't require exactly equal terms, but
+rather terms that reduce to the same values. 
+-/
+
 example : 
 eqString "Hello Lean" ("Hello " ++ "Lean") := 
     rfl
@@ -501,6 +685,16 @@ eqString "Hello Lean" ("Hello " ++ "Lean") :=
 Prove that ∃ n : ℕ, n = 13. 
 -/
 
+/-
+A proof of an existentially quantified proposition
+in constructive logic is a pair: ⟨ witness, proof ⟩,
+where the witness is a value of the right type and
+the proof is a proof that that particular witness
+has the specified property. Here the only witness
+that will work is 13, and the proof that 13 = 13 is
+simply by the reflexivity of equality. 
+-/
+
 example : ∃ n, n = 13 := exists.intro 13 rfl 
 
 
@@ -508,6 +702,12 @@ example : ∃ n, n = 13 := exists.intro 13 rfl
 (25)
 
 Prove ∀ s : string, ∃ n, n = string.length s.
+-/
+
+/-
+This problem just asserts that for any string,
+there is a natural number equal to the length 
+of the string. And the answer is string.length.
 -/
 
 example : 
@@ -542,6 +742,18 @@ Prove that if P and S are properties of
 natural numbers, and if (∃ n : ℕ, P n ∧ S n), then (∃ n : ℕ, P n ∨ S n). 
 -/
 
+
+/-
+The proof of this proposition follows the 
+common pattern of elmination rules followed 
+by introduction rules. Applying the elimination
+rule for ∃ (followed by two intros) yields an
+assumed witness, n, to (∃ n, P n ∧ S n), and 
+a proof, pf, that n has the property of having
+both property P and property S. From there it
+is a simple matter of using exists intro to
+prove the final goal.
+-/
 example : ∀ P S : ℕ → Prop, 
     (∃ n, P n ∧ S n) → (∃ n, P n ∨ S n) :=
 begin
