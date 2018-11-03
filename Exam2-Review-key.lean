@@ -284,6 +284,17 @@ Here it is along with the solution.
 
 def sum4 (a b c d : ℕ) := a + b + c + d
 
+#check sum4
+
+#check sum4 7
+#reduce (sum4 7)
+#reduce (sum4 7 3)
+#reduce (sum4 7 3 11)
+#reduce (sum4 7 3 11 2)
+
+-- ℕ → ℕ → ℕ → ℕ → ℕ 
+-- ℕ → (ℕ → (ℕ → (ℕ → ℕ))
+
 -- The type of sum4 3 7 is ℕ → ℕ → ℕ 
 
 /-
@@ -314,8 +325,14 @@ have t : true := true.intro,
 contradiction,
 end
 
+
 /-
-(12)
+pf : ∃ n : ℕ, P n
+-/
+
+
+/-
+(12) NOTE CORRECTION HERE!!
 
 Use example to prove that for any two 
 propositions, P, Q, if P ∧ Q is true
@@ -324,11 +341,17 @@ can derive a proof of false.
 -/
 
 example : 
-∀ P Q : Prop, 
-P ∧ Q → ¬ (P ∧ Q) → false :=
+∀ P : Prop, ∀ Q : Prop, 
+(P ∧ Q) → ¬ (P ∨ Q) → false :=
 begin
-intros P Q paq npaq,
-exact (npaq paq),
+intro P,
+intro Q,
+assume paq,
+intro npaq,
+have p := paq.left,
+have porq := or.intro_left Q p,
+--apply false.elim (npaq porq),
+contradiction,
 end
 
 /-
@@ -381,7 +404,7 @@ intros P Q R pqr,
 assume p,
 have qr := pqr p,
 -- need but don't have a proof of Q
--- abandon proof
+-- so we can only abandon the proof
 end
 
 /-
@@ -460,8 +483,8 @@ is true, then false respectively. Now take
 another look at the context? What if P is
 true? What is P is false?
 -/
-
-cases (em P) with p np,
+have pornp := em P,
+cases pornp with p np,
 exact (pr p),
 exact (npr np),
 end
@@ -553,8 +576,13 @@ construct a proof of ¬ P.
 
 example : ∀ P Q: Prop, ¬ (P ∨ Q) -> ¬ P :=
 begin
-assume P Q npq,
+assume P, 
+intro Q,
+assume nporq,
 assume p,
+have porq := or.intro_left Q p,
+contradiction,
+end
 /-
 Study this example carefully. The key insight
 is that you have a proof of P and you also 
@@ -567,10 +595,12 @@ do have to think about what you have to work
 with (in the context) and what you can do 
 with it.
 -/
-have pq := or.intro_left Q p,
-contradiction,
-end
 
+example : ∀ P : Prop, P → P :=
+begin
+assume P,
+assume p,
+end
 
 /-
 (21)
@@ -583,6 +613,16 @@ Remember that a proof of (∀ P, S) can be applied
 to a value of type P to get a value of type S.
 -/
 
+example : (∀ P : Prop, P ∨ ¬ P) → (∀ Q, ¬¬ Q → Q) :=
+begin
+assume em,
+assume Q,
+assume nnq,
+have qornq := em Q,
+cases qornq with q nq,
+exact q,
+apply false.elim (nnq nq),
+end
 /-
 What you're being asked to do here is to 
 prove that double negation elimination is
@@ -713,6 +753,15 @@ of the string. And the answer is string.length.
 example : 
 ∀ s : string, ∃ n, n = string.length s :=
 begin
+intro s,
+apply exists.intro (string.length s),
+apply rfl,
+end
+
+
+example : 
+∀ s : string, ∃ n, n = string.length s :=
+begin
 assume s,
 exact ⟨ string.length s, rfl ⟩ -- exists.intro
 end
@@ -757,10 +806,27 @@ prove the final goal.
 example : ∀ P S : ℕ → Prop, 
     (∃ n, P n ∧ S n) → (∃ n, P n ∨ S n) :=
 begin
+intros P S pfex,
+apply exists.elim pfex,
+intro w,
+assume w_has_prop,
+apply exists.intro w,
+apply or.intro_left,
+exact and.elim_left w_has_prop,
+end
+
+
+
+
+
+
+
+
 assume P S, 
 assume ex,
 apply exists.elim ex,
-intros n pf,
-apply exists.intro n,
-exact or.inl pf.left,
+assume w pf,
+apply exists.intro w,
+apply or.inl,
+exact pf.left,
 end

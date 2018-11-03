@@ -427,3 +427,81 @@ contradiction,
 have f : false := pf,
 contradiction,
 end
+
+-- SUMMARY SO FAR
+
+/-
+A set can be characterized by
+a predicate: one that is true
+for each member of the set and
+false otherwise.
+
+The union of two sets is given
+by the disjunction (or) of the 
+predicates:
+(a ∈ y ∪ z) = (a ∈ y) ∨ (a ∈ z)
+
+The conjunction is defined by 
+their conjunction:
+(x ∈ y ∩ z) = (x ∈ y ∧ a ∈ z)
+
+Their difference is defined by 
+the conjunction of the first and
+the negation of the second:
+(a ∈ y \ z) = ( a ∈ y) ∧ (¬ a ∈ z)
+-/
+
+-- PART II
+
+/-
+Now we introduce addition basic 
+set theory concepts: subsets,
+power sets, and product sets.
+-/
+
+-- Subset
+
+/-
+Subset, denoted ⊂, is a binary 
+relation on sets, denoted X ⊂ Y, 
+where X and Y are sets, that is 
+true iff every element of X is 
+also in (an element of) Y. 
+
+So, { 1, 2 } ⊂ { 1, 2, 3 } but
+¬ { 1, 2 } ⊂ { 1, 3, 4}. In the
+first case, every element of the
+set, { 1, 2 }, is also in the set
+{ 1, 2, 3 }, so { 1, 2 } is a 
+subset of { 1, 2, 3 }, but that
+is not the case for { 1, 2 } and
+{ 1, 3, 4 }.
+
+Remember that in Lean, "set" is 
+not a type but a type constructor,
+a.k.a., a polymorphic type. Rather,
+for any type, T, set T is a type,
+namely the type of sets containing
+elements of type T. Even the empty
+set always has an element type, so,
+for example, the empty set of ℕ is
+not the same as the empty set of 
+strings.
+-/
+
+/-
+EXERCISE: List all of the subsets
+of each of the following sets of ℕ. 
+
+* ∅ 
+* { 1 }
+* { 1, 2 }
+* { 1, 2, 3 }
+
+EXERCISE: How many subsets are there
+f a set containing n elements. Does 
+your formula work even for the empty
+set, containing 0 elements?
+-/
+
+theorem foo : x ⊂ y := _
