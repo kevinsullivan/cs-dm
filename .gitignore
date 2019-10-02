@@ -25,3 +25,6 @@ old
 _build/
 
 temp/
+
+# Office temporary files
+~$*
