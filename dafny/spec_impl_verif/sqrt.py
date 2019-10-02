@@ -8,5 +8,5 @@ def sqrt(x):
         estimate = newestimate
     return estimate
 
-print "The answer is", sqrt(2.0)
-print "That answer squared is", sqrt(2.0) * sqrt(2.0)
+print("The answer is ", sqrt(2.0))
+print("That answer squared is ", sqrt(2.0) * sqrt(2.0))

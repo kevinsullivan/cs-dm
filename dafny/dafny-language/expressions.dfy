@@ -106,14 +106,16 @@ method Main()
 
     a := new int[10];       // type of a already declared above
     var m: array2<int> := new int[10, 10];
-    a[0] := 1;              // indexing into 1-d array
-    m[0,0] := 1;            // indexing into multi-dimensional array
+    a[0] := 1;              // indexing, 1-d array
+    m[0,0] := 1;            // indexing, multi-dimensional array
 
 
     /* OLD
 
-    An old expression is used in postconditions. old(e) evaluates to the value expression e had on entry to the current method. We saw
-    and example of this earlier. For an example, see the "incr" method after this Main
+    An old expression is used in postconditions. old(e) evaluates 
+    to the value expression e had on entry to the current method. 
+    We saw and example of this earlier. For an example, see the "incr"
+    method after Main.
     */
 
     /* CARDINALITY
@@ -137,7 +139,13 @@ method Main()
     
     /* LET
 
-    A let expression allows binding of intermediate values to identifiers for use in an expression. The start of the let expression is signaled by the var keyword. They look like local variable declarations except the scope of the variable only extends to following expression. Adapted from RefMan.
+    A let expression allows binding of intermediate 
+    values to identifiers for use in an expression. 
+    The start of the let expression is signaled by 
+    the var keyword. They look like local variable
+    declarations except the scope of the variable 
+    only extends to following expression. Adapted 
+    from Dafny's RefMan.
     
     Here's an example (see the following code).
 
@@ -190,3 +198,10 @@ method incr(a: array<nat>) returns (r: array<nat>)
     a[0] := a[0] + 1;
     return a;
 }
+
+/*
+What does the specification here *not* require, that one
+might mistakenly assume it does require? Prove your point
+by writing devious new implementation that satisfies the
+same specification.
+*/
